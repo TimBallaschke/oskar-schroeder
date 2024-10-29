@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "241029_Oskar_Website",
+  "original_folder": "241029b_Oskar_Website_nostreaming",
   "snapshot_date_from_folder": "241029",
   "source_files": [
     {
@@ -19,15 +19,45 @@
     },
     {
       "path": "main.py",
-      "sha1": "fb65bbd04249487c6bea9d0ea570a1be1ddd58a0",
-      "sha256": "30de0317cb8bca0d31160511049545a3064f7115e39197b3d1914eb66db00ef5",
-      "size": 1044,
+      "sha1": "4d263f30243ec639c1acf45954bdc129aa1fe9bd",
+      "sha256": "a805db3ac09f675cb6d0b13d5b4eaded55c521a2f8fc0f89a14d94a5124c2fbe",
+      "size": 2178,
+      "mode": "100644"
+    },
+    {
+      "path": "static/css/style.css",
+      "sha1": "36a934258b9dbbb7f521e3a7b87e856d3e9dbf65",
+      "sha256": "ef7497872d4890b08d1305d2e1f4dde9fdd11a3aa59ac6daaf21756bb4822004",
+      "size": 964,
+      "mode": "100644"
+    },
+    {
+      "path": "static/js/script.js",
+      "sha1": "af1554e78f03a07407cc3c7d225cfc910a6610dc",
+      "sha256": "74141f39ebb1dfddf2c48dc6210df8e9865adac619268db040593f1d752459ac",
+      "size": 1741,
+      "mode": "100644"
+    },
+    {
+      "path": "templates/index.html",
+      "sha1": "989b9d7129498a1a12807e41bed43a67cff3b37f",
+      "sha256": "94059f4f6b9b0da6654fbef22c27b1803ab4e0113b97c750348820b0599ca30f",
+      "size": 831,
       "mode": "100644"
     }
   ],
   "excluded_private_files": [
     ".env"
   ],
-  "omitted_generated_files": [],
+  "omitted_generated_files": [
+    {
+      "path": ".DS_Store",
+      "reason": "generated-file"
+    },
+    {
+      "path": "static/.DS_Store",
+      "reason": "generated-file"
+    }
+  ],
   "private_backup": "private-runtime-backup.zip (kept locally, not published)"
 }
