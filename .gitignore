@@ -1,0 +1,11 @@
+# .gitignore
+# Ignore sensitive files
+.env
+.env.*
+
+# IDE and system files
+.DS_Store
+.idea/
+.vscode/
+__pycache__/
+*.pyc

@@ -1,0 +1,33 @@
+{
+  "format": 1,
+  "original_folder": "241029_Oskar_Website",
+  "snapshot_date_from_folder": "241029",
+  "source_files": [
+    {
+      "path": ".cursorignore",
+      "sha1": "4c49bd78f1d08f2bc09fa0bd8191ed38b7dce5e3",
+      "sha256": "69aa73cf5bc3377a7d97f2e8d2bb773195815efe225af7f1be6f5b9306bbe14f",
+      "size": 5,
+      "mode": "100644"
+    },
+    {
+      "path": ".gitignore",
+      "sha1": "e137c65176c03d1498f12fd1c151f1d45020528b",
+      "sha256": "a256f07fb8591363eecae7da4914a0c4a2b5ce262bb36a30250f4acfd8413ca8",
+      "size": 119,
+      "mode": "100644"
+    },
+    {
+      "path": "main.py",
+      "sha1": "fb65bbd04249487c6bea9d0ea570a1be1ddd58a0",
+      "sha256": "30de0317cb8bca0d31160511049545a3064f7115e39197b3d1914eb66db00ef5",
+      "size": 1044,
+      "mode": "100644"
+    }
+  ],
+  "excluded_private_files": [
+    ".env"
+  ],
+  "omitted_generated_files": [],
+  "private_backup": "private-runtime-backup.zip (kept locally, not published)"
+}
