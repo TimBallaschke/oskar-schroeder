@@ -1,20 +1,20 @@
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, Response, stream_with_context
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+import json
 
-# Load environment variables from .env file (including API key)
+# Load environment variables from .env file
 load_dotenv()
 
-# Initialize Flask web application and OpenAI client
-app = Flask(__name__)
-app.secret_key = os.urandom(24)  # Generate random secret key for session security
+# Initialize Flask and OpenAI
+app = Flask(__name__, static_url_path='/static')
+app.secret_key = os.urandom(24)
 client = OpenAI()
 
 @app.route('/')
 def home():
-    # When user first visits the page, initialize a new chat session
-    # with a system message that sets the AI's behavior
+    # Initialize new chat session
     session['messages'] = [
         {"role": "system", "content": "You are a concise assistant. Keep responses brief and to the point."}
     ]
@@ -22,37 +22,42 @@ def home():
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    # Get the message sent by user from the POST request
     user_message = request.json['message']
     
-    # If session doesn't exist (e.g., expired), create a new one
-    if 'messages' not in session:
-        session['messages'] = [
-            {"role": "system", "content": "You are a concise assistant. Keep responses brief and to the point."}
-        ]
+    # Get or initialize message history
+    messages = session.get('messages', [
+        {"role": "system", "content": "You are a concise assistant. Keep responses brief and to the point."}
+    ])
     
-    # Add the user's message to conversation history
-    session['messages'].append({"role": "user", "content": user_message})
+    # Add user message
+    messages.append({"role": "user", "content": user_message})
     
-    # Send the entire conversation history to OpenAI API
-    # This allows the AI to maintain context of the conversation
-    response = client.chat.completions.create(
-        model="gpt-4",
-        messages=session['messages'],
-        temperature=1,      # Controls randomness (1 = more creative)
-        max_tokens=2048    # Maximum length of response
-    )
-    
-    # Extract the AI's response and add it to conversation history
-    assistant_message = response.choices[0].message.content.strip()
-    session['messages'].append({"role": "assistant", "content": assistant_message})
-    
-    # Mark the session as modified so Flask saves it
-    session.modified = True
-    
-    # Send the AI's response back to the frontend
-    return jsonify({'response': assistant_message})
+    def generate():
+        # Create streaming response
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=messages.copy(),
+            temperature=1,
+            max_tokens=2048,
+            stream=True
+        )
+        
+        collected_chunks = []
+        
+        # Stream each chunk
+        for chunk in response:
+            if chunk.choices[0].delta.content is not None:
+                content = chunk.choices[0].delta.content
+                collected_chunks.append(content)
+                yield f"data: {json.dumps({'content': content})}\n\n"
+        
+        # Save complete message to session
+        complete_message = ''.join(collected_chunks)
+        messages.append({"role": "assistant", "content": complete_message})
+        session['messages'] = messages
+        session.modified = True
 
-# Run the Flask application in debug mode if this file is run directly
+    return Response(stream_with_context(generate()), mimetype='text/event-stream')
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='127.0.0.1', port=5000)

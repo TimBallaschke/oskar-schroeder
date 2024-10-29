@@ -2,31 +2,62 @@
 function sendMessage() {
     const input = document.getElementById('user-input');
     const message = input.value;
-    if (message.trim() === '') return;  // Don't send empty messages
+    if (message.trim() === '') return;
 
     // Add user's message to the chat interface
     addMessageToChat(message, 'user');
 
-    // Send message to backend (Flask server)
+    // Create a new message element for the bot's response
+    const chatMessages = document.getElementById('chat-messages');
+    const botMessageElement = document.createElement('div');
+    botMessageElement.classList.add('message', 'bot-message');
+    chatMessages.appendChild(botMessageElement);
+
+    // Send the message to backend
     fetch('/chat', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({message: message})
-    })
-    .then(response => response.json())  // Parse JSON response
-    .then(data => {
-        // Add AI's response to the chat interface
-        addMessageToChat(data.response, 'bot');
-    })
-    .catch(error => {
-        // Handle any errors that occur during the request
+    }).then(response => {
+        const reader = response.body.getReader();
+        let fullText = '';
+
+        function processText({ done, value }) {
+            if (done) {
+                return;
+            }
+
+            // Convert the chunk to text
+            const chunk = new TextDecoder().decode(value);
+            // Parse the SSE format
+            const lines = chunk.split('\n');
+            lines.forEach(line => {
+                if (line.startsWith('data: ')) {
+                    try {
+                        const data = JSON.parse(line.slice(6));
+                        fullText += data.content;
+                        botMessageElement.textContent = fullText;
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    } catch (e) {
+                        console.error('Error parsing JSON:', e);
+                    }
+                }
+            });
+
+            // Read the next chunk
+            return reader.read().then(processText);
+        }
+
+        // Start reading the stream
+        return reader.read().then(processText);
+    }).catch(error => {
         console.error('Error:', error);
-        addMessageToChat('Sorry, something went wrong.', 'bot');
+        botMessageElement.textContent = 'Sorry, something went wrong.';
     });
 
-    // Clear the input field after sending
+    // Clear input field
     input.value = '';
 }
 
@@ -34,11 +65,9 @@ function sendMessage() {
 function addMessageToChat(message, sender) {
     const chatMessages = document.getElementById('chat-messages');
     const messageElement = document.createElement('div');
-    // Add appropriate CSS classes based on who sent the message
     messageElement.classList.add('message', `${sender}-message`);
     messageElement.textContent = message;
     chatMessages.appendChild(messageElement);
-    // Scroll to the bottom to show newest message
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
@@ -47,4 +76,4 @@ document.getElementById('user-input').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         sendMessage();
     }
-}); 
+});
