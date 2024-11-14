@@ -4,6 +4,8 @@ from openai import OpenAI  # OpenAI API client
 from dotenv import load_dotenv  # For loading environment variables
 import os  # For operating system related functions (used for random key generation)
 import json  # For JSON handling
+from pydantic import BaseModel
+from typing import List, Optional
 
 # Load environment variables from .env file (like API keys)
 load_dotenv()
@@ -25,14 +27,23 @@ app.secret_key = os.urandom(24)
 # Initialize OpenAI client
 client = OpenAI()  
 
- # Define route for home page
- # @app.route is provided by Flask and used to define a route;
- # '/': This string represents the URL path for the route;
- # '/' is typically the home page of a web application;
- # When a user accesses this path, the function below will execute;
- # A user accesses a path in a Flask (or any web) application by entering a URL in their web browser)
+# Add Pydantic models after the imports
+class Project(BaseModel):
+    title: str
+    year: int
+
+class ProjectsResponse(BaseModel):
+    projects: List[Project]
+
+
+# Define route for home page
+# @app.route is provided by Flask and used to define a route;
+# '/': This string represents the URL path for the route;
+# '/' is typically the home page of a web application;
+# When a user accesses this path, the function below will execute;
+# A user accesses a path in a Flask (or any web) application by entering a URL in their web browser)
 @app.route('/') 
- # Defines the function that Flask will run whenever the root URL ('/') is requested.
+# Defines the function that Flask will run whenever the root URL ('/') is requested.
 def home():
     # Initialize new chat session with system message
     # In Flask, session is a secure, dictionary-like object that stores data across requests for each user,
