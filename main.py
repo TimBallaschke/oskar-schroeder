@@ -2,6 +2,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 import json
+from typing import List
 from pydantic import BaseModel, Field, validator
 
 # Load environment variables from .env file (including API key)
@@ -21,9 +22,10 @@ class Project(BaseModel):
     description: str = Field(description="Description text of the project.")
     description_active: bool = Field(description="Whether the description is asked for.")
 
+class ProjectList(BaseModel):
+    projects: List[Project] = Field(description="List of projects")
 
-
-project_data = {
+project_data_1 = {
     "name": "Capture",
     "year": 2020,
     "material": "Wood",
@@ -40,30 +42,56 @@ project_data = {
     ),
 }
 
-response = client.beta.chat.completions.parse( # parse converts content into pydantic model
+project_data_2 = {
+    "name": "Exposure",
+    "year": 2022,
+    "material": "Metal",
+    "dimensions": "200x450x600cm",
+    "description": (
+        "A metal sculpture of a human figure. "
+    ),
+}
+
+project_data_3 = {
+    "name": "Echo",
+    "year": 2023,
+    "material": "Ceramic",
+    "dimensions": "5x8x10cm",
+    "description": (
+        "A ceramic sculpture of a fish. "
+    ),
+}
+
+response = client.beta.chat.completions.parse(
     model="gpt-4o-mini",
     messages=[
         {
             "role": "system",
             "content": (
                 "You are a data provider for Oskar Schroeder's art projects. "
-                "You must only return structured data about the project. "
-                f"Here is the data about the project: {str(project_data)}. "
+                "You must return structured data about all projects. "
+                f"Here is the data about the projects: "
+                f"Project 1: {str(project_data_1)}. "
+                f"Project 2: {str(project_data_2)}. "
+                f"Project 3: {str(project_data_3)}. "
                 "There are multiple boolean fields that indicate if the information is asked for or not. "
+                "You must return data for all projects, with appropriate boolean flags set. "
                 "If the information is not asked for, set the boolean to False. "
-                "If asked about Oskar's Projects, consider this as only being asked about the name of the project. "
+                "If asked for informations aboutOskar's Projects, consider this as only being asked about the name of the project and set all booleans to false. "
                 "For description handling: "
                 "- If asked for a description or additional information, provide a brief summary (max 100 characters) of key points. "
                 "- If specifically asked for a detailed or extensive description, provide create a full description with all available details of key points. "
                 "- If asked about specific aspects (like exhibition locations or materials), provide only that particular information. "
-                "When the description contains list-like information, format it using HTML lists (e.g., <ul><li>item1</li><li>item2</li></ul>)."
             )
         },
-        {"role": "user", "content": "Please provide a description of the project."},
+        {"role": "user", "content": "Please provide information about Oskar Schroeder's first project."},
     ],
-    temperature=0.5,   # Controls randomness (1 = more creative)
-    max_tokens=200,    # Maximum length of response
-    response_format=Project,
+    temperature=0.5,
+    max_tokens=200,
+    response_format=ProjectList,
 )
 
-print(response.choices[0].message.parsed.model_dump())
+# Print each project's data
+for project in response.choices[0].message.parsed.projects:
+    print(f"\nProject: {project.name}")
+    print(project.model_dump())
