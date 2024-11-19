@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "241119_Oskar_Website_structured_output",
+  "original_folder": "241119b_Oskar_Website_structured_output",
   "snapshot_date_from_folder": "241119",
   "source_files": [
     {
@@ -19,9 +19,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "adebac1710ae0fcc01b5bcca0431b41aa54da5a5",
-      "sha256": "715735164e7da6a58d818e2f8a86630bf26151da954da2d15c2fe01eb11b5429",
-      "size": 1936,
+      "sha1": "543eb9324e1ac081fe66b6318f68f120d3aaa7fd",
+      "sha256": "0ac3ab76646592719a424dabf65c7d9e3ab9a6ac016939a1c10f73db3a0c228c",
+      "size": 3305,
       "mode": "100644"
     },
     {
