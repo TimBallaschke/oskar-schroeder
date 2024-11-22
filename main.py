@@ -31,8 +31,8 @@ client = OpenAI()
 T = TypeVar('T')
 
 class ActiveField(BaseModel, Generic[T]):
-    value: T
-    active: bool
+    value: T = Field(description="The actual value of the field")
+    active: bool = Field(description="Whether this field should be displayed or hidden")
 
 class Project(BaseModel):
     name: str = Field(description="Title or name of the project.")
@@ -43,6 +43,9 @@ class Project(BaseModel):
 
 class ProjectList(BaseModel):
     projects: List[Project] = Field(description="List of projects")
+    is_valid_request: bool = Field(description="Whether the user request matches the system prompt")
+    prompt_proposal_1: str = Field(description="First suggested prompt to help user refine their request")
+    prompt_proposal_2: str = Field(description="Second suggested prompt to help user refine their request")
 
 # Data for the projects
 project_data_1 = {
@@ -52,7 +55,7 @@ project_data_1 = {
     "dimensions": "100x100x100cm",
     "description": (
         "A wooden sculpture of a bird in flight. "
-        "The bird as a raven. "
+        "The bird is a raven. "
         "Took 1 year to complete. "
         "Was made in a studio in Berlin. "
         "The studio was in an old factory building. "
@@ -93,20 +96,41 @@ SYSTEM_PROMPT = {
         f"Project 1: {str(project_data_1)}. "
         f"Project 2: {str(project_data_2)}. "
         f"Project 3: {str(project_data_3)}. "
-        "For each project, you must set the 'active' status for each field (year, material, dimensions, description) based on the user's query: "
-        "- Set active=true for fields that are specifically asked about or relevant to the query "
-        "- Set active=false for fields that are not mentioned or relevant "
+        "By default, set all fields' active status to false. "
         "The name field is always included and doesn't have an active status. "
+        "Field activation rules: "
+        "- Only set active=true for fields that are specifically asked about in the query "
+        "- If user asks for 'more information', 'tell me everything', or similar comprehensive requests, set all fields to active=true "
+        "- Once a field is set to active=true, it will remain active until explicitly asked to hide/remove that information "
         "For description handling: "
-        "- If asked for a description or additional information, provide a brief summary (max 100 characters) and set description.active=true "
-        "- If specifically asked for detailed information, provide the full description and set description.active=true "
-        "- If asked about specific aspects (like exhibition locations), include only that information in the description "
+        "- Keep description.active=false by default "
+        "- If specifically asked about description, set description.active=true and provide a brief summary (max 100 characters) "
+        "- If asked for detailed/full/more extensive description, set description.active=true and provide extensive description "
+        "- If user asks for more information while description is already visible, replace existing description with a more detailed version "
+        "- If asked about specific aspects (like exhibition locations), set description.active=true and include only that specific information "
+        "- Description will remain visible until explicitly asked to hide/remove the description "
+        "- IMPORTANT: Always rephrase descriptions in your own words based on the provided information, never copy verbatim "
         "IMPORTANT: Only include projects in your response that are relevant to the user's query. "
-        "For example: "
-        "- If asked about the latest project, only return data for the most recent project "
-        "- If asked about wooden sculptures, only return projects that use wood as material "
-        "- If asked for all projects, return all projects with only names and all active fields set to false "
-        "- If asked about dimensions of metal sculptures, return only metal projects with dimensions.active=true and other fields' active=false"
+        "IMPORTANT: Set is_valid_request=false if the user asks for information not contained in the project data. Otherwise set is_valid_request=true. "
+        "For prompt proposals: "
+        "- Always provide two different prompt suggestions that could help refine or expand the user's query "
+        "- If is_valid_request=false, suggest prompts that guide the user towards available information "
+        "- If is_valid_request=true, suggest prompts that could reveal more interesting details about the projects "
+        "- Make suggestions contextual to the current query and visible information "
+        "- Examples of prompt proposals: "
+        "  * If user asks about materials: 'Tell me more about the dimensions of wooden artworks' or 'What year were the metal sculptures made?' "
+        "  * If description is visible: 'Where was this artwork exhibited?' or 'Tell me more about the creation process' "
+        "  * If invalid request about price: 'What materials were used in this project?' or 'When was this artwork created?' "
+        "Examples: "
+        "- Query: 'Show all projects' -> Return all projects with all fields' active=false, is_valid_request=true "
+        "- Query: 'What year was Capture made?' -> Return Capture with only year.active=true, is_valid_request=true "
+        "- Query: 'Tell me everything about Echo' -> Return Echo with all fields' active=true, is_valid_request=true "
+        "- Query: 'What are the dimensions of metal sculptures?' -> Return metal projects with only dimensions.active=true, is_valid_request=true "
+        "- Query: 'Hide the year for Capture' -> Return Capture with year.active=false, is_valid_request=true "
+        "- Query: 'Remove the description' -> Return relevant projects with description.active=false, is_valid_request=true "
+        "- Query: 'Tell me more about this project' -> Return the project with description.active=true and provide a more detailed description, is_valid_request=true "
+        "- Query: 'Can you elaborate further?' -> If description is visible, replace it with a more comprehensive version, is_valid_request=true "
+        "- Query: 'What is the price of Capture?' -> Return Capture with is_valid_request=false as price information is not available "
     )
 }
 
@@ -159,9 +183,19 @@ def projects():
         del project_dict['name']
         projects_dict[project.name] = project_dict
 
-    # Return the dictionary as JSON response
-    print(projects_dict)
-    return jsonify({'projects': projects_dict})
+    # Get the is_valid_request value and prompt proposals
+    is_valid_request = response.choices[0].message.parsed.is_valid_request
+    prompt_proposal_1 = response.choices[0].message.parsed.prompt_proposal_1
+    prompt_proposal_2 = response.choices[0].message.parsed.prompt_proposal_2
+
+    # Return projects dictionary, is_valid_request, and prompt proposals
+    return jsonify({
+        'projects': projects_dict,
+        'is_valid_request': is_valid_request,
+        'prompt_proposal_1': prompt_proposal_1,
+        'prompt_proposal_2': prompt_proposal_2
+    })
+
 
 
 

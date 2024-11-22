@@ -18,32 +18,61 @@ function sendMessage() {
     .then(data => {
         // Create a container for the projects and append it to the content container
         const contentContainer = document.querySelector('.content-container');
-        const projectsContainer = document.createElement('div');
-        projectsContainer.classList.add('projects-container');
-        contentContainer.appendChild(projectsContainer);
+        
+        // Check if projects container already exists, if not create it
+        let projectsContainer = document.querySelector('.projects-container');
+        if (!projectsContainer) {
+            projectsContainer = document.createElement('div');
+            projectsContainer.classList.add('projects-container');
+            contentContainer.appendChild(projectsContainer);
+        }
 
-        // Loop through each project
+        // Get current project IDs
+        const currentProjectIds = Array.from(projectsContainer.children).map(child => child.id);
+        // Get new project IDs
+        const newProjectIds = Object.keys(data.projects);
+
+        // Remove projects that are no longer present
+        currentProjectIds.forEach(projectId => {
+            if (!newProjectIds.includes(projectId)) {
+                const projectToRemove = document.getElementById(projectId);
+                if (projectToRemove) {
+                    projectToRemove.remove();
+                }
+            }
+        });
+
+        // Update existing projects and add new ones
         Object.entries(data.projects).forEach(([projectName, projectData]) => {
-            // Create a single project DIV for each project
-            const singleProject = document.createElement('div');
-            singleProject.classList.add('single-project');
-            singleProject.id = projectName;
-            projectsContainer.appendChild(singleProject);
+            let singleProject = document.getElementById(projectName);
+            
+            // If project doesn't exist, create it
+            if (!singleProject) {
+                singleProject = document.createElement('div');
+                singleProject.classList.add('single-project');
+                singleProject.id = projectName;
+                projectsContainer.appendChild(singleProject);
 
-            // Append the project name
-            const projectTitle = document.createElement('div');
-            projectTitle.innerHTML = projectName;
-            singleProject.appendChild(projectTitle);
+                // Add project title for new projects
+                const projectTitle = document.createElement('div');
+                projectTitle.innerHTML = projectName;
+                singleProject.appendChild(projectTitle);
+            }
 
             // Loop through each field in the project data (year, material, dimensions, description)
             Object.entries(projectData).forEach(([fieldName, fieldData]) => {
-                // Create a new div for each field's value
-                const fieldDiv = document.createElement('div');
-                fieldDiv.classList.add(fieldName);
-                fieldDiv.innerHTML = fieldData.value;
-                singleProject.appendChild(fieldDiv);
+                let fieldDiv = singleProject.querySelector(`.${fieldName}`);
+                
+                // If field doesn't exist, create it
+                if (!fieldDiv) {
+                    fieldDiv = document.createElement('div');
+                    fieldDiv.classList.add(fieldName);
+                    singleProject.appendChild(fieldDiv);
+                }
 
-                // Hide field if the boolean value of the field is false
+                // Update field content and visibility
+                fieldDiv.innerHTML = fieldData.value;
+                
                 if (!fieldData.active) {
                     fieldDiv.classList.add('inactive');
                 } else {
