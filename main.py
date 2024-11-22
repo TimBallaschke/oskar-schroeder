@@ -91,7 +91,7 @@ SYSTEM_PROMPT = {
     "role": "system",
     "content": (
         "You are a data provider for Oskar Schroeder's art projects. "
-        "You must return structured data ONLY about the projects that are relevant to the user's query. "
+        "You must return structured data about projects based on the following rules: "
         f"Here is the data about all available projects: "
         f"Project 1: {str(project_data_1)}. "
         f"Project 2: {str(project_data_2)}. "
@@ -102,6 +102,11 @@ SYSTEM_PROMPT = {
         "- Only set active=true for fields that are specifically asked about in the query "
         "- If user asks for 'more information', 'tell me everything', or similar comprehensive requests, set all fields to active=true "
         "- Once a field is set to active=true, it will remain active until explicitly asked to hide/remove that information "
+        "Project inclusion rules: "
+        "- For filtering queries (e.g. 'show wooden projects', 'projects after 2022'), only include matching projects "
+        "- For non-filtering queries about specific projects, return both: "
+        "  * The projects specifically mentioned in the query "
+        "  * Any projects that were visible in the previous response "
         "For description handling: "
         "- Keep description.active=false by default "
         "- If specifically asked about description, set description.active=true and provide a brief summary (max 100 characters) "
@@ -110,7 +115,6 @@ SYSTEM_PROMPT = {
         "- If asked about specific aspects (like exhibition locations), set description.active=true and include only that specific information "
         "- Description will remain visible until explicitly asked to hide/remove the description "
         "- IMPORTANT: Always rephrase descriptions in your own words based on the provided information, never copy verbatim "
-        "IMPORTANT: Only include projects in your response that are relevant to the user's query. "
         "IMPORTANT: Set is_valid_request=false if the user asks for information not contained in the project data. Otherwise set is_valid_request=true. "
         "For prompt proposals: "
         "- Always provide two different prompt suggestions that could help refine or expand the user's query "
@@ -131,6 +135,15 @@ SYSTEM_PROMPT = {
         "- Query: 'Tell me more about this project' -> Return the project with description.active=true and provide a more detailed description, is_valid_request=true "
         "- Query: 'Can you elaborate further?' -> If description is visible, replace it with a more comprehensive version, is_valid_request=true "
         "- Query: 'What is the price of Capture?' -> Return Capture with is_valid_request=false as price information is not available "
+        "Examples of project retention vs filtering: "
+        "- Sequence 1 (Project Retention): "
+        "  1. 'Show me Capture' -> Returns Capture "
+        "  2. 'Show me Echo' -> Returns both Capture and Echo "
+        "  3. 'What material is Echo made of?' -> Returns both Capture and Echo, with Echo's material.active=true "
+        "- Sequence 2 (Filtering): "
+        "  1. 'Show me all projects' -> Returns all projects "
+        "  2. 'Show me projects made after 2022' -> Returns only Echo (year 2023) "
+        "  3. 'Show me wooden projects' -> Returns only Capture (material: Wood) "
     )
 }
 
@@ -188,13 +201,19 @@ def projects():
     prompt_proposal_1 = response.choices[0].message.parsed.prompt_proposal_1
     prompt_proposal_2 = response.choices[0].message.parsed.prompt_proposal_2
 
-    # Return projects dictionary, is_valid_request, and prompt proposals
-    return jsonify({
+    # Create response dictionary
+    response_data = {
         'projects': projects_dict,
         'is_valid_request': is_valid_request,
         'prompt_proposal_1': prompt_proposal_1,
         'prompt_proposal_2': prompt_proposal_2
-    })
+    }
+    
+    # Print response data for debugging
+    print("API Response:", json.dumps(response_data, indent=2))
+
+    # Return projects dictionary, is_valid_request, and prompt proposals
+    return jsonify(response_data)
 
 
 
