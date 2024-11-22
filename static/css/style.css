@@ -1,0 +1,12 @@
+html {
+  box-sizing: border-box;
+  font-size: 2.2vw;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: never; /* Note: font-smooth is not widely supported */
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+  scrollbar-width: none; /* Firefox */
+}/*# sourceMappingURL=style.css.map */
