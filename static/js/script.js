@@ -23,11 +23,14 @@ function sendMessage() {
         projectsContainer.classList.add('projects-container');
         contentContainer.appendChild(projectsContainer);
 
+        // Create a single project DIV for each project in the data with the project name as ID
         data.projects.forEach(project => {
             const singleProject = document.createElement('div');
             singleProject.classList.add('single-project');
             singleProject.id = project.name;
             projectsContainer.appendChild(singleProject);
+
+
         })
         // Log only the data
         console.log(data);

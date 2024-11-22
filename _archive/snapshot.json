@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "241122_Oskar_Website_DIVs_for_projects",
+  "original_folder": "241122b_Oskar_Website_new_strcutured_output",
   "snapshot_date_from_folder": "241122",
   "source_files": [
     {
@@ -19,9 +19,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "0a0fd341f0fccbc3c9147d26d9dc8059524d2ac4",
-      "sha256": "8878ed95a79d5aa352b2a69799bb7470e95a329b560f26ea6b06de489ac95d58",
-      "size": 7373,
+      "sha1": "c99b28c33979bc2f2fd4b2142f0a59aaaff893af",
+      "sha256": "21568b6ab2d67133dee70835fdc8f39b7e6e0c1891bc4efca46fe3b994deefab",
+      "size": 7611,
       "mode": "100644"
     },
     {
@@ -47,9 +47,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "35b1c12b21e54d98e96a6bc00e7207e44d28a72c",
-      "sha256": "cb2dc6eeaedb7a191a43a813f00e1668e145064165ab07750f4cf5d5ffafc5f2",
-      "size": 1804,
+      "sha1": "320011dc0bba776f47803679bb97fdc161d89bd6",
+      "sha256": "fc2135fe66453c5d9ebc93e9103937f216115fc7703e0d880a21403c430fb364",
+      "size": 1902,
       "mode": "100644"
     },
     {

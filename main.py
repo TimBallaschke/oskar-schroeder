@@ -3,7 +3,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 import json
-from typing import List
+from typing import List, TypeVar, Generic
 from pydantic import BaseModel, Field, field_validator
 
 # Load environment variables from .env file (including API key)
@@ -23,20 +23,23 @@ app = Flask(__name__, static_url_path='/static')
 # 24 is the length of the byte string in bytes
 app.secret_key = os.urandom(24)
 # Initialize OpenAI client
-client = OpenAI()  
+client = OpenAI()
 
 
 # Define Pydantic models for structured responses
+
+T = TypeVar('T')
+
+class ActiveField(BaseModel, Generic[T]):
+    value: T
+    active: bool
+
 class Project(BaseModel):
     name: str = Field(description="Title or name of the project.")
-    year: int = Field(description="Year of the project.")
-    year_active: bool = Field(description="Whether the year is asked for.")
-    material: str = Field(description="Material used for the project.")
-    material_active: bool = Field(description="Whether the material is asked for.")
-    dimensions: str = Field(description="Dimensions of the project.")
-    dimensions_active: bool = Field(description="Whether the dimensions are asked for.")
-    description: str = Field(description="Description text of the project.")
-    description_active: bool = Field(description="Whether the description is asked for.")
+    year: ActiveField[int] = Field(description="Year of the project with active status.")
+    material: ActiveField[str] = Field(description="Material used for the project with active status.")
+    dimensions: ActiveField[str] = Field(description="Dimensions of the project with active status.")
+    description: ActiveField[str] = Field(description="Description text of the project with active status.")
 
 class ProjectList(BaseModel):
     projects: List[Project] = Field(description="List of projects")
@@ -90,16 +93,20 @@ SYSTEM_PROMPT = {
         f"Project 1: {str(project_data_1)}. "
         f"Project 2: {str(project_data_2)}. "
         f"Project 3: {str(project_data_3)}. "
-        "There are multiple boolean fields that indicate if the information is asked for or not. "
-        "If the information is not asked for, set the boolean to False. "
-        "If asked for information about Oskar's Projects in general, return all projects with only names and set all booleans to false. "
+        "For each project, you must set the 'active' status for each field (year, material, dimensions, description) based on the user's query: "
+        "- Set active=true for fields that are specifically asked about or relevant to the query "
+        "- Set active=false for fields that are not mentioned or relevant "
+        "The name field is always included and doesn't have an active status. "
         "For description handling: "
-        "- If asked for a description or additional information, provide a brief summary (max 100 characters) of key points. "
-        "- If specifically asked for a detailed or extensive description, provide create a full description with all available details of key points. "
-        "- If asked about specific aspects (like exhibition locations or materials), provide only that particular information. "
+        "- If asked for a description or additional information, provide a brief summary (max 100 characters) and set description.active=true "
+        "- If specifically asked for detailed information, provide the full description and set description.active=true "
+        "- If asked about specific aspects (like exhibition locations), include only that information in the description "
         "IMPORTANT: Only include projects in your response that are relevant to the user's query. "
-        "For example, if asked about the latest project, only return data for the most recent project. "
-        "If asked about wooden sculptures, only return projects that use wood as material."
+        "For example: "
+        "- If asked about the latest project, only return data for the most recent project "
+        "- If asked about wooden sculptures, only return projects that use wood as material "
+        "- If asked for all projects, return all projects with only names and all active fields set to false "
+        "- If asked about dimensions of metal sculptures, return only metal projects with dimensions.active=true and other fields' active=false"
     )
 }
 
