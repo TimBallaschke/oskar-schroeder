@@ -1,6 +1,6 @@
 html {
     box-sizing: border-box;
-    font-size: 2.2vw;
+    font-size: 20px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-smooth: never; /* Note: font-smooth is not widely supported */
@@ -11,4 +11,7 @@ html {
     scrollbar-width: none; /* Firefox */
   }
 
-  
+  .inactive {
+    display: none;
+  }
+
