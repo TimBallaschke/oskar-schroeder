@@ -24,14 +24,13 @@ function sendMessage() {
         contentContainer.appendChild(projectsContainer);
 
         // Create a single project DIV for each project in the data with the project name as ID
-        data.projects.forEach(project => {
+        // Object.entries() is a built-in JavaScript method that converts an object into an array of key-value pairs
+        Object.entries(data.projects).forEach(([projectName, projectData]) => {
             const singleProject = document.createElement('div');
             singleProject.classList.add('single-project');
-            singleProject.id = project.name;
+            singleProject.id = projectName;
             projectsContainer.appendChild(singleProject);
-
-
-        })
+        });
         // Log only the data
         console.log(data);
     })

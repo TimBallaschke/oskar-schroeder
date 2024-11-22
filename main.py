@@ -149,17 +149,19 @@ def projects():
         response_format=ProjectList,
     )
 
-    # Create list to store all projects
-    projects_list = []
+    # Create a dictionary to store projects with their names as keys
+    projects_dict = {}
 
-    # Loop through all projects and add them to the list
+    # Loop through all projects and add them to the dictionary using project name as key
     for project in response.choices[0].message.parsed.projects:
         project_dict = project.model_dump()
-        projects_list.append(project_dict)
+        # Remove the name field since it's used as the key
+        del project_dict['name']
+        projects_dict[project.name] = project_dict
 
-    # Return all projects as JSON response
-    print(projects_list)
-    return jsonify({'projects': projects_list})
+    # Return the dictionary as JSON response
+    print(projects_dict)
+    return jsonify({'projects': projects_dict})
 
 
 
