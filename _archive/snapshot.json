@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "241129_Oskar_Website_grid_layout",
+  "original_folder": "241129b_Oskar_Website_new_system_prompt",
   "snapshot_date_from_folder": "241129",
   "source_files": [
     {
@@ -19,9 +19,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "1ec63afe7d5bbd0ff71d52ac4597a2a6311f4a55",
-      "sha256": "adb96442818848a77cc082a1c1a23173d793228f4e37ffec694ab1b3136107e8",
-      "size": 12244,
+      "sha1": "0284a6bf22f639ad21b5f0d222dea2c30f7db46d",
+      "sha256": "6433b5da458ae15c042c417385111bddb4efb6e02734c7ed7d7fedd9d08a293f",
+      "size": 19062,
       "mode": "100644"
     },
     {
@@ -50,6 +50,13 @@
       "sha1": "bac3baa37c565c4448c0e4b51ab2a2a5f7e1d158",
       "sha256": "16cdee2bd6f5c4374c8825b05387f762b60d3e9c186f10786e53354b11ea7ca3",
       "size": 4578,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/.gitkeep",
+      "sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
       "mode": "100644"
     },
     {

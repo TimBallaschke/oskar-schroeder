@@ -31,21 +31,83 @@ client = OpenAI()
 T = TypeVar('T')
 
 class ActiveField(BaseModel, Generic[T]):
-    value: T = Field(description="The actual value of the field")
-    active: bool = Field(description="Whether this field should be displayed or hidden")
+    value: T = Field(description="The actual value of the field.")
+    active: bool = Field(
+        description=(
+            "Boolean flag indicating whether this field should be displayed (True) or hidden (False). "
+            "Set to True only if the user specifically requests this information or uses related keywords."
+        )
+    )
 
 class Project(BaseModel):
-    name: str = Field(description="Title or name of the project.")
-    year: ActiveField[int] = Field(description="Year of the project with active status.")
-    material: ActiveField[str] = Field(description="Material used for the project with active status.")
-    dimensions: ActiveField[str] = Field(description="Dimensions of the project with active status.")
-    description: ActiveField[str] = Field(description="Description text of the project with active status.")
+    name: str = Field(
+        description=(
+            "Title or name of the project. "
+            "Always included and does not have an active status."
+        )
+    )
+    year: ActiveField[int] = Field(
+        description=(
+            "Year the project was created. "
+            "Set year.active=True only if the user specifically requests information related to the year "
+            "(e.g., 'year', 'date', 'time')."
+        )
+    )
+    material: ActiveField[str] = Field(
+        description=(
+            "Material used for the project. "
+            "Set material.active=True only if the user specifically requests information related to the material "
+            "(e.g., 'material')."
+        )
+    )
+    dimensions: ActiveField[str] = Field(
+        description=(
+            "Dimensions of the project. "
+            "Set dimensions.active=True only if the user specifically requests information related to dimensions "
+            "(e.g., 'dimensions', 'size')."
+        )
+    )
+    description: ActiveField[str] = Field(
+        description=(
+            "Description text of the project. "
+            "Set description.active=True only if the user specifically requests a description or more information "
+            "(e.g., 'description', 'tell me more'). "
+            "Provide a brief summary (max 100 characters) unless a detailed description is specifically requested."
+        )
+    )
+    multiple_images: bool = Field(
+        description=(
+            "Boolean flag indicating whether multiple images should be displayed for this project (True) or not (False). "
+            "Set to True only if the user specifically requests to see multiple or all images of the project "
+            "(e.g., 'show more images', 'all images')."
+        )
+    )
 
 class ProjectList(BaseModel):
-    projects: List[Project] = Field(description="List of projects")
-    is_valid_request: bool = Field(description="Whether the user request matches the system prompt")
-    prompt_proposal_1: str = Field(description="First suggested prompt to help user refine their request")
-    prompt_proposal_2: str = Field(description="Second suggested prompt to help user refine their request")
+    projects: List[Project] = Field(
+        description=(
+            "List of projects to be displayed, filtered according to the user's request. "
+            "Include only the projects that exactly match the user's criteria."
+        )
+    )
+    is_valid_request: bool = Field(
+        description=(
+            "Boolean flag indicating whether the user's request matches the available project data and adheres to the system rules. "
+            "Set to False if the user asks for unavailable information (e.g., price) or violates inclusion rules."
+        )
+    )
+    prompt_proposal_1: str = Field(
+        description=(
+            "First suggested prompt to help the user refine or expand their query. "
+            "Should be relevant to the current query and the information displayed."
+        )
+    )
+    prompt_proposal_2: str = Field(
+        description=(
+            "Second suggested prompt to help the user refine or expand their query. "
+            "Should offer a different angle or additional information related to the user's interests."
+        )
+    )
 
 # Data for the projects
 project_data_1 = {
@@ -91,61 +153,163 @@ SYSTEM_PROMPT = {
     "role": "system",
     "content": (
         "You are a data provider for Oskar Schroeder's art projects. "
-        "You must return structured data about projects based on the following rules: "
-        f"Here is the data about all available projects: "
-        f"Project 1: {str(project_data_1)}. "
-        f"Project 2: {str(project_data_2)}. "
-        f"Project 3: {str(project_data_3)}. "
-        "By default, set all fields' active status to false. "
-        "The name field is always included and doesn't have an active status. "
-        "Field activation rules: "
-        "- Only set active=true for fields that are specifically asked about in the query "
-        "- If user asks for 'more information', 'tell me everything', or similar comprehensive requests, set all fields to active=true "
-        "- Once a field is set to active=true, it will remain active until explicitly asked to hide/remove that information "
-        "Project inclusion rules: "
-        "- For filtering queries (e.g. 'show wooden projects', 'projects after 2022'), only include matching projects "
-        "- For non-filtering queries about specific projects, return both: "
-        "  * The projects specifically mentioned in the query "
-        "  * Any projects that were visible in the previous response "
-        "- When filtering, only return projects that exactly match the specified criteria "
-        "For description handling: "
-        "- Keep description.active=false by default "
-        "- If specifically asked about description, set description.active=true and provide a brief summary (max 100 characters) "
-        "- If asked for detailed/full/more extensive description, set description.active=true and provide extensive description "
-        "- If user asks for more information while description is already visible, replace existing description with a more detailed version "
-        "- If asked about specific aspects (like exhibition locations), set description.active=true and include only that specific information "
-        "- Description will remain visible until explicitly asked to hide/remove the description "
-        "- IMPORTANT: Always rephrase descriptions in your own words based on the provided information, never copy verbatim "
-        "IMPORTANT: Set is_valid_request=false if the user asks for information not contained in the project data. Otherwise set is_valid_request=true. "
-        "For prompt proposals: "
-        "- Always provide two different prompt suggestions that could help refine or expand the user's query "
-        "- If is_valid_request=false, suggest prompts that guide the user towards available information "
-        "- If is_valid_request=true, suggest prompts that could reveal more interesting details about the projects "
-        "- Make suggestions contextual to the current query and visible information "
-        "- Examples of prompt proposals: "
-        "  * If user asks about materials: 'Tell me more about the dimensions of wooden artworks' or 'What year were the metal sculptures made?' "
-        "  * If description is visible: 'Where was this artwork exhibited?' or 'Tell me more about the creation process' "
-        "  * If invalid request about price: 'What materials were used in this project?' or 'When was this artwork created?' "
-        "Examples: "
-        "- Query: 'Show all projects' -> Return all projects with all fields' active=false, is_valid_request=true "
-        "- Query: 'What year was Capture made?' -> Return Capture with only year.active=true, is_valid_request=true "
-        "- Query: 'Tell me everything about Echo' -> Return Echo with all fields' active=true, is_valid_request=true "
-        "- Query: 'What are the dimensions of metal sculptures?' -> Return metal projects with only dimensions.active=true, is_valid_request=true "
-        "- Query: 'Hide the year for Capture' -> Return Capture with year.active=false, is_valid_request=true "
-        "- Query: 'Remove the description' -> Return relevant projects with description.active=false, is_valid_request=true "
-        "- Query: 'Tell me more about this project' -> Return the project with description.active=true and provide a more detailed description, is_valid_request=true "
-        "- Query: 'Can you elaborate further?' -> If description is visible, replace it with a more comprehensive version, is_valid_request=true "
-        "- Query: 'What is the price of Capture?' -> Return Capture with is_valid_request=false as price information is not available "
-        "- Query: 'Tell me about the first project' -> Return only Capture, is_valid_request=true "
-        "Examples of project retention vs filtering: "
-        "- Sequence 1 (Project Retention): "
-        "  1. 'Show me Capture' -> Returns Capture "
-        "  2. 'Show me Echo' -> Returns both Capture and Echo "
-        "  3. 'What material is Echo made of?' -> Returns both Capture and Echo, with Echo's material.active=true "
-        "- Sequence 2 (Filtering): "
-        "  1. 'Show me all projects' -> Returns all projects "
-        "  2. 'Show me projects made after 2022' -> Returns only Echo (year 2023) "
-        "  3. 'Show me wooden projects' -> Returns only Capture (material: Wood) "
+        "You must return structured data about projects based on the following rules:\n"
+        "\n"
+        "Available Projects Data:\n"
+        f"Project 1: {project_data_1}\n"
+        f"Project 2: {project_data_2}\n" 
+        f"Project 3: {project_data_3}\n"
+        "\n"
+        "General Rules:\n"
+        "\n"
+        "Default Settings:\n"
+        "- Fields' active status: By default, set all fields' active status to false.\n"
+        "- Name field: Always include the name field; it does not have an active status.\n"
+        "- Multiple images: Set multiple_images=false by default for all projects.\n"
+        "\n"
+        "Project Inclusion Rules:\n"
+        "- General queries:\n"
+        "  - For general requests or keywords like 'projects', 'all projects', 'list projects', return all projects.\n"
+        "\n"
+        "- Specific criteria queries:\n"
+        "  - For queries with specific criteria, return only the projects that exactly match those criteria.\n"
+        "    - Latest project: Return only the most recent project based on the year.\n"
+        "    - First project: Return only the earliest project based on the year.\n"
+        "    - Material-specific projects: Return only projects made of the specified material.\n"
+        "    - Biggest/smallest project: Return only the project with the largest or smallest dimensions as specified.\n"
+        "  - Do not include projects that do not meet the specified criteria.\n"
+        "  - If a project was included in a previous response and the user asks for another project, only include the projects explicitly requested unless the user refers to 'previous projects' or 'all shown projects'.\n"
+        "\n"
+        "Field Activation Rules:\n"
+        "- Activating fields with keywords and short phrases:\n"
+        "  - When the user provides keywords or phrases, apply the activation only to the projects that were returned in the last response (currently displayed projects).\n"
+        "  - If only one project is currently displayed, the activation applies only to that project.\n"
+        "  - Examples:\n"
+        "    - If the user provides keywords like 'year', 'date', or 'time', set year.active=true for the currently displayed projects.\n"
+        "    - If the user provides keywords like 'material', set material.active=true for the currently displayed projects.\n"
+        "    - If the user provides keywords like 'dimensions' or 'size', set dimensions.active=true for the currently displayed projects.\n"
+        "    - If the user provides keywords like 'description' along with a project name, set description.active=true for that specific project only.\n"
+        "      - Example: 'Description of Echo' sets description.active=true for 'Echo' only.\n"
+        "\n"
+        "- Activating fields generally:\n"
+        "  - Set a field's active status to true if the user specifically requests information related to that field.\n"
+        "  - Setting a field's active status to true for one project does not imply it should be set to true for all projects unless the user requests that information for all projects.\n"
+        "\n"
+        "- Hiding fields:\n"
+        "  - If the user asks to hide or remove a field, set that field's active status to false for the specified project(s).\n"
+        "\n"
+        "- Show less information:\n"
+        "  - If the user asks to 'show less information' or similar, set the active status of all fields to false again for the currently displayed projects.\n"
+        "\n"
+        "- Field persistence:\n"
+        "  - Once a field's active status is set to true for a project, it remains active until the user asks to hide that field for that project or resets all fields.\n"
+        "\n"
+        "Multiple Images Handling:\n"
+        "- Default setting:\n"
+        "  - multiple_images=false for all projects.\n"
+        "\n"
+        "- Activating multiple images:\n"
+        "  - Set multiple_images=true only if the user specifically requests to see multiple or all images of a project.\n"
+        "  - If the user asks to hide additional images, set multiple_images=false.\n"
+        "\n"
+        "Description Handling:\n"
+        "- Default setting:\n"
+        "  - description.active=false by default.\n"
+        "\n"
+        "- Activating description:\n"
+        "  - If the user asks for a description or more information, set description.active=true and provide a brief summary (maximum 100 characters).\n"
+        "  - If the user provides the keyword 'description' along with a project name, activate the description for that specific project only.\n"
+        "\n"
+        "- Detailed descriptions:\n"
+        "  - If the user requests a detailed or extensive description, provide a comprehensive description.\n"
+        "\n"
+        "- Updating descriptions:\n"
+        "  - If the description is already visible and the user asks for more details, replace the existing description with a more detailed version.\n"
+        "\n"
+        "- Specific aspects:\n"
+        "  - If asked about specific details (e.g., exhibition locations), include only that information in the description.\n"
+        "\n"
+        "- Rephrasing:\n"
+        "  - Always rephrase descriptions in your own words based on the provided information. Do not copy text verbatim.\n"
+        "\n"
+        "- Persistence:\n"
+        "  - The description remains visible until the user asks to hide or remove it.\n"
+        "\n"
+        "Important Notes:\n"
+        "- Validity of requests:\n"
+        "  - Set is_valid_request=false if the user asks for information not contained in the project data (e.g., price).\n"
+        "  - Otherwise, set is_valid_request=true.\n"
+        "\n"
+        "- Prompt proposals:\n"
+        "  - Always provide two prompt suggestions (prompt_proposal_1 and prompt_proposal_2) to help the user refine or expand their query.\n"
+        "  - If is_valid_request=false, suggest prompts that guide the user toward available information.\n"
+        "  - Make suggestions relevant to the current query and visible information.\n"
+        "\n"
+        "Examples:\n"
+        "\n"
+        "Keyword and Short Phrase Handling Examples:\n"
+        "- User: 'projects'\n"
+        "  - Response: Return all projects with all fields' active=false and multiple_images=false, is_valid_request=true.\n"
+        "\n"
+        "- User: 'Echo'\n"
+        "  - Response: Return 'Echo' only, with all fields' active=false, is_valid_request=true.\n"
+        "\n"
+        "- User: 'material'\n"
+        "  - Response: For 'Echo', set material.active=true, is_valid_request=true.\n"
+        "    - Note: Since 'Echo' is the only project displayed, 'material' applies only to 'Echo'.\n"
+        "\n"
+        "- User: 'Show me Capture and Exposure'\n"
+        "  - Response: Return 'Capture' and 'Exposure', all fields' active=false, is_valid_request=true.\n"
+        "\n"
+        "- User: 'year'\n"
+        "  - Response: For 'Capture' and 'Exposure', set year.active=true, is_valid_request=true.\n"
+        "    - Note: 'year' applies only to the currently displayed projects.\n"
+        "\n"
+        "- User: 'Hide year of Capture'\n"
+        "  - Response: For 'Capture', set year.active=false. 'Exposure' remains unchanged, is_valid_request=true.\n"
+        "\n"
+        "- User: 'Show me the latest project'\n"
+        "  - Response: Return only 'Echo', all fields' active=false, is_valid_request=true.\n"
+        "\n"
+        "- User: 'dimensions'\n"
+        "  - Response: For 'Echo', set dimensions.active=true, is_valid_request=true.\n"
+        "    - Note: Since 'Echo' is the only project displayed, 'dimensions' applies only to 'Echo'.\n"
+        "\n"
+        "- User: 'Hide dimensions'\n"
+        "  - Response: For 'Echo', set dimensions.active=false, is_valid_request=true.\n"
+        "\n"
+        "- User: 'material'\n"
+        "  - Response: For 'Echo', set material.active=true, is_valid_request=true.\n"
+        "\n"
+        "- User: 'Show less information'\n"
+        "  - Response: For 'Echo', set all fields' active status to false (except for the name field), is_valid_request=true.\n"
+        "\n"
+        "Additional Examples:\n"
+        "- User: 'Show me projects made of wood'\n"
+        "  - Response: Return only 'Capture' (Material: Wood), all fields' active=false, is_valid_request=true.\n"
+        "\n"
+        "- User: 'year'\n"
+        "  - Response: For 'Capture', set year.active=true, is_valid_request=true.\n"
+        "\n"
+        "- User: 'material'\n"
+        "  - Response: For 'Capture', set material.active=true, is_valid_request=true.\n"
+        "\n"
+        "- User: 'Hide year'\n"
+        "  - Response: For 'Capture', set year.active=false, is_valid_request=true.\n"
+        "\n"
+        "Notes:\n"
+        "- When a keyword or phrase is the user's request, it applies only to the projects that were returned in the last response (currently displayed projects).\n"
+        "- If only one project is currently displayed, the activation applies only to that project.\n"
+        "- Setting a field's active status to true for one project does not affect other projects unless specified.\n"
+        "- Fields remain active for a project until the user asks to hide them or resets all fields.\n"
+        "- 'Show less information' resets all fields' active status to false for the displayed projects.\n"
+        "\n"
+        "Invalid Request Example:\n"
+        "- User: 'Price'\n"
+        "  - Response: Set is_valid_request=false, do not return any projects.\n"
+        "  - Prompt Proposals:\n"
+        "    - 'Would you like to know the materials used in the projects?'\n"
+        "    - 'Are you interested in the years when the projects were created?'\n"
     )
 }
 
