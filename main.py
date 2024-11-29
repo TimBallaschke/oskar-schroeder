@@ -111,7 +111,7 @@ class ProjectList(BaseModel):
 
 # Data for the projects
 project_data_1 = {
-    "name": "Capture",
+    "name": "Einsatz",
     "year": 2020,
     "material": "Wood",
     "dimensions": "100x100x100cm",
@@ -128,7 +128,7 @@ project_data_1 = {
 }
 
 project_data_2 = {
-    "name": "Exposure",
+    "name": "Schau",
     "year": 2022,
     "material": "Metal",
     "dimensions": "200x450x600cm",
@@ -138,7 +138,7 @@ project_data_2 = {
 }
 
 project_data_3 = {
-    "name": "Echo",
+    "name": "Wild",
     "year": 2023,
     "material": "Ceramic",
     "dimensions": "5x8x10cm",

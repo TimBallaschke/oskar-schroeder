@@ -65,6 +65,13 @@ function sendMessage() {
                     const projectTitle = document.createElement('div');
                     projectTitle.innerHTML = projectName;
                     singleProject.appendChild(projectTitle);
+
+                    // Add first image from project's image folder
+                    const projectImage = document.createElement('img');
+                    projectImage.src = `assets/images/${projectName}/1.jpg`;
+                    projectImage.alt = `${projectName} artwork`;
+                    projectImage.classList.add('project-title-image');
+                    singleProject.appendChild(projectImage);
                 }
 
                 // Loop through each field in the project data (year, material, dimensions, description)
