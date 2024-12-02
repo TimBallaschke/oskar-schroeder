@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "original_folder": "241129c_Oskar_Website_images(try)",
-  "snapshot_date_from_folder": "241129",
+  "original_folder": "241202_Oskar_Website_(prompt_proposals_eventlistener)",
+  "snapshot_date_from_folder": "241202",
   "source_files": [
     {
       "path": ".cursorignore",
@@ -19,37 +19,37 @@
     },
     {
       "path": "main.py",
-      "sha1": "519f713017a6096ccb577b42d4d225380239b529",
-      "sha256": "ca9592122b23b83cbe72d90441556f0a2d36551426277c685681e44c52356404",
-      "size": 19059,
+      "sha1": "3e432ed08e46191bc211995a82ee0af6cfce68fa",
+      "sha256": "51ca7902bf32d265c6b047dc8a3c147c65409373f7b00c46177d167d4479c11d",
+      "size": 17544,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css",
-      "sha1": "5bbb68351e942ae5755030ec687c2eb5b765a0de",
-      "sha256": "78e705a9b5920fd0ed5e6e8bb8558ba26a7a7b1d835ccdb61aa97a209dd1ce9d",
-      "size": 1031,
+      "sha1": "93ef3df3a9b6a305f04a4ba3130325aeced24676",
+      "sha256": "2f28edbbf3c462cbbf35a950169aff7cb7b84603faf819f52b4871e1ff346547",
+      "size": 6077,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "a14e032a662d18c29bb04dc741325f4c8daaed25",
-      "sha256": "559d11d82ecb4dd9f6ccbc4bbb16cea387132fc41715fa33854e437b1fe1e0e2",
-      "size": 545,
+      "sha1": "74eba16297b7d240b76fa89a60b15362763ae9c7",
+      "sha256": "9f98f5aae5ab3f5b9e53ebba046156617a7aa25f03debd09907dab3c802069a0",
+      "size": 2502,
       "mode": "100644"
     },
     {
       "path": "static/css/style.scss",
-      "sha1": "ce6ebee5ba73bde52706906d1e2db3d17739b756",
-      "sha256": "cd8d07c1458386e7f0d13f0b84cda722b1a86f4c66388e34219dfdfe04a3ce51",
-      "size": 1213,
+      "sha1": "887e3a3353ed817578145916255e5ad5e92def8c",
+      "sha256": "65f3b2ab430ec8e813513f08ac0c26f3f6e8d413b9a3d7ec1f45708a78e8099b",
+      "size": 6035,
       "mode": "100644"
     },
     {
       "path": "static/js/script.js",
-      "sha1": "f96d4b1303f8afbb48888e8fb99da9e793865c9f",
-      "sha256": "aeafafe2cf4fead7acb1bee24164f907a5024b8cdd57250b900c350c61f0a9d2",
-      "size": 4992,
+      "sha1": "13ce99b00236a20834f7cdc5547c1a1e94de2000",
+      "sha256": "0652246adc79cd18bc4320b2bbfb9394b80c498c7aa9166133071cf8d03bd196",
+      "size": 7200,
       "mode": "100644"
     },
     {
@@ -403,10 +403,115 @@
       "mode": "100755"
     },
     {
+      "path": "static/assets/fonts/ABCMarist-Medium.woff2",
+      "sha1": "6c270110ae0d5f73d1bc8854d2a917620cb71528",
+      "sha256": "f24b51fcf85f56c3ab3c42154f6a39fb6cd071bad85938b5988613e5f8750e49",
+      "size": 64128,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/ABCMarist-Regular.woff2",
+      "sha1": "61fc17093301c4783a4cd07de4c86ed028b6bf46",
+      "sha256": "3e2e4b3cb3637510d8644a933bd7c5f088bb6cd03c0ba6d87aec7de741b22518",
+      "size": 64200,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/IvarText-Medium.otf",
+      "sha1": "f465e5514e7b2601d39fd44fd9c4e8dcb5e81f72",
+      "sha256": "5c0ff19b35a043f6908494325b0204a6888b5fb81f834359f281b3d2d27daf47",
+      "size": 12528,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/IvarText-Regular.otf",
+      "sha1": "3e724275c205572413ff175bbff9bf27886a67b8",
+      "sha256": "c900dbe92ad14f9cdbd443817729d69a8a6760bf0d3e2a3e2d4760b3071afd04",
+      "size": 12284,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/SuisseIntlMono-Bold-WebTrial.woff2",
+      "sha1": "8913aed251a4d5f329e23ca5dc18b758ad1f62e7",
+      "sha256": "d1a71b56bbecc05d2020801648fc2c4300ae1a504081c5fc91b3fe40140fb101",
+      "size": 7136,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/SuisseIntlMono-Light.woff2",
+      "sha1": "bf68d9a9e66410721cb99c93fd7586a8c91ac963",
+      "sha256": "71638e1a9175ec0f3630f0f0d1c386aa0e4f8e64e3e43a9327890b17e3a73c7a",
+      "size": 7124,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/SuisseIntlMono-Regular.woff2",
+      "sha1": "86d52427b333489bbf06aeb3c7a3f39eb85a98bd",
+      "sha256": "c4940aee78da9097e6498f198bb81586cd4a1e33e3354a317b65cd1c36030dae",
+      "size": 7196,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/SuisseWorks-Bold-WebTrial.woff2",
+      "sha1": "ef7105ae55ad7849f2dcdcac9d6e0f5d1e8926dd",
+      "sha256": "90dbb1e80c03abcffa36f3e20b912af180d838254485947d296eecf95d5d636b",
+      "size": 12504,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/SuisseWorks-BoldItalic-WebTrial.woff2",
+      "sha1": "3b5c8295cad35b6ebef59080cd61317c23ba25bf",
+      "sha256": "81791c4f4cbc094ea3410fb04209942e6957273eb85230259137222508d7c7d6",
+      "size": 13360,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/SuisseWorks-Book-WebTrial.woff2",
+      "sha1": "21a86a8dfab600406774b45998fd7d05ed4d91b2",
+      "sha256": "cb890db21fbcdfd4ded44a025dd666ef93910a74d2c8a4d3f75d3514cfa3d30c",
+      "size": 13124,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/SuisseWorks-BookItalic-WebTrial.woff2",
+      "sha1": "33606ad018c148ab7f16e2b02962bd087cd711e8",
+      "sha256": "47ca35fddfde0a9231513fe8b284b5aa11a5e59e9c1e58dc658f644616a676b5",
+      "size": 13432,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/SuisseWorks-Medium.woff2",
+      "sha1": "f753dbf787313b22658620f13e96d3ef49a52fc2",
+      "sha256": "2f86223ea7aed6a2e256798bc70cb9a7a03502e7da50ca39ada9789858d3afbd",
+      "size": 12796,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/SuisseWorks-MediumItalic-WebTrial.woff2",
+      "sha1": "e0b0abf8698d5905c3b8fd53fea4901e1b237da7",
+      "sha256": "fad0a1931e380fe21177cdc1f3995325f3e00289e735f0a39399b074850ecfa1",
+      "size": 13388,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/SuisseWorks-Regular.woff2",
+      "sha1": "5a123067f4691da4e783d6150072fc6eebc6acdd",
+      "sha256": "acb1102b31e0df436de30a965fdb7a1740e0b9a2e08d5a78f732590cb2be9aef",
+      "size": 12828,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/SuisseWorks-RegularItalic-WebTrial.woff2",
+      "sha1": "963f7801ab2f0c54efb3b248b73cf70a6055b1b2",
+      "sha256": "13417474247f79845d986e56b80d3aa3dd3244c476cf75db436858a27e99acb0",
+      "size": 12840,
+      "mode": "100644"
+    },
+    {
       "path": "templates/index.html",
-      "sha1": "28826eaa6f68cf3a899f2cfb5283b3480752a6e0",
-      "sha256": "28fafe69ee932b02d2ab8e2df44f9ba3e62f923a4769cb364813110993b29a6f",
-      "size": 644,
+      "sha1": "63b0686273855b28a0ac4bcf208786f4a0759b93",
+      "sha256": "73cd4c41b6715a10c14dd54d5e0159140b9907b89160eb5bcc426f5f6967acd3",
+      "size": 1179,
       "mode": "100644"
     }
   ],
@@ -423,7 +528,15 @@
       "reason": "generated-file"
     },
     {
+      "path": "static/assets/.DS_Store",
+      "reason": "generated-file"
+    },
+    {
       "path": "static/assets/images/.DS_Store",
+      "reason": "generated-file"
+    },
+    {
+      "path": "static/assets/fonts/.DS_Store",
       "reason": "generated-file"
     }
   ],

@@ -1,3 +1,5 @@
+
+
 // Function called when user sends a message
 function sendMessage() {
     const input = document.getElementById('user-input');
@@ -17,7 +19,6 @@ function sendMessage() {
     // Await the data and display the projects as decided by the LLM
     .then(data => {
 
-        
         // Create a container for the projects and append it to the content container
         const contentContainer = document.querySelector('.content-container');
         
@@ -61,18 +62,37 @@ function sendMessage() {
                     singleProject.id = projectName;
                     projectsContainer.appendChild(singleProject);
 
+                    // Create images container
+                    const projectImagesContainer = document.createElement('div');
+                    projectImagesContainer.classList.add('project-images-container');
+                    singleProject.appendChild(projectImagesContainer);
+
+                    // Create info container 
+                    const projectInfoContainer = document.createElement('div');
+                    projectInfoContainer.classList.add('project-info-container');
+                    singleProject.appendChild(projectInfoContainer);
+
                     // Add project title for new projects
                     const projectTitle = document.createElement('div');
                     projectTitle.innerHTML = projectName;
-                    singleProject.appendChild(projectTitle);
+                    projectTitle.classList.add('project-title');
+                    projectInfoContainer.appendChild(projectTitle);
 
                     // Add first image from project's image folder
+                    const projectImageContainer = document.createElement('div');
+                    projectImageContainer.classList.add('project-title-image-container');
+                    
                     const projectImage = document.createElement('img');
-                    projectImage.src = `assets/images/${projectName}/1.jpg`;
+                    projectImage.src = `/static/assets/images/${projectName}/1.jpg`;
                     projectImage.alt = `${projectName} artwork`;
                     projectImage.classList.add('project-title-image');
-                    singleProject.appendChild(projectImage);
+                    
+                    projectImageContainer.appendChild(projectImage);
+                    projectImagesContainer.appendChild(projectImageContainer);
                 }
+
+                // Get reference to project info container (because defined in different scope)
+                const projectInfoContainer = singleProject.querySelector('.project-info-container');
 
                 // Loop through each field in the project data (year, material, dimensions, description)
                 Object.entries(projectData).forEach(([fieldName, fieldData]) => {
@@ -82,7 +102,7 @@ function sendMessage() {
                     if (!fieldDiv) {
                         fieldDiv = document.createElement('div');
                         fieldDiv.classList.add(fieldName);
-                        singleProject.appendChild(fieldDiv);
+                        projectInfoContainer.appendChild(fieldDiv);
                     }
 
                     // Update field content and visibility
@@ -95,6 +115,14 @@ function sendMessage() {
                     }
                 });
             });
+
+        // Update prompt suggestions regardless of request validity
+        const promptProposalOne = document.querySelector('.prompt-proposal-1');
+        promptProposalOne.innerHTML = data.prompt_proposal_1;
+
+        const promptProposalTwo = document.querySelector('.prompt-proposal-2');
+        promptProposalTwo.innerHTML = data.prompt_proposal_2;
+        
         }
         
         console.log(data);
@@ -113,3 +141,27 @@ document.getElementById('user-input').addEventListener('keypress', function(e) {
         sendMessage();
     }
 }); 
+
+
+
+
+
+
+// Function called when user clicks on a prompt proposal
+function handlePromptClick(element) {
+    const input = document.getElementById('user-input');
+    input.value = element.innerHTML;
+    
+    setTimeout(() => {
+        sendMessage();
+    }, 500);
+}
+
+// Add event listeners when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const promptProposalOne = document.querySelector('.prompt-proposal-1');
+    const promptProposalTwo = document.querySelector('.prompt-proposal-2');
+
+    promptProposalOne.addEventListener('click', () => handlePromptClick(promptProposalOne));
+    promptProposalTwo.addEventListener('click', () => handlePromptClick(promptProposalTwo));
+});

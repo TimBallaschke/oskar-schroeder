@@ -7,11 +7,24 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+    <div class="webpage-title">Oskar Schroeder</div>
     <div class="content-container">
     </div>
-    <div class="input-container">
-        <input type="text" class="message-input" id="user-input" placeholder="Ask about Oskar Schoreder...">
-        <button class="send-button" onclick="sendMessage()">Send</button>
+    <div class="bottom-navigation">
+        <div class="prompt-proposals">
+            <div class="prompt-proposal-1">Show Oskars projects</div>
+            <div class="prompt-proposal-2">Tell me about Oskar</div>
+        </div>
+        <div class="input-bar-container">
+            <div class="input-bar">
+                <div class="input-bar-elements">
+                    <input type="text" class="message-input" id="user-input" placeholder="Ask about Oskar Schroeder ...">
+                    <div class="button-container">
+                        <button class="send-button" onclick="sendMessage()"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
