@@ -87,17 +87,13 @@ function sendMessage() {
                     singleProject.appendChild(projectInfoContainer);
 
                     // Add project title for new projects
-                    const projectTitleContainer = document.createElement('div');
-                    projectTitleContainer.classList.add('project-title-container');
-                    
                     const projectTitle = document.createElement('div');
                     projectTitle.innerHTML = projectName;
                     projectTitle.classList.add('project-title');
                     // Add click event listener to project title
                     projectTitle.addEventListener('click', () => handlePromptClick(projectTitle));
                     
-                    projectTitleContainer.appendChild(projectTitle);
-                    projectInfoContainer.appendChild(projectTitleContainer);
+                    projectInfoContainer.appendChild(projectTitle);
 
                     // Add first image from project's image folder
                     const projectImageContainer = document.createElement('div');

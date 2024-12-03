@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "241203_Oskar_Website_placeholder_informations_projects",
+  "original_folder": "241203b_Oskar_Website_new_systemprompt",
   "snapshot_date_from_folder": "241203",
   "source_files": [
     {
@@ -19,37 +19,37 @@
     },
     {
       "path": "main.py",
-      "sha1": "4a462e2b71a32866e7ae1c6a7f8c40e7327e0fda",
-      "sha256": "18116bf2f38951c5242a0814703fc5f4d453bd3331d7943e67205e4e314d3d37",
-      "size": 42976,
+      "sha1": "32e02ae9bf27993ab30d1e3fb4efdaf9076687d1",
+      "sha256": "87582d735d9d91679433b7e41c74c9488ffca86bab27bca1f14334d454cd4369",
+      "size": 54133,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css",
-      "sha1": "f426c2f9d64e35a03e43b6c3ea0aee7003288cd2",
-      "sha256": "5e4f919776e4d3d964dded61c5f606cbbb229de7cb68139f4163f7bd783d45ef",
-      "size": 6566,
+      "sha1": "607084d93c00dd245c15bcc365e124d5bae08be5",
+      "sha256": "af803a98a51253f714aeec3009aaff751eabba066a827c5b1e71bf45ddbc0acb",
+      "size": 7105,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "823b00286e94d7b91a2c922f27454c89822c34cf",
-      "sha256": "571bd9c8354941358d402915854315199a326c79210a5a7745b84c1ac11e92d9",
-      "size": 2699,
+      "sha1": "27eeade7825cebfd7002489dd917e46a40ec8669",
+      "sha256": "226ac1badef6745e5ee1bba6a3182315746fb25ca30d0211d26bd0fb1df96d7a",
+      "size": 2873,
       "mode": "100644"
     },
     {
       "path": "static/css/style.scss",
-      "sha1": "ee7bed9534d70d8093606b4fe6c24d101ad891b8",
-      "sha256": "e843f5b9eb1a905df1a0a3cf43e5b004c3771124e6d2c6076367033a2c0af1c5",
-      "size": 6474,
+      "sha1": "362df3818628c96ba77c0b9cee7af2cc05a0cbb0",
+      "sha256": "6773d7252f076a9ce47228e5d3898420635086070923cfecb6de6fa899ca365e",
+      "size": 7055,
       "mode": "100644"
     },
     {
       "path": "static/js/script.js",
-      "sha1": "ccf68858dece9bc9a4de217e0d8d273ace83df39",
-      "sha256": "dc19f199b01eef874578969d7a8c0d9cce863bbe609f0639b4a4bbc6036ad0c8",
-      "size": 7603,
+      "sha1": "59b049651abdfb4ac4863dc7deb0d84e0cc5ccea",
+      "sha256": "cdb0363a9ec0d194b956cd5ff94fb5e9d39de7ecbb3e690f93a99370945612e9",
+      "size": 7339,
       "mode": "100644"
     },
     {
@@ -60,21 +60,21 @@
       "mode": "100644"
     },
     {
-      "path": "static/assets/images/Hypo/Hypo 1.jpg",
-      "sha1": "edc0fa5414f684116b3e37ff66ff5d58cc884355",
-      "sha256": "73e7cec29742688590d3afebeb05c8a9521582e09cd4eadcf918ab21e2a0e255",
-      "size": 2487345,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/Hypo/Hypo 2.jpg",
+      "path": "static/assets/images/Hypo/1.jpg",
       "sha1": "8208ac5e51f6029c93360da22df02216de5bf60e",
       "sha256": "91fdf174500c873123953ec58aa8f6ce347c4db770f4598cb0275e7aeccf82ff",
       "size": 1142729,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/Hypo/Hypo closeup.jpg",
+      "path": "static/assets/images/Hypo/Hypo1.jpg",
+      "sha1": "edc0fa5414f684116b3e37ff66ff5d58cc884355",
+      "sha256": "73e7cec29742688590d3afebeb05c8a9521582e09cd4eadcf918ab21e2a0e255",
+      "size": 2487345,
+      "mode": "100755"
+    },
+    {
+      "path": "static/assets/images/Hypo/Hypocloseup.jpg",
       "sha1": "2c47185ecaf52204f7b1b4f4b4572bc9cdeb178e",
       "sha256": "02bf9cfac238c869f6796b1d291fac3cb2443289aba7248638fb255af9fab1ca",
       "size": 1961387,
@@ -88,38 +88,38 @@
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/Einsatz/Einsatz closeup.jpg",
+      "path": "static/assets/images/Einsatz/Einsatzcloseup.jpg",
       "sha1": "51931959f4be0b56c1b2bb4a909890b848bf6a2d",
       "sha256": "c58634a8e11d35454d06e46042da678e2fb0d145595cffb0c2c4236d30fd692c",
       "size": 550661,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/Einsatz/Einsatz closeup2.jpg",
+      "path": "static/assets/images/Einsatz/Einsatzcloseup2.jpg",
       "sha1": "4a8a32175acbfb56957824c1bb28d949a72d56a3",
       "sha256": "cc934af98776454fd7ba95570a4fbbf96efb76ed12db3e562b32ad3547188d7c",
       "size": 610757,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/Einsatz/Einsatz quer.jpg",
+      "path": "static/assets/images/Einsatz/Einsatzquer.jpg",
       "sha1": "95f13df0f8d98dc070fd28a5601d0d6f75be0c7f",
       "sha256": "0570620c9792b255025249732c563108a721536111bbcb7bb2c4b5be4a4391f9",
       "size": 1765247,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/Einsatz/Einsatz totale.jpg",
+      "path": "static/assets/images/Einsatz/Einsatztotale.jpg",
       "sha1": "d7916617aa358b9cc891331c8355f1a21e6928cb",
       "sha256": "3a018912dd026bfc76acf5f37a2f2d633157dd583749c1c6cde54ab1a0eccf79",
       "size": 1493638,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/O.t./O.t. closeup.jpg",
-      "sha1": "db39553cd3ffff6d206bdf9f847580b445efe6da",
-      "sha256": "66ad1a4af7abf9c80168708e1df131b6dfcb31480dc9373b1af821ff60af6e0e",
-      "size": 5966953,
+      "path": "static/assets/images/O.t./1.jpg",
+      "sha1": "ce35209ab8b2abd36429667c121202746077b8ed",
+      "sha256": "6d30cf1f7d2b3ad6cdfdd9347c8a06a03b558f70c5e81401a9f9e1ba8dfb8485",
+      "size": 1522989,
       "mode": "100755"
     },
     {
@@ -127,13 +127,6 @@
       "sha1": "ce31143d953f31b756e8ccd258079b3105d107e6",
       "sha256": "7c84976607da00967d3fccc4d4ba2b6676c57ed1ee8bc23cf318ee2cb53f2b4f",
       "size": 1291342,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/O.t./O.t.-Stuck-klein-(2.1).jpg",
-      "sha1": "ce35209ab8b2abd36429667c121202746077b8ed",
-      "sha256": "6d30cf1f7d2b3ad6cdfdd9347c8a06a03b558f70c5e81401a9f9e1ba8dfb8485",
-      "size": 1522989,
       "mode": "100755"
     },
     {
@@ -151,14 +144,21 @@
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/O.t./o.t. 1.jpg",
+      "path": "static/assets/images/O.t./O.t.closeup.jpg",
+      "sha1": "db39553cd3ffff6d206bdf9f847580b445efe6da",
+      "sha256": "66ad1a4af7abf9c80168708e1df131b6dfcb31480dc9373b1af821ff60af6e0e",
+      "size": 5966953,
+      "mode": "100755"
+    },
+    {
+      "path": "static/assets/images/O.t./o.t.1.jpg",
       "sha1": "feec5b97fd3057a41c89f201777f3e804597042f",
       "sha256": "ded69bd6c2e170554da9e60860db2001ddc600018b9b7c178af1431c8a89eb97",
       "size": 1426399,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/O.t./o.t. closeup 2.jpg",
+      "path": "static/assets/images/O.t./o.t.closeup 2.jpg",
       "sha1": "65c1bf1a8bbf43e1508b2162cd38ac381037121f",
       "sha256": "831ed9c1db68bf57c90406e65fc5cf3202ba0f4283b83738e858a0c40ff22cc8",
       "size": 928633,
@@ -172,24 +172,24 @@
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/Wild/Wild 2.jpg",
+      "path": "static/assets/images/Wild/Wild,Hypo und Sand totale.jpg",
+      "sha1": "b23ff497bfbf888ce57a177346f8df321243d811",
+      "sha256": "fa2c79f135e0b92cfd43b53f69e1d5ffcc1abce5cef39fbbf5637e153c4bdd85",
+      "size": 1247593,
+      "mode": "100755"
+    },
+    {
+      "path": "static/assets/images/Wild/Wild2.jpg",
       "sha1": "7455621527eb07771c9ef3e2fa866b4f9e5c190b",
       "sha256": "245cc15788e4d0ccb66117c2938decc571d7d973f59d408997256376c5832448",
       "size": 710434,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/Wild/Wild closeup.jpg",
+      "path": "static/assets/images/Wild/Wildcloseup.jpg",
       "sha1": "007b6be287a6f15f299891e7c3970708addb1381",
       "sha256": "8ca8b08fd7f19c537e9393508c2ee67f9ae85961c2628b68614db26bfb043de6",
       "size": 1883595,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/Wild/Wild, Hypo und Sand totale.jpg",
-      "sha1": "b23ff497bfbf888ce57a177346f8df321243d811",
-      "sha256": "fa2c79f135e0b92cfd43b53f69e1d5ffcc1abce5cef39fbbf5637e153c4bdd85",
-      "size": 1247593,
       "mode": "100755"
     },
     {
@@ -375,17 +375,17 @@
       "mode": "100755"
     },
     {
+      "path": "static/assets/images/Landschaft/1.jpg",
+      "sha1": "0dac7712ef2a4231b55a7d3883edab72c4acd721",
+      "sha256": "de8ba49c47f3645af5f5294a509d0fc6eccc9ecb8ca80f0c339935cabfc25fd1",
+      "size": 3119864,
+      "mode": "100755"
+    },
+    {
       "path": "static/assets/images/Landschaft/Landschaft-002.jpg",
       "sha1": "68e08d6999dce9d570bbc65acf04735f4b980258",
       "sha256": "f71e7aaa4fc4a8967ad9f261fb8e077f2f0f4b442bc47a62efc4c35dabe8b63a",
       "size": 1982369,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/Landschaft/Landschaft-005.jpg",
-      "sha1": "0dac7712ef2a4231b55a7d3883edab72c4acd721",
-      "sha256": "de8ba49c47f3645af5f5294a509d0fc6eccc9ecb8ca80f0c339935cabfc25fd1",
-      "size": 3119864,
       "mode": "100755"
     },
     {
@@ -414,6 +414,20 @@
       "sha1": "61fc17093301c4783a4cd07de4c86ed028b6bf46",
       "sha256": "3e2e4b3cb3637510d8644a933bd7c5f088bb6cd03c0ba6d87aec7de741b22518",
       "size": 64200,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/ABCMonumentGrotesk-Bold.woff2",
+      "sha1": "164f03d5c3855b0547a222a328a0b636871cd44d",
+      "sha256": "e9e4ed3d2cd9fdaf1326df85811e416968fc74f009cdc4f4458e4f4b28628fff",
+      "size": 46768,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/ABCMonumentGrotesk-Regular.woff2",
+      "sha1": "18354991e829d09c8a9656d1855f3b710b18f5dd",
+      "sha256": "818eabaa5e58ec9f1e693bd9cdb816aea240bc4a3da7ef3781c9fdbd1cc91669",
+      "size": 44796,
       "mode": "100644"
     },
     {
