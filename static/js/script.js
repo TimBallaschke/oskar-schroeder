@@ -1,3 +1,17 @@
+// Generic handler for clicking on prompt elements that should be copied to input
+function handlePromptClick(element) {
+    const input = document.getElementById('user-input');
+    input.value = element.innerHTML;
+}
+
+// Add event listeners when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const promptProposalOne = document.querySelector('.prompt-proposal-1');
+    const promptProposalTwo = document.querySelector('.prompt-proposal-2');
+
+    promptProposalOne.addEventListener('click', () => handlePromptClick(promptProposalOne));
+    promptProposalTwo.addEventListener('click', () => handlePromptClick(promptProposalTwo));
+});
 
 
 // Function called when user sends a message
@@ -73,10 +87,17 @@ function sendMessage() {
                     singleProject.appendChild(projectInfoContainer);
 
                     // Add project title for new projects
+                    const projectTitleContainer = document.createElement('div');
+                    projectTitleContainer.classList.add('project-title-container');
+                    
                     const projectTitle = document.createElement('div');
                     projectTitle.innerHTML = projectName;
                     projectTitle.classList.add('project-title');
-                    projectInfoContainer.appendChild(projectTitle);
+                    // Add click event listener to project title
+                    projectTitle.addEventListener('click', () => handlePromptClick(projectTitle));
+                    
+                    projectTitleContainer.appendChild(projectTitle);
+                    projectInfoContainer.appendChild(projectTitleContainer);
 
                     // Add first image from project's image folder
                     const projectImageContainer = document.createElement('div');
@@ -140,28 +161,4 @@ document.getElementById('user-input').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         sendMessage();
     }
-}); 
-
-
-
-
-
-
-// Function called when user clicks on a prompt proposal
-function handlePromptClick(element) {
-    const input = document.getElementById('user-input');
-    input.value = element.innerHTML;
-    
-    setTimeout(() => {
-        sendMessage();
-    }, 500);
-}
-
-// Add event listeners when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    const promptProposalOne = document.querySelector('.prompt-proposal-1');
-    const promptProposalTwo = document.querySelector('.prompt-proposal-2');
-
-    promptProposalOne.addEventListener('click', () => handlePromptClick(promptProposalOne));
-    promptProposalTwo.addEventListener('click', () => handlePromptClick(promptProposalTwo));
 });
