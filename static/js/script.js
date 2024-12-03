@@ -96,16 +96,16 @@ function sendMessage() {
                     projectInfoContainer.appendChild(projectTitle);
 
                     // Add first image from project's image folder
-                    const projectImageContainer = document.createElement('div');
-                    projectImageContainer.classList.add('project-title-image-container');
+                    const projectTitleImageContainer = document.createElement('div');
+                    projectTitleImageContainer.classList.add('project-title-image-container');
                     
                     const projectImage = document.createElement('img');
                     projectImage.src = `/static/assets/images/${projectName}/1.jpg`;
                     projectImage.alt = `${projectName} artwork`;
                     projectImage.classList.add('project-title-image');
                     
-                    projectImageContainer.appendChild(projectImage);
-                    projectImagesContainer.appendChild(projectImageContainer);
+                    projectTitleImageContainer.appendChild(projectImage);
+                    projectImagesContainer.appendChild(projectTitleImageContainer);
                 }
 
                 // Get reference to project info container (because defined in different scope)
@@ -114,21 +114,52 @@ function sendMessage() {
                 // Loop through each field in the project data (year, material, dimensions, description)
                 Object.entries(projectData).forEach(([fieldName, fieldData]) => {
                     let fieldDiv = singleProject.querySelector(`.${fieldName}`);
-                    
-                    // If field doesn't exist, create it
-                    if (!fieldDiv) {
-                        fieldDiv = document.createElement('div');
-                        fieldDiv.classList.add(fieldName);
-                        projectInfoContainer.appendChild(fieldDiv);
-                    }
 
-                    // Update field content and visibility
-                    fieldDiv.innerHTML = fieldData.value;
-                    
-                    if (!fieldData.active) {
-                        fieldDiv.classList.add('inactive');
+                    // Handle multiple_images field
+                    if (fieldName === 'multiple_images') {
+                        // Get the project images container
+                        const projectImagesContainer = singleProject.querySelector('.project-images-container');
+                        
+                        if (fieldData) {
+                            // Create additional images (2-10)
+                            for (let i = 2; i <= 10; i++) {
+                                const imageContainer = document.createElement('div');
+                                imageContainer.classList.add('project-image-container');
+                                
+                                const image = document.createElement('img');
+                                image.src = `/static/assets/images/${projectName}/${i}.jpg`;
+                                image.alt = `${projectName} artwork ${i}`;
+                                image.classList.add('project-image');
+                                
+                                // Add error handler to remove container if image doesn't exist
+                                image.onerror = () => {
+                                    imageContainer.remove();
+                                };
+                                
+                                imageContainer.appendChild(image);
+                                projectImagesContainer.appendChild(imageContainer);
+                            }
+                        } else {
+                            // If multiple_images is false, remove all images but the first one
+                            const images = singleProject.querySelector('.project-images-container').querySelectorAll('.project-image-container');
+                            images.forEach(image => image.remove());
+                        }
                     } else {
-                        fieldDiv.classList.remove('inactive');
+                        // Handle other fields
+                        if (!fieldDiv) {
+                            fieldDiv = document.createElement('div');
+                            fieldDiv.classList.add(fieldName);
+                            projectInfoContainer.appendChild(fieldDiv);
+                        }
+
+                        // Update field content and visibility
+                        fieldDiv.innerHTML = fieldData.value;
+                        
+                        if (!fieldData.active) {
+                            fieldDiv.classList.add('inactive');
+                        } else {
+                            fieldDiv.classList.remove('inactive');
+                        }
                     }
                 });
             });

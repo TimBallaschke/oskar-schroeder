@@ -180,7 +180,7 @@ project_data_1 = {
 }
 
 project_data_2 = {
-    "name": "Look",
+    "name": "Schau",
     "year": 2019,
     "material": "Wood, Glass",
     "dimensions": "200x450x600cm",
@@ -309,7 +309,7 @@ project_data_4 = {
 }
 
 project_data_5 = {
-    "name": "Landscape",
+    "name": "Landschaft",
     "year": 2022,
     "material": "Wool, Plant Fibers, Soil, Ash",
     "dimensions": "300x100cm", 

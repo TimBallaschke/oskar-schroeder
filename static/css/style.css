@@ -119,12 +119,9 @@ body {
   grid-row: 1/2;
   grid-column: 1/2;
   font-family: "Monument Grotesk Regular";
-  border-radius: 24px;
   padding: 3px 11px 1px 10px;
   display: inline-block;
-  backdrop-filter: invert(1);
-  -webkit-backdrop-filter: invert(1);
-  color: #191919;
+  color: #fff;
 }
 .single-project .project-info-container .project-title::before {
   content: "";
