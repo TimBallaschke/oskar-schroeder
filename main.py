@@ -127,7 +127,7 @@ project_data_1 = {
     "material": "Steel, Concrete, Fabric",
     "dimensions": "200x50x400cm",
     "description": (
-        "\"Deployment\" was created through a meticulous process that combined precision engineering with organic experimentation. "
+        "\"Einsatz\" was created through a meticulous process that combined precision engineering with organic experimentation. "
         "At its core, the artwork utilizes industrial rebar, selected for its resilience and its symbolic representation of construction and support. "
         "These metal rods were carefully measured, cut, and welded to form a geometric framework that balances tension and stability. "
         "The angles and intersections of the rods were deliberately manipulated to create a structure that feels both precarious and deliberate, "
@@ -146,7 +146,7 @@ project_data_1 = {
         "and material scientists to refine the polymer treatments for the fabric. Extensive iterations and experiments were conducted "
         "to achieve the intended balance of visual tension and physical stability.\n\n"
         
-        "\"Deployment\" examines the complex interplay between order and chaos, rigidity and fluidity, permanence and impermanence. "
+        "\"Einsatz\" examines the complex interplay between order and chaos, rigidity and fluidity, permanence and impermanence. "
         "The term \"deployment\" reflects the act of positioning, activating, or utilizing elements within a space or system. "
         "This theme is explored through the juxtaposition of industrial materials like rebar and concrete—symbols of urban development—and "
         "the ethereal, transient nature of fabric and light.\n\n"
@@ -163,7 +163,7 @@ project_data_1 = {
         "seeking to harmonize structural integrity with aesthetic flexibility. Field studies in urban ruins, where nature and infrastructure collide, "
         "further informed the aesthetic and conceptual approach.\n\n"
         
-        "\"Deployment\" premiered at the Liminal Constructs Exhibition at the Zentrum für Zeitgenössische Kunst in Leipzig. "
+        "\"Einsatz\" premiered at the Liminal Constructs Exhibition at the Zentrum für Zeitgenössische Kunst in Leipzig. "
         "The exhibition space, a repurposed factory hall, played an integral role in the impact of the artwork. "
         "With its high ceilings, exposed beams, and expansive windows, the industrial setting resonated with the themes of the piece "
         "while allowing natural light to dynamically interact with it.\n\n"
@@ -185,7 +185,7 @@ project_data_2 = {
     "material": "Wood, Glass",
     "dimensions": "200x450x600cm",
     "description": (
-        "\"Look\" is a minimalist exploration of materiality and perception, conceived through a deliberate engagement with found materials "
+        "\"Schau\" is a minimalist exploration of materiality and perception, conceived through a deliberate engagement with found materials "
         "and industrial aesthetics. The production process began with the selection of salvaged plywood panels, which were chosen for their "
         "visible signs of wear and age. These panels were carefully measured and assembled into a cubic form, emphasizing clean lines and a "
         "neutral palette that invites focus on the material itself. The artist left the surfaces intentionally untreated apart from a light "
@@ -199,14 +199,14 @@ project_data_2 = {
         "the collaboration of material specialists to ensure the glass's stability and optical clarity. The choice of materials and their "
         "unadorned presentation underscore the artist's commitment to exposing the inherent qualities of each element.\n\n"
 
-        "At its core, \"Look\" examines the act of seeing and the subtle interplay between observer and object. By presenting a simple, "
+        "At its core, \"Schau\" examines the act of seeing and the subtle interplay between observer and object. By presenting a simple, "
         "unembellished form, the work challenges viewers to question their expectations of an artwork and focus instead on the act of "
         "observation itself. The cube, with its utilitarian materials and construction, serves as a vessel for reflection—both literally "
         "and figuratively. The inclusion of the glass invites a dual engagement: viewers are prompted to consider the object as it exists "
         "in space while simultaneously confronting their own image and its distortion within the reflective surface. This tension between "
         "presence and absence, materiality and immateriality, lies at the heart of the work.\n\n"
 
-        "\"Look\" is conceptually informed by minimalist art movements of the 20th century, particularly the works of Donald Judd and Carl Andre, "
+        "\"Schau\" is conceptually informed by minimalist art movements of the 20th century, particularly the works of Donald Judd and Carl Andre, "
         "who emphasized materiality and form over narrative or symbolism. The artist also draws inspiration from the philosophies of Zen Buddhism, "
         "where simplicity and directness are key principles. Research into perceptual psychology played a role in the development of the piece, "
         "with a focus on how human cognition interprets and assigns meaning to simple shapes and reflective surfaces. This research informed "
@@ -218,8 +218,8 @@ project_data_2 = {
         "shifting reflections on the glass surface changed throughout the day, lending the piece a temporal dimension that encouraged repeat "
         "viewings. Visitors were invited to walk around the work and observe it from various angles, engaging with the subtle changes in "
         "perception. The exhibition included a panel discussion on the role of found materials in contemporary art, where the artist shared "
-        "insights into the creation of \"Look\" and its philosophical underpinnings. By stripping away embellishments and focusing on the "
-        "essentials, \"Look\" invites a deeper contemplation of how we engage with the objects and spaces around us."
+        "insights into the creation of \"Schau\" and its philosophical underpinnings. By stripping away embellishments and focusing on the "
+        "essentials, \"Schau\" invites a deeper contemplation of how we engage with the objects and spaces around us."
     ),
 }
 
@@ -278,7 +278,7 @@ project_data_4 = {
     "material": "Concrete, Plaster",
     "dimensions": "5x8x10cm", 
     "description": (
-        "\"O.t\" is a minimalist wall-mounted sculpture that explores themes of geological time, material transformation, and the intersection of natural and human processes. "
+        "\"O.t.\" is a minimalist wall-mounted sculpture that explores themes of geological time, material transformation, and the intersection of natural and human processes. "
         "The artwork was created using a mixture of plaster, concrete, and natural pigments, resulting in a surface that evokes the textures and patterns of sedimentary rock formations. "
         "The artist began the process by casting thin layers of plaster into irregularly shaped molds, allowing the material to set unevenly. "
         "This approach was intentionally organic, with each layer capturing subtle variations in thickness, color, and texture.\n\n"
@@ -288,22 +288,22 @@ project_data_4 = {
         "During the production process, small amounts of sand and mineral fragments were embedded into the material, enhancing its geological quality and connecting the work to the natural landscapes that inspired it. "
         "The layering technique was informed by the artist's research into stratigraphy—the study of rock layers and their historical significance—which became a conceptual foundation for the piece.\n\n"
 
-        "\"O.t\" is an exploration of form and perception, inviting viewers to engage with its surface and structure as a metaphor for time and transformation. "
+        "\"O.t.\" is an exploration of form and perception, inviting viewers to engage with its surface and structure as a metaphor for time and transformation. "
         "The title, an abbreviation for \"Ohne Titel\" (Untitled), reflects the artist's intention to leave the work open to interpretation, free of prescriptive meaning or narrative. "
         "The irregular, almost map-like appearance of the piece suggests a sense of discovery, as though it were a fragment of a larger, ancient form unearthed and preserved. "
         "The subtle interplay of materials and textures asks viewers to consider the ways in which natural processes and human intervention overlap, coexist, and reshape one another.\n\n"
 
         "The artwork is rooted in material experimentation and informed by the aesthetics of land art and minimalism. "
         "It draws inspiration from artists such as Richard Long, whose work emphasizes the relationship between natural materials and human touch, and the architectural surfaces of Tadao Ando, known for their interplay of light and texture. "
-        "In preparation for \"O.t,\" the artist conducted field studies in quarries and coastal landscapes, photographing rock formations and collecting samples that influenced the composition and materiality of the piece.\n\n"
+        "In preparation for \"O.t.\", the artist conducted field studies in quarries and coastal landscapes, photographing rock formations and collecting samples that influenced the composition and materiality of the piece.\n\n"
 
-        "\"O.t\" was first exhibited in the group show \"Fragments and Echoes\" at the Modern Art Forum in Zurich. "
+        "\"O.t.\" was first exhibited in the group show \"Fragments and Echoes\" at the Modern Art Forum in Zurich. "
         "Installed on a stark white wall, the work appeared to float, its irregular form standing in quiet contrast to the smooth surface behind it. "
         "Subtle lighting emphasized the texture and depth of the sculpture, casting delicate shadows that shifted with the viewer's perspective. "
         "The placement encouraged close observation, inviting viewers to trace their fingers along its surface and engage with its tactile qualities. "
         "Accompanying the exhibition was a series of artist talks and workshops focused on the use of natural and industrial materials in contemporary art, further contextualizing the work within a broader dialogue about materiality and process.\n\n"
 
-        "\"O.t\" embodies a sense of timelessness and continuity, reminding viewers of the slow, accumulative processes that shape the physical world. "
+        "\"O.t.\" embodies a sense of timelessness and continuity, reminding viewers of the slow, accumulative processes that shape the physical world. "
         "Its simplicity belies a profound complexity, drawing attention to the beauty found in irregularity and the quiet resonance of material transformations."
     ),
 }
@@ -314,7 +314,7 @@ project_data_5 = {
     "material": "Wool, Plant Fibers, Soil, Ash",
     "dimensions": "300x100cm", 
     "description": (
-        "\"Landscape\" is a meditative and abstract work that redefines the concept of landscapes by translating natural elements into tactile form. "
+        "\"Landschaft\" is a meditative and abstract work that redefines the concept of landscapes by translating natural elements into tactile form. "
         "The piece was created using a process rooted in traditional and experimental fiber art techniques. "
         "The artist began by gathering organic materials such as wool, plant fibers, and fragments of soil and ash. "
         "These elements were carefully processed into a raw, felt-like textile, crafted through manual layering, wetting, and compressing of the fibers. "
@@ -326,7 +326,7 @@ project_data_5 = {
         "This tactile quality encourages viewers to engage not only visually but also physically, as the work seems to invite touch. "
         "The process was slow and labor-intensive, reflecting the artist's focus on materiality, time, and the physical labor inherent in creating the piece.\n\n"
 
-        "Conceptually, \"Landscape\" reflects on humanity's relationship with the natural world and our attempts to frame and interpret it through art. "
+        "Conceptually, \"Landschaft\" reflects on humanity's relationship with the natural world and our attempts to frame and interpret it through art. "
         "The title references traditional landscape painting but subverts its conventions by stripping away figurative representation. "
         "Instead of depicting a scene, the artist presents a material essence of the landscape—earth, fiber, and pigment—allowing viewers to experience the work as a physical manifestation of nature's textures and forms. "
         "The piece speaks to themes of erosion, decay, and renewal, encapsulating the cyclical processes that define the natural world. "
@@ -337,15 +337,15 @@ project_data_5 = {
         "The textural and tonal qualities of the piece also reference geological formations and weathered surfaces observed during field studies in remote landscapes. "
         "By embedding these references within the work's materiality, the artist creates a tactile connection to the environments that inspired it.\n\n"
 
-        "\"Landscape\" was first exhibited at the \"Material Memories\" exhibition at the Nordic Center for Contemporary Art in Stockholm. "
+        "\"Landschaft\" was first exhibited at the \"Material Memories\" exhibition at the Nordic Center for Contemporary Art in Stockholm. "
         "Displayed against a pristine white wall, the work's subdued tones and organic texture created a striking contrast with the gallery's clean lines. "
         "The installation emphasized its tactile qualities, with subtle lighting that accentuated the depth and irregularity of the surface. "
         "Visitors were encouraged to approach closely, observing the interplay of fibers and pigments up close. "
         "The exhibition included an interactive component where viewers could handle smaller swatches of the same material to better understand its texture and construction.\n\n"
 
         "Accompanying the exhibition was a program of talks and workshops on sustainable art practices and the use of natural materials in contemporary art. "
-        "The artist shared insights into the labor-intensive process of creating \"Landscape\" and the philosophical questions underpinning the work. "
-        "By presenting a landscape that is both literal and abstract, tactile and conceptual, \"Landscape\" challenges traditional notions of representation and invites viewers to engage deeply with the material and its resonances. "
+        "The artist shared insights into the labor-intensive process of creating \"Landschaft\" and the philosophical questions underpinning the work. "
+        "By presenting a landscape that is both literal and abstract, tactile and conceptual, \"Landschaft\" challenges traditional notions of representation and invites viewers to engage deeply with the material and its resonances. "
         "The piece stands as a quiet yet powerful reminder of the interconnectedness between art, materiality, and the natural world."
     ),
 }

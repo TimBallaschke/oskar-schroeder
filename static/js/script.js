@@ -33,19 +33,27 @@ function sendMessage() {
     // Await the data and display the projects as decided by the LLM
     .then(data => {
 
-        // Create a container for the projects and append it to the content container
-        const contentContainer = document.querySelector('.content-container');
-        
-        // Check if projects container already exists, if not create it
-        let projectsContainer = document.querySelector('.projects-container');
-        if (!projectsContainer) {
-            projectsContainer = document.createElement('div');
-            projectsContainer.classList.add('projects-container');
-            contentContainer.appendChild(projectsContainer);
-        }
-
-        // Only process projects if the request to the LLM is valid and matches the rules defined in the system prompt
+        // check if the request is valid (matches the rules defined in the system prompt)
         if (data.is_valid_request) {
+
+            // get the content container from the HTML
+            const contentContainer = document.querySelector('.content-container');
+            
+            // Check if projects container already exists, if not create it
+            let projectsContainer = document.querySelector('.projects-container');
+            if (!projectsContainer) {
+                projectsContainer = document.createElement('div');
+                projectsContainer.classList.add('projects-container');
+                contentContainer.appendChild(projectsContainer);
+
+                // check if the list view is active
+                if (data.list_view) {
+                    projectsContainer.classList.add('list-view');
+                } else {
+                    projectsContainer.classList.remove('list-view');
+                }
+            }
+
             // Get current project IDs
             // Array.from() converts the HTML-Collection into an array
             // .map() is a build in built-in JavaScript method that transforms each element of the array using a funtion you provide
@@ -111,7 +119,7 @@ function sendMessage() {
                 // Get reference to project info container (because defined in different scope)
                 const projectInfoContainer = singleProject.querySelector('.project-info-container');
 
-                // Loop through each field in the project data (year, material, dimensions, description)
+                // Loop through each field in the project data (year, material, dimensions, description multiple images)
                 Object.entries(projectData).forEach(([fieldName, fieldData]) => {
                     let fieldDiv = singleProject.querySelector(`.${fieldName}`);
 
@@ -121,24 +129,34 @@ function sendMessage() {
                         const projectImagesContainer = singleProject.querySelector('.project-images-container');
                         
                         if (fieldData) {
-                            // Create additional images (2-10)
-                            for (let i = 2; i <= 10; i++) {
+                            let imageIndex = 2;
+                            const loadNextImage = () => {
                                 const imageContainer = document.createElement('div');
                                 imageContainer.classList.add('project-image-container');
                                 
-                                const image = document.createElement('img');
-                                image.src = `/static/assets/images/${projectName}/${i}.jpg`;
-                                image.alt = `${projectName} artwork ${i}`;
-                                image.classList.add('project-image');
+                                const image = new Image();
                                 
-                                // Add error handler to remove container if image doesn't exist
-                                image.onerror = () => {
-                                    imageContainer.remove();
+                                image.onload = () => {
+                                    image.classList.add('project-image');
+                                    image.alt = `${projectName} artwork ${imageIndex}`;
+                                    imageContainer.appendChild(image);
+                                    projectImagesContainer.appendChild(imageContainer);
+                                    
+                                    // Try loading next image
+                                    imageIndex++;
+                                    loadNextImage();
                                 };
                                 
-                                imageContainer.appendChild(image);
-                                projectImagesContainer.appendChild(imageContainer);
-                            }
+                                image.onerror = () => {
+                                    // Stop when no more images found
+                                    return;
+                                };
+                                
+                                image.src = `/static/assets/images/${projectName}/${imageIndex}.jpg`;
+                            };
+                            
+                            // Start loading images
+                            loadNextImage();
                         } else {
                             // If multiple_images is false, remove all images but the first one
                             const images = singleProject.querySelector('.project-images-container').querySelectorAll('.project-image-container');
@@ -153,8 +171,15 @@ function sendMessage() {
                         }
 
                         // Update field content and visibility
-                        fieldDiv.innerHTML = fieldData.value;
-                        
+                        if (fieldName === 'description') {
+                            // Replace bracketed text with span elements
+                            // Replace method is used to replace certain parts of the string with other strings
+                            const content = fieldData.value.replace(/\[(.*?)\]/g, '<span class="name-information">$1</span>');
+                            fieldDiv.innerHTML = content;
+                        } else {
+                            fieldDiv.innerHTML = fieldData.value;
+                        }
+
                         if (!fieldData.active) {
                             fieldDiv.classList.add('inactive');
                         } else {
