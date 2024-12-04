@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "241204c_Oskar_Website_assistant_message_appended_cookies_too_large",
+  "original_folder": "241204d_Oskar_Website_serverside_sessionstorage",
   "snapshot_date_from_folder": "241204",
   "source_files": [
     {
@@ -19,9 +19,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "274eb9b68a0d8723fb45064114ca0809fda72685",
-      "sha256": "b7108523e74c8630de0c591022cf073944bc264279b4889998a21d2f794b54c0",
-      "size": 54850,
+      "sha1": "ec9ec6890a78c89e02c5a51f60e2c5dc58461de6",
+      "sha256": "dbab654cd3f143449e147dd72ee6ebed08763cef3ac719a1ff920e05d0b2caf0",
+      "size": 55226,
       "mode": "100644"
     },
     {
@@ -530,7 +530,8 @@
     }
   ],
   "excluded_private_files": [
-    ".env"
+    ".env",
+    "flask_session/"
   ],
   "omitted_generated_files": [
     {

@@ -5,6 +5,7 @@ import os
 import json
 from typing import List, TypeVar, Generic
 from pydantic import BaseModel, Field, field_validator
+from flask_session import Session  # Import Session from flask_session
 
 # Load environment variables from .env file (including API key)
 load_dotenv()
@@ -22,6 +23,13 @@ app = Flask(__name__, static_url_path='/static')
 # urandom is a function in the os module that generates a random byte string of a given length;
 # 24 is the length of the byte string in bytes
 app.secret_key = os.urandom(24)
+
+# Configure server-side session
+app.config['SESSION_TYPE'] = 'filesystem'  # You can also use 'redis', 'memcached', etc.
+app.config['SESSION_FILE_DIR'] = './flask_session/'  # Directory to store session files
+app.config['SESSION_PERMANENT'] = False
+Session(app)  # Initialize the session with the app
+
 # Initialize OpenAI client
 client = OpenAI()
 
@@ -756,7 +764,7 @@ def projects():
     }
     
     # Print response data for debugging
-    print(messages)
+    # print(messages)
     # Return projects dictionary, is_valid_request, and prompt proposals
     return jsonify(response_data)
 
