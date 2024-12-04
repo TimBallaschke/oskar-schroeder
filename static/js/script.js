@@ -131,28 +131,40 @@ function sendMessage() {
                         if (fieldData) {
                             let imageIndex = 2;
                             const loadNextImage = () => {
-                                const imageContainer = document.createElement('div');
-                                imageContainer.classList.add('project-image-container');
+                                // Check if image already exists
+                                const existingImages = projectImagesContainer.querySelectorAll('img');
+                                const imageExists = Array.from(existingImages).some(img => 
+                                    img.src.endsWith(`/${imageIndex}.jpg`)
+                                );
                                 
-                                const image = new Image();
-                                
-                                image.onload = () => {
-                                    image.classList.add('project-image');
-                                    image.alt = `${projectName} artwork ${imageIndex}`;
-                                    imageContainer.appendChild(image);
-                                    projectImagesContainer.appendChild(imageContainer);
+                                if (!imageExists) {
+                                    const imageContainer = document.createElement('div');
+                                    imageContainer.classList.add('project-image-container');
                                     
-                                    // Try loading next image
+                                    const image = new Image();
+                                    
+                                    image.onload = () => {
+                                        image.classList.add('project-image');
+                                        image.alt = `${projectName} artwork ${imageIndex}`;
+                                        imageContainer.appendChild(image);
+                                        projectImagesContainer.appendChild(imageContainer);
+                                        
+                                        // Try loading next image
+                                        imageIndex++;
+                                        loadNextImage();
+                                    };
+                                    
+                                    image.onerror = () => {
+                                        // Stop when no more images found
+                                        return;
+                                    };
+                                    
+                                    image.src = `/static/assets/images/${projectName}/${imageIndex}.jpg`;
+                                } else {
+                                    // Skip existing image and try next one
                                     imageIndex++;
                                     loadNextImage();
-                                };
-                                
-                                image.onerror = () => {
-                                    // Stop when no more images found
-                                    return;
-                                };
-                                
-                                image.src = `/static/assets/images/${projectName}/${imageIndex}.jpg`;
+                                }
                             };
                             
                             // Start loading images

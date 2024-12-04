@@ -450,7 +450,8 @@ SYSTEM_PROMPT = {
         "\n"
         "4. FIELD ACTIVATION RULES:\n"
         "   4.1. Activation by Project Name:\n"
-        "       - When the user's request consists only of a project name (e.g., 'Wild'), set all active values for that project to true, including multiple_images.\n"
+        "       - When the user's request consists only of a project name (e.g., 'Wild'), set all active values for that project to true, including **multiple_images=true**.\n"
+        "       - **IMPORTANT:** Ensure that `multiple_images` is set to `true` in this case.\n"
         "       - Provide a brief description (maximum 200 characters) that sums up the main concept of the artwork.\n"
         "   4.2. Activating Fields with Keywords and Short Phrases:\n"
         "       - Apply the activation only to the projects that were returned in the last response (currently displayed projects).\n"
@@ -507,7 +508,7 @@ SYSTEM_PROMPT = {
         "   6.1. Default Setting:\n"
         "       - multiple_images=false for all projects.\n"
         "   6.2. Activating Multiple Images:\n"
-        "       - IMPORTANT: Set multiple_images=true if the user specifically requests to see multiple or all images of a project, or if the user provides only the project name (e.g., 'Wild').\n"
+        "       - **IMPORTANT:** Set `multiple_images=true` if the user specifically requests to see multiple or all images of a project, or if the user provides only the project name (e.g., 'Wild'). Ensure that when the user's input is only the project name, `multiple_images` is set to `true`.\n"
         "       - If the user asks to hide additional images, set multiple_images=false.\n"
         "\n"
         "7. LANGUAGE HANDLING:\n"
@@ -566,10 +567,22 @@ SYSTEM_PROMPT = {
         "        - This is very important to ensure clarity and relevance.\n"
         "    10.4. Do Not Propose Simplification in Prompt Proposals:\n"
         "        - Do not include suggestions to simplify language or ask for easier language in the prompt proposals.\n"
+        "    10.5. Avoid Redundant Prompt Proposals:\n"
+        "        - Do not suggest actions that have already been fulfilled or do not make sense in the current context.\n"
+        "        - If a field's active status is already set to true, do not propose to 'show' that field again.\n"
+        "        - Similarly, if a field's active status is false, do not propose to 'hide' that field.\n"
+        "        - Ensure that prompt proposals are contextually relevant and logically consistent with the current state of the displayed projects.\n"
         "\n"
         "EXAMPLES:\n"
         "\n"
         "Varying Prompt Proposals Examples:\n"
+        "- **User**: 'Hypo'\n"
+        "  - **Response**: For the project 'Hypo', set all active fields to true, including **multiple_images=true**. Provide a brief description (maximum 200 characters).\n"
+        "  - **Prompt Proposals**:\n"
+        "    - 'More extensive description'\n"
+        "    - 'Hide materials'\n"
+        "    - 'Hide dimensions'\n"
+        "\n"
         "- **User**: 'Show me all projects.'\n"
         "  - **Response**: Return all projects with all fields' active statuses set to false. is_valid_request=true.\n"
         "  - **Prompt Proposals**:\n"
@@ -590,34 +603,34 @@ SYSTEM_PROMPT = {
         "  - **Prompt Proposals**:\n"
         "    - 'More extensive description'\n"
         "    - 'Reveal exhibition venues'\n"
-        "    - 'Show more images'\n"
+        "    - 'Hide descriptions'\n"
         "\n"
         "- **User**: 'More extensive description.'\n"
         "  - **Response**: Replace the brief descriptions with more extensive ones (1000-1500 characters).\n"
         "  - **Prompt Proposals**:\n"
+        "    - 'Provide full description'\n"
+        "    - 'Hide descriptions'\n"
         "    - 'Show year of creation'\n"
-        "    - 'Hide materials'\n"
-        "    - 'Display dimensions'\n"
         "\n"
         "- **User**: 'Show year of creation.'\n"
         "  - **Response**: For all currently displayed projects, set year.active=true.\n"
         "  - **Prompt Proposals**:\n"
-        "    - 'Hide dimensions'\n"
-        "    - 'Show more images'\n"
+        "    - 'Hide year of creation'\n"
         "    - 'Hide descriptions'\n"
+        "    - 'Show more images'\n"
         "\n"
         "- **User**: 'Show more images.'\n"
         "  - **Response**: For all currently displayed projects, set multiple_images=true.\n"
         "  - **Prompt Proposals**:\n"
         "    - 'Hide materials'\n"
         "    - 'Hide descriptions'\n"
-        "    - 'Show less information'\n"
+        "    - 'Hide images'\n"
         "\n"
         "- **User**: 'Hide materials.'\n"
         "  - **Response**: For all currently displayed projects, set material.active=false.\n"
         "  - **Prompt Proposals**:\n"
         "    - 'Hide dimensions'\n"
-        "    - 'Show exhibition venues'\n"
+        "    - 'Show dimensions'\n"
         "    - 'Show less information'\n"
         "\n"
         "- **User**: 'Show less information.'\n"
@@ -653,53 +666,6 @@ def index():
     return render_template('index.html')
 
 
-
-
-# Function to generate a natural language summary (important for the chatbot to be maintain context of the conversation)
-def generate_natural_language_summary(parsed_response):
-    if not parsed_response.is_valid_request:
-        return "Invalid request: The requested information is not available in the project data."
-    
-    summary = []
-    
-    # Start with request validity and view mode
-    summary.append(f"Request validity: is_valid_request={parsed_response.is_valid_request}")
-    summary.append(f"Display mode: list_view={parsed_response.list_view}")
-    
-    # For each project, detail the active status of all fields
-    for project in parsed_response.projects:
-        project_summary = [f"\nProject '{project.name}':"]
-        
-        # List all field statuses
-        project_summary.append(f"- year.active={project.year.active}" + 
-                             (f" (value: {project.year.value})" if project.year.active else ""))
-        
-        project_summary.append(f"- material.active={project.material.active}" + 
-                             (f" (value: {project.material.value})" if project.material.active else ""))
-        
-        project_summary.append(f"- dimensions.active={project.dimensions.active}" + 
-                             (f" (value: {project.dimensions.value})" if project.dimensions.active else ""))
-        
-        project_summary.append(f"- description.active={project.description.active}")
-        if project.description.active:
-            desc = project.description.value
-            project_summary.append(f"  Description: {desc}")
-        
-        project_summary.append(f"- multiple_images={project.multiple_images}")
-        
-        summary.extend(project_summary)
-    
-    # Add prompt proposals
-    summary.append(f"\nPrompt proposals:")
-    summary.append(f"1. '{parsed_response.prompt_proposal_1}'")
-    summary.append(f"2. '{parsed_response.prompt_proposal_2}'")
-    
-    return "\n".join(summary)
-
-
-
-
-
 # Define route for api endpoint, accepting POST requests;
 # POST requests are used to send data to the server, such as form submissions, file uploads, or API requests;
 @app.route('/projects', methods=['POST'])
@@ -728,13 +694,10 @@ def projects():
         response_format=ProjectList,
     )
 
-    # Generate a natural language summary of the assistant's response
-    assistant_content = generate_natural_language_summary(response.choices[0].message.parsed)
-
     # Append assistant's response to conversation history
     messages.append({
         "role": "assistant", 
-        "content": assistant_content
+        "content": response.choices[0].message.content
     })
     session.modified = True
 
