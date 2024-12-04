@@ -45,13 +45,13 @@ function sendMessage() {
                 projectsContainer = document.createElement('div');
                 projectsContainer.classList.add('projects-container');
                 contentContainer.appendChild(projectsContainer);
+            }
 
-                // check if the list view is active
-                if (data.list_view) {
-                    projectsContainer.classList.add('list-view');
-                } else {
-                    projectsContainer.classList.remove('list-view');
-                }
+            // Update list-view class based on current data
+            if (data.list_view) {
+                projectsContainer.classList.add('list-view');
+            } else {
+                projectsContainer.classList.remove('list-view');
             }
 
             // Get current project IDs

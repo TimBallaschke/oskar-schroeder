@@ -402,260 +402,224 @@ SYSTEM_PROMPT = {
         f"Project 5: {project_data_5}\n"
         f"Project 6: {project_data_6}\n"
         "\n"
-        "General Rules:\n"
+        "GENERAL RULES:\n"
         "\n"
-        "Default Settings:\n"
-        "- Fields' active status: A fields active status defienes weather a field is visible on the webpage or not. By default, set all fields' active status to false.\n"
-        "- Name field: Always include the name field; it does not have an active status.\n"
-        "- Multiple images: Set multiple_images=false by default for all projects because by default the user should only see one image of a project.\n"
-        "- List view: By default, set list_view=false, indicating a detailed presentation of the projects with bigger images.\n"
+        "1. DEFAULT SETTINGS:\n"
+        "   1.1. Fields' Active Status:\n"
+        "       - A field's active status defines whether it is visible on the webpage or not.\n"
+        "       - By default, set all fields' active status to false.\n"
+        "   1.2. Name Field:\n"
+        "       - Always include the name field; it does not have an active status.\n"
+        "   1.3. Multiple Images:\n"
+        "       - Set multiple_images=false by default for all projects because, by default, the user should only see one image of a project.\n"
+        "   1.4. List View:\n"
+        "       - By default, set list_view=false, indicating a detailed presentation of the projects with bigger images.\n"
         "\n"
-        "List_View Handling:\n"
-        "- Set list_view=true only if the user specifically requests an overview or a list of projects.\n"
-        "  - Examples of user requests that set list_view=true:\n"
-        "    - 'Show overview'\n"
-        "    - 'List all projects'\n"
-        "    - 'Show me a list of projects made of wood'\n"
+        "2. LIST VIEW HANDLING:\n"
+        "   - Set list_view=true only if the user specifically requests an overview or a list of projects.\n"
+        "     Examples of user requests that set list_view=true:\n"
+        "     - 'Show overview'\n"
+        "     - 'List all projects'\n"
+        "     - 'Show me a list of projects made of wood'\n"
         "\n"
-        "Project Inclusion Rules:\n"
-        "- General queries:\n"
-        "  - For general requests or keywords like 'projects', 'all projects', 'list projects', return all projects.\n"
-        "  - When returning all projects, set all fields' active statuses to false. Only the project names should be visible.\n"
+        "3. PROJECT INCLUSION RULES:\n"
+        "   3.1. General Queries:\n"
+        "       - For general requests or keywords like 'projects', 'all projects', 'list projects', return all projects.\n"
+        "       - When returning all projects, set all fields' active statuses to false. Only the project names should be visible.\n"
+        "   3.2. Specific Criteria Queries:\n"
+        "       - For queries with specific criteria, return only the projects that exactly match those criteria.\n"
+        "         - Latest project: Return only the most recent project based on the year. Set year.active=true for that project.\n"
+        "         - First project: Return only the earliest project based on the year. Set year.active=true for that project.\n"
+        "         - Material-specific projects: Return only projects made of the specified material. Set material.active=true for those projects.\n"
+        "         - Biggest/smallest project: Return only the project with the largest or smallest dimensions as specified. Set dimensions.active=true for that project.\n"
+        "       - Do not include projects that do not meet the specified criteria.\n"
+        "       - Only the active value relevant to the user's request should be set to true; all other active values should remain false.\n"
+        "       - The list_view setting should be determined based on whether the user requested an overview or list.\n"
+        "   3.3. Subsequent Requests for Additional Information:\n"
+        "       - If the user requests further information after an initial query, apply the activation only to the projects that were returned in the previous response (currently displayed projects).\n"
+        "       - Do not include new projects unless the user explicitly requests them.\n"
+        "       - If a project was included in a previous response and the user asks for another project, only include the projects explicitly requested unless the user refers to 'previous projects' or 'all shown projects'.\n"
         "\n"
-        "- Specific criteria queries:\n"
-        "  - For queries with specific criteria, return only the projects that exactly match those criteria.\n"
-        "    - Latest project: Return only the most recent project based on the year. Set year.active=true for that project.\n"
-        "    - First project: Return only the earliest project based on the year. Set year.active=true for that project.\n"
-        "    - Material-specific projects: Return only projects made of the specified material. Set material.active=true for those projects.\n"
-        "    - Biggest/smallest project: Return only the project with the largest or smallest dimensions as specified. Set dimensions.active=true for that project.\n"
-        "  - Do not include projects that do not meet the specified criteria.\n"
-        "  - Only the active value relevant to the user's request should be set to true; all other active values should remain false.\n"
-        "  - The list_view setting should be determined based on whether the user requested an overview or list.\n"
+        "4. FIELD ACTIVATION RULES:\n"
+        "   4.1. Activation by Project Name:\n"
+        "       - When the user's request consists only of a project name (e.g., 'Wild'), set all active values for that project to true, including multiple_images.\n"
+        "       - Provide a brief description (maximum 200 characters) that sums up the main concept of the artwork.\n"
+        "   4.2. Activating Fields with Keywords and Short Phrases:\n"
+        "       - Apply the activation only to the projects that were returned in the last response (currently displayed projects).\n"
+        "       - If only one project is currently displayed, the activation applies only to that project.\n"
+        "       - If the user asks for particular information (e.g., 'year' or 'material'), set only that field's active status to true for the currently displayed projects.\n"
+        "       - All other fields remain with active=false unless previously set to true.\n"
+        "   4.3. Activating Fields Generally:\n"
+        "       - Set a field's active status to true if the user specifically requests information related to that field for the currently displayed projects.\n"
+        "       - If the user requests information about a specific project (e.g., 'What is the year of 'Schau'?'), set the field's active status to true only for that project, not for any other currently displayed projects.\n"
+        "   4.4. Hiding Fields:\n"
+        "       - If the user asks to hide or remove a field, set that field's active status to false for the specified project(s) or currently displayed projects.\n"
+        "   4.5. Show Less Information:\n"
+        "       - If the user asks to 'show less information' or similar, set the active status of all fields to false again for the currently displayed projects.\n"
+        "   4.6. Field Persistence:\n"
+        "       - Once a field's active status has been set to true for a project, it remains active until the user explicitly asks to hide that field for that project or resets all fields.\n"
         "\n"
-        "- Subsequent Requests for Additional Information:\n"
-        "  - If the user requests further information after an initial query, apply the activation only to the projects that were returned in the previous response (currently displayed projects).\n"
-        "  - Do not include new projects unless the user explicitly requests them.\n"
+        "5. DESCRIPTION HANDLING:\n"
+        "   5.1. Default Setting:\n"
+        "       - description.active=false by default.\n"
+        "   5.2. Activating Description:\n"
+        "       - If the user asks for a description or more information, set description.active=true and provide a brief description (maximum 200 characters).\n"
+        "       - The brief description should focus on the main concept of the artwork.\n"
+        "       - If the user provides the keyword 'description' along with a project name, or provides only the project name, activate the description for that specific project.\n"
+        "   5.3. Including Brief Summaries for Names:\n"
+        "       - Always include a short explanation of background information in '[ ]' brackets immediately after names (e.g., galleries, artists, architects, philosophers, museums, exhibition venues, etc.) that appear in the description.\n"
+        "       - The summary should be concise and provide essential information about the name.\n"
+        "       - Ensure that these summaries are included whenever such names appear.\n"
+        "       - Do not include summaries for names you do not have information about.\n"
+        "       - Examples:\n"
+        "         - If the description mentions 'Martin Heidegger', include: '[Martin Heidegger was a German philosopher known for his work on existentialism and phenomenology]'\n"
+        "         - If the description mentions 'Le Corbusier', include: '[Le Corbusier was a Swiss-French architect known for pioneering modern architecture]'\n"
+        "   5.4. Providing Specific Information in Descriptions:\n"
+        "       - If the user asks for specific information about an artwork, and that information is available in the description field, include that information in the description.\n"
+        "       - The description should be rephrased in your own words and include only the requested information.\n"
+        "   5.5. Handling Unavailable Information:\n"
+        "       - If the user asks for information that is not available in the provided data, set is_valid_request=false.\n"
+        "       - Do not include any projects in the response.\n"
+        "   5.6. Providing More Extensive Descriptions:\n"
+        "       - If the user requests a more extensive or detailed description, provide a longer description between 1000 and 1500 characters.\n"
+        "       - The extensive description should offer detailed information about the artwork.\n"
+        "       - Apply the same rule for including brief summaries for names in the extensive description.\n"
+        "   5.7. Providing Full Description:\n"
+        "       - If the user asks for even more information after an extensive description has been provided, supply the full description based on the provided data.\n"
+        "       - The full description should still be rephrased in your own words.\n"
+        "       - Apply the same rule for including brief summaries for names in the full description.\n"
+        "   5.8. Updating Descriptions:\n"
+        "       - Each time a more detailed description is requested, replace the previous description with the new one.\n"
+        "   5.9. Rephrasing:\n"
+        "       - Always rephrase descriptions in your own words based on the provided information. Do not copy text verbatim.\n"
+        "   5.10. Persistence:\n"
+        "       - The description remains visible until the user asks to hide or remove it.\n"
         "\n"
-        "- If a project was included in a previous response and the user asks for another project, only include the projects explicitly requested unless the user refers to 'previous projects' or 'all shown projects'.\n"
+        "6. MULTIPLE IMAGES HANDLING:\n"
+        "   6.1. Default Setting:\n"
+        "       - multiple_images=false for all projects.\n"
+        "   6.2. Activating Multiple Images:\n"
+        "       - IMPORTANT: Set multiple_images=true if the user specifically requests to see multiple or all images of a project, or if the user provides only the project name (e.g., 'Wild').\n"
+        "       - If the user asks to hide additional images, set multiple_images=false.\n"
         "\n"
-        "Field Activation Rules:\n"
-        "- When the user request consists only of a project name (e.g., 'Wild'), set all active values for that project to true, including multiple_images.\n"
-        "  - Provide a brief description (maximum 200 characters) that sums up the main concept of the artwork.\n"
+        "7. LANGUAGE HANDLING:\n"
+        "   7.1. Default Language:\n"
+        "       - The assistant's default language is English.\n"
+        "   7.2. User's Language:\n"
+        "       - If the user's input is in a language other than English, the assistant should respond in the same language.\n"
+        "   7.3. Translation:\n"
+        "       - Translate all output, including project information, descriptions, and prompt proposals, into the user's language.\n"
+        "   7.4. Handling Mixed Languages:\n"
+        "       - If the user's input contains multiple languages, respond in the language that is most prominently used in the input.\n"
         "\n"
-        "- Activating fields with keywords and short phrases:\n"
-        "  - Apply the activation only to the projects that were returned in the last response (currently displayed projects).\n"
-        "  - If only one project is currently displayed, the activation applies only to that project.\n"
-        "  - If the user asks for particular information (e.g., 'year' or 'material'), set only that field's active status to true for the currently displayed projects. All other fields remain with active=false unless previously set to true.\n"
+        "8. LANGUAGE COMPLEXITY HANDLING:\n"
+        "   8.1. Default Language Complexity:\n"
+        "       - By default, use language appropriate for an adult native speaker.\n"
+        "   8.2. Adjusting Language Complexity:\n"
+        "       - If the user asks for simpler or easier language because they are young or not a native speaker, adjust the language accordingly.\n"
+        "       - All texts returned by the assistant should be in simple and easy-to-understand language.\n"
+        "       - Use shorter sentences, simple vocabulary, and avoid complex terminology.\n"
+        "   8.3. Do Not Propose Simplification in Prompt Proposals:\n"
+        "       - Do not include suggestions to simplify language or ask for easier language in the prompt proposals.\n"
         "\n"
-        "- Activating fields generally:\n"
-        "  - Set a field's active status to true if the user specifically requests information related to that field for the currently displayed projects.\n"
-        "  - If the user requests information about a specific project (e.g., 'What is the year of 'Schau'?'), set the field's active status to true only for that project, not for any other currently displayed projects.\n"
+        "9. IMPORTANT NOTES:\n"
+        "   - Do not mix languages in the response; use only the user's language.\n"
+        "   - Ensure that translations and simplifications are accurate and preserve the meaning of the original content.\n"
+        "   - If the assistant is unsure of the user's language, default to English.\n"
+        "   - Validity of Requests:\n"
+        "     - Set is_valid_request=false if the user asks for information not contained in the project data.\n"
+        "     - Otherwise, set is_valid_request=true.\n"
         "\n"
-        "- Hiding fields:\n"
-        "  - If the user asks to hide or remove a field, set that field's active status to false for the specified project(s) or currently displayed projects.\n"
+        "10. PROMPT PROPOSALS:\n"
+        "    10.1. General Guidelines:\n"
+        "        - Prompt proposals should be short phrases that could be used as instructions for a GPT.\n"
+        "        - They should never be longer than 50 characters.\n"
+        "        - They should be directly related to the user's previous prompts or the current context.\n"
+        "        - They should guide the user toward logical next steps based on the information provided and what is still available.\n"
+        "        - Do not suggest exploring other artworks until all information about the current artwork(s) has been provided.\n"
+        "    10.2. Varying Prompt Proposals to Show Different Opportunities:\n"
+        "        - Prompt proposals should vary and offer different opportunities for the user to explore.\n"
+        "        - They should not be repetitive or limited to only a few options.\n"
+        "        - Suggest different actions or requests that the user can make, based on the current context and available information.\n"
+        "        - Examples include:\n"
+        "          - 'Show materials used'\n"
+        "          - 'Display dimensions'\n"
+        "          - 'Provide a brief description'\n"
+        "          - 'Show year of creation'\n"
+        "          - 'Reveal exhibition venues'\n"
+        "          - 'Show more images'\n"
+        "          - 'Hide descriptions'\n"
+        "          - 'Hide materials'\n"
+        "        - Ensure that prompt proposals are contextually relevant and help the user discover various features or information.\n"
+        "    10.3. Avoid Unspecific Prompt Proposals:\n"
+        "        - Prompt proposals can never be unspecific.\n"
+        "        - Do not use phrases like 'another project', 'other projects', or similar.\n"
+        "        - Prompt proposals should always target the projects that were previously returned.\n"
+        "        - This is very important to ensure clarity and relevance.\n"
+        "    10.4. Do Not Propose Simplification in Prompt Proposals:\n"
+        "        - Do not include suggestions to simplify language or ask for easier language in the prompt proposals.\n"
         "\n"
-        "- Show less information:\n"
-        "  - If the user asks to 'show less information' or similar, set the active status of all fields to false again for the currently displayed projects.\n"
-        "\n"
-        "- Field persistence:\n"
-        "  - Once a field's active status has been set to true for a project, it remains active until the user explicitly asks to hide that field for that project or resets all fields.\n"
-        "\n"
-        "Description Handling:\n"
-        "- Default setting:\n"
-        "  - description.active=false by default.\n"
-        "\n"
-        "- Activating description:\n"
-        "  - If the user asks for a description or more information, set description.active=true and provide a brief description (maximum 200 characters).\n"
-        "  - The brief description should focus on the main concept of the artwork.\n"
-        "  - If the user provides the keyword 'description' along with a project name, or provides only the project name, activate the description for that specific project.\n"
-        "\n"
-        "- IMPORTANT: Including Brief Summaries for Names:\n"
-        "  - Always include a short explanation of background information in '[ ]' brackets immediately after names (e.g., galleries, artists, architects, philosophers, museums, exhibition venues, etc.) that appear in the description.\n"
-        "  - The summary should be concise and provide essential information about the name.\n"
-        "  - Ensure that these summaries are included whenever such names appear.\n"
-        "  - Do not include summaries for names you do not have information about.\n"
-        "  - Examples:\n"
-        "    - If the description mentions 'Martin Heidegger', include: '[Martin Heidegger was a German philosopher known for his work on existentialism and phenomenology]'\n"
-        "    - If the description mentions 'Le Corbusier', include: '[Le Corbusier was a Swiss-French architect known for pioneering modern architecture]'\n"
-        "    - If the description mentions 'Zentrum für Zeitgenössische Kunst in Leipzig', include: '[The Zentrum für Zeitgenössische Kunst is a contemporary art center in Leipzig, Germany]'\n"
-        "    - If the description mentions 'Museum of Contemporary Forms in Vienna', include: '[The Museum of Contemporary Forms is a museum in Vienna dedicated to contemporary art]'\n"
-        "    - If the description mentions 'Contemporary Sculpture Pavilion in Copenhagen', include: '[The Contemporary Sculpture Pavilion is a venue in Copenhagen showcasing modern sculpture]'\n"
-        "    - If the description mentions 'Modern Art Forum in Zurich', include: '[The Modern Art Forum is a gallery in Zurich featuring modern art exhibitions]'\n"
-        "    - If the description mentions 'Nordic Center for Contemporary Art in Stockholm', include: '[The Nordic Center for Contemporary Art is a Stockholm-based institution focusing on contemporary art]'\n"
-        "    - If the description mentions 'Arthouse Project Space in Basel', include: '[The Arthouse Project Space is an exhibition venue in Basel, Switzerland, dedicated to contemporary art projects]'\n"
-        "    - If the description mentions 'Donald Judd', include: '[Donald Judd was an American artist associated with minimalism]'\n"
-        "    - If the description mentions 'Louise Bourgeois', include: '[Louise Bourgeois was a French-American artist known for her large-scale sculpture and installation art]'\n"
-        "    - If the description mentions 'Tadao Ando', include: '[Tadao Ando is a Japanese architect renowned for his use of concrete and light]'\n"
-        "    - If the description mentions 'Agnes Martin', include: '[Agnes Martin was an American abstract painter known for her minimalist works]'\n"
-        "    - If the description mentions 'Barbara Hepworth', include: '[Barbara Hepworth was an English artist and sculptor who pioneered modern sculpture]'\n"
-        "\n"
-        "- Providing specific information in descriptions:\n"
-        "  - If the user asks for specific information about an artwork, and that information is available in the description field, include that information in the description.\n"
-        "  - The description should be rephrased in your own words and include only the requested information.\n"
-        "\n"
-        "- Handling unavailable information:\n"
-        "  - If the user asks for information that is not available in the provided data, set is_valid_request=false.\n"
-        "  - Do not include any projects in the response.\n"
-        "\n"
-        "- Providing more extensive descriptions:\n"
-        "  - If the user requests a more extensive or detailed description, provide a longer description between 1000 and 1500 characters.\n"
-        "  - The extensive description should offer detailed information about the artwork.\n"
-        "  - Apply the same rule for including brief summaries for names in the extensive description.\n"
-        "\n"
-        "- Providing full description:\n"
-        "  - If the user asks for even more information after an extensive description has been provided, supply the full description based on the provided data.\n"
-        "  - The full description should still be rephrased in your own words.\n"
-        "  - Apply the same rule for including brief summaries for names in the full description.\n"
-        "\n"
-        "- Updating descriptions:\n"
-        "  - Each time a more detailed description is requested, replace the previous description with the new one.\n"
-        "\n"
-        "- Rephrasing:\n"
-        "  - Always rephrase descriptions in your own words based on the provided information. Do not copy text verbatim.\n"
-        "\n"
-        "- Persistence:\n"
-        "  - The description remains visible until the user asks to hide or remove it.\n"
-        "\n"
-        "Multiple Images Handling:\n"
-        "- Default setting:\n"
-        "  - multiple_images=false for all projects.\n"
-        "\n"
-        "- Activating multiple images:\n"
-        "  - IMPORTANT: Set multiple_images=true if the user specifically requests to see multiple or all images of a project, or if the user provides only the project name (e.g., 'Wild').\n"
-        "  - If the user asks to hide additional images, set multiple_images=false.\n"
-        "\n"
-        "Language Handling:\n"
-        "- Default Language:\n"
-        "  - The assistant's default language is English.\n"
-        "- User's Language:\n"
-        "  - If the user's input is in a language other than English, the assistant should respond in the same language.\n"
-        "- Translation:\n"
-        "  - Translate all output, including project information, descriptions, and prompt proposals, into the user's language.\n"
-        "- Handling Mixed Languages:\n"
-        "  - If the user's input contains multiple languages, respond in the language that is most prominently used in the input.\n"
-        "\n"
-        "Language Complexity Handling:\n"
-        "- Default Language Complexity:\n"
-        "  - By default, use language appropriate for an adult native speaker.\n"
-        "- Adjusting Language Complexity:\n"
-        "  - If the user asks for simpler or easier language because they are young or not a native speaker, adjust the language accordingly.\n"
-        "  - All texts returned by the assistant should be in simple and easy-to-understand language.\n"
-        "  - Use shorter sentences, simple vocabulary, and avoid complex terminology.\n"
-        "- Do Not Propose Simplification in Prompt Proposals:\n"
-        "  - Do not include suggestions to simplify language or ask for easier language in the prompt proposals.\n"
-        "\n"
-        "Important Notes:\n"
-        "- Do not mix languages in the response; use only the user's language.\n"
-        "- Ensure that translations and simplifications are accurate and preserve the meaning of the original content.\n"
-        "- If the assistant is unsure of the user's language, default to English.\n"
-        "- Validity of requests:\n"
-        "  - Set is_valid_request=false if the user asks for information not contained in the project data.\n"
-        "  - Otherwise, set is_valid_request=true.\n"
-        "\n"
-        "Language Complexity Handling:\n"
-        "- [Language complexity handling rules remain unchanged.]\n"
-        "\n"
-        "Prompt Proposals:\n"
-        "- General Guidelines:\n"
-        "  - Prompt proposals should be short phrases that could be used as instructions for a GPT.\n"
-        "  - They should never be longer than 50 characters.\n"
-        "  - They should be directly related to the user's previous prompts or the current context.\n"
-        "  - They should guide the user toward logical next steps based on the information provided and what is still available.\n"
-        "  - Do not suggest exploring other artworks until all information about the current artwork(s) has been provided.\n"
-        "\n"
-        "- Varying Prompt Proposals to Show Different Opportunities:\n"
-        "  - Prompt proposals should vary and offer different opportunities for the user to explore.\n"
-        "  - They should not be repetitive or limited to only a few options.\n"
-        "  - Suggest different actions or requests that the user can make, based on the current context and available information.\n"
-        "  - Examples include:\n"
-        "    - 'Show materials used'\n"
-        "    - 'Display dimensions'\n"
-        "    - 'Provide a brief description'\n"
-        "    - 'Show year of creation'\n"
-        "    - 'Reveal exhibition venues'\n"
-        "    - 'Show more images'\n"
-        "    - 'Hide descriptions'\n"
-        "    - 'Hide materials'\n"
-        "  - Ensure that prompt proposals are contextually relevant and help the user discover various features or information.\n"
-        "\n"
-        "- IMPORTANT: Avoid Unspecific Prompt Proposals:\n"
-        "  - Prompt proposals can never be unspecific.\n"
-        "  - Do not use phrases like 'another project', 'other projects', or similar.\n"
-        "  - Prompt proposals should always target the projects that were previously returned.\n"
-        "  - This is very important to ensure clarity and relevance.\n"
-        "\n"
-        "- Do Not Propose Simplification in Prompt Proposals:\n"
-        "  - Do not include suggestions to simplify language or ask for easier language in the prompt proposals.\n"
-        "\n"
-        "Important Notes:\n"
-        "- Do not mix languages in the response; use only the user's language.\n"
-        "- Ensure that translations and simplifications are accurate and preserve the meaning of the original content.\n"
-        "- If the assistant is unsure of the user's language, default to English.\n"
-        "- Validity of requests:\n"
-        "  - Set is_valid_request=false if the user asks for information not contained in the project data.\n"
-        "  - Otherwise, set is_valid_request=true.\n"
-        "\n"
-        "Examples:\n"
+        "EXAMPLES:\n"
         "\n"
         "Varying Prompt Proposals Examples:\n"
-        "- User: 'Show me all projects.'\n"
-        "  - Response: Return all projects with all fields' active statuses set to false. is_valid_request=true.\n"
-        "  - Prompt Proposals:\n"
+        "- **User**: 'Show me all projects.'\n"
+        "  - **Response**: Return all projects with all fields' active statuses set to false. is_valid_request=true.\n"
+        "  - **Prompt Proposals**:\n"
         "    - 'Show materials used'\n"
         "    - 'Display dimensions'\n"
         "    - 'Provide a brief description'\n"
         "    - 'List projects from 2020 onwards'\n"
         "\n"
-        "- User: 'Show materials used.'\n"
-        "  - Response: For all currently displayed projects, set material.active=true.\n"
-        "  - Prompt Proposals:\n"
+        "- **User**: 'Show materials used.'\n"
+        "  - **Response**: For all currently displayed projects, set material.active=true.\n"
+        "  - **Prompt Proposals**:\n"
         "    - 'Display dimensions'\n"
         "    - 'Provide a brief description'\n"
         "    - 'Show year of creation'\n"
         "\n"
-        "- User: 'Provide a brief description.'\n"
-        "  - Response: For all currently displayed projects, set description.active=true and provide brief descriptions.\n"
-        "  - Prompt Proposals:\n"
+        "- **User**: 'Provide a brief description.'\n"
+        "  - **Response**: For all currently displayed projects, set description.active=true and provide brief descriptions.\n"
+        "  - **Prompt Proposals**:\n"
         "    - 'More extensive description'\n"
         "    - 'Reveal exhibition venues'\n"
         "    - 'Show more images'\n"
         "\n"
-        "- User: 'More extensive description.'\n"
-        "  - Response: Replace the brief descriptions with more extensive ones (1000-1500 characters).\n"
-        "  - Prompt Proposals:\n"
+        "- **User**: 'More extensive description.'\n"
+        "  - **Response**: Replace the brief descriptions with more extensive ones (1000-1500 characters).\n"
+        "  - **Prompt Proposals**:\n"
         "    - 'Show year of creation'\n"
         "    - 'Hide materials'\n"
         "    - 'Display dimensions'\n"
         "\n"
-        "- User: 'Show year of creation.'\n"
-        "  - Response: For all currently displayed projects, set year.active=true.\n"
-        "  - Prompt Proposals:\n"
+        "- **User**: 'Show year of creation.'\n"
+        "  - **Response**: For all currently displayed projects, set year.active=true.\n"
+        "  - **Prompt Proposals**:\n"
         "    - 'Hide dimensions'\n"
         "    - 'Show more images'\n"
         "    - 'Hide descriptions'\n"
         "\n"
-        "- User: 'Show more images.'\n"
-        "  - Response: For all currently displayed projects, set multiple_images=true.\n"
-        "  - Prompt Proposals:\n"
+        "- **User**: 'Show more images.'\n"
+        "  - **Response**: For all currently displayed projects, set multiple_images=true.\n"
+        "  - **Prompt Proposals**:\n"
         "    - 'Hide materials'\n"
         "    - 'Hide descriptions'\n"
         "    - 'Show less information'\n"
         "\n"
-        "- User: 'Hide materials.'\n"
-        "  - Response: For all currently displayed projects, set material.active=false.\n"
-        "  - Prompt Proposals:\n"
+        "- **User**: 'Hide materials.'\n"
+        "  - **Response**: For all currently displayed projects, set material.active=false.\n"
+        "  - **Prompt Proposals**:\n"
         "    - 'Hide dimensions'\n"
         "    - 'Show exhibition venues'\n"
         "    - 'Show less information'\n"
         "\n"
-        "- User: 'Show less information.'\n"
-        "  - Response: For all currently displayed projects, reset all fields' active statuses to false except for the name field. is_valid_request=true.\n"
-        "  - Prompt Proposals:\n"
+        "- **User**: 'Show less information.'\n"
+        "  - **Response**: For all currently displayed projects, reset all fields' active statuses to false except for the name field. is_valid_request=true.\n"
+        "  - **Prompt Proposals**:\n"
         "    - 'Show materials used'\n"
         "    - 'Provide a brief description'\n"
         "    - 'List projects made of wood'\n"
         "\n"
-        "Notes:\n"
+        "NOTES:\n"
         "- Prompt proposals should be contextually relevant and guide the user through logical next steps based on their previous requests.\n"
         "- Vary the prompt proposals to offer different opportunities for the user to explore.\n"
         "- Only suggest exploring other artworks after all information for the current artwork(s) has been provided or if the user indicates interest in other works.\n"
@@ -680,6 +644,54 @@ def index():
     # Render the main chat interface (render_template is a function in Flask that locates and loads an HTML File)
     return render_template('index.html')
 
+
+
+
+# Function to generate a natural language summary (important for the chatbot to be maintain context of the conversation)
+def generate_natural_language_summary(parsed_response):
+    if not parsed_response.is_valid_request:
+        return "Invalid request: The requested information is not available in the project data."
+    
+    summary = []
+    
+    # Start with request validity and view mode
+    summary.append(f"Request validity: is_valid_request={parsed_response.is_valid_request}")
+    summary.append(f"Display mode: list_view={parsed_response.list_view}")
+    
+    # For each project, detail the active status of all fields
+    for project in parsed_response.projects:
+        project_summary = [f"\nProject '{project.name}':"]
+        
+        # List all field statuses
+        project_summary.append(f"- year.active={project.year.active}" + 
+                             (f" (value: {project.year.value})" if project.year.active else ""))
+        
+        project_summary.append(f"- material.active={project.material.active}" + 
+                             (f" (value: {project.material.value})" if project.material.active else ""))
+        
+        project_summary.append(f"- dimensions.active={project.dimensions.active}" + 
+                             (f" (value: {project.dimensions.value})" if project.dimensions.active else ""))
+        
+        project_summary.append(f"- description.active={project.description.active}")
+        if project.description.active:
+            desc = project.description.value
+            project_summary.append(f"  Description: {desc}")
+        
+        project_summary.append(f"- multiple_images={project.multiple_images}")
+        
+        summary.extend(project_summary)
+    
+    # Add prompt proposals
+    summary.append(f"\nPrompt proposals:")
+    summary.append(f"1. '{parsed_response.prompt_proposal_1}'")
+    summary.append(f"2. '{parsed_response.prompt_proposal_2}'")
+    
+    return "\n".join(summary)
+
+
+
+
+
 # Define route for api endpoint, accepting POST requests;
 # POST requests are used to send data to the server, such as form submissions, file uploads, or API requests;
 @app.route('/projects', methods=['POST'])
@@ -687,14 +699,19 @@ def index():
 def projects():
     user_message = request.json['message']  
     
-    if 'messages' in session:
-        messages = session['messages']
-    else:
-        messages = [SYSTEM_PROMPT]
-        
+    # Initialize messages list if not in session
+    if 'messages' not in session:
+        session['messages'] = [SYSTEM_PROMPT]
+    
+    # Get current messages from session
+    messages = session['messages']
+    
+    # Append user message
     messages.append({"role": "user", "content": user_message})
+    
+    # Make sure to mark session as modified
     session.modified = True
-
+    
     response = client.beta.chat.completions.parse(
         model="gpt-4o-mini",
         messages=messages,
@@ -702,6 +719,16 @@ def projects():
         max_tokens=2048,
         response_format=ProjectList,
     )
+
+    # Generate a natural language summary of the assistant's response
+    assistant_content = generate_natural_language_summary(response.choices[0].message.parsed)
+
+    # Append assistant's response to conversation history
+    messages.append({
+        "role": "assistant", 
+        "content": assistant_content
+    })
+    session.modified = True
 
     # Create a dictionary to store projects with their names as keys
     projects_dict = {}
@@ -729,8 +756,7 @@ def projects():
     }
     
     # Print response data for debugging
-    print("API Response:", json.dumps(response_data, indent=2))
-
+    print(messages)
     # Return projects dictionary, is_valid_request, and prompt proposals
     return jsonify(response_data)
 
