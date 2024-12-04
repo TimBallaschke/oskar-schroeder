@@ -268,10 +268,8 @@ body {
     }
 
     .name-information {
-      display: inline-block;
-      width: 0;
 
-      &::after {
+      &::before {
         content: '';
         display: inline-block;
         width: 14px; /* Same as font-size */
