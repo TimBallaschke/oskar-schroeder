@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, jsonify, session
+from flask_session import Session  # Import Session from flask_session
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
 import json
-from typing import List, TypeVar, Generic
-from pydantic import BaseModel, Field, field_validator
-from flask_session import Session  # Import Session from flask_session
+from pydantic import BaseModel, Field
+from typing import List, Union, Literal, Annotated
+from enum import Enum
 
 # Load environment variables from .env file (including API key)
 load_dotenv()
@@ -34,99 +35,241 @@ Session(app)  # Initialize the session with the app
 client = OpenAI()
 
 
+
+
+
+#PYDANTIC MODELS
+
 # Define Pydantic models for structured responses
 
-T = TypeVar('T')
+# # 1. approach
 
-class ActiveField(BaseModel, Generic[T]):
-    value: T = Field(description="The actual value of the field.")
-    active: bool = Field(
-        description=(
-            "Boolean flag indicating whether this field should be displayed (True) or hidden (False). "
-            "Set to True only if the user specifically requests this information or uses related keywords."
-        )
-    )
+# class UIType(str, Enum):
+#     div = "div"
+#     paragraph = "paragraph"
+#     list = "list"
+#     table = "table"
+#     image = "image"
 
-class Project(BaseModel):
-    name: str = Field(
-        description=(
-            "Title or name of the project. "
-            "Always included and does not have an active status."
-        )
-    )
-    year: ActiveField[int] = Field(
-        description=(
-            "Year the project was created. "
-            "Set year.active=True only if the user specifically requests information related to the year "
-            "(e.g., 'year', 'date', 'time')."
-        )
-    )
-    material: ActiveField[str] = Field(
-        description=(
-            "Material used for the project. "
-            "Set material.active=True only if the user specifically requests information related to the material "
-            "(e.g., 'material')."
-        )
-    )
-    dimensions: ActiveField[str] = Field(
-        description=(
-            "Dimensions of the project. "
-            "Set dimensions.active=True only if the user specifically requests information related to dimensions "
-            "(e.g., 'dimensions', 'size')."
-        )
-    )
-    description: ActiveField[str] = Field(
-        description=(
-            "Description text of the project. "
-            "Set description.active=True only if the user specifically requests a description or more information "
-            "(e.g., 'description', 'tell me more'). "
-            "Provide a brief summary (max 100 characters) unless a detailed description is specifically requested."
-        )
-    )
-    multiple_images: bool = Field(
-        description=(
-            "Boolean flag indicating whether multiple images should be displayed for this project (True) or not (False). "
-            "Set to True only if the user specifically requests to see multiple or all images of the project "
-            "(e.g., 'show more images', 'all images')."
-        )
-    )
+# class UI(BaseModel):
+#     type: UIType = Field(description="The type of UI element to render")
+#     children: List["UI"] = Field(description="Nested UI elements contained within this element")
+#     content: str = Field(description="The content of the UI element")
 
-class ProjectList(BaseModel):
+# UI.model_rebuild() # This is required to enable recursive types
 
-    is_valid_request: bool = Field(
-        description=(
-            "Boolean flag indicating whether the user's request matches the available project data and adheres to the system rules. "
-            "Set to False if the user asks for unavailable information (e.g., price) or violates inclusion rules."
-        )
+# class Response(BaseModel):
+#     ui: UI = Field(description="The root UI element containing the complete response structure")
+
+
+
+# 2. approach
+
+# BaseComponent defines the shared structure for all components.
+# Individual Component Classes define specific types of UI components.
+# ComponentUnion allows a list to contain different types of components.
+# Response combines everything into a structured response that can be sent to the front end.
+
+
+class ParagraphComponent(BaseModel):
+    UIType: Literal["paragraph"] = Field(description="Indicates this is a paragraph component for displaying text")
+    text: str = Field(description="The text content of the paragraph")
+
+class ListComponent(BaseModel):
+    UIType: Literal["list"] = Field(description="Indicates this is a list component for displaying a list of items")
+    items: List[str] = Field(description="A list of text items to be displayed")
+
+class TableComponent(BaseModel):
+    UIType: Literal["table"] = Field(description="Indicates this is a table component for displaying structured data")
+    headers: List[str] = Field(description="Column headers for the table")
+    rows: List[List[str]] = Field(description="Rows of data, where each row is a list of strings")
+
+class ProjectComponent(BaseModel):
+    UIType: Literal["project"] = Field(description="Indicates this is a project component that represents an artwork or installation")
+    name: str = Field(description="Name of the project or artwork")
+    year: int = Field(description="Year the project was created")
+    material: str = Field(description="Primary material used in the project")
+    dimensions: str = Field(description="Physical dimensions of the project")
+    description: str = Field(description="Very short description of the project")
+
+# Root level must be a simple object
+class Response_1(BaseModel):
+    type: Literal["response"] = "response"  # Literal makes sure only a certain value is allowed for the type field / Fixed type to ensure root level is a simple object (not a descriminated union)
+    components: List[Union[ParagraphComponent, ListComponent, TableComponent, ProjectComponent]] = Field( # Union allows for a list of different types of components / basically presents a list of options
+        description="List of UI components that make up the response"
     )
 
-    list_view: bool = Field(
-        description=(
-            "Boolean flag indicating whether to show an overview (True) or detailed presentation (False) of the projects. "
-            "Default is False for detailed view. Set to True only if the user specifically requests an overview or list "
-            "(e.g., 'show overview', 'list all projects')."
-        )
-    )
-        
-    projects: List[Project] = Field(
-        description=(
-            "List of projects to be displayed, filtered according to the user's request. "
-            "Include only the projects that exactly match the user's criteria."
-        )
-    )
 
-    prompt_proposal_1: str = Field(
-        description=(
-            "First suggested prompt to help the user refine or expand their query. "
-            "Should be relevant to the current query and the information displayed."
-        )
-    )
-    prompt_proposal_2: str = Field(
-        description=(
-            "Second suggested prompt to help the user refine or expand their query. "
-            "Should offer a different angle or additional information related to the user's interests."
-        )
-    )
+    
+
+
+
+
+
+# VARIABLES THAT HOLD INFORMATION FOR THE SYSTEM PROMPT
+
+# Information about the artist
+artist_info = (
+    "Oskar Schroeder is a contemporary sculpture artist known for his innovative explorations of materiality, form, and space. "
+    "Born in Berlin, Germany, in 1985, Schroeder developed an early fascination with the physical world and the transformative processes. "
+    "His artistic practice bridges traditional craftsmanship with experimental approaches, resulting in works that challenge perceptions. "
+    "His works evoke a deep engagement with the tactile and the ephemeral.\n\n"
+    "Schroeder's artistic journey began in his youth, when he spent time in his grandfather's woodworking shop. "
+    "These formative experiences instilled in him a deep respect for materials and the stories they carry. "
+    "He later studied fine arts at the Berlin University of the Arts, where he specialized in sculpture. "
+    "During his studies, he explored wood, metal, concrete, and fabric, each chosen for its inherent properties.\n\n"
+    "A pivotal moment came during a residency in Kyoto, Japan, where he learned traditional Japanese woodworking. "
+    "He was introduced to the philosophy of wabi-sabi—the acceptance of imperfection and impermanence. "
+    "This experience had a profound impact on his artistic outlook, inspiring him to embrace irregularities and natural decay.\n\n"
+    "Schroeder's sculptures explore themes of tension, balance, and transformation. "
+    "He is particularly interested in the interplay between order and chaos, permanence and impermanence. "
+    "His works invite viewers to engage with the physicality of materials, to observe light, shadow, and texture.\n\n"
+    "Influenced by historical and contemporary art movements, Schroeder draws inspiration from Donald Judd and Barbara Hepworth. "
+    "His practice incorporates elements of phenomenology and systems theory, exploring how viewers experience space and form.\n\n"
+    "Throughout his career, Schroeder has exhibited extensively in Europe and internationally. "
+    "His works have been featured in prestigious galleries including the Zentrum für Zeitgenössische Kunst in Leipzig. "
+    "His installations often respond to specific architectural contexts, creating immersive experiences.\n\n"
+    "Schroeder is committed to sustainable art practices and often incorporates found or recycled materials. "
+    "His projects frequently involve collaborations with engineers, architects, and scientists. "
+    "These partnerships allow him to explore innovative techniques and engage with cutting-edge research.\n\n"
+    "In addition to his studio practice, Schroeder is an active educator and mentor. "
+    "He regularly conducts workshops on sculpture and material exploration, sharing his knowledge. "
+    "His teaching emphasizes the importance of process and experimentation in the creative journey.\n\n"
+    "Oskar Schroeder's body of work continues to evolve, reflecting his fascination with materials and forms. "
+    "Through his sculptures, he invites viewers to slow down and engage deeply with the physical world."
+)
+
+# Date for exhibitions
+exhibition_data_1 = {
+    "name": "Liminal Constructs",
+    "timeframe": "April 15 - June 30, 2017",
+    "gallery": "Zentrum für Zeitgenössische Kunst",
+    "city": "Leipzig",
+    "artworks_exhibited": ["Einsatz"],
+    "description": (
+        "Exploring the tensions between order and chaos, 'Liminal Constructs' brought together artists "
+        "working with industrial and organic materials. Oskar Schroeder's 'Einsatz' was the centerpiece, "
+        "engaging viewers with its interplay of rigidity and fluidity in a repurposed factory space."
+    ),
+}
+
+exhibition_data_2 = {
+    "name": "Material Encounters",
+    "timeframe": "October 10 - November 25, 2019",
+    "gallery": "Museum of Contemporary Forms",
+    "city": "Vienna",
+    "artworks_exhibited": ["Schau"],
+    "description": (
+        "The exhibition focused on the use of found materials in contemporary art. "
+        "Schroeder's 'Schau' was exhibited as a minimalist reflection on materiality and perception, "
+        "with a reflective glass surface that interacted dynamically with the gallery's lighting."
+    ),
+}
+
+exhibition_data_3 = {
+    "name": "Roots and Ruptures",
+    "timeframe": "February 1 - March 20, 2020",
+    "gallery": "Contemporary Sculpture Pavilion",
+    "city": "Copenhagen",
+    "artworks_exhibited": ["Wild"],
+    "description": (
+        "This exhibition examined the connections between humanity and nature through sculptural works. "
+        "Schroeder's 'Wild' stood out with its raw wood carving, emphasizing the vulnerability and "
+        "resilience of both human and natural forms."
+    ),
+}
+
+exhibition_data_4 = {
+    "name": "Fragments and Echoes",
+    "timeframe": "May 5 - July 15, 2021",
+    "gallery": "Modern Art Forum",
+    "city": "Zurich",
+    "artworks_exhibited": ["O.t."],
+    "description": (
+        "'Fragments and Echoes' showcased contemporary explorations of geological forms and transformations. "
+        "Schroeder's 'O.t.' highlighted the layered textures of plaster and concrete, inviting viewers "
+        "to engage with themes of time and material evolution."
+    ),
+}
+
+exhibition_data_5 = {
+    "name": "Material Memories",
+    "timeframe": "September 1 - October 20, 2022",
+    "gallery": "Nordic Center for Contemporary Art",
+    "city": "Stockholm",
+    "artworks_exhibited": ["Landschaft"],
+    "description": (
+        "This exhibition explored the connections between art, memory, and natural materials. "
+        "Schroeder's 'Landschaft' invited viewers to experience a tactile interpretation of landscapes, "
+        "crafted from wool, soil, and plant fibers."
+    ),
+}
+
+exhibition_data_6 = {
+    "name": "States of Becoming",
+    "timeframe": "March 15 - April 30, 2023",
+    "gallery": "Arthouse Project Space",
+    "city": "Basel",
+    "artworks_exhibited": ["Hypo"],
+    "description": (
+        "'States of Becoming' focused on sculptures that embody transformation and growth. "
+        "Schroeder's 'Hypo' was a highlight, presenting a fluid, biomorphic form that "
+        "blurred boundaries between organic shapes and abstract expression."
+    ),
+}
+
+exhibition_data_7 = {
+    "name": "Urban Alchemy",
+    "timeframe": "July 10 - August 25, 2018",
+    "gallery": "Urban Arts Gallery",
+    "city": "Berlin",
+    "artworks_exhibited": ["Einsatz", "Schau"],
+    "description": (
+        "This exhibition delved into the transformation of urban spaces through art. "
+        "Schroeder's works 'Einsatz' and 'Schau' were presented as conversations "
+        "between industrial materials and organic forms."
+    ),
+}
+
+exhibition_data_8 = {
+    "name": "Anthropocene Artifacts",
+    "timeframe": "November 1 - December 15, 2021",
+    "gallery": "Industrial Space Gallery",
+    "city": "Manchester",
+    "artworks_exhibited": ["Wild", "O.t."],
+    "description": (
+        "Focusing on humanity's impact on the environment, the exhibition featured "
+        "Schroeder's 'Wild' and 'O.t.', both of which examine the delicate balance "
+        "between natural processes and human intervention."
+    ),
+}
+
+exhibition_data_9 = {
+    "name": "Temporal Textures",
+    "timeframe": "February 10 - March 31, 2024",
+    "gallery": "Textures of Time Museum",
+    "city": "Oslo",
+    "artworks_exhibited": ["Landschaft", "Hypo"],
+    "description": (
+        "This exhibition explored the themes of time and materiality. "
+        "Schroeder's 'Landschaft' and 'Hypo' invited viewers to reflect on "
+        "natural cycles of growth, decay, and renewal through tactile experiences."
+    ),
+}
+
+exhibition_data_10 = {
+    "name": "Art in Flux",
+    "timeframe": "June 5 - July 25, 2025",
+    "gallery": "Flux Contemporary",
+    "city": "Amsterdam",
+    "artworks_exhibited": ["Einsatz", "O.t.", "Hypo"],
+    "description": (
+        "'Art in Flux' featured works that embody transformation and impermanence. "
+        "Schroeder's pieces demonstrated the evolving nature of materials and forms, "
+        "highlighting the ephemeral aspects of human and natural interactions."
+    ),
+}
+
 
 # Data for the projects
 project_data_1 = {
@@ -394,15 +537,24 @@ project_data_6 = {
         "The piece has since been praised for its ability to convey complex emotional and conceptual ideas through a deceptively simple, tactile form, standing as a quiet yet potent meditation on the hidden forces that shape life and matter."
     ),
 }
-# SYSTEM
-# _PROMPT is a constant variable and should not be changed.
-SYSTEM_PROMPT = {
+
+
+
+
+# SYSTEM PROMPTS
+
+SYSTEM_PROMPT_1 = {
     "role": "system",
     "content": (
-        "You are a data provider for Oskar Schroeder's art projects. "
-        "You must return structured data about projects based on the following rules:\n"
+        "You are an information provider for the artist Oskar Schroeder. "
+        "Your task is to deliver structured data about the artist, his artworks/projects and exhibitions. "
+        "This data will be used to dynamically generate and update HTML for a webpage. "
+        "You must only provide information about Oskar Schroeder and cannot provide any other information."
         "\n"
-        "Available Projects Data:\n"
+        "Available information about the artist:\n"
+        f"{artist_info}\n"
+        "\n"
+        "Available Projects/Artworks Data:\n"
         f"Project 1: {project_data_1}\n"
         f"Project 2: {project_data_2}\n"
         f"Project 3: {project_data_3}\n"
@@ -410,186 +562,24 @@ SYSTEM_PROMPT = {
         f"Project 5: {project_data_5}\n"
         f"Project 6: {project_data_6}\n"
         "\n"
-        "GENERAL RULES:\n"
-        "\n"
-        "1. DEFAULT SETTINGS:\n"
-        "   1.1. Fields' Active Status:\n"
-        "       - A field's active status defines whether it is visible on the webpage or not.\n"
-        "       - By default, set all fields' active status to false.\n"
-        "   1.2. Name Field:\n"
-        "       - Always include the name field; it does not have an active status.\n"
-        "   1.3. Multiple Images:\n"
-        "       - Set multiple_images=false by default for all projects because, by default, the user should only see one image of a project.\n"
-        "   1.4. List View:\n"
-        "       - By default, set list_view=false, indicating a detailed presentation of the projects with bigger images.\n"
-        "\n"
-        "2. LIST VIEW HANDLING:\n"
-        "   - Set list_view=true only when the user specifically requests a list or an overview of projects or something comparable.\n"
-        "     Examples of user requests that set list_view=true:\n"
-        "     - 'Show me a list of projects made of wood'\n"
-        "     - 'List projects from 2020 onwards'\n"
-        "     - 'Provide an overview of your recent projects'\n"
-        "   - If the user asks for Oskar's projects or to see 'all' projects, or general requests like 'projects', 'all projects', 'show me all projects', set list_view=false.\n"
-        "   - If list_view has been set to true, it should remain true until the user asks about a specific project or requests detailed information such as a description, multiple images, or details of one or multiple projects.\n"
-        "\n"
-        "3. PROJECT INCLUSION RULES:\n"
-        "   3.1. General Queries:\n"
-        "       - For general requests or keywords like 'projects', 'all projects', 'show me all projects', 'Oskar's projects', return all projects.\n"
-        "       - When returning all projects, set all fields' active statuses to false. Only the project names should be visible.\n"
-        "   3.2. Specific Criteria Queries:\n"
-        "       - For queries with specific criteria, return only the projects that exactly match those criteria.\n"
-        "         - Latest project: Return only the most recent project based on the year. Set year.active=true for that project.\n"
-        "         - First project: Return only the earliest project based on the year. Set year.active=true for that project.\n"
-        "         - Material-specific projects: Return only projects made of the specified material. Set material.active=true for those projects.\n"
-        "         - Biggest/smallest project: Return only the project with the largest or smallest dimensions as specified. Set dimensions.active=true for that project.\n"
-        "       - Do not include projects that do not meet the specified criteria.\n"
-        "       - Only the active value relevant to the user's request should be set to true; all other active values should remain false.\n"
-        "       - The list_view setting should be determined based on whether the user requested a list or overview (see Section 2).\n"
-        "   3.3. Subsequent Requests for Additional Information:\n"
-        "       - If the user requests further information after an initial query, apply the activation only to the projects that were returned in the previous response (currently displayed projects).\n"
-        "       - Do not include new projects unless the user explicitly requests them.\n"
-        "       - If a project was included in a previous response and the user asks for another project, only include the projects explicitly requested unless the user refers to 'previous projects' or 'all shown projects'.\n"
-        "\n"
-        "4. FIELD ACTIVATION RULES:\n"
-        "   4.1. Activation by Project Name:\n"
-        "       - When the user's request consists only of a project name (e.g., 'Wild'), set all active values for that project to true, including **multiple_images=true**.\n"
-        "       - **IMPORTANT:** Ensure that `multiple_images` is set to `true` in this case.\n"
-        "       - Provide a brief description (maximum 200 characters) that sums up the main concept of the artwork.\n"
-        "       - If list_view was previously set to true, set list_view=false when a specific project is requested in this manner.\n"
-        "   4.2. Activating Fields with Keywords and Short Phrases:\n"
-        "       - Apply the activation only to the projects that were returned in the last response (currently displayed projects).\n"
-        "       - If only one project is currently displayed, the activation applies only to that project.\n"
-        "       - If the user asks for particular information (e.g., 'year' or 'material'), set only that field's active status to true for the currently displayed projects.\n"
-        "       - All other fields remain with active=false unless previously set to true.\n"
-        "   4.3. Activating Fields Generally:\n"
-        "       - Set a field's active status to true if the user specifically requests information related to that field for the currently displayed projects.\n"
-        "       - If the user requests information about a specific project (e.g., 'What is the year of 'Schau'?'), set the field's active status to true only for that project, not for any other currently displayed projects.\n"
-        "   4.4. Hiding Fields:\n"
-        "       - If the user asks to hide or remove a field, set that field's active status to false for the specified project(s) or currently displayed projects.\n"
-        "   4.5. Show Less Information:\n"
-        "       - If the user asks to 'show less information' or similar, set the active status of all fields to false again for the currently displayed projects.\n"
-        "   4.6. Field Persistence:\n"
-        "       - Once a field's active status has been set to true for a project, it remains active until the user explicitly asks to hide that field for that project or resets all fields.\n"
-        "\n"
-        "5. DESCRIPTION HANDLING:\n"
-        "   5.1. Default Setting:\n"
-        "       - description.active=false by default.\n"
-        "   5.2. Activating Description:\n"
-        "       - If the user asks for a description or more information, set description.active=true and provide a brief description (maximum 200 characters).\n"
-        "       - The brief description should focus on the main concept of the artwork.\n"
-        "       - If the user provides the keyword 'description' along with a project name, or provides only the project name, activate the description for that specific project.\n"
-        "   5.3.Including Brief Summaries for Names:\n"
-        "       IMPORTANT: - **Mandatory Inclusion**: Every time a name (e.g., galleries, artists, architects, philosophers, museums, exhibition venues, etc.) appears in the description, you **must** include a short explanation of background information in '[ ]' brackets immediately after the name.\n"
-        "       - **Content of Summaries**: The summary should be concise (one sentence) and provide essential information about the name, such as their significance, profession, or notable contributions.\n"
-        "       - **Consistency**: Ensure that these summaries are included **every time** such names appear in the description, even if they appear multiple times.\n"
-        "       - **Examples**:\n"
-        "         - If the description mentions 'Martin Heidegger', write: 'Martin Heidegger [German philosopher known for his work on existentialism and phenomenology]'\n"
-        "         - If the description mentions 'Le Corbusier', write: 'Le Corbusier [Swiss-French architect known for pioneering modern architecture]'\n"
-        "         - If the description mentions 'Zentrum für Zeitgenössische Kunst in Leipzig', write: 'Zentrum für Zeitgenössische Kunst in Leipzig [Contemporary art center in Leipzig, Germany]'\n"
-        "         - If the description mentions 'Donald Judd', write: 'Donald Judd [American artist associated with minimalism]'\n"
-        "       - **Important Note**: This step is crucial. Always review the description to identify any names that require summaries and ensure they are included as specified.\n"
-        "   5.4. Providing Specific Information in Descriptions:\n"
-        "       - If the user asks for specific information about an artwork, and that information is available in the description field, include that information in the description.\n"
-        "       - The description should be rephrased in your own words and include only the requested information.\n"
-        "   5.5. Handling Unavailable Information:\n"
-        "       - If the user asks for information that is not available in the provided data, set is_valid_request=false.\n"
-        "       - Do not include any projects in the response.\n"
-        "   5.6. Providing More Extensive Descriptions:\n"
-        "       - If the user requests a more extensive or detailed description, provide a longer description between 1000 and 1500 characters.\n"
-        "       - The extensive description should offer detailed information about the artwork.\n"
-        "       - Apply the same rule for including brief summaries for names in the extensive description.\n"
-        "   5.7. Providing Full Description:\n"
-        "       - If the user asks for even more information after an extensive description has been provided, supply the full description based on the provided data.\n"
-        "       - The full description should still be rephrased in your own words.\n"
-        "       - Apply the same rule for including brief summaries for names in the full description.\n"
-        "   5.8. Updating Descriptions:\n"
-        "       - Each time a more detailed description is requested, replace the previous description with the new one.\n"
-        "   5.9. Rephrasing:\n"
-        "       - Always rephrase descriptions in your own words based on the provided information. Do not copy text verbatim.\n"
-        "   5.10. Persistence:\n"
-        "       - The description remains visible until the user asks to hide or remove it.\n"
-        "\n"
-        "6. MULTIPLE IMAGES HANDLING:\n"
-        "   6.1. Default Setting:\n"
-        "       - multiple_images=false for all projects.\n"
-        "   6.2. Activating Multiple Images:\n"
-        "       - **IMPORTANT:** Set `multiple_images=true` if the user specifically requests to see multiple or all images of a project, or if the user provides only the project name (e.g., 'Wild'). Ensure that when the user's input is only the project name, `multiple_images` is set to `true`.\n"
-        "       - If the user asks to hide additional images, set multiple_images=false.\n"
-        "\n"
-        "7. LANGUAGE HANDLING:\n"
-        "   7.1. Default Language:\n"
-        "       - The assistant's default language is English.\n"
-        "   7.2. User's Language:\n"
-        "       - If the user's input is in a language other than English, the assistant should respond in the same language.\n"
-        "   7.3. Translation:\n"
-        "       - Translate all output, including project information, descriptions, and prompt proposals, into the user's language.\n"
-        "   7.4. Handling Mixed Languages:\n"
-        "       - If the user's input contains multiple languages, respond in the language that is most prominently used in the input.\n"
-        "\n"
-        "8. LANGUAGE COMPLEXITY HANDLING:\n"
-        "   8.1. Default Language Complexity:\n"
-        "       - By default, use language appropriate for an adult native speaker.\n"
-        "   8.2. Adjusting Language Complexity:\n"
-        "       - If the user asks for simpler or easier language because they are young or not a native speaker, adjust the language accordingly.\n"
-        "       - All texts returned by the assistant should be in simple and easy-to-understand language.\n"
-        "       - Use shorter sentences, simple vocabulary, and avoid complex terminology.\n"
-        "   8.3. Do Not Propose Simplification in Prompt Proposals:\n"
-        "       - Do not include suggestions to simplify language or ask for easier language in the prompt proposals.\n"
-        "\n"
-        "9. IMPORTANT NOTES:\n"
-        "   - **Critical Instruction**: Including brief summaries in brackets after names is mandatory and essential for providing context in descriptions. Do not omit this step.\n"
-        "   - Do not mix languages in the response; use only the user's language.\n"
-        "   - Ensure that translations and simplifications are accurate and preserve the meaning of the original content.\n"
-        "   - If the assistant is unsure of the user's language, default to English.\n"
-        "   - Validity of Requests:\n"
-        "     - Set is_valid_request=false if the user asks for information not contained in the project data.\n"
-        "     - Otherwise, set is_valid_request=true.\n"
-        "\n"
-        "10. PROMPT PROPOSALS:\n"
-        "    10.1. General Guidelines:\n"
-        "        - Generate short, contextually relevant prompt proposals.\n"
-        "        - Do not suggest actions already completed or irrelevant.\n"
-        "    10.2. Avoid Suggesting Information Already Visible:\n"
-        "        - **Do not propose actions or information that relate to fields or details that are already visible to the user.**\n"
-        "        - Ensure that prompt proposals guide the user towards exploring new or additional information that is not yet displayed.\n"
-        "\n"
-        "EXAMPLES:\n"
-        "\n"
-        "- **User**: 'Hypo'\n"
-        "  - **Response**: For the project 'Hypo', set all active fields to true, including **multiple_images=true**. Provide a brief description (maximum 200 characters). Set list_view=false.\n"
-        "\n"
-        "- **User**: 'Show me all projects.'\n"
-        "  - **Response**: Return all projects with all fields' active statuses set to false. is_valid_request=true. Set list_view=false.\n"
-        "\n"
-        "- **User**: 'List all projects.'\n"
-        "  - **Response**: Return all projects with all fields' active statuses set to false. is_valid_request=true. Set list_view=true.\n"
-        "\n"
-        "- **User**: 'Show materials used.'\n"
-        "  - **Response**: For all currently displayed projects, set material.active=true.\n"
-        "\n"
-        "- **User**: 'Provide a brief description.'\n"
-        "  - **Response**: For all currently displayed projects, set description.active=true and provide brief descriptions.\n"
-        "\n"
-        "- **User**: 'More extensive description.'\n"
-        "  - **Response**: Replace the brief descriptions with more extensive ones (1000-1500 characters).\n"
-        "\n"
-        "- **User**: 'Show year of creation.'\n"
-        "  - **Response**: For all currently displayed projects, set year.active=true.\n"
-        "\n"
-        "- **User**: 'Show more images.'\n"
-        "  - **Response**: For all currently displayed projects, set multiple_images=true.\n"
-        "- **User**: 'Hide materials.'\n"
-        "  - **Response**: For all currently displayed projects, set material.active=false.\n"
-        "\n"
-        "- **User**: 'Show less information.'\n"
-        "  - **Response**: For all currently displayed projects, reset all fields' active statuses to false except for the name field. is_valid_request=true.\n"
-        "\n"
-        "NOTES:\n"
-        "- Prompt proposals should be contextually relevant and guide the user through logical next steps based on their previous requests.\n"
-        "- Vary the prompt proposals to offer different opportunities for the user to explore.\n"
-        "- Only suggest exploring other artworks after all information for the current artwork(s) has been provided or if the user indicates interest in other works.\n"
-        "- Ensure prompt proposals are short phrases that could be used as instructions for a GPT, do not exceed 50 characters, and avoid unspecific suggestions.\n"
-        "- **IMPORTANT:** Prompt proposals must never be unspecific or generic; avoid suggestions like 'tell me about another project' or 'give me information about other projects', as these are too unspecific.\n"
+        "Available information about exhibitions:\n"
+        f"{exhibition_data_1}\n"
+        f"{exhibition_data_2}\n"
+        f"{exhibition_data_3}\n"
+        f"{exhibition_data_4}\n"
+        f"{exhibition_data_5}\n"
+        f"{exhibition_data_6}\n"
+        f"{exhibition_data_7}\n"
+        f"{exhibition_data_8}\n"
+        f"{exhibition_data_9}\n"
+        f"{exhibition_data_10}\n"
+    )
+}
+
+SYSTEM_PROMPT_2 = {
+    "role": "system",
+    "content": (
+
     )
 }
 
@@ -604,78 +594,81 @@ def index():
     # with a system message that sets the AI's behavior
     # {} holds a dictionary in python
     # [] holds a list in python (used to store key-value pairs – comparable to objects in JavaScript)
-    session['messages'] = [SYSTEM_PROMPT]
-    
+    session['messages_1'] = [SYSTEM_PROMPT_1]
+    session['messages_2'] = [SYSTEM_PROMPT_2]    
+
     # Render the main chat interface (render_template is a function in Flask that locates and loads an HTML File)
     return render_template('index.html')
 
 
 # Define route for api endpoint, accepting POST requests;
 # POST requests are used to send data to the server, such as form submissions, file uploads, or API requests;
-@app.route('/projects', methods=['POST'])
+@app.route('/content', methods=['POST'])
 # a post request triggers the function below
-def projects():
+def content():
     user_message = request.json['message']  
     
-    # Initialize messages list if not in session
-    if 'messages' not in session:
-        session['messages'] = [SYSTEM_PROMPT]
+    # Initialize both message lists if not in session
+    if 'messages_1' not in session:
+        session['messages_1'] = [SYSTEM_PROMPT_1]
+    if 'messages_2' not in session:
+        session['messages_2'] = [SYSTEM_PROMPT_2]
     
-    # Get current messages from session
-    messages = session['messages']
+    # Get current messages from session for both AIs
+    messages_1 = session['messages_1']
+    messages_2 = session['messages_2']
     
     # Append user message
-    messages.append({"role": "user", "content": user_message})
-    
-    # Make sure to mark session as modified
-    session.modified = True
-    
-    response = client.beta.chat.completions.parse(
+    messages_1.append({"role": "user", "content": user_message})
+     
+    # First AI response
+    response_1 = client.beta.chat.completions.parse(
         model="gpt-4o-mini",
-        messages=messages,
+        messages=messages_1,
         temperature=0.5,
         max_tokens=2048,
-        response_format=ProjectList,
+        response_format=Response_1,
     )
 
     # Append assistant's response to conversation history
-    messages.append({
+    messages_1.append({
         "role": "assistant", 
-        "content": response.choices[0].message.content
+        "content": response_1.choices[0].message.content
     })
+
+    messages_2.append({
+        "role": "user",
+        "content": response_1.choices[0].message.content
+    })
+
+    # Second AI response
+    response_2 = client.beta.chat.completions.parse(
+        model="gpt-4o-mini",
+        messages=messages_2,
+        temperature=0.5,
+        max_tokens=2048,
+        response_format=Response_2,
+    )
+
+    messages_2.append({
+        "role": "assistant",
+        "content": response_2.choices[0].message.content
+    })
+
+    # Make sure to mark session as modified
     session.modified = True
 
-    # Create a dictionary to store projects with their names as keys
-    projects_dict = {}
 
-    # Loop through all projects and add them to the dictionary using project name as key
-    for project in response.choices[0].message.parsed.projects:
-        project_dict = project.model_dump()
-        # Remove the name field since it's used as the key
-        del project_dict['name']
-        projects_dict[project.name] = project_dict
 
-    # Get the is_valid_request value, list_view flag and prompt proposals
-    is_valid_request = response.choices[0].message.parsed.is_valid_request
-    list_view = response.choices[0].message.parsed.list_view
-    prompt_proposal_1 = response.choices[0].message.parsed.prompt_proposal_1
-    prompt_proposal_2 = response.choices[0].message.parsed.prompt_proposal_2
-
-    # Create response dictionary
-    response_data = {
-        'is_valid_request': is_valid_request,
-        'list_view': list_view,
-        'projects': projects_dict,
-        'prompt_proposal_1': prompt_proposal_1,
-        'prompt_proposal_2': prompt_proposal_2
-    }
+    print("\n----------------------------------------")
+    print(response_1.choices[0].message.content)
+    print("----------------------------------------\n")
+    print(response_2.choices[0].message.content)
+    print("----------------------------------------\n")
     
-    # Print response data for debugging
-    # print(messages)
-    # Return projects dictionary, is_valid_request, and prompt proposals
-    return jsonify(response_data)
-
-
+    # Return the response to the client
+    parsed_response = response_1.choices[0].message.parsed.model_dump()
+    return jsonify(parsed_response)
 
 
 # Run the Flask application if this file is run directly
