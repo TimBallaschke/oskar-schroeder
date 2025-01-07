@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250107b_Oskar_Website",
+  "original_folder": "250107c_Oskar_Website_streaming_structured_output",
   "snapshot_date_from_folder": "250107",
   "source_files": [
     {
@@ -19,9 +19,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "cbdb6a5b355d8b840aaf56abc93ff93802b32f24",
-      "sha256": "711e727858c4585cdd065aa58686a6cbfe194b7012d74073d93c96f5fe6d8fd5",
-      "size": 44068,
+      "sha1": "c2a65b66dd550ecba75828dbb8434d73b117d8fd",
+      "sha256": "aa0d2dc4d1d44b10225179b5bf898ac42d1e8b47ec1bba61f466c276cabb845f",
+      "size": 44069,
       "mode": "100644"
     },
     {
@@ -43,6 +43,20 @@
       "sha1": "a453e843686ae8a2cc3b2a97d9fe4f8750f644e9",
       "sha256": "761d2758d29127cd1c5fbd0a8a28215bb5ab145b485d6e31658414bff46895ba",
       "size": 9038,
+      "mode": "100644"
+    },
+    {
+      "path": "static/css/styles.css",
+      "sha1": "0519ecba6ea913e21689ec692e81e9e4973fbf73",
+      "sha256": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068",
+      "size": 1,
+      "mode": "100644"
+    },
+    {
+      "path": "static/js/chat.js",
+      "sha1": "0519ecba6ea913e21689ec692e81e9e4973fbf73",
+      "sha256": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068",
+      "size": 1,
       "mode": "100644"
     },
     {

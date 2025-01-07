@@ -550,6 +550,9 @@ SYSTEM_PROMPT_1 = {
         "Your task is to deliver structured data about the artist, his artworks/projects and exhibitions. "
         "This data will be used to dynamically generate and update HTML for a webpage. "
         "You must only provide information about Oskar Schroeder and cannot provide any other information."
+        "Your responses must follow the specified structured format and be delivered incrementally in smaller chunks. "
+        "When providing paragraphs, stream them in sentences or smaller chunks to improve user experience. "
+        "Avoid sending large blocks of text all at once."
         "\n"
         "Available information about the artist:\n"
         f"{artist_info}\n"
@@ -576,12 +579,6 @@ SYSTEM_PROMPT_1 = {
     )
 }
 
-SYSTEM_PROMPT_2 = {
-    "role": "system",
-    "content": (
-
-    )
-}
 
 # @app.route is provided by Flask and used to define a route;
 # '/': This string represents the URL path for the route;
@@ -611,61 +608,51 @@ def content():
     # Initialize message list if not in session
     if 'messages_1' not in session:
         session['messages_1'] = [SYSTEM_PROMPT_1]
-    # if 'messages_2' not in session:
-    #     session['messages_2'] = [SYSTEM_PROMPT_2]
     
     # Get current messages from session for both AIs
     messages_1 = session['messages_1']
-    # messages_2 = session['messages_2']
     
     # Append user message
     messages_1.append({"role": "user", "content": user_message})
      
     # First AI response
-    response_1 = client.beta.chat.completions.parse(
+    with client.beta.chat.completions.stream(
         model="gpt-4o-mini",
         messages=messages_1,
         temperature=0.5,
         max_tokens=2048,
         response_format=Response_1,
-    )
+    ) as stream:
+        for event in stream:
+            if event.type == "content.delta":
+                if event.parsed is not None:
+                    # Print the parsed data as JSON
+                    print("content.delta parsed:", event.parsed)
+            elif event.type == "content.done":
+                print("content.done")
+            elif event.type == "error":
+                print("Error in stream:", event.error)
+
+    final_completion = stream.get_final_completion()
+    print("Final completion:", final_completion)
+
 
     # Append assistant's response to conversation history
     messages_1.append({
         "role": "assistant", 
-        "content": response_1.choices[0].message.content
+        "content": json.dumps(final_completion.model_dump())
     })
 
-    # messages_2.append({
-    #     "role": "user",
-    #     "content": response_1.choices[0].message.content
-    # })
-
-    # Second AI response
-    # response_2 = client.beta.chat.completions.parse(
-    #     model="gpt-4o-mini",
-    #     messages=messages_2,
-    #     temperature=0.5,
-    #     max_tokens=2048,
-    #     response_format=Response_2,
-    # )
-
-    # messages_2.append({
-    #     "role": "assistant",
-    #     "content": response_2.choices[0].message.content
-    # })
 
     # Make sure to mark session as modified for Flask to save changes
     session.modified = True
 
-    print("\n----------------------------------------")
-    print(response_1.choices[0].message.content)
-    print("----------------------------------------\n")
-    # print(response_2.choices[0].message.content)
+    # print("\n----------------------------------------")
+    # print(response_1.choices[0].message.content)
     # print("----------------------------------------\n")
-    
+
     # Return the response to the client
-    parsed_response = response_1.choices[0].message.parsed.model_dump()
+    parsed_response = final_completion.model_dump()
     return jsonify(parsed_response)
 
 
