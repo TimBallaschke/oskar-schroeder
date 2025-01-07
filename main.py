@@ -7,7 +7,7 @@ import json
 from pydantic import BaseModel, Field
 from typing import List, Union, Literal, Annotated
 from enum import Enum
-
+from datetime import datetime
 # Load environment variables from .env file (including API key)
 load_dotenv()
 
@@ -72,8 +72,8 @@ client = OpenAI()
 
 
 class ParagraphComponent(BaseModel):
-    UIType: Literal["paragraph"] = Field(description="Indicates this is a paragraph component for displaying text")
-    text: str = Field(description="The text content of the paragraph")
+    UIType: Literal["paragraphs"] = Field(description="Indicates this is a paragraph component for displaying text")
+    text: List[str] = Field(description="The text content of the paragraph. Every sentence should be a separate paragraph.")
 
 class ListComponent(BaseModel):
     UIType: Literal["list"] = Field(description="Indicates this is a list component for displaying a list of items")
@@ -90,7 +90,7 @@ class ProjectComponent(BaseModel):
     year: int = Field(description="Year the project was created")
     material: str = Field(description="Primary material used in the project")
     dimensions: str = Field(description="Physical dimensions of the project")
-    description: str = Field(description="Very short description of the project")
+    description: List[str] = Field(description="Short description of the project.Every sentence should be a separate paragraph.")
 
 # Root level must be a simple object
 class Response_1(BaseModel):
@@ -623,18 +623,31 @@ def content():
         max_tokens=2048,
         response_format=Response_1,
     ) as stream:
-        for event in stream:
-            if event.type == "content.delta":
+        
+        for event in stream: # event is a single chunk of data / update of the response
+            current_time = datetime.now().strftime("%H:%M:%S")
+            if event.type == "content.delta": # delta is partial update of the response / an additional chunk of data
                 if event.parsed is not None:
-                    # Print the parsed data as JSON
-                    print("content.delta parsed:", event.parsed)
+                    # Print the parsed data as JSON with formatting
+                    print("\n=== Content Delta ===")
+                    print(f"[{current_time}]")
+                    print(json.dumps(event.parsed, indent=2))
+                    print(f"[{current_time}]")
+                    print("===================\n")
+                    print(f"[{current_time}]")
             elif event.type == "content.done":
-                print("content.done")
+                print("\n>>> Stream Complete <<<\n")
+                print(f"[{current_time}]")
             elif event.type == "error":
-                print("Error in stream:", event.error)
+                print("\n!!! ERROR !!!")
+                print(f"[{current_time}]")
+                print(f"Stream error: {event.error}")
+                print(f"[{current_time}]")
+                print("!!!!!!!!!!!!\n")
+                print(f"[{current_time}]")
 
     final_completion = stream.get_final_completion()
-    print("Final completion:", final_completion)
+    # print("Final completion:", final_completion)
 
 
     # Append assistant's response to conversation history
