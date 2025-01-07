@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250107d_Oskar_Website_streaming_structured_output",
+  "original_folder": "250107e_Oskar_Website_pass_streaming_to_frontend_try",
   "snapshot_date_from_folder": "250107",
   "source_files": [
     {
@@ -19,9 +19,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "d1033b9cc4b7391b7bef883288913a5a3448192c",
-      "sha256": "c812ab8bd98d009345bafde062a915eefea7a02b25d393a20c3c75d90af9c3c6",
-      "size": 44931,
+      "sha1": "8980772d02687c9ab3092e013735e1456ab1868e",
+      "sha256": "1088589ac6839355ad6f3d254c2893ec7c28c299dc94ef134d6be2e1fbd020ed",
+      "size": 45406,
       "mode": "100644"
     },
     {
@@ -54,9 +54,9 @@
     },
     {
       "path": "static/js/chat.js",
-      "sha1": "0519ecba6ea913e21689ec692e81e9e4973fbf73",
-      "sha256": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068",
-      "size": 1,
+      "sha1": "81684c22eefd56a40bd10ef7999d48c519c49aab",
+      "sha256": "979918072629adc9afdc978317dd5445aa6e4d3628923b2e01734665572235a5",
+      "size": 1632,
       "mode": "100644"
     },
     {

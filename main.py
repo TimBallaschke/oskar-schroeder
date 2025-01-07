@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, Response, stream_with_context
 from flask_session import Session  # Import Session from flask_session
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -614,59 +614,51 @@ def content():
     
     # Append user message
     messages_1.append({"role": "user", "content": user_message})
-     
-    # First AI response
-    with client.beta.chat.completions.stream(
-        model="gpt-4o-mini",
-        messages=messages_1,
-        temperature=0.5,
-        max_tokens=2048,
-        response_format=Response_1,
-    ) as stream:
-        
-        for event in stream: # event is a single chunk of data / update of the response
-            current_time = datetime.now().strftime("%H:%M:%S")
-            if event.type == "content.delta": # delta is partial update of the response / an additional chunk of data
-                if event.parsed is not None:
-                    # Print the parsed data as JSON with formatting
-                    print("\n=== Content Delta ===")
-                    print(f"[{current_time}]")
-                    print(json.dumps(event.parsed, indent=2))
-                    print(f"[{current_time}]")
-                    print("===================\n")
-                    print(f"[{current_time}]")
-            elif event.type == "content.done":
-                print("\n>>> Stream Complete <<<\n")
-                print(f"[{current_time}]")
-            elif event.type == "error":
-                print("\n!!! ERROR !!!")
-                print(f"[{current_time}]")
-                print(f"Stream error: {event.error}")
-                print(f"[{current_time}]")
-                print("!!!!!!!!!!!!\n")
-                print(f"[{current_time}]")
 
-    final_completion = stream.get_final_completion()
-    # print("Final completion:", final_completion)
+    def generate():
+        with client.beta.chat.completions.stream(
+            model="gpt-4o-mini",
+            messages=messages_1,
+            temperature=0.5,
+            max_tokens=2048,
+            response_format=Response_1,
+        ) as stream:
+            for event in stream:
+                current_time = datetime.now().strftime("%H:%M:%S")
+                if event.type == "content.delta":
+                    if event.parsed is not None:
+                        # Send the parsed delta to the frontend
+                        # yield is used to send data to the frontend in a streaming manner (turns function into a generator)
+                        # a function is creating all values at once, but a generator sends them one by one
+                        yield f"data: {json.dumps({'type': 'delta', 'content': event.parsed})}\n\n"
+                elif event.type == "content.done":
+                    # Get and send the final completion
+                    final_completion = stream.get_final_completion()
+                    
+                    # Append assistant's response to conversation history
+                    messages_1.append({
+                        "role": "assistant", 
+                        "content": json.dumps(final_completion.model_dump())
+                    })
+                    
+                    # Mark session as modified
+                    session.modified = True
+                    
+                    # Send completion event to frontend
+                    yield f"data: {json.dumps({'type': 'complete', 'content': final_completion.model_dump()})}\n\n"
+                elif event.type == "error":
+                    # Send error event to frontend
+                    yield f"data: {json.dumps({'type': 'error', 'content': str(event.error)})}\n\n"
 
-
-    # Append assistant's response to conversation history
-    messages_1.append({
-        "role": "assistant", 
-        "content": json.dumps(final_completion.model_dump())
-    })
-
-
-    # Make sure to mark session as modified for Flask to save changes
-    session.modified = True
-
-    # print("\n----------------------------------------")
-    # print(response_1.choices[0].message.content)
-    # print("----------------------------------------\n")
-
-    # Return the response to the client
-    parsed_response = final_completion.model_dump()
-    return jsonify(parsed_response)
+    # response() ia a flask function that returns a HTTP response object
+    # it allows you to customize how data is sent back to the client
+    # it is more flexible than a simple return statement
+    # stream_with_context() is a flask function that that preserves the current context while streaming data
+    # generate() is a generator function that yields data to the client
+    # content_type="text/event-stream" specifies the content type of the response
+    # this tells the browser that the response is an event stream
+    # the browser will use this information to handle the response as an event stream
+    return Response(stream_with_context(generate()), content_type="text/event-stream")
 
 
 # Run the Flask application if this file is run directly
