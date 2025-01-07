@@ -595,7 +595,7 @@ def index():
     # {} holds a dictionary in python
     # [] holds a list in python (used to store key-value pairs – comparable to objects in JavaScript)
     session['messages_1'] = [SYSTEM_PROMPT_1]
-    session['messages_2'] = [SYSTEM_PROMPT_2]    
+    # session['messages_2'] = [SYSTEM_PROMPT_2]    
 
     # Render the main chat interface (render_template is a function in Flask that locates and loads an HTML File)
     return render_template('index.html')
@@ -608,15 +608,15 @@ def index():
 def content():
     user_message = request.json['message']  
     
-    # Initialize both message lists if not in session
+    # Initialize message list if not in session
     if 'messages_1' not in session:
         session['messages_1'] = [SYSTEM_PROMPT_1]
-    if 'messages_2' not in session:
-        session['messages_2'] = [SYSTEM_PROMPT_2]
+    # if 'messages_2' not in session:
+    #     session['messages_2'] = [SYSTEM_PROMPT_2]
     
     # Get current messages from session for both AIs
     messages_1 = session['messages_1']
-    messages_2 = session['messages_2']
+    # messages_2 = session['messages_2']
     
     # Append user message
     messages_1.append({"role": "user", "content": user_message})
@@ -636,35 +636,33 @@ def content():
         "content": response_1.choices[0].message.content
     })
 
-    messages_2.append({
-        "role": "user",
-        "content": response_1.choices[0].message.content
-    })
+    # messages_2.append({
+    #     "role": "user",
+    #     "content": response_1.choices[0].message.content
+    # })
 
     # Second AI response
-    response_2 = client.beta.chat.completions.parse(
-        model="gpt-4o-mini",
-        messages=messages_2,
-        temperature=0.5,
-        max_tokens=2048,
-        response_format=Response_2,
-    )
+    # response_2 = client.beta.chat.completions.parse(
+    #     model="gpt-4o-mini",
+    #     messages=messages_2,
+    #     temperature=0.5,
+    #     max_tokens=2048,
+    #     response_format=Response_2,
+    # )
 
-    messages_2.append({
-        "role": "assistant",
-        "content": response_2.choices[0].message.content
-    })
+    # messages_2.append({
+    #     "role": "assistant",
+    #     "content": response_2.choices[0].message.content
+    # })
 
-    # Make sure to mark session as modified
+    # Make sure to mark session as modified for Flask to save changes
     session.modified = True
-
-
 
     print("\n----------------------------------------")
     print(response_1.choices[0].message.content)
     print("----------------------------------------\n")
-    print(response_2.choices[0].message.content)
-    print("----------------------------------------\n")
+    # print(response_2.choices[0].message.content)
+    # print("----------------------------------------\n")
     
     # Return the response to the client
     parsed_response = response_1.choices[0].message.parsed.model_dump()
