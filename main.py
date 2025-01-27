@@ -601,19 +601,25 @@ def index():
 # Define route for api endpoint, accepting POST requests;
 # POST requests are used to send data to the server, such as form submissions, file uploads, or API requests;
 @app.route('/content', methods=['POST'])
-# a post request triggers the function below
 def content():
-    user_message = request.json['message']  
+    user_message = request.json['message']
     
     # Initialize message list if not in session
     if 'messages_1' not in session:
         session['messages_1'] = [SYSTEM_PROMPT_1]
-    
-    # Get current messages from session for both AIs
+
+    # Get current messages from session
     messages_1 = session['messages_1']
-    
     # Append user message
     messages_1.append({"role": "user", "content": user_message})
+    
+    session.modified = True
+    
+    return jsonify({"status": "ok"})  # Respond to confirm the message was received
+
+@app.route('/stream')
+def stream():
+    messages_1 = session.get('messages_1', [])
 
     def generate():
         with client.beta.chat.completions.stream(
@@ -624,7 +630,6 @@ def content():
             response_format=Response_1,
         ) as stream:
             for event in stream:
-                current_time = datetime.now().strftime("%H:%M:%S")
                 if event.type == "content.delta":
                     if event.parsed is not None:
                         # Send the parsed delta to the frontend
@@ -646,6 +651,7 @@ def content():
                     
                     # Send completion event to frontend
                     yield f"data: {json.dumps({'type': 'complete', 'content': final_completion.model_dump()})}\n\n"
+                    
                 elif event.type == "error":
                     # Send error event to frontend
                     yield f"data: {json.dumps({'type': 'error', 'content': str(event.error)})}\n\n"
@@ -671,4 +677,3 @@ if __name__ == '__main__':
     # host='127.0.0.1' specifies the host address to bind the server to (localhost);
     # port=5000 specifies the port number to bind the server to (5000 is the default port for Flask development servers)
     app.run(debug=True, host='127.0.0.1', port=5000)  
-

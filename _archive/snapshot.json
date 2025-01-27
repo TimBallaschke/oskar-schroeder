@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250127_Oskar_Website",
+  "original_folder": "250127b_Oskar_Website_console.log_streamed_response",
   "snapshot_date_from_folder": "250127",
   "source_files": [
     {
@@ -19,9 +19,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "8980772d02687c9ab3092e013735e1456ab1868e",
-      "sha256": "1088589ac6839355ad6f3d254c2893ec7c28c299dc94ef134d6be2e1fbd020ed",
-      "size": 45406,
+      "sha1": "7b79cb0814b9a84ec093200f30839327055ea07a",
+      "sha256": "8d55e537ce53478412a6095986564f168f3e0a572e73537007262ead6e92356a",
+      "size": 45495,
       "mode": "100644"
     },
     {
@@ -53,10 +53,17 @@
       "mode": "100644"
     },
     {
+      "path": "static/js/chat.js",
+      "sha1": "0519ecba6ea913e21689ec692e81e9e4973fbf73",
+      "sha256": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068",
+      "size": 1,
+      "mode": "100644"
+    },
+    {
       "path": "static/js/script.js",
-      "sha1": "f2f22e91d0c3022a70ea53b912d9ee97b2a2f868",
-      "sha256": "13dd2cd41d0331d61431088265b3c964d7ea1fdc92eed30572bc50b0df024b72",
-      "size": 3968,
+      "sha1": "f21b068d00631576f6c35591612c90fbdf7a0fb2",
+      "sha256": "ffb320cd765ae853287ceed5d5325281971af542665db60a5574924a7a194484",
+      "size": 2608,
       "mode": "100644"
     },
     {
@@ -530,9 +537,9 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "937c7353ba2325bb1b6348f021d7cc2927c5c2e1",
-      "sha256": "b253a217c478a46e9560d9721ea022ef50211fd4c9a1695b1c34fe09f24433fb",
-      "size": 1202,
+      "sha1": "e0f69fc4d7e218af5a18a300335e63d607c27fea",
+      "sha256": "92192763550249b140135c19ef8a0463eb5bca0788abfb8f0a13bd39232e6621",
+      "size": 1211,
       "mode": "100644"
     }
   ],
