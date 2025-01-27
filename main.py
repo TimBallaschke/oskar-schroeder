@@ -638,7 +638,7 @@ def stream():
                         yield f"data: {json.dumps({'type': 'delta', 'content': event.parsed})}\n\n"
                 elif event.type == "content.done":
                     # Get and send the final completion
-                    final_completion = stream.get_final_completion()
+                    final_completion = stream.get_final_completion().choices[0].message.parsed
                     
                     # Append assistant's response to conversation history
                     messages_1.append({
