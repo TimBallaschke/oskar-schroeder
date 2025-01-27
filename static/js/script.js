@@ -14,12 +14,15 @@
 // });
 
 let activeEventSource = null; // Track the active activeEventSource connection
+let isStreaming = false;
 
 // Function called when user sends a message
 function sendMessage() {
     const input = document.getElementById('user-input');
     const message = input.value.trim();
     if (message === '') return;  // Don't send empty messages
+
+    toggleLoadingState(true);
 
     // Send message to backend (Flask server)
     // This is a post request that triggers the function in main.py
@@ -62,10 +65,14 @@ function startStreamingResponse() {
             case 'complete': // if the message type is 'complete', it calls the handleComplete function
                 handleComplete(data.content);
                 activeEventSource.close();
+                currentEventSource = null;
+                toggleLoadingState(false);
                 break;
             case "error": // if the message type is 'error', it logs the error to the console and closes the event source
                 console.error("Error:", data.content);
                 activeEventSource.close();
+                currentEventSource = null;
+                toggleLoadingState(false);
                 break;
         }
     };
@@ -73,6 +80,8 @@ function startStreamingResponse() {
     activeEventSource.onerror = function (error) { // eventhandler that will be called if an error occurs with the event source
         console.error("activeEventSource failed:", error);
         activeEventSource.close();
+        currentEventSource = null;
+        toggleLoadingState(false);
     };
 }
 
@@ -86,6 +95,9 @@ function handleComplete(content) {
     // updateUI(content);
 }
 
+function toggleLoadingState(isLoading) {
+
+}
 
 
 // Add ability to send message by pressing Enter key
