@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250127c_console.log_streamed_response_parsed_Oskar_Website",
+  "original_folder": "250127d_Oskar_Website_eventSource_handling",
   "snapshot_date_from_folder": "250127",
   "source_files": [
     {
@@ -61,9 +61,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "f21b068d00631576f6c35591612c90fbdf7a0fb2",
-      "sha256": "ffb320cd765ae853287ceed5d5325281971af542665db60a5574924a7a194484",
-      "size": 2608,
+      "sha1": "d590bd8f6f1709373af1ef1e97435a2ae8cf90d4",
+      "sha256": "4f050496fe38873402b005d8cc654745fb388e4eca8eb4fd58995273b61da0a4",
+      "size": 4486,
       "mode": "100644"
     },
     {
