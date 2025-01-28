@@ -116,22 +116,22 @@ function handleDelta(content) {
                 // Attempt to find an existing <div> for this paragraph block
                 let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
                 if (!paragraphContainer) {
-                    paragraphContainer = document.createElement('div');
+                    paragraphContainer = document.createElement('p');
                     paragraphContainer.classList.add('paragraph-container');
                     // Use a data attribute to identify this unique container
                     paragraphContainer.setAttribute('data-component-key', componentID);
                     contentContainer.appendChild(paragraphContainer);
                 }
-
                 // For each sentence, check if we've already processed it
                 component.text.forEach(sentence => {
                     if (!processedSet.has(sentence)) {
-                        // Mark this sentence as processed
                         processedSet.add(sentence);
-
-                        const p = document.createElement('p');
-                        p.textContent = sentence;
-                        paragraphContainer.appendChild(p);
+                        
+                        // Add a space before the sentence if the paragraph isn't empty
+                        if (paragraphContainer.textContent) {
+                            paragraphContainer.textContent += ' ';
+                        }
+                        paragraphContainer.textContent += sentence;
 
                         console.log('processedSet:', componentID, processedSet);
                     }
