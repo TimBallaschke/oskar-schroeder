@@ -16,6 +16,9 @@
 let activeEventSource = null; // Track the active activeEventSource connection
 let isStreaming = false;
 let processedComponents = new Map();
+let isProcessingWords = false;
+let pendingComponents = [];
+let isProcessingComponent = false;
 
 // Function called when user sends a message
 function sendMessage() {
@@ -55,7 +58,6 @@ function startStreamingResponse() {
     }
 
     activeEventSource = new EventSource("/stream"); // creates a new EventSource connection to the "/stream" endpoint. activeEventSource is used for Server-Sent Events (SSE), allowing the server to push data to the client in real-time over a single, long-lived connection
-    console.log(activeEventSource);
 
     activeEventSource.onmessage = function(event) { // eventhandler that will be called whenever a message is received from the server
         const data = JSON.parse(event.data); // parsed the received message data from JSON string format to a JavaScript object
@@ -87,41 +89,48 @@ function startStreamingResponse() {
     };
 }
 
-async function handleDelta(content) {  // Make the main function async
+function handleDelta(content) {
     console.log("Received delta:", content);
-
     const contentContainer = document.getElementById('content-container');
     
-    // Use for...of instead of forEach to handle async operations sequentially
-    for (let i = 0; i < content.components.length; i++) {
-        const component = content.components[i];
+    content.components.forEach((component, index) => {
+        if (!component.UIType) return;
+
+        const componentID = `${component.UIType}-${index}`;
         
-        if (!component.UIType) {
-            continue;
-        }
-
-        const componentID = `${component.UIType}-${i}`;
-
-        console.log('current componentID:', componentID);
-
+        // Initialize component state if it doesn't exist
         if (!processedComponents.has(componentID)) {
-            processedComponents.set(componentID, new Set());
+            processedComponents.set(componentID, {
+                processedSentences: new Set(),
+                pendingSentences: [],
+                isProcessing: false
+            });
         }
 
-        const processedSet = processedComponents.get(componentID);
+        const componentState = processedComponents.get(componentID);
 
         switch (component.UIType) {
             case 'paragraphs':
                 let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
                 if (!paragraphContainer) {
-                    paragraphContainer = document.createElement('p');
+                    paragraphContainer = document.createElement('div');
                     paragraphContainer.classList.add('paragraph-container');
                     paragraphContainer.setAttribute('data-component-key', componentID);
                     contentContainer.appendChild(paragraphContainer);
                 }
-                // Process sentences one by one in sequence
-                for (const sentence of component.text) {
-                    await addWordsSequentially(paragraphContainer, sentence, processedSet);
+
+                // Add new sentences to pending queue
+                component.text.forEach(sentence => {
+                    if (!componentState.processedSentences.has(sentence) && 
+                        !componentState.pendingSentences.includes(sentence)) {
+                        componentState.pendingSentences.push(sentence);
+                    }
+                });
+
+                // Start processing if not already doing so
+                if (!componentState.isProcessing && componentState.pendingSentences.length > 0) {
+                    componentState.isProcessing = true;
+                    processNextSentence(componentID, paragraphContainer);
                 }
                 break;
 
@@ -136,26 +145,43 @@ async function handleDelta(content) {  // Make the main function async
 
             default:
                 console.warn('Unknown UIType:', component.UIType);
-                return;
         }
-    }
+    });
 }
 
-async function addWordsSequentially(paragraphContainer, sentence, processedSet, delay = 50) {
-    if (processedSet.has(sentence)) return; // Skip duplicates
-    processedSet.add(sentence);
-
-    const words = sentence.split(' ');
-
-    for (let i = 0; i < words.length; i++) {
-        await new Promise(resolve => setTimeout(resolve, delay)); // Wait before adding the next word
-
-        // Add a space before each word except the first one
-        if (paragraphContainer.textContent.length > 0) {
-            paragraphContainer.textContent += ' ';
-        }
-        paragraphContainer.textContent += words[i];
+function processNextSentence(componentID, container) {
+    const componentState = processedComponents.get(componentID);
+    
+    if (!componentState.pendingSentences.length) {
+        componentState.isProcessing = false;
+        return;
     }
+
+    const sentence = componentState.pendingSentences[0];
+    const words = sentence.split(' ');
+    const p = document.createElement('p');
+    container.appendChild(p);
+    
+    animateWords(p, words, 0, () => {
+        componentState.processedSentences.add(sentence);
+        componentState.pendingSentences.shift();
+        processNextSentence(componentID, container);
+    });
+}
+
+function animateWords(paragraph, words, currentIndex, onComplete) {
+    if (currentIndex >= words.length) {
+        onComplete();
+        return;
+    }
+
+    const word = words[currentIndex];
+    const shouldAddSpace = currentIndex > 0;
+    paragraph.textContent += (shouldAddSpace ? ' ' : '') + word;
+
+    setTimeout(() => {
+        animateWords(paragraph, words, currentIndex + 1, onComplete);
+    }, 30);
 }
 
 function handleComplete(content) {
