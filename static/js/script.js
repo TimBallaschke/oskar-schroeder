@@ -15,8 +15,7 @@
 
 let activeEventSource = null; // Track the active activeEventSource connection
 let isStreaming = false;
-
-let processedComponents = new Map(); // Tracks components AND their sub-elements
+let processedComponents = new Map();
 
 // Function called when user sends a message
 function sendMessage() {
@@ -92,105 +91,78 @@ function handleDelta(content) {
     console.log("Received delta:", content);
 
     const contentContainer = document.getElementById('content-container');
-
+    
+    // Log each component with its position
     content.components.forEach((component, index) => {
+        // console.log(`Component at position ${index}:`, component);
 
-        // Generate a unique key for each component based on its type and position
-        const componentKey = index;
+        const componentID = `${component.UIType}-${index}`;
 
-        if (!processedComponents.has(componentKey)) {
-            processedComponents.set(componentKey, new Set()); // Initialize if new
-        }
-
-        const processedSet = processedComponents.get(componentKey); // Retrieve sub-element tracker
-
-        let element;
-        
-        switch (component.UIType) {
-            case 'paragraphs':
-                let paragraphContainer = document.querySelector(`[data-component-key="${componentKey}"]`);
-
-                if (!paragraphContainer) {
-                    paragraphContainer = document.createElement('div');
-                    paragraphContainer.classList.add('paragraph-container');
-                    paragraphContainer.setAttribute('data-component-key', componentKey);
-                    contentContainer.appendChild(paragraphContainer);
-                }
-
-                component.text.forEach(sentence => {
-                    if (processedSet.has(sentence)) return;
-                    processedSet.add(sentence);
-
-                    let p = document.createElement('p');
-                    p.textContent = sentence;
-                    paragraphContainer.appendChild(p);
-                });
-
-                console.log(processedComponents);
-                break;
-
-            case 'list':
-                element = document.createElement('ul');
-                component.items.forEach(item => {
-                    const li = document.createElement('li');
-                    li.textContent = item;
-                    element.appendChild(li);
-                });
-
-                component.text.forEach(sentence => {
-                    if (processedSet.has(sentence)) return;
-                    processedSet.add(sentence);
-
-                    let p = document.createElement('p');
-                    p.textContent = sentence;
-                    paragraphContainer.appendChild(p);
-                });
-                break;
-
-            case 'table':
-                element = document.createElement('table');
-                const thead = document.createElement('thead');
-                const headerRow = document.createElement('tr');
-
-                component.headers.forEach(header => {
-                    const th = document.createElement('th');
-                    th.textContent = header;
-                    headerRow.appendChild(th);
-                });
-                thead.appendChild(headerRow);
-                element.appendChild(thead);
-
-                const tbody = document.createElement('tbody');
-                component.rows.forEach(row => {
-                    const tr = document.createElement('tr');
-                    row.forEach(cell => {
-                        const td = document.createElement('td');
-                        td.textContent = cell;
-                        tr.appendChild(td);
-                    });
-                    tbody.appendChild(tr);
-                });
-                element.appendChild(tbody);
-                break;
-
-            case 'project':
-                element = document.createElement('div');
-                element.innerHTML = `
-                    <h3>${component.name} (${component.year})</h3>
-                    <p><strong>Material:</strong> ${component.material}</p>
-                    <p><strong>Dimensions:</strong> ${component.dimensions}</p>
-                    <p>${component.description.join('</p><p>')}</p>
-                `;
-                break;
-
-            default:
-                console.warn('Unknown UIType:', component.UIType);
-                return;
-        }
-
-        processedComponents.add(JSON.stringify(component)); // Add the processed component to the set
-        contentContainer.appendChild(element);
+        console.log('current componentID:', componentID);
     });
+
+    // console.log(contentContainer);
+
+    // // content.components is an array of objects that match your Pydantic model
+    // content.components.forEach((component) => {
+
+    //     if (!processedComponents.has(component.UIType)) {
+    //         processedComponents.set(component.UIType, new Set());
+    //     }
+
+    //     // const processedSet = processedComponents.get(componentKey);
+
+    //     let element;
+        
+    //     switch (component.UIType) {
+    //         case 'paragraphs':
+
+    //             element = document.createElement('p');
+    //             element.innerHTML = component.text.join(' ');
+    //             console.log(element);
+
+    //             // Attempt to find an existing <div> for this paragraph block
+    //             // let paragraphContainer = document.querySelector(`[data-component-key="${componentKey}"]`);
+    //             // if (!paragraphContainer) {
+    //             //     paragraphContainer = document.createElement('div');
+    //             //     paragraphContainer.classList.add('paragraph-container');
+    //             //     // Use a data attribute to identify this unique container
+    //             //     paragraphContainer.setAttribute('data-component-key', componentKey);
+    //             //     contentContainer.appendChild(paragraphContainer);
+    //             // }
+
+    //             // // For each sentence, check if we've already processed it
+    //             // component.text.forEach(sentence => {
+    //             //     if (!processedSet.has(sentence)) {
+    //             //         // Mark this sentence as processed
+    //             //         processedSet.add(sentence);
+
+    //             //         const p = document.createElement('p');
+    //             //         p.textContent = sentence;
+    //             //         paragraphContainer.appendChild(p);
+    //             //     }
+    //             // });
+    //             break;
+
+    //         case 'list':
+
+    //             break;
+
+    //         case 'table':
+
+    //             break;
+
+    //         case 'project':
+
+    //             break;
+
+    //         default:
+    //             console.warn('Unknown UIType:', component.UIType);
+    //             return;
+    //     }
+
+    //     contentContainer.appendChild(element);
+    // });
 }
 
 function handleComplete(content) {
