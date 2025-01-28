@@ -87,21 +87,22 @@ function startStreamingResponse() {
     };
 }
 
-function handleDelta(content) {
+async function handleDelta(content) {  // Make the main function async
     console.log("Received delta:", content);
 
     const contentContainer = document.getElementById('content-container');
     
-    // Log each component with its position
-    content.components.forEach((component, index) => {
-
+    // Use for...of instead of forEach to handle async operations sequentially
+    for (let i = 0; i < content.components.length; i++) {
+        const component = content.components[i];
+        
         if (!component.UIType) {
-            return;
+            continue;
         }
 
-        const componentID = `${component.UIType}-${index}`;
+        const componentID = `${component.UIType}-${i}`;
 
-        // console.log('current componentID:', componentID);
+        console.log('current componentID:', componentID);
 
         if (!processedComponents.has(componentID)) {
             processedComponents.set(componentID, new Set());
@@ -109,33 +110,19 @@ function handleDelta(content) {
 
         const processedSet = processedComponents.get(componentID);
 
-        let element;
-
         switch (component.UIType) {
             case 'paragraphs':
-                // Attempt to find an existing <div> for this paragraph block
                 let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
                 if (!paragraphContainer) {
                     paragraphContainer = document.createElement('p');
                     paragraphContainer.classList.add('paragraph-container');
-                    // Use a data attribute to identify this unique container
                     paragraphContainer.setAttribute('data-component-key', componentID);
                     contentContainer.appendChild(paragraphContainer);
                 }
-                // For each sentence, check if we've already processed it
-                component.text.forEach(sentence => {
-                    if (!processedSet.has(sentence)) {
-                        processedSet.add(sentence);
-                        
-                        // Add a space before the sentence if the paragraph isn't empty
-                        if (paragraphContainer.textContent) {
-                            paragraphContainer.textContent += ' ';
-                        }
-                        paragraphContainer.textContent += sentence;
-
-                        console.log('processedSet:', componentID, processedSet);
-                    }
-                });
+                // Process sentences one by one in sequence
+                for (const sentence of component.text) {
+                    await addWordsSequentially(paragraphContainer, sentence, processedSet);
+                }
                 break;
 
             case 'list':
@@ -151,9 +138,24 @@ function handleDelta(content) {
                 console.warn('Unknown UIType:', component.UIType);
                 return;
         }
+    }
+}
 
-        // console.log('processedComponents:', processedComponents);
-    });
+async function addWordsSequentially(paragraphContainer, sentence, processedSet, delay = 50) {
+    if (processedSet.has(sentence)) return; // Skip duplicates
+    processedSet.add(sentence);
+
+    const words = sentence.split(' ');
+
+    for (let i = 0; i < words.length; i++) {
+        await new Promise(resolve => setTimeout(resolve, delay)); // Wait before adding the next word
+
+        // Add a space before each word except the first one
+        if (paragraphContainer.textContent.length > 0) {
+            paragraphContainer.textContent += ' ';
+        }
+        paragraphContainer.textContent += words[i];
+    }
 }
 
 function handleComplete(content) {

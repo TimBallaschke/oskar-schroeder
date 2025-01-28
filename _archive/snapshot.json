@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250128f_Oskar_Website_add_paragraphs_DOM",
+  "original_folder": "250128g_Oskar_Website_failed_async_await",
   "snapshot_date_from_folder": "250128",
   "source_files": [
     {
@@ -61,9 +61,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "3f8dad9d02e294668bbd15a20d9c283d1f6d576f",
-      "sha256": "90c43adcf52251a17e520851ff29fb2f71678adb17bb086b94239ed97783b7f9",
-      "size": 7671,
+      "sha1": "a5bf06a4dce8f2436ecf669b5ca31df04b73528a",
+      "sha256": "642775e00b7a6e63081b2a865b936f5ec2ed9c050e76680f2b0de3e23d2471b7",
+      "size": 7701,
       "mode": "100644"
     },
     {
