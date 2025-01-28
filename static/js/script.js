@@ -94,75 +94,66 @@ function handleDelta(content) {
     
     // Log each component with its position
     content.components.forEach((component, index) => {
-        // console.log(`Component at position ${index}:`, component);
+
+        if (!component.UIType) {
+            return;
+        }
 
         const componentID = `${component.UIType}-${index}`;
 
-        console.log('current componentID:', componentID);
+        // console.log('current componentID:', componentID);
+
+        if (!processedComponents.has(componentID)) {
+            processedComponents.set(componentID, new Set());
+        }
+
+        const processedSet = processedComponents.get(componentID);
+
+        let element;
+
+        switch (component.UIType) {
+            case 'paragraphs':
+                // Attempt to find an existing <div> for this paragraph block
+                let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
+                if (!paragraphContainer) {
+                    paragraphContainer = document.createElement('div');
+                    paragraphContainer.classList.add('paragraph-container');
+                    // Use a data attribute to identify this unique container
+                    paragraphContainer.setAttribute('data-component-key', componentID);
+                    contentContainer.appendChild(paragraphContainer);
+                }
+
+                // For each sentence, check if we've already processed it
+                component.text.forEach(sentence => {
+                    if (!processedSet.has(sentence)) {
+                        // Mark this sentence as processed
+                        processedSet.add(sentence);
+
+                        const p = document.createElement('p');
+                        p.textContent = sentence;
+                        paragraphContainer.appendChild(p);
+
+                        console.log('processedSet:', componentID, processedSet);
+                    }
+                });
+                break;
+
+            case 'list':
+                break;
+
+            case 'table':
+                break;
+
+            case 'project':
+                break;
+
+            default:
+                console.warn('Unknown UIType:', component.UIType);
+                return;
+        }
+
+        // console.log('processedComponents:', processedComponents);
     });
-
-    // console.log(contentContainer);
-
-    // // content.components is an array of objects that match your Pydantic model
-    // content.components.forEach((component) => {
-
-    //     if (!processedComponents.has(component.UIType)) {
-    //         processedComponents.set(component.UIType, new Set());
-    //     }
-
-    //     // const processedSet = processedComponents.get(componentKey);
-
-    //     let element;
-        
-    //     switch (component.UIType) {
-    //         case 'paragraphs':
-
-    //             element = document.createElement('p');
-    //             element.innerHTML = component.text.join(' ');
-    //             console.log(element);
-
-    //             // Attempt to find an existing <div> for this paragraph block
-    //             // let paragraphContainer = document.querySelector(`[data-component-key="${componentKey}"]`);
-    //             // if (!paragraphContainer) {
-    //             //     paragraphContainer = document.createElement('div');
-    //             //     paragraphContainer.classList.add('paragraph-container');
-    //             //     // Use a data attribute to identify this unique container
-    //             //     paragraphContainer.setAttribute('data-component-key', componentKey);
-    //             //     contentContainer.appendChild(paragraphContainer);
-    //             // }
-
-    //             // // For each sentence, check if we've already processed it
-    //             // component.text.forEach(sentence => {
-    //             //     if (!processedSet.has(sentence)) {
-    //             //         // Mark this sentence as processed
-    //             //         processedSet.add(sentence);
-
-    //             //         const p = document.createElement('p');
-    //             //         p.textContent = sentence;
-    //             //         paragraphContainer.appendChild(p);
-    //             //     }
-    //             // });
-    //             break;
-
-    //         case 'list':
-
-    //             break;
-
-    //         case 'table':
-
-    //             break;
-
-    //         case 'project':
-
-    //             break;
-
-    //         default:
-    //             console.warn('Unknown UIType:', component.UIType);
-    //             return;
-    //     }
-
-    //     contentContainer.appendChild(element);
-    // });
 }
 
 function handleComplete(content) {
