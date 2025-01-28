@@ -66,8 +66,8 @@ function startStreamingResponse() {
                 break;
             case 'complete': // if the message type is 'complete', it calls the handleComplete function
                 handleComplete(data.content);
-                activeEventSource.close();
-                currentEventSource = null;
+                // activeEventSource.close();
+                // currentEventSource = null;
                 toggleLoadingState(false);
                 break;
             case "error": // if the message type is 'error', it logs the error to the console and closes the event source
@@ -125,15 +125,21 @@ async function handleDelta(content) {
                         contentContainer.appendChild(paragraphContainer);
                     }
                     
-                    component.text.forEach(sentence => {
+                    // Process sentences sequentially
+                    for (const sentence of component.text) {
                         if (!processedSet.has(sentence)) {
-                            if (paragraphContainer.textContent) {
-                                paragraphContainer.textContent += ' ';
-                            }
-                            paragraphContainer.textContent += sentence;
-                            processedSet.add(sentence);
+                            await new Promise(resolve => {
+                                setTimeout(() => {
+                                    if (paragraphContainer.textContent) {
+                                        paragraphContainer.textContent += ' ';
+                                    }
+                                    paragraphContainer.textContent += sentence;
+                                    processedSet.add(sentence);
+                                    resolve();
+                                }, 1000);
+                            });
                         }
-                    });
+                    }
                     break;
 
                 case 'list':
