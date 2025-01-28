@@ -86,17 +86,89 @@ function startStreamingResponse() {
 }
 
 function handleDelta(content) {
-    console.log("Received delta:", content);
-    // updateUI(content);
+    // console.log("Received delta:", content);
+
+    const contentContainer = document.getElementById('content-container');
+
+    content.components.forEach(component => {
+        let element;
+        
+        switch (component.UIType) {
+            case 'paragraphs':
+                element = document.createElement('p');
+                element.innerHTML = component.text.join(' ');
+                break;
+
+            case 'list':
+                element = document.createElement('ul');
+                component.items.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    element.appendChild(li);
+                });
+                break;
+
+            case 'table':
+                element = document.createElement('table');
+                const thead = document.createElement('thead');
+                const headerRow = document.createElement('tr');
+
+                component.headers.forEach(header => {
+                    const th = document.createElement('th');
+                    th.textContent = header;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+                element.appendChild(thead);
+
+                const tbody = document.createElement('tbody');
+                component.rows.forEach(row => {
+                    const tr = document.createElement('tr');
+                    row.forEach(cell => {
+                        const td = document.createElement('td');
+                        td.textContent = cell;
+                        tr.appendChild(td);
+                    });
+                    tbody.appendChild(tr);
+                });
+                element.appendChild(tbody);
+                break;
+
+            case 'project':
+                element = document.createElement('div');
+                element.innerHTML = `
+                    <h3>${component.name} (${component.year})</h3>
+                    <p><strong>Material:</strong> ${component.material}</p>
+                    <p><strong>Dimensions:</strong> ${component.dimensions}</p>
+                    <p>${component.description.join('</p><p>')}</p>
+                `;
+                break;
+
+            default:
+                console.warn('Unknown UIType:', component.UIType);
+                return;
+        }
+
+        contentContainer.appendChild(element);
+    });
 }
 
 function handleComplete(content) {
     console.log("Received complete response:", content);
-    // updateUI(content);
+
+
 }
 
+// Function to handle to enable/disable the input field and send button during streaming
 function toggleLoadingState(isLoading) {
-
+    const input = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+    
+    // Disable/enable the input field based on isLoading
+    if (input) input.disabled = isLoading;
+    
+    // Disable/enable the send button based on isLoading
+    if (sendButton) sendButton.disabled = isLoading;
 }
 
 
