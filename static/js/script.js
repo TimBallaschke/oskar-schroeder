@@ -15,6 +15,7 @@
 
 let activeEventSource = null; // Track the active activeEventSource connection
 let isStreaming = false;
+let processedComponents = new Set(); // Track already processed components (Set is a collection of unique values -> cannot have duplicates unlike an array)
 
 // Function called when user sends a message
 function sendMessage() {
@@ -23,6 +24,7 @@ function sendMessage() {
     if (message === '') return;  // Don't send empty messages
 
     toggleLoadingState(true);
+    processedComponents.clear(); // Clear processed components for a new request
 
     // Send message to backend (Flask server)
     // This is a post request that triggers the function in main.py
@@ -86,17 +88,24 @@ function startStreamingResponse() {
 }
 
 function handleDelta(content) {
-    // console.log("Received delta:", content);
+    console.log("Received delta:", content);
 
     const contentContainer = document.getElementById('content-container');
 
     content.components.forEach(component => {
+
+        if (processedComponents.has(JSON.stringify(component))) {
+            return; // Skip duplicate elements
+        }
+
         let element;
         
         switch (component.UIType) {
             case 'paragraphs':
+
                 element = document.createElement('p');
                 element.innerHTML = component.text.join(' ');
+                console.log(element);
                 break;
 
             case 'list':
@@ -149,6 +158,7 @@ function handleDelta(content) {
                 return;
         }
 
+        processedComponents.add(JSON.stringify(component)); // Add the processed component to the set
         contentContainer.appendChild(element);
     });
 }
