@@ -14,10 +14,8 @@
 // });
 
 let activeEventSource = null; // Track the active activeEventSource connection
+let isProcessing = false; // Flag to prevent concurrent processing
 let processedComponents = new Map();
-let isProcessingComponent = false;
-// Global queue for components
-let queuedComponents = [];
 
 // Function called when user sends a message
 function sendMessage() {
@@ -57,6 +55,7 @@ function startStreamingResponse() {
     }
 
     activeEventSource = new EventSource("/stream"); // creates a new EventSource connection to the "/stream" endpoint. activeEventSource is used for Server-Sent Events (SSE), allowing the server to push data to the client in real-time over a single, long-lived connection
+    console.log(activeEventSource);
 
     activeEventSource.onmessage = function(event) { // eventhandler that will be called whenever a message is received from the server
         const data = JSON.parse(event.data); // parsed the received message data from JSON string format to a JavaScript object
@@ -68,13 +67,13 @@ function startStreamingResponse() {
             case 'complete': // if the message type is 'complete', it calls the handleComplete function
                 handleComplete(data.content);
                 activeEventSource.close();
-                activeEventSource = null;
+                currentEventSource = null;
                 toggleLoadingState(false);
                 break;
             case "error": // if the message type is 'error', it logs the error to the console and closes the event source
                 console.error("Error:", data.content);
                 activeEventSource.close();
-                activeEventSource = null;
+                currentEventSource = null;
                 toggleLoadingState(false);
                 break;
         }
@@ -83,145 +82,77 @@ function startStreamingResponse() {
     activeEventSource.onerror = function (error) { // eventhandler that will be called if an error occurs with the event source
         console.error("activeEventSource failed:", error);
         activeEventSource.close();
-        activeEventSource = null;
+        currentEventSource = null;
         toggleLoadingState(false);
     };
 }
 
-function handleDelta(content) {
+async function handleDelta(content) {
     console.log("Received delta:", content);
-
-    // Safely check if content.components exists and is an array
-    if (!content.components || !Array.isArray(content.components)) {
-        // If there's no `components` array, just return or handle differently
-        return;
-    }
-    
-    // For each streamed component, push onto a global queue
-    content.components.forEach((component) => {
-        // We only queue components that have a recognized UIType
-        if (component.UIType) {
-            queuedComponents.push(component);
-        }
-    });
-
-    // After pushing all new components into the queue, try to process
-    processQueue();
-}
-
-function processQueue() {
-    // If there's nothing in the queue, or we're already processing, do nothing.
-    if (queuedComponents.length === 0 || isProcessingComponent) {
-        return;
-    }
-
-    // Otherwise, mark that we're processing
-    isProcessingComponent = true;
-    
-    // Dequeue the next component
-    const nextComponent = queuedComponents.shift();
-    
-    // Process it
-    processSingleComponent(nextComponent, () => {
-        // Once done, mark as not processing, then recursively call processQueue again
-        isProcessingComponent = false;
-        processQueue();
-    });
-}
-
-function processSingleComponent(component, onComplete) {
     const contentContainer = document.getElementById('content-container');
-
-    // A unique key to track if needed. 
-    const componentID = `${component.UIType}-${Date.now()}`; 
-
-    switch (component.UIType) {
-        case 'paragraphs': {
-            // Create a container for these paragraphs
-            const paragraphContainer = document.createElement('div');
-            paragraphContainer.classList.add('paragraph-container');
-            paragraphContainer.setAttribute('data-component-key', componentID);
-            contentContainer.appendChild(paragraphContainer);
-            
-            // Ensure component.text is an array, if it's a string, convert it to an array
-            const sentences = Array.isArray(component.text) ? component.text : [component.text];
-            
-            // Add validation to ensure we have content to process
-            if (!sentences || sentences.length === 0) {
-                console.warn('No text content to process');
-                onComplete();
-                return;
-            }
-            
-            // Process the sentences
-            processParagraphSentences(sentences, paragraphContainer, 0, onComplete);
-            break;
+    
+    // Process components sequentially
+    for (const component of content.components) {
+        // Wait if we're currently processing something
+        if (isProcessing) {
+            return;
         }
-        case 'list':
-            // Similarly handle lists
-            // Once done, call onComplete()
-            // ...
-            onComplete();
-            break;
-        case 'table':
-            // Similarly handle tables
-            // ...
-            onComplete();
-            break;
-        case 'project':
-            // Similarly handle custom "project" logic
-            // ...
-            onComplete();
-            break;
-        default:
-            // If unknown UIType, just call onComplete
-            onComplete();
-            break;
+
+        // Skip if no UIType
+        if (!component.UIType) {
+            continue;
+        }
+
+        const componentID = `${component.UIType}-${content.components.indexOf(component)}`;
+        console.log('componentID:', componentID);
+
+        if (!processedComponents.has(componentID)) {
+            processedComponents.set(componentID, new Set());
+        }
+
+        const processedSet = processedComponents.get(componentID);
+
+        try {
+            isProcessing = true;
+            
+            switch (component.UIType) {
+                case 'paragraphs':
+                    let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
+                    if (!paragraphContainer) {
+                        paragraphContainer = document.createElement('p');
+                        paragraphContainer.classList.add('paragraph-container');
+                        paragraphContainer.setAttribute('data-component-key', componentID);
+                        contentContainer.appendChild(paragraphContainer);
+                    }
+                    
+                    component.text.forEach(sentence => {
+                        if (!processedSet.has(sentence)) {
+                            if (paragraphContainer.textContent) {
+                                paragraphContainer.textContent += ' ';
+                            }
+                            paragraphContainer.textContent += sentence;
+                            processedSet.add(sentence);
+                        }
+                    });
+                    break;
+
+                case 'list':
+                    break;
+
+                case 'table':
+                    break;
+
+                case 'project':
+                    break;
+
+                default:
+                    console.warn('Unknown UIType:', component.UIType);
+                    return;
+            }
+        } finally {
+            isProcessing = false;
+        }
     }
-}
-
-function processParagraphSentences(sentences, container, index, onComplete) {
-    // Add validation
-    if (!sentences || !Array.isArray(sentences)) {
-        console.error('Invalid sentences input:', sentences);
-        onComplete();
-        return;
-    }
-
-    if (index >= sentences.length) {
-        onComplete();
-        return;
-    }
-
-    // Create a <p> for the next sentence
-    const p = document.createElement('p');
-    container.appendChild(p);
-
-    // Ensure the sentence is a string
-    const sentence = String(sentences[index]);
-    const words = sentence.split(' ');
-
-    // Animate this sentence word by word
-    animateWords(p, words, 0, () => {
-        processParagraphSentences(sentences, container, index + 1, onComplete);
-    });
-}
-
-function animateWords(paragraphElem, words, currentWordIndex, onSentenceComplete) {
-    if (currentWordIndex >= words.length) {
-        // Entire sentence is done
-        onSentenceComplete();
-        return;
-    }
-
-    // Append the current word (+ a space if not the first word)
-    if (currentWordIndex > 0) paragraphElem.textContent += ' ';
-    paragraphElem.textContent += words[currentWordIndex];
-
-    // Delay a bit, then move to the next word
-    setTimeout(() => {
-        animateWords(paragraphElem, words, currentWordIndex + 1, onSentenceComplete);
-    }, 30);
 }
 
 function handleComplete(content) {
@@ -242,6 +173,10 @@ function toggleLoadingState(isLoading) {
     if (sendButton) sendButton.disabled = isLoading;
 }
 
+function resetProcessingState() {
+    processedComponents.clear();
+    isProcessing = false;
+}
 
 // Add ability to send message by pressing Enter key
 document.getElementById('user-input').addEventListener('keypress', function(e) {
