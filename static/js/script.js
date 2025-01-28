@@ -19,6 +19,7 @@ let processedComponents = new Map();
 let isProcessingWords = false;
 let pendingComponents = [];
 let isProcessingComponent = false;
+let currentComponentID = null;
 
 // Function called when user sends a message
 function sendMessage() {
@@ -50,122 +51,157 @@ function sendMessage() {
 }
 
 function startStreamingResponse() {
-
     // Close any existing EventSource connection
     if (activeEventSource) {
+        console.log("Closing previous EventSource connection");
         activeEventSource.close();
-        console.log("Closed previous activeEventSource connection.");
+        console.log("Closed previous EventSource connection");
     }
 
-    activeEventSource = new EventSource("/stream"); // creates a new EventSource connection to the "/stream" endpoint. activeEventSource is used for Server-Sent Events (SSE), allowing the server to push data to the client in real-time over a single, long-lived connection
+    console.log("Starting new EventSource connection");
+    activeEventSource = new EventSource("/stream");
 
-    activeEventSource.onmessage = function(event) { // eventhandler that will be called whenever a message is received from the server
-        const data = JSON.parse(event.data); // parsed the received message data from JSON string format to a JavaScript object
+    activeEventSource.onmessage = function(event) {
+        const data = JSON.parse(event.data);
 
-        switch(data.type) { // switch statement to handle different types of messages (switch statement is used to handle different cases based on the value of a variable -> alternative to if-else statements)
-            case 'delta': // if the message type is 'delta', it calls the handleDelta function
+        switch(data.type) {
+            case 'delta':
                 handleDelta(data.content);
                 break;
-            case 'complete': // if the message type is 'complete', it calls the handleComplete function
-                handleComplete(data.content);
-                activeEventSource.close();
-                currentEventSource = null;
-                toggleLoadingState(false);
+            case 'complete':
+                console.log("Received complete signal, processing final content:", data.content);
+                // Process the final content before closing
+                handleDelta(data.content);
+                
+                // Wait for processing to finish before closing connection
+                const checkProcessing = setInterval(() => {
+                    if (!isProcessingComponent && pendingComponents.length === 0) {
+                        console.log("All components processed, closing connection");
+                        clearInterval(checkProcessing);
+                        activeEventSource.close();
+                        activeEventSource = null;
+                        toggleLoadingState(false);
+                    } else {
+                        console.log("Still processing components, waiting...");
+                    }
+                }, 100);
                 break;
-            case "error": // if the message type is 'error', it logs the error to the console and closes the event source
-                console.error("Error:", data.content);
+            case "error":
+                console.error("Error received from server:", data.content);
                 activeEventSource.close();
-                currentEventSource = null;
+                activeEventSource = null;
                 toggleLoadingState(false);
                 break;
         }
     };
 
-    activeEventSource.onerror = function (error) { // eventhandler that will be called if an error occurs with the event source
-        console.error("activeEventSource failed:", error);
+    activeEventSource.onerror = function (error) {
+        console.error("EventSource error:", error);
         activeEventSource.close();
-        currentEventSource = null;
+        activeEventSource = null;
         toggleLoadingState(false);
     };
 }
 
 function handleDelta(content) {
-    console.log("Received delta:", content);
+    // console.log("Received delta:", content);
+    console.log("handleDelta called");
     const contentContainer = document.getElementById('content-container');
     
-    content.components.forEach((component, index) => {
-        if (!component.UIType) return;
-
-        const componentID = `${component.UIType}-${index}`;
-        
-        // Initialize component state if it doesn't exist
-        if (!processedComponents.has(componentID)) {
-            processedComponents.set(componentID, {
-                processedSentences: new Set(),
-                pendingSentences: [],
-                isProcessing: false
-            });
-        }
-
-        const componentState = processedComponents.get(componentID);
-
-        switch (component.UIType) {
-            case 'paragraphs':
-                let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
-                if (!paragraphContainer) {
-                    paragraphContainer = document.createElement('div');
-                    paragraphContainer.classList.add('paragraph-container');
-                    paragraphContainer.setAttribute('data-component-key', componentID);
-                    contentContainer.appendChild(paragraphContainer);
-                }
-
-                // Add new sentences to pending queue
-                component.text.forEach(sentence => {
-                    if (!componentState.processedSentences.has(sentence) && 
-                        !componentState.pendingSentences.includes(sentence)) {
-                        componentState.pendingSentences.push(sentence);
-                    }
+    // Only process if it's a response type
+    if (content.type !== 'response') {
+        console.warn('Unexpected content type:', content.type);
+        return;
+    }
+    
+    // Add new components to pending queue
+    if (Array.isArray(content.components)) {
+        content.components.forEach((component, index) => {
+            if (!component.UIType) return;
+            
+            const componentID = `${component.UIType}-${index}`;
+            // Only add if not already in queue and not currently processing
+            if (!pendingComponents.find(pc => pc.componentID === componentID) && 
+                componentID !== currentComponentID) {
+                console.log(`Adding new component to queue: ${componentID}`);
+                pendingComponents.push({
+                    component,
+                    componentID,
+                    index
                 });
+            }
+        });
 
-                // Start processing if not already doing so
-                if (!componentState.isProcessing && componentState.pendingSentences.length > 0) {
-                    componentState.isProcessing = true;
-                    processNextSentence(componentID, paragraphContainer);
-                }
-                break;
-
-            case 'list':
-                break;
-
-            case 'table':
-                break;
-
-            case 'project':
-                break;
-
-            default:
-                console.warn('Unknown UIType:', component.UIType);
+        if (!isProcessingComponent) {
+            processNextComponent(contentContainer);
         }
-    });
+    }
 }
 
-function processNextSentence(componentID, container) {
-    const componentState = processedComponents.get(componentID);
-    
-    if (!componentState.pendingSentences.length) {
-        componentState.isProcessing = false;
+function ensureProcessing(contentContainer) {
+    console.log(`Checking processing status. Queue length: ${pendingComponents.length}, isProcessing: ${isProcessingComponent}`);
+    if (!isProcessingComponent && pendingComponents.length > 0) {
+        console.log(`Starting to process ${pendingComponents.length} pending components`);
+        isProcessingComponent = true;
+        processNextComponent(contentContainer);
+    }
+}
+
+function processNextComponent(contentContainer) {
+    if (pendingComponents.length === 0) {
+        isProcessingComponent = false;
+        currentComponentID = null;
         return;
     }
 
-    const sentence = componentState.pendingSentences[0];
-    const words = sentence.split(' ');
+    isProcessingComponent = true;
+    const {component, componentID} = pendingComponents[0];
+    currentComponentID = componentID;
+    console.log(`Starting to process component: ${componentID}`);
+
+    let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
+    if (!paragraphContainer) {
+        paragraphContainer = document.createElement('div');
+        paragraphContainer.classList.add('paragraph-container');
+        paragraphContainer.setAttribute('data-component-key', componentID);
+        contentContainer.appendChild(paragraphContainer);
+    }
+
+    if (Array.isArray(component.text)) {
+        const sentences = [...component.text];
+        processSentencesSequentially(sentences, paragraphContainer, () => {
+            console.log(`Finished processing all sentences for component ${componentID}`);
+            pendingComponents.shift();
+            currentComponentID = null;
+            setTimeout(() => {
+                isProcessingComponent = false;
+                processNextComponent(contentContainer);
+            }, 100);
+        });
+    } else {
+        pendingComponents.shift();
+        currentComponentID = null;
+        setTimeout(() => {
+            isProcessingComponent = false;
+            processNextComponent(contentContainer);
+        }, 100);
+    }
+}
+
+function processSentencesSequentially(sentences, container, onComplete) {
+    if (sentences.length === 0) {
+        onComplete();
+        return;
+    }
+
+    const sentence = sentences[0];
     const p = document.createElement('p');
     container.appendChild(p);
     
+    const words = sentence.split(' ');
     animateWords(p, words, 0, () => {
-        componentState.processedSentences.add(sentence);
-        componentState.pendingSentences.shift();
-        processNextSentence(componentID, container);
+        sentences.shift();
+        processSentencesSequentially(sentences, container, onComplete);
     });
 }
 
