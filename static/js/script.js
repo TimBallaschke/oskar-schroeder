@@ -15,7 +15,8 @@
 
 let activeEventSource = null; // Track the active activeEventSource connection
 let isStreaming = false;
-let processedComponents = new Set(); // Track already processed components (Set is a collection of unique values -> cannot have duplicates unlike an array)
+
+let processedComponents = new Map(); // Tracks components AND their sub-elements
 
 // Function called when user sends a message
 function sendMessage() {
@@ -92,20 +93,40 @@ function handleDelta(content) {
 
     const contentContainer = document.getElementById('content-container');
 
-    content.components.forEach(component => {
+    content.components.forEach((component, index) => {
 
-        if (processedComponents.has(JSON.stringify(component))) {
-            return; // Skip duplicate elements
+        // Generate a unique key for each component based on its type and position
+        const componentKey = index;
+
+        if (!processedComponents.has(componentKey)) {
+            processedComponents.set(componentKey, new Set()); // Initialize if new
         }
+
+        const processedSet = processedComponents.get(componentKey); // Retrieve sub-element tracker
 
         let element;
         
         switch (component.UIType) {
             case 'paragraphs':
+                let paragraphContainer = document.querySelector(`[data-component-key="${componentKey}"]`);
 
-                element = document.createElement('p');
-                element.innerHTML = component.text.join(' ');
-                console.log(element);
+                if (!paragraphContainer) {
+                    paragraphContainer = document.createElement('div');
+                    paragraphContainer.classList.add('paragraph-container');
+                    paragraphContainer.setAttribute('data-component-key', componentKey);
+                    contentContainer.appendChild(paragraphContainer);
+                }
+
+                component.text.forEach(sentence => {
+                    if (processedSet.has(sentence)) return;
+                    processedSet.add(sentence);
+
+                    let p = document.createElement('p');
+                    p.textContent = sentence;
+                    paragraphContainer.appendChild(p);
+                });
+
+                console.log(processedComponents);
                 break;
 
             case 'list':
@@ -114,6 +135,15 @@ function handleDelta(content) {
                     const li = document.createElement('li');
                     li.textContent = item;
                     element.appendChild(li);
+                });
+
+                component.text.forEach(sentence => {
+                    if (processedSet.has(sentence)) return;
+                    processedSet.add(sentence);
+
+                    let p = document.createElement('p');
+                    p.textContent = sentence;
+                    paragraphContainer.appendChild(p);
                 });
                 break;
 
