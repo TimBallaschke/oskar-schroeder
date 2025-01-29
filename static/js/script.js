@@ -15,7 +15,8 @@
 
 let activeEventSource = null; // Track the active activeEventSource connection
 let isProcessing = false; // Flag to prevent concurrent processing
-let componentsMap = new Map();
+let processedComponents = new Map();
+let renderingQueue = [];
 
 // Function called when user sends a message
 function sendMessage() {
@@ -24,6 +25,7 @@ function sendMessage() {
     if (message === '') return;  // Don't send empty messages
 
     toggleLoadingState(true);
+    processedComponents.clear(); // Clear processed components for a new request
 
     // Send message to backend (Flask server)
     // This is a post request that triggers the function in main.py
@@ -54,7 +56,7 @@ function startStreamingResponse() {
     }
 
     activeEventSource = new EventSource("/stream"); // creates a new EventSource connection to the "/stream" endpoint. activeEventSource is used for Server-Sent Events (SSE), allowing the server to push data to the client in real-time over a single, long-lived connection
-    console.log("New EventSource connection created");
+    console.log(activeEventSource);
 
     activeEventSource.onmessage = function(event) { // eventhandler that will be called whenever a message is received from the server
         const data = JSON.parse(event.data); // parsed the received message data from JSON string format to a JavaScript object
@@ -66,13 +68,13 @@ function startStreamingResponse() {
             case 'complete': // if the message type is 'complete', it calls the handleComplete function
                 handleComplete(data.content);
                 activeEventSource.close();
-                activeEventSource = null;
+                currentEventSource = null;
                 toggleLoadingState(false);
                 break;
             case "error": // if the message type is 'error', it logs the error to the console and closes the event source
                 console.error("Error:", data.content);
                 activeEventSource.close();
-                activeEventSource = null;
+                currentEventSource = null;
                 toggleLoadingState(false);
                 break;
         }
@@ -86,95 +88,101 @@ function startStreamingResponse() {
     };
 }
 
-// Factory function to initialize component structures
-function createComponentStructure(component) {
-    switch (component.UIType) {
-        case 'paragraphs':
-            return {
-                UIType: 'paragraphs',
-                sentences: new Set(),
-                // fullText: '',
-            };
-        case 'list':
-            return {
-                items: new Set(),
-                type: component.listType || 'unordered'
-            };
-        case 'table':
-            return {
-                headers: [],
-                rows: [],
-                caption: ''
-            };
-        case 'project':
-            return {
-                title: '',
-                description: '',
-                steps: new Set(),
-                resources: new Set()
-            };
-        default:
-            return {};
-    }
-}
+async function handleDelta(content) {
+    // console.log("Received delta:", content);
+    const contentContainer = document.getElementById('content-container');
 
-function handleDelta(content) {
-    console.log("Received delta:", content);
+    renderingQueue.push(content);
+    // console.log("Rendering queue:", renderingQueue);
 
-    if (!content.components) {
+    if (isProcessing) {
         return;
     }
-    
-    content.components.forEach((component, index) => {
-        // Ensure UIType exists
-        if (!component.UIType) {
-            return;
-        }
 
-        // Generate a unique component ID
-        const componentID = `${component.UIType}-${index}`;
+    while (renderingQueue.length > 0) {
+        const currentContent = renderingQueue.shift();
+        // console.log("Current content:", currentContent);
+        try {
+            isProcessing = true;
 
-        if (!componentsMap.has(componentID)) {
-            console.log(`Creating new component: ${componentID}`);
-            componentsMap.set(componentID, createComponentStructure(component));
-        }
+            if (!currentContent.components || !Array.isArray(currentContent.components)) {
+                continue;
+            }
 
-        const existingComponent = componentsMap.get(componentID);
-
-
-        // Update based on component type
-        switch (component.UIType) {
-            case 'paragraphs':
-                if (component.text && Array.isArray(component.text)) {
-                    component.text.forEach(sentence => existingComponent.sentences.add(sentence));
+            for (const component of currentContent.components) {
+                // Skip if no UIType
+                if (!component.UIType) {
+                    continue;
                 }
-                break;
 
-            case 'list':
-                component.items.forEach(item => existingComponent.items.add(item));
-                break;
+                const componentID = `${component.UIType}-${content.components.indexOf(component)}`;
 
-            case 'table':
-                existingComponent.headers = component.headers || existingComponent.headers;
-                existingComponent.rows.push(...component.rows);
-                existingComponent.caption = component.caption || existingComponent.caption;
-                break;
+                if (!processedComponents.has(componentID)) {
+                    processedComponents.set(componentID, new Set());
+                    console.log('New Processed Components:', componentID);
+                }
 
-            case 'project':
-                existingComponent.title = component.title || existingComponent.title;
-                existingComponent.description = component.description || existingComponent.description;
-                component.steps.forEach(step => existingComponent.steps.add(step));
-                component.resources.forEach(resource => existingComponent.resources.add(resource));
-                break;
+                const processedSet = processedComponents.get(componentID);
+                                
+                switch (component.UIType) {
+                    case 'paragraphs':
+                        let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
+                        if (!paragraphContainer) {
+                            paragraphContainer = document.createElement('p');
+                            paragraphContainer.classList.add('paragraph-container');
+                            paragraphContainer.setAttribute('data-component-key', componentID);
+                            contentContainer.appendChild(paragraphContainer);
+                        }
 
-            default:
-                console.warn("Unknown UIType:", component.UIType);
-                return;
+                        if (!component.text || !Array.isArray(component.text)) {
+                            console.warn('Invalid or missing text array in component:', component);
+                            break;
+                        }
+                        
+                        // Process sentences sequentially
+                        for (const sentence of component.text) {
+                            // console.log('Processing sentence:', sentence);
+                            if (!processedSet.has(sentence)) {
+                                // console.log('Sentence not yet processed, adding to set: ', sentence);
+                                // Mark as processed immediately
+                                processedSet.add(sentence);
+                                // console.log('Processed set:', processedSet);
+                                await new Promise(resolve => {
+                                    // setTimeout(() => {
+                                        // if (paragraphContainer.textContent) {
+                                        //     paragraphContainer.textContent += ' ';
+                                        // }
+                                        // paragraphContainer.textContent += sentence;
+                                        console.log(`Adding sentence to paragraph (Component ID: ${componentID})`);
+                                        resolve();
+                                    // }, 1000);
+                                });
+                            } else {
+                                // console.log('Sentence already processed, skipping:', sentence);
+                            }
+                        }
+                        break;
+
+                    case 'list':
+                        break;
+
+                    case 'table':
+                        break;
+
+                    case 'project':
+                        break;
+
+                    default:
+                        console.warn('Unknown UIType:', component.UIType);
+                        return;
+                }
+            }
+        } catch (error) {
+            console.error("Error processing content:", error);
+        } finally {
+            isProcessing = false;
         }
-
-        componentsMap.set(componentID, existingComponent);
-        console.log('componentsMap:', componentsMap);
-    });
+    }
 }
 
 function handleComplete(content) {
@@ -196,7 +204,7 @@ function toggleLoadingState(isLoading) {
 }
 
 function resetProcessingState() {
-    components.clear();
+    processedComponents.clear();
     isProcessing = false;
 }
 
