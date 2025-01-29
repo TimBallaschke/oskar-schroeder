@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250129_Oskar_Website_promise_inside_promise",
+  "original_folder": "250129b_Oskar_Website_map_from_streamed_data",
   "snapshot_date_from_folder": "250129",
   "source_files": [
     {
@@ -61,9 +61,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "774ae9f4e8ac5f2a989baa50b11028a201930c2d",
-      "sha256": "1f3cce805bfcf6e4d9e716aec3612d283e674a6203f5d0125c27ad817c1c3b2a",
-      "size": 7953,
+      "sha1": "b03905eefdf75f75a5005ca191abe7a771899fbc",
+      "sha256": "d89223bf3598a1e4b7ed301b3fffa0b70f2f6980be55abc2bc0e3148f750c6b4",
+      "size": 8225,
       "mode": "100644"
     },
     {
