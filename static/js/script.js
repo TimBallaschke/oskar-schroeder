@@ -148,17 +148,30 @@ async function handleDelta(content) {
                                 processedSet.add(sentence);
                                 // console.log('Processed set:', processedSet);
                                 await new Promise(resolve => {
-                                    // setTimeout(() => {
-                                        // if (paragraphContainer.textContent) {
-                                        //     paragraphContainer.textContent += ' ';
-                                        // }
-                                        // paragraphContainer.textContent += sentence;
-                                        console.log(`Adding sentence to paragraph (Component ID: ${componentID})`);
-                                        resolve();
-                                    // }, 1000);
+                                    if (paragraphContainer.textContent) {
+                                        paragraphContainer.textContent += ' ';
+                                    }
+                                    // Split sentence into words and add them one by one
+                                    const words = sentence.split(' ');
+                                    let wordIndex = 0;
+
+                                    function addNextWord() {
+                                        if (wordIndex < words.length) {
+                                            // Add space before word (except for first word)
+                                            if (wordIndex > 0) {
+                                                paragraphContainer.textContent += ' ';
+                                            }
+                                            paragraphContainer.textContent += words[wordIndex];
+                                            wordIndex++;
+                                            // Add small delay between words
+                                            setTimeout(addNextWord, 50);
+                                        } else {
+                                            resolve();
+                                        }
+                                    }
+
+                                    addNextWord();
                                 });
-                            } else {
-                                // console.log('Sentence already processed, skipping:', sentence);
                             }
                         }
                         break;
