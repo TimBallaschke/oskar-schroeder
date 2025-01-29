@@ -91,29 +91,23 @@ async function handleDelta(content) {
     console.log("Received delta:", content);
     const contentContainer = document.getElementById('content-container');
     
-    // Process components sequentially
     for (const component of content.components) {
-        // Wait if we're currently processing something
-        if (isProcessing) {
-            return;
-        }
+        if (!component.UIType) continue;
+        const componentID = `${component.UIType}-${content.components.indexOf(component)}`;
 
-        // Skip if no UIType
-        if (!component.UIType) {
+        if (processedComponents.has(componentID)) {
             continue;
         }
 
-        const componentID = `${component.UIType}-${content.components.indexOf(component)}`;
-        console.log('componentID:', componentID);
+        await new Promise(async (resolve) => {
+            console.log('new component');
+            console.log('componentID:', componentID);
 
-        if (!processedComponents.has(componentID)) {
-            processedComponents.set(componentID, new Set());
-        }
+            if (!processedComponents.has(componentID)) {
+                processedComponents.set(componentID, new Set());
+            }
 
-        const processedSet = processedComponents.get(componentID);
-
-        try {
-            isProcessing = true;
+            const processedSet = processedComponents.get(componentID);
             
             switch (component.UIType) {
                 case 'paragraphs':
@@ -155,9 +149,8 @@ async function handleDelta(content) {
                     console.warn('Unknown UIType:', component.UIType);
                     return;
             }
-        } finally {
-            isProcessing = false;
-        }
+            resolve();
+        });
     }
 }
 
