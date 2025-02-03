@@ -90,7 +90,6 @@ class ProjectComponent(BaseModel):
     year: int = Field(description="Year the project was created")
     material: str = Field(description="Primary material used in the project")
     dimensions: str = Field(description="Physical dimensions of the project")
-    description: List[str] = Field(description="Short description of the project.Every sentence should be a separate paragraph.")
 
 # Root level must be a simple object
 class Response_1(BaseModel):

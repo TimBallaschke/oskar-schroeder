@@ -68,13 +68,13 @@ function startStreamingResponse() {
             case 'complete': // if the message type is 'complete', it calls the handleComplete function
                 handleComplete(data.content);
                 activeEventSource.close();
-                currentEventSource = null;
+                activeEventSource = null;
                 toggleLoadingState(false);
                 break;
             case "error": // if the message type is 'error', it logs the error to the console and closes the event source
                 console.error("Error:", data.content);
                 activeEventSource.close();
-                currentEventSource = null;
+                activeEventSource = null;
                 toggleLoadingState(false);
                 break;
         }
@@ -83,22 +83,19 @@ function startStreamingResponse() {
     activeEventSource.onerror = function (error) { // eventhandler that will be called if an error occurs with the event source
         console.error("activeEventSource failed:", error);
         activeEventSource.close();
-        currentEventSource = null;
+        activeEventSource = null;
         toggleLoadingState(false);
     };
 }
 
 async function handleDelta(content) {
-    // console.log("Received delta:", content);
+    console.log("Received delta:", content);
     const contentContainer = document.getElementById('content-container');
 
     renderingQueue.push(content);
-    // console.log("Added to queue:", content);
-    // console.log("Queue length:", renderingQueue.length);
-    // console.log("Full queue:", JSON.stringify(renderingQueue));
 
     if (isProcessing) {
-        return;
+        return; // ensures that only one instance of handleDelta is running at a time
     }
 
     while (renderingQueue.length > 0) {
@@ -116,7 +113,6 @@ async function handleDelta(content) {
                     continue;
                 }
 
-
                 const componentID = `${component.UIType}-${currentContent.components.indexOf(component)}`;
 
                 if (!processedComponents.has(componentID)) {
@@ -128,14 +124,12 @@ async function handleDelta(content) {
 
                 const processedSet = processedComponents.get(componentID);
 
-                // console.log('Component:', componentID);
-
                 switch (component.UIType) {
                     case 'paragraphs':
                         let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
                         if (!paragraphContainer) {
                             paragraphContainer = document.createElement('p');
-                            paragraphContainer.classList.add('paragraph-container');
+                            paragraphContainer.classList.add('paragraph-container', 'processing');  // Add processing class
                             paragraphContainer.setAttribute('data-component-key', componentID);
                             contentContainer.appendChild(paragraphContainer);
                         }
@@ -196,10 +190,8 @@ async function handleDelta(content) {
             console.error("Error processing content:", error);
         } finally {
             isProcessing = false;
-            // console.log('FINALLY Set isProcessing to false');
         }
     }
-    console.log('handleDelta completed');
 }
 
 function handleComplete(content) {

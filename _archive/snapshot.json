@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250203b_Oskar_Website_rendering_queue",
+  "original_folder": "250203c_Oskar_Website_Friedl_Font",
   "snapshot_date_from_folder": "250203",
   "source_files": [
     {
@@ -19,30 +19,30 @@
     },
     {
       "path": "main.py",
-      "sha1": "f213b71b82b9cc920669d27da92942189ed1a14c",
-      "sha256": "6df84f05474db2e2e20692cd4f866505301716d67d8ecbfeef8d4746a3d6df7d",
-      "size": 45521,
+      "sha1": "e6460a4593767c24281234e2395af405cd877666",
+      "sha256": "0dfb6bc2f7fa0f83d0f5d05b6bf88aad095e297655fa2336ba642863ac503d82",
+      "size": 45391,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css",
-      "sha1": "b757e5701e671b937a75c915d546c642ce14a92d",
-      "sha256": "83ff338f4e23b1bdeed91ba1d32ed748a189139c1c4912d28388d994a367435e",
-      "size": 9186,
+      "sha1": "7f128c0bf10554e1d0930806b734ad76cfeb7ec1",
+      "sha256": "565867b7ef2af23792fd5069cebce0dde342df1764808a9557b3038adc38464d",
+      "size": 9386,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "39573d57518d0bd2e43c1da201a4f7a4e5f0ad13",
-      "sha256": "21757ccde878c35ed80b89ccda1db91b6aae224468a8d9d79ce747660b351d82",
-      "size": 3615,
+      "sha1": "ee0f06ca67ce18d792bab27afd8b46110bd3e116",
+      "sha256": "1099ff55c9da67e6ffeb867e3ac718cd9ba11b5a62fa8627447eb782eb10daeb",
+      "size": 3693,
       "mode": "100644"
     },
     {
       "path": "static/css/style.scss",
-      "sha1": "3013e17f4257b8950ee06c463381ed66054789bf",
-      "sha256": "bb2226077b3a44b40494d13572346b70c87ca970c2b402f089c20a9182d3d728",
-      "size": 9101,
+      "sha1": "3fc2c5e60e5d357931f6f7f3706e63075f0d380b",
+      "sha256": "74e0a93caf0941d19639a4ab609f83271ab151a4a0aa68431456206c84fbd0f8",
+      "size": 9302,
       "mode": "100644"
     },
     {
@@ -61,9 +61,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "bd95c383db5b14e2bb31c5bfb6611e69cb99fbcc",
-      "sha256": "b53678983edd760a14aac0e31be5fe995143061832a2e4218bef35e615d6fbbc",
-      "size": 10079,
+      "sha1": "0b63d6306061ee8fec7c80342fcba870461931fa",
+      "sha256": "97fcf70f79fb2d2c6e0a985ce8fcd6f6c95d6bb4d99db9b7fd54b940b1199d9c",
+      "size": 9839,
       "mode": "100644"
     },
     {
@@ -442,6 +442,13 @@
       "sha1": "18354991e829d09c8a9656d1855f3b710b18f5dd",
       "sha256": "818eabaa5e58ec9f1e693bd9cdb816aea240bc4a3da7ef3781c9fdbd1cc91669",
       "size": 44796,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/Friedl.woff2",
+      "sha1": "b0b0329b3d59c227f3cab717e111541e8948ac79",
+      "sha256": "626e1f7aba73c30172ee67ab388fd2994a5fcfcbb2dfdfd2f9dbf051461d9c85",
+      "size": 74080,
       "mode": "100644"
     },
     {

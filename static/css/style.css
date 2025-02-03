@@ -38,6 +38,10 @@
   font-family: "Monument Grotesk Regular";
   src: url("../assets/fonts/ABCMonumentGrotesk-Regular.woff2") format("woff2");
 }
+@font-face {
+  font-family: "Friedl";
+  src: url("../assets/fonts/Friedl.woff2") format("woff2");
+}
 html {
   box-sizing: border-box;
   font-size: 1vw;
@@ -56,8 +60,10 @@ body {
   color: black;
   margin: 0;
   padding: 0;
-  font-size: 14px;
-  font-family: "Monument Grotesk Regular";
+  font-size: 16.5px;
+  font-family: "Friedl";
+  font-variation-settings: "wght" 700;
+  transition: font-variation-settings 0.3s ease;
 }
 
 .webpage-title {
@@ -77,9 +83,13 @@ body {
   display: none;
 }
 
-.content-container {
+p {
+  margin: 0;
+}
+
+#content-container {
   width: 100vw;
-  padding-bottom: 200px;
+  padding: 10px 10px 200px 10px;
 }
 
 .list-view .single-project {
