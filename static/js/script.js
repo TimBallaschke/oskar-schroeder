@@ -93,7 +93,9 @@ async function handleDelta(content) {
     const contentContainer = document.getElementById('content-container');
 
     renderingQueue.push(content);
-    // console.log("Rendering queue:", renderingQueue);
+    // console.log("Added to queue:", content);
+    // console.log("Queue length:", renderingQueue.length);
+    // console.log("Full queue:", JSON.stringify(renderingQueue));
 
     if (isProcessing) {
         return;
@@ -101,7 +103,7 @@ async function handleDelta(content) {
 
     while (renderingQueue.length > 0) {
         const currentContent = renderingQueue.shift();
-        // console.log("Current content:", currentContent);
+        console.log("Current content:", currentContent);
         try {
             isProcessing = true;
 
@@ -115,15 +117,19 @@ async function handleDelta(content) {
                     continue;
                 }
 
-                const componentID = `${component.UIType}-${content.components.indexOf(component)}`;
+                console.log("Component Index:", currentContent.components.indexOf(component));
+
+                const componentID = `${component.UIType}-${currentContent.components.indexOf(component)}`;
 
                 if (!processedComponents.has(componentID)) {
                     processedComponents.set(componentID, new Set());
-                    console.log('New Processed Components:', componentID);
+                    // console.log('New Processed Components:', componentID);
                 }
 
                 const processedSet = processedComponents.get(componentID);
-                                
+
+                // console.log('Component:', componentID);
+
                 switch (component.UIType) {
                     case 'paragraphs':
                         let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
