@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250203c_Oskar_Website_Friedl_Font",
+  "original_folder": "250203d_Oskar_Website_processed_class",
   "snapshot_date_from_folder": "250203",
   "source_files": [
     {
@@ -26,23 +26,23 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "7f128c0bf10554e1d0930806b734ad76cfeb7ec1",
-      "sha256": "565867b7ef2af23792fd5069cebce0dde342df1764808a9557b3038adc38464d",
-      "size": 9386,
+      "sha1": "50bca465eb4e8ac6ee9f2bfdfca9af0f377fe153",
+      "sha256": "0ab71f929fea99f6290b4a9dc6fb9ae0e642df17b7e5cac1f9ccbb120a319a60",
+      "size": 9490,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "ee0f06ca67ce18d792bab27afd8b46110bd3e116",
-      "sha256": "1099ff55c9da67e6ffeb867e3ac718cd9ba11b5a62fa8627447eb782eb10daeb",
-      "size": 3693,
+      "sha1": "fd7eac70170806da6126f8ed1a891d3bdd055244",
+      "sha256": "f664040f86e51bd4ee33fce6a1387c0d1ffe8857f9918198896d9e941de218dd",
+      "size": 3726,
       "mode": "100644"
     },
     {
       "path": "static/css/style.scss",
-      "sha1": "3fc2c5e60e5d357931f6f7f3706e63075f0d380b",
-      "sha256": "74e0a93caf0941d19639a4ab609f83271ab151a4a0aa68431456206c84fbd0f8",
-      "size": 9302,
+      "sha1": "e802e829989c2e36fa37403c700f562e34f2eb7d",
+      "sha256": "c328fd3266becae73c37af0109bb6dbc3c58eb78231fb37e6227d7ebde0fa034",
+      "size": 9405,
       "mode": "100644"
     },
     {
@@ -61,9 +61,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "0b63d6306061ee8fec7c80342fcba870461931fa",
-      "sha256": "97fcf70f79fb2d2c6e0a985ce8fcd6f6c95d6bb4d99db9b7fd54b940b1199d9c",
-      "size": 9839,
+      "sha1": "37e9a3137b0117ec9a676f29283464b2de304195",
+      "sha256": "0fccbedcfd689d7a457c89a98d638dfc0dd62d9c036a0c3045e1c9987679fab1",
+      "size": 10928,
       "mode": "100644"
     },
     {

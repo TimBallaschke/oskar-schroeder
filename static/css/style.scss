@@ -74,10 +74,14 @@ body {
   padding: 0;
   font-size: 16.5px;
   font-family: "Friedl";
-  font-variation-settings: "wght" 700;
-  transition: font-variation-settings 0.3s ease;
+  font-variation-settings: "wght" 400;
+  transition: font-variation-settings 0.6s ease;
 }
 
+.processed {
+  font-variation-settings: "wght" 700;
+  transition: font-variation-settings 0.6s ease;
+}
 
 
 

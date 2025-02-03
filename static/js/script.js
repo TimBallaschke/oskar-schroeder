@@ -115,9 +115,18 @@ async function handleDelta(content) {
 
                 const componentID = `${component.UIType}-${currentContent.components.indexOf(component)}`;
 
+                
                 if (!processedComponents.has(componentID)) {
-                    processedComponents.set(componentID, new Set());
+                    // Only update classes for previous components if this isn't the first component
+                    if (processedComponents.size > 0) {
+                        const previousComponents = document.querySelectorAll('.processing');
+                        previousComponents.forEach(component => {
+                            component.classList.remove('processing');
+                            component.classList.add('processed');
+                        });
+                    }
 
+                    processedComponents.set(componentID, new Set());
                     console.log('Processing Component:', componentID);
                 }
 
@@ -185,6 +194,18 @@ async function handleDelta(content) {
                         console.warn('Unknown UIType:', component.UIType);
                         return;
                 }
+            }
+
+            // When queue is empty, remove 'processing' class from all elements except the first
+            if (renderingQueue.length === 0) {
+                const processingElements = document.querySelectorAll('.processing');
+                processingElements.forEach(element => {
+                    // Skip the first component
+                    if (processedComponents.size > 1) {
+                        element.classList.remove('processing');
+                        element.classList.add('processed');
+                    }
+                });
             }
         } catch (error) {
             console.error("Error processing content:", error);
