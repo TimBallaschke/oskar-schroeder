@@ -103,7 +103,6 @@ async function handleDelta(content) {
 
     while (renderingQueue.length > 0) {
         const currentContent = renderingQueue.shift();
-        console.log("Current content:", currentContent);
         try {
             isProcessing = true;
 
@@ -112,19 +111,20 @@ async function handleDelta(content) {
             }
 
             for (const component of currentContent.components) {
-                // Skip if no UIType
+                
                 if (!component.UIType) {
                     continue;
                 }
 
-                console.log("Component Index:", currentContent.components.indexOf(component));
 
                 const componentID = `${component.UIType}-${currentContent.components.indexOf(component)}`;
 
                 if (!processedComponents.has(componentID)) {
                     processedComponents.set(componentID, new Set());
-                    // console.log('New Processed Components:', componentID);
+
+                    console.log('Processing Component:', componentID);
                 }
+
 
                 const processedSet = processedComponents.get(componentID);
 
@@ -145,12 +145,8 @@ async function handleDelta(content) {
                             break;
                         }
                         
-                        // Process sentences sequentially
                         for (const sentence of component.text) {
-                            // console.log('Processing sentence:', sentence);
                             if (!processedSet.has(sentence)) {
-                                // console.log('Sentence not yet processed, adding to set: ', sentence);
-                                // Mark as processed immediately
                                 processedSet.add(sentence);
                                 // console.log('Processed set:', processedSet);
                                 await new Promise(resolve => {
@@ -200,8 +196,10 @@ async function handleDelta(content) {
             console.error("Error processing content:", error);
         } finally {
             isProcessing = false;
+            // console.log('FINALLY Set isProcessing to false');
         }
     }
+    console.log('handleDelta completed');
 }
 
 function handleComplete(content) {
