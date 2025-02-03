@@ -63,12 +63,12 @@ body {
   font-size: 16.5px;
   font-family: "Friedl";
   font-variation-settings: "wght" 400;
-  transition: font-variation-settings 0.6s ease;
+  transition: font-variation-settings 0.4s ease;
 }
 
 .processed {
   font-variation-settings: "wght" 700;
-  transition: font-variation-settings 0.6s ease;
+  transition: font-variation-settings 0.4s ease;
 }
 
 .webpage-title {
@@ -90,6 +90,10 @@ body {
 
 p {
   margin: 0;
+}
+
+p:not(:first-of-type) {
+  text-indent: 30px;
 }
 
 #content-container {
