@@ -70,10 +70,14 @@ client = OpenAI()
 # ComponentUnion allows a list to contain different types of components.
 # Response combines everything into a structured response that can be sent to the front end.
 
-
+class ImagesComponent(BaseModel):
+    UIType: Literal["images"] = Field(description="Indicates this is an images component for displaying a list of images")
+    images: List[str] = Field(description="A list of URLs for images")
+    
 class ParagraphComponent(BaseModel):
     UIType: Literal["paragraphs"] = Field(description="Indicates this is a paragraph component for displaying text")
     text: List[str] = Field(description="The text content of the paragraph. Every sentence should be a separate paragraph.")
+    # images: ImagesComponent = Field(description="Images to the paragraph")
 
 class ListComponent(BaseModel):
     UIType: Literal["list"] = Field(description="Indicates this is a list component for displaying a list of items")
@@ -84,12 +88,23 @@ class TableComponent(BaseModel):
     headers: List[str] = Field(description="Column headers for the table")
     rows: List[List[str]] = Field(description="Rows of data, where each row is a list of strings")
 
+class ProjectLayout(str, Enum):
+    fullscreen = "fullscreen"
+    grid = "grid"
+
 class ProjectComponent(BaseModel):
     UIType: Literal["project"] = Field(description="Indicates this is a project component that represents an artwork or installation")
     name: str = Field(description="Name of the project or artwork")
     year: int = Field(description="Year the project was created")
     material: str = Field(description="Primary material used in the project")
     dimensions: str = Field(description="Physical dimensions of the project")
+    images: ImagesComponent = Field(description="Images of the project")
+    layout: ProjectLayout = Field(default=ProjectLayout.fullscreen, description="Layout style for displaying the project. Should be fullscreen by default.")
+
+
+
+    
+
 
 # Root level must be a simple object
 class Response_1(BaseModel):
@@ -276,6 +291,38 @@ project_data_1 = {
     "year": 2017,
     "material": "Steel, Concrete, Fabric",
     "dimensions": "200x50x400cm",
+    "images": [
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Einsatz-1.jpg",
+            "description": "Front view of Einsatz showing the interplay between steel framework and fabric panels",
+            "color": "Raw steel gray contrasting with off-white fabric",
+            "is_detail": False
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Einsatz-2.jpg", 
+            "description": "Detail shot highlighting the concrete fragments and their textural qualities",
+            "color": "Charcoal gray concrete with hints of rust orange",
+            "is_detail": False
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Einsatz-3.jpg",
+            "description": "Side angle capturing light filtering through the translucent fabric elements",
+            "color": "Translucent ivory white with shadow gradients",
+            "is_detail": False
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Einsatz-4.jpg",
+            "description": "Close-up of welded joints and structural connections within the piece",
+            "color": "Burnished steel with dark patina",
+            "is_detail": True
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Einsatz-5.jpg",
+            "description": "Full installation view showing the work's relationship with gallery space", 
+            "color": "Industrial grays with warm fabric undertones",
+            "is_detail": False
+        }
+    ],
     "description": (
         "\"Einsatz\" was created through a meticulous process that combined precision engineering with organic experimentation. "
         "At its core, the artwork utilizes industrial rebar, selected for its resilience and its symbolic representation of construction and support. "
@@ -334,6 +381,38 @@ project_data_2 = {
     "year": 2019,
     "material": "Wood, Glass",
     "dimensions": "200x450x600cm",
+    "images": [
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Schau-1.jpg",
+            "description": "Front view showing the minimalist cube form with reflective glass surface",
+            "color": "Natural wood tones with reflective clear glass",
+            "is_detail": False
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Schau-2.jpg",
+            "description": "Detail of wood grain and industrial tape pattern",
+            "color": "Warm wood with black geometric lines",
+            "is_detail": True
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Schau-3.jpg",
+            "description": "Side angle capturing light reflections on glass surface",
+            "color": "Mixed reflections on clear glass",
+            "is_detail": False
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Schau-4.jpg",
+            "description": "Close-up of corner joint construction",
+            "color": "Raw plywood edges with dark reinforcement",
+            "is_detail": True
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Schau-5.jpg",
+            "description": "Installation view showing interaction with gallery lighting",
+            "color": "Wood and glass with ambient light effects",
+            "is_detail": False
+        }
+    ],
     "description": (
         "\"Schau\" is a minimalist exploration of materiality and perception, conceived through a deliberate engagement with found materials "
         "and industrial aesthetics. The production process began with the selection of salvaged plywood panels, which were chosen for their "
@@ -378,6 +457,38 @@ project_data_3 = {
     "year": 2020,
     "material": "Wood",
     "dimensions": "5x8x10cm", 
+    "images": [
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Wild-1.jpg",
+            "description": "Full view of the carved wooden figure in reclining position",
+            "color": "Rich wood tones with natural variations",
+            "is_detail": False
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Wild-2.jpg",
+            "description": "Detail of chisel marks and wood grain texture",
+            "color": "Deep wood grain patterns with tool marks",
+            "is_detail": True
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Wild-3.jpg",
+            "description": "Profile view highlighting the distorted proportions",
+            "color": "Warm wood with shadow details",
+            "is_detail": False
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Wild-4.jpg",
+            "description": "Close-up of burnt patina treatment",
+            "color": "Charred black transitioning to natural wood",
+            "is_detail": True
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Wild-5.jpg",
+            "description": "Installation view showing relationship to gallery wall",
+            "color": "Wood figure against white background",
+            "is_detail": False
+        }
+    ],
     "description": (
         "\"Wild\" is a raw and evocative sculpture that explores the intersections of humanity, nature, and vulnerability. "
         "The production process began with the selection of salvaged wood, chosen for its organic irregularities and visible "
@@ -427,6 +538,38 @@ project_data_4 = {
     "year": 2021,
     "material": "Concrete, Plaster",
     "dimensions": "5x8x10cm", 
+    "images": [
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Ot-1.jpg",
+            "description": "Full view of the wall-mounted geological formation",
+            "color": "Layered grays and earth tones",
+            "is_detail": False
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Ot-2.jpg",
+            "description": "Detail of mineral inclusions and surface texture",
+            "color": "Mixed mineral colors with rough texture",
+            "is_detail": True
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Ot-3.jpg",
+            "description": "Side view showing layered construction",
+            "color": "Stratified earth tones and textures",
+            "is_detail": False
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Ot-4.jpg",
+            "description": "Close-up of polished and rough surface contrast",
+            "color": "Smooth and textured concrete surfaces",
+            "is_detail": True
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Ot-5.jpg",
+            "description": "Installation view in gallery context",
+            "color": "Earth-toned sculpture on white wall",
+            "is_detail": False
+        }
+    ],
     "description": (
         "\"O.t.\" is a minimalist wall-mounted sculpture that explores themes of geological time, material transformation, and the intersection of natural and human processes. "
         "The artwork was created using a mixture of plaster, concrete, and natural pigments, resulting in a surface that evokes the textures and patterns of sedimentary rock formations. "
@@ -463,6 +606,38 @@ project_data_5 = {
     "year": 2022,
     "material": "Wool, Plant Fibers, Soil, Ash",
     "dimensions": "300x100cm", 
+    "images": [
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Landschaft-1.jpg",
+            "description": "Full view of the textile landscape installation",
+            "color": "Natural earth tones and fiber textures",
+            "is_detail": False
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Landschaft-2.jpg",
+            "description": "Detail of wool and plant fiber integration",
+            "color": "Mixed natural fibers and pigments",
+            "is_detail": True
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Landschaft-3.jpg",
+            "description": "Side angle showing material depth and layers",
+            "color": "Layered earth tones and textures",
+            "is_detail": False
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Landschaft-4.jpg",
+            "description": "Close-up of soil and ash incorporation",
+            "color": "Dark soil tones with ashen highlights",
+            "is_detail": True
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Landschaft-5.jpg",
+            "description": "Installation view showing full wall context",
+            "color": "Natural tones against gallery white",
+            "is_detail": False
+        }
+    ],
     "description": (
         "\"Landschaft\" is a meditative and abstract work that redefines the concept of landscapes by translating natural elements into tactile form. "
         "The piece was created using a process rooted in traditional and experimental fiber art techniques. "
@@ -505,6 +680,38 @@ project_data_6 = {
     "year": 2023,
     "material": "Wood",
     "dimensions": "100x100x50cm", 
+    "images": [
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Hypo-1.jpg",
+            "description": "Full view of the curvilinear wooden form",
+            "color": "Light wood with subtle grain patterns",
+            "is_detail": False
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Hypo-2.jpg",
+            "description": "Detail of tool marks and surface texture",
+            "color": "Varied wood textures and tool patterns",
+            "is_detail": True
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Hypo-3.jpg",
+            "description": "Profile view showing organic flowing form",
+            "color": "Warm wood tones with shadow detail",
+            "is_detail": False
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Hypo-4.jpg",
+            "description": "Close-up of natural wood grain and finish",
+            "color": "Rich limewood grain with wax finish",
+            "is_detail": True
+        },
+        {
+            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Hypo-5.jpg",
+            "description": "Installation view on gallery floor",
+            "color": "Wood sculpture on concrete surface",
+            "is_detail": False
+        }
+    ],
     "description": (
         "\"Hypo\" is a carved wooden sculpture that embodies a sense of tension between vulnerability and latent energy. "
         "The piece was created from a single block of limewood, chosen for its fine grain and subtle tonal variations. "

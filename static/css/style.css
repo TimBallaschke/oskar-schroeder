@@ -56,13 +56,13 @@ html {
 }
 
 body {
-  background-color: #aaaaaa;
+  background-color: #bababa;
   color: black;
   margin: 0;
   padding: 0;
   font-size: 16.5px;
   font-family: "Friedl";
-  font-variation-settings: "wght" 400;
+  font-variation-settings: "wght" 300;
   transition: font-variation-settings 0.4s ease;
 }
 
