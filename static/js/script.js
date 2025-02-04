@@ -15,8 +15,10 @@
 
 let activeEventSource = null; // Track the active activeEventSource connection
 let isProcessing = false; // Flag to prevent concurrent processing
-let processedComponents = new Map();
+let componentsMap = {};  // Saving the components for each response
+let processedComponents = new Map(); // Current components that have been processed
 let renderingQueue = [];
+let responseCount = 0;
 
 // Function called when user sends a message
 function sendMessage() {
@@ -26,6 +28,8 @@ function sendMessage() {
 
     toggleLoadingState(true);
     processedComponents.clear(); // Clear processed components for a new request
+    renderingQueue = [];  // Clear the rendering queue
+    clearContentContainer();  // Clear the UI content
 
     // Send message to backend (Flask server)
     // This is a post request that triggers the function in main.py
@@ -66,6 +70,7 @@ function startStreamingResponse() {
                 handleDelta(data.content);
                 break;
             case 'complete': // if the message type is 'complete', it calls the handleComplete function
+                responseCount++;
                 handleComplete(data.content);
                 break;
             case 'second_complete':
@@ -130,6 +135,7 @@ async function handleDelta(content) {
                     }
 
                     processedComponents.set(componentID, new Set());
+
                     console.log('Processing Component:', componentID);
                 }
 
@@ -190,7 +196,20 @@ async function handleDelta(content) {
                     case 'table':
                         break;
 
-                    case 'project':
+                    case 'projects_list':
+                        let projectsContainer = document.querySelector(`[data-component-key="${componentID}"]`);
+                        if (!projectsContainer) {
+                            projectsContainer = document.createElement('p');
+                            projectsContainer.classList.add('projects-container', 'processing');  // Add processing class
+                            projectsContainer.setAttribute('data-component-key', componentID);
+
+                            // Create the component-button div
+                            const componentButton = document.createElement('div');
+                            componentButton.classList.add('component-button');
+                            projectsContainer.appendChild(componentButton);
+
+                            contentContainer.appendChild(projectsContainer);
+                        }
                         break;
 
                     default:
@@ -219,7 +238,9 @@ async function handleDelta(content) {
 }
 
 function handleComplete(content) {
-    console.log("Received complete response:", content);
+    // console.log("Received complete response:", content);
+    componentsMap[`components_${responseCount}`] = content;
+    console.log(componentsMap);
 }
 
 function handleSecondComplete(content) {
@@ -238,10 +259,11 @@ function toggleLoadingState(isLoading) {
     if (sendButton) sendButton.disabled = isLoading;
 }
 
-function resetProcessingState() {
-    processedComponents.clear();
-    isProcessing = false;
+function clearContentContainer() {
+    const contentContainer = document.getElementById('content-container');
+    contentContainer.innerHTML = '';  // Clears all previous components
 }
+
 
 // Add ability to send message by pressing Enter key
 document.getElementById('user-input').addEventListener('keypress', function(e) {

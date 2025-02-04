@@ -409,4 +409,10 @@ p:not(:first-of-type) {
   background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: invert(1) grayscale(1);
   -webkit-backdrop-filter: invert(1) grayscale(1);
+}
+
+.component-button {
+  background-color: black;
+  height: 20px;
+  width: 20px;
 }/*# sourceMappingURL=style.css.map */
