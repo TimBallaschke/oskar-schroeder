@@ -67,6 +67,9 @@ function startStreamingResponse() {
                 break;
             case 'complete': // if the message type is 'complete', it calls the handleComplete function
                 handleComplete(data.content);
+                break;
+            case 'second_complete':
+                handleSecondComplete(data.content);  // New function to process the second chatbot's response
                 activeEventSource.close();
                 activeEventSource = null;
                 toggleLoadingState(false);
@@ -217,8 +220,10 @@ async function handleDelta(content) {
 
 function handleComplete(content) {
     console.log("Received complete response:", content);
+}
 
-
+function handleSecondComplete(content) {
+    console.log("Received second complete response:", content);
 }
 
 // Function to handle to enable/disable the input field and send button during streaming
