@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250204_Oskar_Website",
+  "original_folder": "250204b_Oskar_Website_multiple_files_py",
   "snapshot_date_from_folder": "250204",
   "source_files": [
     {
@@ -18,10 +18,24 @@
       "mode": "100644"
     },
     {
+      "path": "data.py",
+      "sha1": "b52b29cbca6378dee25f908ed33a7852238a011d",
+      "sha256": "d34c550cd68212c1bde99ce8ce84b4133150b0b88d25d8b0988073251a667161",
+      "size": 43914,
+      "mode": "100644"
+    },
+    {
       "path": "main.py",
-      "sha1": "82353e669b5f82b2c49e15d0dbb6445a71d94fcf",
-      "sha256": "9eead043a4f62c1fa741f512f385a2473105a8b7a0326a7edc542f0c66e1e944",
-      "size": 54684,
+      "sha1": "006042268fdac0ce47f9178af6b21ca68ca0bb33",
+      "sha256": "ebddf3cae8f74363f83f297deb75801bf167d38bd65f58b3656d982796e0a10f",
+      "size": 9649,
+      "mode": "100644"
+    },
+    {
+      "path": "prompts.py",
+      "sha1": "ec54551ea5d7d3f6eac018944c166b834429c169",
+      "sha256": "e05392df5496f69260196b9ed482308ca716b537e7aba99c82045c3dbc69788f",
+      "size": 1779,
       "mode": "100644"
     },
     {
@@ -47,13 +61,6 @@
     },
     {
       "path": "static/css/styles.css",
-      "sha1": "0519ecba6ea913e21689ec692e81e9e4973fbf73",
-      "sha256": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068",
-      "size": 1,
-      "mode": "100644"
-    },
-    {
-      "path": "static/js/chat.js",
       "sha1": "0519ecba6ea913e21689ec692e81e9e4973fbf73",
       "sha256": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068",
       "size": 1,
@@ -555,6 +562,10 @@
     "flask_session/"
   ],
   "omitted_generated_files": [
+    {
+      "path": "__pycache__",
+      "reason": "generated-directory"
+    },
     {
       "path": ".DS_Store",
       "reason": "generated-file"
