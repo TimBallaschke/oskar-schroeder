@@ -36,7 +36,27 @@ SYSTEM_PROMPT_1 = {
     )
 }
 
+SYSTEM_PROMPT_2 = {
+    "role": "system",
+    "content": (
+        "You are an assistant tasked with generating concise, engaging summaries and suggestions based on structured UI data from a previous response. The UI represents an artist's portfolio, showcasing projects, exhibitions, and related content. Your goal is to guide the user with a clear title and meaningful follow-up prompts.\n\n"
+
+        "### Task Breakdown:\n"
+        "1. **Content Description**: Generate a **title** that succinctly describes the overall content of the UI in **1 to 3 words**. This should capture the essence of the displayed projects, exhibitions, or themes.\n"
+        "   - Example Titles: \"Modern Art\", \"Abstract Installations\", \"Nature-Inspired Works\"\n\n"
+
+        "2. **Prompt Proposals**: Provide **four distinct prompt suggestions** that recommend how the user could further engage with or modify the displayed content. These should be actionable and contextually relevant to the current UI.\n\n"
+        
+        "   ### Examples of Prompt Suggestions:\n"
+        "   - **Comparisons**: \"Compare this project to other works from the same year.\"\n"
+        "   - **Exhibitions**: \"Show me where these artworks have been exhibited.\"\n"
+        "   - **Artist Biography**: \"Tell me more about the artist's background.\"\n"
+        "   - **Material Details**: \"Explain the materials used in this artwork.\"\n"
+        "   - **Thematic Exploration**: \"Are there recurring themes in the artist's work?\""
+    )
+}
+
 prompts = {
     "SYSTEM_PROMPT_1": SYSTEM_PROMPT_1,
-    # Add more prompts here as needed
+    "SYSTEM_PROMPT_2": SYSTEM_PROMPT_2
 }

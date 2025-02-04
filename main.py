@@ -84,8 +84,13 @@ class Response_1(BaseModel):
         description="List of UI components that make up the response"
     )
 
+class Response_2(BaseModel):
+    content_description: str = Field(description="A description of the content that is currently displayed")
+    prompt_proposal_1: str = Field(description="A recommendation to the user that offers suggestions or next steps based on the current content")
+    prompt_proposal_2: str = Field(description="A recommendation to the user that offers suggestions or next steps based on the current content")
+    prompt_proposal_3: str = Field(description="A recommendation to the user that offers suggestions or next steps based on the current content")
+    prompt_proposal_4: str = Field(description="A recommendation to the user that offers suggestions or next steps based on the current content")
 
-    
 
 
 
@@ -106,7 +111,7 @@ def index():
     # {} holds a dictionary in python
     # [] holds a list in python (used to store key-value pairs – comparable to objects in JavaScript)
     session['messages_1'] = [prompts["SYSTEM_PROMPT_1"]]
-    # session['messages_2'] = [SYSTEM_PROMPT_2]    
+    session['messages_2'] = [prompts["SYSTEM_PROMPT_2"]]
 
     # Render the main chat interface (render_template is a function in Flask that locates and loads an HTML File)
     return render_template('index.html')
@@ -165,6 +170,10 @@ def stream():
                     
                     # Send completion event to frontend
                     yield f"data: {json.dumps({'type': 'complete', 'content': final_completion.model_dump()})}\n\n"
+
+                    # Call the second chatbot
+                    yield from handle_second_chatbot(final_completion)
+
                     
                 elif event.type == "error":
                     # Send error event to frontend
@@ -180,6 +189,53 @@ def stream():
     # the browser will use this information to handle the response as an event stream
     return Response(stream_with_context(generate()), content_type="text/event-stream")
 
+def handle_second_chatbot(final_completion):
+    if 'messages_2' not in session:
+        session['messages_2'] = [prompts["SYSTEM_PROMPT_2"]]
+
+    messages_2 = session.get('messages_2', [])
+    
+    # Pass the final completion from chatbot 1 as input to chatbot 2
+    messages_2.append({
+        "role": "user",
+        "content": json.dumps(final_completion.model_dump())  # Ensure it's in the right format
+    })
+
+    try:
+
+        print("\n=== Second Chatbot Input ===")
+        print(json.dumps(final_completion.model_dump(), indent=2))
+    
+        response = client.beta.chat.completions.parse(
+            model="gpt-4o-mini",
+            messages=messages_2,
+            temperature=0.5,
+            max_tokens=2048,
+            response_format=Response_2,
+        )
+
+        second_response = response.choices[0].message.parsed
+
+        print("\n=== Second Chatbot Raw Response ===")
+        print(second_response)
+
+        print("\n=== Second Chatbot Parsed Response ===")
+        print(json.dumps(second_response.model_dump(), indent=2))
+
+        # Append chatbot 2's response to session
+        messages_2.append({
+            "role": "assistant",
+            "content": json.dumps(second_response.model_dump())
+        })
+        session.modified = True
+
+        # Send chatbot 2's response to the frontend (not streamed)
+        yield f"data: {json.dumps({'type': 'second_complete', 'content': second_response.model_dump()})}\n\n"
+
+    except Exception as e:
+        print("\n=== Second Chatbot Error ===")
+        print(str(e))
+        yield f"data: {json.dumps({'type': 'error', 'content': str(e)})}\n\n"
 
 # Run the Flask application if this file is run directly
 # this condition checks if the script is being run directly (not imported as a module in another script);
