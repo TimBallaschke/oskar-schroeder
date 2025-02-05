@@ -1,18 +1,3 @@
-// Generic handler for clicking on prompt elements that should be copied to input
-// function handlePromptClick(element) {
-//     const input = document.getElementById('user-input');
-//     input.value = element.innerHTML;
-// }
-
-// Add event listeners when the page loads
-// document.addEventListener('DOMContentLoaded', () => {
-//     const promptProposalOne = document.querySelector('.prompt-proposal-1');
-//     const promptProposalTwo = document.querySelector('.prompt-proposal-2');
-
-//     promptProposalOne.addEventListener('click', () => handlePromptClick(promptProposalOne));
-//     promptProposalTwo.addEventListener('click', () => handlePromptClick(promptProposalTwo));
-// });
-
 // GLOBAL VARIABLES
 
 let activeEventSource = null; // Track the active activeEventSource connection
@@ -301,6 +286,7 @@ function handleSecondComplete(content) {
 
 // VERSION HISTORY
 
+// updating the version history
 function handleVersionHistoryUpdate(content) {
 
     // Hide all existing version-history elements
@@ -341,6 +327,9 @@ function handleVersionHistoryUpdate(content) {
     versionHistory.appendChild(newHistoryElement);
 }
 
+
+    
+// opening and closing the version history
 versionHistory.addEventListener('click', openVersionHistory);
 
 function openVersionHistory() {
@@ -351,22 +340,21 @@ function openVersionHistory() {
     });
 
     versionHistory.removeEventListener('click', openVersionHistory);
-    console.log("Version history opened");
 }
 
-function closeVersionHistory() {
-
+function closeVersionHistory(element) {
     const historyElements = document.querySelectorAll('.version-history-element');
-    historyElements.forEach(element => {
-        element.classList.add('display-none');
-        element.removeEventListener('click', handleVersionClick);
+    historyElements.forEach(el => {
+        el.classList.add('display-none');
+        el.removeEventListener('click', handleVersionClick);
     });
+
+    element.classList.remove('display-none');
+    element.classList.add('current-version-history-element');
 
     setTimeout(() => {
         versionHistory.addEventListener('click', openVersionHistory);
     }, 1000);
-
-    console.log("Version history closed");
 }
 
 // Define the handler function separately so it can be removed later
@@ -374,6 +362,8 @@ function handleVersionClick(event) {
     displayPreviousVersion(event.currentTarget);
 }
 
+
+// display previous version
 function displayPreviousVersion(element) {
 
     // Get the version key from the clicked element
@@ -381,7 +371,7 @@ function displayPreviousVersion(element) {
 
     if (versionKey === 0) {
         clearContentContainer();
-        closeVersionHistory();
+        closeVersionHistory(element);
         return;
     }
 
@@ -414,23 +404,45 @@ function displayPreviousVersion(element) {
         });
     }
 
-    closeVersionHistory();
+    closeVersionHistory(element);
 }
-
-
-
-
-
 
 
 
 // PROMPT PROPOSALS
 
 function handlePromptProposalsUpdate(content) {
-    // const promptProposals = document.getElementById('prompt-proposals');
-    // promptProposals.textContent = content.prompt_proposals;
+    const promptProposal1 = document.getElementById('prompt-proposal-1');
+    const promptProposal2 = document.getElementById('prompt-proposal-2');
+    const promptProposal3 = document.getElementById('prompt-proposal-3');
+    const promptProposal4 = document.getElementById('prompt-proposal-4');
+
+    promptProposal1.textContent = content.prompt_proposal_1;
+    promptProposal2.textContent = content.prompt_proposal_2;
+    promptProposal3.textContent = content.prompt_proposal_3;
+    promptProposal4.textContent = content.prompt_proposal_4;
 }
 
+// Generic handler for clicking on prompt elements that should be copied to input
+function handlePromptClick(element) {
+    const input = document.getElementById('user-input');
+    input.value = element.innerHTML;
 
+    setTimeout(() => {
+        sendMessage();
+    }, 500);
+}
 
+// Add event listeners when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const promptProposal1 = document.getElementById('prompt-proposal-1');
+    const promptProposal2 = document.getElementById('prompt-proposal-2');
+    const promptProposal3 = document.getElementById('prompt-proposal-3');
+    const promptProposal4 = document.getElementById('prompt-proposal-4');
+
+    promptProposal1.addEventListener('click', () => handlePromptClick(promptProposal1));
+    promptProposal2.addEventListener('click', () => handlePromptClick(promptProposal2));
+    promptProposal3.addEventListener('click', () => handlePromptClick(promptProposal3));
+    promptProposal4.addEventListener('click', () => handlePromptClick(promptProposal4));
+});
 
