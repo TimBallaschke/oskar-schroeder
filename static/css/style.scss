@@ -482,3 +482,19 @@ p:not(:first-of-type) {
   width: 20px;
 }
 
+.prompt-proposals {
+  height: 0;
+  overflow: hidden;
+}
+
+#version-history-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100px;
+}
+
+.display-none {
+  display: none;
+}
+

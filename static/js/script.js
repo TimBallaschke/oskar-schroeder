@@ -245,6 +245,46 @@ function handleComplete(content) {
 
 function handleSecondComplete(content) {
     console.log("Received second complete response:", content);
+
+    handleVersionHistory(content);
+}
+
+function handleVersionHistory(content) {
+    const versionHistory = document.getElementById('version-history');
+
+    // Hide all existing version-history elements
+    const historyElements = document.querySelectorAll('.version-history-element');
+    historyElements.forEach(element => {
+        element.classList.add('display-none');
+    });
+
+    // Create the new version-history element
+    const newHistoryElement = document.createElement('div');
+    newHistoryElement.classList.add('version-history-element');
+    newHistoryElement.id = `version-history-element-${responseCount + 1}`; // Add unique ID based on responseCount
+
+    // Create and append the version-history-number element
+    const versionHistoryNumber = document.createElement('div');
+    versionHistoryNumber.classList.add('version-history-number');
+
+    // Create and append the version-history-element-digits element
+    const versionHistoryDigits = document.createElement('div');
+    versionHistoryDigits.classList.add('version-history-element-digits');
+    versionHistoryDigits.textContent = responseCount + 1; // Incremented response count
+
+    versionHistoryNumber.appendChild(versionHistoryDigits);
+
+    // Create and append the version-history-element-title element
+    const versionHistoryTitle = document.createElement('div');
+    versionHistoryTitle.classList.add('version-history-element-title');
+    versionHistoryTitle.textContent = content.content_description; // Set title text
+
+    // Append all elements to the new history entry
+    newHistoryElement.appendChild(versionHistoryNumber);
+    newHistoryElement.appendChild(versionHistoryTitle);
+
+    // Append the new history entry to the versionHistory container
+    versionHistory.appendChild(newHistoryElement);
 }
 
 // Function to handle to enable/disable the input field and send button during streaming
