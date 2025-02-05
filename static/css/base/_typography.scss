@@ -1,0 +1,67 @@
+@font-face {
+    font-family: "Suisse Mono Regular";
+    src: url("../assets/fonts/SuisseIntlMono-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Suisse Mono Light";
+  src: url("../assets/fonts/SuisseIntlMono-Light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Suisse Works Medium";
+  src: url("../assets/fonts/SuisseWorks-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Suisse Works Regular";
+  src: url("../assets/fonts/SuisseWorks-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Ivar Text Regular";
+  src: url("../assets/fonts/IvarText-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Ivar Text Medium";
+  src: url("../assets/fonts/IvarText-Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Marist Medium";
+  src: url("../assets/fonts/ABCMarist-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Marist Regular";
+  src: url("../assets/fonts/ABCMarist-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Monument Grotesk Bold";
+  src: url("../assets/fonts/ABCMonumentGrotesk-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Monument Grotesk Regular";
+  src: url("../assets/fonts/ABCMonumentGrotesk-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Friedl";
+  src: url("../assets/fonts/Friedl.woff2") format("woff2");
+}
+
+p {
+    margin: 0;
+}
+
+p:not(:first-of-type) {
+    text-indent: 30px;
+  }
+
+.processed {
+    font-variation-settings: "wght" 700;
+    transition: font-variation-settings 0.4s ease;
+}

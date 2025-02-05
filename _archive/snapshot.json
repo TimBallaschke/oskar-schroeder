@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250205d_Oskar_Website_prompt_html_update",
+  "original_folder": "250205e_Oskar_Website_SCSS_structure",
   "snapshot_date_from_folder": "250205",
   "source_files": [
     {
@@ -40,23 +40,23 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "3d0c1485c8178583e1cd379fbaf2e5d3bba35633",
-      "sha256": "1437994c2e7f6bb75fc31c3e167748697868b60898fa918bd93828b9e1b66ca2",
-      "size": 9842,
+      "sha1": "5ae6f924b662a14557c96ac7b218934fdabb0119",
+      "sha256": "38d515a7bcd066e104ed1cb5605cc33a5f36cb5c7a474f98cb275644f38cbb7e",
+      "size": 4855,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "3a4fccf4f2e69622103556316529acd9bdbb7797",
-      "sha256": "5d22612c578a54591144825e418a6b412b554e5522231c802ad2bfea4b673242",
-      "size": 3927,
+      "sha1": "93f75545d42beafd22809e5ce5ad45b937af26b6",
+      "sha256": "9cd7d624e890ea1ceff9f3641c042f5d8d9d1c7f1db9ad535714fe4779245bb6",
+      "size": 2186,
       "mode": "100644"
     },
     {
       "path": "static/css/style.scss",
-      "sha1": "03a18dbb54462e27b4ca934818666ede011f8be1",
-      "sha256": "f06f8198a7f364c0bcefb0e36f7186f5fdabe65a1abc51e72604c1cb5e4669ee",
-      "size": 9759,
+      "sha1": "ac25c1cc3f282e790ade216a14d75cf5c3235cce",
+      "sha256": "df91a57e81dea98f44da801b6ba9be3041de1414af2b44303e23db06c8af138e",
+      "size": 264,
       "mode": "100644"
     },
     {
@@ -64,6 +64,55 @@
       "sha1": "0519ecba6ea913e21689ec692e81e9e4973fbf73",
       "sha256": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068",
       "size": 1,
+      "mode": "100644"
+    },
+    {
+      "path": "static/css/components/_content.scss",
+      "sha1": "8ef483ecbdf8422bf45e3392dcc130f1965509b9",
+      "sha256": "8933c549240e782e336dd4111940adda13e025790813a92d9ac1d4675656401b",
+      "size": 183,
+      "mode": "100644"
+    },
+    {
+      "path": "static/css/components/_inputbar.scss",
+      "sha1": "c665f8e99542447e37454094c8cd66d98c4b70a5",
+      "sha256": "739fb8369ab79f4231ae868c096832eafc3c1fd4ef1b6a546234f4915284492d",
+      "size": 2495,
+      "mode": "100644"
+    },
+    {
+      "path": "static/css/components/_version-history.scss",
+      "sha1": "646d70b372609f21178fcfc8ab16dcf77f590837",
+      "sha256": "940d8e578e8fdcf51581f44c58fb8c272dfeeabdb817c9ebf4cfed95597ee624",
+      "size": 101,
+      "mode": "100644"
+    },
+    {
+      "path": "static/css/abstracts/_mixins.scss",
+      "sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "mode": "100644"
+    },
+    {
+      "path": "static/css/abstracts/_variables.scss",
+      "sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "mode": "100644"
+    },
+    {
+      "path": "static/css/base/_base.scss",
+      "sha1": "cf702a1027fa13d6c693e06da1c3fd627ad14ccb",
+      "sha256": "b92871dd9262beab1565464000adff8a090e52f4f888012769f1e3c9472f1e8b",
+      "size": 555,
+      "mode": "100644"
+    },
+    {
+      "path": "static/css/base/_typography.scss",
+      "sha1": "67aed34831851ac39000abb0c27d1504a551a9cd",
+      "sha256": "b86c7b346694d66a3d273e6bfcf68acf006e5fa3c4ee36d86ff100a74f9bf3c4",
+      "size": 1549,
       "mode": "100644"
     },
     {
