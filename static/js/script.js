@@ -13,6 +13,8 @@
 //     promptProposalTwo.addEventListener('click', () => handlePromptClick(promptProposalTwo));
 // });
 
+// GLOBAL VARIABLES
+
 let activeEventSource = null; // Track the active activeEventSource connection
 let isProcessing = false; // Flag to prevent concurrent processing
 let componentsMap = {};  // Saving the components for each response
@@ -20,7 +22,18 @@ let processedComponents = new Map(); // Current components that have been proces
 let renderingQueue = [];
 let responseCount = 0;
 
-// Function called when user sends a message
+const contentContainer = document.getElementById('content-container');
+const versionHistory = document.getElementById('version-history');
+
+
+
+
+
+
+
+
+// SENDING & RECEIVING MESSAGES
+
 function sendMessage() {
     const input = document.getElementById('user-input');
     const message = input.value.trim();
@@ -96,9 +109,39 @@ function startStreamingResponse() {
     };
 }
 
+// Add ability to send message by pressing Enter key
+document.getElementById('user-input').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+// Function to handle to enable/disable the input field and send button during streaming
+function toggleLoadingState(isLoading) {
+    const input = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+    
+    // Disable/enable the input field based on isLoading
+    if (input) input.disabled = isLoading;
+    
+    // Disable/enable the send button based on isLoading
+    if (sendButton) sendButton.disabled = isLoading;
+}
+
+function clearContentContainer() {
+    contentContainer.innerHTML = '';  // Clears all previous components
+}
+
+
+
+
+
+
+
+// HANDLE RESPONSE TYPES
+
 async function handleDelta(content) {
     console.log("Received delta:", content);
-    const contentContainer = document.getElementById('content-container');
 
     renderingQueue.push(content);
 
@@ -239,29 +282,40 @@ async function handleDelta(content) {
 
 function handleComplete(content) {
     // console.log("Received complete response:", content);
-    componentsMap[`components_${responseCount}`] = content;
+    componentsMap[responseCount] = content;
     console.log(componentsMap);
 }
 
 function handleSecondComplete(content) {
     console.log("Received second complete response:", content);
 
-    handleVersionHistory(content);
+    handleVersionHistoryUpdate(content);
+    handlePromptProposalsUpdate(content);
 }
 
-function handleVersionHistory(content) {
-    const versionHistory = document.getElementById('version-history');
+
+
+
+
+
+
+// VERSION HISTORY
+
+function handleVersionHistoryUpdate(content) {
 
     // Hide all existing version-history elements
     const historyElements = document.querySelectorAll('.version-history-element');
     historyElements.forEach(element => {
         element.classList.add('display-none');
+        element.classList.remove('current-version-history-element');
     });
 
     // Create the new version-history element
     const newHistoryElement = document.createElement('div');
     newHistoryElement.classList.add('version-history-element');
+    newHistoryElement.classList.add('current-version-history-element');
     newHistoryElement.id = `version-history-element-${responseCount + 1}`; // Add unique ID based on responseCount
+    newHistoryElement.setAttribute('version-history-key', responseCount);
 
     // Create and append the version-history-number element
     const versionHistoryNumber = document.createElement('div');
@@ -270,7 +324,7 @@ function handleVersionHistory(content) {
     // Create and append the version-history-element-digits element
     const versionHistoryDigits = document.createElement('div');
     versionHistoryDigits.classList.add('version-history-element-digits');
-    versionHistoryDigits.textContent = responseCount + 1; // Incremented response count
+    versionHistoryDigits.textContent = (responseCount + 1).toString().padStart(2, '0'); // Add leading zero if needed / padStart() is  method that ensures the string to have a minimum length characters
 
     versionHistoryNumber.appendChild(versionHistoryDigits);
 
@@ -287,27 +341,67 @@ function handleVersionHistory(content) {
     versionHistory.appendChild(newHistoryElement);
 }
 
-// Function to handle to enable/disable the input field and send button during streaming
-function toggleLoadingState(isLoading) {
-    const input = document.getElementById('user-input');
-    const sendButton = document.getElementById('send-button');
-    
-    // Disable/enable the input field based on isLoading
-    if (input) input.disabled = isLoading;
-    
-    // Disable/enable the send button based on isLoading
-    if (sendButton) sendButton.disabled = isLoading;
+versionHistory.addEventListener('click', openVersionHistory);
+
+function openVersionHistory() {
+
+    const historyElements = document.querySelectorAll('.version-history-element');
+    historyElements.forEach(element => {
+        element.classList.remove('display-none');
+
+        element.addEventListener('click', () => displayPreviousVersion(element));
+    });
 }
 
-function clearContentContainer() {
-    const contentContainer = document.getElementById('content-container');
-    contentContainer.innerHTML = '';  // Clears all previous components
-}
+function displayPreviousVersion(element) {
 
+    // Get the version key from the clicked element
+    const versionKey = parseInt(element.getAttribute('version-history-key'));
 
-// Add ability to send message by pressing Enter key
-document.getElementById('user-input').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        sendMessage();
+    // Get the corresponding content from componentsMap
+    const versionContent = componentsMap[versionKey];
+
+    clearContentContainer();
+
+    // Update UI with the selected version's content
+    if (versionContent && versionContent.components) {
+        versionContent.components.forEach(component => {
+            switch (component.UIType) {
+                case 'paragraphs':
+                    const paragraphContainer = document.createElement('p');
+                    paragraphContainer.classList.add('paragraph-container', 'processed');
+                    paragraphContainer.textContent = component.text.join(' ');
+                    contentContainer.appendChild(paragraphContainer);
+                    break;
+                    
+                // Add other component types as needed
+                case 'projects_list':
+                    // const projectsContainer = document.createElement('p');
+                    // projectsContainer.classList.add('projects-container', 'processed');
+                    // const componentButton = document.createElement('div');
+                    // componentButton.classList.add('component-button');
+                    // projectsContainer.appendChild(componentButton);
+                    // contentContainer.appendChild(projectsContainer);
+                    break;
+            }
+        });
     }
-});
+}
+
+
+
+
+
+
+
+
+// PROMPT PROPOSALS
+
+function handlePromptProposalsUpdate(content) {
+    // const promptProposals = document.getElementById('prompt-proposals');
+    // promptProposals.textContent = content.prompt_proposals;
+}
+
+
+
+

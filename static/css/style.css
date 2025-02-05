@@ -431,4 +431,8 @@ p:not(:first-of-type) {
 
 .display-none {
   display: none;
+}
+
+#content-container {
+  opacity: 0;
 }/*# sourceMappingURL=style.css.map */
