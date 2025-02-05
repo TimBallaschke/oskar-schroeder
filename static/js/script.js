@@ -344,19 +344,46 @@ function handleVersionHistoryUpdate(content) {
 versionHistory.addEventListener('click', openVersionHistory);
 
 function openVersionHistory() {
-
     const historyElements = document.querySelectorAll('.version-history-element');
     historyElements.forEach(element => {
         element.classList.remove('display-none');
-
-        element.addEventListener('click', () => displayPreviousVersion(element));
+        element.addEventListener('click', handleVersionClick);
     });
+
+    versionHistory.removeEventListener('click', openVersionHistory);
+    console.log("Version history opened");
+}
+
+function closeVersionHistory() {
+
+    const historyElements = document.querySelectorAll('.version-history-element');
+    historyElements.forEach(element => {
+        element.classList.add('display-none');
+        element.removeEventListener('click', handleVersionClick);
+    });
+
+    setTimeout(() => {
+        versionHistory.addEventListener('click', openVersionHistory);
+    }, 1000);
+
+    console.log("Version history closed");
+}
+
+// Define the handler function separately so it can be removed later
+function handleVersionClick(event) {
+    displayPreviousVersion(event.currentTarget);
 }
 
 function displayPreviousVersion(element) {
 
     // Get the version key from the clicked element
     const versionKey = parseInt(element.getAttribute('version-history-key'));
+
+    if (versionKey === 0) {
+        clearContentContainer();
+        closeVersionHistory();
+        return;
+    }
 
     // Get the corresponding content from componentsMap
     const versionContent = componentsMap[versionKey];
@@ -386,6 +413,8 @@ function displayPreviousVersion(element) {
             }
         });
     }
+
+    closeVersionHistory();
 }
 
 
