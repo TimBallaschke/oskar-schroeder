@@ -192,9 +192,8 @@ async function handleDelta(content) {
                         }
                         
                         for (const sentence of component.text) {
-                            if (!processedSet.has(sentence)) {
-                                processedSet.add(sentence);
-                                // console.log('Processed set:', processedSet);
+                            if (!componentMap.has(sentence)) {
+                                componentMap.set(sentence, true);
                                 await new Promise(resolve => {
                                     if (paragraphContainer.textContent) {
                                         paragraphContainer.textContent += ' ';
