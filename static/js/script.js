@@ -251,20 +251,30 @@ async function handleDelta(content) {
 
                             const projectID = project.name;
 
-                            // Initialize or update the project entry
+                            // Track processed fields in projectMap
                             if (!projectMap.has(projectID)) {
-                                projectMap.set(projectID, project); // Store initial data
-                            } else {
-                                Object.assign(projectMap.get(projectID), project); // Merge new data
+                                projectMap.set(projectID, new Set());
                             }
 
-                            projectRenderingQueue.push({ 
-                                id: projectID,
-                                project: projectMap.get(projectID) 
-                            });
+                            const processedFields = projectMap.get(projectID);
 
-                            if (!isProjectRendering) {
-                                renderNextProject(projectsContainer);
+                            // Check for new data and add rendering tasks to the queue
+                            for (const [key, value] of Object.entries(project)) {
+                                if (value && !processedFields.has(key)) {
+                                    processedFields.add(key);
+
+                                    // Push rendering task to the queue
+                                    projectRenderingQueue.push({
+                                        id: projectID,
+                                        key: key,
+                                        value: value,
+                                        container: projectsContainer
+                                    });
+
+                                    if (!isProjectRendering) {
+                                        renderNextProject();
+                                    }
+                                }
                             }
                         }
                         break;
@@ -301,58 +311,63 @@ async function renderNextProject(container) {
 
     try {
         while (projectRenderingQueue.length > 0) {
-            const item = projectRenderingQueue.shift();
-            const id = item.id;
-            const project = item.project;
+            const { id, key, value, container } = projectRenderingQueue.shift();
 
-            console.log('Rendering project:', id);
+            // console.log(`Rendering ${key} for project: ${id}`);
 
-            await new Promise((resolve) => {
-                let projectItem = document.querySelector(`[data-project-id="${id}"]`);
+            if (key === 'UIType') {
+                await new Promise((resolve) => {
+                    let projectItem = document.querySelector(`[data-project-id="${id}"]`);
+    
+                    if (!projectItem) {
+                        projectItem = document.createElement('div');
+                        projectItem.classList.add('project');
+                        projectItem.setAttribute('data-project-id', id);
+                        container.appendChild(projectItem);
+                    }
+        
+                    setTimeout(resolve, 1000); // Control rendering speed
+                });
+            }
 
-                if (!projectItem) {
-                    projectItem = document.createElement('div');
-                    projectItem.classList.add('project');
-                    projectItem.setAttribute('data-project-id', id);
-                    container.appendChild(projectItem);
-                }
+            // await new Promise((resolve) => {
+            //     let projectItem = document.querySelector(`[data-project-id="${id}"]`);
 
-                const addElement = (parent, className, content) => {
-                    return new Promise(resolveElement => {
-                        setTimeout(() => {
-                            let element = parent.querySelector(`.${className}`);
-                            if (!element && content) {
-                                element = document.createElement('div');
-                                element.classList.add(className);
-                                element.textContent = content;
-                                parent.appendChild(element);
-                            }
-                            resolveElement();
-                        }, 10); // Delay between elements
-                    });
-                };
+            //     if (!projectItem) {
+            //         projectItem = document.createElement('div');
+            //         projectItem.classList.add('project');
+            //         projectItem.setAttribute('data-project-id', id);
+            //         container.appendChild(projectItem);
+            //     }
 
-                // Sequentially add elements
-                (async () => {
-                    await addElement(projectItem, 'project-name', project.name);
-                    await addElement(projectItem, 'project-year', project.year);
-                    setTimeout(resolve, 10); // Final delay before next project
-                })();
-            });
+            //     // Check if the element already exists to avoid duplicates
+            //     let element = projectItem.querySelector(`.project-${key}`);
+            //     if (!element) {
+            //         element = document.createElement('div');  // Correctly create the element
+            //         element.classList.add(`project-${key}`);
+            //         element.textContent = value;
+            //         projectItem.appendChild(element);
+            //     } else {
+            //         // Update the content if it already exists (optional)
+            //         element.textContent = value;
+            //     }
+
+            //     setTimeout(resolve, 1000); // Control rendering speed
+            // });
         }
     } finally {
-        console.log('Project rendering completed');
+        // console.log('Project rendering completed');
         isProjectRendering = false;
     }
 }
 
 function handleComplete(content) {
-    // console.log("Received complete response:", content);
+    console.log("Received complete response:", content);
     componentsMap[responseCount] = content;
 }
 
 function handleSecondComplete(content) {
-    console.log("Received second complete response:", content);
+    // console.log("Received second complete response:", content);
 
     handleVersionHistoryUpdate(content);
     handlePromptProposalsUpdate(content);
