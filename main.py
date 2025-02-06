@@ -67,7 +67,7 @@ class ProjectsLayout(str, Enum):
 class ProjectComponent(BaseModel):
     UIType: Literal["project"] = Field(description="Indicates this is a project component that represents an artwork or installation")
     name: str = Field(description="Name of the project or artwork")
-    year: int = Field(description="Year the project was created")
+    year: str = Field(description="Year the project was created")
     material: str = Field(description="Primary material used in the project")
     dimensions: str = Field(description="Physical dimensions of the project")
     images: ImagesComponent = Field(description="Images of the project")

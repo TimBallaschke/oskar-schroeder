@@ -2,7 +2,7 @@
 
 let activeEventSource = null; // Track the active activeEventSource connection
 let isProcessing = false; // Flag to prevent concurrent processing
-let componentsMap = {};  // Saving the components for each response
+let responseMap = {};  // Saving the components for each response
 let processedComponents = new Map(); // Current components that have been processed
 let renderingQueue = [];
 let responseCount = 0;
@@ -175,7 +175,7 @@ async function handleDelta(content) {
                     console.log('Processing Component:', componentID);
                 }
 
-                const projectMap = processedComponents.get(componentID);
+                const componentMap = processedComponents.get(componentID);
 
                 switch (component.UIType) {
                     case 'paragraphs':
@@ -252,11 +252,11 @@ async function handleDelta(content) {
                             const projectID = project.name;
 
                             // Track processed fields in projectMap
-                            if (!projectMap.has(projectID)) {
-                                projectMap.set(projectID, new Set());
+                            if (!componentMap.has(projectID)) {
+                                componentMap.set(projectID, new Set());
                             }
 
-                            const processedFields = projectMap.get(projectID);
+                            const processedFields = componentMap.get(projectID);
 
                             // Check for new data and add rendering tasks to the queue
                             for (const [key, value] of Object.entries(project)) {
@@ -324,7 +324,7 @@ async function renderNextProject(container) {
                             projectItem.setAttribute('data-project-id', id);
                             container.appendChild(projectItem);
                         }
-                        setTimeout(resolve, 1000); // Control rendering speed
+                        setTimeout(resolve, 0); // Control rendering speed
                     });
                     break;
                 case 'name':
@@ -344,7 +344,7 @@ async function renderNextProject(container) {
                             element.textContent = value;
                         }
         
-                        setTimeout(resolve, 1000); // Control rendering speed
+                        setTimeout(resolve, 0); // Control rendering speed
                     });
                     break;
 
@@ -360,7 +360,7 @@ async function renderNextProject(container) {
 
 function handleComplete(content) {
     console.log("Received complete response:", content);
-    componentsMap[responseCount] = content;
+    responseMap[responseCount] = content;
 }
 
 function handleSecondComplete(content) {
@@ -468,7 +468,7 @@ function displayPreviousVersion(element) {
     }
 
     // Get the corresponding content from componentsMap
-    const versionContent = componentsMap[versionKey];
+    const versionContent = responseMap[versionKey];
 
     clearContentContainer();
 
