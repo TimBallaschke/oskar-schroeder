@@ -7,12 +7,18 @@ let processedComponents = new Map(); // Current components that have been proces
 let renderingQueue = [];
 let responseCount = 0;
 
+// Helper function to get CSS variable value as integer
+function getCSSVarValue(varName, fallback = 0) {
+    return parseInt(getComputedStyle(document.documentElement)
+        .getPropertyValue(varName).trim()) || fallback;
+}
+
 const contentContainer = document.getElementById('content-container');
 const versionHistory = document.getElementById('version-history');
 
+const plusMinusButton = document.getElementById('plus-minus-button');
 
-
-
+let animationDuration = getCSSVarValue('--animation-duration-1', 300);
 
 
 
@@ -430,7 +436,7 @@ function handlePromptClick(element) {
 
     setTimeout(() => {
         sendMessage();
-    }, 500);
+    }, 1000);
 }
 
 // Add event listeners when the page loads
@@ -445,4 +451,65 @@ document.addEventListener('DOMContentLoaded', () => {
     promptProposal3.addEventListener('click', () => handlePromptClick(promptProposal3));
     promptProposal4.addEventListener('click', () => handlePromptClick(promptProposal4));
 });
+
+plusMinusButton.addEventListener('click', togglePromptProposals);
+
+function togglePromptProposals() {
+    const bottomNavigation = document.getElementById('bottom-navigation');
+
+    if (!bottomNavigation.classList.contains('prompt-proposal-opening-2')) {
+        bottomNavigation.classList.add('prompt-proposal-opening-1');
+
+        setTimeout(() => {
+            bottomNavigation.classList.remove('prompt-proposal-opening-1');
+                bottomNavigation.classList.add('prompt-proposal-opening-2');
+            }, animationDuration);
+    } else {
+        bottomNavigation.classList.remove('prompt-proposal-opening-2');
+        bottomNavigation.classList.add('prompt-proposal-opening-1');
+
+        setTimeout(() => {
+            bottomNavigation.classList.remove('prompt-proposal-opening-1');
+            }, animationDuration);
+    }
+}
+
+
+
+
+// EVENT LISTENERS
+
+// Add event listeners when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+
+    userInput.addEventListener('focus', activateInput);
+    userInput.addEventListener('blur', activateInput);
+    userInput.addEventListener('input', inputAdded);
+
+    sendButton.addEventListener('click', sendMessage);
+});
+
+function activateInput() {
+    const bottomNavigation = document.getElementById('bottom-navigation');
+
+    if (!bottomNavigation.classList.contains('input-active')) {
+        bottomNavigation.classList.add('input-active');
+    } else {
+        bottomNavigation.classList.remove('input-active');
+    }
+}
+
+function inputAdded() {
+    const userInput = document.getElementById('user-input');
+    const bottomNavigation = document.getElementById('bottom-navigation');
+    if (userInput.value.length > 0) {
+        console.log('input more than 0');
+        bottomNavigation.classList.add('input-has-content');
+    } else {
+        console.log('input less than 0');
+        bottomNavigation.classList.remove('input-has-content');
+    }
+}
 

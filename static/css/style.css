@@ -1,7 +1,9 @@
 :root {
+  --primary-font-size: 16.5px;
+  --animation-duration-1: 300ms;
   --veritical-padding-bottom-nav: 15px;
   --horizontal-padding-bottom-nav: 25px;
-  --input-element-height: 18px;
+  --input-element-height: calc(var(--primary-font-size) * 1.3);
   --button-size: 39px;
   --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
 }
@@ -122,17 +124,39 @@ p:not(:first-of-type) {
   border-radius: calc((var(--input-element-height) + 2 * var(--veritical-padding-bottom-nav)) / 2);
   height: auto;
   position: relative;
+  transition: height var(--animation-duration-1) ease-in-out;
 }
 
 #bottom-navigation-elements {
   width: 100%;
   padding: var(--veritical-padding-bottom-nav) var(--horizontal-padding-bottom-nav);
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+
+#prompt-proposals {
+  padding-bottom: 0;
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.prompt-proposal-opening-1 #prompt-proposals {
+  padding-bottom: var(--veritical-padding-bottom-nav);
+}
+.prompt-proposal-opening-2 #prompt-proposals {
+  padding-bottom: var(--veritical-padding-bottom-nav);
 }
 
 .prompt-proposal-container {
   width: 100%;
   height: 0;
+  opacity: 0;
   overflow: hidden;
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.prompt-proposal-opening-1 .prompt-proposal-container {
+  height: var(--input-element-height);
+}
+.prompt-proposal-opening-2 .prompt-proposal-container {
+  height: var(--input-element-height);
+  opacity: 1;
 }
 
 #input-bar {
@@ -156,6 +180,7 @@ input {
 #user-input {
   width: calc(100% - var(--button-size) - 2 * var(--button-padding) - var(--horizontal-padding-bottom-nav));
   height: 100%;
+  color: white;
 }
 
 #buttons-container {
@@ -177,6 +202,10 @@ input {
 #send-button {
   position: relative;
   background-color: white;
+  display: none;
+}
+.input-has-content #send-button {
+  display: block;
 }
 
 #arrow-top {
@@ -201,8 +230,10 @@ input {
 }
 
 #plus-minus-button {
-  display: none;
   position: relative;
+}
+.input-has-content #plus-minus-button {
+  display: none;
 }
 
 #plus-minus-horizontal {
@@ -223,6 +254,13 @@ input {
   width: 1px;
   height: 60%;
   background-color: white;
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.prompt-proposal-opening-1 #plus-minus-vertical {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.prompt-proposal-opening-2 #plus-minus-vertical {
+  transform: translate(-50%, -50%) rotate(90deg);
 }
 
 #version-history-container {
