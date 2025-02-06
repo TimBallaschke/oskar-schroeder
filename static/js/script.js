@@ -6,6 +6,8 @@ let componentsMap = {};  // Saving the components for each response
 let processedComponents = new Map(); // Current components that have been processed
 let renderingQueue = [];
 let responseCount = 0;
+let projectRenderingQueue = [];
+let isProjectRendering = false;
 
 // Helper function to get CSS variable value as integer
 function getCSSVarValue(varName, fallback = 0) {
@@ -168,13 +170,12 @@ async function handleDelta(content) {
                         });
                     }
 
-                    processedComponents.set(componentID, new Set());
+                    processedComponents.set(componentID, new Map()); // Use a Map to track projects
 
                     console.log('Processing Component:', componentID);
                 }
 
-
-                const processedSet = processedComponents.get(componentID);
+                const projectMap = processedComponents.get(componentID);
 
                 switch (component.UIType) {
                     case 'paragraphs':
@@ -232,38 +233,38 @@ async function handleDelta(content) {
                     case 'projects_list':
                         let projectsContainer = document.querySelector(`[data-component-key="${componentID}"]`);
                         if (!projectsContainer) {
-                            projectsContainer = document.createElement('p');
+                            projectsContainer = document.createElement('div');
                             projectsContainer.classList.add('projects-container', 'processing');
                             projectsContainer.setAttribute('data-component-key', componentID);
                             contentContainer.appendChild(projectsContainer);
                         }
 
                         if (!component.projects || !Array.isArray(component.projects)) {
+                            console.warn('Invalid projects data:', component.projects);
                             break;
                         }
 
                         for (const project of component.projects) {
-                            if (!processedSet.has(project.name)) {  // Use project.name as unique identifier
-                                processedSet.add(project.name);
-                                await new Promise(resolve => {
-                                    const projectElement = document.createElement('div');
-                                    projectElement.classList.add('project-item');
-                                    
-                                    // // Create project content
-                                    // projectElement.innerHTML = `
-                                    //     <h3>${project.name}</h3>
-                                    //     <p>Year: ${project.year}</p>
-                                    //     <p>Material: ${project.material}</p>
-                                    //     <p>Dimensions: ${project.dimensions}</p>
-                                    // `;
-                                    
-                                    // Add animation delay between projects
-                                    setTimeout(() => {
-                                        projectsContainer.appendChild(projectElement);
-                                        console.log('Project added:', project);
-                                        resolve();
-                                    }, 1000); // 100ms delay between each project
-                                });
+                            if (!project.name) {
+                                break;
+                            }
+
+                            const projectID = project.name;
+
+                            // Initialize or update the project entry
+                            if (!projectMap.has(projectID)) {
+                                projectMap.set(projectID, project); // Store initial data
+                            } else {
+                                Object.assign(projectMap.get(projectID), project); // Merge new data
+                            }
+
+                            projectRenderingQueue.push({ 
+                                id: projectID,
+                                project: projectMap.get(projectID) 
+                            });
+
+                            if (!isProjectRendering) {
+                                renderNextProject(projectsContainer);
                             }
                         }
                         break;
@@ -293,8 +294,41 @@ async function handleDelta(content) {
     }
 }
 
+async function renderNextProject(container) {
+    if (isProjectRendering || projectRenderingQueue.length === 0) return;
+
+    isProjectRendering = true;
+
+    try {
+        while (projectRenderingQueue.length > 0) {
+            const item = projectRenderingQueue.shift();
+            const id = item.id;
+            const project = item.project;
+
+            console.log('Rendering project:', id);
+
+            await new Promise((resolve) => {
+                let projectItem = document.querySelector(`[data-project-id="${id}"]`);
+
+                if (!projectItem) {
+                    projectItem = document.createElement('div');
+                    projectItem.classList.add('project-item');
+                    projectItem.setAttribute('data-project-id', id);
+                    container.appendChild(projectItem);
+                }
+
+                resolve();
+            });
+        }
+    } finally {
+        console.log('Project rendering completed');
+        isProjectRendering = false;
+    }
+
+}
+
 function handleComplete(content) {
-    console.log("Received complete response:", content);
+    // console.log("Received complete response:", content);
     componentsMap[responseCount] = content;
 }
 
@@ -526,10 +560,10 @@ function inputAdded() {
     const userInput = document.getElementById('user-input');
     const bottomNavigation = document.getElementById('bottom-navigation');
     if (userInput.value.length > 0) {
-        console.log('input more than 0');
+        // console.log('input more than 0');
         bottomNavigation.classList.add('input-has-content');
     } else {
-        console.log('input less than 0');
+        // console.log('input less than 0');
         bottomNavigation.classList.remove('input-has-content');
     }
 }

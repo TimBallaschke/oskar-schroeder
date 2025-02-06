@@ -60,7 +60,7 @@
 }
 
 #input-bar {
-  width: 100%;
+  width: calc(100% - var(--button-size));
   height: var(--input-element-height);
 }
 
@@ -80,6 +80,7 @@ input {
 #user-input {
   width: calc(100% - var(--button-size) - 2 * var(--button-padding) - var(--horizontal-padding-bottom-nav));
   height: 100%;
+  width: 100%;
   color: white;
 }
 
