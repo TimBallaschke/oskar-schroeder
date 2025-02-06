@@ -273,8 +273,6 @@ async function handleDelta(content) {
                                         if (!imagesSet.has(image)) {
                                             imagesSet.add(image);
 
-                                            console.log('image', image);
-
                                             projectRenderingQueue.push({
                                                 id: projectID,
                                                 key: 'images',
@@ -415,7 +413,7 @@ async function renderNextProject() {
                 case 'images':
                     // console.log('case images');
                     await new Promise((resolve) => {
-                        // console.log('Processing images object:', value); // Log the entire images object
+                        console.log('Processing images object:', value); // Log the entire images object
 
                         // let imageContainer = projectItem.querySelector('.project-images');
                         // if (!imageContainer) {
