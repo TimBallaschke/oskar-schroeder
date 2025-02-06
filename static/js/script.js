@@ -132,7 +132,7 @@ function clearContentContainer() {
 // HANDLE RESPONSE TYPES
 
 async function handleDelta(content) {
-    console.log("Received delta:", content);
+    // console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -187,7 +187,6 @@ async function handleDelta(content) {
                         }
 
                         if (!component.text || !Array.isArray(component.text)) {
-                            console.warn('Invalid or missing text array in component:', component);
                             break;
                         }
                         
@@ -234,15 +233,38 @@ async function handleDelta(content) {
                         let projectsContainer = document.querySelector(`[data-component-key="${componentID}"]`);
                         if (!projectsContainer) {
                             projectsContainer = document.createElement('p');
-                            projectsContainer.classList.add('projects-container', 'processing');  // Add processing class
+                            projectsContainer.classList.add('projects-container', 'processing');
                             projectsContainer.setAttribute('data-component-key', componentID);
-
-                            // Create the component-button div
-                            const componentButton = document.createElement('div');
-                            componentButton.classList.add('component-button');
-                            projectsContainer.appendChild(componentButton);
-
                             contentContainer.appendChild(projectsContainer);
+                        }
+
+                        if (!component.projects || !Array.isArray(component.projects)) {
+                            break;
+                        }
+
+                        for (const project of component.projects) {
+                            if (!processedSet.has(project.name)) {  // Use project.name as unique identifier
+                                processedSet.add(project.name);
+                                await new Promise(resolve => {
+                                    const projectElement = document.createElement('div');
+                                    projectElement.classList.add('project-item');
+                                    
+                                    // // Create project content
+                                    // projectElement.innerHTML = `
+                                    //     <h3>${project.name}</h3>
+                                    //     <p>Year: ${project.year}</p>
+                                    //     <p>Material: ${project.material}</p>
+                                    //     <p>Dimensions: ${project.dimensions}</p>
+                                    // `;
+                                    
+                                    // Add animation delay between projects
+                                    setTimeout(() => {
+                                        projectsContainer.appendChild(projectElement);
+                                        console.log('Project added:', project);
+                                        resolve();
+                                    }, 1000); // 100ms delay between each project
+                                });
+                            }
                         }
                         break;
 
@@ -272,9 +294,8 @@ async function handleDelta(content) {
 }
 
 function handleComplete(content) {
-    // console.log("Received complete response:", content);
+    console.log("Received complete response:", content);
     componentsMap[responseCount] = content;
-    console.log(componentsMap);
 }
 
 function handleSecondComplete(content) {
