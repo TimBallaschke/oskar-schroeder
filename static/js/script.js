@@ -312,19 +312,38 @@ async function renderNextProject(container) {
 
                 if (!projectItem) {
                     projectItem = document.createElement('div');
-                    projectItem.classList.add('project-item');
+                    projectItem.classList.add('project');
                     projectItem.setAttribute('data-project-id', id);
                     container.appendChild(projectItem);
                 }
 
-                resolve();
+                const addElement = (parent, className, content) => {
+                    return new Promise(resolveElement => {
+                        setTimeout(() => {
+                            let element = parent.querySelector(`.${className}`);
+                            if (!element && content) {
+                                element = document.createElement('div');
+                                element.classList.add(className);
+                                element.textContent = content;
+                                parent.appendChild(element);
+                            }
+                            resolveElement();
+                        }, 10); // Delay between elements
+                    });
+                };
+
+                // Sequentially add elements
+                (async () => {
+                    await addElement(projectItem, 'project-name', project.name);
+                    await addElement(projectItem, 'project-year', project.year);
+                    setTimeout(resolve, 10); // Final delay before next project
+                })();
             });
         }
     } finally {
         console.log('Project rendering completed');
         isProjectRendering = false;
     }
-
 }
 
 function handleComplete(content) {
