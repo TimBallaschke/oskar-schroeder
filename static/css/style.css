@@ -1,5 +1,6 @@
 :root {
   --primary-font-size: 16.5px;
+  --primary-line-height: calc(var(--primary-font-size) * 1.2);
   --animation-duration-1: 300ms;
   --veritical-padding-bottom-nav: 15px;
   --horizontal-padding-bottom-nav: 25px;
@@ -99,13 +100,53 @@ p:not(:first-of-type) {
 
 #content-container {
   width: 100vw;
-  padding: 10px 10px 200px 10px;
+  padding: 50px 10px 200px 10px;
 }
 
 .component-button {
   background-color: black;
   height: 20px;
   width: 20px;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  grid-template-rows: repeat(3, var(--primary-line-height));
+  border-top: 1px solid black;
+  width: 100%;
+  transition: width var(--animation-duration-1) ease-in-out;
+}
+.project.no-width {
+  width: 0%;
+}
+
+.project-dot-container {
+  grid-area: 1/1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: black;
+}
+
+.project-name {
+  grid-area: 1/2;
+}
+
+.project-material {
+  grid-area: 2/2;
+}
+
+.project-dimensions {
+  grid-area: 3/2;
 }
 
 #bottom-navigation-container {

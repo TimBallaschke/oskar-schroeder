@@ -42,9 +42,6 @@ client = OpenAI()
 # ComponentUnion allows a list to contain different types of components.
 # Response combines everything into a structured response that can be sent to the front end.
 
-class ImagesComponent(BaseModel):
-    UIType: Literal["images"] = Field(description="Indicates this is an images component for displaying a list of images")
-    images: List[str] = Field(description="A list of URLs for images")
     
 class ParagraphComponent(BaseModel):
     UIType: Literal["paragraphs"] = Field(description="Indicates this is a paragraph component for displaying text")
@@ -70,7 +67,7 @@ class ProjectComponent(BaseModel):
     year: str = Field(description="Year the project was created")
     material: str = Field(description="Primary material used in the project")
     dimensions: str = Field(description="Physical dimensions of the project")
-    images: ImagesComponent = Field(description="Images of the project")
+    images: List[str] = Field(description="A list of URLs for images")
 
 class ProjectsList (BaseModel):
     UIType: Literal["projects_list"] = Field(description="Indicates this is a projects list component for displaying a list of projects")

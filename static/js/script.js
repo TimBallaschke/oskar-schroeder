@@ -28,6 +28,7 @@ let animationDuration = getCSSVarValue('--animation-duration-1', 300);
 // SENDING & RECEIVING MESSAGES
 
 function sendMessage() {
+    
     const input = document.getElementById('user-input');
     const message = input.value.trim();
     if (message === '') return;  // Don't send empty messages
@@ -257,9 +258,36 @@ async function handleDelta(content) {
 
                             const processedFields = componentMap.get(projectID);
 
+                            // Initialize imagesSet only once per project
+                            if (!processedFields.has('images')) {
+                                processedFields.add('images');
+                                processedFields.images = new Set(); // Store the Set as a property
+                            }
+                            
+                            const imagesSet = processedFields.images; // Access the Set via property
+
                             // Check for new data and add rendering tasks to the queue
                             for (const [key, value] of Object.entries(project)) {
-                                if (value && !processedFields.has(key)) {
+                                if (key === 'images' && Array.isArray(value)) {
+                                    for (const image of value) {
+                                        if (!imagesSet.has(image)) {
+                                            imagesSet.add(image);
+
+                                            console.log('image', image);
+
+                                            projectRenderingQueue.push({
+                                                id: projectID,
+                                                key: 'images',
+                                                value: Array.from(imagesSet),
+                                                container: projectsContainer
+                                            });
+
+                                            if (!isProjectRendering) {
+                                                renderNextProject();
+                                            }
+                                        }
+                                    }
+                                } else if (value && !processedFields.has(key)) {
                                     processedFields.add(key);
 
                                     // Push rendering task to the queue
@@ -277,7 +305,6 @@ async function handleDelta(content) {
                             }
                         }
                         break;
-
                     default:
                         console.warn('Unknown UIType:', component.UIType);
                         return;
@@ -303,7 +330,7 @@ async function handleDelta(content) {
     }
 }
 
-async function renderNextProject(container) {
+async function renderNextProject() {
     if (isProjectRendering || projectRenderingQueue.length === 0) return;
 
     isProjectRendering = true;
@@ -319,15 +346,54 @@ async function renderNextProject(container) {
                     await new Promise((resolve) => {
                         if (!projectItem) {
                             projectItem = document.createElement('div');
-                            projectItem.classList.add('project');
+                            projectItem.classList.add('project', 'no-width');
                             projectItem.setAttribute('data-project-id', id);
                             container.appendChild(projectItem);
+
+                            setTimeout(() => {
+                                projectItem.classList.remove('no-width');
+                            }, 100);
                         }
-                        setTimeout(resolve, 0); // Control rendering speed
+
+                        setTimeout(resolve, animationDuration);
                     });
                     break;
                 case 'name':
+                    await new Promise((resolve) => {        
+                        // Check if the element already exists to avoid duplicates
+                        let element = projectItem.querySelector(`.project-${key}`);
+                        if (!element) {
+                            const dotContainer = document.createElement('div');
+                            dotContainer.classList.add('project-dot-container');
+
+                            const dot = document.createElement('div');
+                            dot.classList.add('project-dot');
+
+                            dotContainer.appendChild(dot);
+                            projectItem.appendChild(dotContainer);
+
+                            setTimeout(() => {
+                                element = document.createElement('div');  // Correctly create the element
+                                element.classList.add(`project-${key}`);
+                                element.textContent = value;
+                                projectItem.appendChild(element);                            }, 100);
+                        } else {
+                            // Update the content if it already exists (optional)
+                            element.textContent = value;
+                        }
+        
+                        setTimeout(resolve, 100);
+                    });
+                    break;
                 case 'year':
+                    await new Promise((resolve) => {
+                        const nameElement = projectItem.querySelector('.project-name');
+                        if (nameElement) {
+                            nameElement.textContent += ` (${value})`;
+                        }
+                        setTimeout(resolve, 100);
+                    });
+                    break;
                 case 'material':
                 case 'dimensions':
                     await new Promise((resolve) => {        
@@ -343,7 +409,50 @@ async function renderNextProject(container) {
                             element.textContent = value;
                         }
         
-                        setTimeout(resolve, 0); // Control rendering speed
+                        setTimeout(resolve, 100);
+                    });
+                    break;
+                case 'images':
+                    // console.log('case images');
+                    await new Promise((resolve) => {
+                        // console.log('Processing images object:', value); // Log the entire images object
+
+                        // let imageContainer = projectItem.querySelector('.project-images');
+                        // if (!imageContainer) {
+                        //     console.log('Creating new image container');
+                        //     imageContainer = document.createElement('div');
+                        //     imageContainer.classList.add('project-images');
+                        //     projectItem.appendChild(imageContainer);
+                        // }
+
+                        // // Check for nested images array
+                        // const imageUrls = value.images;
+                        // console.log(imageUrls);
+                        // // if (Array.isArray(imageUrls)) {
+                        // //     console.log(`Found ${imageUrls.length} images to process:`, imageUrls);
+                        // //     imageUrls.forEach((imageUrl, index) => {
+                        // //         console.log(`Creating image ${index + 1}:`, imageUrl);
+                        // //         const img = document.createElement('img');
+                        // //         img.classList.add('project-image', 'loading');
+                                
+                        // //         // img.onload = function() {
+                        // //         //     console.log(`Image ${index + 1} loaded successfully:`, imageUrl);
+                        // //         //     img.classList.remove('loading');
+                        // //         //     img.classList.add('loaded');
+                        // //         // };
+
+                        // //         // img.onerror = function() {
+                        // //         //     console.error(`Failed to load image ${index + 1}:`, imageUrl);
+                        // //         // };
+                                
+                        // //         img.src = imageUrl;
+                        // //         // imageContainer.appendChild(img); // Uncommented this line
+                        // //     });
+                        // // } else {
+                        // //     console.warn('No images array found in:', value);
+                        // // }
+
+                        setTimeout(resolve, 100);
                     });
                     break;
 
