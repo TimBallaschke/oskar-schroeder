@@ -314,46 +314,43 @@ async function renderNextProject(container) {
             const { id, key, value, container } = projectRenderingQueue.shift();
 
             // console.log(`Rendering ${key} for project: ${id}`);
-
-            if (key === 'UIType') {
-                await new Promise((resolve) => {
-                    let projectItem = document.querySelector(`[data-project-id="${id}"]`);
-    
-                    if (!projectItem) {
-                        projectItem = document.createElement('div');
-                        projectItem.classList.add('project');
-                        projectItem.setAttribute('data-project-id', id);
-                        container.appendChild(projectItem);
-                    }
+            let projectItem = document.querySelector(`[data-project-id="${id}"]`);
+            switch (key) {
+                case 'UIType':
+                    await new Promise((resolve) => {
+                        if (!projectItem) {
+                            projectItem = document.createElement('div');
+                            projectItem.classList.add('project');
+                            projectItem.setAttribute('data-project-id', id);
+                            container.appendChild(projectItem);
+                        }
+                        setTimeout(resolve, 1000); // Control rendering speed
+                    });
+                    break;
+                case 'name':
+                case 'year':
+                case 'material':
+                case 'dimensions':
+                    await new Promise((resolve) => {        
+                        // Check if the element already exists to avoid duplicates
+                        let element = projectItem.querySelector(`.project-${key}`);
+                        if (!element) {
+                            element = document.createElement('div');  // Correctly create the element
+                            element.classList.add(`project-${key}`);
+                            element.textContent = value;
+                            projectItem.appendChild(element);
+                        } else {
+                            // Update the content if it already exists (optional)
+                            element.textContent = value;
+                        }
         
-                    setTimeout(resolve, 1000); // Control rendering speed
-                });
+                        setTimeout(resolve, 1000); // Control rendering speed
+                    });
+                    break;
+
             }
 
-            // await new Promise((resolve) => {
-            //     let projectItem = document.querySelector(`[data-project-id="${id}"]`);
 
-            //     if (!projectItem) {
-            //         projectItem = document.createElement('div');
-            //         projectItem.classList.add('project');
-            //         projectItem.setAttribute('data-project-id', id);
-            //         container.appendChild(projectItem);
-            //     }
-
-            //     // Check if the element already exists to avoid duplicates
-            //     let element = projectItem.querySelector(`.project-${key}`);
-            //     if (!element) {
-            //         element = document.createElement('div');  // Correctly create the element
-            //         element.classList.add(`project-${key}`);
-            //         element.textContent = value;
-            //         projectItem.appendChild(element);
-            //     } else {
-            //         // Update the content if it already exists (optional)
-            //         element.textContent = value;
-            //     }
-
-            //     setTimeout(resolve, 1000); // Control rendering speed
-            // });
         }
     } finally {
         // console.log('Project rendering completed');
