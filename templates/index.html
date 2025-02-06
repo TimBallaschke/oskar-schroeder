@@ -20,19 +20,36 @@
             </div>
         </div>
     </div>
-    <div class="bottom-navigation">
-        <div class="input-bar-container">
-            <div class="input-bar">
+    <div id="bottom-navigation-container">
+        <div id="bottom-navigation">
+            <div id="bottom-navigation-elements">
                 <div id="prompt-proposals">
-                    <div id="prompt-proposal-1"></div>
-                    <div id="prompt-proposal-2"></div>
-                    <div id="prompt-proposal-3"></div>
-                    <div id="prompt-proposal-4"></div>
+                    <div class="prompt-proposal-container">
+                        <div class="prompt-proposal navigation-type" id="prompt-proposal-1">Prompt Proposal 1</div>
+                    </div>
+                    <div class="prompt-proposal-container">
+                        <div class="prompt-proposal navigation-type" id="prompt-proposal-2">Prompt Proposal 2</div>
+                    </div>
+                    <div class="prompt-proposal-container">
+                        <div class="prompt-proposal navigation-type" id="prompt-proposal-3">Prompt Proposal 3</div>
+                    </div>
+                    <div class="prompt-proposal-container">
+                        <div class="prompt-proposal navigation-type" id="prompt-proposal-4">Prompt Proposal 4</div>
+                    </div>
                 </div>
-                <div class="input-bar-elements">
-                    <input type="text" class="message-input" id="user-input" placeholder="Ask about Oskar Schroeder ...">
-                    <div class="button-container">
-                        <button class="send-button" onclick="sendMessage()"></button>
+                <div id="input-bar">
+                    <div id="user-input-container">
+                        <input type="text" id="user-input" placeholder="Ask about Oskar Schroeder ...">
+                    </div>
+                </div>
+                <div id="buttons-container">
+                    <div class="button" id="send-button">
+                        <div id="arrow-top"></div>
+                        <div id="arrow-bottom"></div>
+                    </div>
+                    <div class="button" id="plus-minus-button">
+                        <div id="plus-minus-horizontal"></div>
+                        <div id="plus-minus-vertical"></div>
                     </div>
                 </div>
             </div> 

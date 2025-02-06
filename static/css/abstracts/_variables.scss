@@ -1,0 +1,13 @@
+// CSS
+
+:root {
+
+  // Bottom Nav
+  --veritical-padding-bottom-nav: 15px;
+  --horizontal-padding-bottom-nav: 25px;
+  --input-element-height: 18px;
+  --button-size: 39px;
+  --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
+
+}
+
