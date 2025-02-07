@@ -570,7 +570,7 @@ async function renderNextProject() {
                             imageCounter.innerHTML = `[${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}]`;
                         }
                                 
-                        setTimeout(resolve, 2000);
+                        setTimeout(resolve, 400);
                     });
                     break;
 

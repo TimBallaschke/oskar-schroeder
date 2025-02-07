@@ -171,32 +171,32 @@ project_data_1 = {
     "dimensions": "200x50x400cm",
     "images": [
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Einsatz-1.jpg",
+            "url": "../static/assets/images/Einsatz/1.jpg",
             "description": "Front view of Einsatz showing the interplay between steel framework and fabric panels",
             "color": "Raw steel gray contrasting with off-white fabric",
             "is_detail": False
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Einsatz-2.jpg", 
+            "url": "../static/assets/images/Einsatz/2.jpg",
             "description": "Detail shot highlighting the concrete fragments and their textural qualities",
             "color": "Charcoal gray concrete with hints of rust orange",
             "is_detail": False
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Einsatz-3.jpg",
+            "url": "../static/assets/images/Einsatz/3.jpg",
             "description": "Side angle capturing light filtering through the translucent fabric elements",
             "color": "Translucent ivory white with shadow gradients",
             "is_detail": False
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Einsatz-4.jpg",
+            "url": "../static/assets/images/Einsatz/4.jpg",
             "description": "Close-up of welded joints and structural connections within the piece",
             "color": "Burnished steel with dark patina",
             "is_detail": True
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Einsatz-5.jpg",
-            "description": "Full installation view showing the work's relationship with gallery space", 
+            "url": "../static/assets/images/Einsatz/5.jpg",
+            "description": "Full installation view showing the work's relationship with gallery space",
             "color": "Industrial grays with warm fabric undertones",
             "is_detail": False
         }
@@ -261,34 +261,28 @@ project_data_2 = {
     "dimensions": "200x450x600cm",
     "images": [
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Schau-1.jpg",
+            "url": "../static/assets/images/Schau/1.jpg",
             "description": "Front view showing the minimalist cube form with reflective glass surface",
             "color": "Natural wood tones with reflective clear glass",
             "is_detail": False
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Schau-2.jpg",
+            "url": "../static/assets/images/Schau/2.jpg",
             "description": "Detail of wood grain and industrial tape pattern",
             "color": "Warm wood with black geometric lines",
             "is_detail": True
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Schau-3.jpg",
+            "url": "../static/assets/images/Schau/3.jpg",
             "description": "Side angle capturing light reflections on glass surface",
             "color": "Mixed reflections on clear glass",
             "is_detail": False
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Schau-4.jpg",
+            "url": "../static/assets/images/Schau/4.jpg",
             "description": "Close-up of corner joint construction",
             "color": "Raw plywood edges with dark reinforcement",
             "is_detail": True
-        },
-        {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Schau-5.jpg",
-            "description": "Installation view showing interaction with gallery lighting",
-            "color": "Wood and glass with ambient light effects",
-            "is_detail": False
         }
     ],
     "description": (
@@ -337,34 +331,28 @@ project_data_3 = {
     "dimensions": "5x8x10cm", 
     "images": [
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Wild-1.jpg",
+            "url": "../static/assets/images/Wild/1.jpg",
             "description": "Full view of the carved wooden figure in reclining position",
             "color": "Rich wood tones with natural variations",
             "is_detail": False
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Wild-2.jpg",
+            "url": "../static/assets/images/Wild/2.jpg",
             "description": "Detail of chisel marks and wood grain texture",
             "color": "Deep wood grain patterns with tool marks",
             "is_detail": True
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Wild-3.jpg",
+            "url": "../static/assets/images/Wild/3.jpg",
             "description": "Profile view highlighting the distorted proportions",
             "color": "Warm wood with shadow details",
             "is_detail": False
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Wild-4.jpg",
+            "url": "../static/assets/images/Wild/4.jpg",
             "description": "Close-up of burnt patina treatment",
             "color": "Charred black transitioning to natural wood",
             "is_detail": True
-        },
-        {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Wild-5.jpg",
-            "description": "Installation view showing relationship to gallery wall",
-            "color": "Wood figure against white background",
-            "is_detail": False
         }
     ],
     "description": (
@@ -418,31 +406,31 @@ project_data_4 = {
     "dimensions": "5x8x10cm", 
     "images": [
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Ot-1.jpg",
+            "url": "../static/assets/images/O.t./1.jpg",
             "description": "Full view of the wall-mounted geological formation",
             "color": "Layered grays and earth tones",
             "is_detail": False
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Ot-2.jpg",
+            "url": "../static/assets/images/O.t./2.jpg",
             "description": "Detail of mineral inclusions and surface texture",
             "color": "Mixed mineral colors with rough texture",
             "is_detail": True
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Ot-3.jpg",
+            "url": "../static/assets/images/O.t./3.jpg",
             "description": "Side view showing layered construction",
             "color": "Stratified earth tones and textures",
             "is_detail": False
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Ot-4.jpg",
+            "url": "../static/assets/images/O.t./4.jpg",
             "description": "Close-up of polished and rough surface contrast",
             "color": "Smooth and textured concrete surfaces",
             "is_detail": True
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Ot-5.jpg",
+            "url": "../static/assets/images/O.t./5.jpg",
             "description": "Installation view in gallery context",
             "color": "Earth-toned sculpture on white wall",
             "is_detail": False
@@ -486,34 +474,16 @@ project_data_5 = {
     "dimensions": "300x100cm", 
     "images": [
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Landschaft-1.jpg",
+            "url": "../static/assets/images/Landschaft/1.jpg",
             "description": "Full view of the textile landscape installation",
             "color": "Natural earth tones and fiber textures",
             "is_detail": False
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Landschaft-2.jpg",
+            "url": "../static/assets/images/Landschaft/2.jpg",
             "description": "Detail of wool and plant fiber integration",
             "color": "Mixed natural fibers and pigments",
             "is_detail": True
-        },
-        {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Landschaft-3.jpg",
-            "description": "Side angle showing material depth and layers",
-            "color": "Layered earth tones and textures",
-            "is_detail": False
-        },
-        {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Landschaft-4.jpg",
-            "description": "Close-up of soil and ash incorporation",
-            "color": "Dark soil tones with ashen highlights",
-            "is_detail": True
-        },
-        {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Landschaft-5.jpg",
-            "description": "Installation view showing full wall context",
-            "color": "Natural tones against gallery white",
-            "is_detail": False
         }
     ],
     "description": (
