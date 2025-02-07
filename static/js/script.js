@@ -123,7 +123,19 @@ function toggleLoadingState(isLoading) {
 }
 
 function clearContentContainer() {
-    contentContainer.innerHTML = '';  // Clears all previous components
+    contentContainer.classList.add('light');
+
+    setTimeout(() => {
+        contentContainer.classList.add('no-opacity');
+    }, 200);
+
+    setTimeout(() => {
+        contentContainer.innerHTML = '';  // Clears all previous components
+        contentContainer.classList.remove('no-opacity');
+        contentContainer.classList.remove('light');
+    }, 500);
+
+
 }
 
 

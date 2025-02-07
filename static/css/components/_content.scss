@@ -2,6 +2,11 @@
 #content-container {
     width: 100vw;
     padding: 50px 10px 200px 10px;
+    transition: opacity var(--animation-duration-1) linear;
+}
+
+.no-opacity {
+    opacity: 0;
 }
 
 .component-button {
