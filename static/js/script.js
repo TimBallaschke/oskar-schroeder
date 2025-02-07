@@ -353,7 +353,7 @@ async function renderNextProject() {
                             }, 100);
                         }
 
-                        setTimeout(resolve, 2000);
+                        setTimeout(resolve, 400);
                     });
                     break;
                 case 'name':
@@ -387,27 +387,44 @@ async function renderNextProject() {
 
                             setTimeout(() => {
                                 element = document.createElement('div');  // Correctly create the element
-                                element.classList.add(`project-${key}`);
+                                element.classList.add(`project-${key}`, 'light');
                                 element.textContent = value;
                                 projectInfo.appendChild(element);
-                            }, 800);
+                            }, 600);
+
+                            setTimeout(() => {
+                                element.classList.remove('light');
+                            }, 610);
                         } else {
                             // Update the content if it already exists (optional)
                             element.textContent = value;
                         }
         
-                        setTimeout(resolve, 2000);
+                        setTimeout(resolve, 700);
                     });
                     break;
                 case 'year':
                     await new Promise((resolve) => {
                         let projectInfo = projectItem.querySelector('.project-information');
-
                         const nameElement = projectInfo.querySelector('.project-name');
+
                         if (nameElement) {
-                            nameElement.textContent += ` (${value})`;
+                            let yearSpan = nameElement.querySelector('.project-year');
+                            if (!yearSpan) {
+                                yearSpan = document.createElement('span');
+                                yearSpan.classList.add('project-year', 'light');
+                                yearSpan.textContent = ` (${value})`;
+                                nameElement.appendChild(yearSpan);
+
+                                setTimeout(() => {
+                                    yearSpan.classList.remove('light');
+                                }, 10);
+                            } else {
+                                // Update existing year span
+                                yearSpan.textContent = ` (${value})`;
+                            }
                         }
-                        setTimeout(resolve, 2000);
+                        setTimeout(resolve, 200);
                     });
                     break;
                 case 'material':
@@ -419,7 +436,7 @@ async function renderNextProject() {
                         let element = projectInfo.querySelector(`.project-${key}`);
                         if (!element) {
                             element = document.createElement('div');  // Correctly create the element
-                            element.classList.add(`project-${key}`, 'no-height', 'no-opacity');
+                            element.classList.add(`project-${key}`, 'no-height', 'no-opacity', 'light');
                             element.textContent = value;
                             projectInfo.appendChild(element);
 
@@ -429,13 +446,14 @@ async function renderNextProject() {
 
                             setTimeout(() => {
                                 element.classList.remove('no-opacity');
-                            }, 600);
+                                element.classList.remove('light');
+                            }, 500);
                         } else {
                             // Update the content if it already exists (optional)
                             element.textContent = value;
                         }
         
-                        setTimeout(resolve, 2000);
+                        setTimeout(resolve, 600);
                     });
                     break;
                 case 'images':
@@ -448,29 +466,43 @@ async function renderNextProject() {
                             imageContainer.classList.add('project-images', 'no-height', 'blur', 'no-opacity');
                             projectItem.appendChild(imageContainer);
 
-                            // Create image counter container
-                            const imageCounter = document.createElement('div');
-                            imageCounter.classList.add('image-counter');
-                            imageCounter.innerHTML = `[01/${value.length.toString().padStart(2, '0')}]`;
-                            projectInfo.appendChild(imageCounter);
-
-                            // Add scroll event listener to update counter
-                            imageContainer.addEventListener('scroll', () => {
-                                const scrollPosition = imageContainer.scrollLeft;
-                                const imageWidth = imageContainer.offsetWidth;
-                                const currentIndex = Math.round(scrollPosition / imageWidth);
-                                const totalImages = imageContainer.querySelectorAll('.project-image').length;
-                                
-                                imageCounter.innerHTML = `[${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}]`;
-                            });
-
                             setTimeout(() => {
                                 imageContainer.classList.remove('no-height');
-                            }, 10);
+                            }, 300);
 
                             setTimeout(() => {
                                 imageContainer.classList.remove('blur', 'no-opacity');
-                            }, 2000);
+                            }, 800);
+
+                            setTimeout(() => {  
+                                // Create image counter container
+                                const imageCounter = document.createElement('div');
+                                imageCounter.classList.add('image-counter', 'light');
+                                imageCounter.innerHTML = `[01/${value.length.toString().padStart(2, '0')}]`;
+                                projectInfo.appendChild(imageCounter);
+                            }, 1500);
+
+                            setTimeout(() => {
+                                const imageCounter = projectInfo.querySelector('.image-counter');
+                                if (imageCounter) {
+                                    imageCounter.classList.remove('light');
+                                }
+                            }, 1600);
+
+                            setTimeout(() => {
+                                // Add scroll event listener to update counter after counter is created
+                                imageContainer.addEventListener('scroll', () => {
+                                    const scrollPosition = imageContainer.scrollLeft;
+                                    const imageWidth = imageContainer.offsetWidth;
+                                    const currentIndex = Math.round(scrollPosition / imageWidth);
+                                    const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                                    
+                                    const counter = projectInfo.querySelector('.image-counter');
+                                    if (counter) {
+                                        counter.innerHTML = `[${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}]`;
+                                    }
+                                });
+                            }, 1700);
                         }
                 
                         // Process each image URL in the array
@@ -509,7 +541,7 @@ async function renderNextProject() {
                             imageCounter.innerHTML = `[${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}]`;
                         }
                                 
-                        setTimeout(resolve, 100);
+                        setTimeout(resolve, 2000);
                     });
                     break;
 
