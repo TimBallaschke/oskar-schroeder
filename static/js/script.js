@@ -443,6 +443,16 @@ async function renderNextProject() {
                             imageCounter.innerHTML = `[01/${value.length.toString().padStart(2, '0')}]`;
                             projectItem.appendChild(imageCounter);
 
+                            // Add scroll event listener to update counter
+                            imageContainer.addEventListener('scroll', () => {
+                                const scrollPosition = imageContainer.scrollLeft;
+                                const imageWidth = imageContainer.offsetWidth;
+                                const currentIndex = Math.round(scrollPosition / imageWidth);
+                                const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                                
+                                imageCounter.innerHTML = `[${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}]`;
+                            });
+
                             setTimeout(() => {
                                 imageContainer.classList.remove('no-height');
                             }, 10);
@@ -450,12 +460,6 @@ async function renderNextProject() {
                             setTimeout(() => {
                                 imageContainer.classList.remove('blur', 'no-opacity');
                             }, 2000);
-                        } else {
-                            // Update counter if container exists
-                            let imageCounter = projectItem.querySelector('.image-counter');
-                            if (imageCounter) {
-                                imageCounter.innerHTML = `[01/${value.length.toString().padStart(2, '0')}]`;
-                            }
                         }
                 
                         // Process each image URL in the array
@@ -482,6 +486,17 @@ async function renderNextProject() {
                                 };
                             }
                         });
+
+                        // Update counter after all images are processed
+                        const imageCounter = projectItem.querySelector('.image-counter');
+                        if (imageCounter) {
+                            const scrollPosition = imageContainer.scrollLeft;
+                            const imageWidth = imageContainer.offsetWidth;
+                            const currentIndex = Math.round(scrollPosition / imageWidth);
+                            const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                            
+                            imageCounter.innerHTML = `[${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}]`;
+                        }
                                 
                         setTimeout(resolve, 100);
                     });
