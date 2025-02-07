@@ -12,8 +12,8 @@
 
 .project {
     display: grid;
-    grid-template-columns: 20px 1fr;
-    grid-template-rows: repeat(4, auto);
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, auto);
     border-top: 1px solid black;
     border-bottom: 1px solid black;
     width: 100%;
@@ -24,8 +24,21 @@
     }
 }
 
-.project-dot-container {
+.project-information {
     grid-area: 2 / 1;
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    grid-template-rows: repeat(3, auto);
+    padding: 0px 0 10px 0;
+    transition: all var(--animation-duration-1) ease-in-out;
+
+    &.no-padding {
+        padding: 0;
+    }
+}
+
+.project-dot-container {
+    grid-area: 1 / 1;
     width: 100%;
     height: 100%;
     height: var(--primary-line-height);
@@ -50,7 +63,7 @@
 }
 
 .project-name {
-    grid-area: 2 / 2;
+    grid-area: 1 / 2;
     transition: all var(--animation-duration-1) ease-in-out;
     height: var(--primary-line-height);
     @include text-offset;
@@ -61,7 +74,7 @@
 }
 
 .project-material {
-    grid-area: 3 / 2;
+    grid-area: 2 / 2;
     transition: height var(--animation-duration-1) ease-in-out;
     height: var(--primary-line-height);
     @include text-offset;
@@ -76,7 +89,7 @@
 }
 
 .project-dimensions {
-    grid-area: 4 / 2;
+    grid-area: 3 / 2;
     transition: height var(--animation-duration-1) ease-in-out;
     height: var(--primary-line-height);
     @include text-offset;
@@ -91,7 +104,7 @@
 }
 
 .project-images {
-    grid-area: 1 / 1 / 2 / 3;
+    grid-area: 1 / 1;
     transition: all var(--animation-duration-1) ease-in-out;
     height: 300px;
     overflow-x: auto;
@@ -135,12 +148,12 @@
 
 .img-element {
     max-width: 100%;
-    max-height: 90%;
+    max-height: 100%;
     object-fit: contain;
 }
 
 .image-counter {
-    grid-area: 2 / 2;
+    grid-area: 1 / 2;
     justify-self: end;  // This will align it to the right of the grid cell
     transition: all var(--animation-duration-1) ease-in-out;
     height: var(--primary-line-height);

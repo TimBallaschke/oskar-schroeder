@@ -30,7 +30,7 @@ body {
   padding: 0;
   font-size: 16.5px;
   font-family: "Friedl";
-  font-variation-settings: "wght" 300;
+  font-variation-settings: "wght" 700;
   transition: font-variation-settings 0.4s ease;
 }
 
@@ -90,9 +90,8 @@ p:not(:first-of-type) {
   text-indent: 30px;
 }
 
-.processed {
-  font-variation-settings: "wght" 700;
-  transition: font-variation-settings 0.4s ease;
+.light {
+  font-variation-settings: "wght" 300;
 }
 
 .navigation-type {
@@ -112,8 +111,8 @@ p:not(:first-of-type) {
 
 .project {
   display: grid;
-  grid-template-columns: 20px 1fr;
-  grid-template-rows: repeat(4, auto);
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, auto);
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   width: 100%;
@@ -123,8 +122,20 @@ p:not(:first-of-type) {
   width: 0%;
 }
 
-.project-dot-container {
+.project-information {
   grid-area: 2/1;
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  grid-template-rows: repeat(3, auto);
+  padding: 0px 0 10px 0;
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.project-information.no-padding {
+  padding: 0;
+}
+
+.project-dot-container {
+  grid-area: 1/1;
   width: 100%;
   height: 100%;
   height: var(--primary-line-height);
@@ -148,7 +159,7 @@ p:not(:first-of-type) {
 }
 
 .project-name {
-  grid-area: 2/2;
+  grid-area: 1/2;
   transition: all var(--animation-duration-1) ease-in-out;
   height: var(--primary-line-height);
   transform: translateY(7px);
@@ -158,7 +169,7 @@ p:not(:first-of-type) {
 }
 
 .project-material {
-  grid-area: 3/2;
+  grid-area: 2/2;
   transition: height var(--animation-duration-1) ease-in-out;
   height: var(--primary-line-height);
   transform: translateY(7px);
@@ -171,7 +182,7 @@ p:not(:first-of-type) {
 }
 
 .project-dimensions {
-  grid-area: 4/2;
+  grid-area: 3/2;
   transition: height var(--animation-duration-1) ease-in-out;
   height: var(--primary-line-height);
   transform: translateY(7px);
@@ -184,7 +195,7 @@ p:not(:first-of-type) {
 }
 
 .project-images {
-  grid-area: 1/1/2/3;
+  grid-area: 1/1;
   transition: all var(--animation-duration-1) ease-in-out;
   height: 300px;
   overflow-x: auto;
@@ -222,13 +233,13 @@ p:not(:first-of-type) {
 
 .img-element {
   max-width: 100%;
-  max-height: 90%;
+  max-height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
 }
 
 .image-counter {
-  grid-area: 2/2;
+  grid-area: 1/2;
   justify-self: end;
   transition: all var(--animation-duration-1) ease-in-out;
   height: var(--primary-line-height);

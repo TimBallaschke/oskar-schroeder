@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250207f_Oskar_Website_text_offset",
+  "original_folder": "250207g_Oskar_Website_project_info_padding",
   "snapshot_date_from_folder": "250207",
   "source_files": [
     {
@@ -40,16 +40,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "a79a35a16f3a6608c05774e65f78ed7e0d3c57a1",
-      "sha256": "ea451b7959f5a3d95b61fd233bd5d6b2c62af983f4dc2bdb048cd3cb73b2faa1",
-      "size": 8619,
+      "sha1": "e086c942d79e550e2e9bb4777813c7f79e9e9aa6",
+      "sha256": "4b408ef4313d3e2c5b96cbaa9bf22c1c930a6cb9f49c756a9e2546bcad434578",
+      "size": 8827,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "5ce28088aaf7f264170c4990494f161034d7b4d9",
-      "sha256": "62af784f79d1abeed7538f8a8623de328b727865ca26d7eb32ad56de827f6482",
-      "size": 3524,
+      "sha1": "2bb4a50e2d05f96845ed3a515bf3fabdd7432f3e",
+      "sha256": "38e5445fcfe6d7f3d26e856471f08cd1383efdb91a26f2c496aadd33fe3f17dc",
+      "size": 3612,
       "mode": "100644"
     },
     {
@@ -68,9 +68,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "67d315fea139974f3ddc8dcd544615b77f98b525",
-      "sha256": "4e183715401ab95303bdbfc2e752d02ddc2fa39f56a8f2bea772198f73e1a9c9",
-      "size": 2881,
+      "sha1": "3ae51c36a510fdc2592d8f4987397b5c4196cba1",
+      "sha256": "3b8d54f4d283d00bd409a2ee95633143732d79206da3c258ddce275b6b5e8edb",
+      "size": 3148,
       "mode": "100644"
     },
     {
@@ -103,23 +103,23 @@
     },
     {
       "path": "static/css/base/_base.scss",
-      "sha1": "cf702a1027fa13d6c693e06da1c3fd627ad14ccb",
-      "sha256": "b92871dd9262beab1565464000adff8a090e52f4f888012769f1e3c9472f1e8b",
+      "sha1": "379c1577ed1ebe2e331abac94209e78482aa11e8",
+      "sha256": "f891fe81f04755ea900c577267cda69ef84e501ba1ff2d113c45e468478f20a1",
       "size": 555,
       "mode": "100644"
     },
     {
       "path": "static/css/base/_typography.scss",
-      "sha1": "b3983bc870557f0cc4a784f2dbd82b127766589b",
-      "sha256": "4922a6eb3a0a4d3afca5a67786fad9280541f656fef00e60c5f3f890c8b5aaaa",
-      "size": 1588,
+      "sha1": "69081412552b843a54baf5c0eca37fd5fb88118f",
+      "sha256": "c3ba72e2e98a04ca7fae0ccc0b3065d72e45100ecece4b5e3021f17ff9a97ea3",
+      "size": 1531,
       "mode": "100644"
     },
     {
       "path": "static/js/script.js",
-      "sha1": "be7eadb3263868573f4c754f69dc2837e31a5042",
-      "sha256": "5fd8264c625559b5d24ab8c069495aa94c8bd8d85eaf7b3bf7c88f03f1c47987",
-      "size": 32878,
+      "sha1": "e6bf45431832296d689d2e07b9231beb89a8a47c",
+      "sha256": "403a0a377f1d4bb92c98803652389724f00772d04129308b5a454768dd9d2191",
+      "size": 33467,
       "mode": "100644"
     },
     {
@@ -600,9 +600,9 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "02597ad2f1e9143583739b66131e01eece9d11dc",
-      "sha256": "a4b34e8780e0299e3f9809a683352f960ca94cef2f5f963df6772cdf3ef3db67",
-      "size": 3725,
+      "sha1": "923940e216a819397468479763ba24b96555cd99",
+      "sha256": "124206ddf0c70f4ceb37f8231270caed0305a79247c78f46d43a06aabd41951d",
+      "size": 3826,
       "mode": "100644"
     }
   ],

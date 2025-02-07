@@ -361,14 +361,19 @@ async function renderNextProject() {
                         // Check if the element already exists to avoid duplicates
                         let element = projectItem.querySelector(`.project-${key}`);
                         if (!element) {
+                            const projectInfo = document.createElement('div');
+                            projectInfo.classList.add('project-information', 'no-padding');
+
                             const dotContainer = document.createElement('div');
                             dotContainer.classList.add('project-dot-container', 'no-height');
                             const dot = document.createElement('div');
                             dot.classList.add('project-dot', 'small');
 
-                            projectItem.appendChild(dotContainer);
+                            projectInfo.appendChild(dotContainer);
+                            projectItem.appendChild(projectInfo);
 
                             setTimeout(() => {
+                                projectInfo.classList.remove('no-padding');
                                 dotContainer.classList.remove('no-height');
                             }, 10);
 
@@ -384,7 +389,7 @@ async function renderNextProject() {
                                 element = document.createElement('div');  // Correctly create the element
                                 element.classList.add(`project-${key}`);
                                 element.textContent = value;
-                                projectItem.appendChild(element);
+                                projectInfo.appendChild(element);
                             }, 800);
                         } else {
                             // Update the content if it already exists (optional)
@@ -396,7 +401,9 @@ async function renderNextProject() {
                     break;
                 case 'year':
                     await new Promise((resolve) => {
-                        const nameElement = projectItem.querySelector('.project-name');
+                        let projectInfo = projectItem.querySelector('.project-information');
+
+                        const nameElement = projectInfo.querySelector('.project-name');
                         if (nameElement) {
                             nameElement.textContent += ` (${value})`;
                         }
@@ -405,14 +412,16 @@ async function renderNextProject() {
                     break;
                 case 'material':
                 case 'dimensions':
-                    await new Promise((resolve) => {        
+                    await new Promise((resolve) => { 
+                        let projectInfo = projectItem.querySelector('.project-information');
+
                         // Check if the element already exists to avoid duplicates
-                        let element = projectItem.querySelector(`.project-${key}`);
+                        let element = projectInfo.querySelector(`.project-${key}`);
                         if (!element) {
                             element = document.createElement('div');  // Correctly create the element
                             element.classList.add(`project-${key}`, 'no-height', 'no-opacity');
                             element.textContent = value;
-                            projectItem.appendChild(element);
+                            projectInfo.appendChild(element);
 
                             setTimeout(() => {
                                 element.classList.remove('no-height');
@@ -432,6 +441,8 @@ async function renderNextProject() {
                 case 'images':
                     await new Promise((resolve) => {
                         let imageContainer = projectItem.querySelector('.project-images');
+                        let projectInfo = projectItem.querySelector('.project-information');
+
                         if (!imageContainer) {
                             imageContainer = document.createElement('div');
                             imageContainer.classList.add('project-images', 'no-height', 'blur', 'no-opacity');
@@ -441,7 +452,7 @@ async function renderNextProject() {
                             const imageCounter = document.createElement('div');
                             imageCounter.classList.add('image-counter');
                             imageCounter.innerHTML = `[01/${value.length.toString().padStart(2, '0')}]`;
-                            projectItem.appendChild(imageCounter);
+                            projectInfo.appendChild(imageCounter);
 
                             // Add scroll event listener to update counter
                             imageContainer.addEventListener('scroll', () => {

@@ -59,11 +59,10 @@ p {
 
 p:not(:first-of-type) {
     text-indent: 30px;
-  }
+}
 
-.processed {
-    font-variation-settings: "wght" 700;
-    transition: font-variation-settings 0.4s ease;
+.light {
+    font-variation-settings: "wght" 300;
 }
 
 .navigation-type {
