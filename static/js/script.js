@@ -437,6 +437,12 @@ async function renderNextProject() {
                             imageContainer.classList.add('project-images', 'no-height', 'blur', 'no-opacity');
                             projectItem.appendChild(imageContainer);
 
+                            // Create image counter container
+                            const imageCounter = document.createElement('div');
+                            imageCounter.classList.add('image-counter');
+                            imageCounter.innerHTML = `[01/${value.length.toString().padStart(2, '0')}]`;
+                            projectItem.appendChild(imageCounter);
+
                             setTimeout(() => {
                                 imageContainer.classList.remove('no-height');
                             }, 10);
@@ -444,6 +450,12 @@ async function renderNextProject() {
                             setTimeout(() => {
                                 imageContainer.classList.remove('blur', 'no-opacity');
                             }, 2000);
+                        } else {
+                            // Update counter if container exists
+                            let imageCounter = projectItem.querySelector('.image-counter');
+                            if (imageCounter) {
+                                imageCounter.innerHTML = `[01/${value.length.toString().padStart(2, '0')}]`;
+                            }
                         }
                 
                         // Process each image URL in the array

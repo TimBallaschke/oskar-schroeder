@@ -226,6 +226,13 @@ p:not(:first-of-type) {
      object-fit: contain;
 }
 
+.image-counter {
+  grid-area: 2/2;
+  justify-self: end;
+  transition: all var(--animation-duration-1) ease-in-out;
+  height: var(--primary-line-height);
+}
+
 #bottom-navigation-container {
   position: fixed;
   display: flex;

@@ -138,3 +138,10 @@
     object-fit: contain;
 }
 
+.image-counter {
+    grid-area: 2 / 2;
+    justify-self: end;  // This will align it to the right of the grid cell
+    transition: all var(--animation-duration-1) ease-in-out;
+    height: var(--primary-line-height);
+}
+
