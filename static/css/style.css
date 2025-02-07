@@ -127,9 +127,6 @@ p:not(:first-of-type) {
   grid-area: 2/1;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: var(--primary-line-height);
   transition: all var(--animation-duration-1) ease-in-out;
 }
@@ -143,6 +140,7 @@ p:not(:first-of-type) {
   border-radius: 50%;
   background-color: black;
   transition: all var(--animation-duration-2) ease-in-out;
+  transform: translateY(7px);
 }
 .project-dot.small {
   width: 1px;
@@ -153,6 +151,7 @@ p:not(:first-of-type) {
   grid-area: 2/2;
   transition: all var(--animation-duration-1) ease-in-out;
   height: var(--primary-line-height);
+  transform: translateY(7px);
 }
 .project-name.no-height {
   height: 0px;
@@ -162,6 +161,7 @@ p:not(:first-of-type) {
   grid-area: 3/2;
   transition: height var(--animation-duration-1) ease-in-out;
   height: var(--primary-line-height);
+  transform: translateY(7px);
 }
 .project-material.no-height {
   height: 0px;
@@ -174,6 +174,7 @@ p:not(:first-of-type) {
   grid-area: 4/2;
   transition: height var(--animation-duration-1) ease-in-out;
   height: var(--primary-line-height);
+  transform: translateY(7px);
 }
 .project-dimensions.no-height {
   height: 0px;
@@ -231,6 +232,7 @@ p:not(:first-of-type) {
   justify-self: end;
   transition: all var(--animation-duration-1) ease-in-out;
   height: var(--primary-line-height);
+  transform: translateY(7px);
 }
 
 #bottom-navigation-container {

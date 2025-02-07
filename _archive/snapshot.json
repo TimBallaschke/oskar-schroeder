@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250207e_Oskar_Website_image_counter_works",
+  "original_folder": "250207f_Oskar_Website_text_offset",
   "snapshot_date_from_folder": "250207",
   "source_files": [
     {
@@ -40,16 +40,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "b4d0034c5ec9cb5a00df283a41210de4e894bd9d",
-      "sha256": "ef58adbac646707ebe4fea0174fc2570d26fdf6a8aed372fb6c2eb798f02bdb7",
-      "size": 8536,
+      "sha1": "a79a35a16f3a6608c05774e65f78ed7e0d3c57a1",
+      "sha256": "ea451b7959f5a3d95b61fd233bd5d6b2c62af983f4dc2bdb048cd3cb73b2faa1",
+      "size": 8619,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "069da65a839e5008b51d038de471dfa6bacc40e7",
-      "sha256": "1b717f196510b8e018a8b1c30877e84c7739f797b6e3e33dad6583b91096fe3f",
-      "size": 3471,
+      "sha1": "5ce28088aaf7f264170c4990494f161034d7b4d9",
+      "sha256": "62af784f79d1abeed7538f8a8623de328b727865ca26d7eb32ad56de827f6482",
+      "size": 3524,
       "mode": "100644"
     },
     {
@@ -68,9 +68,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "6722db8ffa1a07541021efa41030d6d85ba41a41",
-      "sha256": "7f0040a740b06dd3133997f758bb92215fe8b4029c8094dd3132ca6df26845ca",
-      "size": 2824,
+      "sha1": "67d315fea139974f3ddc8dcd544615b77f98b525",
+      "sha256": "4e183715401ab95303bdbfc2e752d02ddc2fa39f56a8f2bea772198f73e1a9c9",
+      "size": 2881,
       "mode": "100644"
     },
     {
@@ -89,9 +89,9 @@
     },
     {
       "path": "static/css/abstracts/_mixins.scss",
-      "sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0,
+      "sha1": "5d621d73b51c82c524cfb42c08bb692099faa847",
+      "sha256": "dec13fb7458fe1a00724a9cd090c01da065c6cd6238f6d08a13e52bad19c7a3b",
+      "size": 56,
       "mode": "100644"
     },
     {
@@ -600,9 +600,9 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "56e3a78d44a8e9a75b97d21390d798e38d63694f",
-      "sha256": "cf05c1d4092ed8e8f62a722747d6e1b5d1e7ab0be409f09592787917e2d33f32",
-      "size": 3619,
+      "sha1": "02597ad2f1e9143583739b66131e01eece9d11dc",
+      "sha256": "a4b34e8780e0299e3f9809a683352f960ca94cef2f5f963df6772cdf3ef3db67",
+      "size": 3725,
       "mode": "100644"
     }
   ],
