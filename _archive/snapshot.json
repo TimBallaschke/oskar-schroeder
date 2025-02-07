@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250207p_Oskar_Website_speed_up_project_rendering",
+  "original_folder": "250207q_Oskar_Website_input_glow",
   "snapshot_date_from_folder": "250207",
   "source_files": [
     {
@@ -26,9 +26,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "229e6fd91c68684493ab0b6950bf6ed213f04198",
-      "sha256": "12dd56780407029b15efc2f0fa8c03dfaa801e5ade51bcf1fadd6663518b58c7",
-      "size": 11881,
+      "sha1": "b8838d6a8e4080d3bcbc9718824b70f1670cdf21",
+      "sha256": "9a0543ca3df65f34c559be629e22a841c0084462268b2f43438807da74382d3b",
+      "size": 11875,
       "mode": "100644"
     },
     {
@@ -40,16 +40,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "15e1a8bd401fd98f81fff29919681e6585635795",
-      "sha256": "077e3531f9db62b89d836ac91ab15495170c872ca6f1e4420d2cfdf53ebf5228",
-      "size": 11497,
+      "sha1": "cebfebc10083ae145941b19a61868bd155ca3596",
+      "sha256": "c1c5c21d92b144de53dc5ee8f887e138eccb32fb3d62cf2160d304d24e3a4484",
+      "size": 14762,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "8801184aa83e8f12f074b7649dd53d7096af4aef",
-      "sha256": "e6a16ad2a88ee234604994ef17b5d9ab372e586a13138a70e58dfd06d87cc947",
-      "size": 4603,
+      "sha1": "5f122ce363d638ce126d701b7294cda1a709dadc",
+      "sha256": "49a854d992474d514a2d212b21e4b36b76e7a6dffe4c00ee527fc57d92edc627",
+      "size": 5642,
       "mode": "100644"
     },
     {
@@ -68,23 +68,23 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "c36f436b3f30bf67968b6a730f505cf677c13391",
-      "sha256": "4b964868138bbc7f261719e9d4767ccf2df31b6e41e0bba58b7a0a1f1f63c921",
-      "size": 4106,
+      "sha1": "cf23ee5992cd6d1836a40a0e9b3746819d8c8d2e",
+      "sha256": "23545e1cf0ba95fc4c72c21e011ef48bd0659d2aaa8245abd89bb2f5c6f1c73f",
+      "size": 8062,
       "mode": "100644"
     },
     {
       "path": "static/css/components/_inputbar.scss",
-      "sha1": "da3b0d36c23142a5ad553c220a144d5d6b3a04a2",
-      "sha256": "4cbe2cde4c4f46aa42f853c8b18369885bd825ea941f61e5751f2b60fd9cdbf0",
-      "size": 3477,
+      "sha1": "88f0fc27351ce319fa9bece9ac9563ee337bcadd",
+      "sha256": "e722c61856cfa71dbd3a7cc286c5eda458ea8f327c7eb98642ce9dc40c50b674",
+      "size": 3670,
       "mode": "100644"
     },
     {
       "path": "static/css/components/_version-history.scss",
-      "sha1": "6b653a8548d6e834d79753862d58f5ec660fff96",
-      "sha256": "02a10c7c3e2d9788fdcfcbb6382181ca81e7977b90cb171d8425e3c2a7f71009",
-      "size": 1387,
+      "sha1": "34a940256b9b79494b813faa25f9d2b688dc36b1",
+      "sha256": "26d8ab07112c47760db8dcd2deb967083c49a1499bfb0d917117fd4561fdcb39",
+      "size": 1576,
       "mode": "100644"
     },
     {
@@ -103,8 +103,8 @@
     },
     {
       "path": "static/css/base/_base.scss",
-      "sha1": "01f0799adde9bcf74c7d3584f9695f4620f15527",
-      "sha256": "44a27cdfabba8f8f95352e8712ed7ef3084e23af8a98f7476e78892f7bd723f2",
+      "sha1": "34cc289100f691c727b191c55ccfce832244222d",
+      "sha256": "1e3a0a5d2cdde5ca4c7b8b2e4836f336aca7b2a01b61dd48dd88a8721dde50c8",
       "size": 609,
       "mode": "100644"
     },
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "0183adbae94930d4e988ad8e072ccff26e67caaa",
-      "sha256": "a696a793a2b5b219c18bfdb00cd6e9fa0583af1ec0dbf081c90504d168a7662d",
-      "size": 40535,
+      "sha1": "48c073a2a847fb5b5f46276d919738063e8fe4ef",
+      "sha256": "e9865b6834d4f7fa53091d5d39120af3022f2535ebf29a0d127317d987616ef5",
+      "size": 40520,
       "mode": "100644"
     },
     {
@@ -600,9 +600,9 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "a996f488deb6ff4d0c9210bfcc4c68b55de1ee14",
-      "sha256": "34f4c8f8291635ab6b5a85def5b19595cf1f07a814d260838343ded2283a3c52",
-      "size": 3990,
+      "sha1": "50772a0509a222c6bb826ae5d19ac751a770584d",
+      "sha256": "2fda24eecd2367ef44b524dc3650457ffcef6e99ca1b99d8d8181e189a10b5c2",
+      "size": 5328,
       "mode": "100644"
     }
   ],

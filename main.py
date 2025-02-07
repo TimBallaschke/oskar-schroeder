@@ -58,8 +58,8 @@ class TableComponent(BaseModel):
     rows: List[List[str]] = Field(description="Rows of data, where each row is a list of strings")
 
 class ProjectsLayout(str, Enum):
-    fullscreen = "fullscreen"
     grid = "grid"
+    fullscreen = "fullscreen"
 
 class ProjectComponent(BaseModel):
     UIType: Literal["project"] = Field(description="Indicates this is a project component that represents an artwork or installation")
@@ -72,7 +72,7 @@ class ProjectComponent(BaseModel):
 class ProjectsList (BaseModel):
     UIType: Literal["projects_list"] = Field(description="Indicates this is a projects list component for displaying a list of projects")
     projects: List[ProjectComponent] = Field(description="A list of projects to be displayed")
-    layout: ProjectsLayout = Field(default=ProjectsLayout.fullscreen, description="Layout style for displaying the project. Should be fullscreen by default.")
+    layout: ProjectsLayout = Field(default=ProjectsLayout.fullscreen, description="Layout style for displaying the project. Should be grid by default.")
 
 # Root level must be a simple object
 class Response_1(BaseModel):

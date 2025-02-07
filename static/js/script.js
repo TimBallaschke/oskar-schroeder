@@ -56,6 +56,7 @@ function sendMessage() {
     });
 
     input.value = ''; // clears the input field after sending
+    inputAdded();
 }
 
 function startStreamingResponse() {
@@ -306,7 +307,6 @@ async function handleDelta(content) {
                                     projectsContainer.classList.add('grid');
                                 }
                             }
-                        } else {
                         }
 
                         if (!component.projects) {
