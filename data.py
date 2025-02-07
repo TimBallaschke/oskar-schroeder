@@ -560,33 +560,21 @@ project_data_6 = {
     "dimensions": "100x100x50cm", 
     "images": [
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Hypo-1.jpg",
+            "url": "../static/assets/images/Hypo/1.jpg",
             "description": "Full view of the curvilinear wooden form",
             "color": "Light wood with subtle grain patterns",
             "is_detail": False
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Hypo-2.jpg",
+            "url": "../static/assets/images/Hypo/3.jpg",
             "description": "Detail of tool marks and surface texture",
             "color": "Varied wood textures and tool patterns",
             "is_detail": True
         },
         {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Hypo-3.jpg",
+            "url": "../static/assets/images/Hypo/2.jpg",
             "description": "Profile view showing organic flowing form",
             "color": "Warm wood tones with shadow detail",
-            "is_detail": False
-        },
-        {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Hypo-4.jpg",
-            "description": "Close-up of natural wood grain and finish",
-            "color": "Rich limewood grain with wax finish",
-            "is_detail": True
-        },
-        {
-            "url": "https://oskarschroeder.com/wp-content/uploads/2023/03/Hypo-5.jpg",
-            "description": "Installation view on gallery floor",
-            "color": "Wood sculpture on concrete surface",
             "is_detail": False
         }
     ],

@@ -184,7 +184,7 @@ p:not(:first-of-type) {
 
 .project-images {
   grid-area: 1/1/2/3;
-  transition: height var(--animation-duration-1) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
   height: 300px;
   overflow-x: auto;
   overflow-y: hidden;
@@ -196,11 +196,17 @@ p:not(:first-of-type) {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+.project-images.blur {
+  filter: blur(30px);
+}
 .project-images::-webkit-scrollbar {
   display: none;
 }
 .project-images.no-height {
   height: 0px;
+}
+.project-images.no-opacity {
+  opacity: 0;
 }
 
 .project-image {

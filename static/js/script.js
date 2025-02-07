@@ -430,50 +430,47 @@ async function renderNextProject() {
                     });
                     break;
                 case 'images':
-                    // console.log('case images');
                     await new Promise((resolve) => {
-                        console.log('Processing images object:', value); // Log the entire images object
-
                         let imageContainer = projectItem.querySelector('.project-images');
                         if (!imageContainer) {
-                            console.log('Creating new image container');
                             imageContainer = document.createElement('div');
-                            imageContainer.classList.add('project-images', 'no-height');
+                            imageContainer.classList.add('project-images', 'no-height', 'blur', 'no-opacity');
                             projectItem.appendChild(imageContainer);
+
+                            setTimeout(() => {
+                                imageContainer.classList.remove('no-height');
+                            }, 10);
+
+                            setTimeout(() => {
+                                imageContainer.classList.remove('blur', 'no-opacity');
+                            }, 2000);
                         }
-
-                        setTimeout(() => {
-                            imageContainer.classList.remove('no-height');
-                        }, 10);
-
-
-                        // // Check for nested images array
-                        // const imageUrls = value.images;
-                        // console.log(imageUrls);
-                        // // if (Array.isArray(imageUrls)) {
-                        // //     console.log(`Found ${imageUrls.length} images to process:`, imageUrls);
-                        // //     imageUrls.forEach((imageUrl, index) => {
-                        // //         console.log(`Creating image ${index + 1}:`, imageUrl);
-                        // //         const img = document.createElement('img');
-                        // //         img.classList.add('project-image', 'loading');
+                
+                        // Process each image URL in the array
+                        value.forEach(imageUrl => {
+                            // Check if image with this URL already exists
+                            const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
+                            if (!existingImage) {
+                                // Create wrapper div with project-image class
+                                const imageWrapper = document.createElement('div');
+                                imageWrapper.classList.add('project-image', 'no-opacity');
+                
+                                // Create the img element
+                                const imgElement = document.createElement('img');
+                                imgElement.classList.add('img-element');
+                                imgElement.src = imageUrl;
                                 
-                        // //         // img.onload = function() {
-                        // //         //     console.log(`Image ${index + 1} loaded successfully:`, imageUrl);
-                        // //         //     img.classList.remove('loading');
-                        // //         //     img.classList.add('loaded');
-                        // //         // };
-
-                        // //         // img.onerror = function() {
-                        // //         //     console.error(`Failed to load image ${index + 1}:`, imageUrl);
-                        // //         // };
+                                // Add img to wrapper
+                                imageWrapper.appendChild(imgElement);
+                                imageContainer.appendChild(imageWrapper);
+                
+                                // Add fade-in effect once image is loaded
+                                imgElement.onload = () => {
+                                    imageWrapper.classList.remove('no-opacity');
+                                };
+                            }
+                        });
                                 
-                        // //         img.src = imageUrl;
-                        // //         // imageContainer.appendChild(img); // Uncommented this line
-                        // //     });
-                        // // } else {
-                        // //     console.warn('No images array found in:', value);
-                        // // }
-
                         setTimeout(resolve, 100);
                     });
                     break;

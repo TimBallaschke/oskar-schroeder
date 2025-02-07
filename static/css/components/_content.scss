@@ -91,13 +91,17 @@
 
 .project-images {
     grid-area: 1 / 1 / 2 / 3;
-    transition: height var(--animation-duration-1) ease-in-out;
+    transition: all var(--animation-duration-1) ease-in-out;
     height: 300px;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     display: flex;
     gap: 20px;
+
+    &.blur {
+        filter: blur(30px);
+    }
     // padding: 0 20px;
     
     /* Hide scrollbar for Chrome, Safari and Opera */
@@ -111,6 +115,10 @@
 
     &.no-height {
         height: 0px;
+    }
+
+    &.no-opacity {
+        opacity: 0;
     }
 }
 
