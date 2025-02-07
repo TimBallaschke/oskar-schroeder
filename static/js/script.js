@@ -260,6 +260,7 @@ async function handleDelta(content) {
                             projectsContainer.classList.add('projects-container');
                             projectsContainer.setAttribute('data-component-key', componentID);
                             contentContainer.appendChild(projectsContainer);
+                            console.log('project container created');
 
                             // // Add the project list headline div
                             // const headline = document.createElement('div');
@@ -296,9 +297,7 @@ async function handleDelta(content) {
                         }
 
                         // Add layout classes based on response values
-                        if (!component.layout) {
-                            break;
-                        } else {
+                        if (component.layout) {
                             if (!projectsContainer.classList.contains('fullscreen') && !projectsContainer.classList.contains('grid')) {
                                 if (component.layout === 'fullscreen') {
                                     projectsContainer.classList.add('fullscreen');
@@ -307,14 +306,17 @@ async function handleDelta(content) {
                                     projectsContainer.classList.add('grid');
                                 }
                             }
+                        } else {
                         }
 
-                        if (!component.projects || !Array.isArray(component.projects)) {
+                        if (!component.projects) {
                             console.warn('Invalid projects data:', component.projects);
                             break;
                         }
 
                         for (const project of component.projects) {
+                            console.log('project of component reached');
+
                             if (!project.name) {
                                 break;
                             }
@@ -338,6 +340,7 @@ async function handleDelta(content) {
 
                             // Check for new data and add rendering tasks to the queue
                             for (const [key, value] of Object.entries(project)) {
+                                console.log('key, value Loop reached');
                                 if (key === 'images' && Array.isArray(value)) {
                                     for (const image of value) {
                                         if (!imagesSet.has(image)) {
@@ -411,6 +414,7 @@ async function renderNextProject() {
             let projectItem = document.querySelector(`[data-project-id="${id}"]`);
             switch (key) {
                 case 'UIType':
+                    console.log('Project rendering started');
                     await new Promise((resolve) => {
                         if (!projectItem) {
                             projectItem = document.createElement('div');
