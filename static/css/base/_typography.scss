@@ -61,6 +61,10 @@ p:not(:first-of-type) {
     text-indent: 30px;
 }
 
+.paragraph-word {
+    transition: all var(--animation-duration-2) ease-in-out;
+}
+
 .light {
     font-variation-settings: "wght" 300;
 }

@@ -183,7 +183,7 @@ async function handleDelta(content) {
                         let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
                         if (!paragraphContainer) {
                             paragraphContainer = document.createElement('p');
-                            paragraphContainer.classList.add('paragraph-container', 'processing');  // Add processing class
+                            paragraphContainer.classList.add('paragraph-container');
                             paragraphContainer.setAttribute('data-component-key', componentID);
                             contentContainer.appendChild(paragraphContainer);
                         }
@@ -197,7 +197,7 @@ async function handleDelta(content) {
                                 componentMap.set(sentence, true);
                                 await new Promise(resolve => {
                                     if (paragraphContainer.textContent) {
-                                        paragraphContainer.textContent += ' ';
+                                        paragraphContainer.appendChild(document.createTextNode(' '));
                                     }
                                     // Split sentence into words and add them one by one
                                     const words = sentence.split(' ');
@@ -207,9 +207,20 @@ async function handleDelta(content) {
                                         if (wordIndex < words.length) {
                                             // Add space before word (except for first word)
                                             if (wordIndex > 0) {
-                                                paragraphContainer.textContent += ' ';
+                                                paragraphContainer.appendChild(document.createTextNode(' '));
                                             }
-                                            paragraphContainer.textContent += words[wordIndex];
+                                            
+                                            // Create span for the word
+                                            const wordSpan = document.createElement('span');
+                                            wordSpan.textContent = words[wordIndex];
+                                            wordSpan.classList.add('paragraph-word', 'light');
+                                            paragraphContainer.appendChild(wordSpan);
+
+                                            // Remove light class after 10ms
+                                            setTimeout(() => {
+                                                wordSpan.classList.remove('light');
+                                            }, 10);
+
                                             wordIndex++;
                                             // Add small delay between words
                                             setTimeout(addNextWord, 50);

@@ -2,7 +2,7 @@
   --primary-font-size: 16.5px;
   --primary-line-height: calc(var(--primary-font-size) * 1.2);
   --animation-duration-1: 300ms;
-  --animation-duration-2: 150ms;
+  --animation-duration-2: 200ms;
   --animation-duration-3: 500ms;
   --veritical-padding-bottom-nav: 15px;
   --horizontal-padding-bottom-nav: 25px;
@@ -89,6 +89,10 @@ p {
 
 p:not(:first-of-type) {
   text-indent: 30px;
+}
+
+.paragraph-word {
+  transition: all var(--animation-duration-2) ease-in-out;
 }
 
 .light {
