@@ -1,6 +1,59 @@
-#version-history-container {
+#version-history {
     position: fixed;
-    top: 0;
-    width: 100%;
-    height: 100px;
+    top: var(--page-padding);
+    left: var(--page-padding);
+    color: white;
+    background-color: black;
+    border-radius: 15px;
+    padding: 3px 8px 2px 3px;
+    transition: height var(--animation-duration-1) ease-in-out;
+}
+
+.version-history-element {
+    overflow: hidden;
+    height: 0;
+    width: auto;
+    display: none;
+    opacity: 0;
+    transition: all var(--animation-duration-1) ease-in-out;
+
+  &.current-version-history-element {
+      height: 24px;
+      display: block;
+      opacity: 1;
   }
+    
+  .version-history-opening-1 & {
+      display: block;
+  }
+
+  .version-history-opening-2 & {
+    height: 24px;
+    display: block;
+  }
+
+  .version-history-opening-3 & {
+    height: 24px;
+    display: block;
+    opacity: 1;
+  }
+}
+
+.version-history-element-number {
+  display: inline-block;
+  background-color: white;
+  color: black;
+  border-radius: 50%;
+  padding: 5px;
+  transform: translateY(-0px);
+}
+
+.version-history-element-digits {
+  font-size: var(--secondary-font-size);
+  transform: translateY(1px);
+}
+
+.version-history-element-title {
+  display: inline-block;
+  transform: translateY(2px);
+}

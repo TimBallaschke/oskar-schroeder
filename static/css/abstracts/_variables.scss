@@ -8,9 +8,14 @@
 
 :root {
 
+  // Base
+  --page-padding: 10px;
+
   // Typography
   --primary-font-size: 16.5px;
   --primary-line-height: calc(var(--primary-font-size) * 1.2);
+  --secondary-font-size: 12px;
+
 
   // Animation
   --animation-duration-1: 300ms;

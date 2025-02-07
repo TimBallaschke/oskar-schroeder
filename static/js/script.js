@@ -429,7 +429,7 @@ async function renderNextProject() {
                             element.textContent = value;
                         }
         
-                        setTimeout(resolve, 700);
+                        setTimeout(resolve, 650);
                     });
                     break;
                 case 'year':
@@ -453,7 +453,7 @@ async function renderNextProject() {
                                 yearSpan.textContent = ` (${value})`;
                             }
                         }
-                        setTimeout(resolve, 200);
+                        setTimeout(resolve, 50);
                     });
                     break;
                 case 'material':
@@ -482,7 +482,7 @@ async function renderNextProject() {
                             element.textContent = value;
                         }
         
-                        setTimeout(resolve, 600);
+                        setTimeout(resolve, 550);
                     });
                     break;
                 case 'images':
@@ -610,7 +610,6 @@ function handleVersionHistoryUpdate(content) {
     // Hide all existing version-history elements
     const historyElements = document.querySelectorAll('.version-history-element');
     historyElements.forEach(element => {
-        element.classList.add('display-none');
         element.classList.remove('current-version-history-element');
     });
 
@@ -623,7 +622,7 @@ function handleVersionHistoryUpdate(content) {
 
     // Create and append the version-history-number element
     const versionHistoryNumber = document.createElement('div');
-    versionHistoryNumber.classList.add('version-history-number');
+    versionHistoryNumber.classList.add('version-history-element-number');
 
     // Create and append the version-history-element-digits element
     const versionHistoryDigits = document.createElement('div');
@@ -651,9 +650,22 @@ function handleVersionHistoryUpdate(content) {
 versionHistory.addEventListener('click', openVersionHistory);
 
 function openVersionHistory() {
+
+    document.body.classList.add('version-history-opening-1');
+
+    setTimeout(() => {
+        document.body.classList.remove('version-history-opening-1');
+        document.body.classList.add('version-history-opening-2');
+    }, 10);
+
+    setTimeout(() => {
+        document.body.classList.remove('version-history-opening-2');
+        document.body.classList.add('version-history-opening-3');
+    }, animationDuration);
+
+    versionHistory.removeEventListener('click', openVersionHistory);
     const historyElements = document.querySelectorAll('.version-history-element');
     historyElements.forEach(element => {
-        element.classList.remove('display-none');
         element.addEventListener('click', handleVersionClick);
     });
 
@@ -697,32 +709,32 @@ function displayPreviousVersion(element) {
     const versionContent = responseMap[versionKey];
 
     clearContentContainer();
-
-    // Update UI with the selected version's content
-    if (versionContent && versionContent.components) {
-        versionContent.components.forEach(component => {
-            switch (component.UIType) {
-                case 'paragraphs':
-                    const paragraphContainer = document.createElement('p');
-                    paragraphContainer.classList.add('paragraph-container', 'processed');
-                    paragraphContainer.textContent = component.text.join(' ');
-                    contentContainer.appendChild(paragraphContainer);
-                    break;
-                    
-                // Add other component types as needed
-                case 'projects_list':
-                    // const projectsContainer = document.createElement('p');
-                    // projectsContainer.classList.add('projects-container', 'processed');
-                    // const componentButton = document.createElement('div');
-                    // componentButton.classList.add('component-button');
-                    // projectsContainer.appendChild(componentButton);
-                    // contentContainer.appendChild(projectsContainer);
-                    break;
-            }
-        });
-    }
-
     closeVersionHistory(element);
+
+    setTimeout(() => {
+        if (versionContent && versionContent.components) {
+            versionContent.components.forEach(component => {
+                switch (component.UIType) {
+                    case 'paragraphs':
+                        const paragraphContainer = document.createElement('p');
+                        paragraphContainer.classList.add('paragraph-container', 'processed');
+                        paragraphContainer.textContent = component.text.join(' ');
+                        contentContainer.appendChild(paragraphContainer);
+                        break;
+                        
+                    // Add other component types as needed
+                    case 'projects_list':
+                        // const projectsContainer = document.createElement('p');
+                        // projectsContainer.classList.add('projects-container', 'processed');
+                        // const componentButton = document.createElement('div');
+                        // componentButton.classList.add('component-button');
+                        // projectsContainer.appendChild(componentButton);
+                        // contentContainer.appendChild(projectsContainer);
+                        break;
+                }
+            });
+        }
+    }, 1000);
 }
 
 
@@ -767,6 +779,7 @@ document.addEventListener('DOMContentLoaded', () => {
 plusMinusButton.addEventListener('click', togglePromptProposals);
 
 function togglePromptProposals() {
+    console.log('togglePromptProposals');
     const bottomNavigation = document.getElementById('bottom-navigation');
 
     if (!bottomNavigation.classList.contains('prompt-proposal-opening-2')) {

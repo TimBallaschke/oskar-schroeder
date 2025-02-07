@@ -1,6 +1,8 @@
 :root {
+  --page-padding: 10px;
   --primary-font-size: 16.5px;
   --primary-line-height: calc(var(--primary-font-size) * 1.2);
+  --secondary-font-size: 12px;
   --animation-duration-1: 300ms;
   --animation-duration-2: 200ms;
   --animation-duration-3: 500ms;
@@ -100,7 +102,7 @@ p:not(:first-of-type) {
 }
 
 .light {
-  font-variation-settings: "wght" 300;
+  font-variation-settings: "wght" 350;
 }
 
 .navigation-type {
@@ -109,7 +111,7 @@ p:not(:first-of-type) {
 
 #content-container {
   width: 100vw;
-  padding: 50px 10px 200px 10px;
+  padding: 50px var(--page-padding) 200px var(--page-padding);
   transition: opacity var(--animation-duration-1) ease-in-out;
 }
 .component-selected #content-container .project:not(.selected),
@@ -357,6 +359,7 @@ input {
   height: 100%;
   width: 100%;
   color: white;
+  transform: translateY(2px);
 }
 
 #buttons-container {
@@ -454,9 +457,58 @@ input {
   display: block;
 }
 
-#version-history-container {
+#version-history {
   position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100px;
+  top: var(--page-padding);
+  left: var(--page-padding);
+  color: white;
+  background-color: black;
+  border-radius: 15px;
+  padding: 3px 8px 2px 3px;
+  transition: height var(--animation-duration-1) ease-in-out;
+}
+
+.version-history-element {
+  overflow: hidden;
+  height: 0;
+  width: auto;
+  display: none;
+  opacity: 0;
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.version-history-element.current-version-history-element {
+  height: 24px;
+  display: block;
+  opacity: 1;
+}
+.version-history-opening-1 .version-history-element {
+  display: block;
+}
+.version-history-opening-2 .version-history-element {
+  height: 24px;
+  display: block;
+}
+.version-history-opening-3 .version-history-element {
+  height: 24px;
+  display: block;
+  opacity: 1;
+}
+
+.version-history-element-number {
+  display: inline-block;
+  background-color: white;
+  color: black;
+  border-radius: 50%;
+  padding: 5px;
+  transform: translateY(0px);
+}
+
+.version-history-element-digits {
+  font-size: var(--secondary-font-size);
+  transform: translateY(1px);
+}
+
+.version-history-element-title {
+  display: inline-block;
+  transform: translateY(2px);
 }/*# sourceMappingURL=style.css.map */

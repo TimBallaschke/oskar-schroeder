@@ -1,7 +1,7 @@
 // Content container
 #content-container {
     width: 100vw;
-    padding: 50px 10px 200px 10px;
+    padding: 50px var(--page-padding) 200px var(--page-padding);
     transition: opacity var(--animation-duration-1) ease-in-out;
 
     .component-selected & {
