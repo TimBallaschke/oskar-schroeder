@@ -669,22 +669,34 @@ function openVersionHistory() {
         element.addEventListener('click', handleVersionClick);
     });
 
+    const versionHistoryClose = document.getElementById('version-history-close');
+    versionHistoryClose.addEventListener('click', closeVersionHistory);
+    
     versionHistory.removeEventListener('click', openVersionHistory);
 }
 
 function closeVersionHistory(element) {
     const historyElements = document.querySelectorAll('.version-history-element');
     historyElements.forEach(el => {
-        el.classList.add('display-none');
         el.removeEventListener('click', handleVersionClick);
     });
 
-    element.classList.remove('display-none');
-    element.classList.add('current-version-history-element');
+    document.body.classList.remove('version-history-opening-3');
+    document.body.classList.add('version-history-opening-2');
+
+    setTimeout(() => {
+        document.body.classList.remove('version-history-opening-2');
+        document.body.classList.add('version-history-opening-1');
+    }, animationDuration);
+
+    setTimeout(() => {
+        document.body.classList.remove('version-history-opening-1');
+    }, animationDuration * 2);
 
     setTimeout(() => {
         versionHistory.addEventListener('click', openVersionHistory);
-    }, 1000);
+        document.body.removeEventListener('click', openVersionHistory);
+    }, animationDuration + 10);
 }
 
 // Define the handler function separately so it can be removed later
@@ -695,6 +707,15 @@ function handleVersionClick(event) {
 
 // display previous version
 function displayPreviousVersion(element) {
+
+    const historyElements = document.querySelectorAll('.version-history-element');
+    historyElements.forEach(el => {
+        el.classList.remove('current-version-history-element');
+    });
+
+    setTimeout(() => {
+        element.classList.add('current-version-history-element');
+    }, 10);
 
     // Get the version key from the clicked element
     const versionKey = parseInt(element.getAttribute('version-history-key'));
