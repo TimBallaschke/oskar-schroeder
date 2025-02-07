@@ -7,7 +7,7 @@
     .component-selected & {
         .project:not(.selected),
         .paragraph-container:not(.selected) {
-            opacity: 0.5;
+            opacity: 0.1;
         }
     }
 }
@@ -16,10 +16,14 @@
     opacity: 0;
 }
 
-.component-button {
-    background-color: black;
-    height: 20px;
-    width: 20px;
+.project-list-headline {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    grid-template-rows: repeat(1, auto);
+}
+
+.headline-words {
+    grid-area: 1 / 2;
 }
 
 .project {

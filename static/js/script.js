@@ -147,7 +147,7 @@ function clearContentContainer() {
 // HANDLE RESPONSE TYPES
 
 async function handleDelta(content) {
-    // console.log("Received delta:", content);
+    console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -257,9 +257,56 @@ async function handleDelta(content) {
                         let projectsContainer = document.querySelector(`[data-component-key="${componentID}"]`);
                         if (!projectsContainer) {
                             projectsContainer = document.createElement('div');
-                            projectsContainer.classList.add('projects-container', 'processing');
+                            projectsContainer.classList.add('projects-container');
                             projectsContainer.setAttribute('data-component-key', componentID);
                             contentContainer.appendChild(projectsContainer);
+
+                            // // Add the project list headline div
+                            // const headline = document.createElement('div');
+                            // headline.classList.add('project-list-headline');
+
+                            // const dotContainer = document.createElement('div');
+                            // dotContainer.classList.add('project-dot-container');
+                            // const dot = document.createElement('div');
+                            // dot.classList.add('project-dot', 'small');
+
+                            // setTimeout(() => {
+                            //     dot.classList.remove('small');
+                            // }, 10);
+
+                            // // Add click event listener to dot
+                            // dot.addEventListener('click', () => {
+                            //     document.body.classList.add('component-selected');
+                            //     projectItem.classList.add('selected');
+                            // });
+
+                            // const headlineWord = document.createElement('div');
+                            // headlineWord.classList.add('headline-word', 'light');
+                            // headlineWord.textContent = 'Artworks';
+
+                            // setTimeout(() => {
+                            //     headlineWord.classList.remove('light');
+                            // }, 10);
+
+                            // dotContainer.appendChild(dot);
+                            // headline.appendChild(dotContainer);
+                            // headline.appendChild(headlineWord);
+                            // projectsContainer.appendChild(headline);
+                            contentContainer.appendChild(projectsContainer);
+                        }
+
+                        // Add layout classes based on response values
+                        if (!component.layout) {
+                            break;
+                        } else {
+                            if (!projectsContainer.classList.contains('fullscreen') && !projectsContainer.classList.contains('grid')) {
+                                if (component.layout === 'fullscreen') {
+                                    projectsContainer.classList.add('fullscreen');
+                                }
+                                if (component.layout === 'grid') {
+                                    projectsContainer.classList.add('grid');
+                                }
+                            }
                         }
 
                         if (!component.projects || !Array.isArray(component.projects)) {
@@ -671,7 +718,7 @@ function openVersionHistory() {
 
     const versionHistoryClose = document.getElementById('version-history-close');
     versionHistoryClose.addEventListener('click', closeVersionHistory);
-    
+
     versionHistory.removeEventListener('click', openVersionHistory);
 }
 
