@@ -353,7 +353,7 @@ async function renderNextProject() {
                             }, 100);
                         }
 
-                        setTimeout(resolve, animationDuration);
+                        setTimeout(resolve, 2000);
                     });
                     break;
                 case 'name':
@@ -362,25 +362,36 @@ async function renderNextProject() {
                         let element = projectItem.querySelector(`.project-${key}`);
                         if (!element) {
                             const dotContainer = document.createElement('div');
-                            dotContainer.classList.add('project-dot-container');
-
+                            dotContainer.classList.add('project-dot-container', 'no-height');
                             const dot = document.createElement('div');
-                            dot.classList.add('project-dot');
+                            dot.classList.add('project-dot', 'small');
 
-                            dotContainer.appendChild(dot);
                             projectItem.appendChild(dotContainer);
+
+                            setTimeout(() => {
+                                dotContainer.classList.remove('no-height');
+                            }, 10);
+
+                            setTimeout(() => {
+                                dotContainer.appendChild(dot);
+                            }, animationDuration);
+
+                            setTimeout(() => {
+                                dot.classList.remove('small');
+                            }, animationDuration + 50);
 
                             setTimeout(() => {
                                 element = document.createElement('div');  // Correctly create the element
                                 element.classList.add(`project-${key}`);
                                 element.textContent = value;
-                                projectItem.appendChild(element);                            }, 100);
+                                projectItem.appendChild(element);
+                            }, 800);
                         } else {
                             // Update the content if it already exists (optional)
                             element.textContent = value;
                         }
         
-                        setTimeout(resolve, 100);
+                        setTimeout(resolve, 2000);
                     });
                     break;
                 case 'year':
@@ -389,7 +400,7 @@ async function renderNextProject() {
                         if (nameElement) {
                             nameElement.textContent += ` (${value})`;
                         }
-                        setTimeout(resolve, 100);
+                        setTimeout(resolve, 2000);
                     });
                     break;
                 case 'material':
@@ -399,15 +410,23 @@ async function renderNextProject() {
                         let element = projectItem.querySelector(`.project-${key}`);
                         if (!element) {
                             element = document.createElement('div');  // Correctly create the element
-                            element.classList.add(`project-${key}`);
+                            element.classList.add(`project-${key}`, 'no-height', 'no-opacity');
                             element.textContent = value;
                             projectItem.appendChild(element);
+
+                            setTimeout(() => {
+                                element.classList.remove('no-height');
+                            }, 10);
+
+                            setTimeout(() => {
+                                element.classList.remove('no-opacity');
+                            }, 600);
                         } else {
                             // Update the content if it already exists (optional)
                             element.textContent = value;
                         }
         
-                        setTimeout(resolve, 100);
+                        setTimeout(resolve, 2000);
                     });
                     break;
                 case 'images':
