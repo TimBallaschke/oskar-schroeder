@@ -35,6 +35,10 @@ body {
   transition: font-variation-settings 0.4s ease;
 }
 
+.component-selected {
+  background-color: #bababa;
+}
+
 .display-none {
   display: none;
 }
@@ -106,7 +110,11 @@ p:not(:first-of-type) {
 #content-container {
   width: 100vw;
   padding: 50px 10px 200px 10px;
-  transition: opacity var(--animation-duration-1) linear;
+  transition: opacity var(--animation-duration-1) ease-in-out;
+}
+.component-selected #content-container .project:not(.selected),
+.component-selected #content-container .paragraph-container:not(.selected) {
+  opacity: 0.5;
 }
 
 .no-opacity {
@@ -429,6 +437,21 @@ input {
 }
 .prompt-proposal-opening-2 #plus-minus-vertical {
   transform: translate(-50%, -50%) rotate(90deg);
+}
+
+#component-selected-dot {
+  position: absolute;
+  top: 50%;
+  left: 25px;
+  transform: translate(-50%, -50%);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: white;
+  display: none;
+}
+.component-selected #component-selected-dot {
+  display: block;
 }
 
 #version-history-container {

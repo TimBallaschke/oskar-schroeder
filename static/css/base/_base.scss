@@ -22,6 +22,10 @@ body {
   transition: font-variation-settings 0.4s ease;
 }
 
+.component-selected {
+  background-color: #bababa;
+}
+
 .display-none {
     display: none;
 }

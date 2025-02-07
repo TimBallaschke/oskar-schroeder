@@ -392,6 +392,12 @@ async function renderNextProject() {
                             const dot = document.createElement('div');
                             dot.classList.add('project-dot', 'small');
 
+                            // Add click event listener to dot
+                            dot.addEventListener('click', () => {
+                                document.body.classList.add('component-selected');
+                                projectItem.classList.add('selected');
+                            });
+
                             projectInfo.appendChild(dotContainer);
                             projectItem.appendChild(projectInfo);
 

@@ -2,7 +2,14 @@
 #content-container {
     width: 100vw;
     padding: 50px 10px 200px 10px;
-    transition: opacity var(--animation-duration-1) linear;
+    transition: opacity var(--animation-duration-1) ease-in-out;
+
+    .component-selected & {
+        .project:not(.selected),
+        .paragraph-container:not(.selected) {
+            opacity: 0.5;
+        }
+    }
 }
 
 .no-opacity {
