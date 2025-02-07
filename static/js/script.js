@@ -434,13 +434,18 @@ async function renderNextProject() {
                     await new Promise((resolve) => {
                         console.log('Processing images object:', value); // Log the entire images object
 
-                        // let imageContainer = projectItem.querySelector('.project-images');
-                        // if (!imageContainer) {
-                        //     console.log('Creating new image container');
-                        //     imageContainer = document.createElement('div');
-                        //     imageContainer.classList.add('project-images');
-                        //     projectItem.appendChild(imageContainer);
-                        // }
+                        let imageContainer = projectItem.querySelector('.project-images');
+                        if (!imageContainer) {
+                            console.log('Creating new image container');
+                            imageContainer = document.createElement('div');
+                            imageContainer.classList.add('project-images', 'no-height');
+                            projectItem.appendChild(imageContainer);
+                        }
+
+                        setTimeout(() => {
+                            imageContainer.classList.remove('no-height');
+                        }, 10);
+
 
                         // // Check for nested images array
                         // const imageUrls = value.images;
