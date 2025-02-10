@@ -201,6 +201,10 @@ p:not(:first-of-type) {
   width: 1px;
   height: 1px;
 }
+.component-selected .fullscreen .project-dot {
+  display: block;
+  animation: dotOpacity 2s ease-out infinite;
+}
 .fullscreen .project-name {
   grid-area: 1/2;
   height: var(--primary-line-height);
@@ -343,6 +347,10 @@ p:not(:first-of-type) {
   width: 1px;
   height: 1px;
 }
+.component-selected .grid .project-dot {
+  display: block;
+  animation: dotOpacity 2s ease-out infinite;
+}
 .grid .project-name {
   grid-area: 1/2;
   transition: all var(--animation-duration-1) ease-in-out;
@@ -412,6 +420,23 @@ p:not(:first-of-type) {
   display: none;
 }
 
+@keyframes dotOpacity {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 #bottom-navigation-container {
   position: fixed;
   display: flex;
@@ -429,7 +454,7 @@ p:not(:first-of-type) {
   height: auto;
   position: relative;
   transition: height var(--animation-duration-1) ease-in-out;
-  box-shadow: 0 0 10px rgb(255, 255, 255), 0 0 15px rgb(255, 255, 255), 0 0 25px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 10px rgb(255, 255, 255), 0 0 15px rgb(255, 255, 255), 0 0 15px rgb(255, 255, 255), 0 0 15px rgb(255, 255, 255), 0 0 25px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
 }
 
 #bottom-navigation-elements {
@@ -580,11 +605,30 @@ input {
   border-radius: 50%;
   background-color: white;
   display: none;
+  transition: opacity var(--animation-duration-2) ease-out;
 }
 .component-selected #component-selected-dot {
   display: block;
+  animation: dotOpacity 2s ease-out infinite;
 }
 
+@keyframes dotOpacity {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 #version-history {
   position: fixed;
   top: calc(var(--page-padding) + 3px);

@@ -163,7 +163,7 @@ function clearContentContainer() {
 // HANDLE RESPONSE TYPES
 
 async function handleDelta(content) {
-    console.log("Received delta:", content);
+    // console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -267,6 +267,54 @@ async function handleDelta(content) {
                         break;
 
                     case 'table':
+                        let tableContainer = document.querySelector(`[data-component-key="${componentID}"]`);
+                        if (!tableContainer) {
+                            tableContainer = document.createElement('div');
+                            tableContainer.classList.add('table-container');
+                            tableContainer.setAttribute('data-component-key', componentID);
+                            contentContainer.appendChild(tableContainer);
+                        }
+
+                        
+
+                        // // Add rows if they exist in the component
+                        // if (component.rows && Array.isArray(component.rows)) {
+                        //     component.rows.forEach((row, index) => {
+                        //         const rowKey = `row-${index}`;
+                                
+                        //         // Check if this row index has already been processed
+                        //         if (!componentMap.has(rowKey)) {
+                        //             componentMap.set(rowKey, new Set());
+                                    
+                        //             const tableRow = document.createElement('div');
+                        //             tableRow.classList.add('table-row');
+                        //             tableRow.setAttribute('data-row-index', rowIndex);
+                        //             tableContainer.appendChild(tableRow);
+                        //             console.log('row added', rowKey);
+                        //         }
+
+                        //         const processedElements = componentMap.get(rowKey);
+                                
+                        //         // Process each element in the row
+                        //         if (Array.isArray(row)) {
+                        //             row.forEach((element, elementIndex) => {
+                        //                 // Only add element if it hasn't been processed yet
+                        //                 if (!processedElements.has(elementIndex)) {
+                        //                     processedElements.add(elementIndex);
+                                            
+                        //                     const tableCell = document.createElement('div');
+                        //                     tableCell.classList.add('table-cell');
+                        //                     tableCell.textContent = element;
+                                            
+                        //                     const targetRow = tableContainer.querySelector(`[data-row-index="${rowIndex}"]`);
+                        //                     if (targetRow) {
+                        //                         targetRow.appendChild(tableCell);
+                        //                     }
+                        //                 }
+                        //             });
+                        //         }
+                        //     });
+                        // }     
                         break;
 
                     case 'projects_list':

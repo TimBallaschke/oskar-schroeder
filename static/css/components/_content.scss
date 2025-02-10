@@ -107,6 +107,11 @@
             width: 1px;
             height: 1px;
         }
+
+        .component-selected & {
+            display: block;
+            animation: dotOpacity 2s ease-out infinite;
+        }
     }
     
     .project-name {
@@ -281,6 +286,11 @@
             width: 1px;
             height: 1px;
         }
+
+        .component-selected & {
+            display: block;
+            animation: dotOpacity 2s ease-out infinite;
+        }
     }
     
     .project-name {
@@ -368,5 +378,22 @@
     }
 }
 
+@keyframes dotOpacity {
+    0% {
+      opacity: 1;
+    }
+    30% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    80% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
 
 

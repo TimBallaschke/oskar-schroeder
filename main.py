@@ -164,6 +164,7 @@ def stream():
                         # Send the parsed delta to the frontend
                         # yield is used to send data to the frontend in a streaming manner (turns function into a generator)
                         # a function is creating all values at once, but a generator sends them one by one
+                        print(json.dumps(event.parsed, indent=2))
                         yield f"data: {json.dumps({'type': 'delta', 'content': event.parsed})}\n\n"
                 elif event.type == "content.done":
                     # Get and send the final completion
