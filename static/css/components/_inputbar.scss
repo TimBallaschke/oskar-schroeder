@@ -53,6 +53,8 @@
   opacity: 0;
   overflow: hidden;
   transition: all var(--animation-duration-1) ease-in-out;
+  // border-bottom: 1px solid rgb(84, 84, 84);
+
 
   .prompt-proposal-opening-1 & {
     height: var(--input-element-height);

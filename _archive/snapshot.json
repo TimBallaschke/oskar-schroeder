@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250210c_Oskar_Website_grid:fullscreen_response",
+  "original_folder": "250210d_Oskar_Website_top_title",
   "snapshot_date_from_folder": "250210",
   "source_files": [
     {
@@ -33,23 +33,23 @@
     },
     {
       "path": "prompts.py",
-      "sha1": "1e476a18d8208ed6106368779db810e628f333dd",
-      "sha256": "fe3b92e16d933a31bf1291e8dc7260a885b921e903cc5b7d4c89d407fd49f625",
-      "size": 3297,
+      "sha1": "123c3d84f3ab80f538a1fae6389a5ae716ab3669",
+      "sha256": "f2e58770766034874fe80c19dd37a126e8258a3c7f6b9d57b9bc6e56b2bd71ec",
+      "size": 3822,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css",
-      "sha1": "8449b7852af4739a231342ca5cb6b5042e864990",
-      "sha256": "a46471a2250715087731232a2ab184d818ee2e60a08ba623dab7b69e801390f9",
-      "size": 14762,
+      "sha1": "386e313f39f7d289bf78363868875e75ea35b60b",
+      "sha256": "9f247555e8f826ee46828ca38663bd7766a4a7f27859c50791d0a0e66bbf4588",
+      "size": 15107,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "5f122ce363d638ce126d701b7294cda1a709dadc",
-      "sha256": "49a854d992474d514a2d212b21e4b36b76e7a6dffe4c00ee527fc57d92edc627",
-      "size": 5642,
+      "sha1": "fa9a0fdf68f14ba798bda114e5f2f4534ebd8f7e",
+      "sha256": "49743d6e93b9b85ef4efe545c481f34ee6646df776a7022363db5a81c82193dd",
+      "size": 5760,
       "mode": "100644"
     },
     {
@@ -75,16 +75,16 @@
     },
     {
       "path": "static/css/components/_inputbar.scss",
-      "sha1": "88f0fc27351ce319fa9bece9ac9563ee337bcadd",
-      "sha256": "e722c61856cfa71dbd3a7cc286c5eda458ea8f327c7eb98642ce9dc40c50b674",
-      "size": 3670,
+      "sha1": "643c6478ead7a3cb92ffe668e5c672b3290f0ff6",
+      "sha256": "e73ca4ada9c4ec23c44c065145c43a12f32aadb7feba5ca47d24f9fdd1b4682b",
+      "size": 3718,
       "mode": "100644"
     },
     {
       "path": "static/css/components/_version-history.scss",
-      "sha1": "34a940256b9b79494b813faa25f9d2b688dc36b1",
-      "sha256": "26d8ab07112c47760db8dcd2deb967083c49a1499bfb0d917117fd4561fdcb39",
-      "size": 1576,
+      "sha1": "f520069ec2508ae3e4112708770986e4a150b866",
+      "sha256": "4b2d9be1b877245fc1d62ae944ec59329bde22556766b1b4a54dd505fe48e5e1",
+      "size": 1861,
       "mode": "100644"
     },
     {
@@ -600,9 +600,9 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "50772a0509a222c6bb826ae5d19ac751a770584d",
-      "sha256": "2fda24eecd2367ef44b524dc3650457ffcef6e99ca1b99d8d8181e189a10b5c2",
-      "size": 5328,
+      "sha1": "3ee2c40bcc3312ab9910c349ab3e5adceafda78f",
+      "sha256": "2a8651f07b6e869d8780e0383e4195896742f9e8e2485a9f24c778ce2c820068",
+      "size": 5385,
       "mode": "100644"
     }
   ],

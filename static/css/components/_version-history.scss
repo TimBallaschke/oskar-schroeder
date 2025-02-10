@@ -63,6 +63,24 @@
   padding-left: 3px;
 }
 
+#version-history-placeholder {
+  height: 0px;
+  width: 0;
+  transition: all var(--animation-duration-1) ease-in-out;
+
+  .version-history-opening-1 & {
+    width: 20vw;
+  }
+
+  .version-history-opening-2 & {
+    width: 90vw;
+  }
+
+  .version-history-opening-3 & {
+    width: 90vw;
+  }
+}
+
 #version-history-close {
   position: fixed;
   top: 0;
