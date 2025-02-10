@@ -77,7 +77,14 @@ class ProjectComponent(BaseModel):
 
 class ProjectsList (BaseModel):
     UIType: Literal["projects_list"] = Field(description="Indicates this is a projects list component for displaying a list of projects")
-    layout: ProjectsLayout = Field(default=ProjectsLayout.fullscreen, description="Layout style for displaying the project. Should be fullscreen by default.")
+    layout: ProjectsLayout = Field(
+        default=ProjectsLayout.fullscreen,
+        description=(
+            "Display layout for projects. Defaults to 'fullscreen' to show detailed views of individual projects. "
+            "Switch to 'grid' layout only when the user explicitly requests an overview, filtering, or comparative view "
+            "(for example, 'show all projects made out of wood')."
+        )
+    )
     projects: List[ProjectComponent] = Field(description="A list of projects to be displayed")
 
 # Root level must be a simple object
