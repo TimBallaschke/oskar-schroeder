@@ -138,7 +138,7 @@ function clearContentContainer() {
 
     setTimeout(() => {
         contentContainer.innerHTML = '';
-        
+
         contentContainer.querySelectorAll('*').forEach(element => {
             if (element.tagName.toLowerCase() === 'span' || 
                 element.tagName.toLowerCase() === 'div' || 
@@ -347,8 +347,15 @@ async function handleDelta(content) {
                                 processedFields.add('images');
                                 processedFields.images = new Set(); // Store the Set as a property
                             }
+
+                            if (!processedFields.has('description')) {
+                                processedFields.add('description');
+                                processedFields.description = new Set(); // Store the Set as a property
+                            }
                             
                             const imagesSet = processedFields.images; // Access the Set via property
+                            const descriptionSet = processedFields.description; // Access the Set via property
+
 
                             // Check for new data and add rendering tasks to the queue
                             for (const [key, value] of Object.entries(project)) {
@@ -369,6 +376,24 @@ async function handleDelta(content) {
                                             }
                                         }
                                     }
+                                } else if (key === 'description' && Array.isArray(value)) {
+                                    for (const sentence of value) {
+                                        if (!descriptionSet.has(sentence)) {
+                                            descriptionSet.add(sentence);
+
+                                            projectRenderingQueue.push({
+                                                id: projectID,
+                                                key: 'description',
+                                                value: Array.from(descriptionSet),
+                                                container: projectsContainer
+                                            });
+
+                                            if (!isProjectRendering) {
+                                                renderNextProject();
+                                            }
+                                        }
+                                    }
+
                                 } else if (value && !processedFields.has(key)) {
                                     processedFields.add(key);
 
@@ -635,7 +660,46 @@ async function renderNextProject() {
                         setTimeout(resolve, 400);
                     });
                     break;
+                case 'description':
+                    await new Promise((resolve) => {
+                        let projectDescription = projectItem.querySelector('.project-description');
+                
+                        if (!projectDescription) {
+                            projectDescription = document.createElement('div');
+                            projectDescription.classList.add('project-description', 'no-opacity');
+                            projectItem.appendChild(projectDescription);
+                
+                            setTimeout(() => {
+                                projectDescription.classList.remove('no-opacity');
+                            }, 10);
+                        }
+                
+                        value.forEach(sentence => {
+                            // Create a safe selector by encoding the sentence
+                            const safeSentence = btoa(encodeURIComponent(sentence)); // Encode URI first, then to base64
+                            const existingSentence = projectDescription.querySelector(`[data-sentence="${safeSentence}"]`);
+                            
+                            if (!existingSentence) {
+                                const sentenceElement = document.createElement('p');
+                                sentenceElement.classList.add('project-description-sentence', 'light');
+                                sentenceElement.setAttribute('data-sentence', safeSentence);
+                                sentenceElement.textContent = sentence; // Use original sentence for display
+                                projectDescription.appendChild(sentenceElement);
+                
+                                setTimeout(() => {
+                                    sentenceElement.classList.remove('light');
+                                }, 10);
+                            }
+                        });
+                
+                        setTimeout(resolve, 50);
+                    });
+                    
+                    
+                    
 
+
+                    break;
             }
 
 
