@@ -121,6 +121,8 @@ class ModifiedField(GenericModel, Generic[T]):
 # Now update your ReworkedProjectComponent model using ModifiedField for each field.
 class ReworkedProjectComponent(BaseModel):
 
+    UIType: Literal["project"] = Field(description="Indicates this is a project component that represents an artwork or installation")
+
     name: Optional[ModifiedField[str]] = Field(
         description=(
             "The name of the project or artwork. "
@@ -154,7 +156,7 @@ class ReworkedProjectComponent(BaseModel):
 
 class Response_3(BaseModel):
     type: Literal["response"] = "response"  # Literal makes sure only a certain value is allowed for the type field / Fixed type to ensure root level is a simple object (not a descriminated union)
-    components: ReworkedProjectComponent = Field( # Union allows for a list of different types of components / basically presents a list of options
+    component: ReworkedProjectComponent = Field( # Union allows for a list of different types of components / basically presents a list of options
         description="ReworkedUI component that make up the response"
     )
 

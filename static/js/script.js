@@ -9,6 +9,7 @@ let responseCount = 0;
 let projectRenderingQueue = [];
 let isProjectRendering = false;
 let selectedComponent = null;
+let selectedComponentJSON = null;
 
 // Helper function to get CSS variable value as integer
 function getCSSVarValue(varName, fallback = 0) {
@@ -37,11 +38,12 @@ function sendMessage() {
     toggleLoadingState(true);
     processedComponents.clear(); // Clear processed components for a new request
     renderingQueue = [];  // Clear the rendering queue
-    clearContentContainer();  // Clear the UI content
     input.value = ''; // clears the input field after sending
     inputAdded();
 
     if (document.body.classList.contains('component-selected')) {
+        const selectedComponentJSON = document.querySelector('.selected');
+        selectedComponentJSON.classList.add('light');
         // Send message to backend (Flask server)
         // This is a post request that triggers the function in main.py
         fetch('/content3', {  // HTTP request to the '/content' endpoint of your server using the Fetch API
@@ -50,7 +52,7 @@ function sendMessage() {
                 'Content-Type': 'application/json', // Specifies the type of content being sent
             },
             body: JSON.stringify({
-                message: message + '. Project: ' + selectedComponent,
+                message: message + '. Project: ' + selectedComponentJSON,
             })
         }).then(response => response.json()) // Waits for the response from the server and converts it to a JSON object
         .then(data => { // waits for the response to be converted to a JSON object
@@ -79,6 +81,8 @@ function sendMessage() {
         }).catch(error => { // handles any errors that occur during the request
             console.error('Error sending message:', error); // logs the error to the console
         });
+
+        clearContentContainer();  // Clear the UI content
     }
 }
 
@@ -563,8 +567,8 @@ async function renderNextProject() {
                                             if (component.UIType === 'projects_list' && component.projects) {
                                                 const project = component.projects.find(p => p.name === projectId);
                                                 if (project) {
-                                                    selectedComponent = JSON.stringify(project); // Stringify the project object
-                                                    console.log('Selected project:', selectedComponent);
+                                                    selectedComponentJSON = JSON.stringify(project); // Stringify the project object
+                                                    selectedComponent = projectItem;
                                                     break;
                                                 }
                                             }
@@ -1130,7 +1134,75 @@ function startStreamingComponentRework() {
 };
 
 function handleDeltaRework(content) {
-    console.log('handleDeltaRework', content);
+    if (!content.component || !content.component.UIType) {
+        console.warn("Invalid content structure:", content);
+        return;
+    }
+
+    switch (content.component.UIType) {
+        case "project":
+            const project = content.component;
+
+            if (!selectedComponent) {
+                console.warn(`Project element not found for ID: ${project.name?.value}`);
+                return;
+            }
+
+            const updateField = (selector, value) => {
+                const element = selectedComponent.querySelector(selector);
+                if (element) {
+                    element.textContent = value;
+                } else {
+                    const newElement = document.createElement("div");
+                    newElement.classList.add(selector.replace(".", ""));
+                    newElement.textContent = value;
+                    selectedComponent.appendChild(newElement);
+                }
+            };
+
+            if (project.name && project.name.changed) {
+                updateField(".project-name", project.name.value);
+            }
+
+            if (project.year && project.year.changed) {
+                updateField(".project-year", project.year.value);
+            }
+
+            if (project.material && project.material.changed) {
+                updateField(".project-material", project.material.value);
+            }
+
+            if (project.dimensions && project.dimensions.changed) {
+                updateField(".project-dimensions", project.dimensions.value);
+            }
+
+            if (project.images && project.images.changed) {
+                const imagesContainer = projectElement.querySelector(".project-images") || document.createElement("div");
+                imagesContainer.classList.add("project-images");
+                imagesContainer.innerHTML = ""; // Clear previous images
+
+                project.images.value.forEach(imageUrl => {
+                    const img = document.createElement("img");
+                    img.src = imageUrl;
+                    img.classList.add("project-image");
+                    imagesContainer.appendChild(img);
+                });
+
+                if (!projectElement.contains(imagesContainer)) {
+                    projectElement.appendChild(imagesContainer);
+                }
+            }
+
+            if (project.description && project.description.changed) {
+                updateField(".project-description", project.description.value.join(" "));
+            }
+
+            break;
+
+        default:
+            console.warn(`Unknown UIType: ${content.components.UIType}`);
+            break;
+    }
 }
 
 function handleCompleteRework(content) {
