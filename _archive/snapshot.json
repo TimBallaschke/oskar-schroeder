@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250210l_Oskar_Website_selectedProject_sendingback_rework",
+  "original_folder": "250210m_Oskar_Website_pydenticModel_flags",
   "snapshot_date_from_folder": "250210",
   "source_files": [
     {
@@ -26,16 +26,16 @@
     },
     {
       "path": "main.py",
-      "sha1": "2ea6788cd01aec52e69310cd9b6d37536430a3fd",
-      "sha256": "253d21e528211aed572311657877251b8cc5b5c2ec5ed29533a109f96924d131",
-      "size": 15099,
+      "sha1": "93ba052709b8cf848f047f9852bb534e5ce3619a",
+      "sha256": "c0bac446323aa6f1da0c67acabf385357529fba953e5e50a872abdf4d71a505a",
+      "size": 16520,
       "mode": "100644"
     },
     {
       "path": "prompts.py",
-      "sha1": "88c0a4820e4346bb6ba1fe08890519055d5eb5e3",
-      "sha256": "a33c21dc1aecf3e95b606d67d401675f559f626b3af66a60ea664843040b30e5",
-      "size": 6218,
+      "sha1": "dacb14f77a39848fb81a725703253ebd30f92179",
+      "sha256": "35d7be8b2df8118f95199f7fc81f46d888c2da507a35c2881306512f684361dd",
+      "size": 7237,
       "mode": "100644"
     },
     {

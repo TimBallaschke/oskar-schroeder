@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 import os
 import json
 from pydantic import BaseModel, Field
-from typing import List, Union, Literal, Annotated, Optional
+from pydantic.generics import GenericModel
+from typing import List, Union, Literal, Annotated, Optional, TypeVar, Generic
 from enum import Enum
 from datetime import datetime
 from prompts import prompts  # Import the prompts dictionary
@@ -101,9 +102,59 @@ class Response_2(BaseModel):
     prompt_proposal_3: str = Field(description="A recommendation to the user that offers suggestions or next steps based on the current content")
     prompt_proposal_4: str = Field(description="A recommendation to the user that offers suggestions or next steps based on the current content")
 
+
+
+T = TypeVar("T")
+
+
+# Create a generic wrapper that includes a value and a changed flag.
+class ModifiedField(GenericModel, Generic[T]):
+    changed: bool = Field(
+        description="A boolean flag indicating whether the field's value has been changed compared to the original component."
+    )
+        
+    value: Optional[T] = Field(
+        description="The new value for the field if modified."
+    )
+
+
+# Now update your ReworkedProjectComponent model using ModifiedField for each field.
+class ReworkedProjectComponent(BaseModel):
+
+    name: Optional[ModifiedField[str]] = Field(
+        description=(
+            "The name of the project or artwork. "
+        )
+    )
+    year: Optional[ModifiedField[str]] = Field(
+        description=(
+            "The year the project was created. "
+        )
+    )
+    material: Optional[ModifiedField[str]] = Field(
+        description=(
+            "The primary material used in the project. "
+        )
+    )
+    dimensions: Optional[ModifiedField[str]] = Field(
+        description=(
+            "The physical dimensions of the project. "
+        )
+    )
+    images: Optional[ModifiedField[List[str]]] = Field(
+        description=(
+            "A list of URLs for images. "
+        )
+    )
+    description: Optional[ModifiedField[List[str]]] = Field(
+        description=(
+            "A detailed project description of about 4-8 sentences. "
+        )
+    )
+
 class Response_3(BaseModel):
     type: Literal["response"] = "response"  # Literal makes sure only a certain value is allowed for the type field / Fixed type to ensure root level is a simple object (not a descriminated union)
-    components: Union[ParagraphComponent, ListComponent, TableComponent, ProjectComponent] = Field( # Union allows for a list of different types of components / basically presents a list of options
+    components: ReworkedProjectComponent = Field( # Union allows for a list of different types of components / basically presents a list of options
         description="ReworkedUI component that make up the response"
     )
 
