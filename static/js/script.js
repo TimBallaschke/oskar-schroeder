@@ -186,7 +186,7 @@ async function handleDelta(content) {
 
                     processedComponents.set(componentID, new Map()); // Use a Map to track projects
 
-                    console.log('Processing Component:', componentID);
+                    // console.log('Processing Component:', componentID);
                 }
 
                 const componentMap = processedComponents.get(componentID);
@@ -261,7 +261,6 @@ async function handleDelta(content) {
                             projectsContainer.classList.add('projects-container');
                             projectsContainer.setAttribute('data-component-key', componentID);
                             contentContainer.appendChild(projectsContainer);
-                            console.log('project container created');
 
                             // // Add the project list headline div
                             // const headline = document.createElement('div');
@@ -314,7 +313,6 @@ async function handleDelta(content) {
                         }
 
                         for (const project of component.projects) {
-                            console.log('project of component reached');
 
                             if (!project.name) {
                                 break;
@@ -339,7 +337,6 @@ async function handleDelta(content) {
 
                             // Check for new data and add rendering tasks to the queue
                             for (const [key, value] of Object.entries(project)) {
-                                console.log('key, value Loop reached');
                                 if (key === 'images' && Array.isArray(value)) {
                                     for (const image of value) {
                                         if (!imagesSet.has(image)) {
@@ -850,7 +847,6 @@ document.addEventListener('DOMContentLoaded', () => {
 plusMinusButton.addEventListener('click', togglePromptProposals);
 
 function togglePromptProposals() {
-    console.log('togglePromptProposals');
     const bottomNavigation = document.getElementById('bottom-navigation');
 
     if (!bottomNavigation.classList.contains('prompt-proposal-opening-2')) {

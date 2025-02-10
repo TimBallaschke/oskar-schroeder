@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 import json
 from pydantic import BaseModel, Field
-from typing import List, Union, Literal, Annotated
+from typing import List, Union, Literal, Annotated, Optional
 from enum import Enum
 from datetime import datetime
 from prompts import prompts  # Import the prompts dictionary
@@ -68,6 +68,12 @@ class ProjectComponent(BaseModel):
     material: str = Field(description="Primary material used in the project")
     dimensions: str = Field(description="Physical dimensions of the project")
     images: List[str] = Field(description="A list of URLs for images")
+    description: Optional[List[str]] = Field(
+        description=(
+            "A description of the project, provided only if the user explicitly requests additional details. "
+            "Leave this field empty unless such a request is made."
+        )
+    )
 
 class ProjectsList (BaseModel):
     UIType: Literal["projects_list"] = Field(description="Indicates this is a projects list component for displaying a list of projects")
