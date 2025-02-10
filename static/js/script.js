@@ -8,7 +8,7 @@ let renderingQueue = [];
 let responseCount = 0;
 let projectRenderingQueue = [];
 let isProjectRendering = false;
-let selectedProject = null;
+let selectedComponent = null;
 
 // Helper function to get CSS variable value as integer
 function getCSSVarValue(varName, fallback = 0) {
@@ -49,7 +49,10 @@ function sendMessage() {
             headers: {
                 'Content-Type': 'application/json', // Specifies the type of content being sent
             },
-            body: JSON.stringify({message: message}) // Converts the message to a JSON string and sends it as the body of the request
+            body: JSON.stringify({
+                message: message,
+                component: selectedComponent // Include the selectedComponent in the request
+            })
         }).then(response => response.json()) // Waits for the response from the server and converts it to a JSON object
         .then(data => { // waits for the response to be converted to a JSON object
             if (data.status === "ok") { // checks if the status of the response is "ok"
@@ -561,8 +564,8 @@ async function renderNextProject() {
                                             if (component.UIType === 'projects_list' && component.projects) {
                                                 const project = component.projects.find(p => p.name === projectId);
                                                 if (project) {
-                                                    selectedProject = project;
-                                                    console.log('Selected project:', selectedProject);
+                                                    selectedComponent = project;
+                                                    console.log('Selected project:', selectedComponent);
                                                     break;
                                                 }
                                             }
