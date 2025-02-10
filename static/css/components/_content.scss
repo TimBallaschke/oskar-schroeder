@@ -7,7 +7,7 @@
     .component-selected & {
         .project:not(.selected),
         .paragraph-container:not(.selected) {
-            opacity: 0.1;
+            opacity: 0.3;
         }
     }
 }
@@ -110,7 +110,7 @@
 
         .component-selected & {
             display: block;
-            animation: dotOpacity 2s ease-out infinite;
+            // animation: dotOpacity 2s ease-out infinite;
         }
     }
     
@@ -130,7 +130,7 @@
     
     .project-material {
         grid-area: 2 / 2;
-        transition: height var(--animation-duration-1) ease-in-out, font-variation-settings var(--animation-duration-1) ease-in-out;
+        transition: all var(--animation-duration-1) ease-in-out;
         height: var(--primary-line-height);
         @include text-offset;
     
@@ -145,7 +145,7 @@
     
     .project-dimensions {
         grid-area: 3 / 2;
-        transition: height var(--animation-duration-1) ease-in-out, font-variation-settings var(--animation-duration-1) ease-in-out;
+        transition: all var(--animation-duration-1) ease-in-out;
         height: var(--primary-line-height);
         @include text-offset;
     

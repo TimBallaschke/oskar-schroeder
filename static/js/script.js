@@ -10,6 +10,8 @@ let projectRenderingQueue = [];
 let isProjectRendering = false;
 let selectedComponent = null;
 let selectedComponentJSON = null;
+let reworkRenderingQueue = [];  // Add this with other global variables
+let isReworkProcessing = false; // Add this with other global variables
 
 // Helper function to get CSS variable value as integer
 function getCSSVarValue(varName, fallback = 0) {
@@ -44,6 +46,7 @@ function sendMessage() {
     if (document.body.classList.contains('component-selected')) {
         const selectedComponent = document.querySelector('.selected');
         selectedComponent.classList.add('light');
+        
         // Send message to backend (Flask server)
         // This is a post request that triggers the function in main.py
         fetch('/content3', {  // HTTP request to the '/content' endpoint of your server using the Fetch API
@@ -1133,81 +1136,173 @@ function startStreamingComponentRework() {
     };
 };
 
-function handleDeltaRework(content) {
-    if (!content.component || !content.component.UIType) {
-        console.warn("Invalid content structure:", content);
-        return;
+async function handleDeltaRework(content) {
+    reworkRenderingQueue.push(content);
+    console.log('reworkRenderingQueue.length', reworkRenderingQueue.length);
+
+    if (isReworkProcessing) {
+        return; // Exit if already processing
     }
 
-    switch (content.component.UIType) {
-        case "project":
-            const project = content.component;
+    while (reworkRenderingQueue.length > 0) {
+        try {
+            isReworkProcessing = true;
+            const currentContent = reworkRenderingQueue.shift();
 
-            if (!selectedComponent) {
-                console.warn(`Project element not found for ID: ${project.name?.value}`);
-                return;
+            if (!currentContent.component || !currentContent.component.UIType) {
+                console.warn("Invalid content structure:", currentContent);
+                continue;
             }
 
-            const updateField = (selector, value) => {
-                const element = selectedComponent.querySelector(selector);
-                if (element) {
-                    element.textContent = value;
-                } else {
-                    // Only create new element if selector exists in the original component structure
-                    const selectorExists = selectedComponent.querySelector(selector.split('.')[1]);
-                    if (selectorExists) {
-                        const newElement = document.createElement("div");
-                        newElement.classList.add(selector.replace(".", ""));
-                        newElement.textContent = value;
-                        selectedComponent.appendChild(newElement);
-                    } else {
-                        console.warn(`Element with selector ${selector} not found in component structure`);
+            switch (currentContent.component.UIType) {
+                case "project":
+                    const project = currentContent.component;
+
+                    if (!selectedComponent) {
+                        console.warn(`Project element not found for ID: ${project.name?.value}`);
+                        continue;
                     }
+
+                    const updateField = (selector, value) => {
+                        const element = selectedComponent.querySelector(selector);
+                        if (element) {
+                            element.textContent = value;
+                        } else {
+                            // Only create new element if selector exists in the original component structure
+                            const selectorExists = selectedComponent.querySelector(selector.split('.')[1]);
+                            if (selectorExists) {
+                                const newElement = document.createElement("div");
+                                newElement.classList.add(selector.replace(".", ""));
+                                newElement.textContent = value;
+                                selectedComponent.appendChild(newElement);
+                            } else {
+                                console.warn(`Element with selector ${selector} not found in component structure`);
+                            }
+                        }
+                    };
+
+                    if (project.name && project.name.changed) {
+                        await updateField(".project-name", project.name.value);
+                    }
+
+                    if (project.year && project.year.changed) {
+                        await updateField(".project-year", project.year.value);
+                    }
+
+                    if (project.material && project.material.changed) {
+                        await updateField(".project-material", project.material.value);
+                    }
+
+                    if (project.dimensions && project.dimensions.changed) {
+                        await updateField(".project-dimensions", project.dimensions.value);
+                    } else {
+                        const dimensionsElement = selectedComponent.querySelector('.project-dimensions');
+                        if (dimensionsElement) {
+                            dimensionsElement.classList.remove('light');
+                        }
+                    }
+
+                    if (project.images && project.images.changed) {
+                        const imagesContainer = projectElement.querySelector(".project-images") || document.createElement("div");
+                        imagesContainer.classList.add("project-images");
+                        imagesContainer.innerHTML = ""; // Clear previous images
+
+                        project.images.value.forEach(imageUrl => {
+                            const img = document.createElement("img");
+                            img.src = imageUrl;
+                            img.classList.add("project-image");
+                            imagesContainer.appendChild(img);
+                        });
+
+                        if (!selectedComponent.contains(imagesContainer)) {
+                            selectedComponent.appendChild(imagesContainer);
+                        }
+                    }
+
+                    if (project.description?.changed && Array.isArray(project.description.value)) {
+                        let descriptionContainer = selectedComponent.querySelector('.project-description');
+                        if (!descriptionContainer) {
+                            descriptionContainer = document.createElement('div');
+                            descriptionContainer.classList.add('project-description');
+                            selectedComponent.appendChild(descriptionContainer);
+                        }
+
+                        // Ensure the processed descriptions are tracked
+                        if (!selectedComponent.processedDescriptions) {
+                            selectedComponent.processedDescriptions = new Set();
+                        }
+
+                        for (const sentence of project.description.value) {
+                            if (!selectedComponent.processedDescriptions.has(sentence)) {
+                                selectedComponent.processedDescriptions.add(sentence);
+
+                                await new Promise(resolve => {
+                                    const sentenceContainer = document.createElement('p');
+                                    sentenceContainer.classList.add('project-description-sentence');
+                                    descriptionContainer.appendChild(sentenceContainer);
+
+                                    const words = sentence.split(' ');
+                                    let wordIndex = 0;
+
+                                    function addNextWord() {
+                                        if (wordIndex < words.length) {
+                                            if (wordIndex > 0) {
+                                                sentenceContainer.appendChild(document.createTextNode(' '));
+                                            }
+
+                                            const wordSpan = document.createElement('span');
+                                            wordSpan.textContent = words[wordIndex];
+                                            wordSpan.classList.add('project-description-word', 'light');
+                                            sentenceContainer.appendChild(wordSpan);
+
+                                            setTimeout(() => {
+                                                wordSpan.classList.remove('light');
+                                            }, 10);
+
+                                            wordIndex++;
+                                            setTimeout(addNextWord, 50);
+                                        } else {
+                                            resolve();
+                                        }
+                                    }
+
+                                    addNextWord();
+                                });
+                            }
+                        }
+                    }
+                    break;
+
+                default:
+                    console.warn(`Unknown UIType: ${currentContent.component.UIType}`);
+                    break;
+            }
+        } catch (error) {
+            console.error("Error processing rework content:", error);
+        } finally {
+            isReworkProcessing = false;
+            
+            setTimeout(() => {
+                if (reworkRenderingQueue.length === 0) {
+
+                    console.log('reworkRenderingQueue.length === 0');
+                    // Remove 'light' class from selected component
+                    if (selectedComponent) {
+                        selectedComponent.classList.remove('light');
+                    }
+    
+                    // Remove 'component-selected' from body
+                    document.body.classList.remove('component-selected');
+    
+                    setTimeout(() => {
+                        // Remove 'selected' class from all elements
+                        document.querySelectorAll('.selected').forEach(element => {
+                            element.classList.remove('selected');
+                        });
+                    }, 1000);
                 }
-            };
-
-            if (project.name && project.name.changed) {
-                updateField(".project-name", project.name.value);
-            }
-
-            if (project.year && project.year.changed) {
-                updateField(".project-year", project.year.value);
-            }
-
-            if (project.material && project.material.changed) {
-                updateField(".project-material", project.material.value);
-            }
-
-            if (project.dimensions && project.dimensions.changed) {
-                updateField(".project-dimensions", project.dimensions.value);
-            }
-
-            if (project.images && project.images.changed) {
-                const imagesContainer = projectElement.querySelector(".project-images") || document.createElement("div");
-                imagesContainer.classList.add("project-images");
-                imagesContainer.innerHTML = ""; // Clear previous images
-
-                project.images.value.forEach(imageUrl => {
-                    const img = document.createElement("img");
-                    img.src = imageUrl;
-                    img.classList.add("project-image");
-                    imagesContainer.appendChild(img);
-                });
-
-                if (!projectElement.contains(imagesContainer)) {
-                    projectElement.appendChild(imagesContainer);
-                }
-            }
-
-            if (project.description && project.description.changed) {
-                updateField(".project-description", project.description.value.join(" "));
-            }
-
-            break;
-
-        default:
-            console.warn(`Unknown UIType: ${content.components.UIType}`);
-            break;
+            }, 2000);
+        }
     }
 }
 

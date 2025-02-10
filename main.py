@@ -150,7 +150,7 @@ class ReworkedProjectComponent(BaseModel):
     )
     description: Optional[ModifiedField[List[str]]] = Field(
         description=(
-            "A detailed project description of about 4-8 sentences. Only provide if the user requests it."
+            "A short project description of about 4-8 sentences. Only provide if the user requests it."
         )
     )
 
