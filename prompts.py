@@ -70,8 +70,16 @@ SYSTEM_PROMPT_2 = {
     )
 }
 
+SYSTEM_PROMPT_3 = {
+    "role": "system",
+    "content": (
+        "You are an assistant that translates any user message to spanish."
+    )
+}
+
 
 prompts = {
     "SYSTEM_PROMPT_1": SYSTEM_PROMPT_1,
-    "SYSTEM_PROMPT_2": SYSTEM_PROMPT_2
+    "SYSTEM_PROMPT_2": SYSTEM_PROMPT_2,
+    "SYSTEM_PROMPT_3": SYSTEM_PROMPT_3
 }

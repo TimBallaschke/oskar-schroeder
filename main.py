@@ -101,6 +101,11 @@ class Response_2(BaseModel):
     prompt_proposal_3: str = Field(description="A recommendation to the user that offers suggestions or next steps based on the current content")
     prompt_proposal_4: str = Field(description="A recommendation to the user that offers suggestions or next steps based on the current content")
 
+class Response_3(BaseModel):
+    type: Literal["response"] = "response"  # Literal makes sure only a certain value is allowed for the type field / Fixed type to ensure root level is a simple object (not a descriminated union)
+    paragraphs: List[str] = Field(description="The text content of the paragraph. Every sentence should be a separate paragraph.")
+
+
 
 
 
@@ -122,7 +127,7 @@ def index():
     # [] holds a list in python (used to store key-value pairs – comparable to objects in JavaScript)
     session['messages_1'] = [prompts["SYSTEM_PROMPT_1"]]
     session['messages_2'] = [prompts["SYSTEM_PROMPT_2"]]
-
+    session['messages_3'] = [prompts["SYSTEM_PROMPT_3"]]
     # Render the main chat interface (render_template is a function in Flask that locates and loads an HTML File)
     return render_template('index.html')
 
@@ -247,6 +252,55 @@ def handle_second_chatbot(final_completion):
         print("\n=== Second Chatbot Error ===")
         print(str(e))
         yield f"data: {json.dumps({'type': 'error', 'content': str(e)})}\n\n"
+
+@app.route('/content3', methods=['POST'])
+def content3():
+    user_message = request.json['message']
+    
+    # Initialize message list for chatbot 3 if not in session
+    if 'messages_3' not in session:
+        session['messages_3'] = [prompts["SYSTEM_PROMPT_3"]]
+    
+    messages_3 = session['messages_3']
+    messages_3.append({"role": "user", "content": user_message})
+    session.modified = True
+    
+    return jsonify({"status": "ok"})
+
+@app.route('/stream3')
+def stream3():
+    messages_3 = session.get('messages_3', [])
+    
+    def generate():
+        with client.beta.chat.completions.stream(
+            model="gpt-4o-mini",
+            messages=messages_3,
+            temperature=0.5,
+            max_tokens=2048,
+            response_format=Response_3,
+        ) as stream:
+            for event in stream:
+                if event.type == "content.delta":
+                    if event.parsed is not None:
+                        print("\n=== Delta Update ===")
+                        print(json.dumps(event.parsed, indent=2))
+                        yield f"data: {json.dumps({'type': 'delta', 'content': event.parsed})}\n\n"
+                elif event.type == "content.done":
+                    final_completion = stream.get_final_completion().choices[0].message.parsed
+                    print("\n=== Final Completion ===")
+                    print(json.dumps(final_completion.model_dump(), indent=2))
+
+                    messages_3.append({
+                        "role": "assistant",
+                        "content": json.dumps(final_completion.model_dump())
+                    })
+                    session.modified = True
+                    yield f"data: {json.dumps({'type': 'complete', 'content': final_completion.model_dump()})}\n\n"
+                elif event.type == "error":
+                    yield f"data: {json.dumps({'type': 'error', 'content': str(event.error)})}\n\n"
+    
+    return Response(stream_with_context(generate()), content_type="text/event-stream")
+
 
 # Run the Flask application if this file is run directly
 # this condition checks if the script is being run directly (not imported as a module in another script);
