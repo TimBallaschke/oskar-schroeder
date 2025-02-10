@@ -123,6 +123,14 @@ p:not(:first-of-type) {
   opacity: 0;
 }
 
+.paragraph-container {
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+
+.paragraph-word {
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+
 .project-list-headline {
   display: grid;
   grid-template-columns: 20px 1fr;
@@ -195,15 +203,12 @@ p:not(:first-of-type) {
 }
 .fullscreen .project-name {
   grid-area: 1/2;
-  transition: all var(--animation-duration-1) ease-in-out;
   height: var(--primary-line-height);
+  transition: all var(--animation-duration-1) ease-in-out;
   transform: translateY(7px);
 }
 .fullscreen .project-name.no-height {
   height: 0px;
-}
-.fullscreen .project-year {
-  transition: all var(--animation-duration-1) ease-in-out;
 }
 .fullscreen .project-material {
   grid-area: 2/2;

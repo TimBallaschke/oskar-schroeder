@@ -56,17 +56,17 @@ SYSTEM_PROMPT_2 = {
         "They should suggest ways to interact further—for example, requesting more project details, filtering projects by specific criteria (like material, dimensions, or thematic focus), or exploring related aspects such as exhibitions or the artist’s biography.\n\n"
         
         "   ### Example Prompt Suggestions:\n"
-        "   - provide project descriptions\n"
-        "   - show oskars exhibitions\n"
-        "   - tell me about oskars cv\n"
-        "   - show projects made of wood\n"
-        "   - how old is oskar\n"
-        "   - topics in oskars work\n"
-        "   - upcoming exhibitions\n"
-        "   - oskar work references\n"
-        "   - similar project topics\n"
-        "   - largest project\n"
-        "   - convert dimensions to inches\n"
+        "   - Provide project descriptions\n"
+        "   - Show oskars exhibitions\n"
+        "   - Tell me about oskars cv\n"
+        "   - Show projects made of wood\n"
+        "   - How old is oskar\n"
+        "   - Topics in oskars work\n"
+        "   - Upcoming exhibitions\n"
+        "   - Oskar work references\n"
+        "   - Similar project topics\n"
+        "   - Largest project\n"
+        "   - Convert dimensions to inches\n"
     )
 }
 

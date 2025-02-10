@@ -16,6 +16,14 @@
     opacity: 0;
 }
 
+.paragraph-container {
+    transition: all var(--animation-duration-1) ease-in-out;
+}
+
+.paragraph-word {
+    transition: all var(--animation-duration-1) ease-in-out;
+}
+
 .project-list-headline {
     display: grid;
     grid-template-columns: 20px 1fr;
@@ -103,8 +111,8 @@
     
     .project-name {
         grid-area: 1 / 2;
-        transition: all var(--animation-duration-1) ease-in-out;
         height: var(--primary-line-height);
+        transition: all var(--animation-duration-1) ease-in-out;
         @include text-offset;
     
         &.no-height {
@@ -113,7 +121,6 @@
     }
     
     .project-year {
-        transition: all var(--animation-duration-1) ease-in-out;
     }
     
     .project-material {

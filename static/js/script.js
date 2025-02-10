@@ -124,17 +124,32 @@ function toggleLoadingState(isLoading) {
 }
 
 function clearContentContainer() {
-    contentContainer.classList.add('light');
+    contentContainer.querySelectorAll('*').forEach(element => {
+        if (element.tagName.toLowerCase() === 'span' || 
+            element.tagName.toLowerCase() === 'div' || 
+            element.tagName.toLowerCase() === 'p') {
+            element.classList.add('light');
+        }
+    });
 
     setTimeout(() => {
         contentContainer.classList.add('no-opacity');
-    }, 200);
+    }, 400);
 
     setTimeout(() => {
-        contentContainer.innerHTML = '';  // Clears all previous components
+        contentContainer.innerHTML = '';
+        
+        contentContainer.querySelectorAll('*').forEach(element => {
+            if (element.tagName.toLowerCase() === 'span' || 
+                element.tagName.toLowerCase() === 'div' || 
+                element.tagName.toLowerCase() === 'p') {
+                element.classList.remove('light');
+            }
+        });
+
         contentContainer.classList.remove('no-opacity');
-        contentContainer.classList.remove('light');
-    }, 500);
+
+    }, 700);
 
 
 }
