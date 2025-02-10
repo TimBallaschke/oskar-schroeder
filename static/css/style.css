@@ -282,6 +282,16 @@ p:not(:first-of-type) {
   height: var(--primary-line-height);
   transform: translateY(7px);
 }
+.fullscreen .project-description {
+  padding-top: var(--primary-line-height);
+  padding-bottom: 10px;
+}
+.fullscreen .project-description-paragraph {
+  display: inline;
+}
+.fullscreen .project-description-word {
+  transition: all var(--animation-duration-1) ease-in-out;
+}
 
 .grid {
   display: grid;

@@ -70,8 +70,8 @@ class ProjectComponent(BaseModel):
     images: List[str] = Field(description="A list of URLs for images")
     description: Optional[List[str]] = Field(
         description=(
-            "A description of the project, provided only if the user explicitly requests additional details. "
-            "Leave this field empty unless such a request is made."
+            "A detailed project description of about 4-8 sentences. Provide this only when the user explicitly requests additional details. "
+            "Do not include an extended narrative unless it is specifically asked for."
         )
     )
 

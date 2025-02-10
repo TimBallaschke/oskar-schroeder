@@ -674,25 +674,80 @@ async function renderNextProject() {
                             }, 10);
                         }
                 
-                        value.forEach(sentence => {
-                            // Create a safe selector by encoding the sentence
-                            const safeSentence = btoa(encodeURIComponent(sentence)); // Encode URI first, then to base64
-                            const existingSentence = projectDescription.querySelector(`[data-sentence="${safeSentence}"]`);
-                            
-                            if (!existingSentence) {
-                                const sentenceElement = document.createElement('p');
-                                sentenceElement.classList.add('project-description-sentence', 'light');
-                                sentenceElement.setAttribute('data-sentence', safeSentence);
-                                sentenceElement.textContent = sentence; // Use original sentence for display
-                                projectDescription.appendChild(sentenceElement);
-                
+                        // Use for...of instead of forEach for proper async iteration
+                        async function addSentences() {
+                            let projectDescription = projectItem.querySelector('.project-description');
+
+                            if (!projectDescription) {
+                                projectDescription = document.createElement('div');
+                                projectDescription.classList.add('project-description', 'no-opacity');
+                                projectItem.appendChild(projectDescription);
+
                                 setTimeout(() => {
-                                    sentenceElement.classList.remove('light');
+                                    projectDescription.classList.remove('no-opacity');
                                 }, 10);
                             }
-                        });
-                
-                        setTimeout(resolve, 50);
+
+                            // Create a single paragraph for all sentences
+                            const paragraphElement = document.createElement('p');
+                            paragraphElement.classList.add('project-description-paragraph');
+                            projectDescription.appendChild(paragraphElement);
+
+                            // Process each sentence
+                            for (const sentence of value) {
+                                const safeSentence = btoa(encodeURIComponent(sentence));
+                                
+                                // Only process if this sentence hasn't been added yet
+                                if (!projectDescription.querySelector(`[data-sentence="${safeSentence}"]`)) {
+                                    await new Promise((sentenceResolve) => {
+                                        // Add space between sentences if not the first sentence
+                                        if (paragraphElement.childNodes.length > 0) {
+                                            paragraphElement.appendChild(document.createTextNode(' '));
+                                        }
+
+                                        // Create a span to group the sentence (optional, for tracking)
+                                        const sentenceSpan = document.createElement('span');
+                                        sentenceSpan.setAttribute('data-sentence', safeSentence);
+                                        paragraphElement.appendChild(sentenceSpan);
+
+                                        // Split sentence into words and add them one by one
+                                        const words = sentence.split(' ');
+                                        let wordIndex = 0;
+
+                                        function addNextWord() {
+                                            if (wordIndex < words.length) {
+                                                // Add space before word (except for first word)
+                                                if (wordIndex > 0) {
+                                                    sentenceSpan.appendChild(document.createTextNode(' '));
+                                                }
+                                                
+                                                // Create span for the word
+                                                const wordSpan = document.createElement('span');
+                                                wordSpan.textContent = words[wordIndex];
+                                                wordSpan.classList.add('project-description-word', 'light');
+                                                sentenceSpan.appendChild(wordSpan);
+
+                                                // Remove light class after brief delay
+                                                setTimeout(() => {
+                                                    wordSpan.classList.remove('light');
+                                                }, 10);
+
+                                                wordIndex++;
+                                                // Add delay between words
+                                                setTimeout(addNextWord, 50);
+                                            } else {
+                                                sentenceResolve();
+                                            }
+                                        }
+
+                                        addNextWord();
+                                    });
+                                }
+                            }
+                        }
+
+                        // Call the async function and resolve when complete
+                        addSentences().then(() => resolve());
                     });
                     
                     

@@ -209,6 +209,19 @@
         height: var(--primary-line-height);
         @include text-offset;
     }
+
+    .project-description {
+        padding-top: var(--primary-line-height);
+        padding-bottom: 10px;
+    }
+
+    .project-description-paragraph {
+        display: inline;
+    }
+
+    .project-description-word {
+        transition: all var(--animation-duration-1) ease-in-out;
+    }
 }
 
 .grid {
