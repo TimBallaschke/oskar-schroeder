@@ -50,8 +50,7 @@ function sendMessage() {
                 'Content-Type': 'application/json', // Specifies the type of content being sent
             },
             body: JSON.stringify({
-                message: message,
-                component: selectedComponent // Include the selectedComponent in the request
+                message: message + '. Project: ' + selectedComponent,
             })
         }).then(response => response.json()) // Waits for the response from the server and converts it to a JSON object
         .then(data => { // waits for the response to be converted to a JSON object
@@ -564,7 +563,7 @@ async function renderNextProject() {
                                             if (component.UIType === 'projects_list' && component.projects) {
                                                 const project = component.projects.find(p => p.name === projectId);
                                                 if (project) {
-                                                    selectedComponent = project;
+                                                    selectedComponent = JSON.stringify(project); // Stringify the project object
                                                     console.log('Selected project:', selectedComponent);
                                                     break;
                                                 }

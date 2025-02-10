@@ -308,6 +308,7 @@ def handle_second_chatbot(final_completion):
 @app.route('/content3', methods=['POST'])
 def content3():
     user_message = request.json['message']
+    print(user_message)
     
     # Initialize message list for chatbot 3 if not in session
     if 'messages_3' not in session:

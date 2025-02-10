@@ -73,25 +73,24 @@ SYSTEM_PROMPT_2 = {
 SYSTEM_PROMPT_3 = {
     "role": "system",
     "content": (
-        "You are an editor and reformatter for the artist Oskar Schroeder. Your task is to take a provided JSON object representing a UI component, "
-        "along with a specific task instruction, and rework or reformat that component according to the instruction. The reworked component must strictly adhere to "
-        "the specified UI schema and include only data about Oskar Schroeder, his artworks/projects, and exhibitions.\n\n"
+        "You are an editor and reformatter for the artist Oskar Schroeder. You will be provided with a JSON object representing a project UI component, "
+        "along with a clear task instruction. Your job is to return exactly the same project. "
+        "However, for each field in the component, you must wrap its content inside an object with two keys: 'value' and 'changed'.\n\n"
         
-        "IMPORTANT: In your output, every field must be represented as an object with two keys: 'value' and 'changed'. The 'value' key holds the updated content for the field, "
-        "and the 'changed' key is a boolean indicating whether that field has been modified compared to the original component. Return all fields; mark 'changed' as true only "
-        "for fields whose values have been altered, and false for fields that remain the same.\n\n"
+        "Specifically:\n"
+        "- **'value':** Contains the current (possibly updated) content of the field.\n"
+        "- **'changed':** A boolean that is true if the field’s value has been modified according to the task instruction, or false if it remains identical to the original.\n\n"
+        
+        "IMPORTANT:\n"
+        "- Do not modify, add, or remove any keys from the provided project component. The output must be identical in structure to the input.\n"
+        "- For each field, if no change is required, return the original value under 'value' and set 'changed' to false. If the task instructs an update for a field, update its 'value' accordingly and set 'changed' to true.\n\n"
         
         "For example:\n"
-        "- If the user requests an updated description, then the 'description' field should have its 'value' set to the new description and 'changed' set to true, "
-        "while all other fields should have 'changed': false.\n"
-        "- If the user asks to convert the dimensions to a different unit, then the 'dimensions' field should have its 'value' updated accordingly and 'changed' set to true, "
-        "with the other fields marked as false.\n\n"
+        "- If the task is to update the description, then the output's 'description' field should have its 'value' set to the new description and 'changed' set to true, "
+        "while all other fields are returned exactly as they were (with 'changed' set to false).\n"
+        "- If the task is to convert the dimensions to a different unit, then only the 'dimensions' field should be updated (with 'changed': true), and the rest of the component must remain unchanged (with 'changed': false).\n\n"
         
-        "When processing the UI component:\n"
-        "- Use only the provided artist data. Do not add any external or additional information.\n"
-        "- Reformat, restructure, or enhance the component exactly as directed in the task instruction.\n"
-        "- Deliver your response incrementally in small chunks (e.g., streaming sentences) rather than large blocks of text.\n"
-        "- Ensure your final output follows the specified structured format exactly, including the 'value' and 'changed' keys for every field.\n\n"
+        "Remember: Return exactly the project component you were provided with. Do not change the structure or keys—simply wrap each field's content in an object with the keys 'value' and 'changed' as described.\n\n"
         
         "Available information about the artist:\n"
         f"{data['artist_info']}\n\n"
@@ -116,9 +115,10 @@ SYSTEM_PROMPT_3 = {
         f"{data['exhibition_data_9']}\n"
         f"{data['exhibition_data_10']}\n\n"
         
-        "Task Instruction: You will receive a JSON object representing a UI component along with a clear task instruction. "
-        "Your job is to rework the provided component according to the instruction. In your output, every field must be represented as an object with two keys: "
-        "'value' and 'changed'. Set 'changed' to true if a field's value is different from the original component, and false if it remains unchanged."
+        "Task Instruction: You will receive a JSON object representing a project UI component along with a clear task instruction. "
+        "Your job is to rework the provided component exactly as directed. In your output, every field must be represented as an object with two keys: 'value' and 'changed'. "
+        "Set 'changed' to true if a field's value is different from the original component and update its 'value' accordingly; otherwise, set it to false. "
+        "Return the entire component without modifying its structure."
     )
 }
 
