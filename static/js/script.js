@@ -302,8 +302,7 @@ async function handleDelta(content) {
                             if (!projectsContainer.classList.contains('fullscreen') && !projectsContainer.classList.contains('grid')) {
                                 if (component.layout === 'fullscreen') {
                                     projectsContainer.classList.add('fullscreen');
-                                }
-                                if (component.layout === 'grid') {
+                                } else if (component.layout === 'grid') {
                                     projectsContainer.classList.add('grid');
                                 }
                             }
