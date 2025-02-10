@@ -8,6 +8,7 @@ let renderingQueue = [];
 let responseCount = 0;
 let projectRenderingQueue = [];
 let isProjectRendering = false;
+let selectedProject = null;
 
 // Helper function to get CSS variable value as integer
 function getCSSVarValue(varName, fallback = 0) {
@@ -547,11 +548,29 @@ async function renderNextProject() {
                             const dot = document.createElement('div');
                             dot.classList.add('project-dot', 'small');
 
-                            // Add click event listener to dot
+                                        // Modified click event listener
                             dot.addEventListener('click', () => {
                                 document.body.classList.add('component-selected');
                                 projectItem.classList.add('selected');
+                                
+                                // Find the project data in responseMap
+                                const projectId = projectItem.getAttribute('data-project-id');
+                                for (const response of Object.values(responseMap)) {
+                                    if (response.components) {
+                                        for (const component of response.components) {
+                                            if (component.UIType === 'projects_list' && component.projects) {
+                                                const project = component.projects.find(p => p.name === projectId);
+                                                if (project) {
+                                                    selectedProject = project;
+                                                    console.log('Selected project:', selectedProject);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             });
+
 
                             projectInfo.appendChild(dotContainer);
                             projectItem.appendChild(projectInfo);
