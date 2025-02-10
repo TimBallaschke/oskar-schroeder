@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250210o_Oskar_Website_selectedComponent_HTML_element",
+  "original_folder": "250210p_Oskar_Website_pydentic_Rework",
   "snapshot_date_from_folder": "250210",
   "source_files": [
     {
@@ -26,9 +26,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "cc235343c5fee1c10ed1afb5c4ce46fb5f71c6f7",
-      "sha256": "8c926c718f107f465bee165671b01814f075a927ef766a476eb2371d0c1caef8",
-      "size": 16679,
+      "sha1": "62897236ea8f7e2d7128e6c2dc84d174cdd8f00b",
+      "sha256": "8027215f4c72407462a482a73cb2eaa936c416dd800bd74379cb18dc67132716",
+      "size": 16706,
       "mode": "100644"
     },
     {
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "63f14dae241bbacb8b246f6339996e7e98d6bc40",
-      "sha256": "c2f370fe1da29380ac8c4e3d55032f119825d20811c4d413a0f3755507797b3f",
-      "size": 58238,
+      "sha1": "ae68fd5e137f4c4772a473357ff0baf0a51cb2db",
+      "sha256": "25bbe3bdf636a22b97a4e4e0ecdc90fe759d9cf3cda56719ea952e8e37804ab9",
+      "size": 58649,
       "mode": "100644"
     },
     {

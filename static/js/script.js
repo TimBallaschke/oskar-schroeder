@@ -42,8 +42,8 @@ function sendMessage() {
     inputAdded();
 
     if (document.body.classList.contains('component-selected')) {
-        const selectedComponentJSON = document.querySelector('.selected');
-        selectedComponentJSON.classList.add('light');
+        const selectedComponent = document.querySelector('.selected');
+        selectedComponent.classList.add('light');
         // Send message to backend (Flask server)
         // This is a post request that triggers the function in main.py
         fetch('/content3', {  // HTTP request to the '/content' endpoint of your server using the Fetch API
@@ -1153,10 +1153,16 @@ function handleDeltaRework(content) {
                 if (element) {
                     element.textContent = value;
                 } else {
-                    const newElement = document.createElement("div");
-                    newElement.classList.add(selector.replace(".", ""));
-                    newElement.textContent = value;
-                    selectedComponent.appendChild(newElement);
+                    // Only create new element if selector exists in the original component structure
+                    const selectorExists = selectedComponent.querySelector(selector.split('.')[1]);
+                    if (selectorExists) {
+                        const newElement = document.createElement("div");
+                        newElement.classList.add(selector.replace(".", ""));
+                        newElement.textContent = value;
+                        selectedComponent.appendChild(newElement);
+                    } else {
+                        console.warn(`Element with selector ${selector} not found in component structure`);
+                    }
                 }
             };
 

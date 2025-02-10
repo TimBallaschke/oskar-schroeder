@@ -113,7 +113,7 @@ class ModifiedField(GenericModel, Generic[T]):
         description="A boolean flag indicating whether the field's value has been changed compared to the original component."
     )
         
-    value: Optional[T] = Field(
+    value: T = Field(
         description="The new value for the field if modified."
     )
 
@@ -150,7 +150,7 @@ class ReworkedProjectComponent(BaseModel):
     )
     description: Optional[ModifiedField[List[str]]] = Field(
         description=(
-            "A detailed project description of about 4-8 sentences. "
+            "A detailed project description of about 4-8 sentences. Only provide if the user requests it."
         )
     )
 
