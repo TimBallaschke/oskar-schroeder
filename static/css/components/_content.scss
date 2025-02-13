@@ -400,10 +400,10 @@
     width: 1px;
     background-color: black;
     height: var(--project-line-height);
+    transition: height var(--animation-duration-1) ease-in-out;
     position: fixed;
     bottom: var(--project-line-bottom);
     left: 1px;
-    transition: all var(--animation-duration-1) ease-in-out;
 
     &.no-height {
         height: 0px;
@@ -411,10 +411,6 @@
 
     &.top-fixed {
         top: var(--project-line-top);
-    }
-
-    &.no-transition {
-        transition: unset;
     }
 }
 

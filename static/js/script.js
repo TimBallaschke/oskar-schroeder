@@ -1406,15 +1406,5 @@ function openProjectLine(button) {
     setTimeout(() => {
         document.body.classList.remove('no-scroll');
         projectLine.classList.remove('top-fixed');
-        projectLine.classList.add('no-transition');
     }, animationDuration + 10);
-
-    const updateLineHeight = () => {
-        const newButtonRect = button.getBoundingClientRect();
-        const newLineHeight = window.innerHeight - newButtonRect.bottom - lineBottom;
-        setCSSVarValue('--project-line-height', newLineHeight);
-        setCSSVarValue('--project-line-top', newButtonRect.bottom);
-    };
-
-    window.addEventListener('scroll', updateLineHeight);
 }
