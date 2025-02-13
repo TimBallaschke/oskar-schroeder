@@ -1385,19 +1385,19 @@ projectButton.forEach(button => {
 
 function openProjectLine(button) {
     console.log('openProjectLine');
-    console.log(button);
     const buttonRect = button.getBoundingClientRect();
-    console.log(buttonRect.bottom);
     const lineBottom = getCSSVarValue('--project-line-bottom');
-    console.log(lineBottom);
+    const lineTop = buttonRect.bottom;
     const lineHeight = window.innerHeight - buttonRect.bottom - lineBottom;
 
     const projectLine = document.createElement('div');
     projectLine.classList.add('project-line', 'no-height', 'top-fixed');
+    
+    setCSSVarValue('--project-line-height', lineHeight);
+    setCSSVarValue('--project-line-top', lineTop);
+    
     contentContainer.appendChild(projectLine);
     document.body.classList.add('no-scroll');
-
-    setCSSVarValue('--project-line-height', lineHeight);
 
     setTimeout(() => {
         projectLine.classList.remove('no-height');
@@ -1406,5 +1406,15 @@ function openProjectLine(button) {
     setTimeout(() => {
         document.body.classList.remove('no-scroll');
         projectLine.classList.remove('top-fixed');
+        projectLine.classList.add('no-transition');
     }, animationDuration + 10);
+
+    const updateLineHeight = () => {
+        const newButtonRect = button.getBoundingClientRect();
+        const newLineHeight = window.innerHeight - newButtonRect.bottom - lineBottom;
+        setCSSVarValue('--project-line-height', newLineHeight);
+        setCSSVarValue('--project-line-top', newButtonRect.bottom);
+    };
+
+    window.addEventListener('scroll', updateLineHeight);
 }

@@ -14,6 +14,7 @@
   --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
   --project-line-height: 100px;
   --project-line-bottom: calc(var(--margin-bottom-nav) + (var(--veritical-padding-bottom-nav) * 2 + var(--input-element-height)) / 2);
+  --project-line-top: 0;
 }
 
 html {
@@ -447,13 +448,19 @@ p:not(:first-of-type) {
   width: 1px;
   background-color: black;
   height: var(--project-line-height);
-  transition: height var(--animation-duration-1) ease-in-out;
   position: fixed;
   bottom: var(--project-line-bottom);
   left: 1px;
+  transition: all var(--animation-duration-1) ease-in-out;
 }
 .project-line.no-height {
   height: 0px;
+}
+.project-line.top-fixed {
+  top: var(--project-line-top);
+}
+.project-line.no-transition {
+  transition: unset;
 }
 
 #bottom-navigation-container {
