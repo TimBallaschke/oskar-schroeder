@@ -15,8 +15,32 @@ let isReworkProcessing = false; // Add this with other global variables
 
 // Helper function to get CSS variable value as integer
 function getCSSVarValue(varName, fallback = 0) {
-    return parseInt(getComputedStyle(document.documentElement)
-        .getPropertyValue(varName).trim()) || fallback;
+    const value = getComputedStyle(document.documentElement)
+        .getPropertyValue(varName).trim();
+        
+    // If the value contains calc(), let the browser compute it
+    if (value.includes('calc')) {
+        // Create a temporary div to compute the calculated value
+        const temp = document.createElement('div');
+        temp.style.setProperty('visibility', 'hidden');
+        temp.style.setProperty('position', 'absolute');
+        temp.style.setProperty('height', value);
+        document.body.appendChild(temp);
+        
+        // Get the computed height in pixels
+        const computed = parseInt(getComputedStyle(temp).height);
+        
+        // Clean up
+        document.body.removeChild(temp);
+        
+        return computed || fallback;
+    }
+    
+    return parseInt(value) || fallback;
+}
+
+function setCSSVarValue(varName, value, unit = 'px') {
+    document.documentElement.style.setProperty(varName, `${value}${unit}`);
 }
 
 const contentContainer = document.getElementById('content-container');
@@ -164,7 +188,7 @@ function clearContentContainer() {
 
     setTimeout(() => {
         contentContainer.classList.add('no-opacity');
-    }, 400);
+    }, 600);
 
     setTimeout(() => {
         contentContainer.innerHTML = '';
@@ -179,7 +203,7 @@ function clearContentContainer() {
 
         contentContainer.classList.remove('no-opacity');
 
-    }, 700);
+    }, 800);
 
 
 }
@@ -1301,7 +1325,7 @@ async function handleDeltaRework(content) {
                         });
                     }, 1000);
                 }
-            }, 2000);
+            }, 2500);
         }
     }
 }
@@ -1349,3 +1373,38 @@ function inputAdded() {
     }
 }
 
+
+
+const projectButton = document.querySelectorAll('.project-dot');
+
+projectButton.forEach(button => {
+    button.addEventListener('click', () => {
+        openProjectLine(button);
+    });
+});
+
+function openProjectLine(button) {
+    console.log('openProjectLine');
+    console.log(button);
+    const buttonRect = button.getBoundingClientRect();
+    console.log(buttonRect.bottom);
+    const lineBottom = getCSSVarValue('--project-line-bottom');
+    console.log(lineBottom);
+    const lineHeight = window.innerHeight - buttonRect.bottom - lineBottom;
+
+    const projectLine = document.createElement('div');
+    projectLine.classList.add('project-line', 'no-height', 'top-fixed');
+    contentContainer.appendChild(projectLine);
+    document.body.classList.add('no-scroll');
+
+    setCSSVarValue('--project-line-height', lineHeight);
+
+    setTimeout(() => {
+        projectLine.classList.remove('no-height');
+    }, 10);
+
+    setTimeout(() => {
+        document.body.classList.remove('no-scroll');
+        projectLine.classList.remove('top-fixed');
+    }, animationDuration + 10);
+}
