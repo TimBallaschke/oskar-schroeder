@@ -1375,6 +1375,11 @@ function inputAdded() {
 
 
 
+
+
+
+// PROJECT LINE
+
 const projectButton = document.querySelectorAll('.project-dot');
 
 projectButton.forEach(button => {

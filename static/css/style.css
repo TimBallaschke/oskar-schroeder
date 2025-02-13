@@ -39,6 +39,7 @@ body {
   font-family: "Friedl";
   font-variation-settings: "wght" 675;
   transition: font-variation-settings 0.4s ease;
+  overscroll-behavior: none; /* Prevents overscroll/bounce effect */
 }
 
 .component-selected {
