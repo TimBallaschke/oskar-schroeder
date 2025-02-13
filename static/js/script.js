@@ -1406,5 +1406,23 @@ function openProjectLine(button) {
     setTimeout(() => {
         document.body.classList.remove('no-scroll');
         projectLine.classList.remove('top-fixed');
+        projectLine.classList.add('no-transition');
     }, animationDuration + 10);
+
+    const updateLineHeight = () => {
+
+        const newButtonRect = button.getBoundingClientRect();
+        const newLineHeight = Math.abs(window.innerHeight - newButtonRect.bottom - lineBottom);
+
+        if (newButtonRect.bottom >= window.innerHeight - lineBottom) {
+            projectLine.classList.add('rotate');
+        } else {
+            projectLine.classList.remove('rotate');
+        }
+
+        setCSSVarValue('--project-line-height', newLineHeight);
+        setCSSVarValue('--project-line-top', newButtonRect.bottom);
+    };
+
+    window.addEventListener('scroll', updateLineHeight);
 }
