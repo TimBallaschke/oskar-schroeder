@@ -230,7 +230,7 @@ p:not(:first-of-type) {
   transition: all var(--animation-duration-1) ease-in-out;
   height: var(--secondary-line-height);
   font-size: var(--secondary-font-size);
-  text-transform: uppercase;
+  text-transform: capitalize;
   transform: translateY(9.5px);
 }
 .fullscreen .project-material-dimensions.no-height {
@@ -294,7 +294,7 @@ p:not(:first-of-type) {
   width: 50px;
   transform: translateY(-11px);
   font-size: var(--secondary-font-size);
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 .fullscreen .image-counter::before, .fullscreen .image-counter::after {
   content: "";
@@ -732,7 +732,7 @@ input {
 .version-history-element-digits {
   transform: translateY(1px);
   font-size: var(--secondary-font-size);
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 .version-history-element-title {
