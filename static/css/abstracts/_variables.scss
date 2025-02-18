@@ -30,6 +30,11 @@ $background-color: #E2E4E9;
   --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
 
   // Content Container
+
+  // Project Dot
+  --dot-column-width: 37px;
+
+  // Project Line
   --project-line-height: 100px;
   --project-line-bottom: calc(var(--margin-bottom-nav) + (var(--veritical-padding-bottom-nav) * 2 + var(--input-element-height)) / 2);
   --project-line-top: 0;

@@ -1401,7 +1401,10 @@ function selectComponent(button, element) {
         element.classList.add('selected');
 
         getComponentData(element);
-        openButtonLine(button);
+        setTimeout(() => {
+            openButtonLine(button);
+        }, animationDuration);
+
     } else {
         document.body.classList.remove('component-selected');
         element.classList.remove('selected');
@@ -1473,8 +1476,8 @@ function closeButtonLine(button) {
     document.body.classList.add('no-scroll');
     projectLine.classList.remove('no-transition');
 
-    // setCSSVarValue('--project-line-height', lineHeight);
-    // setCSSVarValue('--project-line-top', lineTop);
+    setCSSVarValue('--project-line-height', lineHeight);
+    setCSSVarValue('--project-line-top', lineTop);
     
     projectLine.classList.add('top-fixed');
 
