@@ -42,10 +42,6 @@ body {
   overscroll-behavior: none; /* Prevents overscroll/bounce effect */
 }
 
-.component-selected {
-  background-color: #bababa;
-}
-
 .display-none {
   display: none;
 }
@@ -471,7 +467,7 @@ p:not(:first-of-type) {
   height: var(--project-line-height);
   position: fixed;
   bottom: var(--project-line-bottom);
-  left: 1px;
+  left: 10px;
   transition: all var(--animation-duration-1) ease-in-out;
 }
 .project-line.no-height {
@@ -645,22 +641,6 @@ input {
 }
 .prompt-proposal-opening-2 #plus-minus-vertical {
   transform: translate(-50%, -50%) rotate(90deg);
-}
-
-#component-selected-dot {
-  position: absolute;
-  top: 50%;
-  left: 25px;
-  transform: translate(-50%, -50%);
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background-color: white;
-  display: none;
-  transition: opacity var(--animation-duration-2) ease-out;
-}
-.component-selected #component-selected-dot {
-  display: block;
 }
 
 @keyframes dotOpacity {

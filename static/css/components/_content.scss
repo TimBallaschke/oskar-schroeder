@@ -429,7 +429,7 @@
     height: var(--project-line-height);
     position: fixed;
     bottom: var(--project-line-bottom);
-    left: 1px;
+    left: 10px;
     transition: all var(--animation-duration-1) ease-in-out;
 
     &.no-height {

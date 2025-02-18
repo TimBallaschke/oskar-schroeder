@@ -581,29 +581,9 @@ async function renderNextProject() {
                             const dot = document.createElement('div');
                             dot.classList.add('project-dot', 'small');
 
-                                        // Modified click event listener
-                            // dot.addEventListener('click', () => {
-                            //     document.body.classList.add('component-selected');
-                            //     projectItem.classList.add('selected');
-                                
-                            //     // Find the project data in responseMap
-                            //     const projectId = projectItem.getAttribute('data-project-id');
-                            //     for (const response of Object.values(responseMap)) {
-                            //         if (response.components) {
-                            //             for (const component of response.components) {
-                            //                 if (component.UIType === 'projects_list' && component.projects) {
-                            //                     const project = component.projects.find(p => p.name === projectId);
-                            //                     if (project) {
-                            //                         selectedComponentJSON = JSON.stringify(project); // Stringify the project object
-                            //                         selectedComponent = projectItem;
-                            //                         break;
-                            //                     }
-                            //                 }
-                            //             }
-                            //         }
-                            //     }
-                            // });
-
+                            dot.addEventListener('click', () => {
+                                selectComponent(dot, projectItem);
+                            });
 
                             projectInfo.appendChild(dotContainer);
                             projectItem.appendChild(projectInfo);
@@ -1405,18 +1385,32 @@ function inputAdded() {
 
 
 
-// PROJECT LINE
+// SELECT COMPONENT
 
-const projectButton = document.querySelectorAll('.project-dot');
+// const projectButton = document.querySelectorAll('.project-dot');
 
-projectButton.forEach(button => {
-    button.addEventListener('click', () => {
-        openProjectLine(button);
-    });
-});
+// projectButton.forEach(button => {
+//     button.addEventListener('click', () => {
+//         openProjectLine(button);
+//     });
+// });
 
-function openProjectLine(button) {
-    console.log('openProjectLine');
+function selectComponent(button, element) {
+    if (!document.body.classList.contains('component-selected')) {
+        document.body.classList.add('component-selected');
+        element.classList.add('selected');
+
+        getComponentData(element);
+        openButtonLine(button);
+    } else {
+        document.body.classList.remove('component-selected');
+        element.classList.remove('selected');
+
+        closeButtonLine(button);
+    }
+}
+
+function openButtonLine(button) {
     const buttonRect = button.getBoundingClientRect();
     const lineBottom = getCSSVarValue('--project-line-bottom');
     const lineTop = buttonRect.bottom;
@@ -1457,4 +1451,62 @@ function openProjectLine(button) {
     };
 
     window.addEventListener('scroll', updateLineHeight);
+
+    // Store reference to allow removal in closeButtonLine
+    button.updateLineHeight = updateLineHeight;
+}
+
+function closeButtonLine(button) {
+    const buttonRect = button.getBoundingClientRect();
+    const lineBottom = getCSSVarValue('--project-line-bottom');
+    const lineTop = buttonRect.bottom;
+    const lineHeight = window.innerHeight - buttonRect.bottom - lineBottom;
+    const projectLine = document.querySelector('.project-line');
+
+    if (!projectLine) return; // Guard clause in case projectLine doesn't exist
+
+    if (button.updateLineHeight) {
+        window.removeEventListener('scroll', button.updateLineHeight);
+        button.updateLineHeight = null;
+    }
+
+    document.body.classList.add('no-scroll');
+    projectLine.classList.remove('no-transition');
+
+    // setCSSVarValue('--project-line-height', lineHeight);
+    // setCSSVarValue('--project-line-top', lineTop);
+    
+    projectLine.classList.add('top-fixed');
+
+    setTimeout(() => {
+        projectLine.classList.add('no-height');
+    }, 10);
+
+    setTimeout(() => {
+        document.body.classList.remove('no-scroll');
+        if (projectLine && projectLine.parentNode) {
+            projectLine.parentNode.removeChild(projectLine);
+        }
+    }, animationDuration + 10);
+}
+
+    
+// Find the project data in responseMap
+function getComponentData(element) {
+    const projectId = element.getAttribute('data-project-id');
+    for (const response of Object.values(responseMap)) {
+        if (response.components) {
+            for (const component of response.components) {
+                if (component.UIType === 'projects_list' && component.projects) {
+                    const project = component.projects.find(p => p.name === projectId);
+                    if (project) {
+                        selectedComponentJSON = JSON.stringify(project); // Stringify the project object
+                        selectedComponent = element;
+                        console.log('selectedComponent', selectedComponent);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }

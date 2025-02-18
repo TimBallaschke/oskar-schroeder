@@ -176,25 +176,6 @@ input {
   }
 }
 
-#component-selected-dot {
-  position: absolute;
-  top: 50%;
-  left: 25px;
-  transform: translate(-50%, -50%);
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background-color: white;
-  display: none;
-  transition: opacity var(--animation-duration-2) ease-out;
-
-
-  .component-selected & {
-    display: block;
-    // animation: dotOpacity 2s ease-out infinite;
-  }
-}
-
 @keyframes dotOpacity {
   0% {
     opacity: 1;
