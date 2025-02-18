@@ -98,8 +98,8 @@
     }
     
     .project-dot {
-        width: 31px;
-        height: 31px;
+        width: var(--dot-width);
+        height: var(--dot-width);
         border-radius: 50%;
         background-color: black;
         transition: all var(--animation-duration-2) ease-in-out;
@@ -440,7 +440,7 @@
     height: var(--project-line-height);
     position: fixed;
     bottom: var(--project-line-bottom);
-    left: 10px;
+    left: calc(var(--dot-width) / 2 + var(--page-padding));
     transition: all var(--animation-duration-1) ease-in-out;
 
     &.no-height {
@@ -448,7 +448,7 @@
     }
 
     &.top-fixed {
-        top: var(--project-line-top);
+        top: calc(var(--project-line-top));
     }
 
     &.no-transition {

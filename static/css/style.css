@@ -14,6 +14,7 @@
   --button-size: 39px;
   --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
   --dot-column-width: 37px;
+  --dot-width: 31px;
   --project-line-height: 100px;
   --project-line-bottom: calc(var(--margin-bottom-nav) + (var(--veritical-padding-bottom-nav) * 2 + var(--input-element-height)) / 2);
   --project-line-top: 0;
@@ -205,8 +206,8 @@ p:not(:first-of-type) {
   height: 0px;
 }
 .fullscreen .project-dot {
-  width: 31px;
-  height: 31px;
+  width: var(--dot-width);
+  height: var(--dot-width);
   border-radius: 50%;
   background-color: black;
   transition: all var(--animation-duration-2) ease-in-out;
@@ -478,14 +479,14 @@ p:not(:first-of-type) {
   height: var(--project-line-height);
   position: fixed;
   bottom: var(--project-line-bottom);
-  left: 10px;
+  left: calc(var(--dot-width) / 2 + var(--page-padding));
   transition: all var(--animation-duration-1) ease-in-out;
 }
 .project-line.no-height {
   height: 0px;
 }
 .project-line.top-fixed {
-  top: var(--project-line-top);
+  top: calc(var(--project-line-top));
 }
 .project-line.no-transition {
   transition: unset;
@@ -495,25 +496,20 @@ p:not(:first-of-type) {
   transform-origin: center bottom;
 }
 
-#bottom-navigation-container {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  font-size: var(--primary-font-size);
-}
-
 #bottom-navigation {
-  width: 94vw;
-  margin-bottom: var(--margin-bottom-nav);
+  position: fixed;
+  width: calc(100vw - 2 * var(--page-padding));
+  right: var(--page-padding);
+  bottom: var(--margin-bottom-nav);
   background-color: black;
   border-radius: calc((var(--input-element-height) + 2 * var(--veritical-padding-bottom-nav)) / 2);
   height: auto;
-  position: relative;
-  transition: height var(--animation-duration-1) ease-in-out;
+  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
   box-shadow: 0 0 10px rgba(226, 228, 233, 0.9), 0 0 25px rgba(226, 228, 233, 0.7);
+  font-size: var(--primary-font-size);
+}
+.component-selected #bottom-navigation {
+  width: calc(100vw - 2 * var(--page-padding) - var(--dot-column-width));
 }
 
 #bottom-navigation-elements {

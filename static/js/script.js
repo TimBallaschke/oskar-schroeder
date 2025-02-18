@@ -1406,18 +1406,21 @@ function selectComponent(button, element) {
         }, animationDuration);
 
     } else {
-        document.body.classList.remove('component-selected');
-        element.classList.remove('selected');
-
         closeButtonLine(button);
+
+        setTimeout(() => {
+            document.body.classList.remove('component-selected');
+            element.classList.remove('selected');
+        }, animationDuration);
     }
 }
 
 function openButtonLine(button) {
     const buttonRect = button.getBoundingClientRect();
+    const linePadding = 20;
     const lineBottom = getCSSVarValue('--project-line-bottom');
-    const lineTop = buttonRect.bottom;
-    const lineHeight = window.innerHeight - buttonRect.bottom - lineBottom;
+    const lineTop = buttonRect.bottom + linePadding;
+    const lineHeight = window.innerHeight - buttonRect.bottom - lineBottom - linePadding;
 
     const projectLine = document.createElement('div');
     projectLine.classList.add('project-line', 'no-height', 'top-fixed');
@@ -1441,7 +1444,7 @@ function openButtonLine(button) {
     const updateLineHeight = () => {
 
         const newButtonRect = button.getBoundingClientRect();
-        const newLineHeight = Math.abs(window.innerHeight - newButtonRect.bottom - lineBottom);
+        const newLineHeight = Math.abs(window.innerHeight - newButtonRect.bottom - lineBottom - linePadding);
 
         if (newButtonRect.bottom >= window.innerHeight - lineBottom) {
             projectLine.classList.add('rotate');
@@ -1450,7 +1453,7 @@ function openButtonLine(button) {
         }
 
         setCSSVarValue('--project-line-height', newLineHeight);
-        setCSSVarValue('--project-line-top', newButtonRect.bottom);
+        setCSSVarValue('--project-line-top', newButtonRect.bottom - linePadding);
     };
 
     window.addEventListener('scroll', updateLineHeight);
@@ -1461,9 +1464,10 @@ function openButtonLine(button) {
 
 function closeButtonLine(button) {
     const buttonRect = button.getBoundingClientRect();
+    const linePadding = 20;
     const lineBottom = getCSSVarValue('--project-line-bottom');
-    const lineTop = buttonRect.bottom;
-    const lineHeight = window.innerHeight - buttonRect.bottom - lineBottom;
+    const lineTop = buttonRect.bottom + linePadding;
+    const lineHeight = window.innerHeight - buttonRect.bottom - lineBottom - linePadding;
     const projectLine = document.querySelector('.project-line');
 
     if (!projectLine) return; // Guard clause in case projectLine doesn't exist
