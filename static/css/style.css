@@ -286,7 +286,7 @@ p:not(:first-of-type) {
   position: relative;
   grid-area: 1/2;
   justify-self: end;
-  transition: all var(--animation-duration-1) ease-in-out;
+  transition: all var(--animation-duration-2) ease-in-out;
   height: 15px;
   display: flex;
   align-items: center;
@@ -301,9 +301,9 @@ p:not(:first-of-type) {
   position: absolute;
   top: 0;
   width: 1px;
-  height: 15px;
+  height: 100%;
   background-color: black;
-  transition: all var(--animation-duration-1) ease-in-out;
+  transition: all var(--animation-duration-2) ease-in-out;
 }
 .fullscreen .image-counter::before {
   left: 0;
@@ -325,6 +325,7 @@ p:not(:first-of-type) {
 }
 .fullscreen .image-counter-digits {
   transform: translateY(1.5px);
+  transition: all var(--animation-duration-1) ease-in-out;
 }
 .fullscreen .project-description {
   padding-top: var(--primary-line-height);

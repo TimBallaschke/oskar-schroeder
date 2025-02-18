@@ -719,38 +719,50 @@ async function renderNextProject() {
                             imageContainer = document.createElement('div');
                             imageContainer.classList.add('project-images', 'no-height', 'blur', 'no-opacity');
                             projectItem.appendChild(imageContainer);
+                            const imageCounter = document.createElement('div');
+                            imageCounter.classList.add('image-counter', 'no-height', 'no-width');
 
                             setTimeout(() => {
                                 imageContainer.classList.remove('no-height');
-                            }, 300);
+                            }, 100);
 
                             setTimeout(() => {
                                 imageContainer.classList.remove('blur', 'no-opacity');
-                            }, 800);
-
-                            setTimeout(() => {  
-                                // Create image counter container
-                                const imageCounter = document.createElement('div');
-                                imageCounter.classList.add('image-counter', 'no-height', 'no-width', 'light');
-                                // imageCounter.innerHTML = `01/${value.length.toString().padStart(2, '0')}`;
                                 projectInfo.appendChild(imageCounter);
-                            }, 1500);
+                            }, 500);
 
                             setTimeout(() => {
-                                const imageCounter = projectInfo.querySelector('.image-counter');
-                                if (imageCounter) {
-                                    imageCounter.classList.remove('no-height');
-                                }
-                            }, 1510);
+                                imageCounter.classList.remove('no-height');
+                            }, 700);
 
                             setTimeout(() => {
-                                const imageCounter = projectInfo.querySelector('.image-counter');
-                                if (imageCounter) {
-                                    imageCounter.classList.remove('no-width');
-                                }
-                            }, 1710);
+                                imageCounter.classList.remove('no-width');
+                            }, 1000);
 
                             setTimeout(() => {
+                                // Update counter after all images are processed
+                                    const scrollPosition = imageContainer.scrollLeft;
+                                    const imageWidth = imageContainer.offsetWidth;
+                                    const currentIndex = Math.round(scrollPosition / imageWidth);
+                                    const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                                    
+                                    // Clear existing content
+                                    imageCounter.innerHTML = '';
+                                    
+                                    // Create new span for digits
+                                    const digitsSpan = document.createElement('span');
+                                    digitsSpan.classList.add('image-counter-digits', 'light');
+                                    digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
+                                    
+                                    // Append digits span to counter
+                                    imageCounter.appendChild(digitsSpan);
+                            }, 1300);
+
+                            setTimeout(() => {
+
+                                const digitsSpan = projectInfo.querySelector('.image-counter-digits');
+                                digitsSpan.classList.remove('light');
+
                                 // Add scroll event listener to update counter after counter is created
                                 imageContainer.addEventListener('scroll', () => {
                                     const scrollPosition = imageContainer.scrollLeft;
@@ -763,46 +775,35 @@ async function renderNextProject() {
                                         counter.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
                                     }
                                 });
-                            }, 1700);
+                            }, 1350);
                         }
                 
                         // Process each image URL in the array
-                        value.forEach(imageUrl => {
-                            // Check if image with this URL already exists
-                            const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
-                            if (!existingImage) {
-                                // Create wrapper div with project-image class
-                                const imageWrapper = document.createElement('div');
-                                imageWrapper.classList.add('project-image', 'no-opacity');
+                        // value.forEach(imageUrl => {
+                        //     // Check if image with this URL already exists
+                        //     const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
+                        //     if (!existingImage) {
+                        //         // Create wrapper div with project-image class
+                        //         const imageWrapper = document.createElement('div');
+                        //         imageWrapper.classList.add('project-image', 'no-opacity');
                 
-                                // Create the img element
-                                const imgElement = document.createElement('img');
-                                imgElement.classList.add('img-element');
-                                imgElement.src = imageUrl;
+                        //         // Create the img element
+                        //         const imgElement = document.createElement('img');
+                        //         imgElement.classList.add('img-element');
+                        //         imgElement.src = imageUrl;
                                 
-                                // Add img to wrapper
-                                imageWrapper.appendChild(imgElement);
-                                imageContainer.appendChild(imageWrapper);
+                        //         // Add img to wrapper
+                        //         imageWrapper.appendChild(imgElement);
+                        //         imageContainer.appendChild(imageWrapper);
                 
-                                // Add fade-in effect once image is loaded
-                                imgElement.onload = () => {
-                                    imageWrapper.classList.remove('no-opacity');
-                                };
-                            }
-                        });
-
-                        // Update counter after all images are processed
-                        const imageCounter = projectItem.querySelector('.image-counter');
-                        if (imageCounter) {
-                            const scrollPosition = imageContainer.scrollLeft;
-                            const imageWidth = imageContainer.offsetWidth;
-                            const currentIndex = Math.round(scrollPosition / imageWidth);
-                            const totalImages = imageContainer.querySelectorAll('.project-image').length;
-                            
-                            imageCounter.innerHTML = `[${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}]`;
-                        }
+                        //         // Add fade-in effect once image is loaded
+                        //         imgElement.onload = () => {
+                        //             imageWrapper.classList.remove('no-opacity');
+                        //         };
+                        //     }
+                        // });
                                 
-                        setTimeout(resolve, 400);
+                        setTimeout(resolve, 3000);
                     });
                     break;
                 case 'description':

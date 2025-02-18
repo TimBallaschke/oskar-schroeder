@@ -191,7 +191,7 @@
         position: relative;
         grid-area: 1 / 2;
         justify-self: end;  // This will align it to the right of the grid cell
-        transition: all var(--animation-duration-1) ease-in-out;
+        transition: all var(--animation-duration-2) ease-in-out;
         height: 15px;
         display: flex;
         align-items: center;
@@ -206,9 +206,9 @@
             position: absolute;
             top: 0;
             width: 1px;
-            height: 15px;
+            height: 100%;
             background-color: black;
-            transition: all var(--animation-duration-1) ease-in-out;
+            transition: all var(--animation-duration-2) ease-in-out;
         }
     
         &::before {
@@ -238,6 +238,7 @@
 
     .image-counter-digits {
         transform: translateY(1.5px);
+        transition: all var(--animation-duration-1) ease-in-out;
     }
 
     .project-description {
