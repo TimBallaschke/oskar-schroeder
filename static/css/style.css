@@ -2,7 +2,7 @@
   --page-padding: 10px;
   --primary-font-size: 16.5px;
   --primary-line-height: 19.8px;
-  --secondary-font-size: 11px;
+  --secondary-font-size: 12px;
   --secondary-line-height: 17px;
   --animation-duration-1: 300ms;
   --animation-duration-2: 200ms;
@@ -231,7 +231,7 @@ p:not(:first-of-type) {
   height: var(--secondary-line-height);
   font-size: var(--secondary-font-size);
   text-transform: capitalize;
-  transform: translateY(9.5px);
+  transform: translateY(8.5px);
 }
 .fullscreen .project-material-dimensions.no-height {
   height: 0px;
@@ -383,7 +383,7 @@ p:not(:first-of-type) {
   grid-area: 1/2;
   transition: all var(--animation-duration-1) ease-in-out;
   height: var(--primary-line-height);
-  transform: translateY(9.5px);
+  transform: translateY(8.5px);
 }
 .grid .project-name.no-height {
   height: 0px;
@@ -395,7 +395,7 @@ p:not(:first-of-type) {
   grid-area: 2/2;
   transition: height var(--animation-duration-1) ease-in-out, font-variation-settings var(--animation-duration-1) ease-in-out;
   height: var(--secondary-line-height);
-  transform: translateY(9.5px);
+  transform: translateY(8.5px);
 }
 .grid .project-material.no-height {
   height: 0px;
@@ -407,7 +407,7 @@ p:not(:first-of-type) {
   grid-area: 3/2;
   transition: height var(--animation-duration-1) ease-in-out, font-variation-settings var(--animation-duration-1) ease-in-out;
   height: var(--primary-line-height);
-  transform: translateY(9.5px);
+  transform: translateY(8.5px);
 }
 .grid .project-dimensions.no-height {
   height: 0px;

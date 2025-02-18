@@ -565,7 +565,7 @@ async function renderNextProject() {
                             }, 100);
                         }
 
-                        setTimeout(resolve, 400);
+                        setTimeout(resolve, 500);
                     });
                     break;
                 case 'name':
@@ -611,32 +611,32 @@ async function renderNextProject() {
                             setTimeout(() => {
                                 projectInfo.classList.remove('no-padding');
                                 dotContainer.classList.remove('no-height');
-                            }, 10);
+                            }, 100);
 
                             setTimeout(() => {
                                 dotContainer.appendChild(dot);
-                            }, animationDuration);
+                            }, 500);
 
                             setTimeout(() => {
                                 dot.classList.remove('small');
-                            }, animationDuration + 50);
+                            }, 510);
 
                             setTimeout(() => {
                                 element = document.createElement('div');  // Correctly create the element
                                 element.classList.add(`project-${key}`, 'light');
                                 element.textContent = value;
                                 projectInfo.appendChild(element);
-                            }, 600);
+                            }, 900);
 
                             setTimeout(() => {
                                 element.classList.remove('light');
-                            }, 610);
+                            }, 1000);
                         } else {
                             // Update the content if it already exists (optional)
                             element.textContent = value;
                         }
         
-                        setTimeout(resolve, 650);
+                        setTimeout(resolve, 1100);
                     });
                     break;
                 case 'year':
