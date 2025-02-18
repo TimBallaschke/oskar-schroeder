@@ -168,7 +168,7 @@ project_data_1 = {
     "name": "Einsatz",
     "year": 2017,
     "material": "Steel, Concrete, Fabric",
-    "dimensions": "200x50x400cm",
+    "dimensions": "200×50×400cm",
     "images": [
         {
             "url": "../static/assets/images/Einsatz/1.jpg",
@@ -258,7 +258,7 @@ project_data_2 = {
     "name": "Schau",
     "year": 2019,
     "material": "Wood, Glass",
-    "dimensions": "200x450x600cm",
+    "dimensions": "200×450×600cm",
     "images": [
         {
             "url": "../static/assets/images/Schau/1.jpg",
@@ -328,7 +328,7 @@ project_data_3 = {
     "name": "Wild",
     "year": 2020,
     "material": "Wood",
-    "dimensions": "5x8x10cm", 
+    "dimensions": "5×8×10cm", 
     "images": [
         {
             "url": "../static/assets/images/Wild/1.jpg",
@@ -403,7 +403,7 @@ project_data_4 = {
     "name": "O.t.",
     "year": 2021,
     "material": "Concrete, Plaster",
-    "dimensions": "5x8x10cm", 
+    "dimensions": "5×8×10cm", 
     "images": [
         {
             "url": "../static/assets/images/O.t./1.jpg",
@@ -471,7 +471,7 @@ project_data_5 = {
     "name": "Landschaft",
     "year": 2022,
     "material": "Wool, Plant Fibers, Soil, Ash",
-    "dimensions": "300x100cm", 
+    "dimensions": "300×100cm", 
     "images": [
         {
             "url": "../static/assets/images/Landschaft/1.jpg",
@@ -527,7 +527,7 @@ project_data_6 = {
     "name": "Hypo",
     "year": 2023,
     "material": "Wood",
-    "dimensions": "100x100x50cm", 
+    "dimensions": "100×100×50cm", 
     "images": [
         {
             "url": "../static/assets/images/Hypo/1.jpg",

@@ -217,7 +217,7 @@ function clearContentContainer() {
 // HANDLE RESPONSE TYPES
 
 async function handleDelta(content) {
-    // console.log("Received delta:", content);
+    console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -582,27 +582,27 @@ async function renderNextProject() {
                             dot.classList.add('project-dot', 'small');
 
                                         // Modified click event listener
-                            dot.addEventListener('click', () => {
-                                document.body.classList.add('component-selected');
-                                projectItem.classList.add('selected');
+                            // dot.addEventListener('click', () => {
+                            //     document.body.classList.add('component-selected');
+                            //     projectItem.classList.add('selected');
                                 
-                                // Find the project data in responseMap
-                                const projectId = projectItem.getAttribute('data-project-id');
-                                for (const response of Object.values(responseMap)) {
-                                    if (response.components) {
-                                        for (const component of response.components) {
-                                            if (component.UIType === 'projects_list' && component.projects) {
-                                                const project = component.projects.find(p => p.name === projectId);
-                                                if (project) {
-                                                    selectedComponentJSON = JSON.stringify(project); // Stringify the project object
-                                                    selectedComponent = projectItem;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            });
+                            //     // Find the project data in responseMap
+                            //     const projectId = projectItem.getAttribute('data-project-id');
+                            //     for (const response of Object.values(responseMap)) {
+                            //         if (response.components) {
+                            //             for (const component of response.components) {
+                            //                 if (component.UIType === 'projects_list' && component.projects) {
+                            //                     const project = component.projects.find(p => p.name === projectId);
+                            //                     if (project) {
+                            //                         selectedComponentJSON = JSON.stringify(project); // Stringify the project object
+                            //                         selectedComponent = projectItem;
+                            //                         break;
+                            //                     }
+                            //                 }
+                            //             }
+                            //         }
+                            //     }
+                            // });
 
 
                             projectInfo.appendChild(dotContainer);
@@ -664,32 +664,50 @@ async function renderNextProject() {
                     });
                     break;
                 case 'material':
-                case 'dimensions':
                     await new Promise((resolve) => { 
                         let projectInfo = projectItem.querySelector('.project-information');
 
                         // Check if the element already exists to avoid duplicates
-                        let element = projectInfo.querySelector(`.project-${key}`);
+                        let element = projectInfo.querySelector('.project-material-dimensions');
                         if (!element) {
                             element = document.createElement('div');  // Correctly create the element
-                            element.classList.add(`project-${key}`, 'no-height', 'no-opacity', 'light');
+                            element.classList.add('project-material-dimensions', 'light');
                             element.textContent = value;
                             projectInfo.appendChild(element);
 
                             setTimeout(() => {
-                                element.classList.remove('no-height');
-                            }, 10);
-
-                            setTimeout(() => {
-                                element.classList.remove('no-opacity');
                                 element.classList.remove('light');
-                            }, 500);
+                            }, 10);
                         } else {
                             // Update the content if it already exists (optional)
                             element.textContent = value;
                         }
         
-                        setTimeout(resolve, 550);
+                        setTimeout(resolve, 50);
+                    });
+                    break;
+                case 'dimensions':
+                    await new Promise((resolve) => {
+                        let projectInfo = projectItem.querySelector('.project-information');
+                        const projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
+
+                        if (projectMaterialDimensions) {
+                            let dimensionsSpan = projectMaterialDimensions.querySelector('.project-dimensions');
+                            if (!dimensionsSpan) {
+                                dimensionsSpan = document.createElement('span');
+                                dimensionsSpan.classList.add('project-dimensions', 'light');
+                                dimensionsSpan.textContent = `, ${value}`;
+                                projectMaterialDimensions.appendChild(dimensionsSpan);
+
+                                setTimeout(() => {
+                                    dimensionsSpan.classList.remove('light');
+                                }, 10);
+                            } else {
+                                // Update existing year span
+                                dimensionsSpan.textContent = ` (${value})`;
+                            }
+                        }
+                        setTimeout(resolve, 50);
                     });
                     break;
                 case 'images':
@@ -713,17 +731,24 @@ async function renderNextProject() {
                             setTimeout(() => {  
                                 // Create image counter container
                                 const imageCounter = document.createElement('div');
-                                imageCounter.classList.add('image-counter', 'light');
-                                imageCounter.innerHTML = `[01/${value.length.toString().padStart(2, '0')}]`;
+                                imageCounter.classList.add('image-counter', 'no-height', 'no-width', 'light');
+                                // imageCounter.innerHTML = `01/${value.length.toString().padStart(2, '0')}`;
                                 projectInfo.appendChild(imageCounter);
                             }, 1500);
 
                             setTimeout(() => {
                                 const imageCounter = projectInfo.querySelector('.image-counter');
                                 if (imageCounter) {
-                                    imageCounter.classList.remove('light');
+                                    imageCounter.classList.remove('no-height');
                                 }
-                            }, 1600);
+                            }, 1510);
+
+                            setTimeout(() => {
+                                const imageCounter = projectInfo.querySelector('.image-counter');
+                                if (imageCounter) {
+                                    imageCounter.classList.remove('no-width');
+                                }
+                            }, 1710);
 
                             setTimeout(() => {
                                 // Add scroll event listener to update counter after counter is created
@@ -735,7 +760,7 @@ async function renderNextProject() {
                                     
                                     const counter = projectInfo.querySelector('.image-counter');
                                     if (counter) {
-                                        counter.innerHTML = `[${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}]`;
+                                        counter.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
                                     }
                                 });
                             }, 1700);
