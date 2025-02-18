@@ -729,15 +729,15 @@ async function renderNextProject() {
                             setTimeout(() => {
                                 imageContainer.classList.remove('blur', 'no-opacity');
                                 projectInfo.appendChild(imageCounter);
-                            }, 500);
+                            }, 800);
 
                             setTimeout(() => {
                                 imageCounter.classList.remove('no-height');
-                            }, 700);
+                            }, 1300);
 
                             setTimeout(() => {
                                 imageCounter.classList.remove('no-width');
-                            }, 1000);
+                            }, 1500);
 
                             setTimeout(() => {
                                     
@@ -748,7 +748,7 @@ async function renderNextProject() {
                                     
                                     // Append digits span to counter
                                     imageCounter.appendChild(digitsSpan);
-                            }, 1300);
+                            }, 1600);
 
                             setTimeout(() => {
 
@@ -766,7 +766,11 @@ async function renderNextProject() {
                                         digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
                                     }
                                 });
-                            }, 1350);
+                            }, 1650);
+
+                            setTimeout(resolve, 1700);
+                        } else {
+                            setTimeout(resolve, 300);
                         }
                 
                         // Process each image URL in the array
@@ -800,9 +804,7 @@ async function renderNextProject() {
                                     }
                                 };
                             }
-                        });
-                                
-                        setTimeout(resolve, 3000);
+                        });                                
                     });
                     break;
                 case 'description':
