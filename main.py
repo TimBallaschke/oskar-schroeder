@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 import json
 from pydantic import BaseModel, Field
-from pydantic.generics import GenericModel
+# from pydantic.generics import GenericModel
 from typing import List, Union, Literal, Annotated, Optional, TypeVar, Generic
 from enum import Enum
 from datetime import datetime
@@ -88,12 +88,16 @@ class ProjectsList (BaseModel):
     )
     projects: List[ProjectComponent] = Field(description="A list of projects to be displayed")
 
+# FIRST CHATBOT
+
 # Root level must be a simple object
 class Response_1(BaseModel):
     type: Literal["response"] = "response"  # Literal makes sure only a certain value is allowed for the type field / Fixed type to ensure root level is a simple object (not a descriminated union)
     components: List[Union[ParagraphComponent, ListComponent, TableComponent, ProjectsList]] = Field( # Union allows for a list of different types of components / basically presents a list of options
         description="List of UI components that make up the response"
     )
+
+# SECOND CHATBOT
 
 class Response_2(BaseModel):
     content_description: str = Field(description="A description of the content that is currently displayed")
@@ -104,11 +108,12 @@ class Response_2(BaseModel):
 
 
 
+# THIRD CHATBOT
+
 T = TypeVar("T")
 
-
 # Create a generic wrapper that includes a value and a changed flag.
-class ModifiedField(GenericModel, Generic[T]):
+class ModifiedField(BaseModel, Generic[T]):
     changed: bool = Field(
         description="A boolean flag indicating whether the field's value has been changed compared to the original component."
     )

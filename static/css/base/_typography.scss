@@ -72,3 +72,12 @@ p:not(:first-of-type) {
 .navigation-type {
     color: white
 }
+
+.primary-type {
+  font-size: 16.5px;
+}
+
+.secondary-type {
+  font-size: var(--secondary-font-size);
+  text-transform: uppercase;
+}

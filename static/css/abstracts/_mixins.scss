@@ -1,3 +1,16 @@
-@mixin text-offset {
+@mixin primary-text-offset {
     transform: translateY(7px);
   }
+
+@mixin secondary-text-offset {
+    transform: translateY(9.5px);
+  }
+
+@mixin primary-type {
+  font-size: var(--primary-font-size);
+}
+
+@mixin secondary-type {
+  font-size: var(--secondary-font-size);
+  text-transform: uppercase;
+}

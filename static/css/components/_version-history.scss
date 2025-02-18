@@ -20,6 +20,7 @@
     display: none;
     opacity: 0;
     transition: all var(--animation-duration-1) ease-in-out;
+    @include primary-type;
 
   &.current-version-history-element {
       height: 24px;
@@ -53,8 +54,8 @@
 }
 
 .version-history-element-digits {
-  font-size: var(--secondary-font-size);
   transform: translateY(1px);
+  @include secondary-type;
 }
 
 .version-history-element-title {
