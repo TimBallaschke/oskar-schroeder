@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250219d_Oskar_Website_async_rows",
+  "original_folder": "250219e_Oskar_Website_line_draws",
   "snapshot_date_from_folder": "250219",
   "source_files": [
     {
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "9801912a2ada9f6c9b4a4a90ea87596d2f13c290",
-      "sha256": "ed6d7f27ced1af2c12fd26165dd5b7d29577cc5768d43f9c9ef93c49df894080",
-      "size": 67023,
+      "sha1": "81c1bda94aede52cbbdc2187f7781d4d86f6afa9",
+      "sha256": "e486e65d2a7f9dc253ca35b2a48c17490107ef9456526e58e26eebf10a77ab8f",
+      "size": 67031,
       "mode": "100644"
     },
     {

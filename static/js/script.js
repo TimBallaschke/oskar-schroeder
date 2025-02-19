@@ -217,7 +217,7 @@ function clearContentContainer() {
 // HANDLE RESPONSE TYPES
 
 async function handleDelta(content) {
-    // console.log("Received delta:", content);
+    console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -1356,7 +1356,7 @@ function selectComponent(button, element) {
         getComponentData(element);
         setTimeout(() => {
             openButtonLine(button);
-        }, animationDuration);
+        }, animationDuration * 2);
 
     } else {
         closeButtonLine(button);
@@ -1364,7 +1364,7 @@ function selectComponent(button, element) {
         setTimeout(() => {
             document.body.classList.remove('component-selected');
             element.classList.remove('selected');
-        }, animationDuration);
+        }, animationDuration * 2);
     }
 }
 
@@ -1391,7 +1391,7 @@ function openButtonLine(button) {
     setTimeout(() => {
         document.body.classList.remove('no-scroll');
         projectLine.classList.remove('top-fixed');
-        projectLine.classList.add('no-transition');
+        // projectLine.classList.add('no-transition');
     }, animationDuration + 10);
 
     const updateLineHeight = () => {
