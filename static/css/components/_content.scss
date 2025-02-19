@@ -255,6 +255,7 @@
     .project-description {
         padding-top: var(--primary-line-height);
         padding-bottom: 10px;
+        @include primary-type;
     }
 
     .project-description-paragraph {

@@ -323,13 +323,45 @@ async function handleDelta(content) {
                         }
                         
                         if (component.headers && Array.isArray(component.headers)) {
-                            component.headers.forEach(header => {
-                                componentMap.get('headers').add(header);
-                            });
+                            // Create headers container for larger screens
+                            if (window.innerWidth > 600) {
+                                let headersContainer = tableContainer.querySelector('.headers');
+                                if (!headersContainer) {
+                                    headersContainer = document.createElement('div');
+                                    headersContainer.classList.add('headers');
+                                    tableContainer.insertBefore(headersContainer, tableContainer.firstChild);
+                                }
+
+                                for (const header of component.headers) {
+                                    if (!componentMap.get('headers').has(header)) {
+                                        await new Promise(resolve => {
+                                            componentMap.get('headers').add(header);
+                                            const headerItem = document.createElement('div');
+                                            headerItem.classList.add('header-item', 'light');
+                                            headerItem.textContent = header;
+                                            headersContainer.appendChild(headerItem);
+    
+                                            setTimeout(() => {
+                                                headerItem.classList.remove('light');
+                                            }, 10);
+
+                                            setTimeout(resolve, 2000);
+                                        });
+                                    }
+                                };
+                            } else {
+                                // For smaller screens, just track headers without creating elements
+                                for (const header of component.headers) {
+                                    if (!componentMap.get('headers').has(header)) {
+                                        componentMap.get('headers').add(header);
+                                    }
+                                };
+                            }
                         }
                         
                         // As soon as the rows are received, add them to the componentMap
                         if (component.rows) {
+                            console.log('componentMap', componentMap);
                             for (const rowData of component.rows) {
                                 if (Array.isArray(rowData) && rowData.length > 0) { // check if the rowData is an array and has at least one item
                                     // Use first item as unique identifier for the row

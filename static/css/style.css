@@ -338,6 +338,7 @@ p:not(:first-of-type) {
 .fullscreen .project-description {
   padding-top: var(--primary-line-height);
   padding-bottom: 10px;
+  font-size: var(--primary-font-size);
 }
 .fullscreen .project-description-paragraph {
   display: inline;

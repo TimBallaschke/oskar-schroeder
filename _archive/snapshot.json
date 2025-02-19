@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250219e_Oskar_Website_line_draws",
+  "original_folder": "250219f_Oskar_Website_table",
   "snapshot_date_from_folder": "250219",
   "source_files": [
     {
@@ -40,16 +40,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "b6ad1641f7f3d5ef98d45a65cfa953e7ee77cb8f",
-      "sha256": "b29b2656449216d7e49f247019b2579a6b300cb35296585abc24ec992ed934a8",
-      "size": 17530,
+      "sha1": "304132ec64d718eb5d7a0b3155e03e5b57ac8965",
+      "sha256": "6df8a42e930fedefb3cc933e6e5c2386ea18585f522e88fec9ddab7598e54f8d",
+      "size": 17569,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "45072295ec74b500318213fbc17f45af10ce4ff5",
-      "sha256": "a02e3688a45059194a879f117a225a3577f9e34a1bac2e3682a574fd9c2ba674",
-      "size": 6573,
+      "sha1": "3d516416c3aef79cdbe3f013e57832550cf41529",
+      "sha256": "3f76bf9edff6d7b9c62b46c64bb11b8a9ceb7eef15e2ce1eaf75a2660389bf2b",
+      "size": 6585,
       "mode": "100644"
     },
     {
@@ -68,9 +68,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "df4e3a5e5da8ee18294f42669fd1ae89fed1028a",
-      "sha256": "f4e5d413fd717013e774c8b1c52eaf2c47ff87165590b1cc81b2f00364e2bc4d",
-      "size": 10422,
+      "sha1": "ef2efe83889c8a201454360d93701b2008eda17e",
+      "sha256": "d1ab7911565a86fbea3f0188a9159c64956f89622202b07f6f10ce08452c8664",
+      "size": 10453,
       "mode": "100644"
     },
     {
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "81c1bda94aede52cbbdc2187f7781d4d86f6afa9",
-      "sha256": "e486e65d2a7f9dc253ca35b2a48c17490107ef9456526e58e26eebf10a77ab8f",
-      "size": 67031,
+      "sha1": "7fca09f691e6321e1f5401789ce1880a0141959b",
+      "sha256": "8ad39e58f124ba504f3284fbb81a045658caf629f84317a9b5b274d3ee606937",
+      "size": 69069,
       "mode": "100644"
     },
     {
