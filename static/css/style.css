@@ -130,14 +130,15 @@ p:not(:first-of-type) {
   padding: 50px var(--page-padding) 200px var(--page-padding);
   transition: opacity var(--animation-duration-1) ease-in-out;
 }
-.component-selected #content-container .project:not(.selected),
-.component-selected #content-container .paragraph-container:not(.selected) {
-  opacity: 0.3;
+.component-selected #content-container .project:not(.selected) {
+  opacity: 0.2;
   filter: saturate(0%);
 }
-.component-selected #content-container .project:not(.selected) .project-dot,
-.component-selected #content-container .paragraph-container:not(.selected) .project-dot {
+.component-selected #content-container .project:not(.selected) .project-dot {
   opacity: 0;
+}
+.component-selected #content-container .project.selected ~ .project::after, .component-selected #content-container .project.selected ~ .project::before {
+  width: calc(100% - var(--dot-column-width));
 }
 
 .no-opacity {
@@ -170,7 +171,7 @@ p:not(:first-of-type) {
 }
 .fullscreen .project::before {
   top: 0;
-  left: 0;
+  right: 0;
   width: 100%;
 }
 .fullscreen .project::after {

@@ -5,14 +5,20 @@
     transition: opacity var(--animation-duration-1) ease-in-out;
 
     .component-selected & {
-        .project:not(.selected),
-        .paragraph-container:not(.selected) {
-            opacity: 0.3;
+        .project:not(.selected) {
+            opacity: 0.2;
             filter: saturate(0%);
 
             .project-dot {
                 opacity: 0;
             }
+        }
+
+        .project.selected ~ .project {
+            &::after,
+            &::before {
+                width: calc(100% - var(--dot-column-width));
+            }   
         }
     }
 }
@@ -52,7 +58,7 @@
     
         &::before {
             top: 0;
-            left: 0;
+            right: 0;
             width: 100%;
         }
     

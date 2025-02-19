@@ -1,4 +1,6 @@
+// --------------------------------------------------------------------------------------------
 // GLOBAL VARIABLES
+// --------------------------------------------------------------------------------------------
 
 let activeEventSource = null; // Track the active activeEventSource connection
 let isProcessing = false; // Flag to prevent concurrent processing
@@ -14,6 +16,10 @@ let selectedComponentJSON = null;
 let reworkRenderingQueue = [];  // Add this with other global variables
 let isReworkProcessing = false; // Add this with other global variables
 let reworkComplete = false;
+
+// --------------------------------------------------------------------------------------------
+// HELPER FUNCTIONS
+// --------------------------------------------------------------------------------------------
 
 // Helper function to get CSS variable value as integer
 function getCSSVarValue(varName, fallback = 0) {
@@ -55,7 +61,9 @@ let animationDuration = getCSSVarValue('--animation-duration-1', 300);
 
 
 
+// --------------------------------------------------------------------------------------------
 // SENDING & RECEIVING MESSAGES
+// --------------------------------------------------------------------------------------------
 
 function sendMessage() {
     
@@ -95,7 +103,7 @@ function sendMessage() {
 
                     setTimeout(() => {
                         document.body.classList.remove('component-selected');
-                        element.classList.remove('selected');
+                        selectedComponent.classList.remove('selected');
                     }, animationDuration * 1.5);
                 }
 
@@ -225,10 +233,9 @@ function clearContentContainer() {
 
 
 
-
-
-
+// --------------------------------------------------------------------------------------------
 // HANDLE RESPONSE TYPES
+// --------------------------------------------------------------------------------------------
 
 async function handleDelta(content) {
     // console.log("Received delta:", content);
@@ -912,8 +919,9 @@ function handleSecondComplete(content) {
 
 
 
-
+// --------------------------------------------------------------------------------------------
 // VERSION HISTORY
+// --------------------------------------------------------------------------------------------
 
 // updating the version history
 function handleVersionHistoryUpdate(content) {
@@ -1071,68 +1079,9 @@ function displayPreviousVersion(element) {
 
 
 
-// PROMPT PROPOSALS
-
-function handlePromptProposalsUpdate(content) {
-    const promptProposal1 = document.getElementById('prompt-proposal-1');
-    const promptProposal2 = document.getElementById('prompt-proposal-2');
-    const promptProposal3 = document.getElementById('prompt-proposal-3');
-    const promptProposal4 = document.getElementById('prompt-proposal-4');
-
-    promptProposal1.textContent = content.prompt_proposal_1;
-    promptProposal2.textContent = content.prompt_proposal_2;
-    promptProposal3.textContent = content.prompt_proposal_3;
-    promptProposal4.textContent = content.prompt_proposal_4;
-}
-
-// Generic handler for clicking on prompt elements that should be copied to input
-function handlePromptClick(element) {
-    const input = document.getElementById('user-input');
-    input.value = element.innerHTML;
-
-    setTimeout(() => {
-        sendMessage();
-    }, 1000);
-}
-
-// Add event listeners when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    const promptProposal1 = document.getElementById('prompt-proposal-1');
-    const promptProposal2 = document.getElementById('prompt-proposal-2');
-    const promptProposal3 = document.getElementById('prompt-proposal-3');
-    const promptProposal4 = document.getElementById('prompt-proposal-4');
-
-    promptProposal1.addEventListener('click', () => handlePromptClick(promptProposal1));
-    promptProposal2.addEventListener('click', () => handlePromptClick(promptProposal2));
-    promptProposal3.addEventListener('click', () => handlePromptClick(promptProposal3));
-    promptProposal4.addEventListener('click', () => handlePromptClick(promptProposal4));
-});
-
-plusMinusButton.addEventListener('click', togglePromptProposals);
-
-function togglePromptProposals() {
-    const bottomNavigation = document.getElementById('bottom-navigation');
-
-    if (!bottomNavigation.classList.contains('prompt-proposal-opening-2')) {
-        bottomNavigation.classList.add('prompt-proposal-opening-1');
-
-        setTimeout(() => {
-            bottomNavigation.classList.remove('prompt-proposal-opening-1');
-                bottomNavigation.classList.add('prompt-proposal-opening-2');
-            }, animationDuration);
-    } else {
-        bottomNavigation.classList.remove('prompt-proposal-opening-2');
-        bottomNavigation.classList.add('prompt-proposal-opening-1');
-
-        setTimeout(() => {
-            bottomNavigation.classList.remove('prompt-proposal-opening-1');
-            }, animationDuration);
-    }
-}
-
-
-
+// --------------------------------------------------------------------------------------------
 // COMPONENT REWORK
+// --------------------------------------------------------------------------------------------
 
 function startStreamingComponentRework() {
     // Close any existing EventSource connection
@@ -1175,8 +1124,8 @@ function startStreamingComponentRework() {
 };
 
 async function handleDeltaRework(content) {
+    console.log('handleDeltaRework', content);
     reworkRenderingQueue.push(content);
-    console.log('reworkRenderingQueue.length', reworkRenderingQueue.length);
 
     if (isReworkProcessing) {
         return; // Exit if already processing
@@ -1260,7 +1209,6 @@ async function handleDeltaRework(content) {
                     if (project.description?.changed && Array.isArray(project.description.value)) {
                         let projectDescription = selectedComponent.querySelector('.project-description');
                         if (!projectDescription) {
-                            console.log('projectDescription not found');
                             await new Promise((resolveDescription) => {
                                 projectDescription = document.createElement('div');
                                 projectDescription.classList.add('project-description', 'no-padding');
@@ -1269,8 +1217,7 @@ async function handleDeltaRework(content) {
                                 setTimeout(() => {
                                     projectDescription.classList.remove('no-padding');
                                 }, 10);
-                                console.log('resolveDescription');
-                                setTimeout(resolveDescription, 5010);
+                                setTimeout(resolveDescription, 210);
                             });
                         }
 
@@ -1288,7 +1235,7 @@ async function handleDeltaRework(content) {
                                 await new Promise(resolveSentence => {
                                     console.log('resolveSentence');
                                     const sentenceContainer = document.createElement('p');
-                                    sentenceContainer.classList.add('project-description-sentence');
+                                    sentenceContainer.classList.add('project-description-paragraph');
                                     projectDescription.appendChild(sentenceContainer);
 
                                     const words = sentence.split(' ');
@@ -1348,16 +1295,6 @@ async function handleDeltaRework(content) {
                     if (selectedComponent) {
                         selectedComponent.classList.remove('light');
                     }
-    
-                    // Remove 'component-selected' from body
-                    document.body.classList.remove('component-selected');
-    
-                    setTimeout(() => {
-                        // Remove 'selected' class from all elements
-                        document.querySelectorAll('.selected').forEach(element => {
-                            element.classList.remove('selected');
-                        });
-                    }, 1000);
                 }
             }, 2500);
         }
@@ -1367,53 +1304,13 @@ async function handleDeltaRework(content) {
 function handleCompleteRework(content) {
     console.log('handleCompleteRework', content);
     reworkComplete = true;
+
+
 }
 
-
-
-
-// EVENT LISTENERS
-
-// Add event listeners when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    const userInput = document.getElementById('user-input');
-    const sendButton = document.getElementById('send-button');
-
-    userInput.addEventListener('focus', activateInput);
-    userInput.addEventListener('blur', activateInput);
-    userInput.addEventListener('input', inputAdded);
-
-    sendButton.addEventListener('click', sendMessage);
-});
-
-function activateInput() {
-    const bottomNavigation = document.getElementById('bottom-navigation');
-
-    if (!bottomNavigation.classList.contains('input-active')) {
-        bottomNavigation.classList.add('input-active');
-    } else {
-        bottomNavigation.classList.remove('input-active');
-    }
-}
-
-function inputAdded() {
-    const userInput = document.getElementById('user-input');
-    const bottomNavigation = document.getElementById('bottom-navigation');
-    if (userInput.value.length > 0) {
-        // console.log('input more than 0');
-        bottomNavigation.classList.add('input-has-content');
-    } else {
-        // console.log('input less than 0');
-        bottomNavigation.classList.remove('input-has-content');
-    }
-}
-
-
-
-
-
-
+// --------------------------------------------------------------------------------------------
 // SELECT COMPONENT
+// --------------------------------------------------------------------------------------------
 
 // const projectButton = document.querySelectorAll('.project-dot');
 
@@ -1466,7 +1363,7 @@ function openButtonLine(button) {
     setTimeout(() => {
         document.body.classList.remove('no-scroll');
         projectLine.classList.remove('top-fixed');
-        // projectLine.classList.add('no-transition');
+        projectLine.classList.add('no-transition');
     }, animationDuration + 10);
 
     const updateLineHeight = () => {
@@ -1545,3 +1442,109 @@ function getComponentData(element) {
         }
     }
 }
+
+
+
+
+// --------------------------------------------------------------------------------------------
+// PROMPT PROPOSALS
+// --------------------------------------------------------------------------------------------
+
+function handlePromptProposalsUpdate(content) {
+    const promptProposal1 = document.getElementById('prompt-proposal-1');
+    const promptProposal2 = document.getElementById('prompt-proposal-2');
+    const promptProposal3 = document.getElementById('prompt-proposal-3');
+    const promptProposal4 = document.getElementById('prompt-proposal-4');
+
+    promptProposal1.textContent = content.prompt_proposal_1;
+    promptProposal2.textContent = content.prompt_proposal_2;
+    promptProposal3.textContent = content.prompt_proposal_3;
+    promptProposal4.textContent = content.prompt_proposal_4;
+}
+
+// Generic handler for clicking on prompt elements that should be copied to input
+function handlePromptClick(element) {
+    const input = document.getElementById('user-input');
+    input.value = element.innerHTML;
+
+    setTimeout(() => {
+        sendMessage();
+    }, 1000);
+}
+
+// Add event listeners when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const promptProposal1 = document.getElementById('prompt-proposal-1');
+    const promptProposal2 = document.getElementById('prompt-proposal-2');
+    const promptProposal3 = document.getElementById('prompt-proposal-3');
+    const promptProposal4 = document.getElementById('prompt-proposal-4');
+
+    promptProposal1.addEventListener('click', () => handlePromptClick(promptProposal1));
+    promptProposal2.addEventListener('click', () => handlePromptClick(promptProposal2));
+    promptProposal3.addEventListener('click', () => handlePromptClick(promptProposal3));
+    promptProposal4.addEventListener('click', () => handlePromptClick(promptProposal4));
+});
+
+plusMinusButton.addEventListener('click', togglePromptProposals);
+
+function togglePromptProposals() {
+    const bottomNavigation = document.getElementById('bottom-navigation');
+
+    if (!bottomNavigation.classList.contains('prompt-proposal-opening-2')) {
+        bottomNavigation.classList.add('prompt-proposal-opening-1');
+
+        setTimeout(() => {
+            bottomNavigation.classList.remove('prompt-proposal-opening-1');
+                bottomNavigation.classList.add('prompt-proposal-opening-2');
+            }, animationDuration);
+    } else {
+        bottomNavigation.classList.remove('prompt-proposal-opening-2');
+        bottomNavigation.classList.add('prompt-proposal-opening-1');
+
+        setTimeout(() => {
+            bottomNavigation.classList.remove('prompt-proposal-opening-1');
+            }, animationDuration);
+    }
+}
+
+
+
+
+// --------------------------------------------------------------------------------------------
+// EVENT LISTENERS
+// --------------------------------------------------------------------------------------------
+
+// Add event listeners when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+
+    userInput.addEventListener('focus', activateInput);
+    userInput.addEventListener('blur', activateInput);
+    userInput.addEventListener('input', inputAdded);
+
+    sendButton.addEventListener('click', sendMessage);
+});
+
+function activateInput() {
+    const bottomNavigation = document.getElementById('bottom-navigation');
+
+    if (!bottomNavigation.classList.contains('input-active')) {
+        bottomNavigation.classList.add('input-active');
+    } else {
+        bottomNavigation.classList.remove('input-active');
+    }
+}
+
+function inputAdded() {
+    const userInput = document.getElementById('user-input');
+    const bottomNavigation = document.getElementById('bottom-navigation');
+    if (userInput.value.length > 0) {
+        // console.log('input more than 0');
+        bottomNavigation.classList.add('input-has-content');
+    } else {
+        // console.log('input less than 0');
+        bottomNavigation.classList.remove('input-has-content');
+    }
+}
+
