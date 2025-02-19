@@ -926,6 +926,8 @@ function handleSecondComplete(content) {
 // updating the version history
 function handleVersionHistoryUpdate(content) {
 
+    versionHistory.classList.remove('version-history-width-set');
+
     // Hide all existing version-history elements
     const historyElements = document.querySelectorAll('.version-history-element');
     historyElements.forEach(element => {
@@ -961,6 +963,14 @@ function handleVersionHistoryUpdate(content) {
 
     // Append the new history entry to the versionHistory container
     versionHistory.appendChild(newHistoryElement);
+
+    setTimeout(() => {
+        const currentWidth = versionHistory.offsetWidth;
+        setCSSVarValue('--version-history-width', currentWidth);
+
+        versionHistory.classList.add('version-history-width-set');
+        
+    }, 500);
 }
 
 
