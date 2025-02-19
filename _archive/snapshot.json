@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250219h_Oskar_Website_description_animate_deltaRework",
+  "original_folder": "250219i_Oskar_Website_reworkDelta",
   "snapshot_date_from_folder": "250219",
   "source_files": [
     {
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "68b207d1854e7f7e6889e3c27d23540a2a616883",
-      "sha256": "95f2c647999cdc18eb81d23c15351e3a846ebdde156fc6f13f1192721c726882",
-      "size": 70958,
+      "sha1": "294cdef81bd01b483938d991f60c4ea1cd5cc29d",
+      "sha256": "2bc125f93213eeab976e85352fbea265b1594019b723472ec79a8726a3dfcb25",
+      "size": 71069,
       "mode": "100644"
     },
     {

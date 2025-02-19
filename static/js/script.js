@@ -1255,8 +1255,8 @@ async function handleDeltaRework(content) {
                                 setTimeout(() => {
                                     projectDescription.classList.remove('no-padding');
                                 }, 10);
-
-                                setTimeout(resolveDescription, 210);
+                                console.log('resolveDescription');
+                                setTimeout(resolveDescription, 5010);
                             });
                         }
 
@@ -1325,6 +1325,7 @@ async function handleDeltaRework(content) {
         } catch (error) {
             console.error("Error processing rework content:", error);
         } finally {
+            console.log('finally reached');
             isReworkProcessing = false;
             
             setTimeout(() => {
