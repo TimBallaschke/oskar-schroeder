@@ -18,7 +18,11 @@
             &::after,
             &::before {
                 width: calc(100% - var(--dot-column-width));
-            }   
+            }
+
+            .img-element {
+                transform: translateX(var(--dot-column-width));
+            }
         }
     }
 }
@@ -202,6 +206,7 @@
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
+        transition: transform var(--animation-duration-1) ease-in-out;
     }
     
     .image-counter {

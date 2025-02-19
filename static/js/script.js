@@ -965,7 +965,7 @@ function handleVersionHistoryUpdate(content) {
     versionHistory.appendChild(newHistoryElement);
 
     setTimeout(() => {
-        const currentWidth = versionHistory.offsetWidth;
+        const currentWidth = versionHistory.offsetWidth + 1;
         setCSSVarValue('--version-history-width', currentWidth);
 
         versionHistory.classList.add('version-history-width-set');

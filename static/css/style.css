@@ -141,6 +141,9 @@ p:not(:first-of-type) {
 .component-selected #content-container .project.selected ~ .project::after, .component-selected #content-container .project.selected ~ .project::before {
   width: calc(100% - var(--dot-column-width));
 }
+.component-selected #content-container .project.selected ~ .project .img-element {
+  transform: translateX(var(--dot-column-width));
+}
 
 .no-opacity {
   opacity: 0;
@@ -291,6 +294,7 @@ p:not(:first-of-type) {
   max-height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
+  transition: transform var(--animation-duration-1) ease-in-out;
 }
 .fullscreen .image-counter {
   position: relative;
