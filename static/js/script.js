@@ -342,12 +342,16 @@ async function handleDelta(content) {
                                     // Create row if it doesn't exist
                                     let row = tableContainer.querySelector(`[data-row-id="${rowId}"]`);
                                     if (!row) {
-                                        row = document.createElement('div');
-                                        row.classList.add('row');
-                                        row.setAttribute('data-row-id', rowId);
-                                        tableContainer.appendChild(row);
+                                        await new Promise(resolve => {
 
-                                        console.log('new row', rowId);
+                                            row = document.createElement('div');
+                                            row.classList.add('row');
+                                            row.setAttribute('data-row-id', rowId);
+                                            tableContainer.appendChild(row);
+                                            
+                                            console.log('new row', rowId);
+                                            setTimeout(resolve, 4000);
+                                        });
                                     }
 
                                     // Add each item in the row
