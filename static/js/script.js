@@ -8,10 +8,12 @@ let renderingQueue = [];
 let responseCount = 0;
 let projectRenderingQueue = [];
 let isProjectRendering = false;
+
 let selectedComponent = null;
 let selectedComponentJSON = null;
 let reworkRenderingQueue = [];  // Add this with other global variables
 let isReworkProcessing = false; // Add this with other global variables
+let reworkComplete = false;
 
 // Helper function to get CSS variable value as integer
 function getCSSVarValue(varName, fallback = 0) {
@@ -85,6 +87,18 @@ function sendMessage() {
         .then(data => { // waits for the response to be converted to a JSON object
             if (data.status === "ok") { // checks if the status of the response is "ok"
                 console.log('message sent to component rework bot');
+
+                const button = selectedComponent.querySelector('.project-dot');
+                console.log('button', button);
+                if (button) {
+                    closeButtonLine(button);
+
+                    setTimeout(() => {
+                        document.body.classList.remove('component-selected');
+                        element.classList.remove('selected');
+                    }, animationDuration * 1.5);
+                }
+
                 startStreamingComponentRework();
             }        
         }).catch(error => { // handles any errors that occur during the request
@@ -1325,12 +1339,10 @@ async function handleDeltaRework(content) {
         } catch (error) {
             console.error("Error processing rework content:", error);
         } finally {
-            console.log('finally reached');
             isReworkProcessing = false;
-            
             setTimeout(() => {
-                if (reworkRenderingQueue.length === 0) {
-
+                if (reworkRenderingQueue.length === 0 && reworkComplete) {
+                    reworkComplete = false;
                     console.log('reworkRenderingQueue.length === 0');
                     // Remove 'light' class from selected component
                     if (selectedComponent) {
@@ -1354,6 +1366,7 @@ async function handleDeltaRework(content) {
 
 function handleCompleteRework(content) {
     console.log('handleCompleteRework', content);
+    reworkComplete = true;
 }
 
 
