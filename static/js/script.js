@@ -245,15 +245,15 @@ async function handleDelta(content) {
                 
                 if (!processedComponents.has(componentID)) {
                     // Only update classes for previous components if this isn't the first component
-                    if (processedComponents.size > 0) {
-                        const previousComponents = document.querySelectorAll('.processing');
-                        previousComponents.forEach(component => {
-                            component.classList.remove('processing');
-                            component.classList.add('processed');
-                        });
-                    }
+                    // if (processedComponents.size > 0) {
+                    //     const previousComponents = document.querySelectorAll('.processing');
+                    //     previousComponents.forEach(component => {
+                    //         component.classList.remove('processing');
+                    //         component.classList.add('processed');
+                    //     });
+                    // }
 
-                    processedComponents.set(componentID, new Map()); // Use a Map to track projects
+                    processedComponents.set(componentID, new Map());
 
                     // console.log('Processing Component:', componentID);
                 }
@@ -329,46 +329,55 @@ async function handleDelta(content) {
                             contentContainer.appendChild(tableContainer);
                         }
 
+                        if (!componentMap.has('headers')) {
+                            componentMap.set('headers', new Set());
+                        }
                         
+                        if (component.headers && Array.isArray(component.headers)) {
+                            component.headers.forEach(header => {
+                                componentMap.get('headers').add(header);
+                            });
+                        }
+                        
+                        // As soon as the rows are received, add them to the componentMap
+                        if (component.rows) {
+                            component.rows.forEach(rowData => {
+                                if (Array.isArray(rowData)) {
+                                    // Use first item as unique identifier for the row
+                                    const rowId = `row-${rowData[0]}`;
 
-                        // // Add rows if they exist in the component
-                        // if (component.rows && Array.isArray(component.rows)) {
-                        //     component.rows.forEach((row, index) => {
-                        //         const rowKey = `row-${index}`;
-                                
-                        //         // Check if this row index has already been processed
-                        //         if (!componentMap.has(rowKey)) {
-                        //             componentMap.set(rowKey, new Set());
+                                    if (!componentMap.has(rowId)) {
+                                        componentMap.set(rowId, new Set());
+                                    }
                                     
-                        //             const tableRow = document.createElement('div');
-                        //             tableRow.classList.add('table-row');
-                        //             tableRow.setAttribute('data-row-index', rowIndex);
-                        //             tableContainer.appendChild(tableRow);
-                        //             console.log('row added', rowKey);
-                        //         }
+                                    // Create row if it doesn't exist
+                                    let row = tableContainer.querySelector(`[data-row-id="${rowId}"]`);
+                                    if (!row) {
+                                        row = document.createElement('div');
+                                        row.classList.add('row');
+                                        row.setAttribute('data-row-id', rowId);
+                                        tableContainer.appendChild(row);
+                                    }
 
-                        //         const processedElements = componentMap.get(rowKey);
-                                
-                        //         // Process each element in the row
-                        //         if (Array.isArray(row)) {
-                        //             row.forEach((element, elementIndex) => {
-                        //                 // Only add element if it hasn't been processed yet
-                        //                 if (!processedElements.has(elementIndex)) {
-                        //                     processedElements.add(elementIndex);
-                                            
-                        //                     const tableCell = document.createElement('div');
-                        //                     tableCell.classList.add('table-cell');
-                        //                     tableCell.textContent = element;
-                                            
-                        //                     const targetRow = tableContainer.querySelector(`[data-row-index="${rowIndex}"]`);
-                        //                     if (targetRow) {
-                        //                         targetRow.appendChild(tableCell);
-                        //                     }
-                        //                 }
-                        //             });
-                        //         }
-                        //     });
-                        // }     
+                                    // Add each item in the row
+                                    rowData.forEach((item, index) => {
+                                        if (!componentMap.get(rowId).has(item)) {
+                                            componentMap.get(rowId).add(item);
+                                            // const rowItem = document.createElement('div');
+                                            // rowItem.classList.add('row-item', 'light');
+                                            // rowItem.textContent = item;
+                                            // row.appendChild(rowItem);
+
+                                            // // Remove light class after animation
+                                            // setTimeout(() => {
+                                            //     rowItem.classList.remove('light');
+                                            // }, 10);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
                         break;
 
                     case 'projects_list':
@@ -377,39 +386,6 @@ async function handleDelta(content) {
                             projectsContainer = document.createElement('div');
                             projectsContainer.classList.add('projects-container');
                             projectsContainer.setAttribute('data-component-key', componentID);
-                            contentContainer.appendChild(projectsContainer);
-
-                            // // Add the project list headline div
-                            // const headline = document.createElement('div');
-                            // headline.classList.add('project-list-headline');
-
-                            // const dotContainer = document.createElement('div');
-                            // dotContainer.classList.add('project-dot-container');
-                            // const dot = document.createElement('div');
-                            // dot.classList.add('project-dot', 'small');
-
-                            // setTimeout(() => {
-                            //     dot.classList.remove('small');
-                            // }, 10);
-
-                            // // Add click event listener to dot
-                            // dot.addEventListener('click', () => {
-                            //     document.body.classList.add('component-selected');
-                            //     projectItem.classList.add('selected');
-                            // });
-
-                            // const headlineWord = document.createElement('div');
-                            // headlineWord.classList.add('headline-word', 'light');
-                            // headlineWord.textContent = 'Artworks';
-
-                            // setTimeout(() => {
-                            //     headlineWord.classList.remove('light');
-                            // }, 10);
-
-                            // dotContainer.appendChild(dot);
-                            // headline.appendChild(dotContainer);
-                            // headline.appendChild(headlineWord);
-                            // projectsContainer.appendChild(headline);
                             contentContainer.appendChild(projectsContainer);
                         }
 
@@ -457,7 +433,6 @@ async function handleDelta(content) {
                             
                             const imagesSet = processedFields.images; // Access the Set via property
                             const descriptionSet = processedFields.description; // Access the Set via property
-
 
                             // Check for new data and add rendering tasks to the queue
                             for (const [key, value] of Object.entries(project)) {
@@ -520,17 +495,17 @@ async function handleDelta(content) {
                 }
             }
 
-            // When queue is empty, remove 'processing' class from all elements except the first
-            if (renderingQueue.length === 0) {
-                const processingElements = document.querySelectorAll('.processing');
-                processingElements.forEach(element => {
-                    // Skip the first component
-                    if (processedComponents.size > 1) {
-                        element.classList.remove('processing');
-                        element.classList.add('processed');
-                    }
-                });
-            }
+            // // When queue is empty, remove 'processing' class from all elements except the first
+            // if (renderingQueue.length === 0) {
+            //     const processingElements = document.querySelectorAll('.processing');
+            //     processingElements.forEach(element => {
+            //         // Skip the first component
+            //         if (processedComponents.size > 1) {
+            //             element.classList.remove('processing');
+            //             element.classList.add('processed');
+            //         }
+            //     });
+            // }
         } catch (error) {
             console.error("Error processing content:", error);
         } finally {
@@ -876,11 +851,6 @@ async function renderNextProject() {
                         // Call the async function and resolve when complete
                         addSentences().then(() => resolve());
                     });
-                    
-                    
-                    
-
-
                     break;
             }
 
