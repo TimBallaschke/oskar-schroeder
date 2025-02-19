@@ -217,7 +217,7 @@ function clearContentContainer() {
 // HANDLE RESPONSE TYPES
 
 async function handleDelta(content) {
-    console.log("Received delta:", content);
+    // console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -244,18 +244,7 @@ async function handleDelta(content) {
 
                 
                 if (!processedComponents.has(componentID)) {
-                    // Only update classes for previous components if this isn't the first component
-                    // if (processedComponents.size > 0) {
-                    //     const previousComponents = document.querySelectorAll('.processing');
-                    //     previousComponents.forEach(component => {
-                    //         component.classList.remove('processing');
-                    //         component.classList.add('processed');
-                    //     });
-                    // }
-
                     processedComponents.set(componentID, new Map());
-
-                    // console.log('Processing Component:', componentID);
                 }
 
                 const componentMap = processedComponents.get(componentID);
@@ -341,11 +330,10 @@ async function handleDelta(content) {
                         
                         // As soon as the rows are received, add them to the componentMap
                         if (component.rows) {
-
-                            component.rows.forEach((rowData, index) => {
+                            for (const rowData of component.rows) {
                                 if (Array.isArray(rowData) && rowData.length > 0) { // check if the rowData is an array and has at least one item
                                     // Use first item as unique identifier for the row
-                                    const rowId = `row-${index}`;
+                                    const rowId = `row-${component.rows.indexOf(rowData)}`;
 
                                     if (!componentMap.has(rowId)) {
                                         componentMap.set(rowId, new Set());
@@ -358,27 +346,29 @@ async function handleDelta(content) {
                                         row.classList.add('row');
                                         row.setAttribute('data-row-id', rowId);
                                         tableContainer.appendChild(row);
+
+                                        console.log('new row', rowId);
                                     }
 
                                     // Add each item in the row
-                                    rowData.forEach((item, index) => {
+                                    for (const item of rowData) {
                                         if (!componentMap.get(rowId).has(item)) {
-                                            componentMap.get(rowId).add(item);
-                                            const rowItem = document.createElement('div');
-                                            rowItem.classList.add('row-item', 'light');
-                                            rowItem.textContent = item;
-                                            row.appendChild(rowItem);
+                                            await new Promise(resolve => {
+                                                componentMap.get(rowId).add(item);
+                                                const rowItem = document.createElement('div');
+                                                rowItem.classList.add('row-item', 'light');
+                                                rowItem.textContent = item;
+                                                row.appendChild(rowItem);
+                                                
+                                                console.log('rowItem', rowItem);
 
-                                            // Remove light class after animation
-                                            setTimeout(() => {
-                                                rowItem.classList.remove('light');
-                                            }, 10);
+                                                setTimeout(resolve, 2000);
+                                            });
                                         }
-                                    });
+                                    }
                                 }
-                            });
+                            };
                         }
-
                         break;
 
                     case 'projects_list':
@@ -495,18 +485,6 @@ async function handleDelta(content) {
                         return;
                 }
             }
-
-            // // When queue is empty, remove 'processing' class from all elements except the first
-            // if (renderingQueue.length === 0) {
-            //     const processingElements = document.querySelectorAll('.processing');
-            //     processingElements.forEach(element => {
-            //         // Skip the first component
-            //         if (processedComponents.size > 1) {
-            //             element.classList.remove('processing');
-            //             element.classList.add('processed');
-            //         }
-            //     });
-            // }
         } catch (error) {
             console.error("Error processing content:", error);
         } finally {

@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250219b_Oskar_Website_Table_not_async",
+  "original_folder": "250219c_Oskar_Website_async_rowItems",
   "snapshot_date_from_folder": "250219",
   "source_files": [
     {
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "5dd0835d6f9dbd8fbab8577b75b18bdf9ac0264d",
-      "sha256": "42c1677c387fb90fb908944f7f08d3558a07a338e11d879db1f2eaf0d5794d03",
-      "size": 67820,
+      "sha1": "bc7ab04cd4fc7303971858cdd93853606ee493e0",
+      "sha256": "426ea2bd8b786ede874536be306a7f10f7efddad0f40df5bca4a8a2daba2a26e",
+      "size": 66772,
       "mode": "100644"
     },
     {
