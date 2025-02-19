@@ -12,5 +12,6 @@
 
 @mixin secondary-type {
   font-size: var(--secondary-font-size);
+  // text-transform: uppercase;
   text-transform: capitalize;
 }

@@ -791,7 +791,7 @@ async function renderNextProject() {
                                     setTimeout(() => {
                                         projectDescription.classList.remove('no-padding');
                                     }, 10);
-                                    
+
                                     setTimeout(descriptionResolve, 210);
                                 });
                             }
@@ -840,7 +840,7 @@ async function renderNextProject() {
                                                 wordSpan.classList.add('project-description-word', 'light', 'no-opacity');
                                                 sentenceSpan.appendChild(wordSpan);
 
-                                                // Check if scrollHeight has changed
+                                                // adjust the height of the project description for smooth animation of increasing height
                                                 const currentScrollHeight = projectDescription.scrollHeight;
                                                 if (currentScrollHeight !== lastScrollHeight) {
                                                     console.log('ScrollHeight changed:', currentScrollHeight);
@@ -1116,6 +1116,10 @@ function togglePromptProposals() {
     }
 }
 
+
+
+// COMPONENT REWORK
+
 function startStreamingComponentRework() {
     // Close any existing EventSource connection
     if (activeEventSource) {
@@ -1240,31 +1244,43 @@ async function handleDeltaRework(content) {
                     }
 
                     if (project.description?.changed && Array.isArray(project.description.value)) {
-                        let descriptionContainer = selectedComponent.querySelector('.project-description');
-                        if (!descriptionContainer) {
-                            descriptionContainer = document.createElement('div');
-                            descriptionContainer.classList.add('project-description');
-                            selectedComponent.appendChild(descriptionContainer);
+                        let projectDescription = selectedComponent.querySelector('.project-description');
+                        if (!projectDescription) {
+                            console.log('projectDescription not found');
+                            await new Promise((resolveDescription) => {
+                                projectDescription = document.createElement('div');
+                                projectDescription.classList.add('project-description', 'no-padding');
+                                selectedComponent.appendChild(projectDescription);
+
+                                setTimeout(() => {
+                                    projectDescription.classList.remove('no-padding');
+                                }, 10);
+
+                                setTimeout(resolveDescription, 210);
+                            });
                         }
 
                         // Ensure the processed descriptions are tracked
                         if (!selectedComponent.processedDescriptions) {
                             selectedComponent.processedDescriptions = new Set();
+                            console.log('processedDescriptions', selectedComponent);
                         }
 
                         for (const sentence of project.description.value) {
+                            console.log('sentence', sentence);
                             if (!selectedComponent.processedDescriptions.has(sentence)) {
                                 selectedComponent.processedDescriptions.add(sentence);
 
-                                await new Promise(resolve => {
+                                await new Promise(resolveSentence => {
+                                    console.log('resolveSentence');
                                     const sentenceContainer = document.createElement('p');
                                     sentenceContainer.classList.add('project-description-sentence');
-                                    descriptionContainer.appendChild(sentenceContainer);
+                                    projectDescription.appendChild(sentenceContainer);
 
                                     const words = sentence.split(' ');
                                     let wordIndex = 0;
 
-                                    let lastScrollHeight = descriptionContainer.scrollHeight;
+                                    let lastScrollHeight = projectDescription.scrollHeight;
 
                                     function addNextWord() {
                                         if (wordIndex < words.length) {
@@ -1278,10 +1294,10 @@ async function handleDeltaRework(content) {
                                             sentenceContainer.appendChild(wordSpan);
 
                                             // Check if scrollHeight has changed
-                                            const currentScrollHeight = descriptionContainer.scrollHeight;
+                                            const currentScrollHeight = projectDescription.scrollHeight;
                                             if (currentScrollHeight !== lastScrollHeight) {
-                                                console.log('ScrollHeight changed:', currentScrollHeight);
                                                 lastScrollHeight = currentScrollHeight;
+                                                projectDescription.style.height = `${currentScrollHeight}px`;
                                             }
 
                                             setTimeout(() => {
@@ -1292,10 +1308,9 @@ async function handleDeltaRework(content) {
                                             wordIndex++;
                                             setTimeout(addNextWord, 50);
                                         } else {
-                                            resolve();
+                                            resolveSentence();
                                         }
                                     }
-
                                     addNextWord();
                                 });
                             }
@@ -1402,7 +1417,7 @@ function selectComponent(button, element) {
         getComponentData(element);
         setTimeout(() => {
             openButtonLine(button);
-        }, animationDuration * 2);
+        }, animationDuration * 1.5);
 
     } else {
         closeButtonLine(button);
@@ -1410,7 +1425,7 @@ function selectComponent(button, element) {
         setTimeout(() => {
             document.body.classList.remove('component-selected');
             element.classList.remove('selected');
-        }, animationDuration * 2);
+        }, animationDuration * 1.5);
     }
 }
 
