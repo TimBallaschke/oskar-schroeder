@@ -253,9 +253,16 @@
     }
 
     .project-description {
-        padding-top: var(--primary-line-height);
-        padding-bottom: 10px;
+        // padding-top: var(--primary-line-height);
+        padding-bottom: 26px;
         @include primary-type;
+        height: 0;
+        overflow: hidden;
+        transition: all var(--animation-duration-2) ease-in-out;
+
+        &.no-padding {
+            padding-bottom: 0;
+        }
     }
 
     .project-description-paragraph {
@@ -263,7 +270,11 @@
     }
 
     .project-description-word {
-        transition: all var(--animation-duration-1) ease-in-out;
+        transition: font-variation-settings var(--animation-duration-1) ease-in-out;
+
+        &.no-opacity {
+            opacity: 0;
+        }
     }
 }
 

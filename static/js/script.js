@@ -217,7 +217,7 @@ function clearContentContainer() {
 // HANDLE RESPONSE TYPES
 
 async function handleDelta(content) {
-    console.log("Received delta:", content);
+    // console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -765,7 +765,7 @@ async function renderNextProject() {
                                 imgElement.onload = () => {
                                     imageWrapper.classList.remove('no-opacity');
 
-                                                // Update the digits span with new total
+                                    // Update the digits span with new total
                                     const digitsSpan = projectInfo.querySelector('.image-counter-digits');
                                     const totalImages = imageContainer.querySelectorAll('.project-image').length;
                                     const currentIndex = Math.round(imageContainer.scrollLeft / imageContainer.offsetWidth);
@@ -780,30 +780,24 @@ async function renderNextProject() {
                 case 'description':
                     await new Promise((resolve) => {
                         let projectDescription = projectItem.querySelector('.project-description');
-                
-                        if (!projectDescription) {
-                            projectDescription = document.createElement('div');
-                            projectDescription.classList.add('project-description', 'no-opacity');
-                            projectItem.appendChild(projectDescription);
-                
-                            setTimeout(() => {
-                                projectDescription.classList.remove('no-opacity');
-                            }, 10);
-                        }
-                
-                        // Use for...of instead of forEach for proper async iteration
-                        async function addSentences() {
-                            let projectDescription = projectItem.querySelector('.project-description');
 
+                        async function createProjectDescription() {
                             if (!projectDescription) {
-                                projectDescription = document.createElement('div');
-                                projectDescription.classList.add('project-description', 'no-opacity');
-                                projectItem.appendChild(projectDescription);
-
-                                setTimeout(() => {
-                                    projectDescription.classList.remove('no-opacity');
-                                }, 10);
+                                await new Promise((descriptionResolve) => {
+                                    projectDescription = document.createElement('div');
+                                    projectDescription.classList.add('project-description', 'no-padding');
+                                    projectItem.appendChild(projectDescription);
+                        
+                                    setTimeout(() => {
+                                        projectDescription.classList.remove('no-padding');
+                                    }, 10);
+                                    
+                                    setTimeout(descriptionResolve, 210);
+                                });
                             }
+                        };
+                
+                        async function addSentences() {
 
                             // Create a single paragraph for all sentences
                             const paragraphElement = document.createElement('p');
@@ -831,6 +825,8 @@ async function renderNextProject() {
                                         const words = sentence.split(' ');
                                         let wordIndex = 0;
 
+                                        let lastScrollHeight = projectDescription.scrollHeight;
+
                                         function addNextWord() {
                                             if (wordIndex < words.length) {
                                                 // Add space before word (except for first word)
@@ -841,18 +837,26 @@ async function renderNextProject() {
                                                 // Create span for the word
                                                 const wordSpan = document.createElement('span');
                                                 wordSpan.textContent = words[wordIndex];
-                                                wordSpan.classList.add('project-description-word', 'light');
+                                                wordSpan.classList.add('project-description-word', 'light', 'no-opacity');
                                                 sentenceSpan.appendChild(wordSpan);
 
-                                                // Remove light class after brief delay
+                                                // Check if scrollHeight has changed
+                                                const currentScrollHeight = projectDescription.scrollHeight;
+                                                if (currentScrollHeight !== lastScrollHeight) {
+                                                    console.log('ScrollHeight changed:', currentScrollHeight);
+                                                    lastScrollHeight = currentScrollHeight;
+                                                    projectDescription.style.height = `${currentScrollHeight}px`;
+                                                }
+
                                                 setTimeout(() => {
                                                     wordSpan.classList.remove('light');
-                                                }, 10);
+                                                    wordSpan.classList.remove('no-opacity');
+                                                }, 50);
 
                                                 wordIndex++;
-                                                // Add delay between words
                                                 setTimeout(addNextWord, 50);
                                             } else {
+                                                console.log('sentenceResolve');
                                                 sentenceResolve();
                                             }
                                         }
@@ -864,7 +868,7 @@ async function renderNextProject() {
                         }
 
                         // Call the async function and resolve when complete
-                        addSentences().then(() => resolve());
+                        createProjectDescription().then(() => addSentences().then(() => resolve()));
                     });
                     break;
             }
@@ -1260,6 +1264,8 @@ async function handleDeltaRework(content) {
                                     const words = sentence.split(' ');
                                     let wordIndex = 0;
 
+                                    let lastScrollHeight = descriptionContainer.scrollHeight;
+
                                     function addNextWord() {
                                         if (wordIndex < words.length) {
                                             if (wordIndex > 0) {
@@ -1268,12 +1274,20 @@ async function handleDeltaRework(content) {
 
                                             const wordSpan = document.createElement('span');
                                             wordSpan.textContent = words[wordIndex];
-                                            wordSpan.classList.add('project-description-word', 'light');
+                                            wordSpan.classList.add('project-description-word', 'light', 'no-opacity');
                                             sentenceContainer.appendChild(wordSpan);
+
+                                            // Check if scrollHeight has changed
+                                            const currentScrollHeight = descriptionContainer.scrollHeight;
+                                            if (currentScrollHeight !== lastScrollHeight) {
+                                                console.log('ScrollHeight changed:', currentScrollHeight);
+                                                lastScrollHeight = currentScrollHeight;
+                                            }
 
                                             setTimeout(() => {
                                                 wordSpan.classList.remove('light');
-                                            }, 10);
+                                                wordSpan.classList.remove('no-opacity');
+                                            }, 50);
 
                                             wordIndex++;
                                             setTimeout(addNextWord, 50);
