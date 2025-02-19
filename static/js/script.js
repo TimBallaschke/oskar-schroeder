@@ -341,10 +341,11 @@ async function handleDelta(content) {
                         
                         // As soon as the rows are received, add them to the componentMap
                         if (component.rows) {
-                            component.rows.forEach(rowData => {
-                                if (Array.isArray(rowData)) {
+
+                            component.rows.forEach((rowData, index) => {
+                                if (Array.isArray(rowData) && rowData.length > 0) { // check if the rowData is an array and has at least one item
                                     // Use first item as unique identifier for the row
-                                    const rowId = `row-${rowData[0]}`;
+                                    const rowId = `row-${index}`;
 
                                     if (!componentMap.has(rowId)) {
                                         componentMap.set(rowId, new Set());
@@ -363,15 +364,15 @@ async function handleDelta(content) {
                                     rowData.forEach((item, index) => {
                                         if (!componentMap.get(rowId).has(item)) {
                                             componentMap.get(rowId).add(item);
-                                            // const rowItem = document.createElement('div');
-                                            // rowItem.classList.add('row-item', 'light');
-                                            // rowItem.textContent = item;
-                                            // row.appendChild(rowItem);
+                                            const rowItem = document.createElement('div');
+                                            rowItem.classList.add('row-item', 'light');
+                                            rowItem.textContent = item;
+                                            row.appendChild(rowItem);
 
-                                            // // Remove light class after animation
-                                            // setTimeout(() => {
-                                            //     rowItem.classList.remove('light');
-                                            // }, 10);
+                                            // Remove light class after animation
+                                            setTimeout(() => {
+                                                rowItem.classList.remove('light');
+                                            }, 10);
                                         }
                                     });
                                 }
