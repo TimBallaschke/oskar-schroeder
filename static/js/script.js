@@ -366,7 +366,7 @@ async function handleDelta(content) {
                                                 headerItem.classList.remove('light');
                                             }, 10);
 
-                                            setTimeout(resolve, 2000);
+                                            setTimeout(resolve, 500);
                                         });
                                     }
                                 };
@@ -382,7 +382,7 @@ async function handleDelta(content) {
                         
                         // As soon as the rows are received, add them to the componentMap
                         if (component.rows) {
-                            console.log('componentMap', componentMap);
+                            // console.log('componentMap', componentMap);
                             for (const rowData of component.rows) {
                                 if (Array.isArray(rowData) && rowData.length > 0) { // check if the rowData is an array and has at least one item
                                     // Use first item as unique identifier for the row
@@ -398,12 +398,15 @@ async function handleDelta(content) {
                                         await new Promise(resolve => {
 
                                             row = document.createElement('div');
-                                            row.classList.add('row');
+                                            row.classList.add('table-row', 'no-width', 'no-padding');
                                             row.setAttribute('data-row-id', rowId);
                                             tableContainer.appendChild(row);
+
+                                            setTimeout(() => {
+                                                row.classList.remove('no-width');
+                                            }, 10);
                                             
-                                            console.log('new row', rowId);
-                                            setTimeout(resolve, 4000);
+                                            setTimeout(resolve, 500);
                                         });
                                     }
 
@@ -411,6 +414,11 @@ async function handleDelta(content) {
                                     for (const item of rowData) {
                                         if (!componentMap.get(rowId).has(item)) {
                                             await new Promise(resolve => {
+                                                // If this is the first item, remove no-padding class from row
+                                                if (rowData.indexOf(item) === 0) {
+                                                    row.classList.remove('no-padding');
+                                                }
+
                                                 componentMap.get(rowId).add(item);
                                                 const rowItem = document.createElement('div');
                                                 rowItem.classList.add('row-item', 'light');
@@ -419,7 +427,7 @@ async function handleDelta(content) {
                                                 
                                                 console.log('rowItem', rowItem);
 
-                                                setTimeout(resolve, 2000);
+                                                setTimeout(resolve, 1000);
                                             });
                                         }
                                     }
@@ -573,10 +581,10 @@ async function renderNextProject() {
 
                             setTimeout(() => {
                                 projectItem.classList.remove('no-width');
-                            }, 100);
+                            }, 10);
                         }
 
-                        setTimeout(resolve, 500);
+                        setTimeout(resolve, 410);
                     });
                     break;
                 case 'name':

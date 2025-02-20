@@ -32,6 +32,7 @@ $background-color: #E2E4E9;
   --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
 
   // Content Container
+  --content-padding-bottom: 26px;
 
   // Project Dot
   --dot-column-width: 37px;

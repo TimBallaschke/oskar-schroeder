@@ -89,7 +89,7 @@
         display: grid;
         grid-template-columns: var(--dot-column-width) 1fr;
         grid-template-rows: repeat(2, auto);
-        padding: 18px 0 26px 0;
+        padding: 18px 0 var(--content-padding-bottom) 0;
         transition: all var(--animation-duration-1) ease-in-out;
     
         &.no-padding {
@@ -207,6 +207,7 @@
         max-height: 100%;
         object-fit: contain;
         transition: transform var(--animation-duration-1) ease-in-out;
+        border-radius: 8px;
     }
     
     .image-counter {
@@ -265,7 +266,7 @@
 
     .project-description {
         // padding-top: var(--primary-line-height);
-        padding-bottom: 26px;
+        padding-bottom: var(--content-padding-bottom);
         @include primary-type;
         height: 0;
         overflow: hidden;
@@ -482,6 +483,55 @@
         transform: rotate(180deg);
         transform-origin: center bottom;
     }
+}
+
+
+// Table
+
+.table-row {
+    display: grid;
+    position: relative;
+    // grid-template-columns: 1fr;
+    // grid-template-rows: repeat(2, auto);
+    width: 100%;
+    transition: all var(--animation-duration-1) ease-in-out;
+    padding: var(--content-padding-bottom) 0;
+
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        height: 1px;
+        background-color: black;
+        transition: all var(--animation-duration-1) ease-in-out;
+    }
+
+    &::before {
+        top: 0;
+        right: 0;
+        width: 100%;
+    }
+
+    &::after {
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        transform: translateY(1px);
+    }
+
+    &.no-width {
+        width: 0%;
+    }
+
+    &.no-padding {
+        padding: 0;
+    }
+}
+
+.row-item {
+    transition: all var(--animation-duration-1) ease-in-out;
+    @include primary-type;
 }
 
 
