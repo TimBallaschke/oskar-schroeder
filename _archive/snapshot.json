@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250221_Oskar_Website_only_first_project_noWidth_animation",
+  "original_folder": "250221b_Oskar_Website_padding_table_animation_not_working",
   "snapshot_date_from_folder": "250221",
   "source_files": [
     {
@@ -40,16 +40,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "d50164dd73c57e55c57f3ac2e1ca9fe560364953",
-      "sha256": "c2ef88f1a78a7165cc64dc330605abd01a70b8e08954a2ea8f1bd7d2235f8b13",
-      "size": 19011,
+      "sha1": "f93f694d34b4559c038e45846f644058c60be333",
+      "sha256": "1ed79b0098fcaee2551228d2ddc2362baa194fa5d4ba621c5e925554853d191e",
+      "size": 19157,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "d82f38660ce42eb3273f1a0bb60afc753b6a4b28",
-      "sha256": "46e3606febe2b53246091a8f1d22cdeef10511bd4a9a037568d8c90835978482",
-      "size": 7120,
+      "sha1": "6f211769c0678fce9c7693d8793f4f1fc3c4b6de",
+      "sha256": "68a203561c5c3858555582eeeaf599cbd2a167a096909cf20394bf7b1a6ad1ef",
+      "size": 7145,
       "mode": "100644"
     },
     {
@@ -68,9 +68,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "e17134f79d82637036f051b41d933a93b7f1f3e6",
-      "sha256": "b6fa4cd46a3d3f307354e3f525cdb80c148f55401f0bd6845d2044b854b3c7ea",
-      "size": 11956,
+      "sha1": "3024feb26247e02e43dcba4f7f71743a79260394",
+      "sha256": "9900bf38dbbd8bd400f924bb99030f3e7c8489d574dd45b6e23faf90404ee8f0",
+      "size": 12093,
       "mode": "100644"
     },
     {
@@ -103,9 +103,9 @@
     },
     {
       "path": "static/css/base/_base.scss",
-      "sha1": "d50a4d13e3503896070a3c968d0d6ba2ca0c63cf",
-      "sha256": "2f49a0737fc8964cd2d387a08a3dadac14f1c2dfd4f24441b2f1e8d5e19a453a",
-      "size": 643,
+      "sha1": "f8bbe8bce72b45ec4714a875159a1a7cbb7ac100",
+      "sha256": "8164ee0e4f2469a022fd6b0967bf086760fa2b33dc99ff99cea6f67f355fd0c2",
+      "size": 676,
       "mode": "100644"
     },
     {
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "3a27fc485c252348b36c13f60a8b19bd69fbaa27",
-      "sha256": "5d5e6d94c32ea31afbf36f757589c2afb20f0a3ceb358f50952dbe983b09bc3a",
-      "size": 75258,
+      "sha1": "ae9f33460b4493a650a7b69ea71b2a937231498b",
+      "sha256": "44c8b911b167097a2477893edfb10be94f61cac7cda6de68f515686cfef4cdb5",
+      "size": 76419,
       "mode": "100644"
     },
     {

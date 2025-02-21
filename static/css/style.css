@@ -54,6 +54,10 @@ body {
   overflow: hidden;
 }
 
+.no-opacity {
+  opacity: 0;
+}
+
 @font-face {
   font-family: "Suisse Mono Regular";
   src: url("../assets/fonts/SuisseIntlMono-Regular.woff2") format("woff2");
@@ -514,11 +518,11 @@ p:not(:first-of-type) {
 }
 
 .table-row {
-  display: grid;
   position: relative;
   width: 100%;
-  transition: all var(--animation-duration-1) ease-in-out;
+  transition: width var(--animation-duration-1) ease-in-out, height var(--animation-duration-2) ease-in-out, padding var(--animation-duration-1) ease-in-out;
   padding: var(--content-padding-bottom) 0;
+  height: 0;
 }
 .table-row::before, .table-row::after {
   content: "";
@@ -546,7 +550,7 @@ p:not(:first-of-type) {
 }
 
 .row-item {
-  transition: all var(--animation-duration-1) ease-in-out;
+  transition: font-variation-settings var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
 }
 

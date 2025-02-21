@@ -489,13 +489,14 @@
 // Table
 
 .table-row {
-    display: grid;
+    // display: grid;
     position: relative;
     // grid-template-columns: 1fr;
     // grid-template-rows: repeat(2, auto);
     width: 100%;
-    transition: all var(--animation-duration-1) ease-in-out;
+    transition: width var(--animation-duration-1) ease-in-out, height var(--animation-duration-2) ease-in-out, padding var(--animation-duration-1) ease-in-out;
     padding: var(--content-padding-bottom) 0;
+    height: 0;
 
 
     &::before,
@@ -530,7 +531,7 @@
 }
 
 .row-item {
-    transition: all var(--animation-duration-1) ease-in-out;
+    transition: font-variation-settings var(--animation-duration-1) ease-in-out;
     @include primary-type;
 }
 

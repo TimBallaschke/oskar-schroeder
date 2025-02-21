@@ -421,26 +421,42 @@ async function handleDelta(content) {
                                                 setTimeout(resolve, 10);
                                             });
                                         }
-
-
                                     }
+
+                                    let lastScrollHeight = row.scrollHeight;
 
                                     // Add each item in the row
                                     for (const item of rowData) {
                                         if (!componentMap.get(rowId).has(item)) {
                                             await new Promise(resolve => {
                                                 // If this is the first item, remove no-padding class from row
+
+                                                componentMap.get(rowId).add(item);
+                                                const rowItem = document.createElement('div');
+                                                rowItem.classList.add('row-item', 'light', 'no-opacity');
+                                                rowItem.textContent = item;
+                                                row.appendChild(rowItem);
+
                                                 if (rowData.indexOf(item) === 0) {
                                                     row.classList.remove('no-padding');
                                                 }
 
-                                                componentMap.get(rowId).add(item);
-                                                const rowItem = document.createElement('div');
-                                                rowItem.classList.add('row-item', 'light');
-                                                rowItem.textContent = item;
-                                                row.appendChild(rowItem);
+                                                setTimeout(() => {
+                                                    rowItem.classList.remove('no-opacity');
+                                                    rowItem.classList.remove('light');
+                                                }, 1000);
+
+                                                const currentScrollHeight = row.scrollHeight;
+                                                if (currentScrollHeight !== lastScrollHeight) {
+                                                    console.log('ScrollHeight changed:', currentScrollHeight);
+                                                    lastScrollHeight = currentScrollHeight;
+                                                    row.style.height = `${currentScrollHeight}px`;
+                                                }
                                                 
-                                                console.log('rowItem', rowItem);
+                                                setTimeout(() => {
+                                                    rowItem.classList.remove('no-opacity');
+                                                    rowItem.classList.remove('light');
+                                                }, 100);
 
                                                 setTimeout(resolve, 1000);
                                             });
