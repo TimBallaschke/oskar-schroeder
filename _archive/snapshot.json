@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "original_folder": "250220_Oskar_Website_table",
-  "snapshot_date_from_folder": "250220",
+  "original_folder": "250221_Oskar_Website_only_first_project_no-width_animation",
+  "snapshot_date_from_folder": "250221",
   "source_files": [
     {
       "path": ".cursorignore",
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "ca4d8b156819c47b0c505e60b5dab998df864a22",
-      "sha256": "06bba4ce0a4863d01fd7a0f6cbb541a89250c3e1d21693c35043fe27b8cbdd91",
-      "size": 73496,
+      "sha1": "3a27fc485c252348b36c13f60a8b19bd69fbaa27",
+      "sha256": "5d5e6d94c32ea31afbf36f757589c2afb20f0a3ceb358f50952dbe983b09bc3a",
+      "size": 75258,
       "mode": "100644"
     },
     {

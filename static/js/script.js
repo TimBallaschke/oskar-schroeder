@@ -387,6 +387,7 @@ async function handleDelta(content) {
                                 if (Array.isArray(rowData) && rowData.length > 0) { // check if the rowData is an array and has at least one item
                                     // Use first item as unique identifier for the row
                                     const rowId = `row-${component.rows.indexOf(rowData)}`;
+                                    const isFirstRow = component.rows.indexOf(rowData) === 0;
 
                                     if (!componentMap.has(rowId)) {
                                         componentMap.set(rowId, new Set());
@@ -395,19 +396,33 @@ async function handleDelta(content) {
                                     // Create row if it doesn't exist
                                     let row = tableContainer.querySelector(`[data-row-id="${rowId}"]`);
                                     if (!row) {
-                                        await new Promise(resolve => {
+                                        if (isFirstRow) {
+                                            await new Promise(resolve => {
 
-                                            row = document.createElement('div');
-                                            row.classList.add('table-row', 'no-width', 'no-padding');
-                                            row.setAttribute('data-row-id', rowId);
-                                            tableContainer.appendChild(row);
+                                                row = document.createElement('div');
+                                                row.classList.add('table-row', 'no-width', 'no-padding');
+                                                row.setAttribute('data-row-id', rowId);
+                                                tableContainer.appendChild(row);
+    
+                                                setTimeout(() => {
+                                                    row.classList.remove('no-width');
+                                                }, 10);
+                                                
+                                                setTimeout(resolve, 500);
+                                            });
+                                        } else {
+                                            await new Promise(resolve => {
 
-                                            setTimeout(() => {
-                                                row.classList.remove('no-width');
-                                            }, 10);
-                                            
-                                            setTimeout(resolve, 500);
-                                        });
+                                                row = document.createElement('div');
+                                                row.classList.add('table-row', 'no-padding');
+                                                row.setAttribute('data-row-id', rowId);
+                                                tableContainer.appendChild(row);
+                                                    
+                                                setTimeout(resolve, 10);
+                                            });
+                                        }
+
+
                                     }
 
                                     // Add each item in the row
@@ -501,7 +516,8 @@ async function handleDelta(content) {
                                                 id: projectID,
                                                 key: 'images',
                                                 value: Array.from(imagesSet),
-                                                container: projectsContainer
+                                                container: projectsContainer,
+                                                index: component.projects.indexOf(project)
                                             });
 
                                             if (!isProjectRendering) {
@@ -518,7 +534,8 @@ async function handleDelta(content) {
                                                 id: projectID,
                                                 key: 'description',
                                                 value: Array.from(descriptionSet),
-                                                container: projectsContainer
+                                                container: projectsContainer,
+                                                index: component.projects.indexOf(project)
                                             });
 
                                             if (!isProjectRendering) {
@@ -535,7 +552,8 @@ async function handleDelta(content) {
                                         id: projectID,
                                         key: key,
                                         value: value,
-                                        container: projectsContainer
+                                        container: projectsContainer,
+                                        index: component.projects.indexOf(project)
                                     });
 
                                     if (!isProjectRendering) {
@@ -565,27 +583,38 @@ async function renderNextProject() {
 
     try {
         while (projectRenderingQueue.length > 0) {
-            const { id, key, value, container } = projectRenderingQueue.shift();
+            const { id, key, value, container, index } = projectRenderingQueue.shift();
 
             // console.log(`Rendering ${key} for project: ${id}`);
             let projectItem = document.querySelector(`[data-project-id="${id}"]`);
             switch (key) {
                 case 'UIType':
-                    console.log('Project rendering started');
-                    await new Promise((resolve) => {
-                        if (!projectItem) {
-                            projectItem = document.createElement('div');
-                            projectItem.classList.add('project', 'no-width');
-                            projectItem.setAttribute('data-project-id', id);
-                            container.appendChild(projectItem);
-
-                            setTimeout(() => {
-                                projectItem.classList.remove('no-width');
-                            }, 10);
-                        }
-
-                        setTimeout(resolve, 410);
-                    });
+                    if (index === 0) {
+                        await new Promise((resolve) => {
+                            if (!projectItem) {
+                                projectItem = document.createElement('div');
+                                projectItem.classList.add('project', 'no-width');
+                                projectItem.setAttribute('data-project-id', id);
+                                container.appendChild(projectItem);
+    
+                                setTimeout(() => {
+                                    projectItem.classList.remove('no-width');
+                                }, 10);
+                            }
+    
+                            setTimeout(resolve, 410);
+                        });
+                    } else {
+                        await new Promise((resolve) => {
+                            if (!projectItem) {
+                                projectItem = document.createElement('div');
+                                projectItem.classList.add('project');
+                                projectItem.setAttribute('data-project-id', id);
+                                container.appendChild(projectItem);
+                            }
+                            setTimeout(resolve, 10);
+                        });
+                    }
                     break;
                 case 'name':
                     await new Promise((resolve) => {        
