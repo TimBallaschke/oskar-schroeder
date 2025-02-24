@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "original_folder": "250221b_Oskar_Website_padding_table_animation_not_working",
-  "snapshot_date_from_folder": "250221",
+  "original_folder": "250224_Oskar_Website_prompt_dots",
+  "snapshot_date_from_folder": "250224",
   "source_files": [
     {
       "path": ".cursorignore",
@@ -40,16 +40,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "f93f694d34b4559c038e45846f644058c60be333",
-      "sha256": "1ed79b0098fcaee2551228d2ddc2362baa194fa5d4ba621c5e925554853d191e",
-      "size": 19157,
+      "sha1": "a1c299f2cb688f4e5eaea3231e1ff3d844bfdc86",
+      "sha256": "8f43ea239010120dfae0eb0fa5ff5f7f1053f3477cf8bd0c595172bcebfb80ce",
+      "size": 19674,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "6f211769c0678fce9c7693d8793f4f1fc3c4b6de",
-      "sha256": "68a203561c5c3858555582eeeaf599cbd2a167a096909cf20394bf7b1a6ad1ef",
-      "size": 7145,
+      "sha1": "7501c1c59d4cfd902d47074c00f4bd75dd3e53c2",
+      "sha256": "8be1a56a2b5e5dd01cb8eace2c4e83e05d5d3597be14b219f2ad1c930c8fb194",
+      "size": 7359,
       "mode": "100644"
     },
     {
@@ -75,16 +75,16 @@
     },
     {
       "path": "static/css/components/_inputbar.scss",
-      "sha1": "820851468bb075ca8d5d129a41d06427c6f1fd6d",
-      "sha256": "fa46102af2662778b2f10e2190a53799717c7dddc76e1a5889221223fd726db5",
-      "size": 3633,
+      "sha1": "8dd3a0aa97d709d87199b371d58fb5d21e7ece2c",
+      "sha256": "bf4042f4ecd7d31a15ed622778aafcbd95da91630571bed280d887e22bd2906c",
+      "size": 3977,
       "mode": "100644"
     },
     {
       "path": "static/css/components/_version-history.scss",
-      "sha1": "4c8789aeb58f1fc50801a6f20ecdf44cd9d2e53f",
-      "sha256": "b3ced85d02262299c55b50d0c3bf3ddae95679148bdfe1f2a1d7d60e34728107",
-      "size": 2041,
+      "sha1": "11fa0d6cf12e73117f04a7b4db79b044627bdda3",
+      "sha256": "a44731dda4e970a115e62cd7e75bc462a77007bde3e78843e5cb9dd57fd5293b",
+      "size": 2195,
       "mode": "100644"
     },
     {
@@ -96,9 +96,9 @@
     },
     {
       "path": "static/css/abstracts/_variables.scss",
-      "sha1": "719136fa66b75d530a04ea21ad8bcf27bbd6d3ef",
-      "sha256": "436ae6b7f8ca7c94edd6775254ba2a7dd2a109515490dee2803589804b3c83a2",
-      "size": 1080,
+      "sha1": "01fe5d46b748d0e359121f072cd6f8e1745952dd",
+      "sha256": "682599f863a89c297cdff0f1aabac387da80ca933e762aa922dd49ddc63b5730",
+      "size": 1110,
       "mode": "100644"
     },
     {

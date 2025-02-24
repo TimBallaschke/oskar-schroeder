@@ -47,6 +47,7 @@
   opacity: 0;
   overflow: hidden;
   transition: all var(--animation-duration-1) ease-in-out;
+  transform: translateX(-2px);
   // border-bottom: 1px solid rgb(84, 84, 84);
 
 
@@ -57,6 +58,23 @@
   .prompt-proposal-opening-2 & {
     height: var(--input-element-height);
     opacity: 1;
+  }
+}
+
+.prompt-proposal {
+  position: relative;
+  padding-left: 27px;
+  transform: translateY(3px);
+
+  &::before {
+    content: '';
+    position: absolute;
+    border: solid 1px white;
+    width: var(--small-circle-size);
+    height: var(--small-circle-size);
+    border-radius: 10px;
+    left: 0;
+    top: -3px;
   }
 }
 

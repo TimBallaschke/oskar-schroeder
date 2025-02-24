@@ -27,9 +27,11 @@ $background-color: #E2E4E9;
   --margin-bottom-nav: 4vw;
   --veritical-padding-bottom-nav: 15px;
   --horizontal-padding-bottom-nav: 25px;
-  --input-element-height: calc(var(--primary-font-size) * 1.3);
+  --input-element-height: calc(var(--primary-font-size) * 1.6);
   --button-size: 39px;
   --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
+
+  --small-circle-size: 20px;
 
   // Content Container
   --content-padding-bottom: 26px;
