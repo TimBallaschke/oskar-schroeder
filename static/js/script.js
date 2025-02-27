@@ -456,13 +456,13 @@ async function handleDelta(content) {
                                                 
                                                 setTimeout(() => {
                                                     rowItem.classList.remove('no-opacity');
-                                                }, 200);
+                                                }, 150);
 
                                                 setTimeout(() => {
                                                     rowItem.classList.remove('light');
-                                                }, 250);
+                                                }, 200);
 
-                                                setTimeout(resolve, 1000);
+                                                setTimeout(resolve, 600);
                                             });
                                         }
                                     }

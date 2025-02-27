@@ -521,7 +521,7 @@ p:not(:first-of-type) {
 .table-row-container {
   padding: var(--content-padding-bottom) 0;
   position: relative;
-  transition: all var(--animation-duration-1) ease-in-out;
+  transition: width var(--animation-duration-1) ease-in-out, padding var(--animation-duration-2) ease-in-out;
   width: 100%;
 }
 .table-row-container::before, .table-row-container::after {
