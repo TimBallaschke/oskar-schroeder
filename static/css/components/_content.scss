@@ -491,7 +491,7 @@
 .table-row-container {
     padding: var(--content-padding-bottom) 0;
     position: relative;
-    transition: width var(--animation-duration-1) ease-in-out, padding var(--animation-duration-2) ease-in-out;
+    transition: width var(--animation-duration-1) ease-in-out, padding var(--animation-duration-3) ease-in-out;
     width: 100%;
 
     &::before,
@@ -529,25 +529,26 @@
     // display: grid;
     // grid-template-columns: 1fr;
     // grid-template-rows: repeat(2, auto);
+    grid-template-columns: 1fr 4fr;
+    gap: 15px;
     width: 100%;
-    transition: width var(--animation-duration-1) ease-in-out, height var(--animation-duration-2) ease-in-out, padding var(--animation-duration-2) ease-in-out;
+    transition: all var(--animation-duration-3) ease-in-out;
     height: 0;
 }
 
 .row-item {
     display: grid;
-    grid-template-columns: 1fr 4fr;
-    gap: 15px;
     transition: font-variation-settings var(--animation-duration-1) ease-in-out;
 }
 
-.row-item-left {
+.table-row-left {
     grid-column: 1;
     text-align: right;
+    transition: all 2000ms ease-in-out;
     @include secondary-type;
 }
 
-.row-item-right {
+.table-row-right {
     grid-column: 2;
     transition: font-variation-settings var(--animation-duration-1) ease-in-out;
     @include primary-type;

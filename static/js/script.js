@@ -398,6 +398,9 @@ async function handleDelta(content) {
                                     // Create row if it doesn't exist
                                     let row = tableContainer.querySelector(`[data-row-id="${rowId}"]`);
                                     let rowContainer = tableContainer.querySelector(`[data-row-container-id="${rowId}"]`);
+
+                                    let lastScrollHeight = 0;
+
                                     if (!row) {
                                         if (isFirstRow) {
                                             await new Promise(resolve => {
@@ -405,17 +408,52 @@ async function handleDelta(content) {
                                                 rowContainer = document.createElement('div');
                                                 rowContainer.classList.add('table-row-container', 'no-width', 'no-padding');
                                                 rowContainer.setAttribute('data-row-container-id', rowId);
+
                                                 row = document.createElement('div');
                                                 row.classList.add('table-row');
                                                 row.setAttribute('data-row-id', rowId);
+
+                                                rowLeft = document.createElement('div');
+                                                rowRight = document.createElement('div');
+                                                rowLeft.classList.add('table-row-left');
+                                                rowRight.classList.add('table-row-right');
+
+                                                row.appendChild(rowLeft);
+                                                row.appendChild(rowRight);
                                                 rowContainer.appendChild(row);
                                                 tableContainer.appendChild(rowContainer);
     
                                                 setTimeout(() => {
                                                     rowContainer.classList.remove('no-width');
                                                 }, 10);
-                                                
-                                                setTimeout(resolve, 500);
+
+                                                setTimeout(() => {
+                                                    rowContainer.classList.remove('no-padding');
+                                                }, animationDuration + 10);
+
+                                                if (window.innerWidth < mobileWidth) {
+
+                                                    setTimeout(() => {
+                                                        const headers = Array.from(componentMap.get('headers'));
+                                                        headers.forEach(header => {
+                                                            const headerDiv = document.createElement('div');
+                                                            headerDiv.classList.add('header', 'no-opacity', 'light');
+                                                            headerDiv.textContent = header;
+                                                            rowLeft.appendChild(headerDiv);
+    
+                                                            const currentScrollHeight = row.scrollHeight;
+                                                            if (currentScrollHeight !== lastScrollHeight) {
+                                                                lastScrollHeight = currentScrollHeight;
+                                                                row.style.height = `${currentScrollHeight}px`;
+                                                            }
+                                                        });
+                                                    }, animationDuration + 10);
+
+                                                    setTimeout(resolve, 1000);
+
+                                                } else {
+                                                    setTimeout(resolve, 500);
+                                                }
                                             });
                                         } else {
                                             await new Promise(resolve => {
@@ -434,8 +472,6 @@ async function handleDelta(content) {
                                         }
                                     }
 
-                                    let lastScrollHeight = row.scrollHeight;
-
                                     // Add each item in the row
                                     for (const item of rowData) {
                                         if (!componentMap.get(rowId).has(item)) {
@@ -445,17 +481,6 @@ async function handleDelta(content) {
                                                 const rowItem = document.createElement('div');
                                                 rowItem.classList.add('row-item');
                                                 row.appendChild(rowItem);
-
-                                                const leftColumn = document.createElement('div');
-                                                const rightColumn = document.createElement('div');
-                                                leftColumn.classList.add('row-item-left', 'light');
-                                                rightColumn.classList.add('row-item-right');
-                                                rowItem.appendChild(leftColumn);
-                                                rowItem.appendChild(rightColumn);
-
-                                                if (rowData.indexOf(item) === 0) {
-                                                    rowContainer.classList.remove('no-padding');
-                                                }
 
                                                 const words = item.split(' ');
                                                 let wordIndex = 0;
@@ -497,20 +522,16 @@ async function handleDelta(content) {
                                                     }    
                                                 }
 
-                                                if (window.innerWidth > mobileWidth) {
-                                                    setTimeout(addNextWord, 300);
-                                                } else {
-                                                    const headers = Array.from(componentMap.get('headers'));
-                                                    const headerIndex = rowData.indexOf(item);
-                                                    console.log('header Index: ', headerIndex);
-                                                    leftColumn.textContent = headers[headerIndex];
+                                                // if (window.innerWidth > mobileWidth) {
+                                                //     setTimeout(addNextWord, 300);
+                                                // } else {
+                                                
+                                                //     setTimeout(() => {
+                                                //         leftColumn.classList.remove('light');
+                                                //     }, 50);
 
-                                                    setTimeout(() => {
-                                                        leftColumn.classList.remove('light');
-                                                    }, 50);
-
-                                                    setTimeout(addNextWord, 300);
-                                                }
+                                                //     setTimeout(addNextWord, 300);
+                                                // }
                                             });
                                         }
                                     }
