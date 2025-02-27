@@ -33,11 +33,11 @@ artist_info = (
 
 # Date for exhibitions
 exhibition_data_1 = {
-    "name": "Liminal Constructs",
+    "title": "Liminal Constructs",
     "timeframe": "April 15 - June 30, 2017",
     "gallery": "Zentrum für Zeitgenössische Kunst",
     "city": "Leipzig",
-    "artworks_exhibited": ["Einsatz"],
+    "artworks": ["Einsatz"],
     "description": (
         "Exploring the tensions between order and chaos, 'Liminal Constructs' brought together artists "
         "working with industrial and organic materials. Oskar Schroeder's 'Einsatz' was the centerpiece, "
@@ -46,11 +46,11 @@ exhibition_data_1 = {
 }
 
 exhibition_data_2 = {
-    "name": "Material Encounters",
+    "title": "Material Encounters",
     "timeframe": "October 10 - November 25, 2019",
     "gallery": "Museum of Contemporary Forms",
     "city": "Vienna",
-    "artworks_exhibited": ["Schau"],
+    "artworks": ["Schau"],
     "description": (
         "The exhibition focused on the use of found materials in contemporary art. "
         "Schroeder's 'Schau' was exhibited as a minimalist reflection on materiality and perception, "
@@ -59,11 +59,11 @@ exhibition_data_2 = {
 }
 
 exhibition_data_3 = {
-    "name": "Roots and Ruptures",
+    "title": "Roots and Ruptures",
     "timeframe": "February 1 - March 20, 2020",
     "gallery": "Contemporary Sculpture Pavilion",
     "city": "Copenhagen",
-    "artworks_exhibited": ["Wild"],
+    "artworks": ["Wild"],
     "description": (
         "This exhibition examined the connections between humanity and nature through sculptural works. "
         "Schroeder's 'Wild' stood out with its raw wood carving, emphasizing the vulnerability and "
@@ -72,11 +72,11 @@ exhibition_data_3 = {
 }
 
 exhibition_data_4 = {
-    "name": "Fragments and Echoes",
+    "title": "Fragments and Echoes",
     "timeframe": "May 5 - July 15, 2021",
     "gallery": "Modern Art Forum",
     "city": "Zurich",
-    "artworks_exhibited": ["O.t."],
+    "artworks": ["O.t."],
     "description": (
         "'Fragments and Echoes' showcased contemporary explorations of geological forms and transformations. "
         "Schroeder's 'O.t.' highlighted the layered textures of plaster and concrete, inviting viewers "
@@ -85,11 +85,11 @@ exhibition_data_4 = {
 }
 
 exhibition_data_5 = {
-    "name": "Material Memories",
+    "title": "Material Memories",
     "timeframe": "September 1 - October 20, 2022",
     "gallery": "Nordic Center for Contemporary Art",
     "city": "Stockholm",
-    "artworks_exhibited": ["Landschaft"],
+    "artworks": ["Landschaft"],
     "description": (
         "This exhibition explored the connections between art, memory, and natural materials. "
         "Schroeder's 'Landschaft' invited viewers to experience a tactile interpretation of landscapes, "
@@ -98,11 +98,11 @@ exhibition_data_5 = {
 }
 
 exhibition_data_6 = {
-    "name": "States of Becoming",
+    "title": "States of Becoming",
     "timeframe": "March 15 - April 30, 2023",
     "gallery": "Arthouse Project Space",
     "city": "Basel",
-    "artworks_exhibited": ["Hypo"],
+    "artworks": ["Hypo"],
     "description": (
         "'States of Becoming' focused on sculptures that embody transformation and growth. "
         "Schroeder's 'Hypo' was a highlight, presenting a fluid, biomorphic form that "
@@ -111,11 +111,11 @@ exhibition_data_6 = {
 }
 
 exhibition_data_7 = {
-    "name": "Urban Alchemy",
+    "title": "Urban Alchemy",
     "timeframe": "July 10 - August 25, 2018",
     "gallery": "Urban Arts Gallery",
     "city": "Berlin",
-    "artworks_exhibited": ["Einsatz", "Schau"],
+    "artworks": ["Einsatz", "Schau"],
     "description": (
         "This exhibition delved into the transformation of urban spaces through art. "
         "Schroeder's works 'Einsatz' and 'Schau' were presented as conversations "
@@ -124,11 +124,11 @@ exhibition_data_7 = {
 }
 
 exhibition_data_8 = {
-    "name": "Anthropocene Artifacts",
+    "title": "Anthropocene Artifacts",
     "timeframe": "November 1 - December 15, 2021",
     "gallery": "Industrial Space Gallery",
     "city": "Manchester",
-    "artworks_exhibited": ["Wild", "O.t."],
+    "artworks": ["Wild", "O.t."],
     "description": (
         "Focusing on humanity's impact on the environment, the exhibition featured "
         "Schroeder's 'Wild' and 'O.t.', both of which examine the delicate balance "
@@ -137,11 +137,11 @@ exhibition_data_8 = {
 }
 
 exhibition_data_9 = {
-    "name": "Temporal Textures",
+    "title": "Temporal Textures",
     "timeframe": "February 10 - March 31, 2024",
     "gallery": "Textures of Time Museum",
     "city": "Oslo",
-    "artworks_exhibited": ["Landschaft", "Hypo"],
+    "artworks": ["Landschaft", "Hypo"],
     "description": (
         "This exhibition explored the themes of time and materiality. "
         "Schroeder's 'Landschaft' and 'Hypo' invited viewers to reflect on "
@@ -150,11 +150,11 @@ exhibition_data_9 = {
 }
 
 exhibition_data_10 = {
-    "name": "Art in Flux",
+    "title": "Art in Flux",
     "timeframe": "June 5 - July 25, 2025",
     "gallery": "Flux Contemporary",
     "city": "Amsterdam",
-    "artworks_exhibited": ["Einsatz", "O.t.", "Hypo"],
+    "artworks": ["Einsatz", "O.t.", "Hypo"],
     "description": (
         "'Art in Flux' featured works that embody transformation and impermanence. "
         "Schroeder's pieces demonstrated the evolving nature of materials and forms, "

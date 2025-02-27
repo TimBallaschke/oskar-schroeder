@@ -535,16 +535,23 @@
 }
 
 .row-item {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 15px;
     transition: font-variation-settings var(--animation-duration-1) ease-in-out;
 }
 
+.row-item-left {
+    grid-column: 1;
+    text-align: right;
+    @include secondary-type;
+}
+
 .row-item-right {
+    grid-column: 2;
     transition: font-variation-settings var(--animation-duration-1) ease-in-out;
     @include primary-type;
 }
 
-.row-item-left {
-    @include secondary-type;
-}
 
 

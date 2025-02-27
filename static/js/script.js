@@ -448,7 +448,7 @@ async function handleDelta(content) {
 
                                                 const leftColumn = document.createElement('div');
                                                 const rightColumn = document.createElement('div');
-                                                leftColumn.classList.add('row-item-left');
+                                                leftColumn.classList.add('row-item-left', 'light');
                                                 rightColumn.classList.add('row-item-right');
                                                 rowItem.appendChild(leftColumn);
                                                 rowItem.appendChild(rightColumn);
@@ -487,8 +487,7 @@ async function handleDelta(content) {
 
                                                         setTimeout(() => {
                                                             wordSpan.classList.remove('light');
-                                                        }, 150);
-
+                                                        }, 200);
 
                                                         wordIndex++;
                                                         // Add small delay between words
@@ -501,7 +500,16 @@ async function handleDelta(content) {
                                                 if (window.innerWidth > mobileWidth) {
                                                     setTimeout(addNextWord, 300);
                                                 } else {
+                                                    const headers = Array.from(componentMap.get('headers'));
+                                                    const headerIndex = rowData.indexOf(item);
+                                                    console.log('header Index: ', headerIndex);
+                                                    leftColumn.textContent = headers[headerIndex];
 
+                                                    setTimeout(() => {
+                                                        leftColumn.classList.remove('light');
+                                                    }, 50);
+
+                                                    setTimeout(addNextWord, 300);
                                                 }
                                             });
                                         }
