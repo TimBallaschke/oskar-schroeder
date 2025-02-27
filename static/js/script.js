@@ -2,6 +2,8 @@
 // GLOBAL VARIABLES
 // --------------------------------------------------------------------------------------------
 
+const mobileWidth = 600;
+
 let activeEventSource = null; // Track the active activeEventSource connection
 let isProcessing = false; // Flag to prevent concurrent processing
 let responseMap = {};  // Saving the components for each response
@@ -345,7 +347,7 @@ async function handleDelta(content) {
                         
                         if (component.headers && Array.isArray(component.headers)) {
                             // Create headers container for larger screens
-                            if (window.innerWidth > 600) {
+                            if (window.innerWidth > mobileWidth) {
                                 let headersContainer = tableContainer.querySelector('.headers');
                                 if (!headersContainer) {
                                     headersContainer = document.createElement('div');
@@ -444,6 +446,13 @@ async function handleDelta(content) {
                                                 rowItem.classList.add('row-item');
                                                 row.appendChild(rowItem);
 
+                                                const leftColumn = document.createElement('div');
+                                                const rightColumn = document.createElement('div');
+                                                leftColumn.classList.add('row-item-left');
+                                                rightColumn.classList.add('row-item-right');
+                                                rowItem.appendChild(leftColumn);
+                                                rowItem.appendChild(rightColumn);
+
                                                 if (rowData.indexOf(item) === 0) {
                                                     rowContainer.classList.remove('no-padding');
                                                 }
@@ -456,14 +465,14 @@ async function handleDelta(content) {
                                                     if (wordIndex < words.length) {
                                                         // Add space before word (except for first word)
                                                         if (wordIndex > 0) {
-                                                            rowItem.appendChild(document.createTextNode(' '));
+                                                            rightColumn.appendChild(document.createTextNode(' '));
                                                         }
 
                                                         // Create span for the word
                                                         const wordSpan = document.createElement('span');
                                                         wordSpan.textContent = words[wordIndex];
                                                         wordSpan.classList.add('table-item-word', 'light', 'no-opacity');
-                                                        rowItem.appendChild(wordSpan);
+                                                        rightColumn.appendChild(wordSpan);
 
                                                         const currentScrollHeight = row.scrollHeight;
                                                         if (currentScrollHeight !== lastScrollHeight) {
@@ -488,7 +497,12 @@ async function handleDelta(content) {
                                                         resolve();
                                                     }    
                                                 }
-                                                setTimeout(addNextWord, 300);
+
+                                                if (window.innerWidth > mobileWidth) {
+                                                    setTimeout(addNextWord, 300);
+                                                } else {
+
+                                                }
                                             });
                                         }
                                     }

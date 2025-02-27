@@ -557,7 +557,16 @@ p:not(:first-of-type) {
 
 .row-item {
   transition: font-variation-settings var(--animation-duration-1) ease-in-out;
+}
+
+.row-item-right {
+  transition: font-variation-settings var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
+}
+
+.row-item-left {
+  font-size: var(--secondary-font-size);
+  text-transform: capitalize;
 }
 
 #bottom-navigation {

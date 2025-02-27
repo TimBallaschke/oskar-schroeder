@@ -536,7 +536,15 @@
 
 .row-item {
     transition: font-variation-settings var(--animation-duration-1) ease-in-out;
+}
+
+.row-item-right {
+    transition: font-variation-settings var(--animation-duration-1) ease-in-out;
     @include primary-type;
+}
+
+.row-item-left {
+    @include secondary-type;
 }
 
 
