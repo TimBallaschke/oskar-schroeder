@@ -395,17 +395,22 @@ async function handleDelta(content) {
                                     
                                     // Create row if it doesn't exist
                                     let row = tableContainer.querySelector(`[data-row-id="${rowId}"]`);
+                                    let rowContainer = tableContainer.querySelector(`[data-row-container-id="${rowId}"]`);
                                     if (!row) {
                                         if (isFirstRow) {
                                             await new Promise(resolve => {
-
+                                                
+                                                rowContainer = document.createElement('div');
+                                                rowContainer.classList.add('table-row-container', 'no-width', 'no-padding');
+                                                rowContainer.setAttribute('data-row-container-id', rowId);
                                                 row = document.createElement('div');
-                                                row.classList.add('table-row', 'no-width', 'no-padding');
+                                                row.classList.add('table-row');
                                                 row.setAttribute('data-row-id', rowId);
-                                                tableContainer.appendChild(row);
+                                                rowContainer.appendChild(row);
+                                                tableContainer.appendChild(rowContainer);
     
                                                 setTimeout(() => {
-                                                    row.classList.remove('no-width');
+                                                    rowContainer.classList.remove('no-width');
                                                 }, 10);
                                                 
                                                 setTimeout(resolve, 500);
@@ -413,10 +418,14 @@ async function handleDelta(content) {
                                         } else {
                                             await new Promise(resolve => {
 
+                                                rowContainer = document.createElement('div');
+                                                rowContainer.classList.add('table-row-container', 'no-padding');
+                                                rowContainer.setAttribute('data-row-container-id', rowId);
                                                 row = document.createElement('div');
-                                                row.classList.add('table-row', 'no-padding');
+                                                row.classList.add('table-row');
                                                 row.setAttribute('data-row-id', rowId);
-                                                tableContainer.appendChild(row);
+                                                rowContainer.appendChild(row);
+                                                tableContainer.appendChild(rowContainer);
                                                     
                                                 setTimeout(resolve, 10);
                                             });
@@ -429,8 +438,6 @@ async function handleDelta(content) {
                                     for (const item of rowData) {
                                         if (!componentMap.get(rowId).has(item)) {
                                             await new Promise(resolve => {
-                                                // If this is the first item, remove no-padding class from row
-
                                                 componentMap.get(rowId).add(item);
                                                 const rowItem = document.createElement('div');
                                                 rowItem.classList.add('row-item', 'light', 'no-opacity');
@@ -438,25 +445,22 @@ async function handleDelta(content) {
                                                 row.appendChild(rowItem);
 
                                                 if (rowData.indexOf(item) === 0) {
-                                                    row.classList.remove('no-padding');
+                                                    rowContainer.classList.remove('no-padding');
                                                 }
-
-                                                setTimeout(() => {
-                                                    rowItem.classList.remove('no-opacity');
-                                                    rowItem.classList.remove('light');
-                                                }, 1000);
 
                                                 const currentScrollHeight = row.scrollHeight;
                                                 if (currentScrollHeight !== lastScrollHeight) {
-                                                    console.log('ScrollHeight changed:', currentScrollHeight);
                                                     lastScrollHeight = currentScrollHeight;
                                                     row.style.height = `${currentScrollHeight}px`;
                                                 }
                                                 
                                                 setTimeout(() => {
                                                     rowItem.classList.remove('no-opacity');
+                                                }, 200);
+
+                                                setTimeout(() => {
                                                     rowItem.classList.remove('light');
-                                                }, 100);
+                                                }, 250);
 
                                                 setTimeout(resolve, 1000);
                                             });
