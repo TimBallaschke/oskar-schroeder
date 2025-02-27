@@ -439,30 +439,56 @@ async function handleDelta(content) {
                                         if (!componentMap.get(rowId).has(item)) {
                                             await new Promise(resolve => {
                                                 componentMap.get(rowId).add(item);
+
                                                 const rowItem = document.createElement('div');
-                                                rowItem.classList.add('row-item', 'light', 'no-opacity');
-                                                rowItem.textContent = item;
+                                                rowItem.classList.add('row-item');
                                                 row.appendChild(rowItem);
 
                                                 if (rowData.indexOf(item) === 0) {
                                                     rowContainer.classList.remove('no-padding');
                                                 }
 
-                                                const currentScrollHeight = row.scrollHeight;
-                                                if (currentScrollHeight !== lastScrollHeight) {
-                                                    lastScrollHeight = currentScrollHeight;
-                                                    row.style.height = `${currentScrollHeight}px`;
+                                                const words = item.split(' ');
+                                                let wordIndex = 0;
+
+                                                function addNextWord() {
+                                                    // As long as there is words left in the array of words
+                                                    if (wordIndex < words.length) {
+                                                        // Add space before word (except for first word)
+                                                        if (wordIndex > 0) {
+                                                            rowItem.appendChild(document.createTextNode(' '));
+                                                        }
+
+                                                        // Create span for the word
+                                                        const wordSpan = document.createElement('span');
+                                                        wordSpan.textContent = words[wordIndex];
+                                                        wordSpan.classList.add('table-item-word', 'light', 'no-opacity');
+                                                        rowItem.appendChild(wordSpan);
+
+                                                        const currentScrollHeight = row.scrollHeight;
+                                                        if (currentScrollHeight !== lastScrollHeight) {
+                                                            lastScrollHeight = currentScrollHeight;
+                                                            row.style.height = `${currentScrollHeight}px`;
+                                                        }
+
+                                                        // Remove light class after 10ms
+                                                        setTimeout(() => {
+                                                            wordSpan.classList.remove('no-opacity');
+                                                        }, 100);
+
+                                                        setTimeout(() => {
+                                                            wordSpan.classList.remove('light');
+                                                        }, 150);
+
+
+                                                        wordIndex++;
+                                                        // Add small delay between words
+                                                        setTimeout(addNextWord, 100);
+                                                    } else {
+                                                        resolve();
+                                                    }    
                                                 }
-                                                
-                                                setTimeout(() => {
-                                                    rowItem.classList.remove('no-opacity');
-                                                }, 150);
-
-                                                setTimeout(() => {
-                                                    rowItem.classList.remove('light');
-                                                }, 200);
-
-                                                setTimeout(resolve, 600);
+                                                setTimeout(addNextWord, 300);
                                             });
                                         }
                                     }
