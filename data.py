@@ -34,7 +34,7 @@ artist_info = (
 # Date for exhibitions
 exhibition_data_1 = {
     "title": "Liminal Constructs",
-    "timeframe": "April 15 - June 30, 2017",
+    "timeframe": "April 15 – June 30, 2017",
     "gallery": "Zentrum für Zeitgenössische Kunst",
     "city": "Leipzig",
     "artworks": ["Einsatz"],
@@ -47,7 +47,7 @@ exhibition_data_1 = {
 
 exhibition_data_2 = {
     "title": "Material Encounters",
-    "timeframe": "October 10 - November 25, 2019",
+    "timeframe": "October 10 – November 25, 2019",
     "gallery": "Museum of Contemporary Forms",
     "city": "Vienna",
     "artworks": ["Schau"],
@@ -60,7 +60,7 @@ exhibition_data_2 = {
 
 exhibition_data_3 = {
     "title": "Roots and Ruptures",
-    "timeframe": "February 1 - March 20, 2020",
+    "timeframe": "February 1 – March 20, 2020",
     "gallery": "Contemporary Sculpture Pavilion",
     "city": "Copenhagen",
     "artworks": ["Wild"],
@@ -73,7 +73,7 @@ exhibition_data_3 = {
 
 exhibition_data_4 = {
     "title": "Fragments and Echoes",
-    "timeframe": "May 5 - July 15, 2021",
+    "timeframe": "May 5 – July 15, 2021",
     "gallery": "Modern Art Forum",
     "city": "Zurich",
     "artworks": ["O.t."],
@@ -86,7 +86,7 @@ exhibition_data_4 = {
 
 exhibition_data_5 = {
     "title": "Material Memories",
-    "timeframe": "September 1 - October 20, 2022",
+    "timeframe": "September 1 – October 20, 2022",
     "gallery": "Nordic Center for Contemporary Art",
     "city": "Stockholm",
     "artworks": ["Landschaft"],
@@ -99,7 +99,7 @@ exhibition_data_5 = {
 
 exhibition_data_6 = {
     "title": "States of Becoming",
-    "timeframe": "March 15 - April 30, 2023",
+    "timeframe": "March 15 – April 30, 2023",
     "gallery": "Arthouse Project Space",
     "city": "Basel",
     "artworks": ["Hypo"],
@@ -112,7 +112,7 @@ exhibition_data_6 = {
 
 exhibition_data_7 = {
     "title": "Urban Alchemy",
-    "timeframe": "July 10 - August 25, 2018",
+    "timeframe": "July 10 – August 25, 2018",
     "gallery": "Urban Arts Gallery",
     "city": "Berlin",
     "artworks": ["Einsatz", "Schau"],
@@ -125,7 +125,7 @@ exhibition_data_7 = {
 
 exhibition_data_8 = {
     "title": "Anthropocene Artifacts",
-    "timeframe": "November 1 - December 15, 2021",
+    "timeframe": "November 1 – December 15, 2021",
     "gallery": "Industrial Space Gallery",
     "city": "Manchester",
     "artworks": ["Wild", "O.t."],
@@ -138,7 +138,7 @@ exhibition_data_8 = {
 
 exhibition_data_9 = {
     "title": "Temporal Textures",
-    "timeframe": "February 10 - March 31, 2024",
+    "timeframe": "February 10 – March 31, 2024",
     "gallery": "Textures of Time Museum",
     "city": "Oslo",
     "artworks": ["Landschaft", "Hypo"],
@@ -151,7 +151,7 @@ exhibition_data_9 = {
 
 exhibition_data_10 = {
     "title": "Art in Flux",
-    "timeframe": "June 5 - July 25, 2025",
+    "timeframe": "June 5 – July 25, 2025",
     "gallery": "Flux Contemporary",
     "city": "Amsterdam",
     "artworks": ["Einsatz", "O.t.", "Hypo"],

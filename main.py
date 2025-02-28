@@ -55,7 +55,7 @@ class ListComponent(BaseModel):
 
 class TableComponent(BaseModel):
     UIType: Literal["table"] = Field(description="Indicates this is a table component for displaying structured data")
-    headers: List[str] = Field(description="Column headers for the table")
+    headers: List[str] = Field(description="Column headers for the table. Headers should be single words when possible")
     rows: List[List[str]] = Field(description="Rows of data, where each row is a list of strings")
 
 class ProjectsLayout(str, Enum):

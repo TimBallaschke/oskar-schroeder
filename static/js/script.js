@@ -498,10 +498,12 @@ async function handleDelta(content) {
                                         if (!componentMap.get(rowId).has(item)) {
                                             await new Promise(resolve => {
                                                 row = tableContainer.querySelector(`[data-row-id="${rowId}"]`);
+                                                row.classList.add('animation-duration');
                                                 componentMap.get(rowId).add(item);
 
                                                 const rowItem = document.createElement('div');
                                                 rowItem.classList.add('row-item');
+                                                rowItem.style.gridRow = `${rowData.indexOf(item) + 1}`;
                                                 row.appendChild(rowItem);
 
                                                 const words = item.split(' ');
@@ -512,14 +514,14 @@ async function handleDelta(content) {
                                                     if (wordIndex < words.length) {
                                                         // Add space before word (except for first word)
                                                         if (wordIndex > 0) {
-                                                            rightColumn.appendChild(document.createTextNode(' '));
+                                                            rowItem.appendChild(document.createTextNode(' '));
                                                         }
 
                                                         // Create span for the word
                                                         const wordSpan = document.createElement('span');
                                                         wordSpan.textContent = words[wordIndex];
                                                         wordSpan.classList.add('table-item-word', 'light', 'no-opacity');
-                                                        rightColumn.appendChild(wordSpan);
+                                                        rowItem.appendChild(wordSpan);
 
                                                         const currentScrollHeight = row.scrollHeight;
                                                         if (currentScrollHeight !== lastScrollHeight) {
@@ -544,18 +546,7 @@ async function handleDelta(content) {
                                                     }    
                                                 }
 
-                                                resolve();
-
-                                                // if (window.innerWidth > mobileWidth) {
-                                                //     setTimeout(addNextWord, 300);
-                                                // } else {
-                                                
-                                                //     setTimeout(() => {
-                                                //         leftColumn.classList.remove('light');
-                                                //     }, 50);
-
-                                                //     setTimeout(addNextWord, 300);
-                                                // }
+                                                addNextWord();
                                             });
                                         }
                                     }
