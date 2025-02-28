@@ -8,7 +8,7 @@
 
 @mixin primary-type {
   font-size: var(--primary-font-size);
-  line-height: var(--primary-line-height);
+  // line-height: var(--primary-line-height);
 }
 
 @mixin secondary-type {

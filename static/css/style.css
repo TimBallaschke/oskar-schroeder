@@ -159,7 +159,6 @@ p:not(:first-of-type) {
 .paragraph-container {
   transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
-  line-height: var(--primary-line-height);
 }
 
 .paragraph-word {
@@ -238,7 +237,6 @@ p:not(:first-of-type) {
   height: var(--primary-line-height);
   transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
-  line-height: var(--primary-line-height);
   transform: translateY(7px);
 }
 .fullscreen .project-name.no-height {
@@ -246,7 +244,6 @@ p:not(:first-of-type) {
 }
 .fullscreen .project-year {
   font-size: var(--primary-font-size);
-  line-height: var(--primary-line-height);
 }
 .fullscreen .project-material-dimensions {
   grid-area: 2/2;
@@ -355,7 +352,6 @@ p:not(:first-of-type) {
 .fullscreen .project-description {
   padding-bottom: var(--content-padding-bottom);
   font-size: var(--primary-font-size);
-  line-height: var(--primary-line-height);
   height: 0;
   overflow: hidden;
   transition: all var(--animation-duration-2) ease-in-out;
@@ -524,7 +520,8 @@ p:not(:first-of-type) {
 }
 
 .table-row-container {
-  padding: var(--content-padding-bottom) 0;
+  padding-top: var(--content-padding-bottom);
+  padding-bottom: calc(var(--content-padding-bottom) - 8px);
   position: relative;
   transition: width var(--animation-duration-1) ease-in-out, padding var(--animation-duration-3) ease-in-out;
   width: 100%;
@@ -548,7 +545,8 @@ p:not(:first-of-type) {
   transform: translateY(1px);
 }
 .table-row-container.no-padding {
-  padding: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .table-row-container.no-width {
   width: 0%;
@@ -580,7 +578,6 @@ p:not(:first-of-type) {
 .row-item {
   grid-column: 2;
   font-size: var(--primary-font-size);
-  line-height: var(--primary-line-height);
   transition: font-variation-settings var(--animation-duration-1) ease-in-out;
   transform: translateY(-2px);
   word-break: break-word;
@@ -600,7 +597,6 @@ p:not(:first-of-type) {
   transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
   box-shadow: 0 0 10px rgba(226, 228, 233, 0.9), 0 0 25px rgba(226, 228, 233, 0.7);
   font-size: var(--primary-font-size);
-  line-height: var(--primary-line-height);
 }
 .component-selected #bottom-navigation {
   width: calc(100vw - 2 * var(--page-padding) - var(--dot-column-width));
@@ -809,7 +805,6 @@ input {
   opacity: 0;
   transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
-  line-height: var(--primary-line-height);
 }
 .version-history-element.current-version-history-element {
   height: 24px;

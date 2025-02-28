@@ -489,7 +489,8 @@
 // Table
 
 .table-row-container {
-    padding: var(--content-padding-bottom) 0;
+    padding-top: var(--content-padding-bottom);
+    padding-bottom: calc(var(--content-padding-bottom) - 8px);
     position: relative;
     transition: width var(--animation-duration-1) ease-in-out, padding var(--animation-duration-3) ease-in-out;
     width: 100%;
@@ -517,7 +518,8 @@
     }
 
     &.no-padding {
-        padding: 0;
+        padding-top: 0;
+        padding-bottom: 0;
     }
 
     &.no-width {

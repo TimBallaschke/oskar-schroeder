@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250228g_Oskar_Website_table_row",
+  "original_folder": "250228h_Oskar_Website_table_row",
   "snapshot_date_from_folder": "250228",
   "source_files": [
     {
@@ -40,16 +40,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "9898fa3badbd3066d9bfc62fc0f8eb5d165f1333",
-      "sha256": "9f58108820113c0c77de46002f635bc67d5ae1da6c230110634b3c05917abca0",
-      "size": 20738,
+      "sha1": "d80c4eab732c067815fa1f79e01a555c8fdbbeeb",
+      "sha256": "4b53a47010070e696d77031ecd45f9cb985356581d979d3165e59f75760dd03c",
+      "size": 20525,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "d91115a1e49bfda5e4cebeddea93cf9229b21e51",
-      "sha256": "a614c81a4e4d2e548512ff74cdbf950aaedc1c3f092ad25085d3847e9511118f",
-      "size": 7704,
+      "sha1": "1b1c5ef0e553f2bc97851077401eb17b95b78f92",
+      "sha256": "0dd3110fdfb16ac0a2a120e7d003539198a21519fa07de9560af299462721263",
+      "size": 7649,
       "mode": "100644"
     },
     {
@@ -68,9 +68,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "8844112e3a252396a8d66c5a4fe1c1d7a9f2c195",
-      "sha256": "010ec793d9f07d596bb05fbec7f55728e27142f019382bc5354d2b0383ed8908",
-      "size": 12738,
+      "sha1": "d989540bde7d5dad16db7b5c756d3f81807a1607",
+      "sha256": "ab8627b78ef864ff47ac1950b22e51831b1cdd1acfad517267ad0a5538a8b4a8",
+      "size": 12834,
       "mode": "100644"
     },
     {
@@ -89,9 +89,9 @@
     },
     {
       "path": "static/css/abstracts/_mixins.scss",
-      "sha1": "5108f45894dc306dfd732fbede7ef943e8c602b7",
-      "sha256": "39c95afadf7f92bfdbe82bd1ec55ddeab9a3399373a29689ef3c155f1d75c11e",
-      "size": 371,
+      "sha1": "05b44758f58c6eb56134c1d944df175675994651",
+      "sha256": "6e460ef9573052c7ede0a7fc03c1a2ae2bd8b21d40ea72607835d776379a0820",
+      "size": 374,
       "mode": "100644"
     },
     {
@@ -103,9 +103,9 @@
     },
     {
       "path": "static/css/base/_base.scss",
-      "sha1": "f8bbe8bce72b45ec4714a875159a1a7cbb7ac100",
-      "sha256": "8164ee0e4f2469a022fd6b0967bf086760fa2b33dc99ff99cea6f67f355fd0c2",
-      "size": 676,
+      "sha1": "3535a858dcffb7ba725f1c97ce0ebe7133803e48",
+      "sha256": "43ef5ffb6ab93701aeb99e8eae233f7f595b512ceb502afc8e1332d871929d5c",
+      "size": 679,
       "mode": "100644"
     },
     {
