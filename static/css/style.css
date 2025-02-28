@@ -21,6 +21,7 @@
   --project-line-height: 100px;
   --project-line-bottom: calc(var(--margin-bottom-nav) + (var(--veritical-padding-bottom-nav) * 2 + var(--input-element-height)) / 2);
   --project-line-top: 0;
+  --table-rows-amount: 0;
 }
 
 html {
@@ -552,7 +553,9 @@ p:not(:first-of-type) {
 .table-row {
   display: grid;
   grid-template-columns: 1fr 4fr;
-  gap: 15px;
+  grid-template-rows: repeat(var(--table-rows-amount), auto);
+  -moz-column-gap: 15px;
+       column-gap: 15px;
   width: 100%;
   transition: all var(--animation-duration-3) ease-in-out;
   height: 0;
@@ -573,8 +576,12 @@ p:not(:first-of-type) {
 }
 
 .table-header {
+  grid-column: 1;
+  text-align: right;
   transition: font-variation-settings var(--animation-duration-1) ease-in-out;
   padding-bottom: 10px;
+  font-size: var(--secondary-font-size);
+  text-transform: capitalize;
 }
 
 .row-item {

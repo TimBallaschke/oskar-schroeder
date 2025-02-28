@@ -40,10 +40,12 @@ $background-color: #E2E4E9;
   --dot-column-width: 37px;
   --dot-width: 31px;
 
-
   // Project Line
   --project-line-height: 100px;
   --project-line-bottom: calc(var(--margin-bottom-nav) + (var(--veritical-padding-bottom-nav) * 2 + var(--input-element-height)) / 2);
   --project-line-top: 0;
+
+  // Tables
+  --table-rows-amount: 0;
 }
 

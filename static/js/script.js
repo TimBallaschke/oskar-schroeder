@@ -414,13 +414,6 @@ async function handleDelta(content) {
                                                 row.classList.add('table-row');
                                                 row.setAttribute('data-row-id', rowId);
 
-                                                rowLeft = document.createElement('div');
-                                                rowRight = document.createElement('div');
-                                                rowLeft.classList.add('table-row-left');
-                                                rowRight.classList.add('table-row-right');
-
-                                                row.appendChild(rowLeft);
-                                                row.appendChild(rowRight);
                                                 rowContainer.appendChild(row);
                                                 tableContainer.appendChild(rowContainer);
     
@@ -434,13 +427,15 @@ async function handleDelta(content) {
 
                                                 if (window.innerWidth < mobileWidth) {
                                                     const headers = Array.from(componentMap.get('headers'));
+                                                    setCSSVarValue('--table-rows-amount', headers.length, '');
+
                                                     headers.forEach(header => {
                                                         const headerDiv = document.createElement('div');
 
                                                         setTimeout(() => {
                                                             headerDiv.classList.add('table-header', 'no-opacity', 'light');
                                                             headerDiv.textContent = header;
-                                                            rowLeft.appendChild(headerDiv);
+                                                            row.appendChild(headerDiv);
     
                                                             const currentScrollHeight = row.scrollHeight;
                                                             if (currentScrollHeight !== lastScrollHeight) {
@@ -459,51 +454,51 @@ async function handleDelta(content) {
                                                 }
                                             });
                                         } else {
-                                            await new Promise(resolve => {
-                                                console.log('not first row');
-                                                rowContainer = document.createElement('div');
-                                                rowContainer.classList.add('table-row-container', 'no-padding');
-                                                rowContainer.setAttribute('data-row-container-id', rowId);
+                                            // await new Promise(resolve => {
+                                            //     console.log('not first row');
+                                            //     rowContainer = document.createElement('div');
+                                            //     rowContainer.classList.add('table-row-container', 'no-padding');
+                                            //     rowContainer.setAttribute('data-row-container-id', rowId);
 
-                                                row = document.createElement('div');
-                                                row.classList.add('table-row');
-                                                row.setAttribute('data-row-id', rowId);
+                                            //     row = document.createElement('div');
+                                            //     row.classList.add('table-row');
+                                            //     row.setAttribute('data-row-id', rowId);
 
-                                                rowLeft = document.createElement('div');
-                                                rowRight = document.createElement('div');
-                                                rowLeft.classList.add('table-row-left');
-                                                rowRight.classList.add('table-row-right');
+                                            //     rowLeft = document.createElement('div');
+                                            //     rowRight = document.createElement('div');
+                                            //     rowLeft.classList.add('table-row-left');
+                                            //     rowRight.classList.add('table-row-right');
 
-                                                row.appendChild(rowLeft);
-                                                row.appendChild(rowRight);
-                                                rowContainer.appendChild(row);
-                                                tableContainer.appendChild(rowContainer);
+                                            //     row.appendChild(rowLeft);
+                                            //     row.appendChild(rowRight);
+                                            //     rowContainer.appendChild(row);
+                                            //     tableContainer.appendChild(rowContainer);
 
-                                                setTimeout(() => {
-                                                    rowContainer.classList.remove('no-padding');
-                                                }, 10);
+                                            //     setTimeout(() => {
+                                            //         rowContainer.classList.remove('no-padding');
+                                            //     }, 10);
 
-                                                if (window.innerWidth < mobileWidth) {
-                                                    setTimeout(() => {
-                                                        const headers = Array.from(componentMap.get('headers'));
-                                                        headers.forEach(header => {
-                                                            const headerDiv = document.createElement('div');
-                                                            headerDiv.classList.add('table-header', 'no-opacity', 'light');
-                                                            headerDiv.textContent = header;
-                                                            rowLeft.appendChild(headerDiv);
+                                            //     if (window.innerWidth < mobileWidth) {
+                                            //         setTimeout(() => {
+                                            //             const headers = Array.from(componentMap.get('headers'));
+                                            //             headers.forEach(header => {
+                                            //                 const headerDiv = document.createElement('div');
+                                            //                 headerDiv.classList.add('table-header', 'no-opacity', 'light');
+                                            //                 headerDiv.textContent = header;
+                                            //                 rowLeft.appendChild(headerDiv);
     
-                                                            const currentScrollHeight = row.scrollHeight;
-                                                            if (currentScrollHeight !== lastScrollHeight) {
-                                                                lastScrollHeight = currentScrollHeight;
-                                                                row.style.height = `${currentScrollHeight}px`;
-                                                            }
-                                                        });
-                                                    }, 10);
-                                                    setTimeout(resolve, 1000);
-                                                } else {
-                                                    setTimeout(resolve, 500);
-                                                }      
-                                            });
+                                            //                 const currentScrollHeight = row.scrollHeight;
+                                            //                 if (currentScrollHeight !== lastScrollHeight) {
+                                            //                     lastScrollHeight = currentScrollHeight;
+                                            //                     row.style.height = `${currentScrollHeight}px`;
+                                            //                 }
+                                            //             });
+                                            //         }, 10);
+                                            //         setTimeout(resolve, 1000);
+                                            //     } else {
+                                            //         setTimeout(resolve, 500);
+                                            //     }      
+                                            // });
                                         }
                                     }
 
