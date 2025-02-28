@@ -433,11 +433,12 @@ async function handleDelta(content) {
                                                 }, animationDuration + 10);
 
                                                 if (window.innerWidth < mobileWidth) {
-                                                    setTimeout(() => {
-                                                        const headers = Array.from(componentMap.get('headers'));
-                                                        headers.forEach(header => {
-                                                            const headerDiv = document.createElement('div');
-                                                            headerDiv.classList.add('header', 'no-opacity', 'light');
+                                                    const headers = Array.from(componentMap.get('headers'));
+                                                    headers.forEach(header => {
+                                                        const headerDiv = document.createElement('div');
+
+                                                        setTimeout(() => {
+                                                            headerDiv.classList.add('table-header', 'no-opacity', 'light');
                                                             headerDiv.textContent = header;
                                                             rowLeft.appendChild(headerDiv);
     
@@ -446,9 +447,13 @@ async function handleDelta(content) {
                                                                 lastScrollHeight = currentScrollHeight;
                                                                 row.style.height = `${currentScrollHeight}px`;
                                                             }
-                                                        });
-                                                    }, animationDuration + 10);
-                                                    setTimeout(resolve, 1000);
+                                                        }, animationDuration + 10);
+
+                                                        setTimeout(() => {
+                                                            headerDiv.classList.remove('no-opacity', 'light');
+                                                        }, 1000);
+                                                    });
+                                                    setTimeout(resolve, 1500);
                                                 } else {
                                                     setTimeout(resolve, 500);
                                                 }
@@ -483,7 +488,7 @@ async function handleDelta(content) {
                                                         const headers = Array.from(componentMap.get('headers'));
                                                         headers.forEach(header => {
                                                             const headerDiv = document.createElement('div');
-                                                            headerDiv.classList.add('header', 'no-opacity', 'light');
+                                                            headerDiv.classList.add('table-header', 'no-opacity', 'light');
                                                             headerDiv.textContent = header;
                                                             rowLeft.appendChild(headerDiv);
     

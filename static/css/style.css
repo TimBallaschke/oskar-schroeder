@@ -550,6 +550,7 @@ p:not(:first-of-type) {
 }
 
 .table-row {
+  display: grid;
   grid-template-columns: 1fr 4fr;
   gap: 15px;
   width: 100%;
@@ -557,15 +558,10 @@ p:not(:first-of-type) {
   height: 0;
 }
 
-.row-item {
-  display: grid;
-  transition: font-variation-settings var(--animation-duration-1) ease-in-out;
-}
-
 .table-row-left {
   grid-column: 1;
   text-align: right;
-  transition: all 2000ms ease-in-out;
+  transition: all var(--animation-duration-3) ease-in-out;
   font-size: var(--secondary-font-size);
   text-transform: capitalize;
 }
@@ -574,6 +570,16 @@ p:not(:first-of-type) {
   grid-column: 2;
   transition: font-variation-settings var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
+}
+
+.table-header {
+  transition: font-variation-settings var(--animation-duration-1) ease-in-out;
+  padding-bottom: 10px;
+}
+
+.row-item {
+  display: grid;
+  transition: font-variation-settings var(--animation-duration-1) ease-in-out;
 }
 
 #bottom-navigation {
