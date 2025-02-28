@@ -69,6 +69,8 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
             row = document.createElement('div');
             row.classList.add('table-row');
             row.setAttribute('data-row-id', rowId);
+            console.log('create first row: ', row);
+
         
             rowContainer.appendChild(row);
             tableContainer.appendChild(rowContainer);
@@ -96,6 +98,8 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
             row = document.createElement('div');
             row.classList.add('table-row');
             row.setAttribute('data-row-id', rowId);
+            console.log('create other row: ', row);
+
         
             rowContainer.appendChild(row);
             tableContainer.appendChild(rowContainer);
@@ -479,11 +483,13 @@ async function handleDelta(content) {
                                     
                                     // Create row if it doesn't exist
                                     let row = tableContainer.querySelector(`[data-row-id="${rowId}"]`);
+                                    console.log('row initialize: ', row);
                                     let rowContainer = tableContainer.querySelector(`[data-row-container-id="${rowId}"]`);
 
                                     let lastScrollHeight = 0;
 
                                     if (!row) {
+                                        console.log('row as argument: ', row);
                                         await createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, headers, lastScrollHeight);
                                     }
 
@@ -491,6 +497,7 @@ async function handleDelta(content) {
                                     for (const item of rowData) {
                                         if (!componentMap.get(rowId).has(item)) {
                                             await new Promise(resolve => {
+                                                row = tableContainer.querySelector(`[data-row-id="${rowId}"]`);
                                                 componentMap.get(rowId).add(item);
 
                                                 const rowItem = document.createElement('div');
