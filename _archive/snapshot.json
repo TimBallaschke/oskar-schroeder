@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "original_folder": "250227f_Oskar_Website_table_all_headers_at_once",
-  "snapshot_date_from_folder": "250227",
+  "original_folder": "250228_Oskar_Website_table_row_all_headers_at_once",
+  "snapshot_date_from_folder": "250228",
   "source_files": [
     {
       "path": ".cursorignore",
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "302a95479cdc08f62ebbf01d65c2e9ba9224e836",
-      "sha256": "4011b094bed1f6ed9091f6ced8b7becfbe0d2a61a3c75da52dfdcb1daf467526",
-      "size": 81433,
+      "sha1": "3a90bc3d928ae1035e693f5282dcd0350a0fcaec",
+      "sha256": "6490dbd091717a546ea5561c13affa8aca3680ffa2ce9dcb7f452369a910adfb",
+      "size": 83922,
       "mode": "100644"
     },
     {

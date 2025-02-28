@@ -390,6 +390,7 @@ async function handleDelta(content) {
                                     // Use first item as unique identifier for the row
                                     const rowId = `row-${component.rows.indexOf(rowData)}`;
                                     const isFirstRow = component.rows.indexOf(rowData) === 0;
+                                    console.log('row index: ', component.rows.indexOf(rowData))
 
                                     if (!componentMap.has(rowId)) {
                                         componentMap.set(rowId, new Set());
@@ -432,7 +433,6 @@ async function handleDelta(content) {
                                                 }, animationDuration + 10);
 
                                                 if (window.innerWidth < mobileWidth) {
-
                                                     setTimeout(() => {
                                                         const headers = Array.from(componentMap.get('headers'));
                                                         headers.forEach(header => {
@@ -448,26 +448,56 @@ async function handleDelta(content) {
                                                             }
                                                         });
                                                     }, animationDuration + 10);
-
                                                     setTimeout(resolve, 1000);
-
                                                 } else {
                                                     setTimeout(resolve, 500);
                                                 }
                                             });
                                         } else {
                                             await new Promise(resolve => {
-
+                                                console.log('not first row');
                                                 rowContainer = document.createElement('div');
                                                 rowContainer.classList.add('table-row-container', 'no-padding');
                                                 rowContainer.setAttribute('data-row-container-id', rowId);
+
                                                 row = document.createElement('div');
                                                 row.classList.add('table-row');
                                                 row.setAttribute('data-row-id', rowId);
+
+                                                rowLeft = document.createElement('div');
+                                                rowRight = document.createElement('div');
+                                                rowLeft.classList.add('table-row-left');
+                                                rowRight.classList.add('table-row-right');
+
+                                                row.appendChild(rowLeft);
+                                                row.appendChild(rowRight);
                                                 rowContainer.appendChild(row);
                                                 tableContainer.appendChild(rowContainer);
-                                                    
-                                                setTimeout(resolve, 10);
+
+                                                setTimeout(() => {
+                                                    rowContainer.classList.remove('no-padding');
+                                                }, 10);
+
+                                                if (window.innerWidth < mobileWidth) {
+                                                    setTimeout(() => {
+                                                        const headers = Array.from(componentMap.get('headers'));
+                                                        headers.forEach(header => {
+                                                            const headerDiv = document.createElement('div');
+                                                            headerDiv.classList.add('header', 'no-opacity', 'light');
+                                                            headerDiv.textContent = header;
+                                                            rowLeft.appendChild(headerDiv);
+    
+                                                            const currentScrollHeight = row.scrollHeight;
+                                                            if (currentScrollHeight !== lastScrollHeight) {
+                                                                lastScrollHeight = currentScrollHeight;
+                                                                row.style.height = `${currentScrollHeight}px`;
+                                                            }
+                                                        });
+                                                    }, 10);
+                                                    setTimeout(resolve, 1000);
+                                                } else {
+                                                    setTimeout(resolve, 500);
+                                                }      
                                             });
                                         }
                                     }
@@ -521,6 +551,8 @@ async function handleDelta(content) {
                                                         resolve();
                                                     }    
                                                 }
+
+                                                resolve();
 
                                                 // if (window.innerWidth > mobileWidth) {
                                                 //     setTimeout(addNextWord, 300);
