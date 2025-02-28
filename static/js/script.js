@@ -1,29 +1,8 @@
 // --------------------------------------------------------------------------------------------
-// GLOBAL VARIABLES
-// --------------------------------------------------------------------------------------------
-
-const mobileWidth = 600;
-
-let activeEventSource = null; // Track the active activeEventSource connection
-let isProcessing = false; // Flag to prevent concurrent processing
-let responseMap = {};  // Saving the components for each response
-let processedComponents = new Map(); // Current components that have been processed
-let renderingQueue = [];
-let responseCount = 0;
-let projectRenderingQueue = [];
-let isProjectRendering = false;
-
-let selectedComponent = null;
-let selectedComponentJSON = null;
-let reworkRenderingQueue = [];  // Add this with other global variables
-let isReworkProcessing = false; // Add this with other global variables
-let reworkComplete = false;
-
-// --------------------------------------------------------------------------------------------
 // HELPER FUNCTIONS
 // --------------------------------------------------------------------------------------------
 
-// Helper function to get CSS variable value as integer
+// CSS Variables
 function getCSSVarValue(varName, fallback = 0) {
     const value = getComputedStyle(document.documentElement)
         .getPropertyValue(varName).trim();
@@ -53,11 +32,113 @@ function setCSSVarValue(varName, value, unit = 'px') {
     document.documentElement.style.setProperty(varName, `${value}${unit}`);
 }
 
+// TABLES
+
+function addTableHeadersMobile(appendDelay, animationDelay, row, headers, lastScrollHeight) {
+    setCSSVarValue('--table-rows-amount', headers.length, '');
+
+    headers.forEach(header => {
+        const headerDiv = document.createElement('div');
+
+        setTimeout(() => {
+            headerDiv.classList.add('table-header', 'no-opacity', 'light');
+            headerDiv.textContent = header;
+            row.appendChild(headerDiv);
+
+            const currentScrollHeight = row.scrollHeight;
+            if (currentScrollHeight !== lastScrollHeight) {
+                lastScrollHeight = currentScrollHeight;
+                row.style.height = `${currentScrollHeight}px`;
+            }
+        }, appendDelay);
+
+        setTimeout(() => {
+            headerDiv.classList.remove('no-opacity', 'light');
+        }, animationDelay);
+    });
+};
+
+function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, headers, lastScrollHeight) {
+    return new Promise(resolve => {
+
+        if (isFirstRow) {
+            rowContainer = document.createElement('div');
+            rowContainer.classList.add('table-row-container', 'no-width', 'no-padding');
+            rowContainer.setAttribute('data-row-container-id', rowId);
+        
+            row = document.createElement('div');
+            row.classList.add('table-row');
+            row.setAttribute('data-row-id', rowId);
+        
+            rowContainer.appendChild(row);
+            tableContainer.appendChild(rowContainer);
+
+            setTimeout(() => {
+                rowContainer.classList.remove('no-width');
+            }, 10);
+
+            setTimeout(() => {
+                rowContainer.classList.remove('no-padding');
+            }, animationDuration + 10);
+
+            if (window.innerWidth < mobileWidth) {
+                addTableHeadersMobile(animationDuration + 10, 1000, row, headers, lastScrollHeight);
+                setTimeout(resolve, 1500);
+            } else {
+                setTimeout(resolve, 500);
+            }
+
+        } else {
+            rowContainer = document.createElement('div');
+            rowContainer.classList.add('table-row-container', 'no-padding');
+            rowContainer.setAttribute('data-row-container-id', rowId);
+        
+            row = document.createElement('div');
+            row.classList.add('table-row');
+            row.setAttribute('data-row-id', rowId);
+        
+            rowContainer.appendChild(row);
+            tableContainer.appendChild(rowContainer);
+
+            setTimeout(() => {
+                rowContainer.classList.remove('no-padding');
+            }, 10);
+
+            if (window.innerWidth < mobileWidth) {
+                addTableHeadersMobile(10, 500, row, headers);
+                setTimeout(resolve, 1000);
+            } else {
+                setTimeout(resolve, 10);
+            }
+        }
+    });
+}
+
+
+// --------------------------------------------------------------------------------------------
+// GLOBAL VARIABLES
+// --------------------------------------------------------------------------------------------
+
+const mobileWidth = 600;
+
+let activeEventSource = null; // Track the active activeEventSource connection
+let isProcessing = false; // Flag to prevent concurrent processing
+let responseMap = {};  // Saving the components for each response
+let processedComponents = new Map(); // Current components that have been processed
+let renderingQueue = [];
+let responseCount = 0;
+let projectRenderingQueue = [];
+let isProjectRendering = false;
+
+let selectedComponent = null;
+let selectedComponentJSON = null;
+let reworkRenderingQueue = [];  // Add this with other global variables
+let isReworkProcessing = false; // Add this with other global variables
+let reworkComplete = false;
+
 const contentContainer = document.getElementById('content-container');
 const versionHistory = document.getElementById('version-history');
-
 const plusMinusButton = document.getElementById('plus-minus-button');
-
 let animationDuration = getCSSVarValue('--animation-duration-1', 300);
 
 
@@ -390,7 +471,7 @@ async function handleDelta(content) {
                                     // Use first item as unique identifier for the row
                                     const rowId = `row-${component.rows.indexOf(rowData)}`;
                                     const isFirstRow = component.rows.indexOf(rowData) === 0;
-                                    console.log('row index: ', component.rows.indexOf(rowData))
+                                    const headers = Array.from(componentMap.get('headers'));
 
                                     if (!componentMap.has(rowId)) {
                                         componentMap.set(rowId, new Set());
@@ -403,103 +484,7 @@ async function handleDelta(content) {
                                     let lastScrollHeight = 0;
 
                                     if (!row) {
-                                        if (isFirstRow) {
-                                            await new Promise(resolve => {
-                                                
-                                                rowContainer = document.createElement('div');
-                                                rowContainer.classList.add('table-row-container', 'no-width', 'no-padding');
-                                                rowContainer.setAttribute('data-row-container-id', rowId);
-
-                                                row = document.createElement('div');
-                                                row.classList.add('table-row');
-                                                row.setAttribute('data-row-id', rowId);
-
-                                                rowContainer.appendChild(row);
-                                                tableContainer.appendChild(rowContainer);
-    
-                                                setTimeout(() => {
-                                                    rowContainer.classList.remove('no-width');
-                                                }, 10);
-
-                                                setTimeout(() => {
-                                                    rowContainer.classList.remove('no-padding');
-                                                }, animationDuration + 10);
-
-                                                if (window.innerWidth < mobileWidth) {
-                                                    const headers = Array.from(componentMap.get('headers'));
-                                                    setCSSVarValue('--table-rows-amount', headers.length, '');
-
-                                                    headers.forEach(header => {
-                                                        const headerDiv = document.createElement('div');
-
-                                                        setTimeout(() => {
-                                                            headerDiv.classList.add('table-header', 'no-opacity', 'light');
-                                                            headerDiv.textContent = header;
-                                                            row.appendChild(headerDiv);
-    
-                                                            const currentScrollHeight = row.scrollHeight;
-                                                            if (currentScrollHeight !== lastScrollHeight) {
-                                                                lastScrollHeight = currentScrollHeight;
-                                                                row.style.height = `${currentScrollHeight}px`;
-                                                            }
-                                                        }, animationDuration + 10);
-
-                                                        setTimeout(() => {
-                                                            headerDiv.classList.remove('no-opacity', 'light');
-                                                        }, 1000);
-                                                    });
-                                                    setTimeout(resolve, 1500);
-                                                } else {
-                                                    setTimeout(resolve, 500);
-                                                }
-                                            });
-                                        } else {
-                                            // await new Promise(resolve => {
-                                            //     console.log('not first row');
-                                            //     rowContainer = document.createElement('div');
-                                            //     rowContainer.classList.add('table-row-container', 'no-padding');
-                                            //     rowContainer.setAttribute('data-row-container-id', rowId);
-
-                                            //     row = document.createElement('div');
-                                            //     row.classList.add('table-row');
-                                            //     row.setAttribute('data-row-id', rowId);
-
-                                            //     rowLeft = document.createElement('div');
-                                            //     rowRight = document.createElement('div');
-                                            //     rowLeft.classList.add('table-row-left');
-                                            //     rowRight.classList.add('table-row-right');
-
-                                            //     row.appendChild(rowLeft);
-                                            //     row.appendChild(rowRight);
-                                            //     rowContainer.appendChild(row);
-                                            //     tableContainer.appendChild(rowContainer);
-
-                                            //     setTimeout(() => {
-                                            //         rowContainer.classList.remove('no-padding');
-                                            //     }, 10);
-
-                                            //     if (window.innerWidth < mobileWidth) {
-                                            //         setTimeout(() => {
-                                            //             const headers = Array.from(componentMap.get('headers'));
-                                            //             headers.forEach(header => {
-                                            //                 const headerDiv = document.createElement('div');
-                                            //                 headerDiv.classList.add('table-header', 'no-opacity', 'light');
-                                            //                 headerDiv.textContent = header;
-                                            //                 rowLeft.appendChild(headerDiv);
-    
-                                            //                 const currentScrollHeight = row.scrollHeight;
-                                            //                 if (currentScrollHeight !== lastScrollHeight) {
-                                            //                     lastScrollHeight = currentScrollHeight;
-                                            //                     row.style.height = `${currentScrollHeight}px`;
-                                            //                 }
-                                            //             });
-                                            //         }, 10);
-                                            //         setTimeout(resolve, 1000);
-                                            //     } else {
-                                            //         setTimeout(resolve, 500);
-                                            //     }      
-                                            // });
-                                        }
+                                        await createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, headers, lastScrollHeight);
                                     }
 
                                     // Add each item in the row
