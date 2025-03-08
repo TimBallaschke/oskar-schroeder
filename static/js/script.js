@@ -325,7 +325,7 @@ function clearContentContainer() {
 // --------------------------------------------------------------------------------------------
 
 async function handleDelta(content) {
-    console.log("Received delta:", content);
+    // console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -731,7 +731,7 @@ async function renderNextProject() {
                                     }, 10);
                                 }
         
-                                setTimeout(resolve, 410);
+                                setTimeout(resolve, 310);
                             });
                         } else {
                             await new Promise((resolve) => {
@@ -866,6 +866,15 @@ async function renderNextProject() {
                                 const imageCounter = document.createElement('div');
                                 imageCounter.classList.add('image-counter', 'no-height', 'no-width');
     
+                                setTimeout(() => {
+                                    imageContainer.classList.remove('no-height', 'no-margin');
+                                    projectInfo.classList.remove('no-padding');
+                                }, 10);
+    
+                                setTimeout(() => {
+                                    imageContainer.classList.remove('blur', 'no-opacity');
+                                    projectInfo.appendChild(imageCounter);
+                                }, 610);
             
                                 setTimeout(() => {
                                         // Create new span for digits
@@ -875,11 +884,11 @@ async function renderNextProject() {
                                         
                                         // Append digits span to counter
                                         imageCounter.appendChild(digitsSpan);
-                                }, 10);    
+                                }, 610);    
 
-                                setTimeout(resolve, 20);
+                                setTimeout(resolve, 920);
                             } else {
-                                setTimeout(resolve, 20);
+                                setTimeout(resolve, 10);
                             }
                     
                             // Process each image URL in the array
@@ -1360,42 +1369,9 @@ async function renderNextProject() {
     } finally {
         // console.log('Project rendering completed');
         isProjectRendering = false;
-        setTimeout(() => {
             if (projectRenderingQueue.length === 0) {
-                let projectsContainer = document.querySelector('.projects-container');
-                console.log('projectsContainer: ', projectsContainer);
-
-                const imageContainers = projectsContainer.querySelectorAll('.project-images');
-                const projectInfos = projectsContainer.querySelectorAll('.project-information');
-
-                imageContainers.forEach(imageContainer => {
-                    imageContainer.classList.remove('no-height', 'no-margin');
-                });
-
-                projectInfos.forEach(projectInfo => {
-                    projectInfo.classList.remove('no-padding');
-                });
-
-                setTimeout(() => {
-                    imageContainers.forEach(imageContainer => {
-                        imageContainer.classList.remove('blur', 'no-opacity');
-                    });
-                    
-                }, 700);
-            }
-        }, 1000);
-
-
-            // setTimeout(() => {
-            //     imageContainer.classList.remove('no-height', 'no-margin');
-            //     projectInfo.classList.remove('no-padding');
-            // }, 100);
-
-            // setTimeout(() => {
-            //     imageContainer.classList.remove('blur', 'no-opacity');
-            //     projectInfo.appendChild(imageCounter);
-            // }, 800);
-        
+        console.log('projectRenderingQueue is empty');
+    }
     }
 }
 

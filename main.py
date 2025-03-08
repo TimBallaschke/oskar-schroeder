@@ -231,9 +231,6 @@ def stream():
                         print(json.dumps(event.parsed, indent=2))
                         yield f"data: {json.dumps({'type': 'delta', 'content': event.parsed})}\n\n"
                 elif event.type == "content.done":
-
-                    yield f"data: {json.dumps({'type': 'delta', 'content': {'stream_complete': True}})}\n\n"
-
                     # Get and send the final completion
                     final_completion = stream.get_final_completion().choices[0].message.parsed
                     
@@ -251,6 +248,7 @@ def stream():
 
                     # Call the second chatbot
                     yield from handle_second_chatbot(final_completion)
+
                     
                 elif event.type == "error":
                     # Send error event to frontend
