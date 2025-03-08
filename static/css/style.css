@@ -4,6 +4,7 @@
   --primary-line-height: 19.8px;
   --secondary-font-size: 12px;
   --secondary-line-height: 17px;
+  --grid-line-height: 14.4px;
   --animation-duration-1: 300ms;
   --animation-duration-2: 200ms;
   --animation-duration-3: 500ms;
@@ -372,15 +373,15 @@ p:not(:first-of-type) {
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  -moz-column-gap: 10px;
-       column-gap: 10px;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
   width: 100%;
 }
 .grid .project {
   display: grid;
   position: relative;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, auto);
+  grid-template-rows: repeat(2, auto);
   width: 100%;
   transition: all var(--animation-duration-1) ease-in-out;
 }
@@ -408,35 +409,34 @@ p:not(:first-of-type) {
 .grid .project-information {
   grid-area: 2/1;
   display: grid;
-  grid-template-columns: 20px 1fr;
+  grid-template-columns: 1fr;
   grid-template-rows: repeat(3, auto);
-  padding: 0px 0 10px 0;
+  padding: 18px 0 var(--content-padding-bottom) 0;
   transition: all var(--animation-duration-1) ease-in-out;
 }
 .grid .project-information.no-padding {
   padding: 0;
 }
 .grid .project-dot-container {
-  grid-area: 1/1;
-  width: 100%;
-  height: 100%;
-  height: var(--primary-line-height);
-  transition: all var(--animation-duration-1) ease-in-out;
-}
-.grid .project-dot-container.no-height {
-  height: 0px;
+  display: none;
 }
 .grid .project-dot {
   display: none;
 }
 .grid .project-name {
-  grid-area: 1/2;
+  grid-area: 1/1;
+  height: var(--grid-line-height);
   transition: all var(--animation-duration-1) ease-in-out;
-  height: var(--primary-line-height);
+  opacity: 1;
+  font-size: var(--secondary-font-size);
+  text-transform: capitalize;
   transform: translateY(8.5px);
 }
 .grid .project-name.no-height {
   height: 0px;
+}
+.grid .project-name.no-opacity {
+  opacity: 0;
 }
 .grid .project-year {
   transition: all var(--animation-duration-1) ease-in-out;

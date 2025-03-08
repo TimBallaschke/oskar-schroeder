@@ -692,6 +692,14 @@ async function renderNextProject() {
             let projectItem = document.querySelector(`[data-project-id="${id}"]`);
 
             if (container.classList.contains('grid')) {
+                leftColumnGrid = document.createElement('div');
+                leftColumnGrid.classList.add('left-column-grid');
+                container.appendChild(leftColumnGrid);
+
+                rightColumnGrid = document.createElement('div');
+                rightColumnGrid.classList.add('right-column-grid');
+                container.appendChild(rightColumnGrid);
+
                 switch (key) {
                     case 'UIType':
                         if (index === 0 || index === 1) {
@@ -700,8 +708,13 @@ async function renderNextProject() {
                                     projectItem = document.createElement('div');
                                     projectItem.classList.add('project', 'no-width');
                                     projectItem.setAttribute('data-project-id', id);
-                                    container.appendChild(projectItem);
-        
+                                    
+                                    // Append to left column if index is even (including 0), right column if odd
+                                    if (index % 2 === 0) {
+                                        leftColumnGrid.appendChild(projectItem);
+                                    } else {
+                                        rightColumnGrid.appendChild(projectItem);
+                                    }        
                                     setTimeout(() => {
                                         projectItem.classList.remove('no-width');
                                     }, 10);
@@ -726,25 +739,26 @@ async function renderNextProject() {
                             // Check if the element already exists to avoid duplicates
                             let element = projectItem.querySelector(`.project-${key}`);
                             if (!element) {
-                                // const projectInfo = document.createElement('div');
-                                // projectInfo.classList.add('project-information', 'no-padding');
+                                const projectInfo = document.createElement('div');
+                                projectInfo.classList.add('project-information', 'no-padding');
+                                projectItem.appendChild(projectInfo);
 
                                 // element = document.createElement('div');  // Correctly create the element
                                 // element.classList.add(`project-${key}`, 'no-height','no-opacity', 'light');
                                 // element.textContent = value;
                                 // projectInfo.appendChild(element);
             
-                                // setTimeout(() => {
-                                //     projectInfo.classList.remove('no-padding');
-                                //     element.classList.remove('no-height');
-                                // }, 10);
+                                setTimeout(() => {
+                                    projectInfo.classList.remove('no-padding');
+                                    // element.classList.remove('no-height');
+                                }, 1000);
     
                             } else {
                                 // Update the content if it already exists (optional)
                                 // element.textContent = value;
                             }
             
-                            setTimeout(resolve, 1100);
+                            setTimeout(resolve, 4000);
                         });
                         break;
                     case 'year':
