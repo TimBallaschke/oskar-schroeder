@@ -6,6 +6,10 @@
     transform: translateY(8.5px);
   }
 
+@mixin grid-text-offset {
+    transform: translateY(5px);
+}
+
 @mixin primary-type {
   font-size: var(--primary-font-size);
   // line-height: var(--primary-line-height);

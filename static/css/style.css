@@ -384,6 +384,7 @@ p:not(:first-of-type) {
   grid-template-rows: repeat(2, auto);
   width: 100%;
   transition: all var(--animation-duration-1) ease-in-out;
+  padding: 12px 0 15px 0;
 }
 .grid .project::before, .grid .project::after {
   content: "";
@@ -406,16 +407,22 @@ p:not(:first-of-type) {
 .grid .project.no-width {
   width: 0%;
 }
+.grid .project.no-padding {
+  padding: 0;
+}
 .grid .project-information {
   grid-area: 2/1;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, auto);
-  padding: 18px 0 var(--content-padding-bottom) 0;
+  grid-template-rows: repeat(3, var(--grid-line-height));
+  padding-top: 12px;
   transition: all var(--animation-duration-1) ease-in-out;
 }
+.grid .project-information.no-height {
+  grid-template-rows: repeat(3, 0px);
+}
 .grid .project-information.no-padding {
-  padding: 0;
+  padding-top: 0;
 }
 .grid .project-dot-container {
   display: none;
@@ -425,51 +432,35 @@ p:not(:first-of-type) {
 }
 .grid .project-name {
   grid-area: 1/1;
-  height: var(--grid-line-height);
   transition: all var(--animation-duration-1) ease-in-out;
   opacity: 1;
   font-size: var(--secondary-font-size);
   text-transform: capitalize;
-  transform: translateY(8.5px);
-}
-.grid .project-name.no-height {
-  height: 0px;
-}
-.grid .project-name.no-opacity {
-  opacity: 0;
+  transform: translateY(5px);
 }
 .grid .project-year {
   transition: all var(--animation-duration-1) ease-in-out;
 }
 .grid .project-material {
-  grid-area: 2/2;
+  grid-area: 2/1;
   transition: height var(--animation-duration-1) ease-in-out, font-variation-settings var(--animation-duration-1) ease-in-out;
-  height: var(--secondary-line-height);
-  transform: translateY(8.5px);
-}
-.grid .project-material.no-height {
-  height: 0px;
-}
-.grid .project-material.no-opacity {
-  opacity: 0;
+  font-size: var(--secondary-font-size);
+  text-transform: capitalize;
+  transform: translateY(5px);
 }
 .grid .project-dimensions {
-  grid-area: 3/2;
+  grid-area: 3/1;
   transition: height var(--animation-duration-1) ease-in-out, font-variation-settings var(--animation-duration-1) ease-in-out;
-  height: var(--primary-line-height);
-  transform: translateY(8.5px);
-}
-.grid .project-dimensions.no-height {
-  height: 0px;
-}
-.grid .project-dimensions.no-opacity {
-  opacity: 0;
+  font-size: var(--secondary-font-size);
+  text-transform: capitalize;
+  transform: translateY(5px);
 }
 .grid .project-images {
   grid-area: 1/1;
   transition: all var(--animation-duration-3) ease-in-out;
   height: 100px;
   width: 100%;
+  margin-top: 3px;
 }
 .grid .project-images.blur {
   filter: blur(30px);
@@ -479,6 +470,9 @@ p:not(:first-of-type) {
 }
 .grid .project-images.no-opacity {
   opacity: 0;
+}
+.grid .project-images.no-margin {
+  margin-top: 0;
 }
 .grid .project-image {
   width: 100%;
@@ -493,28 +487,12 @@ p:not(:first-of-type) {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  border-radius: 4px;
 }
 .grid .image-counter {
   display: none;
 }
 
-@keyframes dotOpacity {
-  0% {
-    opacity: 1;
-  }
-  30% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  80% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 .project-line {
   width: 1px;
   background-color: black;

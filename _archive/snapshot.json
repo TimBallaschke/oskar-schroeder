@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250308b_Oskar_Website_grid_leftColumn_rightColumn_start",
+  "original_folder": "250308c_Oskar_Website_overview_project_images_one_after_another",
   "snapshot_date_from_folder": "250308",
   "source_files": [
     {
@@ -40,16 +40,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "6200202884b768b1f19983d3696fcd772bbf5f22",
-      "sha256": "20c54e66661e807693f33c7edcce1d57552596667753277d57abd853aec7bc99",
-      "size": 20905,
+      "sha1": "b27dc5de605feeda4eda716ddef2a152d79140c6",
+      "sha256": "de7207c53951ad318293a34bb6b5bebb61959b46cc5f66f2b9610c355e39f8d0",
+      "size": 20684,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "0d5481337c7542402b70f2643e19d9434292feb0",
-      "sha256": "a2ea471a94fccee8b66c51080e25de79c6a0f707bd2c6ebf721b63294f7db988",
-      "size": 7822,
+      "sha1": "f903cdeb1c2cc00f51c5286fa0e2cbefbf47cb57",
+      "sha256": "f5c4cc975cce120731c53f0db4df376a7bae9d5e4f252ac5d667b674d1367da2",
+      "size": 7679,
       "mode": "100644"
     },
     {
@@ -68,9 +68,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "6a8c64f2679bbaa8539e0cc1bb7c2d5e88c7d913",
-      "sha256": "bcbfe06934f2314b35316882de46fe4b9d66a9ea5d5abd1a086dd4d48ec96f18",
-      "size": 12708,
+      "sha1": "9a5ebe9be4ea2b851242c6437876f11f05543dfe",
+      "sha256": "6f7e834057556b5c6b5389fcb9329ff24dd07fd08fe5bf1dddd1c698325a7fc2",
+      "size": 12335,
       "mode": "100644"
     },
     {
@@ -89,9 +89,9 @@
     },
     {
       "path": "static/css/abstracts/_mixins.scss",
-      "sha1": "05b44758f58c6eb56134c1d944df175675994651",
-      "sha256": "6e460ef9573052c7ede0a7fc03c1a2ae2bd8b21d40ea72607835d776379a0820",
-      "size": 374,
+      "sha1": "2c766d2ff802fec3e3ad8e6111e327b2191f7be9",
+      "sha256": "fae71e7d157ea6d89da2c20b3d92283843032a1aee05cc1f77528a2466516a43",
+      "size": 435,
       "mode": "100644"
     },
     {
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "f68d353d9c12d7041fa426f1181a3116e63b3c06",
-      "sha256": "feb823bffa4afd094c0f5840298c05c8338338d420acdad30bfc1723e61cae89",
-      "size": 101899,
+      "sha1": "d988fce3ced0999e0982c76c1f64a96042447473",
+      "sha256": "567268e6bd165c1779a4ac01809535cd912134a320af9341d4453cedaceaa93f",
+      "size": 100821,
       "mode": "100644"
     },
     {
