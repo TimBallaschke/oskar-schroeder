@@ -414,7 +414,7 @@ p:not(:first-of-type) {
   grid-area: 2/1;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(3, var(--grid-line-height));
+  grid-template-rows: repeat(1, var(--grid-line-height));
   padding-top: 14px;
   transition: all var(--animation-duration-1) ease-in-out;
 }
