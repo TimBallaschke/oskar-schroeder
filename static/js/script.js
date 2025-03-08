@@ -866,15 +866,6 @@ async function renderNextProject() {
                                 const imageCounter = document.createElement('div');
                                 imageCounter.classList.add('image-counter', 'no-height', 'no-width');
     
-                                setTimeout(() => {
-                                    imageContainer.classList.remove('no-height', 'no-margin');
-                                    projectInfo.classList.remove('no-padding');
-                                }, 100);
-    
-                                setTimeout(() => {
-                                    imageContainer.classList.remove('blur', 'no-opacity');
-                                    projectInfo.appendChild(imageCounter);
-                                }, 800);
             
                                 setTimeout(() => {
                                         // Create new span for digits
@@ -884,11 +875,11 @@ async function renderNextProject() {
                                         
                                         // Append digits span to counter
                                         imageCounter.appendChild(digitsSpan);
-                                }, 810);    
+                                }, 10);    
 
-                                setTimeout(resolve, 820);
+                                setTimeout(resolve, 20);
                             } else {
-                                setTimeout(resolve, 300);
+                                setTimeout(resolve, 20);
                             }
                     
                             // Process each image URL in the array
@@ -1369,9 +1360,42 @@ async function renderNextProject() {
     } finally {
         // console.log('Project rendering completed');
         isProjectRendering = false;
+        setTimeout(() => {
             if (projectRenderingQueue.length === 0) {
-        console.log('projectRenderingQueue is empty');
-    }
+                let projectsContainer = document.querySelector('.projects-container');
+                console.log('projectsContainer: ', projectsContainer);
+
+                const imageContainers = projectsContainer.querySelectorAll('.project-images');
+                const projectInfos = projectsContainer.querySelectorAll('.project-information');
+
+                imageContainers.forEach(imageContainer => {
+                    imageContainer.classList.remove('no-height', 'no-margin');
+                });
+
+                projectInfos.forEach(projectInfo => {
+                    projectInfo.classList.remove('no-padding');
+                });
+
+                setTimeout(() => {
+                    imageContainers.forEach(imageContainer => {
+                        imageContainer.classList.remove('blur', 'no-opacity');
+                    });
+                    
+                }, 1000);
+            }
+        }, 1000);
+
+
+            // setTimeout(() => {
+            //     imageContainer.classList.remove('no-height', 'no-margin');
+            //     projectInfo.classList.remove('no-padding');
+            // }, 100);
+
+            // setTimeout(() => {
+            //     imageContainer.classList.remove('blur', 'no-opacity');
+            //     projectInfo.appendChild(imageCounter);
+            // }, 800);
+        
     }
 }
 
