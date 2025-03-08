@@ -576,7 +576,6 @@ async function handleDelta(content) {
                         }
 
                         if (!component.projects) {
-                            console.warn('Invalid projects data:', component.projects);
                             break;
                         }
 
@@ -691,351 +690,671 @@ async function renderNextProject() {
 
             // console.log(`Rendering ${key} for project: ${id}`);
             let projectItem = document.querySelector(`[data-project-id="${id}"]`);
-            switch (key) {
-                case 'UIType':
-                    if (index === 0) {
-                        await new Promise((resolve) => {
-                            if (!projectItem) {
-                                projectItem = document.createElement('div');
-                                projectItem.classList.add('project', 'no-width');
-                                projectItem.setAttribute('data-project-id', id);
-                                container.appendChild(projectItem);
-    
-                                setTimeout(() => {
-                                    projectItem.classList.remove('no-width');
-                                }, 10);
-                            }
-    
-                            setTimeout(resolve, 410);
-                        });
-                    } else {
-                        await new Promise((resolve) => {
-                            if (!projectItem) {
-                                projectItem = document.createElement('div');
-                                projectItem.classList.add('project');
-                                projectItem.setAttribute('data-project-id', id);
-                                container.appendChild(projectItem);
-                            }
-                            setTimeout(resolve, 10);
-                        });
-                    }
-                    break;
-                case 'name':
-                    await new Promise((resolve) => {        
-                        // Check if the element already exists to avoid duplicates
-                        let element = projectItem.querySelector(`.project-${key}`);
-                        if (!element) {
-                            const projectInfo = document.createElement('div');
-                            projectInfo.classList.add('project-information', 'no-padding');
 
-                            const dotContainer = document.createElement('div');
-                            dotContainer.classList.add('project-dot-container', 'no-height');
-                            const dot = document.createElement('div');
-                            dot.classList.add('project-dot', 'small');
-
-                            dot.addEventListener('click', () => {
-                                selectComponent(dot, projectItem);
-                            });
-
-                            projectInfo.appendChild(dotContainer);
-                            projectItem.appendChild(projectInfo);
-
-                            setTimeout(() => {
-                                projectInfo.classList.remove('no-padding');
-                                dotContainer.classList.remove('no-height');
-                            }, 100);
-
-                            setTimeout(() => {
-                                dotContainer.appendChild(dot);
-                            }, 500);
-
-                            setTimeout(() => {
-                                dot.classList.remove('small');
-                            }, 510);
-
-                            setTimeout(() => {
-                                element = document.createElement('div');  // Correctly create the element
-                                element.classList.add(`project-${key}`, 'light');
-                                element.textContent = value;
-                                projectInfo.appendChild(element);
-                            }, 900);
-
-                            setTimeout(() => {
-                                element.classList.remove('light');
-                            }, 1000);
-                        } else {
-                            // Update the content if it already exists (optional)
-                            element.textContent = value;
-                        }
+            if (container.classList.contains('grid')) {
+                switch (key) {
+                    case 'UIType':
+                        if (index === 0 || index === 1) {
+                            await new Promise((resolve) => {
+                                if (!projectItem) {
+                                    projectItem = document.createElement('div');
+                                    projectItem.classList.add('project', 'no-width');
+                                    projectItem.setAttribute('data-project-id', id);
+                                    container.appendChild(projectItem);
         
-                        setTimeout(resolve, 1100);
-                    });
-                    break;
-                case 'year':
-                    await new Promise((resolve) => {
-                        let projectInfo = projectItem.querySelector('.project-information');
-                        const nameElement = projectInfo.querySelector('.project-name');
-
-                        if (nameElement) {
-                            let yearSpan = nameElement.querySelector('.project-year');
-                            if (!yearSpan) {
-                                yearSpan = document.createElement('span');
-                                yearSpan.classList.add('project-year', 'light');
-                                yearSpan.textContent = ` (${value})`;
-                                nameElement.appendChild(yearSpan);
-
-                                setTimeout(() => {
-                                    yearSpan.classList.remove('light');
-                                }, 10);
-                            } else {
-                                // Update existing year span
-                                yearSpan.textContent = ` (${value})`;
-                            }
-                        }
-                        setTimeout(resolve, 50);
-                    });
-                    break;
-                case 'material':
-                    await new Promise((resolve) => { 
-                        let projectInfo = projectItem.querySelector('.project-information');
-
-                        // Check if the element already exists to avoid duplicates
-                        let element = projectInfo.querySelector('.project-material-dimensions');
-                        if (!element) {
-                            element = document.createElement('div');  // Correctly create the element
-                            element.classList.add('project-material-dimensions', 'light');
-                            element.textContent = value;
-                            projectInfo.appendChild(element);
-
-                            setTimeout(() => {
-                                element.classList.remove('light');
-                            }, 10);
-                        } else {
-                            // Update the content if it already exists (optional)
-                            element.textContent = value;
-                        }
-        
-                        setTimeout(resolve, 50);
-                    });
-                    break;
-                case 'dimensions':
-                    await new Promise((resolve) => {
-                        let projectInfo = projectItem.querySelector('.project-information');
-                        const projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
-
-                        if (projectMaterialDimensions) {
-                            let dimensionsSpan = projectMaterialDimensions.querySelector('.project-dimensions');
-                            if (!dimensionsSpan) {
-                                dimensionsSpan = document.createElement('span');
-                                dimensionsSpan.classList.add('project-dimensions', 'light');
-                                dimensionsSpan.textContent = `, ${value}`;
-                                projectMaterialDimensions.appendChild(dimensionsSpan);
-
-                                setTimeout(() => {
-                                    dimensionsSpan.classList.remove('light');
-                                }, 10);
-                            } else {
-                                // Update existing year span
-                                dimensionsSpan.textContent = ` (${value})`;
-                            }
-                        }
-                        setTimeout(resolve, 50);
-                    });
-                    break;
-                case 'images':
-                    await new Promise((resolve) => {
-                        let imageContainer = projectItem.querySelector('.project-images');
-                        let projectInfo = projectItem.querySelector('.project-information');
-
-                        if (!imageContainer) {
-                            imageContainer = document.createElement('div');
-                            imageContainer.classList.add('project-images', 'no-height', 'blur', 'no-opacity');
-                            projectItem.appendChild(imageContainer);
-                            const imageCounter = document.createElement('div');
-                            imageCounter.classList.add('image-counter', 'no-height', 'no-width');
-
-                            setTimeout(() => {
-                                imageContainer.classList.remove('no-height');
-                            }, 100);
-
-                            setTimeout(() => {
-                                imageContainer.classList.remove('blur', 'no-opacity');
-                                projectInfo.appendChild(imageCounter);
-                            }, 800);
-
-                            setTimeout(() => {
-                                imageCounter.classList.remove('no-height');
-                            }, 1300);
-
-                            setTimeout(() => {
-                                imageCounter.classList.remove('no-width');
-                            }, 1500);
-
-                            setTimeout(() => {
-                                    
-                                    // Create new span for digits
-                                    const digitsSpan = document.createElement('span');
-                                    digitsSpan.classList.add('image-counter-digits', 'light');
-                                    digitsSpan.innerHTML = '01/01';  // Changed to just show '0'
-                                    
-                                    // Append digits span to counter
-                                    imageCounter.appendChild(digitsSpan);
-                            }, 1600);
-
-                            setTimeout(() => {
-
-                                const digitsSpan = projectInfo.querySelector('.image-counter-digits');
-                                digitsSpan.classList.remove('light');
-
-                                // Add scroll event listener to update counter after counter is created
-                                imageContainer.addEventListener('scroll', () => {
-                                    const scrollPosition = imageContainer.scrollLeft;
-                                    const imageWidth = imageContainer.offsetWidth;
-                                    const currentIndex = Math.round(scrollPosition / imageWidth);
-                                    const totalImages = imageContainer.querySelectorAll('.project-image').length;
-                                    
-                                    if (digitsSpan) {
-                                        digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
-                                    }
-                                });
-                            }, 1650);
-
-                            setTimeout(resolve, 1700);
-                        } else {
-                            setTimeout(resolve, 300);
-                        }
-                
-                        // Process each image URL in the array
-                        value.forEach(imageUrl => {
-                            // Check if image with this URL already exists
-                            const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
-                            if (!existingImage) {
-                                // Create wrapper div with project-image class
-                                const imageWrapper = document.createElement('div');
-                                imageWrapper.classList.add('project-image', 'no-opacity');
-                
-                                // Create the img element
-                                const imgElement = document.createElement('img');
-                                imgElement.classList.add('img-element');
-                                imgElement.src = imageUrl;
-                                
-                                // Add img to wrapper
-                                imageWrapper.appendChild(imgElement);
-                                imageContainer.appendChild(imageWrapper);
-                
-                                // Add fade-in effect once image is loaded
-                                imgElement.onload = () => {
-                                    imageWrapper.classList.remove('no-opacity');
-
-                                    // Update the digits span with new total
-                                    const digitsSpan = projectInfo.querySelector('.image-counter-digits');
-                                    const totalImages = imageContainer.querySelectorAll('.project-image').length;
-                                    const currentIndex = Math.round(imageContainer.scrollLeft / imageContainer.offsetWidth);
-                                    if (digitsSpan) {
-                                        digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
-                                    }
-                                };
-                            }
-                        });                                
-                    });
-                    break;
-                case 'description':
-                    await new Promise((resolve) => {
-                        let projectDescription = projectItem.querySelector('.project-description');
-
-                        async function createProjectDescription() {
-                            if (!projectDescription) {
-                                await new Promise((descriptionResolve) => {
-                                    projectDescription = document.createElement('div');
-                                    projectDescription.classList.add('project-description', 'no-padding');
-                                    projectItem.appendChild(projectDescription);
-                        
                                     setTimeout(() => {
-                                        projectDescription.classList.remove('no-padding');
+                                        projectItem.classList.remove('no-width');
                                     }, 10);
+                                }
+        
+                                setTimeout(resolve, 410);
+                            });
+                        } else {
+                            await new Promise((resolve) => {
+                                if (!projectItem) {
+                                    projectItem = document.createElement('div');
+                                    projectItem.classList.add('project');
+                                    projectItem.setAttribute('data-project-id', id);
+                                    container.appendChild(projectItem);
+                                }
+                                setTimeout(resolve, 10);
+                            });
+                        }
+                        break;
+                    case 'name':
+                        await new Promise((resolve) => {        
+                            // Check if the element already exists to avoid duplicates
+                            let element = projectItem.querySelector(`.project-${key}`);
+                            if (!element) {
+                                // const projectInfo = document.createElement('div');
+                                // projectInfo.classList.add('project-information', 'no-padding');
 
-                                    setTimeout(descriptionResolve, 210);
-                                });
+                                // element = document.createElement('div');  // Correctly create the element
+                                // element.classList.add(`project-${key}`, 'no-height','no-opacity', 'light');
+                                // element.textContent = value;
+                                // projectInfo.appendChild(element);
+            
+                                // setTimeout(() => {
+                                //     projectInfo.classList.remove('no-padding');
+                                //     element.classList.remove('no-height');
+                                // }, 10);
+    
+                            } else {
+                                // Update the content if it already exists (optional)
+                                // element.textContent = value;
                             }
-                        };
-                
-                        async function addSentences() {
-
-                            // Create a single paragraph for all sentences
-                            const paragraphElement = document.createElement('p');
-                            paragraphElement.classList.add('project-description-paragraph');
-                            projectDescription.appendChild(paragraphElement);
-
-                            // Process each sentence
-                            for (const sentence of value) {
-                                const safeSentence = btoa(encodeURIComponent(sentence));
-                                
-                                // Only process if this sentence hasn't been added yet
-                                if (!projectDescription.querySelector(`[data-sentence="${safeSentence}"]`)) {
-                                    await new Promise((sentenceResolve) => {
-                                        // Add space between sentences if not the first sentence
-                                        if (paragraphElement.childNodes.length > 0) {
-                                            paragraphElement.appendChild(document.createTextNode(' '));
-                                        }
-
-                                        // Create a span to group the sentence (optional, for tracking)
-                                        const sentenceSpan = document.createElement('span');
-                                        sentenceSpan.setAttribute('data-sentence', safeSentence);
-                                        paragraphElement.appendChild(sentenceSpan);
-
-                                        // Split sentence into words and add them one by one
-                                        const words = sentence.split(' ');
-                                        let wordIndex = 0;
-
-                                        let lastScrollHeight = projectDescription.scrollHeight;
-
-                                        function addNextWord() {
-                                            if (wordIndex < words.length) {
-                                                // Add space before word (except for first word)
-                                                if (wordIndex > 0) {
-                                                    sentenceSpan.appendChild(document.createTextNode(' '));
-                                                }
-                                                
-                                                // Create span for the word
-                                                const wordSpan = document.createElement('span');
-                                                wordSpan.textContent = words[wordIndex];
-                                                wordSpan.classList.add('project-description-word', 'light', 'no-opacity');
-                                                sentenceSpan.appendChild(wordSpan);
-
-                                                // adjust the height of the project description for smooth animation of increasing height
-                                                const currentScrollHeight = projectDescription.scrollHeight;
-                                                if (currentScrollHeight !== lastScrollHeight) {
-                                                    console.log('ScrollHeight changed:', currentScrollHeight);
-                                                    lastScrollHeight = currentScrollHeight;
-                                                    projectDescription.style.height = `${currentScrollHeight}px`;
-                                                }
-
-                                                setTimeout(() => {
-                                                    wordSpan.classList.remove('light');
-                                                    wordSpan.classList.remove('no-opacity');
-                                                }, 50);
-
-                                                wordIndex++;
-                                                setTimeout(addNextWord, 50);
-                                            } else {
-                                                console.log('sentenceResolve');
-                                                sentenceResolve();
-                                            }
-                                        }
-
-                                        addNextWord();
-                                    });
+            
+                            setTimeout(resolve, 1100);
+                        });
+                        break;
+                    case 'year':
+                        // await new Promise((resolve) => {
+                        //     let projectInfo = projectItem.querySelector('.project-information');
+                        //     const nameElement = projectInfo.querySelector('.project-name');
+    
+                        //     if (nameElement) {
+                        //         let yearSpan = nameElement.querySelector('.project-year');
+                        //         if (!yearSpan) {
+                        //             yearSpan = document.createElement('span');
+                        //             yearSpan.classList.add('project-year', 'light');
+                        //             yearSpan.textContent = ` (${value})`;
+                        //             nameElement.appendChild(yearSpan);
+    
+                        //             setTimeout(() => {
+                        //                 yearSpan.classList.remove('light');
+                        //             }, 10);
+                        //         } else {
+                        //             // Update existing year span
+                        //             yearSpan.textContent = ` (${value})`;
+                        //         }
+                        //     }
+                        //     setTimeout(resolve, 50);
+                        // });
+                        break;
+                    case 'material':
+                        // await new Promise((resolve) => { 
+                        //     let projectInfo = projectItem.querySelector('.project-information');
+    
+                        //     // Check if the element already exists to avoid duplicates
+                        //     let element = projectInfo.querySelector('.project-material-dimensions');
+                        //     if (!element) {
+                        //         element = document.createElement('div');  // Correctly create the element
+                        //         element.classList.add('project-material-dimensions', 'light');
+                        //         element.textContent = value;
+                        //         projectInfo.appendChild(element);
+    
+                        //         setTimeout(() => {
+                        //             element.classList.remove('light');
+                        //         }, 10);
+                        //     } else {
+                        //         // Update the content if it already exists (optional)
+                        //         element.textContent = value;
+                        //     }
+            
+                        //     setTimeout(resolve, 50);
+                        // });
+                        break;
+                    case 'dimensions':
+                        // await new Promise((resolve) => {
+                        //     let projectInfo = projectItem.querySelector('.project-information');
+                        //     const projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
+    
+                        //     if (projectMaterialDimensions) {
+                        //         let dimensionsSpan = projectMaterialDimensions.querySelector('.project-dimensions');
+                        //         if (!dimensionsSpan) {
+                        //             dimensionsSpan = document.createElement('span');
+                        //             dimensionsSpan.classList.add('project-dimensions', 'light');
+                        //             dimensionsSpan.textContent = `, ${value}`;
+                        //             projectMaterialDimensions.appendChild(dimensionsSpan);
+    
+                        //             setTimeout(() => {
+                        //                 dimensionsSpan.classList.remove('light');
+                        //             }, 10);
+                        //         } else {
+                        //             // Update existing year span
+                        //             dimensionsSpan.textContent = ` (${value})`;
+                        //         }
+                        //     }
+                        //     setTimeout(resolve, 50);
+                        // });
+                        break;
+                    case 'images':
+                        // await new Promise((resolve) => {
+                        //     let imageContainer = projectItem.querySelector('.project-images');
+                        //     let projectInfo = projectItem.querySelector('.project-information');
+    
+                        //     if (!imageContainer) {
+                        //         imageContainer = document.createElement('div');
+                        //         imageContainer.classList.add('project-images', 'no-height', 'blur', 'no-opacity');
+                        //         projectItem.appendChild(imageContainer);
+                        //         const imageCounter = document.createElement('div');
+                        //         imageCounter.classList.add('image-counter', 'no-height', 'no-width');
+    
+                        //         setTimeout(() => {
+                        //             imageContainer.classList.remove('no-height');
+                        //         }, 100);
+    
+                        //         setTimeout(() => {
+                        //             imageContainer.classList.remove('blur', 'no-opacity');
+                        //             projectInfo.appendChild(imageCounter);
+                        //         }, 800);
+    
+                        //         setTimeout(() => {
+                        //             imageCounter.classList.remove('no-height');
+                        //         }, 1300);
+    
+                        //         setTimeout(() => {
+                        //             imageCounter.classList.remove('no-width');
+                        //         }, 1500);
+    
+                        //         setTimeout(() => {
+                                        
+                        //                 // Create new span for digits
+                        //                 const digitsSpan = document.createElement('span');
+                        //                 digitsSpan.classList.add('image-counter-digits', 'light');
+                        //                 digitsSpan.innerHTML = '01/01';  // Changed to just show '0'
+                                        
+                        //                 // Append digits span to counter
+                        //                 imageCounter.appendChild(digitsSpan);
+                        //         }, 1600);
+    
+                        //         setTimeout(() => {
+    
+                        //             const digitsSpan = projectInfo.querySelector('.image-counter-digits');
+                        //             digitsSpan.classList.remove('light');
+    
+                        //             // Add scroll event listener to update counter after counter is created
+                        //             imageContainer.addEventListener('scroll', () => {
+                        //                 const scrollPosition = imageContainer.scrollLeft;
+                        //                 const imageWidth = imageContainer.offsetWidth;
+                        //                 const currentIndex = Math.round(scrollPosition / imageWidth);
+                        //                 const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                                        
+                        //                 if (digitsSpan) {
+                        //                     digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
+                        //                 }
+                        //             });
+                        //         }, 1650);
+    
+                        //         setTimeout(resolve, 1700);
+                        //     } else {
+                        //         setTimeout(resolve, 300);
+                        //     }
+                    
+                        //     // Process each image URL in the array
+                        //     value.forEach(imageUrl => {
+                        //         // Check if image with this URL already exists
+                        //         const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
+                        //         if (!existingImage) {
+                        //             // Create wrapper div with project-image class
+                        //             const imageWrapper = document.createElement('div');
+                        //             imageWrapper.classList.add('project-image', 'no-opacity');
+                    
+                        //             // Create the img element
+                        //             const imgElement = document.createElement('img');
+                        //             imgElement.classList.add('img-element');
+                        //             imgElement.src = imageUrl;
+                                    
+                        //             // Add img to wrapper
+                        //             imageWrapper.appendChild(imgElement);
+                        //             imageContainer.appendChild(imageWrapper);
+                    
+                        //             // Add fade-in effect once image is loaded
+                        //             imgElement.onload = () => {
+                        //                 imageWrapper.classList.remove('no-opacity');
+    
+                        //                 // Update the digits span with new total
+                        //                 const digitsSpan = projectInfo.querySelector('.image-counter-digits');
+                        //                 const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                        //                 const currentIndex = Math.round(imageContainer.scrollLeft / imageContainer.offsetWidth);
+                        //                 if (digitsSpan) {
+                        //                     digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
+                        //                 }
+                        //             };
+                        //         }
+                        //     });                                
+                        // });
+                        break;
+                    case 'description':
+                        // await new Promise((resolve) => {
+                        //     let projectDescription = projectItem.querySelector('.project-description');
+    
+                        //     async function createProjectDescription() {
+                        //         if (!projectDescription) {
+                        //             await new Promise((descriptionResolve) => {
+                        //                 projectDescription = document.createElement('div');
+                        //                 projectDescription.classList.add('project-description', 'no-padding');
+                        //                 projectItem.appendChild(projectDescription);
+                            
+                        //                 setTimeout(() => {
+                        //                     projectDescription.classList.remove('no-padding');
+                        //                 }, 10);
+    
+                        //                 setTimeout(descriptionResolve, 210);
+                        //             });
+                        //         }
+                        //     };
+                    
+                        //     async function addSentences() {
+    
+                        //         // Create a single paragraph for all sentences
+                        //         const paragraphElement = document.createElement('p');
+                        //         paragraphElement.classList.add('project-description-paragraph');
+                        //         projectDescription.appendChild(paragraphElement);
+    
+                        //         // Process each sentence
+                        //         for (const sentence of value) {
+                        //             const safeSentence = btoa(encodeURIComponent(sentence));
+                                    
+                        //             // Only process if this sentence hasn't been added yet
+                        //             if (!projectDescription.querySelector(`[data-sentence="${safeSentence}"]`)) {
+                        //                 await new Promise((sentenceResolve) => {
+                        //                     // Add space between sentences if not the first sentence
+                        //                     if (paragraphElement.childNodes.length > 0) {
+                        //                         paragraphElement.appendChild(document.createTextNode(' '));
+                        //                     }
+    
+                        //                     // Create a span to group the sentence (optional, for tracking)
+                        //                     const sentenceSpan = document.createElement('span');
+                        //                     sentenceSpan.setAttribute('data-sentence', safeSentence);
+                        //                     paragraphElement.appendChild(sentenceSpan);
+    
+                        //                     // Split sentence into words and add them one by one
+                        //                     const words = sentence.split(' ');
+                        //                     let wordIndex = 0;
+    
+                        //                     let lastScrollHeight = projectDescription.scrollHeight;
+    
+                        //                     function addNextWord() {
+                        //                         if (wordIndex < words.length) {
+                        //                             // Add space before word (except for first word)
+                        //                             if (wordIndex > 0) {
+                        //                                 sentenceSpan.appendChild(document.createTextNode(' '));
+                        //                             }
+                                                    
+                        //                             // Create span for the word
+                        //                             const wordSpan = document.createElement('span');
+                        //                             wordSpan.textContent = words[wordIndex];
+                        //                             wordSpan.classList.add('project-description-word', 'light', 'no-opacity');
+                        //                             sentenceSpan.appendChild(wordSpan);
+    
+                        //                             // adjust the height of the project description for smooth animation of increasing height
+                        //                             const currentScrollHeight = projectDescription.scrollHeight;
+                        //                             if (currentScrollHeight !== lastScrollHeight) {
+                        //                                 console.log('ScrollHeight changed:', currentScrollHeight);
+                        //                                 lastScrollHeight = currentScrollHeight;
+                        //                                 projectDescription.style.height = `${currentScrollHeight}px`;
+                        //                             }
+    
+                        //                             setTimeout(() => {
+                        //                                 wordSpan.classList.remove('light');
+                        //                                 wordSpan.classList.remove('no-opacity');
+                        //                             }, 50);
+    
+                        //                             wordIndex++;
+                        //                             setTimeout(addNextWord, 50);
+                        //                         } else {
+                        //                             console.log('sentenceResolve');
+                        //                             sentenceResolve();
+                        //                         }
+                        //                     }
+    
+                        //                     addNextWord();
+                        //                 });
+                        //             }
+                        //         }
+                        //     }
+    
+                        //     // Call the async function and resolve when complete
+                        //     createProjectDescription().then(() => addSentences().then(() => resolve()));
+                        // });
+                        // break;
+                }
+            } else {
+                switch (key) {
+                    case 'UIType':
+                        if (index === 0) {
+                            await new Promise((resolve) => {
+                                if (!projectItem) {
+                                    projectItem = document.createElement('div');
+                                    projectItem.classList.add('project', 'no-width');
+                                    projectItem.setAttribute('data-project-id', id);
+                                    container.appendChild(projectItem);
+        
+                                    setTimeout(() => {
+                                        projectItem.classList.remove('no-width');
+                                    }, 10);
+                                }
+        
+                                setTimeout(resolve, 410);
+                            });
+                        } else {
+                            await new Promise((resolve) => {
+                                if (!projectItem) {
+                                    projectItem = document.createElement('div');
+                                    projectItem.classList.add('project');
+                                    projectItem.setAttribute('data-project-id', id);
+                                    container.appendChild(projectItem);
+                                }
+                                setTimeout(resolve, 10);
+                            });
+                        }
+                        break;
+                    case 'name':
+                        await new Promise((resolve) => {        
+                            // Check if the element already exists to avoid duplicates
+                            let element = projectItem.querySelector(`.project-${key}`);
+                            if (!element) {
+                                const projectInfo = document.createElement('div');
+                                projectInfo.classList.add('project-information', 'no-padding');
+    
+                                const dotContainer = document.createElement('div');
+                                dotContainer.classList.add('project-dot-container', 'no-height');
+                                const dot = document.createElement('div');
+                                dot.classList.add('project-dot', 'small');
+    
+                                dot.addEventListener('click', () => {
+                                    selectComponent(dot, projectItem);
+                                });
+    
+                                projectInfo.appendChild(dotContainer);
+                                projectItem.appendChild(projectInfo);
+    
+                                setTimeout(() => {
+                                    projectInfo.classList.remove('no-padding');
+                                    dotContainer.classList.remove('no-height');
+                                }, 100);
+    
+                                setTimeout(() => {
+                                    dotContainer.appendChild(dot);
+                                }, 500);
+    
+                                setTimeout(() => {
+                                    dot.classList.remove('small');
+                                }, 510);
+    
+                                setTimeout(() => {
+                                    element = document.createElement('div');  // Correctly create the element
+                                    element.classList.add(`project-${key}`, 'light');
+                                    element.textContent = value;
+                                    projectInfo.appendChild(element);
+                                }, 900);
+    
+                                setTimeout(() => {
+                                    element.classList.remove('light');
+                                }, 1000);
+                            } else {
+                                // Update the content if it already exists (optional)
+                                element.textContent = value;
+                            }
+            
+                            setTimeout(resolve, 1100);
+                        });
+                        break;
+                    case 'year':
+                        await new Promise((resolve) => {
+                            let projectInfo = projectItem.querySelector('.project-information');
+                            const nameElement = projectInfo.querySelector('.project-name');
+    
+                            if (nameElement) {
+                                let yearSpan = nameElement.querySelector('.project-year');
+                                if (!yearSpan) {
+                                    yearSpan = document.createElement('span');
+                                    yearSpan.classList.add('project-year', 'light');
+                                    yearSpan.textContent = ` (${value})`;
+                                    nameElement.appendChild(yearSpan);
+    
+                                    setTimeout(() => {
+                                        yearSpan.classList.remove('light');
+                                    }, 10);
+                                } else {
+                                    // Update existing year span
+                                    yearSpan.textContent = ` (${value})`;
                                 }
                             }
-                        }
-
-                        // Call the async function and resolve when complete
-                        createProjectDescription().then(() => addSentences().then(() => resolve()));
-                    });
-                    break;
+                            setTimeout(resolve, 50);
+                        });
+                        break;
+                    case 'material':
+                        await new Promise((resolve) => { 
+                            let projectInfo = projectItem.querySelector('.project-information');
+    
+                            // Check if the element already exists to avoid duplicates
+                            let element = projectInfo.querySelector('.project-material-dimensions');
+                            if (!element) {
+                                element = document.createElement('div');  // Correctly create the element
+                                element.classList.add('project-material-dimensions', 'light');
+                                element.textContent = value;
+                                projectInfo.appendChild(element);
+    
+                                setTimeout(() => {
+                                    element.classList.remove('light');
+                                }, 10);
+                            } else {
+                                // Update the content if it already exists (optional)
+                                element.textContent = value;
+                            }
+            
+                            setTimeout(resolve, 50);
+                        });
+                        break;
+                    case 'dimensions':
+                        await new Promise((resolve) => {
+                            let projectInfo = projectItem.querySelector('.project-information');
+                            const projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
+    
+                            if (projectMaterialDimensions) {
+                                let dimensionsSpan = projectMaterialDimensions.querySelector('.project-dimensions');
+                                if (!dimensionsSpan) {
+                                    dimensionsSpan = document.createElement('span');
+                                    dimensionsSpan.classList.add('project-dimensions', 'light');
+                                    dimensionsSpan.textContent = `, ${value}`;
+                                    projectMaterialDimensions.appendChild(dimensionsSpan);
+    
+                                    setTimeout(() => {
+                                        dimensionsSpan.classList.remove('light');
+                                    }, 10);
+                                } else {
+                                    // Update existing year span
+                                    dimensionsSpan.textContent = ` (${value})`;
+                                }
+                            }
+                            setTimeout(resolve, 50);
+                        });
+                        break;
+                    case 'images':
+                        await new Promise((resolve) => {
+                            let imageContainer = projectItem.querySelector('.project-images');
+                            let projectInfo = projectItem.querySelector('.project-information');
+    
+                            if (!imageContainer) {
+                                imageContainer = document.createElement('div');
+                                imageContainer.classList.add('project-images', 'no-height', 'blur', 'no-opacity');
+                                projectItem.appendChild(imageContainer);
+                                const imageCounter = document.createElement('div');
+                                imageCounter.classList.add('image-counter', 'no-height', 'no-width');
+    
+                                setTimeout(() => {
+                                    imageContainer.classList.remove('no-height');
+                                }, 100);
+    
+                                setTimeout(() => {
+                                    imageContainer.classList.remove('blur', 'no-opacity');
+                                    projectInfo.appendChild(imageCounter);
+                                }, 800);
+    
+                                setTimeout(() => {
+                                    imageCounter.classList.remove('no-height');
+                                }, 1300);
+    
+                                setTimeout(() => {
+                                    imageCounter.classList.remove('no-width');
+                                }, 1500);
+    
+                                setTimeout(() => {
+                                        
+                                        // Create new span for digits
+                                        const digitsSpan = document.createElement('span');
+                                        digitsSpan.classList.add('image-counter-digits', 'light');
+                                        digitsSpan.innerHTML = '01/01';  // Changed to just show '0'
+                                        
+                                        // Append digits span to counter
+                                        imageCounter.appendChild(digitsSpan);
+                                }, 1600);
+    
+                                setTimeout(() => {
+    
+                                    const digitsSpan = projectInfo.querySelector('.image-counter-digits');
+                                    digitsSpan.classList.remove('light');
+    
+                                    // Add scroll event listener to update counter after counter is created
+                                    imageContainer.addEventListener('scroll', () => {
+                                        const scrollPosition = imageContainer.scrollLeft;
+                                        const imageWidth = imageContainer.offsetWidth;
+                                        const currentIndex = Math.round(scrollPosition / imageWidth);
+                                        const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                                        
+                                        if (digitsSpan) {
+                                            digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
+                                        }
+                                    });
+                                }, 1650);
+    
+                                setTimeout(resolve, 1700);
+                            } else {
+                                setTimeout(resolve, 300);
+                            }
+                    
+                            // Process each image URL in the array
+                            value.forEach(imageUrl => {
+                                // Check if image with this URL already exists
+                                const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
+                                if (!existingImage) {
+                                    // Create wrapper div with project-image class
+                                    const imageWrapper = document.createElement('div');
+                                    imageWrapper.classList.add('project-image', 'no-opacity');
+                    
+                                    // Create the img element
+                                    const imgElement = document.createElement('img');
+                                    imgElement.classList.add('img-element');
+                                    imgElement.src = imageUrl;
+                                    
+                                    // Add img to wrapper
+                                    imageWrapper.appendChild(imgElement);
+                                    imageContainer.appendChild(imageWrapper);
+                    
+                                    // Add fade-in effect once image is loaded
+                                    imgElement.onload = () => {
+                                        imageWrapper.classList.remove('no-opacity');
+    
+                                        // Update the digits span with new total
+                                        const digitsSpan = projectInfo.querySelector('.image-counter-digits');
+                                        const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                                        const currentIndex = Math.round(imageContainer.scrollLeft / imageContainer.offsetWidth);
+                                        if (digitsSpan) {
+                                            digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
+                                        }
+                                    };
+                                }
+                            });                                
+                        });
+                        break;
+                    case 'description':
+                        await new Promise((resolve) => {
+                            let projectDescription = projectItem.querySelector('.project-description');
+    
+                            async function createProjectDescription() {
+                                if (!projectDescription) {
+                                    await new Promise((descriptionResolve) => {
+                                        projectDescription = document.createElement('div');
+                                        projectDescription.classList.add('project-description', 'no-padding');
+                                        projectItem.appendChild(projectDescription);
+                            
+                                        setTimeout(() => {
+                                            projectDescription.classList.remove('no-padding');
+                                        }, 10);
+    
+                                        setTimeout(descriptionResolve, 210);
+                                    });
+                                }
+                            };
+                    
+                            async function addSentences() {
+    
+                                // Create a single paragraph for all sentences
+                                const paragraphElement = document.createElement('p');
+                                paragraphElement.classList.add('project-description-paragraph');
+                                projectDescription.appendChild(paragraphElement);
+    
+                                // Process each sentence
+                                for (const sentence of value) {
+                                    const safeSentence = btoa(encodeURIComponent(sentence));
+                                    
+                                    // Only process if this sentence hasn't been added yet
+                                    if (!projectDescription.querySelector(`[data-sentence="${safeSentence}"]`)) {
+                                        await new Promise((sentenceResolve) => {
+                                            // Add space between sentences if not the first sentence
+                                            if (paragraphElement.childNodes.length > 0) {
+                                                paragraphElement.appendChild(document.createTextNode(' '));
+                                            }
+    
+                                            // Create a span to group the sentence (optional, for tracking)
+                                            const sentenceSpan = document.createElement('span');
+                                            sentenceSpan.setAttribute('data-sentence', safeSentence);
+                                            paragraphElement.appendChild(sentenceSpan);
+    
+                                            // Split sentence into words and add them one by one
+                                            const words = sentence.split(' ');
+                                            let wordIndex = 0;
+    
+                                            let lastScrollHeight = projectDescription.scrollHeight;
+    
+                                            function addNextWord() {
+                                                if (wordIndex < words.length) {
+                                                    // Add space before word (except for first word)
+                                                    if (wordIndex > 0) {
+                                                        sentenceSpan.appendChild(document.createTextNode(' '));
+                                                    }
+                                                    
+                                                    // Create span for the word
+                                                    const wordSpan = document.createElement('span');
+                                                    wordSpan.textContent = words[wordIndex];
+                                                    wordSpan.classList.add('project-description-word', 'light', 'no-opacity');
+                                                    sentenceSpan.appendChild(wordSpan);
+    
+                                                    // adjust the height of the project description for smooth animation of increasing height
+                                                    const currentScrollHeight = projectDescription.scrollHeight;
+                                                    if (currentScrollHeight !== lastScrollHeight) {
+                                                        console.log('ScrollHeight changed:', currentScrollHeight);
+                                                        lastScrollHeight = currentScrollHeight;
+                                                        projectDescription.style.height = `${currentScrollHeight}px`;
+                                                    }
+    
+                                                    setTimeout(() => {
+                                                        wordSpan.classList.remove('light');
+                                                        wordSpan.classList.remove('no-opacity');
+                                                    }, 50);
+    
+                                                    wordIndex++;
+                                                    setTimeout(addNextWord, 50);
+                                                } else {
+                                                    console.log('sentenceResolve');
+                                                    sentenceResolve();
+                                                }
+                                            }
+    
+                                            addNextWord();
+                                        });
+                                    }
+                                }
+                            }
+    
+                            // Call the async function and resolve when complete
+                            createProjectDescription().then(() => addSentences().then(() => resolve()));
+                        });
+                        break;
+                }
             }
-
-
         }
     } finally {
         // console.log('Project rendering completed');

@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "original_folder": "250228h_Oskar_Website_table_row",
-  "snapshot_date_from_folder": "250228",
+  "original_folder": "250308_Oskar_Website_start_overview_projects",
+  "snapshot_date_from_folder": "250308",
   "source_files": [
     {
       "path": ".cursorignore",
@@ -40,16 +40,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "d80c4eab732c067815fa1f79e01a555c8fdbbeeb",
-      "sha256": "4b53a47010070e696d77031ecd45f9cb985356581d979d3165e59f75760dd03c",
-      "size": 20525,
+      "sha1": "b09df347ef3285c49b3e2f1c40fe39ed1154b2e2",
+      "sha256": "58724741917314d70390092dd4b66bba502d646863a3d0bde2bd906fddc57ea2",
+      "size": 20910,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "1b1c5ef0e553f2bc97851077401eb17b95b78f92",
-      "sha256": "0dd3110fdfb16ac0a2a120e7d003539198a21519fa07de9560af299462721263",
-      "size": 7649,
+      "sha1": "ce69b83a878f2287d2a583bec02c4efb7a092725",
+      "sha256": "4cbf37ec809bb51460fc51947a2f3eda5a4c8a1dd466161a1ebeb987fdd6f9cb",
+      "size": 7820,
       "mode": "100644"
     },
     {
@@ -68,9 +68,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "d989540bde7d5dad16db7b5c756d3f81807a1607",
-      "sha256": "ab8627b78ef864ff47ac1950b22e51831b1cdd1acfad517267ad0a5538a8b4a8",
-      "size": 12834,
+      "sha1": "a33aaaf08ad0af9ad0ba7f1bf13721fdd78dd723",
+      "sha256": "b43635ee61f8a040f26123ff698144684aa036933a39cfed5b23906efbd2ea70",
+      "size": 13241,
       "mode": "100644"
     },
     {
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "0408de9702933d7daf589c2153be6cd87cf14193",
-      "sha256": "0f1aab835c94179084c26da2d67bc1ad40306007ff5cd7ac652fe115fa308881",
-      "size": 79761,
+      "sha1": "344c39978fcf33543988387fcc3ca5796b20f0b8",
+      "sha256": "617d453af4d5800f423257103c72deffa10c7a4185a20668bd144d4f17580176",
+      "size": 101084,
       "mode": "100644"
     },
     {

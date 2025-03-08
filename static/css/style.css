@@ -372,16 +372,35 @@ p:not(:first-of-type) {
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
   width: 100%;
 }
 .grid .project {
   display: grid;
   position: relative;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, auto);
+  grid-template-rows: repeat(3, auto);
   width: 100%;
   transition: all var(--animation-duration-1) ease-in-out;
+}
+.grid .project::before, .grid .project::after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  background-color: black;
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.grid .project::before {
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+.grid .project::after {
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  transform: translateY(1px);
 }
 .grid .project.no-width {
   width: 0%;
