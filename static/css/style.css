@@ -384,7 +384,7 @@ p:not(:first-of-type) {
   grid-template-rows: repeat(2, auto);
   width: 100%;
   transition: all var(--animation-duration-1) ease-in-out;
-  padding: 15px 0 20px 0;
+  padding: 9px 0 15px 0;
 }
 .grid .project::before, .grid .project::after {
   content: "";
@@ -415,11 +415,11 @@ p:not(:first-of-type) {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(1, var(--grid-line-height));
-  padding-top: 14px;
+  padding-top: 8px;
   transition: all var(--animation-duration-1) ease-in-out;
 }
 .grid .project-information.no-height {
-  grid-template-rows: repeat(3, 0px);
+  grid-template-rows: repeat(1, 0px);
 }
 .grid .project-information.no-padding {
   padding-top: 0;
