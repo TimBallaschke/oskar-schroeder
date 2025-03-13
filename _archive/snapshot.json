@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250313_Oskar_Website_list_py",
+  "original_folder": "250313b_Oskar_Website_names_in_brackets",
   "snapshot_date_from_folder": "250313",
   "source_files": [
     {
@@ -26,9 +26,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "8ea96be0404c4df344382927673dc8eed7b283aa",
-      "sha256": "0365737951fd32e1347a419e741a89d8aed1fe6f93891a03d4d82988ac3357ae",
-      "size": 17194,
+      "sha1": "2ce18caa74082ea366437b3db73c5c7bc5b6bb76",
+      "sha256": "7bc5625ca9b62021e9ed13b1a8e3552094854417b18971a7be777c0d0b6ab544",
+      "size": 17707,
       "mode": "100644"
     },
     {
@@ -40,16 +40,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "d586dadd57e90c4786afb1443990456a23707150",
-      "sha256": "bbffd50715e70a8dc3261df3b2dacd76ca9e9bc977a1d5e94dad3d462fb568f8",
-      "size": 20684,
+      "sha1": "2605f18a09b1e945d6e80dfb8c374a69e23750e2",
+      "sha256": "b76aaee287f3fe99bbee81fcfc0f3466025aae51cb2ea3ba17041cec176051df",
+      "size": 20791,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "f903cdeb1c2cc00f51c5286fa0e2cbefbf47cb57",
-      "sha256": "f5c4cc975cce120731c53f0db4df376a7bae9d5e4f252ac5d667b674d1367da2",
-      "size": 7679,
+      "sha1": "d41b21eb4836bba5bdef58f981c83df9d9d571a9",
+      "sha256": "9ce1d0ce12973c5d774ba04a88c1c1ac269f0d225dda22e65b94c484ccbbaf49",
+      "size": 7714,
       "mode": "100644"
     },
     {
@@ -68,9 +68,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "7a522954b169679b6c4c1717cc7a40b38e8d60cd",
-      "sha256": "7d174561054e3142149df72f25d75d98d51aa795f0953dac85a8645dd30c8764",
-      "size": 12335,
+      "sha1": "e3f7c57243fa1f03d132ad2214467dc92ac9b2b9",
+      "sha256": "5700f87ea4ea479d04128c75e54feaad666b2e32960345161fefe9c34dc50d7c",
+      "size": 12423,
       "mode": "100644"
     },
     {
@@ -103,16 +103,16 @@
     },
     {
       "path": "static/css/base/_base.scss",
-      "sha1": "0a6cbb412dc14210904e6be0335a82272c4e098e",
-      "sha256": "3dcdfba9b8f3b24e6b8944a81bfc4f84371cac28cdc3e77ecd72bf4ac68a7bcc",
-      "size": 679,
+      "sha1": "3a16230dd23fc067bf29b4764b5972a5ddf3cdc9",
+      "sha256": "bbfd4d3892ff910a2c285e9fed823ee3b11a71deb6b1941569c431210ca803c9",
+      "size": 707,
       "mode": "100644"
     },
     {
       "path": "static/css/base/_typography.scss",
-      "sha1": "93217fcf6f3842f4fc7a1f90e03e263499079894",
-      "sha256": "b6ff552d957177c6815d1fface024e018708dc514487bd7b852c5fdfed957f08",
-      "size": 1744,
+      "sha1": "8c2a4d66faff80de05b6e385dbeae9f8d07372fb",
+      "sha256": "7ac48a6c3aa909cd7055cd6422bedff7d5be3ee050242ab17ca4488c172e349a",
+      "size": 1852,
       "mode": "100644"
     },
     {
@@ -498,6 +498,13 @@
       "sha1": "18354991e829d09c8a9656d1855f3b710b18f5dd",
       "sha256": "818eabaa5e58ec9f1e693bd9cdb816aea240bc4a3da7ef3781c9fdbd1cc91669",
       "size": 44796,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/fonts/BootonTRIALVF.woff2",
+      "sha1": "abcb89193dc9d25a0defdf166c91a7708a6dae37",
+      "sha256": "2b198152a812a46203401a001adc16036b52b09339c0656d2b426d68e3d54ca0",
+      "size": 231608,
       "mode": "100644"
     },
     {

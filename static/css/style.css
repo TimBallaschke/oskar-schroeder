@@ -105,6 +105,10 @@ body {
   font-family: "Friedl";
   src: url("../assets/fonts/Friedl.woff2") format("woff2");
 }
+@font-face {
+  font-family: "Booton";
+  src: url("../assets/fonts/BootonTRIALVF.woff2") format("woff2");
+}
 p {
   margin: 0;
 }

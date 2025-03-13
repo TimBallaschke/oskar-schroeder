@@ -1,8 +1,15 @@
 // Content container
+
+// p {
+//     @include primary-type;
+//     font-variant-numeric: tabular-nums;
+// }
+
 #content-container {
     width: 100vw;
     padding: 50px var(--page-padding) 200px var(--page-padding);
     transition: opacity var(--animation-duration-1) ease-in-out;
+
 
     .component-selected & {
         .project:not(.selected) {

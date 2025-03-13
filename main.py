@@ -46,11 +46,18 @@ client = OpenAI()
     
 class ParagraphComponent(BaseModel):
     UIType: Literal["paragraphs"] = Field(description="Indicates this is a paragraph component for displaying text")
-    text: List[str] = Field(description="The text content of the paragraph. Every sentence should be a separate paragraph.")
-    # images: ImagesComponent = Field(description="Images to the paragraph")
+    text: List[str] = Field(
+        description=(
+            "The text content of the paragraph. Each sentence should be a separate paragraph. "
+            "Proper names should be wrapped in brackets, including names of individuals, locations, organizations, "
+            "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
+            "For example: '[Zentrum für Zeitgenössische Kunst]', '[Donald Judd]', '[Barbara Hepworth]', '[Berlin]', "
+            "'[Minimalism]', '[Renaissance]', '[documenta]', '[Conceptual Art]', '[Les Demoiselles d’Avignon]'."
+        )
+)    # images: ImagesComponent = Field(description="Images to the paragraph")
 
 class ListItem(BaseModel):
-    prefix: str = Field(description="A prefix for the list item. For example '2010', '2011', '2012' or '01', '02', '03' etc.")
+    prefix: int = Field(description="A prefix for the list item. For example '2010', '2011', '2012' or '01', '02', '03' etc.")
     item: str = Field(description="The text content of the list item. Should be a bullet point 1-5 words long.")
 
 class ListComponent(BaseModel):
