@@ -335,6 +335,7 @@ async function handleDelta(content) {
 
     while (renderingQueue.length > 0) {
         const currentContent = renderingQueue.shift();
+
         try {
             isProcessing = true;
 
@@ -415,6 +416,7 @@ async function handleDelta(content) {
                         break;
 
                     case 'list':
+
                         let listContainer = document.querySelector(`[data-component-key="${componentID}"]`);
                         if (!listContainer) {
                             listContainer = document.createElement('div');
@@ -423,6 +425,63 @@ async function handleDelta(content) {
                             contentContainer.appendChild(listContainer);
                         }
 
+                        if (!component.items) {
+                            break;
+                        }
+
+                        if (!componentMap.has('items')) {
+                            componentMap.set('items', new Set());
+                        }
+
+                        for (const listItem of component.items) {
+
+                            const itemID = component.items.indexOf(listItem);
+
+                            if (!componentMap.has(itemID)) {
+                                componentMap.set(itemID, new Set());
+                            }
+
+                            let itemContainer = listContainer.querySelector(`[data-item-id="${itemID}"]`);
+                            if (!itemContainer) {
+                                itemContainer = document.createElement('div');
+                                itemContainer.classList.add('item-container');
+                                itemContainer.setAttribute('data-item-id', itemID);
+                                listContainer.appendChild(itemContainer);
+                            }
+
+                            if (listItem.prefix && !componentMap.get(itemID).has('prefix')) {
+                                await new Promise(resolve => {
+                                    componentMap.get(itemID).add('prefix');
+                                    // const prefixContainer = document.createElement('div');
+                                    // prefixContainer.classList.add('item-prefix', 'light');
+                                    // prefixContainer.textContent = listItem.prefix;
+                                    // itemContainer.appendChild(prefixContainer);
+
+                                    setTimeout(() => {
+                                        // prefixContainer.classList.remove('light');
+                                        console.log('Prefix: ', itemID);
+                                        resolve();
+                                    }, 10000);
+                                });
+                            }
+
+                            // Handle item text if it exists and hasn't been processed
+                            if (listItem.item && !componentMap.get(itemID).has('item')) {
+                                await new Promise(resolve => {
+                                    componentMap.get(itemID).add('item');
+                                    // const textContainer = document.createElement('div');
+                                    // textContainer.classList.add('item-text', 'light');
+                                    // textContainer.textContent = listItem.item;
+                                    // itemContainer.appendChild(textContainer);
+
+                                    setTimeout(() => {
+                                        // textContainer.classList.remove('light');
+                                        console.log('Item: ', itemID);
+                                        resolve();
+                                    }, 20);
+                                });
+                            }
+                        }
                         break;
 
                     case 'table':
