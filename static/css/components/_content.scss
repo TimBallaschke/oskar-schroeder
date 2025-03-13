@@ -546,6 +546,87 @@
 }
 
 
+// List
+
+.list-container {
+    width: 100%;
+}
+
+.item-container {
+    display: grid;
+    grid-template-columns: var(--prefix-width) 5fr;
+    // grid-template-rows: calc(var(--primary-font-size) * 1.2);
+    column-gap: 15px;
+    transition: grid-template-columns var(--animation-duration-2) ease-in-out;
+
+    &.no-width {
+        grid-template-columns: 0px 5fr;
+    }
+}
+
+.item-prefix {
+    position: relative;
+    height: 14px;
+    width: var(--prefix-width);
+    grid-column: 1;
+    font-variant-numeric: tabular-nums;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: end;  // This will align it to the right of the grid cell
+    transition: height var(--animation-duration-2) ease-in-out, width var(--animation-duration-1) ease-in-out;
+    @include secondary-type;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        width: 1px;
+        height: 100%;
+        background-color: black;
+        transition: all var(--animation-duration-2) ease-in-out;
+    }
+
+    &::before {
+        left: 0;
+    }
+
+    &::after {
+        right: 0;
+    }
+
+    &.no-width {
+        width: 0;
+
+        &::before {
+            transform: translateX(-1px);
+        }
+    }
+
+    &.no-height {
+        height: 0;
+
+        &::before {
+            transform: translateX(-1px);
+        }
+    }
+}
+
+.prefix-digits {
+    opacity: 1;
+    transition: font-variation-settings var(--animation-duration-2) ease-in-out;
+
+    &.no-opacity {
+        opacity: 0;
+    }
+}
+
+.item-text {
+    grid-column: 2;
+    @include primary-type;
+}
+
 
 
 

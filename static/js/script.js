@@ -334,7 +334,9 @@ async function handleDelta(content) {
     }
 
     while (renderingQueue.length > 0) {
+
         const currentContent = renderingQueue.shift();
+        // console.log("Processing queue item - content:", JSON.stringify(currentContent));
 
         try {
             isProcessing = true;
@@ -350,7 +352,6 @@ async function handleDelta(content) {
                 }
 
                 const componentID = `${component.UIType}-${currentContent.components.indexOf(component)}`;
-
                 
                 if (!processedComponents.has(componentID)) {
                     processedComponents.set(componentID, new Map());
@@ -449,19 +450,64 @@ async function handleDelta(content) {
                                 listContainer.appendChild(itemContainer);
                             }
 
-                            if (listItem.prefix && !componentMap.get(itemID).has('prefix')) {
+                            if (listItem.prefix && 'item' in listItem && !componentMap.get(itemID).has('prefix')) {
                                 await new Promise(resolve => {
                                     componentMap.get(itemID).add('prefix');
-                                    // const prefixContainer = document.createElement('div');
-                                    // prefixContainer.classList.add('item-prefix', 'light');
-                                    // prefixContainer.textContent = listItem.prefix;
+                                    const prefixContainer = document.createElement('div');
+                                    const prefixDigits = document.createElement('div');
+
+                                    prefixContainer.classList.add('item-prefix', 'no-height', 'no-width');
+                                    prefixDigits.classList.add('prefix-digits', 'no-opacity', 'light');
+
+                                    console.log('prefix', listItem.prefix);
+
+                                    // let prefixText = "";
+
+                                    // if (listItem.prefix.length <= 1) {
+                                    //     prefixText = "0" + listItem.prefix;
+                                    // } else {
+                                    //     prefixText = listItem.prefix;
+                                    // }
+
+                                    // const prefixLength = prefixText.length;
+                                    // const secondaryFontSize = getCSSVarValue('--secondary-font-size', 16);
+                                    // const secondaryFontWidth = secondaryFontSize * 0.6;
+                                    // const prefixWidth = (prefixLength + 3) * secondaryFontWidth;
+
+                                    // const previousPrefixWidth = getCSSVarValue('--prefix-width', 0);
+
+                                    // if (prefixWidth > previousPrefixWidth) {
+                                    //     setCSSVarValue('--prefix-width', prefixWidth);
+                                    // }
+
+                                    // prefixText = prefixText.replace(/\./g, '');
+                                    
+                                    // prefixDigits.textContent = prefixText;
+
+                                    // prefixContainer.appendChild(prefixDigits);
                                     // itemContainer.appendChild(prefixContainer);
 
-                                    setTimeout(() => {
-                                        // prefixContainer.classList.remove('light');
-                                        console.log('Prefix: ', itemID);
-                                        resolve();
-                                    }, 10000);
+                                    // setTimeout(() => {
+                                    //     prefixContainer.classList.remove('no-height');
+                                    // }, 10);
+
+                                    // setTimeout(() => {
+                                    //     prefixContainer.classList.remove('no-width');
+                                    // }, 200);
+
+                                    // setTimeout(() => {
+                                    //     prefixDigits.classList.remove('no-opacity');
+                                    // }, animationDuration + 200);
+
+                                    // setTimeout(() => {
+                                    //     prefixDigits.classList.remove('light');
+                                    // }, animationDuration + 210);
+
+                                    // setTimeout(() => {
+                                    //     // prefixContainer.classList.remove('light');
+                                    //     resolve();
+                                    // }, animationDuration + 310);
+                                    resolve();
                                 });
                             }
 
@@ -469,14 +515,13 @@ async function handleDelta(content) {
                             if (listItem.item && !componentMap.get(itemID).has('item')) {
                                 await new Promise(resolve => {
                                     componentMap.get(itemID).add('item');
-                                    // const textContainer = document.createElement('div');
-                                    // textContainer.classList.add('item-text', 'light');
-                                    // textContainer.textContent = listItem.item;
-                                    // itemContainer.appendChild(textContainer);
+                                    const textContainer = document.createElement('div');
+                                    textContainer.classList.add('item-text', 'light');
+                                    textContainer.textContent = listItem.item;
+                                    itemContainer.appendChild(textContainer);
 
                                     setTimeout(() => {
                                         // textContainer.classList.remove('light');
-                                        console.log('Item: ', itemID);
                                         resolve();
                                     }, 20);
                                 });
@@ -1445,6 +1490,14 @@ async function renderNextProject() {
 function handleComplete(content) {
     console.log("Received complete response:", content);
     responseMap[responseCount] = content;
+
+    // Check if content has components and if the first component is a list
+    if (content.components && content.components.length > 0 && 
+        content.components[0].UIType === 'list' && 
+        content.components[0].items && 
+        content.components[0].items.length > 0) {
+        
+    }
 }
 
 function handleSecondComplete(content) {
@@ -1854,8 +1907,6 @@ async function handleDeltaRework(content) {
 function handleCompleteRework(content) {
     console.log('handleCompleteRework', content);
     reworkComplete = true;
-
-
 }
 
 // --------------------------------------------------------------------------------------------
