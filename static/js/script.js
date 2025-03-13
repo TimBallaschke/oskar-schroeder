@@ -415,6 +415,14 @@ async function handleDelta(content) {
                         break;
 
                     case 'list':
+                        let listContainer = document.querySelector(`[data-component-key="${componentID}"]`);
+                        if (!listContainer) {
+                            listContainer = document.createElement('div');
+                            listContainer.classList.add('list-container');
+                            listContainer.setAttribute('data-component-key', componentID);
+                            contentContainer.appendChild(listContainer);
+                        }
+
                         break;
 
                     case 'table':

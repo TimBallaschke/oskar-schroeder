@@ -39,7 +39,7 @@ html {
 }
 
 body {
-  background-color: #e9ecf2;
+  background-color: #eff3fc;
   color: black;
   margin: 0;
   padding: 0;
@@ -307,7 +307,7 @@ p:not(:first-of-type) {
   -o-object-fit: contain;
      object-fit: contain;
   transition: transform var(--animation-duration-1) ease-in-out;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 .fullscreen .image-counter {
   position: relative;
