@@ -4,7 +4,7 @@
   --primary-line-height: 19.8px;
   --secondary-font-size: 12px;
   --secondary-line-height: 17px;
-  --grid-line-height: 14px;
+  --grid-line-height: 14.2px;
   --animation-duration-1: 300ms;
   --animation-duration-2: 200ms;
   --animation-duration-3: 500ms;
@@ -39,7 +39,7 @@ html {
 }
 
 body {
-  background-color: #E2E4E9;
+  background-color: #e9ecf2;
   color: black;
   margin: 0;
   padding: 0;
@@ -384,7 +384,7 @@ p:not(:first-of-type) {
   grid-template-rows: repeat(2, auto);
   width: 100%;
   transition: all var(--animation-duration-1) ease-in-out;
-  padding: 9px 0 15px 0;
+  padding: 15px 0 20px 0;
 }
 .grid .project::before, .grid .project::after {
   content: "";
@@ -414,12 +414,12 @@ p:not(:first-of-type) {
   grid-area: 2/1;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(1, var(--grid-line-height));
-  padding-top: 8px;
+  grid-template-rows: repeat(3, var(--grid-line-height));
+  padding-top: 14px;
   transition: all var(--animation-duration-1) ease-in-out;
 }
 .grid .project-information.no-height {
-  grid-template-rows: repeat(1, 0px);
+  grid-template-rows: repeat(3, 0px);
 }
 .grid .project-information.no-padding {
   padding-top: 0;

@@ -809,50 +809,50 @@ async function renderNextProject() {
                         });
                         break;
                     case 'material':
-                        // await new Promise((resolve) => { 
-                        //     let projectInfo = projectItem.querySelector('.project-information');
+                        await new Promise((resolve) => { 
+                            let projectInfo = projectItem.querySelector('.project-information');
     
-                        //     // Check if the element already exists to avoid duplicates
-                        //     let element = projectInfo.querySelector('.project-material');
-                        //     if (!element) {
-                        //         element = document.createElement('div');  // Correctly create the element
-                        //         element.classList.add('project-material', 'light');
-                        //         element.textContent = value;
-                        //         projectInfo.appendChild(element);
+                            // Check if the element already exists to avoid duplicates
+                            let element = projectInfo.querySelector('.project-material');
+                            if (!element) {
+                                element = document.createElement('div');  // Correctly create the element
+                                element.classList.add('project-material', 'light');
+                                element.textContent = value;
+                                projectInfo.appendChild(element);
     
-                        //         setTimeout(() => {
-                        //             element.classList.remove('light');
-                        //         }, 10);
-                        //     } else {
-                        //         // Update the content if it already exists (optional)
-                        //         element.textContent = value;
-                        //     }
+                                setTimeout(() => {
+                                    element.classList.remove('light');
+                                }, 10);
+                            } else {
+                                // Update the content if it already exists (optional)
+                                element.textContent = value;
+                            }
             
-                        //     setTimeout(resolve, 100);
-                        // });
+                            setTimeout(resolve, 100);
+                        });
                         break;
                     case 'dimensions':
-                        // await new Promise((resolve) => {
-                        //     let projectInfo = projectItem.querySelector('.project-information');
+                        await new Promise((resolve) => {
+                            let projectInfo = projectItem.querySelector('.project-information');
     
-                        //     // Check if the element already exists to avoid duplicates
-                        //     let element = projectInfo.querySelector('.project-dimensions');
-                        //     if (!element) {
-                        //         element = document.createElement('div');  // Correctly create the element
-                        //         element.classList.add('project-dimensions', 'light');
-                        //         element.textContent = value;
-                        //         projectInfo.appendChild(element);
+                            // Check if the element already exists to avoid duplicates
+                            let element = projectInfo.querySelector('.project-dimensions');
+                            if (!element) {
+                                element = document.createElement('div');  // Correctly create the element
+                                element.classList.add('project-dimensions', 'light');
+                                element.textContent = value;
+                                projectInfo.appendChild(element);
     
-                        //         setTimeout(() => {
-                        //             element.classList.remove('light');
-                        //         }, 10);
-                        //     } else {
-                        //         // Update the content if it already exists (optional)
-                        //         element.textContent = value;
-                        //     }
+                                setTimeout(() => {
+                                    element.classList.remove('light');
+                                }, 10);
+                            } else {
+                                // Update the content if it already exists (optional)
+                                element.textContent = value;
+                            }
             
-                        //     setTimeout(resolve, 100);
-                        // });
+                            setTimeout(resolve, 100);
+                        });
                         break;
                     case 'images':
                         await new Promise((resolve) => {

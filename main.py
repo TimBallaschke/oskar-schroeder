@@ -49,9 +49,13 @@ class ParagraphComponent(BaseModel):
     text: List[str] = Field(description="The text content of the paragraph. Every sentence should be a separate paragraph.")
     # images: ImagesComponent = Field(description="Images to the paragraph")
 
+class ListItem(BaseModel):
+    prefix: str = Field(description="A prefix for the list item. For example '2010', '2011', '2012' or '01', '02', '03' etc.")
+    item: str = Field(description="The text content of the list item. Should be a bullet point 1-5 words long.")
+
 class ListComponent(BaseModel):
-    UIType: Literal["list"] = Field(description="Indicates this is a list component for displaying a list of items")
-    items: List[str] = Field(description="A list of text items to be displayed")
+    UIType: Literal["list"] = Field(description="Indicates this is a list component for displaying a list of items for example a cv")
+    items: List[ListItem] = Field(description="A list of short text items to be displayed")
 
 class TableComponent(BaseModel):
     UIType: Literal["table"] = Field(description="Indicates this is a table component for displaying structured data")
