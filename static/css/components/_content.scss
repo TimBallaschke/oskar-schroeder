@@ -561,7 +561,7 @@
     display: grid;
     grid-template-columns: var(--prefix-width) 1fr;
     // grid-template-rows: calc(var(--primary-font-size) * 1.2);
-    column-gap: 15px;
+    column-gap: 10px;
     transition: font-variation-settings var(--animation-duration-2) ease-in-out;
 
     &.no-width {

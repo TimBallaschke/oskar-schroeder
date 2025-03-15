@@ -1710,17 +1710,9 @@ function displayPreviousVersion(element) {
                 switch (component.UIType) {
                     case 'paragraphs':
                         const paragraphContainer = document.createElement('p');
-                        paragraphContainer.classList.add('paragraph-container', 'light', 'no-opacity');
+                        paragraphContainer.classList.add('paragraph-container');
                         paragraphContainer.textContent = component.text.join(' ');
                         contentContainer.appendChild(paragraphContainer);
-
-                        setTimeout(() => {
-                            paragraphContainer.classList.remove('no-opacity');
-                        }, 10);
-
-                        setTimeout(() => {
-                            paragraphContainer.classList.remove('light');
-                        }, 200);
                         break;
 
                     case 'list':
@@ -1863,19 +1855,19 @@ function displayPreviousVersion(element) {
 
         setTimeout(() => {
             contentContainer.classList.remove('no-opacity');
-        }, 300);
+        }, 100);
 
         setTimeout(() => {
             targetElements.forEach(element => {
                 element.classList.remove('light');
             });
-        }, 600);
+        }, 400);
 
         setTimeout(() => {
             targetElements.forEach(element => {
                 element.classList.remove('animation-settings');
             });
-        }, 1000);
+        }, 800);
     }, 1100);
 }
 

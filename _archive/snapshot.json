@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250315e_Oskar_Website_clearContent_function_rework",
+  "original_folder": "250315f_Oskar_Website_versionHistory_without_projects",
   "snapshot_date_from_folder": "250315",
   "source_files": [
     {
@@ -40,8 +40,8 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "b1a7201424a80d84594ab55fc53ad17ab6c17aaf",
-      "sha256": "e188666bc30bc09fb66a43c6a5d98366e4f9beaa7a35f8a94d49b4086a33f928",
+      "sha1": "dd3ecc05da112585fd1ba943f63aec7c4cb16d47",
+      "sha256": "0142c07b8e4c6231c7b59329e7a373efb48a6b3656f32086f877abcb6369b17e",
       "size": 22800,
       "mode": "100644"
     },
@@ -68,8 +68,8 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "76c0e2b668fde75d5bbdcdc8aef93945c4aefc32",
-      "sha256": "7bcb7be454ee398c4600356b7c1223db50d05a75244e11e584cd5d911aa4a3bb",
+      "sha1": "5bcccd5c6cf72b1470a7f68ff2156b7f5542f6a9",
+      "sha256": "d34b2ef6ed0eb6b08f3e8059dc25ab7f66ad09ded368851b66fffce5fbaa67fb",
       "size": 14378,
       "mode": "100644"
     },
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "8464fb27130995f536be8d03ddaf2798b6e8ef30",
-      "sha256": "f1e90bdeafbce80d3db83a9c42422bc8f3c82ed14c891f5d6ceed27b52c9eb52",
-      "size": 117998,
+      "sha1": "a7bc698fe73954e94855ec0782a180763ec6489f",
+      "sha256": "542a3c9f28c3b2c1442b6dbbaaedb6b93fc095a2ac308c1aa4f7caa71a4e3a04",
+      "size": 117668,
       "mode": "100644"
     },
     {
