@@ -470,6 +470,10 @@
 
 // Table
 
+.table-container {
+    transition: all var(--animation-duration-2) ease-in-out;
+}
+
 .table-row-container {
     padding-top: var(--content-padding-bottom);
     padding-bottom: calc(var(--content-padding-bottom) - 8px);
@@ -507,6 +511,10 @@
     &.no-width {
         width: 0%;
     }
+
+    &.animation-settings {
+        transition: all var(--animation-duration-2) ease-in-out;
+    }
 }
 
 .table-row {
@@ -520,10 +528,6 @@
     width: 100%;
     transition: all var(--animation-duration-3) ease-in-out;
     height: 0;
-
-    &.animation-duration {
-        transition: all var(--animation-duration-2) ease-in-out;
-    }
 }
 
 .table-header {

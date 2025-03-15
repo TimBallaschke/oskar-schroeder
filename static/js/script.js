@@ -110,7 +110,7 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
 
             if (window.innerWidth < mobileWidth) {
                 addTableHeadersMobile(10, 500, row, headers);
-                setTimeout(resolve, 1000);
+                setTimeout(resolve, 600);
             } else {
                 setTimeout(resolve, 10);
             }
@@ -218,7 +218,10 @@ function sendMessage() {
             console.error('Error sending message:', error); // logs the error to the console
         });
 
-        clearContentContainer();  // Clear the UI content
+        // Only clear content container if it has content
+        if (contentContainer.children.length > 0) {
+            clearContentContainer(false);  // Clear the UI content
+        }
     }
 }
 
@@ -286,35 +289,41 @@ function toggleLoadingState(isLoading) {
     if (sendButton) sendButton.disabled = isLoading;
 }
 
-function clearContentContainer() {
+function clearContentContainer(isVersionHistory) {
+
+    contentContainer.classList.add('animation-settings');
+
+    // Find only the leaf nodes (elements that don't have element children)
     contentContainer.querySelectorAll('*').forEach(element => {
-        if (element.tagName.toLowerCase() === 'span' || 
-            element.tagName.toLowerCase() === 'div' || 
-            element.tagName.toLowerCase() === 'p') {
-            element.classList.add('light');
+        // Check if this is a leaf node (no element children)
+        const hasElementChildren = Array.from(element.children).length > 0;
+        
+        if (!hasElementChildren && 
+            (element.tagName.toLowerCase() === 'span' || 
+                element.tagName.toLowerCase() === 'div' || 
+                element.tagName.toLowerCase() === 'p')) {
+
+            element.classList.add('animation-settings');
+            
+            setTimeout(() => {
+                element.classList.add('light');
+            }, 10);
         }
     });
 
     setTimeout(() => {
         contentContainer.classList.add('no-opacity');
-    }, 600);
+    }, 300);
 
     setTimeout(() => {
         contentContainer.innerHTML = '';
-
-        contentContainer.querySelectorAll('*').forEach(element => {
-            if (element.tagName.toLowerCase() === 'span' || 
-                element.tagName.toLowerCase() === 'div' || 
-                element.tagName.toLowerCase() === 'p') {
-                element.classList.remove('light');
-            }
-        });
-
-        contentContainer.classList.remove('no-opacity');
-
     }, 800);
 
-
+    if (!isVersionHistory) {
+        setTimeout(() => {
+            contentContainer.classList.remove('animation-settings', 'no-opacity');
+        }, 810);
+    }
 }
 
 
@@ -625,7 +634,6 @@ async function handleDelta(content) {
                                     
                                     // Create row if it doesn't exist
                                     let row = tableContainer.querySelector(`[data-row-id="${rowId}"]`);
-                                    console.log('row initialize: ', row);
                                     let rowContainer = tableContainer.querySelector(`[data-row-container-id="${rowId}"]`);
 
                                     let lastScrollHeight = 0;
@@ -1684,7 +1692,7 @@ function displayPreviousVersion(element) {
     const versionKey = parseInt(element.getAttribute('version-history-key'));
 
     if (versionKey === 0) {
-        clearContentContainer();
+        clearContentContainer(true);
         closeVersionHistory(element);
         return;
     }
@@ -1692,10 +1700,11 @@ function displayPreviousVersion(element) {
     // Get the corresponding content from componentsMap
     const versionContent = responseMap[versionKey];
 
-    clearContentContainer();
+    clearContentContainer(true);
     closeVersionHistory(element);
 
     setTimeout(() => {
+
         if (versionContent && versionContent.components) {
             versionContent.components.forEach(component => {
                 switch (component.UIType) {
@@ -1728,7 +1737,7 @@ function displayPreviousVersion(element) {
                                 // Add prefix if it exists
                                 if (item.prefix) {
                                     const prefixContainer = document.createElement('div');
-                                    prefixContainer.classList.add('item-prefix', 'light', 'no-opacity', 'animation-settings');
+                                    prefixContainer.classList.add('item-prefix');
                                     
                                     const prefixDigits = document.createElement('div');
                                     prefixDigits.classList.add('prefix-digits');
@@ -1747,30 +1756,14 @@ function displayPreviousVersion(element) {
                                     
                                     prefixContainer.appendChild(prefixDigits);
                                     itemContainer.appendChild(prefixContainer);
-
-                                    setTimeout(() => {
-                                        prefixContainer.classList.remove('no-opacity');
-                                    }, 10);
-
-                                    setTimeout(() => {
-                                        prefixContainer.classList.remove('light');
-                                    }, 200);
                                 }
                                 
                                 // Add item text
                                 if (item.item) {
                                     const textContainer = document.createElement('div');
-                                    textContainer.classList.add('item-text', 'light', 'no-opacity', 'animation-settings');
+                                    textContainer.classList.add('item-text');
                                     textContainer.textContent = item.item;
                                     itemContainer.appendChild(textContainer);
-
-                                    setTimeout(() => {
-                                        textContainer.classList.remove('no-opacity');
-                                    }, 10);
-
-                                    setTimeout(() => {
-                                        textContainer.classList.remove('light');
-                                    }, 200);
                                 }
                                 
                                 listContainer.appendChild(itemContainer);
@@ -1779,7 +1772,68 @@ function displayPreviousVersion(element) {
                         break;
 
                     case 'table':
+                        // Create table container
+                        const tableContainer = document.createElement('div');
+                        tableContainer.classList.add('table-container',);
+                        contentContainer.appendChild(tableContainer);
+                        
+                        // Add headers for larger screens
+                        if (component.headers) {
+                            if (window.innerWidth > mobileWidth) {
+                                const headersContainer = document.createElement('div');
+                                headersContainer.classList.add('headers');
+                                
+                                component.headers.forEach(header => {
+                                    const headerItem = document.createElement('div');
+                                    headerItem.classList.add('header-item');
+                                    headerItem.textContent = header;
+                                    headersContainer.appendChild(headerItem);
+                                });
+                                
+                                tableContainer.appendChild(headersContainer);
+                            }
+                        }
+                        
+                        // Add rows
+                        if (component.rows) {
+                            component.rows.forEach((rowData, rowIndex) => {
+                                if (Array.isArray(rowData) && rowData.length > 0) {
+                                    const rowContainer = document.createElement('div');
+                                    rowContainer.classList.add('table-row-container');
+                                    rowContainer.setAttribute('data-row-container-id', `row-${rowIndex}`);
+                                    
+                                    const row = document.createElement('div');
+                                    row.classList.add('table-row');
+                                    row.setAttribute('data-row-id', `row-${rowIndex}`);
 
+                                    row.style.height = 'auto';
+                                    
+                                    // Add headers for mobile
+                                    if (window.innerWidth < mobileWidth && component.headers) {
+                                        component.headers.forEach(header => {
+                                            const headerDiv = document.createElement('div');
+                                            headerDiv.classList.add('table-header');
+                                            headerDiv.textContent = header;
+                                            row.appendChild(headerDiv);
+                                        });
+                                    }
+                                    
+                                    // Add row items
+                                    rowData.forEach((item, itemIndex) => {
+                                        const rowItem = document.createElement('div');
+                                        rowItem.classList.add('row-item');
+                                        rowItem.textContent = item;
+                                        rowItem.style.gridRow = `${itemIndex + 1}`;
+                                        row.appendChild(rowItem);
+
+                                        rowItem.style.height = 'auto';
+                                    });
+                                    
+                                    rowContainer.appendChild(row);
+                                    tableContainer.appendChild(rowContainer);
+                                }
+                            });
+                        }
                         break;
                         
                     case 'projects_list':
@@ -1788,7 +1842,41 @@ function displayPreviousVersion(element) {
                 }
             });
         }
-    }, 1000);
+    }, 900);
+
+    setTimeout(() => {
+        const targetElements = Array.from(contentContainer.querySelectorAll('*')).filter(element => {
+            const hasElementChildren = Array.from(element.children).length > 0;
+            return !hasElementChildren && 
+                (element.tagName.toLowerCase() === 'span' || 
+                 element.tagName.toLowerCase() === 'div' || 
+                 element.tagName.toLowerCase() === 'p');
+        });
+
+        targetElements.forEach(element => {
+            element.classList.add('no-transition', 'light');
+            
+            setTimeout(() => {
+                element.classList.add('animation-settings');
+            }, 10);
+        });
+
+        setTimeout(() => {
+            contentContainer.classList.remove('no-opacity');
+        }, 300);
+
+        setTimeout(() => {
+            targetElements.forEach(element => {
+                element.classList.remove('light');
+            });
+        }, 600);
+
+        setTimeout(() => {
+            targetElements.forEach(element => {
+                element.classList.remove('animation-settings');
+            });
+        }, 1000);
+    }, 1100);
 }
 
 

@@ -39,3 +39,11 @@ body {
 .no-opacity {
     opacity: 0;
 }
+
+.no-transition {
+    transition: none !important;
+}
+
+.animation-settings {
+    transition: all 500ms ease-in-out !important;
+}

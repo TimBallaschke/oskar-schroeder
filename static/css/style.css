@@ -62,6 +62,14 @@ body {
   opacity: 0;
 }
 
+.no-transition {
+  transition: none !important;
+}
+
+.animation-settings {
+  transition: all 500ms ease-in-out !important;
+}
+
 @font-face {
   font-family: "Suisse Mono Regular";
   src: url("../assets/fonts/SuisseIntlMono-Regular.woff2") format("woff2");
@@ -521,6 +529,10 @@ p:not(:first-of-type) {
   transform-origin: center bottom;
 }
 
+.table-container {
+  transition: all var(--animation-duration-2) ease-in-out;
+}
+
 .table-row-container {
   padding-top: var(--content-padding-bottom);
   padding-bottom: calc(var(--content-padding-bottom) - 8px);
@@ -553,6 +565,9 @@ p:not(:first-of-type) {
 .table-row-container.no-width {
   width: 0%;
 }
+.table-row-container.animation-settings {
+  transition: all var(--animation-duration-2) ease-in-out;
+}
 
 .table-row {
   display: grid;
@@ -563,9 +578,6 @@ p:not(:first-of-type) {
   width: 100%;
   transition: all var(--animation-duration-3) ease-in-out;
   height: 0;
-}
-.table-row.animation-duration {
-  transition: all var(--animation-duration-2) ease-in-out;
 }
 
 .table-header {
