@@ -580,12 +580,13 @@ p:not(:first-of-type) {
 .row-item {
   grid-column: 2;
   font-size: var(--primary-font-size);
-  transition: font-variation-settings var(--animation-duration-1) ease-in-out;
+  transition: font-variation-settings var(--animation-duration-1) ease-in-out, height var(--animation-duration-2) ease-in-out;
   transform: translateY(-2px);
   word-break: break-word;
   hyphens: auto;
   -webkit-hyphens: auto;
   -ms-hyphens: auto;
+  height: 0;
 }
 
 .list-container {

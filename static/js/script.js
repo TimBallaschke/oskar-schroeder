@@ -629,6 +629,7 @@ async function handleDelta(content) {
                                     let rowContainer = tableContainer.querySelector(`[data-row-container-id="${rowId}"]`);
 
                                     let lastScrollHeight = 0;
+                                    let lastRowItemScrollHeight = 0;
 
                                     if (!row) {
                                         console.log('row as argument: ', row);
@@ -652,6 +653,9 @@ async function handleDelta(content) {
                                                 let wordIndex = 0;
 
                                                 function addNextWord() {
+                                                    // Set the height of the row to auto so the height of the rowItems can be animated
+                                                    row.style.height = 'auto';
+
                                                     // As long as there is words left in the array of words
                                                     if (wordIndex < words.length) {
                                                         // Add space before word (except for first word)
@@ -665,11 +669,19 @@ async function handleDelta(content) {
                                                         wordSpan.classList.add('table-item-word', 'light', 'no-opacity');
                                                         rowItem.appendChild(wordSpan);
 
-                                                        const currentScrollHeight = row.scrollHeight;
-                                                        if (currentScrollHeight !== lastScrollHeight) {
-                                                            lastScrollHeight = currentScrollHeight;
-                                                            row.style.height = `${currentScrollHeight}px`;
+
+
+                                                        const currentRowItemScrollHeight = rowItem.scrollHeight;
+                                                        if (currentRowItemScrollHeight !== lastRowItemScrollHeight) {
+                                                            lastRowItemScrollHeight = currentRowItemScrollHeight;
+                                                            rowItem.style.height = `${currentRowItemScrollHeight}px`;
                                                         }
+
+                                                        // const currentScrollHeight = row.scrollHeight;
+                                                        // if (currentScrollHeight !== lastScrollHeight) {
+                                                        //     lastScrollHeight = currentScrollHeight;
+                                                        //     row.style.height = `${currentScrollHeight}px`;
+                                                        // }
 
                                                         // Remove light class after 10ms
                                                         setTimeout(() => {
