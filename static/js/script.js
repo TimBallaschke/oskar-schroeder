@@ -507,7 +507,6 @@ async function handleDelta(content) {
                                         prefixContainer.classList.remove('light');
                                         resolve();
                                     }, animationDuration + 310);
-                                    resolve();
                                 });
                             }
 
