@@ -459,54 +459,54 @@ async function handleDelta(content) {
                                     prefixContainer.classList.add('item-prefix', 'no-height', 'no-width');
                                     prefixDigits.classList.add('prefix-digits', 'no-opacity', 'light');
 
-                                    console.log('prefix', listItem.prefix);
+                                    const prefixString = listItem.prefix.toString();
+                                    let prefixText = "";
 
-                                    // let prefixText = "";
+                                    if (prefixString.length <= 1) {
+                                        prefixText = "0" + prefixString;
+                                    } else {
+                                        prefixText = prefixString;
+                                    }
 
-                                    // if (listItem.prefix.length <= 1) {
-                                    //     prefixText = "0" + listItem.prefix;
-                                    // } else {
-                                    //     prefixText = listItem.prefix;
-                                    // }
+                                    const prefixLength = prefixText.length;
+                                    const secondaryFontSize = getCSSVarValue('--secondary-font-size', 16);
+                                    const secondaryFontWidth = secondaryFontSize * 0.6;
+                                    const prefixWidth = (prefixLength + 3) * secondaryFontWidth;
+                                    console.log('prefixWidth', prefixWidth);
 
-                                    // const prefixLength = prefixText.length;
-                                    // const secondaryFontSize = getCSSVarValue('--secondary-font-size', 16);
-                                    // const secondaryFontWidth = secondaryFontSize * 0.6;
-                                    // const prefixWidth = (prefixLength + 3) * secondaryFontWidth;
+                                    const previousPrefixWidth = getCSSVarValue('--prefix-width', 0);
+                                    console.log('previousPrefixWidth', previousPrefixWidth);
 
-                                    // const previousPrefixWidth = getCSSVarValue('--prefix-width', 0);
-
-                                    // if (prefixWidth > previousPrefixWidth) {
-                                    //     setCSSVarValue('--prefix-width', prefixWidth);
-                                    // }
-
-                                    // prefixText = prefixText.replace(/\./g, '');
+                                    if (prefixWidth > previousPrefixWidth) {
+                                        console.log('prefixWidth > previousPrefixWidth');
+                                        setCSSVarValue('--prefix-width', prefixWidth);
+                                    }
                                     
-                                    // prefixDigits.textContent = prefixText;
+                                    prefixDigits.textContent = prefixText;
 
-                                    // prefixContainer.appendChild(prefixDigits);
-                                    // itemContainer.appendChild(prefixContainer);
+                                    prefixContainer.appendChild(prefixDigits);
+                                    itemContainer.appendChild(prefixContainer);
 
-                                    // setTimeout(() => {
-                                    //     prefixContainer.classList.remove('no-height');
-                                    // }, 10);
+                                    setTimeout(() => {
+                                        prefixContainer.classList.remove('no-height');
+                                    }, 10);
 
-                                    // setTimeout(() => {
-                                    //     prefixContainer.classList.remove('no-width');
-                                    // }, 200);
+                                    setTimeout(() => {
+                                        prefixContainer.classList.remove('no-width');
+                                    }, 200);
 
-                                    // setTimeout(() => {
-                                    //     prefixDigits.classList.remove('no-opacity');
-                                    // }, animationDuration + 200);
+                                    setTimeout(() => {
+                                        prefixDigits.classList.remove('no-opacity');
+                                    }, animationDuration + 200);
 
-                                    // setTimeout(() => {
-                                    //     prefixDigits.classList.remove('light');
-                                    // }, animationDuration + 210);
+                                    setTimeout(() => {
+                                        prefixDigits.classList.remove('light');
+                                    }, animationDuration + 210);
 
-                                    // setTimeout(() => {
-                                    //     // prefixContainer.classList.remove('light');
-                                    //     resolve();
-                                    // }, animationDuration + 310);
+                                    setTimeout(() => {
+                                        prefixContainer.classList.remove('light');
+                                        resolve();
+                                    }, animationDuration + 310);
                                     resolve();
                                 });
                             }

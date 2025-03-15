@@ -554,10 +554,10 @@
 
 .item-container {
     display: grid;
-    grid-template-columns: var(--prefix-width) 5fr;
+    grid-template-columns: var(--prefix-width) 1fr;
     // grid-template-rows: calc(var(--primary-font-size) * 1.2);
     column-gap: 15px;
-    transition: grid-template-columns var(--animation-duration-2) ease-in-out;
+    // transition: grid-template-columns var(--animation-duration-2) ease-in-out;
 
     &.no-width {
         grid-template-columns: 0px 5fr;
