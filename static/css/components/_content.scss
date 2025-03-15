@@ -557,7 +557,7 @@
     grid-template-columns: var(--prefix-width) 1fr;
     // grid-template-rows: calc(var(--primary-font-size) * 1.2);
     column-gap: 15px;
-    // transition: grid-template-columns var(--animation-duration-2) ease-in-out;
+    transition: font-variation-settings var(--animation-duration-2) ease-in-out;
 
     &.no-width {
         grid-template-columns: 0px 5fr;
@@ -573,7 +573,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    justify-self: end;  // This will align it to the right of the grid cell
     transition: height var(--animation-duration-2) ease-in-out, width var(--animation-duration-1) ease-in-out;
     @include secondary-type;
 
@@ -620,11 +619,23 @@
     &.no-opacity {
         opacity: 0;
     }
+
+    &.animation-settings {
+        transition: all var(--animation-duration-2) ease-in-out;
+    }
 }
 
 .item-text {
     grid-column: 2;
     @include primary-type;
+}
+
+.item-word {
+    transition: font-variation-settings var(--animation-duration-2) ease-in-out;
+
+    &.animation-settings {
+        transition: all var(--animation-duration-2) ease-in-out;
+    }
 }
 
 

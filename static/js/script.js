@@ -471,7 +471,7 @@ async function handleDelta(content) {
                                     const prefixLength = prefixText.length;
                                     const secondaryFontSize = getCSSVarValue('--secondary-font-size', 16);
                                     const secondaryFontWidth = secondaryFontSize * 0.6;
-                                    const prefixWidth = (prefixLength + 3) * secondaryFontWidth;
+                                    const prefixWidth = (prefixLength + 2) * secondaryFontWidth;
                                     console.log('prefixWidth', prefixWidth);
 
                                     const previousPrefixWidth = getCSSVarValue('--prefix-width', 0);
@@ -515,14 +515,45 @@ async function handleDelta(content) {
                                 await new Promise(resolve => {
                                     componentMap.get(itemID).add('item');
                                     const textContainer = document.createElement('div');
-                                    textContainer.classList.add('item-text', 'light');
-                                    textContainer.textContent = listItem.item;
+                                    textContainer.classList.add('item-text');
                                     itemContainer.appendChild(textContainer);
-
-                                    setTimeout(() => {
-                                        // textContainer.classList.remove('light');
-                                        resolve();
-                                    }, 20);
+                            
+                                    // Split the item text into words
+                                    const words = listItem.item.split(' ');
+                                    let wordIndex = 0;
+                            
+                                    function addNextWord() {
+                                        if (wordIndex < words.length) {
+                                            // Add space before word (except for first word)
+                                            if (wordIndex > 0) {
+                                                textContainer.appendChild(document.createTextNode(' '));
+                                            }
+                                            
+                                            // Create span for the word
+                                            const wordSpan = document.createElement('span');
+                                            wordSpan.textContent = words[wordIndex];
+                                            wordSpan.classList.add('item-word', 'light', 'no-opacity');
+                                            textContainer.appendChild(wordSpan);
+                            
+                                            // Remove light class after a short delay
+                                            setTimeout(() => {
+                                                wordSpan.classList.remove('no-opacity');
+                                            }, 10);
+                            
+                                            setTimeout(() => {
+                                                wordSpan.classList.remove('light');
+                                            }, 50);
+                            
+                                            wordIndex++;
+                                            // Add small delay between words
+                                            setTimeout(addNextWord, 100);
+                                        } else {
+                                            resolve();
+                                        }
+                                    }
+                            
+                                    // Start adding words
+                                    addNextWord();
                                 });
                             }
                         }
@@ -1568,7 +1599,6 @@ function handleVersionHistoryUpdate(content) {
 
     
 // opening and closing the version history
-versionHistory.addEventListener('click', openVersionHistory);
 
 function openVersionHistory() {
 
@@ -1659,19 +1689,89 @@ function displayPreviousVersion(element) {
                 switch (component.UIType) {
                     case 'paragraphs':
                         const paragraphContainer = document.createElement('p');
-                        paragraphContainer.classList.add('paragraph-container', 'processed');
+                        paragraphContainer.classList.add('paragraph-container', 'light', 'no-opacity');
                         paragraphContainer.textContent = component.text.join(' ');
                         contentContainer.appendChild(paragraphContainer);
+
+                        setTimeout(() => {
+                            paragraphContainer.classList.remove('no-opacity');
+                        }, 10);
+
+                        setTimeout(() => {
+                            paragraphContainer.classList.remove('light');
+                        }, 200);
+                        break;
+
+                    case 'list':
+                        const listContainer = document.createElement('div');
+                        listContainer.classList.add('list-container');
+                        contentContainer.appendChild(listContainer);
+                        
+                        // Add list items
+                        if (component.items && Array.isArray(component.items)) {
+                            component.items.forEach((item, index) => {
+                                const itemContainer = document.createElement('div');
+                                itemContainer.classList.add('item-container');
+                                
+                                // Add prefix if it exists
+                                if (item.prefix) {
+                                    const prefixContainer = document.createElement('div');
+                                    prefixContainer.classList.add('item-prefix', 'light', 'no-opacity', 'animation-settings');
+                                    
+                                    const prefixDigits = document.createElement('div');
+                                    prefixDigits.classList.add('prefix-digits');
+                                    
+                                    const prefixString = item.prefix.toString();
+                                    let prefixText = prefixString.length <= 1 ? "0" + prefixString : prefixString;
+
+                                    const prefixLength = prefixText.length;
+                                    const secondaryFontSize = getCSSVarValue('--secondary-font-size', 16);
+                                    const secondaryFontWidth = secondaryFontSize * 0.6;
+                                    const prefixWidth = (prefixLength + 3) * secondaryFontWidth;
+
+                                    setCSSVarValue('--prefix-width', prefixWidth);
+
+                                    prefixDigits.textContent = prefixText;
+                                    
+                                    prefixContainer.appendChild(prefixDigits);
+                                    itemContainer.appendChild(prefixContainer);
+
+                                    setTimeout(() => {
+                                        prefixContainer.classList.remove('no-opacity');
+                                    }, 10);
+
+                                    setTimeout(() => {
+                                        prefixContainer.classList.remove('light');
+                                    }, 200);
+                                }
+                                
+                                // Add item text
+                                if (item.item) {
+                                    const textContainer = document.createElement('div');
+                                    textContainer.classList.add('item-text', 'light', 'no-opacity', 'animation-settings');
+                                    textContainer.textContent = item.item;
+                                    itemContainer.appendChild(textContainer);
+
+                                    setTimeout(() => {
+                                        textContainer.classList.remove('no-opacity');
+                                    }, 10);
+
+                                    setTimeout(() => {
+                                        textContainer.classList.remove('light');
+                                    }, 200);
+                                }
+                                
+                                listContainer.appendChild(itemContainer);
+                            });
+                        }
+                        break;
+
+                    case 'table':
+
                         break;
                         
-                    // Add other component types as needed
                     case 'projects_list':
-                        // const projectsContainer = document.createElement('p');
-                        // projectsContainer.classList.add('projects-container', 'processed');
-                        // const componentButton = document.createElement('div');
-                        // componentButton.classList.add('component-button');
-                        // projectsContainer.appendChild(componentButton);
-                        // contentContainer.appendChild(projectsContainer);
+
                         break;
                 }
             });
@@ -2108,23 +2208,9 @@ function togglePromptProposals() {
 }
 
 
-
-
 // --------------------------------------------------------------------------------------------
-// EVENT LISTENERS
+// INPUTBAR
 // --------------------------------------------------------------------------------------------
-
-// Add event listeners when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    const userInput = document.getElementById('user-input');
-    const sendButton = document.getElementById('send-button');
-
-    userInput.addEventListener('focus', activateInput);
-    userInput.addEventListener('blur', activateInput);
-    userInput.addEventListener('input', inputAdded);
-
-    sendButton.addEventListener('click', sendMessage);
-});
 
 function activateInput() {
     const bottomNavigation = document.getElementById('bottom-navigation');
@@ -2147,4 +2233,23 @@ function inputAdded() {
         bottomNavigation.classList.remove('input-has-content');
     }
 }
+
+
+// --------------------------------------------------------------------------------------------
+// EVENT LISTENERS
+// --------------------------------------------------------------------------------------------
+
+// Add event listeners when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+
+    userInput.addEventListener('focus', activateInput);
+    userInput.addEventListener('blur', activateInput);
+    userInput.addEventListener('input', inputAdded);
+
+    sendButton.addEventListener('click', sendMessage);
+
+    versionHistory.addEventListener('click', openVersionHistory);
+});
 

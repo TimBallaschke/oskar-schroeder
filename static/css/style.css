@@ -597,6 +597,7 @@ p:not(:first-of-type) {
   grid-template-columns: var(--prefix-width) 1fr;
   -moz-column-gap: 15px;
        column-gap: 15px;
+  transition: font-variation-settings var(--animation-duration-2) ease-in-out;
 }
 .item-container.no-width {
   grid-template-columns: 0px 5fr;
@@ -611,7 +612,6 @@ p:not(:first-of-type) {
   display: flex;
   align-items: center;
   justify-content: center;
-  justify-self: end;
   transition: height var(--animation-duration-2) ease-in-out, width var(--animation-duration-1) ease-in-out;
   font-size: var(--secondary-font-size);
   text-transform: capitalize;
@@ -651,10 +651,20 @@ p:not(:first-of-type) {
 .prefix-digits.no-opacity {
   opacity: 0;
 }
+.prefix-digits.animation-settings {
+  transition: all var(--animation-duration-2) ease-in-out;
+}
 
 .item-text {
   grid-column: 2;
   font-size: var(--primary-font-size);
+}
+
+.item-word {
+  transition: font-variation-settings var(--animation-duration-2) ease-in-out;
+}
+.item-word.animation-settings {
+  transition: all var(--animation-duration-2) ease-in-out;
 }
 
 #bottom-navigation {
