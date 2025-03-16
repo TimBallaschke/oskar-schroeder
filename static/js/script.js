@@ -916,6 +916,7 @@ async function renderNextProject() {
                         await new Promise((resolve) => {        
                             // Check if the element already exists to avoid duplicates
                             let element = projectItem.querySelector(`.project-${key}`);
+                            let nameText = projectItem.querySelector(`.project-${key}-text`);
                             if (!element) {
                                 const projectInfo = document.createElement('div');
                                 projectInfo.classList.add('project-information', 'no-height', 'no-padding');
@@ -928,14 +929,21 @@ async function renderNextProject() {
                                 }, 10);
 
                                 setTimeout(() => {
-                                    element = document.createElement('div');  // Correctly create the element
-                                    element.classList.add(`project-${key}`, 'no-height', 'light');
-                                    element.textContent = value;
+                                    element = document.createElement('div');  // Create the container element
+                                    element.classList.add(`project-${key}`);
+                                    
+                                    // Create the span to wrap the name text
+                                    nameText = document.createElement('span');
+                                    nameText.classList.add(`project-${key}-text`, 'light');
+                                    nameText.textContent = value;
+                                    
+                                    // Append the span to the container
+                                    element.appendChild(nameText);
                                     projectInfo.appendChild(element);
                                 }, animationDuration + 10);
 
                                 setTimeout(() => {
-                                    element.classList.remove('light');
+                                    nameText.classList.remove('light');
                                 }, animationDuration + 20);
     
                             } else {
