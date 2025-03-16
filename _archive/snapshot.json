@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250316e_Oskar_Website_versionHistory_projectList",
+  "original_folder": "250316f_Oskar_Website_new_version_history_look",
   "snapshot_date_from_folder": "250316",
   "source_files": [
     {
@@ -40,16 +40,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "593956907c6dfaf1ec5b47eaa451805576b27712",
-      "sha256": "d26b9905a33fd5844129200f93b8da823129f3534b1c7c7d50c122c071966c2b",
-      "size": 22784,
+      "sha1": "7efd7e2fc20d1b9175cb5c260b48aa8fdb961a52",
+      "sha256": "09d3e90a19fab1a8bfb6e0699bded399c15fb79189b9e609c5fe7f16dad6e652",
+      "size": 22283,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "45e70a729f9f4a1ac257c0fa1b4462774a56978a",
-      "sha256": "8c963a82123d653134342f4aa1ec3795e176711f46c73ead87e19a566d6337fe",
-      "size": 8445,
+      "sha1": "afc75cc6ae73ac80b7e5a40ed3394b3c2d61209d",
+      "sha256": "d7343897382301cf8efc7d9eb9cce382333998035860a2416aec7e1dcc319374",
+      "size": 8365,
       "mode": "100644"
     },
     {
@@ -82,9 +82,9 @@
     },
     {
       "path": "static/css/components/_version-history.scss",
-      "sha1": "11fa0d6cf12e73117f04a7b4db79b044627bdda3",
-      "sha256": "a44731dda4e970a115e62cd7e75bc462a77007bde3e78843e5cb9dd57fd5293b",
-      "size": 2195,
+      "sha1": "a23966054559f68e9a02e039b1a969b2abd0a888",
+      "sha256": "6bf7e97f4633b52f7402c5f253f2e756558dbd71bd08b5e0d5fe15d6836156e9",
+      "size": 1725,
       "mode": "100644"
     },
     {
@@ -103,8 +103,8 @@
     },
     {
       "path": "static/css/base/_base.scss",
-      "sha1": "9795d8b419125af25f3f03586062412f814c5334",
-      "sha256": "704a3e53541d21ca8fa6d128f87b8d4d5c62cf9dd86586a4fcd64d256529745f",
+      "sha1": "37db07f4c55587f87cc64233de7913516528e958",
+      "sha256": "34fe9bdd0961b922420fe76a262d0d156bf481c1910c677ad78c1c5307d13e28",
       "size": 835,
       "mode": "100644"
     },
@@ -621,9 +621,9 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "33af420325f3edd58a398b683b4fa7ec22f220f4",
-      "sha256": "b31f217b29a45837474b83dfeed7bf36763dee0835f69f4386a264aa9648b989",
-      "size": 3940,
+      "sha1": "231a861775a9112a05c859a87f28013b259b2dba",
+      "sha256": "add6cb6d1006756ccd2d50d309452e5cda353092faf39ffa0e0db83e638a712e",
+      "size": 5412,
       "mode": "100644"
     }
   ],

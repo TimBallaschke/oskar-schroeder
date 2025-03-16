@@ -1,29 +1,16 @@
 #version-history {
-    position: fixed;
-    top: calc(var(--page-padding) + 3px);
-    left: var(--page-padding);
-    width: auto;
-    color: white;
-    background-color: black;
-    border-radius: 15px;
-    padding: 3px 8px 3px 5px;
-    transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
-    z-index: 100;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 1),
-                0 0 15px rgba(255, 255, 255, 0.8),
-                0 0 25px rgba(255, 255, 255, 0.6); // Multiple layers of glow
-
-  &.version-history-width-set {
-    width: var(--version-history-width);
-
-    .version-history-opening-2 & {
-      width: calc(100vw - var(--page-padding) * 2);
-    }
-  
-    .version-history-opening-3 & {
-      width: calc(100vw - var(--page-padding) * 2);
-    }
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  color: black;
+  background-color: white;
+  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
+  z-index: 100;
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 .version-history-element {
@@ -34,6 +21,7 @@
     opacity: 0;
     transition: all var(--animation-duration-1) ease-in-out;
     @include primary-type;
+    flex-shrink: 0;
 
   &.current-version-history-element {
       height: 24px;
@@ -43,17 +31,16 @@
   }
     
   .version-history-opening-1 & {
-      display: block;
   }
 
   .version-history-opening-2 & {
     height: 24px;
-    display: block;
+    display: inline-flex;
   }
 
   .version-history-opening-3 & {
     height: 24px;
-    display: block;
+    display: inline-flex;
     opacity: 1;
   }
 }

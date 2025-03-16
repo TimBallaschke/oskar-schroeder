@@ -40,7 +40,7 @@ html {
 }
 
 body {
-  background-color: #eff3fc;
+  background-color: #eef2fc;
   color: black;
   margin: 0;
   padding: 0;
@@ -871,25 +871,17 @@ input {
 }
 #version-history {
   position: fixed;
-  top: calc(var(--page-padding) + 3px);
-  left: var(--page-padding);
-  width: auto;
-  color: white;
-  background-color: black;
-  border-radius: 15px;
-  padding: 3px 8px 3px 5px;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  color: black;
+  background-color: white;
   transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
   z-index: 100;
-  box-shadow: 0 0 5px rgb(255, 255, 255), 0 0 15px rgba(255, 255, 255, 0.8), 0 0 25px rgba(255, 255, 255, 0.6);
-}
-#version-history.version-history-width-set {
-  width: var(--version-history-width);
-}
-.version-history-opening-2 #version-history.version-history-width-set {
-  width: calc(100vw - var(--page-padding) * 2);
-}
-.version-history-opening-3 #version-history.version-history-width-set {
-  width: calc(100vw - var(--page-padding) * 2);
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 .version-history-element {
@@ -900,6 +892,7 @@ input {
   opacity: 0;
   transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
+  flex-shrink: 0;
 }
 .version-history-element.current-version-history-element {
   height: 24px;
@@ -907,16 +900,13 @@ input {
   align-items: center;
   opacity: 1;
 }
-.version-history-opening-1 .version-history-element {
-  display: block;
-}
 .version-history-opening-2 .version-history-element {
   height: 24px;
-  display: block;
+  display: inline-flex;
 }
 .version-history-opening-3 .version-history-element {
   height: 24px;
-  display: block;
+  display: inline-flex;
   opacity: 1;
 }
 
