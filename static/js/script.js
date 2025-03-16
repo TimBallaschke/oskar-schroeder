@@ -1829,6 +1829,180 @@ function displayPreviousVersion(element) {
                         break;
                         
                     case 'projects_list':
+                        // Create projects container
+                        const projectsContainer = document.createElement('div');
+                        projectsContainer.classList.add('projects-container');
+                        
+                        // Add layout classes
+                        if (component.layout) {
+                            if (component.layout === 'fullscreen') {
+                                projectsContainer.classList.add('fullscreen');
+                            } else if (component.layout === 'grid') {
+                                projectsContainer.classList.add('grid');
+                            }
+                        }
+                        
+                        contentContainer.appendChild(projectsContainer);
+                        
+                        // Handle grid layout
+                        let leftColumnGrid, rightColumnGrid;
+                        if (projectsContainer.classList.contains('grid')) {
+                            leftColumnGrid = document.createElement('div');
+                            leftColumnGrid.classList.add('left-column-grid');
+                            
+                            rightColumnGrid = document.createElement('div');
+                            rightColumnGrid.classList.add('right-column-grid');
+                            
+                            projectsContainer.appendChild(leftColumnGrid);
+                            projectsContainer.appendChild(rightColumnGrid);
+                        }
+                        
+                        // Add projects
+                        if (component.projects && Array.isArray(component.projects)) {
+                            component.projects.forEach((project, index) => {
+                                if (!project.name) return;
+                                
+                                const projectItem = document.createElement('div');
+                                projectItem.classList.add('project');
+                                projectItem.setAttribute('data-project-id', project.name);
+                                
+                                // Create project information container
+                                const projectInfo = document.createElement('div');
+                                projectInfo.classList.add('project-information');
+                                
+                                // Add dot container and dot
+                                const dotContainer = document.createElement('div');
+                                dotContainer.classList.add('project-dot-container');
+                                
+                                const dot = document.createElement('div');
+                                dot.classList.add('project-dot');
+                                dot.addEventListener('click', () => {
+                                    selectComponent(dot, projectItem);
+                                });
+                                
+                                dotContainer.appendChild(dot);
+                                projectInfo.appendChild(dotContainer);
+                                
+                                // Add project name
+                                if (project.name) {
+                                    const nameElement = document.createElement('div');
+                                    nameElement.classList.add('project-name');
+                                    nameElement.textContent = project.name;
+                                    
+                                    // Add year if available
+                                    if (project.year) {
+                                        const yearSpan = document.createElement('span');
+                                        yearSpan.classList.add('project-year');
+                                        yearSpan.textContent = ` (${project.year})`;
+                                        nameElement.appendChild(yearSpan);
+                                    }
+                                    
+                                    projectInfo.appendChild(nameElement);
+                                }
+                                
+                                // Add material and dimensions
+                                if (project.material) {
+                                    if (projectsContainer.classList.contains('grid')) {
+                                        // For grid layout, separate material and dimensions
+                                        const materialElement = document.createElement('div');
+                                        materialElement.classList.add('project-material');
+                                        materialElement.textContent = project.material;
+                                        projectInfo.appendChild(materialElement);
+                                        
+                                        if (project.dimensions) {
+                                            const dimensionsElement = document.createElement('div');
+                                            dimensionsElement.classList.add('project-dimensions');
+                                            dimensionsElement.textContent = project.dimensions;
+                                            projectInfo.appendChild(dimensionsElement);
+                                        }
+                                    } else {
+                                        // For fullscreen layout, combine material and dimensions
+                                        const materialDimensionsElement = document.createElement('div');
+                                        materialDimensionsElement.classList.add('project-material-dimensions');
+                                        materialDimensionsElement.textContent = project.material;
+                                        
+                                        if (project.dimensions) {
+                                            const dimensionsSpan = document.createElement('span');
+                                            dimensionsSpan.classList.add('project-dimensions');
+                                            dimensionsSpan.textContent = `, ${project.dimensions}`;
+                                            materialDimensionsElement.appendChild(dimensionsSpan);
+                                        }
+                                        
+                                        projectInfo.appendChild(materialDimensionsElement);
+                                    }
+                                }
+                                
+                                projectItem.appendChild(projectInfo);
+                                
+                                // Add images
+                                if (project.images && Array.isArray(project.images)) {
+                                    const imageContainer = document.createElement('div');
+                                    imageContainer.classList.add('project-images');
+                                    
+                                    // Add images
+                                    project.images.forEach(imageUrl => {
+                                        const imageWrapper = document.createElement('div');
+                                        imageWrapper.classList.add('project-image');
+                                        
+                                        const imgElement = document.createElement('img');
+                                        imgElement.classList.add('img-element');
+                                        imgElement.src = imageUrl;
+                                        
+                                        imageWrapper.appendChild(imgElement);
+                                        imageContainer.appendChild(imageWrapper);
+                                    });
+                                    
+                                    // Add image counter
+                                    const imageCounter = document.createElement('div');
+                                    imageCounter.classList.add('image-counter');
+                                    
+                                    const digitsSpan = document.createElement('span');
+                                    digitsSpan.classList.add('image-counter-digits');
+                                    digitsSpan.innerHTML = `01/${project.images.length.toString().padStart(2, '0')}`;
+                                    
+                                    imageCounter.appendChild(digitsSpan);
+                                    projectInfo.appendChild(imageCounter);
+                                    
+                                    // Add scroll event listener
+                                    imageContainer.addEventListener('scroll', () => {
+                                        const scrollPosition = imageContainer.scrollLeft;
+                                        const imageWidth = imageContainer.offsetWidth;
+                                        const currentIndex = Math.round(scrollPosition / imageWidth);
+                                        const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                                        
+                                        if (digitsSpan) {
+                                            digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
+                                        }
+                                    });
+                                    
+                                    projectItem.appendChild(imageContainer);
+                                }
+                                
+                                // Add description
+                                if (project.description && Array.isArray(project.description)) {
+                                    const projectDescription = document.createElement('div');
+                                    projectDescription.classList.add('project-description');
+                                    
+                                    const paragraphElement = document.createElement('p');
+                                    paragraphElement.classList.add('project-description-paragraph');
+                                    paragraphElement.textContent = project.description.join(' ');
+                                    
+                                    projectDescription.appendChild(paragraphElement);
+                                    projectItem.appendChild(projectDescription);
+                                }
+                                
+                                // Append to appropriate container based on layout
+                                if (projectsContainer.classList.contains('grid')) {
+                                    if (index % 2 === 0) {
+                                        leftColumnGrid.appendChild(projectItem);
+                                    } else {
+                                        rightColumnGrid.appendChild(projectItem);
+                                    }
+                                } else {
+                                    projectsContainer.appendChild(projectItem);
+                                }
+                            });
+                        }
 
                         break;
                 }
