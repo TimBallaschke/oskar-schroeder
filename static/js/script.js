@@ -1873,7 +1873,7 @@ function displayPreviousVersion(element) {
                         const projectsContainer = document.createElement('div');
                         projectsContainer.classList.add('projects-container');
                         
-                        // Add layout classes
+                        // Add layout classes based on response values
                         if (component.layout) {
                             if (component.layout === 'fullscreen') {
                                 projectsContainer.classList.add('fullscreen');
@@ -1916,6 +1916,7 @@ function displayPreviousVersion(element) {
                                 
                                 const dot = document.createElement('div');
                                 dot.classList.add('project-dot');
+                                
                                 dot.addEventListener('click', () => {
                                     selectComponent(dot, projectItem);
                                 });
@@ -1923,53 +1924,45 @@ function displayPreviousVersion(element) {
                                 dotContainer.appendChild(dot);
                                 projectInfo.appendChild(dotContainer);
                                 
-                                // Add project name
+                                // Add project name with name-text span
                                 if (project.name) {
-                                    const nameElement = document.createElement('div');
-                                    nameElement.classList.add('project-name');
-                                    nameElement.textContent = project.name;
+                                    const projectName = document.createElement('div');
+                                    projectName.classList.add('project-name');
+                                    
+                                    const nameText = document.createElement('span');
+                                    nameText.classList.add('project-name-text');
+                                    nameText.textContent = project.name;
+                                    projectName.appendChild(nameText);
                                     
                                     // Add year if available
                                     if (project.year) {
-                                        const yearSpan = document.createElement('span');
-                                        yearSpan.classList.add('project-year');
-                                        yearSpan.textContent = ` (${project.year})`;
-                                        nameElement.appendChild(yearSpan);
+                                        const yearText = document.createElement('span');
+                                        yearText.classList.add('project-year');
+                                        yearText.textContent = ` (${project.year})`;
+                                        projectName.appendChild(yearText);
                                     }
                                     
-                                    projectInfo.appendChild(nameElement);
+                                    projectInfo.appendChild(projectName);
                                 }
                                 
                                 // Add material and dimensions
                                 if (project.material) {
-                                    if (projectsContainer.classList.contains('grid')) {
-                                        // For grid layout, separate material and dimensions
-                                        const materialElement = document.createElement('div');
-                                        materialElement.classList.add('project-material');
-                                        materialElement.textContent = project.material;
-                                        projectInfo.appendChild(materialElement);
-                                        
-                                        if (project.dimensions) {
-                                            const dimensionsElement = document.createElement('div');
-                                            dimensionsElement.classList.add('project-dimensions');
-                                            dimensionsElement.textContent = project.dimensions;
-                                            projectInfo.appendChild(dimensionsElement);
-                                        }
-                                    } else {
-                                        // For fullscreen layout, combine material and dimensions
-                                        const materialDimensionsElement = document.createElement('div');
-                                        materialDimensionsElement.classList.add('project-material-dimensions');
-                                        materialDimensionsElement.textContent = project.material;
-                                        
-                                        if (project.dimensions) {
-                                            const dimensionsSpan = document.createElement('span');
-                                            dimensionsSpan.classList.add('project-dimensions');
-                                            dimensionsSpan.textContent = `, ${project.dimensions}`;
-                                            materialDimensionsElement.appendChild(dimensionsSpan);
-                                        }
-                                        
-                                        projectInfo.appendChild(materialDimensionsElement);
+                                    const materialDimensionsElement = document.createElement('div');
+                                    materialDimensionsElement.classList.add('project-material-dimensions');
+                                    
+                                    const materialText = document.createElement('span');
+                                    materialText.classList.add('project-material-text');
+                                    materialText.textContent = project.material;
+                                    materialDimensionsElement.appendChild(materialText);
+                                    
+                                    if (project.dimensions) {
+                                        const dimensionsText = document.createElement('span');
+                                        dimensionsText.classList.add('project-dimensions');
+                                        dimensionsText.textContent = `, ${project.dimensions}`;
+                                        materialDimensionsElement.appendChild(dimensionsText);
                                     }
+                                    
+                                    projectInfo.appendChild(materialDimensionsElement);
                                 }
                                 
                                 projectItem.appendChild(projectInfo);
@@ -2043,7 +2036,6 @@ function displayPreviousVersion(element) {
                                 }
                             });
                         }
-
                         break;
                 }
             });

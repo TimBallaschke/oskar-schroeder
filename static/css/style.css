@@ -503,6 +503,9 @@ p:not(:first-of-type) {
 .grid .image-counter {
   display: none;
 }
+.grid .project-description {
+  display: none;
+}
 
 .project-line {
   width: 1px;
