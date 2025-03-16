@@ -137,18 +137,6 @@
         transition: all var(--animation-duration-1) ease-in-out;
         @include primary-type;
         @include primary-text-offset;
-    
-        &.no-height {
-            height: 0px;
-        }
-    }
-
-    .project-name-text {
-        height: var(--primary-line-height);
-
-        &.no-height {
-            height: 0px;
-        }
     }
     
     .project-year {

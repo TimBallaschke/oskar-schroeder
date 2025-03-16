@@ -1240,10 +1240,13 @@ async function renderNextProject() {
                         }
                         break;
                     case 'name':
-                        await new Promise((resolve) => {        
+                        await new Promise((resolve) => { 
+                            
                             // Check if the element already exists to avoid duplicates
-                            let element = projectItem.querySelector(`.project-${key}`);
-                            if (!element) {
+                            let projectName = projectItem.querySelector('.project-name');
+                            let nameText = projectItem.querySelector('.project-name-text');
+
+                            if (!projectName) {
                                 const projectInfo = document.createElement('div');
                                 projectInfo.classList.add('project-information', 'no-padding');
     
@@ -1273,18 +1276,23 @@ async function renderNextProject() {
                                 }, 510);
     
                                 setTimeout(() => {
-                                    element = document.createElement('div');  // Correctly create the element
-                                    element.classList.add(`project-${key}`, 'light');
-                                    element.textContent = value;
-                                    projectInfo.appendChild(element);
+                                    projectName = document.createElement('div');  // Correctly create the element
+                                    projectName.classList.add(`project-${key}`);
+
+                                    nameText = document.createElement('span');
+                                    nameText.classList.add(`project-name-text`, 'light');
+                                    nameText.textContent = value;
+
+                                    projectName.appendChild(nameText);
+                                    projectInfo.appendChild(projectName);
                                 }, 900);
     
                                 setTimeout(() => {
-                                    element.classList.remove('light');
+                                    nameText.classList.remove('light');
                                 }, 1000);
                             } else {
                                 // Update the content if it already exists (optional)
-                                element.textContent = value;
+                                nameText.textContent = value;
                             }
             
                             setTimeout(resolve, 1100);
@@ -1293,22 +1301,22 @@ async function renderNextProject() {
                     case 'year':
                         await new Promise((resolve) => {
                             let projectInfo = projectItem.querySelector('.project-information');
-                            const nameElement = projectInfo.querySelector('.project-name');
+                            const projectName = projectInfo.querySelector('.project-name');
     
-                            if (nameElement) {
-                                let yearSpan = nameElement.querySelector('.project-year');
-                                if (!yearSpan) {
-                                    yearSpan = document.createElement('span');
-                                    yearSpan.classList.add('project-year', 'light');
-                                    yearSpan.textContent = ` (${value})`;
-                                    nameElement.appendChild(yearSpan);
+                            if (projectName) {
+                                let yearText = projectName.querySelector('.project-year');
+                                if (!yearText) {
+                                    yearText = document.createElement('span');
+                                    yearText.classList.add('project-year', 'light');
+                                    yearText.textContent = ` (${value})`;
+                                    projectName.appendChild(yearText);
     
                                     setTimeout(() => {
-                                        yearSpan.classList.remove('light');
+                                        yearText.classList.remove('light');
                                     }, 10);
                                 } else {
                                     // Update existing year span
-                                    yearSpan.textContent = ` (${value})`;
+                                    yearText.textContent = ` (${value})`;
                                 }
                             }
                             setTimeout(resolve, 50);
@@ -1317,21 +1325,26 @@ async function renderNextProject() {
                     case 'material':
                         await new Promise((resolve) => { 
                             let projectInfo = projectItem.querySelector('.project-information');
-    
                             // Check if the element already exists to avoid duplicates
-                            let element = projectInfo.querySelector('.project-material-dimensions');
-                            if (!element) {
-                                element = document.createElement('div');  // Correctly create the element
-                                element.classList.add('project-material-dimensions', 'light');
-                                element.textContent = value;
-                                projectInfo.appendChild(element);
+                            let projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
+                            let materialText = projectInfo.querySelector('.project-material-text');
+
+                            if (!projectMaterialDimensions) {
+                                projectMaterialDimensions = document.createElement('div');  // Correctly create the element
+                                projectMaterialDimensions.classList.add('project-material-dimensions');
+
+                                materialText = document.createElement('span');
+                                materialText.classList.add('project-material-text', 'light');
+                                materialText.textContent = value;
+                                projectMaterialDimensions.appendChild(materialText);
+                                projectInfo.appendChild(projectMaterialDimensions);
     
                                 setTimeout(() => {
-                                    element.classList.remove('light');
+                                    materialText.classList.remove('light');
                                 }, 10);
                             } else {
                                 // Update the content if it already exists (optional)
-                                element.textContent = value;
+                                materialText.textContent = value;
                             }
             
                             setTimeout(resolve, 50);
@@ -1343,19 +1356,19 @@ async function renderNextProject() {
                             const projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
     
                             if (projectMaterialDimensions) {
-                                let dimensionsSpan = projectMaterialDimensions.querySelector('.project-dimensions');
-                                if (!dimensionsSpan) {
-                                    dimensionsSpan = document.createElement('span');
-                                    dimensionsSpan.classList.add('project-dimensions', 'light');
-                                    dimensionsSpan.textContent = `, ${value}`;
-                                    projectMaterialDimensions.appendChild(dimensionsSpan);
+                                let dimensionsText = projectMaterialDimensions.querySelector('.project-dimensions');
+                                if (!dimensionsText) {
+                                    dimensionsText = document.createElement('span');
+                                    dimensionsText.classList.add('project-dimensions', 'light');
+                                    dimensionsText.textContent = `, ${value}`;
+                                    projectMaterialDimensions.appendChild(dimensionsText);
     
                                     setTimeout(() => {
-                                        dimensionsSpan.classList.remove('light');
+                                        dimensionsText.classList.remove('light');
                                     }, 10);
                                 } else {
                                     // Update existing year span
-                                    dimensionsSpan.textContent = ` (${value})`;
+                                    dimensionsText.textContent = ` (${value})`;
                                 }
                             }
                             setTimeout(resolve, 50);

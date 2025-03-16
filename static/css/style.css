@@ -252,15 +252,6 @@ p:not(:first-of-type) {
   font-size: var(--primary-font-size);
   transform: translateY(7px);
 }
-.fullscreen .project-name.no-height {
-  height: 0px;
-}
-.fullscreen .project-name-text {
-  height: var(--primary-line-height);
-}
-.fullscreen .project-name-text.no-height {
-  height: 0px;
-}
 .fullscreen .project-year {
   font-size: var(--primary-font-size);
 }
