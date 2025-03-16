@@ -915,9 +915,10 @@ async function renderNextProject() {
                     case 'name':
                         await new Promise((resolve) => {        
                             // Check if the element already exists to avoid duplicates
-                            let element = projectItem.querySelector(`.project-${key}`);
-                            let nameText = projectItem.querySelector(`.project-${key}-text`);
-                            if (!element) {
+                            let projectName = projectItem.querySelector(`.project-name`);
+                            let nameText = projectItem.querySelector(`.project-name-text`);
+
+                            if (!projectName) {
                                 const projectInfo = document.createElement('div');
                                 projectInfo.classList.add('project-information', 'no-height', 'no-padding');
                                 projectItem.appendChild(projectInfo);
@@ -929,17 +930,29 @@ async function renderNextProject() {
                                 }, 10);
 
                                 setTimeout(() => {
-                                    element = document.createElement('div');  // Create the container element
-                                    element.classList.add(`project-${key}`);
+                                    const dotContainer = document.createElement('div');
+                                    dotContainer.classList.add('project-dot-container', 'no-height');
+                                    const dot = document.createElement('div');
+                                    dot.classList.add('project-dot', 'small');
+        
+                                    dot.addEventListener('click', () => {
+                                        selectComponent(dot, projectItem);
+                                    });
+
+                                    dotContainer.appendChild(dot);
+                                    projectInfo.appendChild(dotContainer);
+
+                                    projectName = document.createElement('div');  // Create the container element
+                                    projectName.classList.add(`project-name`);
                                     
                                     // Create the span to wrap the name text
                                     nameText = document.createElement('span');
-                                    nameText.classList.add(`project-${key}-text`, 'light');
+                                    nameText.classList.add(`project-name-text`, 'light');
                                     nameText.textContent = value;
                                     
                                     // Append the span to the container
-                                    element.appendChild(nameText);
-                                    projectInfo.appendChild(element);
+                                    projectName.appendChild(nameText);
+                                    projectInfo.appendChild(projectName);
                                 }, animationDuration + 10);
 
                                 setTimeout(() => {
@@ -948,7 +961,7 @@ async function renderNextProject() {
     
                             } else {
                                 // Update the content if it already exists (optional)
-                                element.textContent = value;
+                                projectName.textContent = value;
                             }
             
                             setTimeout(resolve, animationDuration + 200);
@@ -957,25 +970,25 @@ async function renderNextProject() {
                     case 'year':
                         await new Promise((resolve) => {
                             let projectInfo = projectItem.querySelector('.project-information');
-                            const nameElement = projectInfo.querySelector('.project-name');
+                            const projectName = projectInfo.querySelector('.project-name');
     
-                            if (nameElement) {
-                                let yearSpan = nameElement.querySelector('.project-year');
-                                if (!yearSpan) {
-                                    yearSpan = document.createElement('span');
-                                    yearSpan.classList.add('project-year', 'light');
-                                    yearSpan.textContent = ` (${value})`;
-                                    nameElement.appendChild(yearSpan);
+                            if (projectName) {
+                                let yearText = projectName.querySelector('.project-year');
+                                if (!yearText) {
+                                    yearText = document.createElement('span');
+                                    yearText.classList.add('project-year', 'light');
+                                    yearText.textContent = ` (${value})`;
+                                    projectName.appendChild(yearText);
     
                                     setTimeout(() => {
-                                        yearSpan.classList.remove('light');
+                                        yearText.classList.remove('light');
                                     }, 10);
                                 } else {
                                     // Update existing year span
-                                    yearSpan.textContent = ` (${value})`;
+                                    yearText.textContent = ` (${value})`;
                                 }
                             }
-                            setTimeout(resolve, 100);
+                            setTimeout(resolve, 50);
                         });
                         break;
                     case 'material':
@@ -983,45 +996,51 @@ async function renderNextProject() {
                             let projectInfo = projectItem.querySelector('.project-information');
     
                             // Check if the element already exists to avoid duplicates
-                            let element = projectInfo.querySelector('.project-material');
-                            if (!element) {
-                                element = document.createElement('div');  // Correctly create the element
-                                element.classList.add('project-material', 'light');
-                                element.textContent = value;
-                                projectInfo.appendChild(element);
+                            let projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
+                            let materialText = projectInfo.querySelector('.project-material-text');
+
+                            if (!projectMaterialDimensions) {
+                                projectMaterialDimensions = document.createElement('div');  // Correctly create the element
+                                projectMaterialDimensions.classList.add('project-material-dimensions', 'light');
+
+                                materialText = document.createElement('span');
+                                materialText.classList.add('project-material-text', 'light');
+                                materialText.textContent = value;
+                                
+                                // Append the span to the container
+                                projectMaterialDimensions.appendChild(materialText);
+                                projectInfo.appendChild(projectMaterialDimensions);
     
                                 setTimeout(() => {
-                                    element.classList.remove('light');
+                                    materialText.classList.remove('light');
                                 }, 10);
                             } else {
                                 // Update the content if it already exists (optional)
-                                element.textContent = value;
+                                materialText.textContent = value;
                             }
             
-                            setTimeout(resolve, 100);
+                            setTimeout(resolve, 10);
                         });
                         break;
                     case 'dimensions':
                         await new Promise((resolve) => {
                             let projectInfo = projectItem.querySelector('.project-information');
+                            const projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
     
-                            // Check if the element already exists to avoid duplicates
-                            let element = projectInfo.querySelector('.project-dimensions');
-                            if (!element) {
-                                element = document.createElement('div');  // Correctly create the element
-                                element.classList.add('project-dimensions', 'light');
-                                element.textContent = value;
-                                projectInfo.appendChild(element);
+                            if (projectMaterialDimensions) {
+                                let dimensionsText = projectMaterialDimensions.querySelector('.project-dimensions');
+                                if (!dimensionsText) {
+                                    dimensionsText = document.createElement('span');
+                                    dimensionsText.classList.add('project-dimensions', 'light');
+                                    dimensionsText.textContent = `, ${value}`;
+                                    projectMaterialDimensions.appendChild(dimensionsText);
     
-                                setTimeout(() => {
-                                    element.classList.remove('light');
-                                }, 10);
-                            } else {
-                                // Update the content if it already exists (optional)
-                                element.textContent = value;
+                                } else {
+                                    // Update existing year span
+                                    dimensionsText.textContent = ` (${value})`;
+                                }
                             }
-            
-                            setTimeout(resolve, 100);
+                            setTimeout(resolve, 10);
                         });
                         break;
                     case 'images':

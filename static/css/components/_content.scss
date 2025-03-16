@@ -316,7 +316,7 @@
         grid-template-rows: repeat(2, auto);
         width: 100%;
         transition: all var(--animation-duration-1) ease-in-out;
-        padding: 15px 0 20px 0;
+        padding: 8px 0 15px 0;
     
         &::before,
         &::after {
@@ -353,13 +353,13 @@
         grid-area: 2 / 1;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(3, var(--grid-line-height));
-        padding-top: 14px;
+        grid-template-rows: var(--grid-line-height) 0px;
+        padding-top: 7px;
         transition: all var(--animation-duration-1) ease-in-out;
         // height: calc(3 * var(--grid-line-height));
 
         &.no-height {
-            grid-template-rows: repeat(3, 0px);
+            grid-template-rows: 0px 0px;
         }
     
         &.no-padding {
@@ -387,14 +387,20 @@
         transition: all var(--animation-duration-1) ease-in-out;
     }
     
-    .project-material {
+    .project-material-dimensions {
+        display: none;
         grid-area: 2 / 1;
         transition: height var(--animation-duration-1) ease-in-out, font-variation-settings var(--animation-duration-1) ease-in-out;
         @include secondary-type;
         @include grid-text-offset;
     }
+
+    .project-material-text {
+
+    }
     
     .project-dimensions {
+        display: none;
         grid-area: 3 / 1;
         transition: height var(--animation-duration-1) ease-in-out, font-variation-settings var(--animation-duration-1) ease-in-out;
         @include secondary-type;
@@ -406,7 +412,7 @@
         transition: all var(--animation-duration-3) ease-in-out;
         height: 100px;
         width: 100%;
-        margin-top: 5px;
+        margin-top: 7px;
     
         &.blur {
             filter: blur(30px);
