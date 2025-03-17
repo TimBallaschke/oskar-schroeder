@@ -79,6 +79,11 @@
 #input-bar {
   width: calc(100% - var(--button-size));
   height: var(--input-element-height);
+  transition: width var(--animation-duration-1) ease-in-out;
+
+  // .streaming & {
+  //   width: 100%;
+  // }
 }
 
 input {
@@ -144,6 +149,16 @@ input {
     display: block;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
+  }
+
+  &.display-none {
+    display: none;
+  }
+
+  &.no-opacity {
+    display: block;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
   }
 }
 

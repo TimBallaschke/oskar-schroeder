@@ -146,17 +146,67 @@ const plusMinusButton = document.getElementById('plus-minus-button');
 let animationDuration = getCSSVarValue('--animation-duration-1', 300);
 
 
-
-
 // --------------------------------------------------------------------------------------------
-// SENDING & RECEIVING MESSAGES
+// INPUTBAR
 // --------------------------------------------------------------------------------------------
+
+function activateInput() {
+    const bottomNavigation = document.getElementById('bottom-navigation');
+
+    if (!bottomNavigation.classList.contains('input-active')) {
+        bottomNavigation.classList.add('input-active');
+    } else {
+        bottomNavigation.classList.remove('input-active');
+    }
+}
+
+function inputAdded() {
+    const userInput = document.getElementById('user-input');
+    const bottomNavigation = document.getElementById('bottom-navigation');
+    if (userInput.value.length > 0) {
+        // console.log('input more than 0');
+        bottomNavigation.classList.add('input-has-content-1');
+
+        setTimeout(() => {
+            bottomNavigation.classList.remove('input-has-content-1');
+            bottomNavigation.classList.add('input-has-content-2');
+        }, 100);
+    } else {
+        // console.log('input less than 0');
+        bottomNavigation.classList.remove('input-has-content-2');
+        bottomNavigation.classList.add('input-has-content-1');
+
+        setTimeout(() => {
+            bottomNavigation.classList.remove('input-has-content-1');
+        }, 100);
+    }
+}
+
+function hideSendButton() {
+    const sendButton = document.getElementById('send-button');
+
+    if (isStreaming) {
+        sendButton.classList.add('no-opacity');
+
+        setTimeout(() => {
+            sendButton.classList.add('display-none');
+        }, 100);
+    } else {
+        sendButton.classList.remove('display-none');
+
+        setTimeout(() => {
+            sendButton.classList.remove('no-opacity');
+        }, 100);
+    }
+}
 
 function animateInput(input) {
 
     input.classList.remove('light');
+    hideSendButton();
 
     const inputAnimationInterval = setInterval(() => {
+        
         if (isStreaming) {
             if (input.classList.contains('light')) {
                 input.classList.remove('light');
@@ -175,12 +225,20 @@ function animateInput(input) {
                     clearInterval(inputAnimationInterval);
                     input.value = '';
                     inputAdded();
+                    hideSendButton();
+
                 }, 1000);
             }
         }
     }, 1000);
 }
 
+
+
+
+// --------------------------------------------------------------------------------------------
+// SENDING & RECEIVING MESSAGES
+// --------------------------------------------------------------------------------------------
 
 
 function sendMessage() {
@@ -190,6 +248,7 @@ function sendMessage() {
     if (message === '') return;  // Don't send empty messages
 
     isStreaming = true;
+    document.body.classList.add('streaming');
     animateInput(input);
 
     toggleLoadingState(true);
@@ -863,6 +922,7 @@ async function handleDelta(content) {
                         break;
                     case 'stream_finished':
                         isStreaming = false;
+                        document.body.classList.remove('streaming');
                         break;
                     default:
                         console.warn('Unknown UIType:', component.UIType);
@@ -2506,43 +2566,6 @@ function togglePromptProposals() {
         setTimeout(() => {
             bottomNavigation.classList.remove('prompt-proposal-opening-1');
             }, animationDuration);
-    }
-}
-
-
-// --------------------------------------------------------------------------------------------
-// INPUTBAR
-// --------------------------------------------------------------------------------------------
-
-function activateInput() {
-    const bottomNavigation = document.getElementById('bottom-navigation');
-
-    if (!bottomNavigation.classList.contains('input-active')) {
-        bottomNavigation.classList.add('input-active');
-    } else {
-        bottomNavigation.classList.remove('input-active');
-    }
-}
-
-function inputAdded() {
-    const userInput = document.getElementById('user-input');
-    const bottomNavigation = document.getElementById('bottom-navigation');
-    if (userInput.value.length > 0) {
-        // console.log('input more than 0');
-        bottomNavigation.classList.add('input-has-content-1');
-
-        setTimeout(() => {
-            bottomNavigation.classList.remove('input-has-content-1');
-            bottomNavigation.classList.add('input-has-content-2');
-        }, 100);
-    } else {
-        // console.log('input less than 0');
-        bottomNavigation.classList.remove('input-has-content-2');
-        bottomNavigation.classList.add('input-has-content-1');
-
-        setTimeout(() => {
-            bottomNavigation.classList.remove('input-has-content-1');
-        }, 100);
     }
 }
 
