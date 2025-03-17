@@ -419,6 +419,81 @@ function clearContentContainer(isVersionHistory) {
     }
 }
 
+animateInputPlaceholder();
+
+function animateInputPlaceholder() {
+    const input = document.getElementById('user-input');
+    const placeholders = [
+        'Type prompt here...', // English
+        'Prompt hier eingeben...', // German
+        'Escribe tu indicación aquí...', // Spanish
+        'Tapez votre requête ici...', // French
+        'Digita il comando qui...', // Italian
+        '在这里输入提示...', // Chinese
+        'ここに指示を入力...', // Japanese
+        '여기에 명령어를 입력하세요...', // Korean
+    ];
+    
+    let placeholderIndex = 0;
+    
+    function animateSinglePlaceholder() {
+        const currentText = placeholders[placeholderIndex];
+        let letterIndex = 0;
+        
+        // Clear the placeholder initially
+        input.placeholder = '';
+        
+        // Type in the placeholder character by character
+        const typeInterval = setInterval(() => {
+            if (letterIndex < currentText.length) {
+                // Check if current character is a space
+                if (currentText[letterIndex] === ' ') {
+                    // Skip the space for now (don't increment letterIndex yet)
+                    let spacesToAdd = '';
+                    
+                    // Count consecutive spaces
+                    while (letterIndex < currentText.length && currentText[letterIndex] === ' ') {
+                        spacesToAdd += ' ';
+                        letterIndex++;
+                    }
+                    
+                    // If we're at the end of the string after spaces, clear interval
+                    if (letterIndex >= currentText.length) {
+                        clearInterval(typeInterval);
+                        return;
+                    }
+                    
+                    // Add spaces plus the next character
+                    input.placeholder += spacesToAdd + currentText[letterIndex];
+                    letterIndex++;
+                } else {
+                    // Add the current character
+                    input.placeholder += currentText[letterIndex];
+                    letterIndex++;
+                }
+            } else {
+                clearInterval(typeInterval);    
+
+                setTimeout(() => {
+                    input.classList.add('placeholder-no-opacity');
+                    placeholderIndex = (placeholderIndex + 1) % placeholders.length;
+
+                    setTimeout(() => {
+                        input.classList.remove('placeholder-no-opacity');
+                    }, 600);
+
+                    setTimeout(() => {
+                        animateSinglePlaceholder();
+                    }, 800);
+
+                }, 1000); // Display complete text for 1 second
+            }
+        }, 50);
+    }
+    
+    // Start the animation cycle
+    animateSinglePlaceholder();
+}
 
 
 

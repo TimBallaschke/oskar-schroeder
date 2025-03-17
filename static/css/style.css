@@ -772,7 +772,22 @@ input {
   width: 100%;
   color: white;
   transform: translateY(2px);
-  transition: font-variation-settings 1000ms ease-in-out;
+  transition: all 1000ms ease-in-out;
+}
+#user-input::-moz-placeholder {
+  -moz-transition: all 600ms ease-in-out;
+  transition: all 600ms ease-in-out;
+  color: rgb(128, 128, 128);
+}
+#user-input::placeholder {
+  transition: all 600ms ease-in-out;
+  color: rgb(128, 128, 128);
+}
+#user-input.placeholder-no-opacity::-moz-placeholder {
+  opacity: 0;
+}
+#user-input.placeholder-no-opacity::placeholder {
+  opacity: 0;
 }
 
 #buttons-outter-container {
