@@ -140,6 +140,9 @@ let reworkRenderingQueue = [];  // Add this with other global variables
 let isReworkProcessing = false; // Add this with other global variables
 let reworkComplete = false;
 let isStreaming = false;
+
+const userInput = document.getElementById('user-input');
+
 const contentContainer = document.getElementById('content-container');
 const versionHistory = document.getElementById('version-history');
 const plusMinusButton = document.getElementById('plus-minus-button');
@@ -161,7 +164,6 @@ function activateInput() {
 }
 
 function inputAdded() {
-    const userInput = document.getElementById('user-input');
     const bottomNavigation = document.getElementById('bottom-navigation');
     if (userInput.value.length > 0) {
         // console.log('input more than 0');
@@ -200,30 +202,30 @@ function hideSendButton() {
     }
 }
 
-function animateInput(input) {
+function animateInput() {
 
-    input.classList.remove('light');
+    userInput.classList.remove('light');
     hideSendButton();
 
     const inputAnimationInterval = setInterval(() => {
         
         if (isStreaming) {
-            if (input.classList.contains('light')) {
-                input.classList.remove('light');
+            if (userInput.classList.contains('light')) {
+                userInput.classList.remove('light');
             } else {
-                input.classList.add('light');
+                userInput.classList.add('light');
             }
         } else {
-            if (input.classList.contains('light')) {
+            if (userInput.classList.contains('light')) {
                 clearInterval(inputAnimationInterval);
-                input.value = '';
+                userInput.value = '';
                 inputAdded();
             } else {
-                input.classList.add('light');
+                userInput.classList.add('light');
 
                 setTimeout(() => {
                     clearInterval(inputAnimationInterval);
-                    input.value = '';
+                    userInput.value = '';
                     document.body.classList.remove('streaming');
                     inputAdded();
                     hideSendButton();
@@ -244,15 +246,13 @@ function animateInput(input) {
 
 function sendMessage() {
     
-    const input = document.getElementById('user-input');
-    const message = input.value.trim();
+    const message = userInput.value.trim();
     if (message === '') return;  // Don't send empty messages
 
     isStreaming = true;
     document.body.classList.add('streaming');
-    animateInput(input);
+    animateInput();
 
-    toggleLoadingState(true);
     processedComponents.clear(); // Clear processed components for a new request
     renderingQueue = [];  // Clear the rendering queue
 
@@ -344,13 +344,11 @@ function startStreamingResponse() {
                 handleSecondComplete(data.content);  // New function to process the second chatbot's response
                 activeEventSource.close();
                 activeEventSource = null;
-                toggleLoadingState(false);
                 break;
             case "error": // if the message type is 'error', it logs the error to the console and closes the event source
                 console.error("Error:", data.content);
                 activeEventSource.close();
                 activeEventSource = null;
-                toggleLoadingState(false);
                 break;
         }
     };
@@ -359,28 +357,26 @@ function startStreamingResponse() {
         console.error("activeEventSource failed:", error);
         activeEventSource.close();
         activeEventSource = null;
-        toggleLoadingState(false);
     };
 }
 
 // Add ability to send message by pressing Enter key
-document.getElementById('user-input').addEventListener('keypress', function(e) {
+userInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         sendMessage();
     }
 });
 
 // Function to handle to enable/disable the input field and send button during streaming
-function toggleLoadingState(isLoading) {
-    const input = document.getElementById('user-input');
-    const sendButton = document.getElementById('send-button');
+// function toggleLoadingState(isLoading) {
+//     const sendButton = document.getElementById('send-button');
     
-    // Disable/enable the input field based on isLoading
-    if (input) input.disabled = isLoading;
+//     // Disable/enable the input field based on isLoading
+//     if (input) input.disabled = isLoading;
     
-    // Disable/enable the send button based on isLoading
-    if (sendButton) sendButton.disabled = isLoading;
-}
+//     // Disable/enable the send button based on isLoading
+//     if (sendButton) sendButton.disabled = isLoading;
+// }
 
 function clearContentContainer(isVersionHistory) {
 
@@ -422,15 +418,14 @@ function clearContentContainer(isVersionHistory) {
 animateInputPlaceholder();
 
 function animateInputPlaceholder() {
-    const input = document.getElementById('user-input');
     const placeholders = [
         'Type prompt here...', // English
         'Prompt hier eingeben...', // German
         'Escribe tu indicación aquí...', // Spanish
-        'Tapez votre requête ici...', // French
-        'Digita il comando qui...', // Italian
         '在这里输入提示...', // Chinese
+        'Tapez votre requête ici...', // French
         'ここに指示を入力...', // Japanese
+        'Digita il comando qui...', // Italian
         '여기에 명령어를 입력하세요...', // Korean
     ];
     
@@ -441,7 +436,7 @@ function animateInputPlaceholder() {
         let letterIndex = 0;
         
         // Clear the placeholder initially
-        input.placeholder = '';
+        userInput.placeholder = '';
         
         // Type in the placeholder character by character
         const typeInterval = setInterval(() => {
@@ -464,22 +459,22 @@ function animateInputPlaceholder() {
                     }
                     
                     // Add spaces plus the next character
-                    input.placeholder += spacesToAdd + currentText[letterIndex];
+                    userInput.placeholder += spacesToAdd + currentText[letterIndex];
                     letterIndex++;
                 } else {
                     // Add the current character
-                    input.placeholder += currentText[letterIndex];
+                    userInput.placeholder += currentText[letterIndex];
                     letterIndex++;
                 }
             } else {
                 clearInterval(typeInterval);    
 
                 setTimeout(() => {
-                    input.classList.add('placeholder-no-opacity');
+                    userInput.classList.add('placeholder-no-opacity');
                     placeholderIndex = (placeholderIndex + 1) % placeholders.length;
 
                     setTimeout(() => {
-                        input.classList.remove('placeholder-no-opacity');
+                        userInput.classList.remove('placeholder-no-opacity');
                     }, 600);
 
                     setTimeout(() => {
@@ -2243,13 +2238,11 @@ function startStreamingComponentRework() {
                 handleCompleteRework(data.content);
                 activeEventSource.close();
                 activeEventSource = null;
-                toggleLoadingState(false);
                 break;
             case "error": // if the message type is 'error', it logs the error to the console and closes the event source
                 console.error("Error:", data.content);
                 activeEventSource.close();
                 activeEventSource = null;
-                toggleLoadingState(false);
                 break;
         }
     };
@@ -2258,7 +2251,6 @@ function startStreamingComponentRework() {
         console.error("activeEventSource failed:", error);
         activeEventSource.close();
         activeEventSource = null;
-        toggleLoadingState(false);
     };
 };
 
@@ -2601,8 +2593,7 @@ function handlePromptProposalsUpdate(content) {
 
 // Generic handler for clicking on prompt elements that should be copied to input
 function handlePromptClick(element) {
-    const input = document.getElementById('user-input');
-    input.value = element.innerHTML;
+    userInput.value = element.innerHTML;
 
     setTimeout(() => {
         sendMessage();
@@ -2651,7 +2642,6 @@ function togglePromptProposals() {
 
 // Add event listeners when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    const userInput = document.getElementById('user-input');
     const sendButton = document.getElementById('send-button');
     const startVersionHistoryElement = document.getElementById('version-history-element-1');
 
