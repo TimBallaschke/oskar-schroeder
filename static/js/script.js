@@ -212,7 +212,9 @@ function sendMessage() {
         }).then(response => response.json()) // Waits for the response from the server and converts it to a JSON object
         .then(data => { // waits for the response to be converted to a JSON object
             if (data.status === "ok") { // checks if the status of the response is "ok"
+                responseCount++;
                 startStreamingResponse(); // starts the streaming response
+                addNewVersionHistoryElement()
             }        
         }).catch(error => { // handles any errors that occur during the request
             console.error('Error sending message:', error); // logs the error to the console
@@ -244,7 +246,6 @@ function startStreamingResponse() {
                 handleDelta(data.content);
                 break;
             case 'complete': // if the message type is 'complete', it calls the handleComplete function
-                responseCount++;
                 handleComplete(data.content);
                 break;
             case 'second_complete':
@@ -1593,10 +1594,66 @@ function handleComplete(content) {
 function handleSecondComplete(content) {
     // console.log("Received second complete response:", content);
 
-    handleVersionHistoryUpdate(content);
+    // handleVersionHistoryUpdate(content);
+    displayNewVersionHistoryElement(content);
     handlePromptProposalsUpdate(content);
 }
 
+function addNewVersionHistoryElement() {
+    // Hide all existing version-history elements
+    const historyElements = document.querySelectorAll('.version-history-element');
+    historyElements.forEach(element => {
+        element.classList.remove('current-version-history-element');
+    });
+
+    // Create the new version-history element
+    const newHistoryElement = document.createElement('div');
+    newHistoryElement.classList.add('version-history-element', 'current-version-history-element', 'new-history-step-1');
+    newHistoryElement.id = `version-history-element-${responseCount}`;
+    newHistoryElement.setAttribute('version-history-key', responseCount);
+
+    const versionHistoryNumber = document.createElement('div');
+    versionHistoryNumber.classList.add('version-history-element-number');
+
+    const versionHistoryDigits = document.createElement('div');
+    versionHistoryDigits.classList.add('version-history-element-digits');
+    versionHistoryDigits.textContent = (responseCount).toString().padStart(2, '0');
+
+    const versionHistoryTitle = document.createElement('div');
+    versionHistoryTitle.classList.add('version-history-element-title');
+
+    versionHistoryNumber.appendChild(versionHistoryDigits);
+    newHistoryElement.appendChild(versionHistoryNumber);
+    newHistoryElement.appendChild(versionHistoryTitle);
+    versionHistory.insertBefore(newHistoryElement, versionHistory.firstChild);
+
+
+    setTimeout(() => {
+        newHistoryElement.classList.remove('new-history-step-1');
+        newHistoryElement.classList.add('new-history-step-2');
+    }, animationDuration);
+
+    setTimeout(() => {
+        newHistoryElement.classList.remove('new-history-step-2');
+        newHistoryElement.classList.add('new-history-step-3');
+    }, animationDuration + 100);
+
+}
+
+function displayNewVersionHistoryElement(content) {
+    const newHistoryElement = document.querySelector('.current-version-history-element');
+    const versionHistoryTitle = newHistoryElement.querySelector('.version-history-element-title');
+
+    versionHistoryTitle.textContent = content.content_description;
+
+    const currentVersionHistoryElementWidth = newHistoryElement.scrollWidth;
+    console.log('currentVersionHistoryElementWidth: ', currentVersionHistoryElementWidth);
+    setCSSVarValue('--current-version-history-element-width', currentVersionHistoryElementWidth);
+
+    setTimeout(() => {
+        newHistoryElement.classList.remove('new-history-step-3');
+    }, 100);
+}
 
 
 
@@ -1609,51 +1666,14 @@ function handleSecondComplete(content) {
 // updating the version history
 function handleVersionHistoryUpdate(content) {
 
-    versionHistory.classList.remove('version-history-width-set');
-
     // Hide all existing version-history elements
     const historyElements = document.querySelectorAll('.version-history-element');
     historyElements.forEach(element => {
         element.classList.remove('current-version-history-element');
     });
 
-    // Create the new version-history element
-    const newHistoryElement = document.createElement('div');
-    newHistoryElement.classList.add('version-history-element');
-    newHistoryElement.classList.add('current-version-history-element');
-    newHistoryElement.id = `version-history-element-${responseCount + 1}`; // Add unique ID based on responseCount
-    newHistoryElement.setAttribute('version-history-key', responseCount);
 
-    // Create and append the version-history-number element
-    const versionHistoryNumber = document.createElement('div');
-    versionHistoryNumber.classList.add('version-history-element-number');
 
-    // Create and append the version-history-element-digits element
-    const versionHistoryDigits = document.createElement('div');
-    versionHistoryDigits.classList.add('version-history-element-digits');
-    versionHistoryDigits.textContent = (responseCount + 1).toString().padStart(2, '0'); // Add leading zero if needed / padStart() is  method that ensures the string to have a minimum length characters
-
-    versionHistoryNumber.appendChild(versionHistoryDigits);
-
-    // Create and append the version-history-element-title element
-    const versionHistoryTitle = document.createElement('div');
-    versionHistoryTitle.classList.add('version-history-element-title');
-    versionHistoryTitle.textContent = content.content_description; // Set title text
-
-    // Append all elements to the new history entry
-    newHistoryElement.appendChild(versionHistoryNumber);
-    newHistoryElement.appendChild(versionHistoryTitle);
-
-    // Append the new history entry to the versionHistory container
-    versionHistory.appendChild(newHistoryElement);
-
-    setTimeout(() => {
-        const currentWidth = versionHistory.offsetWidth + 1;
-        setCSSVarValue('--version-history-width', currentWidth);
-
-        versionHistory.classList.add('version-history-width-set');
-        
-    }, 500);
 }
 
 

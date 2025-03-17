@@ -22,7 +22,7 @@ $background-color: #E2E4E9;
   --animation-duration-3: 500ms;
 
   // Version History
-  --version-history-width: 0;
+  --current-version-history-element-width: 0px;
 
   // Bottom Nav
   --margin-bottom-nav: 4vw;
@@ -32,7 +32,7 @@ $background-color: #E2E4E9;
   --button-size: 39px;
   --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
 
-  --small-circle-size: 20px;
+  --small-circle-size: 24px;
 
   // Content Container
   --content-padding-bottom: 26px;

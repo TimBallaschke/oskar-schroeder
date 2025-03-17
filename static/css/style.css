@@ -8,14 +8,14 @@
   --animation-duration-1: 300ms;
   --animation-duration-2: 200ms;
   --animation-duration-3: 500ms;
-  --version-history-width: 0;
+  --current-version-history-element-width: 0px;
   --margin-bottom-nav: 4vw;
   --veritical-padding-bottom-nav: 15px;
   --horizontal-padding-bottom-nav: 25px;
   --input-element-height: calc(var(--primary-font-size) * 1.6);
   --button-size: 39px;
   --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
-  --small-circle-size: 20px;
+  --small-circle-size: 24px;
   --content-padding-bottom: 26px;
   --dot-column-width: 37px;
   --dot-width: 31px;
@@ -44,7 +44,7 @@ body {
   color: black;
   margin: 0;
   padding: 0;
-  font-family: "Friedl";
+  font-family: "Booton";
   font-variation-settings: "wght" 675;
   transition: font-variation-settings 0.4s ease;
   overscroll-behavior: none; /* Prevents overscroll/bounce effect */
@@ -690,7 +690,6 @@ p:not(:first-of-type) {
   border-radius: calc((var(--input-element-height) + 2 * var(--veritical-padding-bottom-nav)) / 2);
   height: auto;
   transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
-  box-shadow: 0 0 10px rgba(226, 228, 233, 0.9), 0 0 25px rgba(226, 228, 233, 0.7);
   font-size: var(--primary-font-size);
 }
 .component-selected #bottom-navigation {
@@ -871,47 +870,69 @@ input {
 }
 #version-history {
   position: fixed;
-  top: 0;
+  top: var(--page-padding);
   left: 0;
   width: 100vw;
   color: black;
-  background-color: white;
   transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
   z-index: 100;
   overflow-x: auto;
   white-space: nowrap;
   display: flex;
   align-items: center;
+  padding-left: var(--page-padding);
 }
 
 .version-history-element {
-  overflow: hidden;
-  height: 0;
-  width: auto;
-  display: none;
-  opacity: 0;
+  display: flex;
+  align-items: center;
   transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
   flex-shrink: 0;
+  background-color: rgba(205, 210, 217, 0.85);
+  margin-right: 5px;
+  height: 30px;
+  border-radius: 15px;
+  transform-origin: center center;
+  overflow: hidden;
 }
 .version-history-element.current-version-history-element {
-  height: 24px;
   display: flex;
-  align-items: center;
-  opacity: 1;
+  background-color: black;
+  color: white;
+  width: var(--current-version-history-element-width);
 }
-.version-history-opening-2 .version-history-element {
-  height: 24px;
-  display: inline-flex;
+.version-history-element.current-version-history-element.new-history-step-1 {
+  width: 0px;
+  background-color: #cdd2d9;
+  opacity: 0;
+  transform: scale(0.4);
+  margin-right: 0px;
 }
-.version-history-opening-3 .version-history-element {
-  height: 24px;
-  display: inline-flex;
+.version-history-element.current-version-history-element.new-history-step-1 .version-history-element-title {
+  opacity: 0;
+}
+.version-history-element.current-version-history-element.new-history-step-2 {
+  width: 30px;
+  background-color: #cdd2d9;
+  opacity: 0;
+  transform: scale(0.4);
+}
+.version-history-element.current-version-history-element.new-history-step-2 .version-history-element-title {
+  opacity: 0;
+}
+.version-history-element.current-version-history-element.new-history-step-3 {
+  width: 30px;
   opacity: 1;
+  background-color: #cdd2d9;
+}
+.version-history-element.current-version-history-element.new-history-step-3 .version-history-element-title {
+  opacity: 0;
 }
 
 .version-history-element-number {
   display: flex;
+  flex-shrink: 0;
   justify-content: center;
   align-items: center;
   background-color: white;
@@ -920,35 +941,19 @@ input {
   transform: translateY(0px);
   height: var(--small-circle-size);
   width: var(--small-circle-size);
+  margin-left: 3px;
 }
 
 .version-history-element-digits {
-  transform: translateY(1px);
+  font-variant-numeric: tabular-nums;
+  transform: translateY(0px);
   font-size: var(--secondary-font-size);
   text-transform: capitalize;
 }
 
 .version-history-element-title {
   display: inline-block;
-  transform: translateY(1px);
-  padding-left: 3px;
-}
-
-#version-history-placeholder {
-  height: 0px;
-  width: 0;
-  transition: all var(--animation-duration-1) ease-in-out;
-}
-
-#version-history-close {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100dvh;
-  display: none;
-  z-index: 99;
-}
-.version-history-opening-3 #version-history-close {
-  display: block;
+  transform: translateY(-0.5px);
+  padding-left: 5px;
+  padding-right: 10px;
 }/*# sourceMappingURL=style.css.map */
