@@ -27,7 +27,11 @@
     transform-origin: center center;
     overflow: hidden;
 
+
   &.current-version-history-element {
+    &.start-version-history-element {
+      width: auto;
+    }
       display: flex;
       background-color: black;
       color: white;
@@ -93,6 +97,7 @@
 .version-history-element-digits {
   font-variant-numeric: tabular-nums;
   transform: translateY(0px);
+  // letter-spacing: -0.5px;
   @include secondary-type;
 }
 

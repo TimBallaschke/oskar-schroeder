@@ -40,7 +40,7 @@ html {
 }
 
 body {
-  background-color: #eef2fc;
+  background-color: #eef1fc;
   color: black;
   margin: 0;
   padding: 0;
@@ -901,6 +901,9 @@ input {
   background-color: black;
   color: white;
   width: var(--current-version-history-element-width);
+}
+.version-history-element.current-version-history-element.start-version-history-element {
+  width: auto;
 }
 .version-history-element.current-version-history-element.new-history-step-1 {
   width: 0px;
