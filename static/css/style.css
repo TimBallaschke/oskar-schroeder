@@ -772,7 +772,7 @@ input {
   transition: font-variation-settings 1000ms ease-in-out;
 }
 
-#buttons-container {
+#buttons-outter-container {
   height: var(--button-size);
   width: var(--button-size);
   position: absolute;
@@ -780,21 +780,38 @@ input {
   bottom: var(--button-padding);
 }
 
+#buttons-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
 .button {
   height: 100%;
   width: 100%;
   border-radius: 50%;
   border: 1px solid white;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 
 #send-button {
-  position: relative;
   background-color: white;
   display: none;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.7);
+  transform-origin: center center;
+  transition: all var(--animation-duration-1) ease-in-out;
 }
-.input-has-content #send-button {
+.input-has-content-1 #send-button {
   display: block;
+  opacity: 0;
+}
+.input-has-content-2 #send-button {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 #arrow-top {
@@ -820,8 +837,17 @@ input {
 
 #plus-minus-button {
   position: relative;
+  transform: translate(-50%, -50%) scale(1);
+  transform-origin: center center;
+  transition: all var(--animation-duration-1) ease-in-out;
+  opacity: 1;
 }
-.input-has-content #plus-minus-button {
+.input-has-content-1 #plus-minus-button {
+  display: block;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.7);
+}
+.input-has-content-2 #plus-minus-button {
   display: none;
 }
 

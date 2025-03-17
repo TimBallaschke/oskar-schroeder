@@ -2529,10 +2529,20 @@ function inputAdded() {
     const bottomNavigation = document.getElementById('bottom-navigation');
     if (userInput.value.length > 0) {
         // console.log('input more than 0');
-        bottomNavigation.classList.add('input-has-content');
+        bottomNavigation.classList.add('input-has-content-1');
+
+        setTimeout(() => {
+            bottomNavigation.classList.remove('input-has-content-1');
+            bottomNavigation.classList.add('input-has-content-2');
+        }, 100);
     } else {
         // console.log('input less than 0');
-        bottomNavigation.classList.remove('input-has-content');
+        bottomNavigation.classList.remove('input-has-content-2');
+        bottomNavigation.classList.add('input-has-content-1');
+
+        setTimeout(() => {
+            bottomNavigation.classList.remove('input-has-content-1');
+        }, 100);
     }
 }
 
