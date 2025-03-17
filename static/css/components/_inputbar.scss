@@ -81,9 +81,9 @@
   height: var(--input-element-height);
   transition: width var(--animation-duration-1) ease-in-out;
 
-  // .streaming & {
-  //   width: 100%;
-  // }
+  .streaming & {
+    width: 100%;
+  }
 }
 
 input {
@@ -100,7 +100,6 @@ input {
 }
 
 #user-input {
-  width: calc(100% - var(--button-size) - 2 * var(--button-padding) - var(--horizontal-padding-bottom-nav));
   height: 100%;
   width: 100%;
   color: white;

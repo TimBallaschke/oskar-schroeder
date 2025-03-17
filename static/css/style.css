@@ -750,6 +750,9 @@ p:not(:first-of-type) {
   height: var(--input-element-height);
   transition: width var(--animation-duration-1) ease-in-out;
 }
+.streaming #input-bar {
+  width: 100%;
+}
 
 input {
   -webkit-appearance: none;
@@ -765,7 +768,6 @@ input {
 }
 
 #user-input {
-  width: calc(100% - var(--button-size) - 2 * var(--button-padding) - var(--horizontal-padding-bottom-nav));
   height: 100%;
   width: 100%;
   color: white;

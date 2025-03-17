@@ -224,6 +224,7 @@ function animateInput(input) {
                 setTimeout(() => {
                     clearInterval(inputAnimationInterval);
                     input.value = '';
+                    document.body.classList.remove('streaming');
                     inputAdded();
                     hideSendButton();
 
@@ -922,7 +923,6 @@ async function handleDelta(content) {
                         break;
                     case 'stream_finished':
                         isStreaming = false;
-                        document.body.classList.remove('streaming');
                         break;
                     default:
                         console.warn('Unknown UIType:', component.UIType);
