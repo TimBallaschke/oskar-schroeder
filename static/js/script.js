@@ -152,17 +152,49 @@ let animationDuration = getCSSVarValue('--animation-duration-1', 300);
 // SENDING & RECEIVING MESSAGES
 // --------------------------------------------------------------------------------------------
 
+function animateInput(input) {
+
+    input.classList.remove('light');
+
+    const inputAnimationInterval = setInterval(() => {
+        if (isStreaming) {
+            if (input.classList.contains('light')) {
+                input.classList.remove('light');
+            } else {
+                input.classList.add('light');
+            }
+        } else {
+            if (input.classList.contains('light')) {
+                clearInterval(inputAnimationInterval);
+                input.value = '';
+                inputAdded();
+            } else {
+                input.classList.add('light');
+
+                setTimeout(() => {
+                    clearInterval(inputAnimationInterval);
+                    input.value = '';
+                    inputAdded();
+                }, 1000);
+            }
+        }
+    }, 1000);
+}
+
+
+
 function sendMessage() {
     
     const input = document.getElementById('user-input');
     const message = input.value.trim();
     if (message === '') return;  // Don't send empty messages
 
+    isStreaming = true;
+    animateInput(input);
+
     toggleLoadingState(true);
     processedComponents.clear(); // Clear processed components for a new request
     renderingQueue = [];  // Clear the rendering queue
-    input.value = ''; // clears the input field after sending
-    inputAdded();
 
     if (document.body.classList.contains('component-selected')) {
         const selectedComponent = document.querySelector('.selected');
@@ -228,8 +260,6 @@ function sendMessage() {
 }
 
 function startStreamingResponse() {
-
-    isStreaming = true;
 
     // Close any existing EventSource connection
     if (activeEventSource) {
@@ -1617,6 +1647,10 @@ function handleSecondComplete(content) {
 
 }
 
+// --------------------------------------------------------------------------------------------
+// VERSION HISTORY
+// --------------------------------------------------------------------------------------------
+
 function addNewVersionHistoryElement() {
     // Hide all existing version-history elements
     const historyElements = document.querySelectorAll('.version-history-element');
@@ -1673,15 +1707,6 @@ function displayNewVersionHistoryElement(content) {
         newHistoryElement.classList.remove('new-history-step-3');
     }, 100);
 }
-
-
-
-
-
-// --------------------------------------------------------------------------------------------
-// VERSION HISTORY
-// --------------------------------------------------------------------------------------------
-
 
 // Define the handler function separately so it can be removed later
 function handleVersionClick(event) {
@@ -2520,11 +2545,14 @@ function inputAdded() {
 document.addEventListener('DOMContentLoaded', () => {
     const userInput = document.getElementById('user-input');
     const sendButton = document.getElementById('send-button');
+    const startVersionHistoryElement = document.getElementById('version-history-element-1');
 
     userInput.addEventListener('focus', activateInput);
     userInput.addEventListener('blur', activateInput);
     userInput.addEventListener('input', inputAdded);
 
     sendButton.addEventListener('click', sendMessage);
+
+    startVersionHistoryElement.addEventListener('click', handleVersionClick);
 });
 

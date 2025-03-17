@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250317d_Oskar_Website_start_version_history",
+  "original_folder": "250317e_Oskar_Website_inout_animation",
   "snapshot_date_from_folder": "250317",
   "source_files": [
     {
@@ -40,16 +40,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "eca3c5f1baa6c9d72ed8ae5235b92da2c786ae06",
-      "sha256": "4e2bbb99a0a0c1de8a61a1aa26472a823bbb006fe3f57ccd06ed1c78848c813d",
-      "size": 22948,
+      "sha1": "bdb3b6fafff3eeea06dc9f721c27e6b323d8a61e",
+      "sha256": "c56e2bfb6a4927bcc1bb78d6ac1f98a2e4a3c0ac623c74dd5a0a22969fcf5c6b",
+      "size": 23006,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "591265a82e97349722c60533cf5aef31dfa1ff00",
-      "sha256": "8fd55e71f104dcbd0579cf7d840238e9a1a5cce87c897d4852cf7d29265f3844",
-      "size": 8463,
+      "sha1": "c7d650174f262b8694d66946484009f8ec5cb380",
+      "sha256": "0c49a11f8004bd695cbceef8d5766ffe2d74144a5422acc857f2cb9a0aa77dd0",
+      "size": 8474,
       "mode": "100644"
     },
     {
@@ -75,9 +75,9 @@
     },
     {
       "path": "static/css/components/_inputbar.scss",
-      "sha1": "0f346d78fd8bb8d3b5f83ed612c0cfaf8f242bdf",
-      "sha256": "3da5eeb11e2bd90876fd5775428923bc2b45e13d5a1593d102b545e971190b7c",
-      "size": 3879,
+      "sha1": "4f9d9a43bde174e108a6b5f3e3962f93c991a231",
+      "sha256": "5b6e107f1e4ac894ca370e6ef86b084e89a61eaaad8599f92c42ddc9d682555f",
+      "size": 3937,
       "mode": "100644"
     },
     {
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "225dcd4fbb7351dd5214477e2a9675a4feb32957",
-      "sha256": "d47a52c130fe0dc4ba24ad5a9f4d2c55cf1c499bc2aad57380c48482992ce55b",
-      "size": 130242,
+      "sha1": "767d2a0d019529402730956a8a41966e278a7cca",
+      "sha256": "4be6d68ebd0912340dc1356cc8e562ced7cbd6e342f6ce328ce6279d1bec86be",
+      "size": 131181,
       "mode": "100644"
     },
     {
@@ -621,9 +621,9 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "e63959380c1c43e7154fcf4a52e03b97266230f7",
-      "sha256": "7e0cf96928e9ef3779b59e070398deab4307fea92e71e625dc08c54991c1fb12",
-      "size": 5326,
+      "sha1": "ca8c4165b2da1addf30964c82cddd08b6e2d2a84",
+      "sha256": "ee011de978cbf5251ec8b9303db223caee75608ae19e32f813ce67f3f78daa4c",
+      "size": 5349,
       "mode": "100644"
     }
   ],
