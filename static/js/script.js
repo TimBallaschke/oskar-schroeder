@@ -139,7 +139,7 @@ let selectedComponentJSON = null;
 let reworkRenderingQueue = [];  // Add this with other global variables
 let isReworkProcessing = false; // Add this with other global variables
 let reworkComplete = false;
-
+let isStreaming = false;
 const contentContainer = document.getElementById('content-container');
 const versionHistory = document.getElementById('version-history');
 const plusMinusButton = document.getElementById('plus-minus-button');
@@ -228,6 +228,8 @@ function sendMessage() {
 }
 
 function startStreamingResponse() {
+
+    isStreaming = true;
 
     // Close any existing EventSource connection
     if (activeEventSource) {
@@ -335,7 +337,7 @@ function clearContentContainer(isVersionHistory) {
 // --------------------------------------------------------------------------------------------
 
 async function handleDelta(content) {
-    // console.log("Received delta:", content);
+    console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -828,6 +830,9 @@ async function handleDelta(content) {
                                 }
                             }
                         }
+                        break;
+                    case 'stream_finished':
+                        isStreaming = false;
                         break;
                     default:
                         console.warn('Unknown UIType:', component.UIType);
@@ -1594,9 +1599,22 @@ function handleComplete(content) {
 function handleSecondComplete(content) {
     // console.log("Received second complete response:", content);
 
-    // handleVersionHistoryUpdate(content);
-    displayNewVersionHistoryElement(content);
-    handlePromptProposalsUpdate(content);
+        // Check if streaming is still in progress and wait for it to complete
+    if (isStreaming) {
+        const checkStreamingInterval = setInterval(() => {
+            if (!isStreaming) {
+                clearInterval(checkStreamingInterval);
+
+                displayNewVersionHistoryElement(content);
+                handlePromptProposalsUpdate(content);
+            }
+        }, 100);
+        
+    } else {
+        displayNewVersionHistoryElement(content);
+        handlePromptProposalsUpdate(content);
+    }
+
 }
 
 function addNewVersionHistoryElement() {

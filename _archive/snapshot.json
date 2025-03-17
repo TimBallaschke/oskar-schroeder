@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250317_Oskar_Website_new_look_version_history",
+  "original_folder": "250317b_Oskar_Website_stream_finished_delta",
   "snapshot_date_from_folder": "250317",
   "source_files": [
     {
@@ -26,9 +26,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "2ce18caa74082ea366437b3db73c5c7bc5b6bb76",
-      "sha256": "7bc5625ca9b62021e9ed13b1a8e3552094854417b18971a7be777c0d0b6ab544",
-      "size": 17707,
+      "sha1": "64660e6af361e7f069f0357954a23c99c3fbeb4f",
+      "sha256": "bbdb60d6246e67884ff02406781f4e1c30cb27eff680e6e3a3564f69464e2151",
+      "size": 17859,
       "mode": "100644"
     },
     {
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "eeee7265288297f84e6d23dda9ba405a4a5452b0",
-      "sha256": "aba39941f37eca8b969f70374046256d9588d834cc674c5a1542adec5362f620",
-      "size": 131692,
+      "sha1": "bd16676c7c280bfab6ab01376e2564559a2134bc",
+      "sha256": "5712fb4c3dd72ad2c8be0de7dfe4792261e0a0fda6376db7a0b5565da84fb428",
+      "size": 132243,
       "mode": "100644"
     },
     {

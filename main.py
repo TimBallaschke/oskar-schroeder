@@ -242,6 +242,8 @@ def stream():
                         print(json.dumps(event.parsed, indent=2))
                         yield f"data: {json.dumps({'type': 'delta', 'content': event.parsed})}\n\n"
                 elif event.type == "content.done":
+                    yield f"data: {json.dumps({'type': 'delta', 'content': {'type': 'response', 'components': [{'UIType': 'stream_finished'}]}})}\n\n"
+
                     # Get and send the final completion
                     final_completion = stream.get_final_completion().choices[0].message.parsed
                     
