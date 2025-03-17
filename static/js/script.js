@@ -1645,6 +1645,8 @@ function addNewVersionHistoryElement() {
     newHistoryElement.appendChild(versionHistoryTitle);
     versionHistory.insertBefore(newHistoryElement, versionHistory.firstChild);
 
+    newHistoryElement.addEventListener('click', handleVersionClick);
+
 
     setTimeout(() => {
         newHistoryElement.classList.remove('new-history-step-1');
@@ -1665,7 +1667,6 @@ function displayNewVersionHistoryElement(content) {
     versionHistoryTitle.textContent = content.content_description;
 
     const currentVersionHistoryElementWidth = newHistoryElement.scrollWidth;
-    console.log('currentVersionHistoryElementWidth: ', currentVersionHistoryElementWidth);
     setCSSVarValue('--current-version-history-element-width', currentVersionHistoryElementWidth);
 
     setTimeout(() => {
@@ -1681,78 +1682,15 @@ function displayNewVersionHistoryElement(content) {
 // VERSION HISTORY
 // --------------------------------------------------------------------------------------------
 
-// updating the version history
-function handleVersionHistoryUpdate(content) {
-
-    // Hide all existing version-history elements
-    const historyElements = document.querySelectorAll('.version-history-element');
-    historyElements.forEach(element => {
-        element.classList.remove('current-version-history-element');
-    });
-
-
-
-}
-
-
-    
-// opening and closing the version history
-
-function openVersionHistory() {
-
-    document.body.classList.add('version-history-opening-1');
-
-    setTimeout(() => {
-        document.body.classList.remove('version-history-opening-1');
-        document.body.classList.add('version-history-opening-2');
-    }, 10);
-
-    setTimeout(() => {
-        document.body.classList.remove('version-history-opening-2');
-        document.body.classList.add('version-history-opening-3');
-    }, animationDuration);
-
-    versionHistory.removeEventListener('click', openVersionHistory);
-    const historyElements = document.querySelectorAll('.version-history-element');
-    historyElements.forEach(element => {
-        element.addEventListener('click', handleVersionClick);
-    });
-
-    const versionHistoryClose = document.getElementById('version-history-close');
-    versionHistoryClose.addEventListener('click', closeVersionHistory);
-
-    versionHistory.removeEventListener('click', openVersionHistory);
-}
-
-function closeVersionHistory(element) {
-    const historyElements = document.querySelectorAll('.version-history-element');
-    historyElements.forEach(el => {
-        el.removeEventListener('click', handleVersionClick);
-    });
-
-    document.body.classList.remove('version-history-opening-3');
-    document.body.classList.add('version-history-opening-2');
-
-    setTimeout(() => {
-        document.body.classList.remove('version-history-opening-2');
-        document.body.classList.add('version-history-opening-1');
-    }, animationDuration);
-
-    setTimeout(() => {
-        document.body.classList.remove('version-history-opening-1');
-    }, animationDuration * 2);
-
-    setTimeout(() => {
-        versionHistory.addEventListener('click', openVersionHistory);
-        document.body.removeEventListener('click', openVersionHistory);
-    }, animationDuration + 10);
-}
 
 // Define the handler function separately so it can be removed later
 function handleVersionClick(event) {
+
+    if (isStreaming) {
+        return;
+    }
     displayPreviousVersion(event.currentTarget);
 }
-
 
 // display previous version
 function displayPreviousVersion(element) {
@@ -1763,7 +1701,12 @@ function displayPreviousVersion(element) {
     });
 
     setTimeout(() => {
+        const currentVersionHistoryElementWidth = element.scrollWidth;
         element.classList.add('current-version-history-element');
+        console.log('element: ', element);
+
+        console.log('currentVersionHistoryElementWidth: ', currentVersionHistoryElementWidth);
+        setCSSVarValue('--current-version-history-element-width', currentVersionHistoryElementWidth);
     }, 10);
 
     // Get the version key from the clicked element
@@ -1771,7 +1714,6 @@ function displayPreviousVersion(element) {
 
     if (versionKey === 0) {
         clearContentContainer(true);
-        closeVersionHistory(element);
         return;
     }
 
@@ -1779,7 +1721,6 @@ function displayPreviousVersion(element) {
     const versionContent = responseMap[versionKey];
 
     clearContentContainer(true);
-    closeVersionHistory(element);
 
     setTimeout(() => {
 
@@ -2585,7 +2526,5 @@ document.addEventListener('DOMContentLoaded', () => {
     userInput.addEventListener('input', inputAdded);
 
     sendButton.addEventListener('click', sendMessage);
-
-    versionHistory.addEventListener('click', openVersionHistory);
 });
 
