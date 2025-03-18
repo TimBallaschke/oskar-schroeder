@@ -251,16 +251,15 @@ function stopAnimateInput() {
         if (userInput.inputAnimationInterval) {
             clearInterval(userInput.inputAnimationInterval);
         }
-        userInput.value = '';
-        inputAdded();
-    } else {
         userInput.classList.add('light');
+        userInput.value = '';
+    } else {
         setTimeout(() => {
             if (userInput.inputAnimationInterval) {
                 clearInterval(userInput.inputAnimationInterval);
             }
+            userInput.classList.add('light');
             userInput.value = '';
-            inputAdded();
         }, 1000);
     }
 }
@@ -991,6 +990,23 @@ async function handleDelta(content) {
 
                         for (const project of component.projects) {
 
+                            if (project.stream_finished) {
+                                console.log('project.stream_finished');
+
+                                projectRenderingQueue.push({
+                                    id: true,
+                                    key: 'stream_finished',
+                                    value: true,
+                                    container: true,
+                                    index: true
+                                });
+
+                                if (!isProjectRendering) {
+                                    renderNextProject();
+                                }
+                                break;
+                            }
+
                             if (!project.name) {
                                 break;
                             }
@@ -1076,9 +1092,9 @@ async function handleDelta(content) {
                             }
                         }
                         break;
-                    case 'stream_finished':
-                        isStreaming = false;
-                        break;
+                    // case 'stream_finished':
+                    //     isStreaming = false;
+                    //     break;
                     default:
                         console.warn('Unknown UIType:', component.UIType);
                         return;
@@ -1101,6 +1117,12 @@ async function renderNextProject() {
     try {
         while (projectRenderingQueue.length > 0) {
             const { id, key, value, container, index } = projectRenderingQueue.shift();
+
+            if (key === 'stream_finished') {
+                console.log('stream_finished');
+                isStreaming = false;
+                break;
+            }
 
             // console.log(`Rendering ${key} for project: ${id}`);
             let projectItem = document.querySelector(`[data-project-id="${id}"]`);
@@ -1822,9 +1844,6 @@ async function renderNextProject() {
     } finally {
         // console.log('Project rendering completed');
         isProjectRendering = false;
-            if (projectRenderingQueue.length === 0) {
-        console.log('projectRenderingQueue is empty');
-    }
     }
 }
 

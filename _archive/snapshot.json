@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250318b_Oskar_Website_spans_instead_of_brackets",
+  "original_folder": "250318c_Oskar_Website_isStreaming_flag_improved",
   "snapshot_date_from_folder": "250318",
   "source_files": [
     {
@@ -26,9 +26,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "64660e6af361e7f069f0357954a23c99c3fbeb4f",
-      "sha256": "bbdb60d6246e67884ff02406781f4e1c30cb27eff680e6e3a3564f69464e2151",
-      "size": 17859,
+      "sha1": "ce68febe982a1f709d7daba1b7b7b2a20b10cbea",
+      "sha256": "2dffae1a5a3f1c10d0f1ab342a8b27224cbb400cc8fddc1ef550dc78ac8f545e",
+      "size": 17921,
       "mode": "100644"
     },
     {
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "84d50e6d54d25fe59e6888d1440255a60f362b00",
-      "sha256": "d44509ccccd97706288e127bb9f21412b0831c85e3ea247434ee4618355f13a4",
-      "size": 139529,
+      "sha1": "7828a32c17e5e2a4bae0ddd4be47eeb813d5f489",
+      "sha256": "b2f6e736b404a8f41b87d4b967f74e3885b8514a691649d88c86c5183c246bdf",
+      "size": 140295,
       "mode": "100644"
     },
     {
