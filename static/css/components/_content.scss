@@ -66,7 +66,34 @@
         display: inline-block;
         margin-left: 2px;
         margin-right: 2px;
-        transform: translateY(1px);
+        transform: translateY(0px) scale(1);
+        transform-origin: center center;
+        transition: all var(--animation-duration-1) ease-in-out;
+    }
+
+    &.small {
+        &::before {
+            transform: translateY(0px) scale(0.1);
+        }
+    }
+
+    &.animation {
+        // &::before {
+        //     animation: pulse 2s infinite ease-in-out;
+        // }
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: translateY(0px) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(0px) scale(0.8);
+    }
+    100% {
+        transform: translateY(0px) scale(1);
     }
 }
 

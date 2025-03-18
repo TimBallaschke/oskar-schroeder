@@ -660,8 +660,16 @@ async function handleDelta(content) {
 
                                                     if (italicSpan) {
                                                         termDescriptionSpan = document.createElement('span');
-                                                        termDescriptionSpan.classList.add('term-description');
+                                                        termDescriptionSpan.classList.add('term-description', 'small');
                                                         italicSpan.appendChild(termDescriptionSpan);
+
+                                                        setTimeout(() => {
+                                                            termDescriptionSpan.classList.remove('small');
+                                                        }, 10);
+
+                                                        // setTimeout(() => {
+                                                        //     termDescriptionSpan.classList.add('animation');
+                                                        // }, 200);
                                                     }
 
                                                     partIndex++;
