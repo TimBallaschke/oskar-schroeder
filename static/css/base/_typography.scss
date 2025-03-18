@@ -86,3 +86,7 @@ p:not(:first-of-type) {
   font-size: var(--secondary-font-size);
   text-transform: uppercase;
 }
+
+.italic {
+  color: red;
+}

@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250318_Oskar_Website_x-button_animation",
+  "original_folder": "250318b_Oskar_Website_spans_instead_of_brackets",
   "snapshot_date_from_folder": "250318",
   "source_files": [
     {
@@ -40,16 +40,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "90c651a94b591a05ab2061847c9120d66fd56eae",
-      "sha256": "a2970d5156c1f946b024cf578f15d2f08f3059555dd4730b721aa5fd8bd2f96d",
-      "size": 25245,
+      "sha1": "18d7aabc92530b67516d626cf54594437d6f7063",
+      "sha256": "d2ed99b30c91856f3cb7d3c31ed3f998903af62cfa4044d131027d69c8dc88d5",
+      "size": 25271,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "b457487d1a66c876a64d1e8eb80a519c630ee65d",
-      "sha256": "d76993b36fa43f71af6a28b4eff5f5fb421daffea0e3a6e680e25739a14a0cf4",
-      "size": 9366,
+      "sha1": "9ca06e776f42d1077a44034c67b84ce6a50e597d",
+      "sha256": "2794b1cb44ce48f090383e8203bfcfe8fae48a59226408d7304062cf54ed3a35",
+      "size": 9389,
       "mode": "100644"
     },
     {
@@ -82,9 +82,9 @@
     },
     {
       "path": "static/css/components/_version-history.scss",
-      "sha1": "9b3723675bac1b298f69fe1daa0f0cf1b240822f",
-      "sha256": "0f74980b15a6c919f873cc42317d4ab6d499c70a4123a332a4e27133ebffa4dc",
-      "size": 2719,
+      "sha1": "946e22927f7cc977ffe80b7be5f1deadb77107a9",
+      "sha256": "216a144b35f987a590eabdb6ce5fd93836ed3313665e8bd2bcc3a9638592d023",
+      "size": 2718,
       "mode": "100644"
     },
     {
@@ -110,16 +110,16 @@
     },
     {
       "path": "static/css/base/_typography.scss",
-      "sha1": "8c2a4d66faff80de05b6e385dbeae9f8d07372fb",
-      "sha256": "7ac48a6c3aa909cd7055cd6422bedff7d5be3ee050242ab17ca4488c172e349a",
-      "size": 1852,
+      "sha1": "d70f16f92dcb30f57ec256ac282b8e7a776cde66",
+      "sha256": "e5d969da9c480b0dd70db4948d426c58354f98aa4b020413b0f05d8d0ed3367f",
+      "size": 1879,
       "mode": "100644"
     },
     {
       "path": "static/js/script.js",
-      "sha1": "8327cc9ba93692139aad956d50aaaedceb5549e6",
-      "sha256": "f14e45e83d18d710a1b93530cfb51f62cb5ff5e76fbba5e7e0f4e1f73a35bec0",
-      "size": 135408,
+      "sha1": "84d50e6d54d25fe59e6888d1440255a60f362b00",
+      "sha256": "d44509ccccd97706288e127bb9f21412b0831c85e3ea247434ee4618355f13a4",
+      "size": 139529,
       "mode": "100644"
     },
     {

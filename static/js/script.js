@@ -581,37 +581,93 @@ async function handleDelta(content) {
                                     if (paragraphContainer.textContent) {
                                         paragraphContainer.appendChild(document.createTextNode(' '));
                                     }
-                                    // Split sentence into words and add them one by one
-                                    const words = sentence.split(' ');
-                                    let wordIndex = 0;
 
-                                    function addNextWord() {
-                                        if (wordIndex < words.length) {
-                                            // Add space before word (except for first word)
-                                            if (wordIndex > 0) {
+                                    const parts = sentence.split(/(\[[^\]]+\])/g);
+                                    let partIndex = 0;
+
+                                    function processNextPart() {
+                                        if (partIndex < parts.length) {
+                                            const part = parts[partIndex];
+                                            if (!part) {
+                                                partIndex++;
+                                                processNextPart();
+                                                return;
+                                            }
+                                            
+                                            const isItalic = part.startsWith('[') && part.endsWith(']'); // boolean to check if the part is italic
+                                            const text = isItalic ? part.slice(1, -1) : part; // if the part is italic, remove the brackets and the text
+                                            const words = text.trim().split(' ').filter(w => w); // split the text into words and remove empty strings
+                                            
+                                            if (words.length === 0) {
+                                                partIndex++;
+                                                processNextPart();
+                                                return;
+                                            }
+
+                                            // Check if this part starts with punctuation
+                                            const startWithPunctuation = /^[.,;:!?)]/.test(text.trim());
+                                            
+                                            // Add space between parts if needed (but not before punctuation)
+                                            if (partIndex > 0 && !startWithPunctuation && 
+                                                paragraphContainer.lastChild && 
+                                                !paragraphContainer.lastChild.textContent.endsWith(' ')) {
                                                 paragraphContainer.appendChild(document.createTextNode(' '));
                                             }
                                             
-                                            // Create span for the word
-                                            const wordSpan = document.createElement('span');
-                                            wordSpan.textContent = words[wordIndex];
-                                            wordSpan.classList.add('paragraph-word', 'light');
-                                            paragraphContainer.appendChild(wordSpan);
+                                            let italicSpan = null;
 
-                                            // Remove light class after 10ms
-                                            setTimeout(() => {
-                                                wordSpan.classList.remove('light');
-                                            }, 10);
-
-                                            wordIndex++;
-                                            // Add small delay between words
-                                            setTimeout(addNextWord, 50);
+                                            if (isItalic) {
+                                                italicSpan = document.createElement('span');
+                                                italicSpan.classList.add('italic');
+                                                paragraphContainer.appendChild(italicSpan);
+                                            }
+                                            
+                                            let wordIndex = 0;
+                                            
+                                            function addNextWord() {
+                                                if (wordIndex < words.length) {
+                                                    // Add space before word (except for first word)
+                                                    if (wordIndex > 0) {
+                                                        if (italicSpan) {
+                                                            italicSpan.appendChild(document.createTextNode(' '));
+                                                        } else {
+                                                            paragraphContainer.appendChild(document.createTextNode(' '));
+                                                        }
+                                                    }
+                                                    
+                                                    // Create span for the word
+                                                    const wordSpan = document.createElement('span');
+                                                    wordSpan.textContent = words[wordIndex];
+                                                    wordSpan.classList.add('paragraph-word', 'light');
+                                                    
+                                                    // Add to appropriate parent
+                                                    if (italicSpan) {
+                                                        italicSpan.appendChild(wordSpan);
+                                                    } else {
+                                                        paragraphContainer.appendChild(wordSpan);
+                                                    }
+                                                    
+                                                    // Remove light class after 10ms
+                                                    setTimeout(() => {
+                                                        wordSpan.classList.remove('light');
+                                                    }, 10);
+                                                    
+                                                    wordIndex++;
+                                                    // Add small delay between words
+                                                    setTimeout(addNextWord, 50);
+                                                } else {
+                                                    partIndex++;
+                                                    setTimeout(processNextPart, 0);
+                                                }
+                                            }
+                                            
+                                            addNextWord();
                                         } else {
                                             resolve();
                                         }
                                     }
-
-                                    addNextWord();
+                                    
+                                    processNextPart();
                                 });
                             }
                         }

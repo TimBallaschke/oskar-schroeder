@@ -147,6 +147,10 @@ p:not(:first-of-type) {
   text-transform: uppercase;
 }
 
+.italic {
+  color: red;
+}
+
 #content-container {
   width: 100vw;
   padding: 50px var(--page-padding) 200px var(--page-padding);
@@ -990,7 +994,7 @@ input {
   transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
   flex-shrink: 0;
-  background-color: rgba(205, 210, 217, 0.85);
+  background-color: rgba(205, 210, 217, 0.9);
   margin-right: 5px;
   height: 30px;
   border-radius: 15px;
