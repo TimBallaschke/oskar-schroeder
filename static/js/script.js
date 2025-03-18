@@ -116,6 +116,13 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
     });
 }
 
+function addAnimationToTermDescriptions() {
+    const termDescriptionElements = document.querySelectorAll('.term-description');
+    termDescriptionElements.forEach(termDescriptionElement => {
+        termDescriptionElement.classList.add('animation');
+    });
+}
+
 
 // --------------------------------------------------------------------------------------------
 // GLOBAL VARIABLES
@@ -1889,6 +1896,7 @@ function handleSecondComplete(content) {
                 displayNewVersionHistoryElement(content);
                 handlePromptProposalsUpdate(content);
                 stopStreamingAnimation();
+                addAnimationToTermDescriptions();
             }
         }, 100);
         
@@ -1896,8 +1904,8 @@ function handleSecondComplete(content) {
         displayNewVersionHistoryElement(content);
         handlePromptProposalsUpdate(content);
         stopStreamingAnimation();
+        addAnimationToTermDescriptions();
     }
-
 }
 
 // --------------------------------------------------------------------------------------------

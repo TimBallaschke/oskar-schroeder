@@ -48,7 +48,7 @@
 }
 
 .term-description {
-    width: 25px;
+    width: 24px;
     height: 15px;
     position: relative;
     display: inline-block;
@@ -78,9 +78,9 @@
     }
 
     &.animation {
-        // &::before {
-        //     animation: pulse 2s infinite ease-in-out;
-        // }
+        &::before {
+            animation: pulse 2s infinite ease-in-out;
+        }
     }
 }
 

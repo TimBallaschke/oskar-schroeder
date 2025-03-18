@@ -184,7 +184,7 @@ p:not(:first-of-type) {
 }
 
 .term-description {
-  width: 25px;
+  width: 24px;
   height: 15px;
   position: relative;
   display: inline-block;
@@ -208,6 +208,10 @@ p:not(:first-of-type) {
 .term-description.small::before {
   transform: translateY(0px) scale(0.1);
 }
+.term-description.animation::before {
+  animation: pulse 2s infinite ease-in-out;
+}
+
 @keyframes pulse {
   0% {
     transform: translateY(0px) scale(1);
