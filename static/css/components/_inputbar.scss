@@ -80,10 +80,6 @@
   width: calc(100% - var(--button-size));
   height: var(--input-element-height);
   transition: width var(--animation-duration-1) ease-in-out;
-
-  .streaming & {
-    width: 100%;
-  }
 }
 
 input {
@@ -109,6 +105,7 @@ input {
   &::placeholder {
     transition: all 600ms ease-in-out;
     color: rgb(128, 128, 128);
+    font-variation-settings: "wght" 350;
   }
 
   &.placeholder-no-opacity {
@@ -194,11 +191,12 @@ input {
 }
 
 #plus-minus-button {
-  position: relative;
+  // position: relative;
   transform: translate(-50%, -50%) scale(1);
   transform-origin: center center;
   transition: all var(--animation-duration-1) ease-in-out;
   opacity: 1;
+  // display: none;
 
   .input-has-content-1 & {
     display: block;
@@ -207,6 +205,16 @@ input {
   }
 
   .input-has-content-2 & {
+    display: none;
+  }
+
+  .streaming-1 & {
+    display: block;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+
+  .streaming-2 & {
     display: none;
   }
 }
@@ -238,6 +246,52 @@ input {
   .prompt-proposal-opening-2 & {
     transform: translate(-50%, -50%) rotate(90deg);
   }
+}
+
+#x-button {
+  // position: relative;
+  transform: translate(-50%, -50%) scale(0.7) rotate(45deg);
+  transform-origin: center center;
+  transition: all var(--animation-duration-1) ease-in-out;
+  opacity: 1;
+  display: none;
+  background-color: white;
+
+  .streaming-1 & {
+    display: block;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7) rotate(45deg);
+  }
+
+  .streaming-2 & {
+    display: block;
+    transform: translate(-50%, -50%) scale(1) rotate(45deg);
+  }
+
+  &.rotate {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+}
+
+#x-horizontal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 1px;
+  background-color: black;
+}
+
+#x-vertical {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1px;
+  height: 60%;
+  background-color: black;
+  transition: all var(--animation-duration-1) ease-in-out;
 }
 
 @keyframes dotOpacity {

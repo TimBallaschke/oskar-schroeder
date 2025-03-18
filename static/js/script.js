@@ -166,13 +166,14 @@ function activateInput() {
 function inputAdded() {
     const bottomNavigation = document.getElementById('bottom-navigation');
     if (userInput.value.length > 0) {
-        // console.log('input more than 0');
-        bottomNavigation.classList.add('input-has-content-1');
+        if (!bottomNavigation.classList.contains('input-has-content-2')) {
+            bottomNavigation.classList.add('input-has-content-1');
 
-        setTimeout(() => {
-            bottomNavigation.classList.remove('input-has-content-1');
-            bottomNavigation.classList.add('input-has-content-2');
-        }, 100);
+            setTimeout(() => {
+                bottomNavigation.classList.remove('input-has-content-1');
+                bottomNavigation.classList.add('input-has-content-2');
+            }, 100);
+        }
     } else {
         // console.log('input less than 0');
         bottomNavigation.classList.remove('input-has-content-2');
@@ -184,56 +185,84 @@ function inputAdded() {
     }
 }
 
-function hideSendButton() {
-    const sendButton = document.getElementById('send-button');
+function displayXButton() {
+    const bottomNavigation = document.getElementById('bottom-navigation');
+    const xButton = document.getElementById('x-button');
 
-    if (isStreaming) {
-        sendButton.classList.add('no-opacity');
+     if (bottomNavigation.classList.contains('input-has-content-2')) {
+
+        bottomNavigation.classList.remove('input-has-content-2');
+        bottomNavigation.classList.add('input-has-content-1');
+
+        bottomNavigation.classList.add('streaming-1');
 
         setTimeout(() => {
-            sendButton.classList.add('display-none');
+            bottomNavigation.classList.remove('input-has-content-1');
+
+            bottomNavigation.classList.remove('streaming-1');
+            bottomNavigation.classList.add('streaming-2');
         }, 100);
-    } else {
-        sendButton.classList.remove('display-none');
+     } else {
+        xButton.classList.add('rotate');
+        bottomNavigation.classList.remove('streaming-2');
+        bottomNavigation.classList.add('streaming-1');
 
         setTimeout(() => {
-            sendButton.classList.remove('no-opacity');
+            bottomNavigation.classList.remove('streaming-1');
         }, 100);
-    }
+
+        setTimeout(() => {
+            xButton.classList.remove('rotate');
+        }, 500);
+     }
 }
 
-function animateInput() {
+function startStreamingAnimation() {
+    startAnimateInput();
+    displayXButton();
+};
+
+function stopStreamingAnimation() {
+    displayXButton();
+    stopAnimateInput();
+}
+
+function startAnimateInput() {
+
+    if (userInput.inputAnimationInterval) {
+        clearInterval(userInput.inputAnimationInterval);
+    }
 
     userInput.classList.remove('light');
-    hideSendButton();
 
-    const inputAnimationInterval = setInterval(() => {
+    userInput.inputAnimationInterval = setInterval(() => {
         
-        if (isStreaming) {
-            if (userInput.classList.contains('light')) {
-                userInput.classList.remove('light');
-            } else {
-                userInput.classList.add('light');
-            }
+        if (userInput.classList.contains('light')) {
+            userInput.classList.remove('light');
         } else {
-            if (userInput.classList.contains('light')) {
-                clearInterval(inputAnimationInterval);
-                userInput.value = '';
-                inputAdded();
-            } else {
-                userInput.classList.add('light');
-
-                setTimeout(() => {
-                    clearInterval(inputAnimationInterval);
-                    userInput.value = '';
-                    document.body.classList.remove('streaming');
-                    inputAdded();
-                    hideSendButton();
-
-                }, 1000);
-            }
+            userInput.classList.add('light');
         }
+
     }, 1000);
+}
+
+function stopAnimateInput() {
+    if (userInput.classList.contains('light')) {
+        if (userInput.inputAnimationInterval) {
+            clearInterval(userInput.inputAnimationInterval);
+        }
+        userInput.value = '';
+        inputAdded();
+    } else {
+        userInput.classList.add('light');
+        setTimeout(() => {
+            if (userInput.inputAnimationInterval) {
+                clearInterval(userInput.inputAnimationInterval);
+            }
+            userInput.value = '';
+            inputAdded();
+        }, 1000);
+    }
 }
 
 
@@ -251,7 +280,7 @@ function sendMessage() {
 
     isStreaming = true;
     document.body.classList.add('streaming');
-    animateInput();
+    startStreamingAnimation();
 
     processedComponents.clear(); // Clear processed components for a new request
     renderingQueue = [];  // Clear the rendering queue
@@ -1767,12 +1796,14 @@ function handleSecondComplete(content) {
 
                 displayNewVersionHistoryElement(content);
                 handlePromptProposalsUpdate(content);
+                stopStreamingAnimation();
             }
         }, 100);
         
     } else {
         displayNewVersionHistoryElement(content);
         handlePromptProposalsUpdate(content);
+        stopStreamingAnimation();
     }
 
 }
