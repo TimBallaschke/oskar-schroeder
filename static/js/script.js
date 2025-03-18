@@ -69,8 +69,6 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
             row = document.createElement('div');
             row.classList.add('table-row');
             row.setAttribute('data-row-id', rowId);
-            console.log('create first row: ', row);
-
         
             rowContainer.appendChild(row);
             tableContainer.appendChild(rowContainer);
@@ -617,7 +615,7 @@ async function handleDelta(content) {
 
                                             if (isItalic) {
                                                 italicSpan = document.createElement('span');
-                                                italicSpan.classList.add('italic');
+                                                italicSpan.classList.add('term');
                                                 paragraphContainer.appendChild(italicSpan);
                                             }
                                             
@@ -642,6 +640,10 @@ async function handleDelta(content) {
                                                     // Add to appropriate parent
                                                     if (italicSpan) {
                                                         italicSpan.appendChild(wordSpan);
+
+                                                        setTimeout(() => {
+                                                            wordSpan.classList.add('italic');
+                                                        }, 10);
                                                     } else {
                                                         paragraphContainer.appendChild(wordSpan);
                                                     }
@@ -655,6 +657,13 @@ async function handleDelta(content) {
                                                     // Add small delay between words
                                                     setTimeout(addNextWord, 50);
                                                 } else {
+
+                                                    if (italicSpan) {
+                                                        termDescriptionSpan = document.createElement('span');
+                                                        termDescriptionSpan.classList.add('term-description');
+                                                        italicSpan.appendChild(termDescriptionSpan);
+                                                    }
+
                                                     partIndex++;
                                                     setTimeout(processNextPart, 0);
                                                 }

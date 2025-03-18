@@ -71,7 +71,7 @@ p:not(:first-of-type) {
 }
 
 .light {
-    font-variation-settings: "wght" 350;
+    font-variation-settings: "wght" 350, "ital" 0;
 }
 
 .navigation-type {
@@ -88,5 +88,5 @@ p:not(:first-of-type) {
 }
 
 .italic {
-  color: red;
+  font-variation-settings: "wght" 675, "ital" 9;
 }
