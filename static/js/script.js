@@ -116,7 +116,7 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
     });
 }
 
-function addAnimationToTermDescriptions() {
+function activateTermDescription() {
     const termDescriptionElements = document.querySelectorAll('.term-description');
     termDescriptionElements.forEach(termDescriptionElement => {
         termDescriptionElement.classList.add('animation');
@@ -1896,7 +1896,7 @@ function handleSecondComplete(content) {
                 displayNewVersionHistoryElement(content);
                 handlePromptProposalsUpdate(content);
                 stopStreamingAnimation();
-                addAnimationToTermDescriptions();
+                activateTermDescription();
             }
         }, 100);
         
@@ -1904,7 +1904,7 @@ function handleSecondComplete(content) {
         displayNewVersionHistoryElement(content);
         handlePromptProposalsUpdate(content);
         stopStreamingAnimation();
-        addAnimationToTermDescriptions();
+        activateTermDescription();
     }
 }
 
