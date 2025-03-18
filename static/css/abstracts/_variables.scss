@@ -25,8 +25,9 @@ $background-color: #E2E4E9;
   --current-version-history-element-width: 0px;
 
   // Bottom Nav
-  --margin-bottom-nav: 4vw;
-  --veritical-padding-bottom-nav: 15px;
+  --bottom-margin-bottom-nav: 4vw;
+  --side-margin-bottom-nav: 10px;
+  --veritical-padding-bottom-nav: 17.5px;
   --horizontal-padding-bottom-nav: 25px;
   --input-element-height: calc(var(--primary-font-size) * 1.6);
   --button-size: 39px;
@@ -51,5 +52,40 @@ $background-color: #E2E4E9;
 
   // List
   --prefix-width: 0px;
+
+  @include tablet {
+    --primary-font-size: 20px;
+  }
+
+  @include desktop-small {
+    --primary-font-size: 20px;
+  }
+
+  @include desktop-large {
+    --primary-font-size: 20px;
+  }
+
+  @include desktop-x-large {
+
+    // Base
+    --page-padding: 20px;
+
+    // Typography
+    --primary-font-size: 20px;
+    --primary-line-height: 24px;
+    --secondary-font-size: 14.5px;
+    --secondary-line-height: 17.5px;
+    --grid-line-height: 14.2px;
+
+    // Bottom Nav
+    --bottom-nav-width: 1100px;
+    --side-margin-bottom-nav: calc((100vw - var(--bottom-nav-width)) / 2);
+    --bottom-margin-bottom-nav: 27.5px;
+    --veritical-padding-bottom-nav: 20px;
+    --horizontal-padding-bottom-nav: 30px;
+    --input-element-height: calc(var(--primary-font-size) * 1.6);
+    --button-size: 39px;
+    --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
+  }
 }
 

@@ -683,7 +683,6 @@ async function handleDelta(content) {
                                                     setTimeout(processNextPart, 0);
                                                 }
                                             }
-                                            
                                             addNextWord();
                                         } else {
                                             resolve();
@@ -1876,12 +1875,12 @@ function handleComplete(content) {
     responseMap[responseCount] = content;
 
     // Check if content has components and if the first component is a list
-    if (content.components && content.components.length > 0 && 
-        content.components[0].UIType === 'list' && 
-        content.components[0].items && 
-        content.components[0].items.length > 0) {
+    // if (content.components && content.components.length > 0 && 
+    //     content.components[0].UIType === 'list' && 
+    //     content.components[0].items && 
+    //     content.components[0].items.length > 0) {
         
-    }
+    // }
 }
 
 function handleSecondComplete(content) {

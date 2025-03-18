@@ -9,8 +9,9 @@
   --animation-duration-2: 200ms;
   --animation-duration-3: 500ms;
   --current-version-history-element-width: 0px;
-  --margin-bottom-nav: 4vw;
-  --veritical-padding-bottom-nav: 15px;
+  --bottom-margin-bottom-nav: 4vw;
+  --side-margin-bottom-nav: 10px;
+  --veritical-padding-bottom-nav: 17.5px;
   --horizontal-padding-bottom-nav: 25px;
   --input-element-height: calc(var(--primary-font-size) * 1.6);
   --button-size: 39px;
@@ -24,6 +25,39 @@
   --project-line-top: 0;
   --table-rows-amount: 0;
   --prefix-width: 0px;
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  :root {
+    --primary-font-size: 20px;
+  }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  :root {
+    --primary-font-size: 20px;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  :root {
+    --primary-font-size: 20px;
+  }
+}
+@media (min-width: 1441px) {
+  :root {
+    --page-padding: 20px;
+    --primary-font-size: 20px;
+    --primary-line-height: 24px;
+    --secondary-font-size: 14.5px;
+    --secondary-line-height: 17.5px;
+    --grid-line-height: 14.2px;
+    --bottom-nav-width: 1100px;
+    --side-margin-bottom-nav: calc((100vw - var(--bottom-nav-width)) / 2);
+    --bottom-margin-bottom-nav: 27.5px;
+    --veritical-padding-bottom-nav: 20px;
+    --horizontal-padding-bottom-nav: 30px;
+    --input-element-height: calc(var(--primary-font-size) * 1.6);
+    --button-size: 39px;
+    --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
+  }
 }
 
 html {
@@ -49,7 +83,21 @@ body {
   transition: font-variation-settings 0.4s ease;
   overscroll-behavior: none; /* Prevents overscroll/bounce effect */
 }
-
+@media (min-width: 481px) and (max-width: 768px) {
+  body {
+    background-color: #c8d2fa;
+  }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  body {
+    background-color: #96a9f6;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  body {
+    background-color: #5576fa;
+  }
+}
 .display-none {
   display: none;
 }
@@ -728,9 +776,9 @@ p:not(:first-of-type) {
 
 #bottom-navigation {
   position: fixed;
-  width: calc(100vw - 2 * var(--page-padding));
-  right: var(--page-padding);
-  bottom: var(--margin-bottom-nav);
+  width: calc(100vw - 2 * var(--side-margin-bottom-nav));
+  right: var(--side-margin-bottom-nav);
+  bottom: var(--bottom-margin-bottom-nav);
   background-color: black;
   border-radius: calc((var(--input-element-height) + 2 * var(--veritical-padding-bottom-nav)) / 2);
   height: auto;
@@ -739,6 +787,30 @@ p:not(:first-of-type) {
 }
 .component-selected #bottom-navigation {
   width: calc(100vw - 2 * var(--page-padding) - var(--dot-column-width));
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  #bottom-navigation {
+    width: var(--bottom-nav-width);
+  }
+  .component-selected #bottom-navigation {
+    width: calc(var(--bottom-nav-width) - var(--dot-column-width));
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  #bottom-navigation {
+    width: var(--bottom-nav-width);
+  }
+  .component-selected #bottom-navigation {
+    width: calc(var(--bottom-nav-width) - var(--dot-column-width));
+  }
+}
+@media (min-width: 1441px) {
+  #bottom-navigation {
+    width: var(--bottom-nav-width);
+  }
+  .component-selected #bottom-navigation {
+    width: calc(var(--bottom-nav-width) - var(--dot-column-width));
+  }
 }
 
 #bottom-navigation-elements {

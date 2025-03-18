@@ -2,9 +2,9 @@
 
 #bottom-navigation {
   position: fixed;
-  width: calc(100vw - 2 * var(--page-padding));
-  right: var(--page-padding);
-  bottom: var(--margin-bottom-nav);
+  width: calc(100vw - 2 * var(--side-margin-bottom-nav));
+  right: var(--side-margin-bottom-nav);
+  bottom: var(--bottom-margin-bottom-nav);
   background-color: black;
   border-radius: calc((var(--input-element-height) + 2 * var(--veritical-padding-bottom-nav)) / 2);
   height: auto;
@@ -13,6 +13,30 @@
 
   .component-selected & {
     width: calc(100vw - 2 * var(--page-padding) - var(--dot-column-width));
+  }
+
+  @include desktop-small {
+    width: var(--bottom-nav-width);
+
+    .component-selected & {
+      width: calc(var(--bottom-nav-width) - var(--dot-column-width));
+    }
+  }
+
+  @include desktop-large {
+    width: var(--bottom-nav-width);
+
+    .component-selected & {
+      width: calc(var(--bottom-nav-width) - var(--dot-column-width));
+    }
+  }
+
+  @include desktop-x-large {
+    width: var(--bottom-nav-width);
+
+    .component-selected & {
+      width: calc(var(--bottom-nav-width) - var(--dot-column-width));
+    }
   }
 }
 
