@@ -474,6 +474,23 @@ def stream3():
     return Response(stream_with_context(generate()), content_type="text/event-stream")
 
 
+# ------------------------------------------------------------------------------------------------  
+# DATABASE ROUTES
+# ------------------------------------------------------------------------------------------------
+
+@app.route('/get_state/<state_id>') 
+def get_state_route(state_id):
+    try:
+        state_data = get_state(state_id)
+        if state_data:
+            return jsonify(json.loads(state_data))
+        else:
+            return jsonify({"error": "State not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+
 
 
 

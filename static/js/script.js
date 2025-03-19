@@ -2776,40 +2776,35 @@ function loadStateFromUrl() {
     if (stateId) {
         console.log("Found state ID in URL:", stateId);
         
-        // // Show loading indicator
-        // startStreamingAnimation();
         
-        // // Fetch the state data from the server
-        // fetch(`/get_state/${stateId}`)
-        //     .then(response => {
-        //         if (!response.ok) {
-        //             throw new Error('State not found');
-        //         }
-        //         return response.json();
-        //     })
-        //     .then(data => {
-        //         console.log("Loaded state data:", data);
+        // Fetch the state data from the server
+        fetch(`/get_state/${stateId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('State not found');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Loaded state data:", data);
                 
-        //         // Process first response
-        //         if (data.first_response) {
-        //             processContent(data.first_response);
-                    
-        //             // After processing first response, handle the second response
-        //             setTimeout(() => {
-        //                 if (data.second_response) {
-        //                     displayNewVersionHistoryElement(data.second_response);
-        //                     handlePromptProposalsUpdate(data.second_response);
-        //                 }
-        //                 stopStreamingAnimation();
-        //                 activateTermDescription();
-        //             }, 1000); // Give time for first response to render
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error("Error loading state:", error);
-        //         stopStreamingAnimation();
-        //         // Optionally show an error message to the user
-        //     });
+                // Process first response
+                if (data.first_response) {
+                    // processContent(data.first_response);
+                    console.log("data.first_response", data.first_response);
+                }
+
+                if (data.second_response) {
+                    console.log("data.second_response", data.second_response);
+
+                    // displayNewVersionHistoryElement(data.second_response);
+                    // handlePromptProposalsUpdate(data.second_response);
+                }
+            })
+            .catch(error => {
+                console.error("Error loading state:", error);
+                // Optionally show an error message to the user
+            });
     }
 }
 
