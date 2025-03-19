@@ -1025,7 +1025,7 @@ async function handleDelta(content) {
                                 });
 
                                 if (!isProjectRendering) {
-                                    renderNextProject();
+                                    await renderNextProject();
                                 }
                                 break;
                             }
@@ -1073,7 +1073,7 @@ async function handleDelta(content) {
                                             });
 
                                             if (!isProjectRendering) {
-                                                renderNextProject();
+                                                await renderNextProject();
                                             }
                                         }
                                     }
@@ -1091,7 +1091,7 @@ async function handleDelta(content) {
                                             });
 
                                             if (!isProjectRendering) {
-                                                renderNextProject();
+                                                await renderNextProject();
                                             }
                                         }
                                     }
@@ -1109,7 +1109,7 @@ async function handleDelta(content) {
                                     });
 
                                     if (!isProjectRendering) {
-                                        renderNextProject();
+                                        await renderNextProject();
                                     }
                                 }
                             }
@@ -1867,6 +1867,7 @@ async function renderNextProject() {
     } finally {
         // console.log('Project rendering completed');
         isProjectRendering = false;
+        return Promise.resolve(); // Explicitly resolve when done
     }
 }
 
