@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250319b_Oskar_Website",
+  "original_folder": "250319c_Oskar_Website_Database_for_States",
   "snapshot_date_from_folder": "250319",
   "source_files": [
     {
@@ -18,6 +18,13 @@
       "mode": "100644"
     },
     {
+      "path": "check_db.py",
+      "sha1": "2bfae2dbd29b984247d9648fa20222b738b3b66a",
+      "sha256": "e431d7514b7e9939192aaa0c0407a49c8ade89a67b9563963e69eba46cfe4599",
+      "size": 445,
+      "mode": "100644"
+    },
+    {
       "path": "data.py",
       "sha1": "7c802ddf2b8155aca84d7a1fa53a115e5ab1c9bd",
       "sha256": "03b61b5afb6687399ce3b9f6645f7afc0ff8644aec216cffbbea0445dc133178",
@@ -26,9 +33,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "ce68febe982a1f709d7daba1b7b7b2a20b10cbea",
-      "sha256": "2dffae1a5a3f1c10d0f1ab342a8b27224cbb400cc8fddc1ef550dc78ac8f545e",
-      "size": 17921,
+      "sha1": "1fe93638176a96fc495c471354ff1d2b9f88c28f",
+      "sha256": "d6a934edb330cf8850bbb02543e0ea42868abe80f2d5f4bee2763a61422eb76a",
+      "size": 20756,
       "mode": "100644"
     },
     {
@@ -629,7 +636,8 @@
   ],
   "excluded_private_files": [
     ".env",
-    "flask_session/"
+    "flask_session/",
+    "state_data.db"
   ],
   "omitted_generated_files": [
     {

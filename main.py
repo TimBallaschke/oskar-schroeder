@@ -10,8 +10,99 @@ from typing import List, Union, Literal, Annotated, Optional, TypeVar, Generic
 from enum import Enum
 from datetime import datetime
 from prompts import prompts  # Import the prompts dictionary
+import sqlite3
+
 # Load environment variables from .env file (including API key)
 load_dotenv()
+
+
+
+
+
+
+
+
+
+# ------------------------------------------------------------------------------------------------  
+# HELPER FUNCTIONS
+# ------------------------------------------------------------------------------------------------
+
+# generate unique id for state storage
+def generate_unique_id():
+    """Generate a unique ID for state storage"""
+    import time
+    import random
+    import string
+    
+    timestamp = int(time.time() * 1000)
+    timestamp_part = format(timestamp, 'x')  # Convert to hex
+    
+    # Generate 5 random alphanumeric characters
+    random_part = ''.join(random.choices(string.ascii_lowercase + string.digits, k=5))
+    
+    return f"{timestamp_part}{random_part}"
+
+# SQLITE DATABASE
+DB_PATH = "state_data.db"  # Path to the database file
+
+def create_table(): # Creates a table if it doesn't exist
+    conn = sqlite3.connect(DB_PATH) # Connect to the database
+    cursor = conn.cursor() # Cursor is used to execute SQL commands
+    
+    cursor.execute(""" 
+    CREATE TABLE IF NOT EXISTS states (
+        id TEXT PRIMARY KEY,
+        content TEXT
+    );
+    """)
+    
+    conn.commit()
+    conn.close()
+
+
+# Save state to database
+def save_state(state_id, content):
+    """Save state to database with error handling and connection management"""
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        
+        cursor.execute(
+            "INSERT INTO states (id, content) VALUES (?, ?)",
+            (state_id, content)
+        )
+        
+        conn.commit()
+        return True
+    except Exception as e:
+        print(f"Database error saving state: {str(e)}")
+        return False
+    finally:
+        if 'conn' in locals():
+            conn.close()
+
+def get_state(state_id):
+    """Retrieve state from database by ID"""
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        
+        cursor.execute("SELECT content FROM states WHERE id = ?", (state_id,))
+        result = cursor.fetchone()
+        
+        return result[0] if result else None
+    except Exception as e:
+        print(f"Database error retrieving state: {str(e)}")
+        return None
+    finally:
+        if 'conn' in locals():
+            conn.close()
+
+
+
+
+
+
 
 # INITIALIZE FLASK APPLICATION AND OPENAI CLIENT
 
@@ -178,11 +269,9 @@ class Response_3(BaseModel):
 
 
 
-
-
-# SYSTEM PROMPTS
-
-
+# ------------------------------------------------------------------------------------------------  
+# CHATBOT ROUTES
+# ------------------------------------------------------------------------------------------------
 
 # @app.route is provided by Flask and used to define a route;
 # '/': This string represents the URL path for the route;
@@ -246,26 +335,29 @@ def stream():
 
                     # Get and send the final completion
                     final_completion = stream.get_final_completion().choices[0].message.parsed
-                    
-                    # Append assistant's response to conversation history
-                    messages_1.append({
-                        "role": "assistant", 
-                        "content": json.dumps(final_completion.model_dump())
-                    })
-                    
-                    # Mark session as modified
-                    session.modified = True
-                    
-                    # Send completion event to frontend
-                    yield f"data: {json.dumps({'type': 'complete', 'content': final_completion.model_dump()})}\n\n"
 
-                    # Call the second chatbot
-                    yield from handle_second_chatbot(final_completion)
-
+                    # Save the state to the database
+                    state_id = generate_unique_id()
+                    content_json = json.dumps(final_completion.model_dump())
                     
-                elif event.type == "error":
-                    # Send error event to frontend
-                    yield f"data: {json.dumps({'type': 'error', 'content': str(event.error)})}\n\n"
+                    if save_state(state_id, content_json):
+                        # Append assistant's response to conversation history
+                        messages_1.append({
+                            "role": "assistant", 
+                            "content": content_json
+                        })
+                        
+                        # Mark session as modified
+                        session.modified = True
+                        
+                        # Send completion event to frontend with state_id
+                        yield f"data: {json.dumps({'type': 'complete', 'content': final_completion.model_dump(), 'stateId': state_id})}\n\n"
+
+                        # Call the second chatbot
+                        yield from handle_second_chatbot(final_completion)
+                    else:
+                        # Still send the completion but without stateId
+                        yield f"data: {json.dumps({'type': 'complete', 'content': final_completion.model_dump(), 'error': 'Failed to save state'})}\n\n"
 
     # response() ia a flask function that returns a HTTP response object
     # it allows you to customize how data is sent back to the client
@@ -290,7 +382,6 @@ def handle_second_chatbot(final_completion):
     })
 
     try:
-
         print("\n=== Second Chatbot Input ===")
         print(json.dumps(final_completion.model_dump(), indent=2))
     
@@ -375,11 +466,17 @@ def stream3():
     return Response(stream_with_context(generate()), content_type="text/event-stream")
 
 
+
+
+
+
 # Run the Flask application if this file is run directly
 # this condition checks if the script is being run directly (not imported as a module in another script);
 # if __name__ is '__main__', it means the script is being run directly; 
 # not necessary in this case, but good practice to have
 if __name__ == '__main__':
+    create_table()
+    print("Database and table initialized!")
     # app.run() is a method that starts the Flask development server;
     # debug=True enables debug mode, which provides detailed error messages and automatic reloading;
     # host='127.0.0.1' specifies the host address to bind the server to (localhost);
