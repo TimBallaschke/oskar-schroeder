@@ -1872,8 +1872,12 @@ async function renderNextProject() {
 
 function handleComplete(content) {
     console.log("Received complete response:", content);
-    responseMap[responseCount] = content;
-    
+
+    // Save content in responseMap without stateId
+    responseMap[responseCount] = {
+        content: content,
+        stateId: null
+    };
 }
 
 function handleSecondComplete(content, stateId) {
@@ -1883,6 +1887,11 @@ function handleSecondComplete(content, stateId) {
     if (stateId) {
         const newUrl = `${window.location.origin}${window.location.pathname}?state=${stateId}`;
         window.history.pushState({ stateId: stateId }, '', newUrl);
+
+        // Update the stateId in responseMap
+        if (responseMap[responseCount]) {
+            responseMap[responseCount].stateId = stateId;
+        }
     }
 
     // Check if streaming is still in progress and wait for it to complete
@@ -1987,7 +1996,6 @@ function displayPreviousVersion(element) {
     setTimeout(() => {
         const currentVersionHistoryElementWidth = element.scrollWidth;
         element.classList.add('current-version-history-element');
-        console.log('element: ', element);
 
         console.log('currentVersionHistoryElementWidth: ', currentVersionHistoryElementWidth);
         setCSSVarValue('--current-version-history-element-width', currentVersionHistoryElementWidth);
@@ -1998,11 +2006,22 @@ function displayPreviousVersion(element) {
 
     if (versionKey === 0) {
         clearContentContainer(true);
+
+        // Reset the URL to the base URL without state parameter
+        const baseUrl = `${window.location.origin}${window.location.pathname}`;
+        window.history.pushState({}, '', baseUrl);
         return;
     }
 
     // Get the corresponding content from componentsMap
-    const versionContent = responseMap[versionKey];
+    const versionContent = responseMap[versionKey].content;
+    const stateId = responseMap[versionKey].stateId;
+
+    // Update the URL with the stateId if it exists
+    if (stateId) {
+        const newUrl = `${window.location.origin}${window.location.pathname}?state=${stateId}`;
+        window.history.pushState({ stateId: stateId }, '', newUrl);
+    }
 
     clearContentContainer(true);
 
