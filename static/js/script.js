@@ -1873,14 +1873,27 @@ async function renderNextProject() {
 function handleComplete(content) {
     console.log("Received complete response:", content);
     responseMap[responseCount] = content;
-
-    // Check if content has components and if the first component is a list
-    // if (content.components && content.components.length > 0 && 
-    //     content.components[0].UIType === 'list' && 
-    //     content.components[0].items && 
-    //     content.components[0].items.length > 0) {
-        
-    // }
+    
+    // Generate a unique URL for this response state
+    // Create a unique ID using timestamp + random string
+    const uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2, 7);
+    const stateId = uniqueId;
+    const newUrl = `${window.location.pathname}?state=${stateId}`;
+    
+    // Store the mapping between uniqueId and responseCount
+    if (!window.stateMapping) {
+        window.stateMapping = {};
+    }
+    window.stateMapping[stateId] = responseCount;
+    
+    // Update browser history without reloading the page
+    window.history.pushState(
+        { stateId: stateId, responseCount: responseCount },
+        `Response ${responseCount}`,
+        newUrl
+    );
+    
+    console.log(`Generated shareable URL: ${window.location.origin}${newUrl}`);
 }
 
 function handleSecondComplete(content) {
