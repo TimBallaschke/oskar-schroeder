@@ -36,7 +36,12 @@ $background-color: #E2E4E9;
   --small-circle-size: 24px;
 
   // Content Container
+  --content-padding-top: 50px;
   --content-padding-bottom: 26px;
+
+  // Project Grid
+  --column-amount: 2;
+  --column-gap: 15px;
 
   // Project Dot
   --dot-column-width: 37px;
@@ -71,21 +76,28 @@ $background-color: #E2E4E9;
     --page-padding: 20px;
 
     // Typography
-    --primary-font-size: 20px;
-    --primary-line-height: 24px;
-    --secondary-font-size: 14.5px;
+    --primary-font-size: 22.5px;
+    --primary-line-height: 27px;
+    --secondary-font-size: 15px;
     --secondary-line-height: 17.5px;
     --grid-line-height: 14.2px;
 
     // Bottom Nav
-    --bottom-nav-width: 1100px;
+    --bottom-nav-width: 1000px;
     --side-margin-bottom-nav: calc((100vw - var(--bottom-nav-width)) / 2);
     --bottom-margin-bottom-nav: 27.5px;
-    --veritical-padding-bottom-nav: 20px;
-    --horizontal-padding-bottom-nav: 30px;
+    --veritical-padding-bottom-nav: 21px;
+    --horizontal-padding-bottom-nav: 31px;
     --input-element-height: calc(var(--primary-font-size) * 1.6);
     --button-size: 39px;
     --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
+
+    // Content Container
+    --content-padding-top: 75px;
+
+    // Project Grid
+    --column-amount: 3;
+    --column-gap: 15px;
   }
 }
 

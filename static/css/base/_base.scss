@@ -24,15 +24,15 @@ body {
   overscroll-behavior: none; /* Prevents overscroll/bounce effect */
 
   @include tablet {
-    background-color: #c8d2fa;
+    // background-color: #c8d2fa;
   }
 
   @include desktop-small {
-    background-color: #96a9f6;
+    // background-color: #96a9f6;
   }
 
   @include desktop-large {
-    background-color: #5576fa;
+    // background-color: #5576fa;
   }
 
   @include desktop-x-large {

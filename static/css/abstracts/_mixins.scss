@@ -1,9 +1,9 @@
 @mixin primary-text-offset {
-    transform: translateY(7px);
+    transform: translateY(4.5px);
   }
 
 @mixin secondary-text-offset {
-    transform: translateY(8.5px);
+    transform: translateY(6px);
   }
 
 @mixin grid-text-offset {

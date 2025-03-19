@@ -7,7 +7,7 @@
 
 #content-container {
     width: 100vw;
-    padding: 50px var(--page-padding) 200px var(--page-padding);
+    padding: var(--content-padding-top) var(--page-padding) 200px var(--page-padding);
     transition: opacity var(--animation-duration-1) ease-in-out;
 
 
@@ -41,6 +41,11 @@
 .paragraph-container {
     transition: all var(--animation-duration-1) ease-in-out;
     @include primary-type;
+    padding: 0 0;
+
+    @include desktop-x-large {
+        padding: 0 calc(var(--side-margin-bottom-nav) - var(--page-padding));
+    }
 }
 
 .paragraph-word {
@@ -106,6 +111,7 @@
         grid-template-columns: 1fr;
         grid-template-rows: repeat(2, auto);
         width: 100%;
+        margin: 0 0;
         transition: all var(--animation-duration-1) ease-in-out;
     
         &::before,
@@ -138,6 +144,26 @@
             &::after {
                 width: calc(100% - var(--dot-column-width));
             }
+        }
+
+        @include tablet {
+            // width: calc(100% - 2 * (var(--side-margin-bottom-nav) - var(--page-padding)));
+            // margin: 0 calc(var(--side-margin-bottom-nav) - var(--page-padding));
+        }
+
+        @include desktop-small {
+            width: calc(100% - 2 * (var(--side-margin-bottom-nav) - var(--page-padding)));
+            margin: 0 calc(var(--side-margin-bottom-nav) - var(--page-padding));
+        }
+
+        @include desktop-large {
+            width: calc(100% - 2 * (var(--side-margin-bottom-nav) - var(--page-padding)));
+            margin: 0 calc(var(--side-margin-bottom-nav) - var(--page-padding));
+        }
+
+        @include desktop-x-large {
+            width: calc(100% - 2 * (var(--side-margin-bottom-nav) - var(--page-padding)));
+            margin: 0 calc(var(--side-margin-bottom-nav) - var(--page-padding));
         }
     }
     
@@ -241,6 +267,10 @@
         &.no-opacity {
             opacity: 0;
         }
+
+        @include desktop-x-large {
+            height: calc((100vw - 2 * var(--side-margin-bottom-nav)) / 3 * 2);
+        }
     }
     
     .project-image {
@@ -311,7 +341,7 @@
     }
 
     .image-counter-digits {
-        transform: translateY(1.5px);
+        transform: translateY(-1px);
         transition: all var(--animation-duration-1) ease-in-out;
     }
 
@@ -343,8 +373,8 @@
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 15px;
+    grid-template-columns: repeat(var(--column-amount), 1fr);
+    column-gap: var(--column-gap);
     width: 100%;
 
     .project {
@@ -448,7 +478,8 @@
     .project-images {
         grid-area: 1 / 1;
         transition: all var(--animation-duration-3) ease-in-out;
-        height: 100px;
+        height: calc(((100vw - 2 * var(--page-padding) - (var(--column-amount) - 1) * var(--column-gap)) / var(--column-amount)) / 3 * 2);
+        // height: 200px;
         width: 100%;
         margin-top: 7px;
     
