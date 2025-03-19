@@ -374,7 +374,7 @@ function startStreamingResponse() {
                 handleComplete(data.content);
                 break;
             case 'second_complete':
-                handleSecondComplete(data.content);  // New function to process the second chatbot's response
+                handleSecondComplete(data.content, data.stateId);  // New function to process the second chatbot's response
                 activeEventSource.close();
                 activeEventSource = null;
                 break;
@@ -1874,32 +1874,18 @@ function handleComplete(content) {
     console.log("Received complete response:", content);
     responseMap[responseCount] = content;
     
-    // Generate a unique URL for this response state
-    // Create a unique ID using timestamp + random string
-    const uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2, 7);
-    const stateId = uniqueId;
-    const newUrl = `${window.location.pathname}?state=${stateId}`;
-    
-    // Store the mapping between uniqueId and responseCount
-    if (!window.stateMapping) {
-        window.stateMapping = {};
-    }
-    window.stateMapping[stateId] = responseCount;
-    
-    // Update browser history without reloading the page
-    window.history.pushState(
-        { stateId: stateId, responseCount: responseCount },
-        `Response ${responseCount}`,
-        newUrl
-    );
-    
-    console.log(`Generated shareable URL: ${window.location.origin}${newUrl}`);
 }
 
-function handleSecondComplete(content) {
-    // console.log("Received second complete response:", content);
+function handleSecondComplete(content, stateId) {
+    console.log("Received second complete response:", content);
 
-        // Check if streaming is still in progress and wait for it to complete
+    // Generate a unique URL if we have a stateId
+    if (stateId) {
+        const newUrl = `${window.location.origin}${window.location.pathname}?state=${stateId}`;
+        window.history.pushState({ stateId: stateId }, '', newUrl);
+    }
+
+    // Check if streaming is still in progress and wait for it to complete
     if (isStreaming) {
         const checkStreamingInterval = setInterval(() => {
             if (!isStreaming) {
@@ -2780,7 +2766,56 @@ function togglePromptProposals() {
 
 
 // --------------------------------------------------------------------------------------------
-// EVENT LISTENERS
+// ACCESS CONTENT THROUGH URL
+// --------------------------------------------------------------------------------------------
+
+function loadStateFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const stateId = urlParams.get('state');
+    
+    if (stateId) {
+        console.log("Found state ID in URL:", stateId);
+        
+        // // Show loading indicator
+        // startStreamingAnimation();
+        
+        // // Fetch the state data from the server
+        // fetch(`/get_state/${stateId}`)
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error('State not found');
+        //         }
+        //         return response.json();
+        //     })
+        //     .then(data => {
+        //         console.log("Loaded state data:", data);
+                
+        //         // Process first response
+        //         if (data.first_response) {
+        //             processContent(data.first_response);
+                    
+        //             // After processing first response, handle the second response
+        //             setTimeout(() => {
+        //                 if (data.second_response) {
+        //                     displayNewVersionHistoryElement(data.second_response);
+        //                     handlePromptProposalsUpdate(data.second_response);
+        //                 }
+        //                 stopStreamingAnimation();
+        //                 activateTermDescription();
+        //             }, 1000); // Give time for first response to render
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error("Error loading state:", error);
+        //         stopStreamingAnimation();
+        //         // Optionally show an error message to the user
+        //     });
+    }
+}
+
+
+// --------------------------------------------------------------------------------------------
+// DOM CONTENT LOADED
 // --------------------------------------------------------------------------------------------
 
 // Add event listeners when the page loads
@@ -2795,5 +2830,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sendButton.addEventListener('click', sendMessage);
 
     startVersionHistoryElement.addEventListener('click', handleVersionClick);
+
+    loadStateFromUrl();
 });
 

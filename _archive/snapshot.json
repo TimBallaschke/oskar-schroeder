@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250319c_Oskar_Website_Database_for_States",
+  "original_folder": "250319d_Oskar_Website_URL_generation",
   "snapshot_date_from_folder": "250319",
   "source_files": [
     {
@@ -33,9 +33,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "1fe93638176a96fc495c471354ff1d2b9f88c28f",
-      "sha256": "d6a934edb330cf8850bbb02543e0ea42868abe80f2d5f4bee2763a61422eb76a",
-      "size": 20756,
+      "sha1": "67302bcd5e942b19871453c9fe426f5b4de2bbb2",
+      "sha256": "073bbaf0fdb0c3845608afa642bc7ffb4c2fa3737425f1d43cb704f70187193a",
+      "size": 20925,
       "mode": "100644"
     },
     {
@@ -124,9 +124,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "668eb034962134c51a75e8654e1490e6711152cf",
-      "sha256": "d0ed618bde6c586ca69265da2cd485161153465687373262cf43202bcffc8071",
-      "size": 142212,
+      "sha1": "caff644c19bc54ff803957cf029c39586c2ea9bb",
+      "sha256": "8684d12737df63d879aec0dbb6db92b2b6ca16020224126e76fd671b13e73e12",
+      "size": 143679,
       "mode": "100644"
     },
     {

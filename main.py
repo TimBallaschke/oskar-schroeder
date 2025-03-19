@@ -336,28 +336,22 @@ def stream():
                     # Get and send the final completion
                     final_completion = stream.get_final_completion().choices[0].message.parsed
 
-                    # Save the state to the database
-                    state_id = generate_unique_id()
-                    content_json = json.dumps(final_completion.model_dump())
                     
-                    if save_state(state_id, content_json):
-                        # Append assistant's response to conversation history
-                        messages_1.append({
-                            "role": "assistant", 
-                            "content": content_json
-                        })
-                        
-                        # Mark session as modified
-                        session.modified = True
-                        
-                        # Send completion event to frontend with state_id
-                        yield f"data: {json.dumps({'type': 'complete', 'content': final_completion.model_dump(), 'stateId': state_id})}\n\n"
+                    # Append assistant's response to conversation history
+                    messages_1.append({
+                        "role": "assistant", 
+                        "content": json.dumps(final_completion.model_dump())
+                    })
+                    
+                    # Mark session as modified
+                    session.modified = True
+                    
+                    # Send completion event to frontend with state_id
+                    yield f"data: {json.dumps({'type': 'complete', 'content': final_completion.model_dump()})}\n\n"
+                    # Call the second chatbot
+                    yield from handle_second_chatbot(final_completion)
 
-                        # Call the second chatbot
-                        yield from handle_second_chatbot(final_completion)
-                    else:
-                        # Still send the completion but without stateId
-                        yield f"data: {json.dumps({'type': 'complete', 'content': final_completion.model_dump(), 'error': 'Failed to save state'})}\n\n"
+
 
     # response() ia a flask function that returns a HTTP response object
     # it allows you to customize how data is sent back to the client
@@ -401,20 +395,34 @@ def handle_second_chatbot(final_completion):
         print("\n=== Second Chatbot Parsed Response ===")
         print(json.dumps(second_response.model_dump(), indent=2))
 
-        # Append chatbot 2's response to session
-        messages_2.append({
-            "role": "assistant",
-            "content": json.dumps(second_response.model_dump())
-        })
-        session.modified = True
+        # Save the state to the database
+        state_id = generate_unique_id()
+        # Create a combined content object with both responses for Database Storage
+        combined_content = {
+            "first_response": final_completion.model_dump(),
+            "second_response": second_response.model_dump()
+        }
 
-        # Send chatbot 2's response to the frontend (not streamed)
-        yield f"data: {json.dumps({'type': 'second_complete', 'content': second_response.model_dump()})}\n\n"
+        # Save both responses together
+        if save_state(state_id, json.dumps(combined_content)):
+            # Append chatbot 2's response to session
+            messages_2.append({
+                "role": "assistant",
+                "content": json.dumps(second_response.model_dump())
+            })
+            session.modified = True
+
+            # Send chatbot 2's response to the frontend with the state_id
+            yield f"data: {json.dumps({'type': 'second_complete', 'content': second_response.model_dump(), 'stateId': state_id})}\n\n"
+        else:
+            # Still send the response but without stateId
+            yield f"data: {json.dumps({'type': 'second_complete', 'content': second_response.model_dump(), 'error': 'Failed to save state'})}\n\n"
 
     except Exception as e:
         print("\n=== Second Chatbot Error ===")
         print(str(e))
         yield f"data: {json.dumps({'type': 'error', 'content': str(e)})}\n\n"
+
 
 @app.route('/content3', methods=['POST'])
 def content3():
