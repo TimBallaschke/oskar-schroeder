@@ -186,6 +186,11 @@ p {
   font-variation-settings: "wght" 675, "ital" 9;
 }
 
+.indent {
+  display: inline-block;
+  width: 30px;
+}
+
 .font-weight-animation {
   transition: font-variation-settings 0.5s ease-in-out;
   animation: font-weight-animation 300ms ease-in-out;

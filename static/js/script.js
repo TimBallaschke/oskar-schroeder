@@ -571,6 +571,16 @@ async function handleDelta(content) {
                             paragraphContainer = document.createElement('p');
                             paragraphContainer.classList.add('paragraph-container');
                             paragraphContainer.setAttribute('data-component-key', componentID);
+                            
+                            // Check if the previous element is also a paragraph container if yes add an indent
+                            const previousElement = contentContainer.lastElementChild;
+                            if (previousElement && previousElement.classList.contains('paragraph-container')) {
+                                // Add an indent span at the beginning of this paragraph
+                                const indentSpan = document.createElement('span');
+                                indentSpan.classList.add('indent');
+                                paragraphContainer.appendChild(indentSpan);
+                            }
+                            
                             contentContainer.appendChild(paragraphContainer);
                         }
 
@@ -644,19 +654,6 @@ async function handleDelta(content) {
                                                     wordSpan.textContent = words[wordIndex];
                                                     wordSpan.classList.add('paragraph-word', 'light');
                                                     
-                                                    // Calculate and set the exact width before animation starts
-                                                    // const tempSpan = document.createElement('span');
-                                                    // tempSpan.textContent = words[wordIndex];
-                                                    // tempSpan.style.visibility = 'hidden';
-                                                    // tempSpan.style.position = 'absolute';
-                                                    // tempSpan.style.fontWeight = 'normal'; // Use the final font weight
-                                                    // tempSpan.classList.add('paragraph-word');
-                                                    // document.body.appendChild(tempSpan);
-                                                    // const finalWidth = tempSpan.offsetWidth;
-                                                    // document.body.removeChild(tempSpan);
-                                                    // wordSpan.style.display = 'inline-block';
-                                                    // wordSpan.style.width = `${finalWidth}px`;
-
                                                     // Add to appropriate parent
                                                     if (italicSpan) {
                                                         italicSpan.appendChild(wordSpan);
