@@ -530,7 +530,7 @@ function animateInputPlaceholder() {
 // --------------------------------------------------------------------------------------------
 
 async function handleDelta(content) {
-    console.log("Received delta:", content);
+    // console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -644,6 +644,19 @@ async function handleDelta(content) {
                                                     wordSpan.textContent = words[wordIndex];
                                                     wordSpan.classList.add('paragraph-word', 'light');
                                                     
+                                                    // Calculate and set the exact width before animation starts
+                                                    // const tempSpan = document.createElement('span');
+                                                    // tempSpan.textContent = words[wordIndex];
+                                                    // tempSpan.style.visibility = 'hidden';
+                                                    // tempSpan.style.position = 'absolute';
+                                                    // tempSpan.style.fontWeight = 'normal'; // Use the final font weight
+                                                    // tempSpan.classList.add('paragraph-word');
+                                                    // document.body.appendChild(tempSpan);
+                                                    // const finalWidth = tempSpan.offsetWidth;
+                                                    // document.body.removeChild(tempSpan);
+                                                    // wordSpan.style.display = 'inline-block';
+                                                    // wordSpan.style.width = `${finalWidth}px`;
+
                                                     // Add to appropriate parent
                                                     if (italicSpan) {
                                                         italicSpan.appendChild(wordSpan);
@@ -654,11 +667,22 @@ async function handleDelta(content) {
                                                     } else {
                                                         paragraphContainer.appendChild(wordSpan);
                                                     }
+
+                                                    const lightWidth = wordSpan.getBoundingClientRect().width;
+                                                    console.log('lightWidth', lightWidth);
+                                                    wordSpan.style.display = 'inline-block';
+                                                    wordSpan.style.width = `${lightWidth}px`;
+
                                                     
                                                     // Remove light class after 10ms
                                                     setTimeout(() => {
                                                         wordSpan.classList.remove('light');
                                                     }, 10);
+
+                                                    // setTimeout(() => {
+                                                    //     const heavyWidth = wordSpan.getBoundingClientRect().width;
+                                                    //     console.log('heavyWidth', heavyWidth);
+                                                    // }, 4000);
                                                     
                                                     wordIndex++;
                                                     // Add small delay between words

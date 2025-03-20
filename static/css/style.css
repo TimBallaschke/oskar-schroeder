@@ -161,10 +161,6 @@ p {
   margin: 0;
 }
 
-p:not(:first-of-type) {
-  text-indent: 30px;
-}
-
 .paragraph-word {
   transition: all var(--animation-duration-2) ease-in-out;
 }
@@ -190,6 +186,19 @@ p:not(:first-of-type) {
   font-variation-settings: "wght" 675, "ital" 9;
 }
 
+.font-weight-animation {
+  transition: font-variation-settings 0.5s ease-in-out;
+  animation: font-weight-animation 300ms ease-in-out;
+}
+
+@keyframes font-weight-animation {
+  from {
+    font-variation-settings: "wght" 350;
+  }
+  to {
+    font-variation-settings: "wght" 675;
+  }
+}
 #content-container {
   width: 100vw;
   padding: var(--content-padding-top) var(--page-padding) 200px var(--page-padding);
