@@ -419,6 +419,7 @@ function clearContentContainer(isVersionHistory) {
     contentContainer.querySelectorAll('*').forEach(element => {
         // Check if this is a leaf node (no element children)
         const hasElementChildren = Array.from(element.children).length > 0;
+
         
         if (!hasElementChildren && 
             (element.tagName.toLowerCase() === 'span' || 
@@ -429,6 +430,11 @@ function clearContentContainer(isVersionHistory) {
             
             setTimeout(() => {
                 element.classList.add('light');
+
+                if (element.classList.contains('italic')) {
+                    element.classList.remove('italic');
+                }
+                
             }, 10);
         }
     });
@@ -2354,6 +2360,7 @@ function displayPreviousVersion(element) {
                  element.tagName.toLowerCase() === 'div' || 
                  element.tagName.toLowerCase() === 'p');
         });
+
 
         targetElements.forEach(element => {
             element.classList.add('no-transition', 'light');

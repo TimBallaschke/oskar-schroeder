@@ -165,10 +165,6 @@ p {
   transition: all var(--animation-duration-2) ease-in-out;
 }
 
-.light {
-  font-variation-settings: "wght" 350, "ital" 0;
-}
-
 .navigation-type {
   color: white;
 }
@@ -180,6 +176,10 @@ p {
 .secondary-type {
   font-size: var(--secondary-font-size);
   text-transform: uppercase;
+}
+
+.light {
+  font-variation-settings: "wght" 350, "ital" 0;
 }
 
 .italic {
