@@ -356,6 +356,10 @@
         &.no-padding {
             padding-bottom: 0;
         }
+
+        &.auto-height {
+            height: auto;
+        }
     }
 
     .project-description-paragraph {

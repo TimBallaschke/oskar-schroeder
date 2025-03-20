@@ -497,6 +497,9 @@ p {
 .fullscreen .project-description.no-padding {
   padding-bottom: 0;
 }
+.fullscreen .project-description.auto-height {
+  height: auto;
+}
 .fullscreen .project-description-paragraph {
   display: inline;
 }

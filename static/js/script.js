@@ -2318,7 +2318,7 @@ function displayPreviousVersion(element) {
                                 // Add description
                                 if (project.description && Array.isArray(project.description)) {
                                     const projectDescription = document.createElement('div');
-                                    projectDescription.classList.add('project-description');
+                                    projectDescription.classList.add('project-description', 'auto-height'); // auto-height class is important to make the description visible
                                     
                                     const paragraphElement = document.createElement('p');
                                     paragraphElement.classList.add('project-description-paragraph');
@@ -2371,13 +2371,13 @@ function displayPreviousVersion(element) {
             targetElements.forEach(element => {
                 element.classList.remove('light');
             });
-        }, 400);
+        }, 500);
 
         setTimeout(() => {
             targetElements.forEach(element => {
                 element.classList.remove('animation-settings');
             });
-        }, 800);
+        }, 900);
     }, 1100);
 }
 
