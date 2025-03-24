@@ -1,6 +1,11 @@
 from openai import OpenAI
+from dotenv import load_dotenv
+import os
 
+
+load_dotenv()
 client = OpenAI()
+
 
 
 # --------------------------------------------------------------
@@ -22,23 +27,56 @@ client = OpenAI()
 #         print(chunk.choices[0].delta.content, end="")
 
 
-stream = client.responses.create(
+# stream = client.responses.create(
+#     model="gpt-4o",
+#     tools=[
+#         {
+#             "type": "web_search_preview",
+#         }
+#     ],
+#     input="what are the best chinese restaurants in Hamburg?",
+#     stream=True,
+# )
+
+# for event in stream:
+#     if event.type == "response.output_text.delta":
+#         print("----------------------------------------------------------------------------------")
+#         print(event.delta)  # ← This is the generated text chunk
+#     elif event.type == "response.completed":
+#         print("----------------------------------------------------------------------------------")
+#         print("----------------------------------------------------------------------------------")
+#         print("----------------------------------------------------------------------------------")
+#         print(event.response.output[0].content[0].annotations)
+
+
+
+response = client.responses.create(
     model="gpt-4o",
     tools=[
         {
             "type": "web_search_preview",
         }
     ],
-    input="what are the best chinese restaurants in Hamburg?",
-    stream=True,
+    input=[
+        {
+            "role": "system",
+            "content": [
+                {
+                "type": "input_text",
+                "text": "You are a helpful assistant. The user will provide you with short terms, names, or references — including people, places, events, organizations, or artistic concepts.\n\nFor each input, provide a clear and concise description (1–3 sentences) to help the user understand what the term means or refers to.\n\nAlwaysuse your web search tool to include up-to-date and relevant information, especially for people, institutions, or events that may have recent developments.\n\nYour explanations should be factual, accessible, and easy to understand for a general audience. Avoid technical jargon unless it's essential."
+                }
+            ]
+        },
+        {
+            "role": "user",
+            "content": [
+                {
+                "type": "input_text",
+                "text": "Galerie Hamburg Feinkunst Krüger"
+                }
+            ]
+        }
+    ],
 )
 
-for event in stream:
-    if event.type == "response.output_text.delta":
-        print("----------------------------------------------------------------------------------")
-        print(event.delta)  # ← This is the generated text chunk
-    elif event.type == "response.completed":
-        print("----------------------------------------------------------------------------------")
-        print("----------------------------------------------------------------------------------")
-        print("----------------------------------------------------------------------------------")
-        print(event.response.output[0].content[0].annotations)
+print(response.output_text)
