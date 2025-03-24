@@ -735,4 +735,18 @@
 
 
 
+// Websearch
+
+.websearch {
+    @include primary-type;
+}
+
+.websearch-content {
+    transition: font-variation-settings var(--animation-duration-2) ease-in-out;
+}
+
+
+
+
+
 

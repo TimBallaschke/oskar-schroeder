@@ -135,6 +135,7 @@ SYSTEM_PROMPT_4 = {
                 "especially for people, institutions, or events that may have recent developments.\n\n"
                 "Your explanations should be factual, accessible, and easy to understand for a "
                 "general audience. Avoid technical jargon unless it's essential."
+                "Do not include URLs or refer to the source of the information in any way."
         }
     ]
 }

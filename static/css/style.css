@@ -812,6 +812,14 @@ p {
   transition: all var(--animation-duration-2) ease-in-out;
 }
 
+.websearch {
+  font-size: var(--primary-font-size);
+}
+
+.websearch-content {
+  transition: font-variation-settings var(--animation-duration-2) ease-in-out;
+}
+
 #bottom-navigation {
   position: fixed;
   width: calc(100vw - 2 * var(--side-margin-bottom-nav));

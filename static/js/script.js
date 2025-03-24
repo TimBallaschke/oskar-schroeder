@@ -145,6 +145,7 @@ let reworkRenderingQueue = [];  // Add this with other global variables
 let isReworkProcessing = false; // Add this with other global variables
 let reworkComplete = false;
 let isStreaming = false;
+let isWebsearchStreamingURL = false;
 
 const userInput = document.getElementById('user-input');
 
@@ -354,6 +355,10 @@ function sendMessage() {
     }
 }
 
+// --------------------------------------------------------------------------------------------
+// WEBSEARCH
+// --------------------------------------------------------------------------------------------
+
 function startStreamingWebsearch() {
     console.log("startStreamingWebsearch");
 
@@ -392,8 +397,67 @@ function startStreamingWebsearch() {
 }
 
 function handleDeltaWebsearch(content) {
-    console.log("handleDeltaWebsearch: ", content);
+
+    // Exclude URLs from the content
+    if (content.includes('http://') || 
+        content.includes('https://') || 
+        content.includes('www.') ||
+        content.includes('.com') ||
+        content.includes('.org') ||
+        content.includes('.net') ||
+        content.includes('](http') ||
+        content.includes('](##') ||
+        content.trim().startsWith('(http')) {
+        console.log("URL detected: ", content);
+        isWebsearchStreamingURL = true;
+        return;
+    }
+
+    // If the content is a URL and there is a space, the URL has ended
+    if (isWebsearchStreamingURL && content.includes(' ')) {
+        isWebsearchStreamingURL = false;
+    }
+
+    // If the content is not a URL, print the content
+    if (!isWebsearchStreamingURL) {
+        console.log("handleDeltaWebsearch: ", content);
+    }
+
+    // Check if websearch div already exists
+    let websearchDiv = document.querySelector('.websearch');
+
+    // If it doesn't exist, create it and add to content container
+    if (!websearchDiv) {
+        websearchDiv = document.createElement('div');
+        websearchDiv.classList.add('websearch');
+        contentContainer.appendChild(websearchDiv);
+    }
+
+    // Only add content if it's not a URL
+    if (!isWebsearchStreamingURL) {
+        // Create a span for the content
+        const contentSpan = document.createElement('span');
+        contentSpan.classList.add('websearch-content', 'light', 'no-opacity');
+        contentSpan.textContent = content;
+        
+        // Add the span to the websearch div
+        websearchDiv.appendChild(contentSpan);
+        
+        // Animate the span
+        setTimeout(() => {
+            contentSpan.classList.remove('no-opacity');
+        }, 10);
+        
+        setTimeout(() => {
+            contentSpan.classList.remove('light');
+        }, 50);
+    }
 }
+
+
+
+
+
 
 function startStreamingResponse() {
 
