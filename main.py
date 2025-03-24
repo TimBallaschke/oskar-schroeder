@@ -498,15 +498,10 @@ def content4():
     print("user_message")
     print(user_message)
     print("--------------------------------")
-    if 'messages_4' not in session:
-        session['messages_4'] = [prompts["SYSTEM_PROMPT_4"]]
-    
-    messages_4 = session['messages_4'] 
-    messages_4.append({"role": "user", "content": user_message})
+
+    session['messages_4'] = user_message
 
     session.modified = True             
-
-    stream4()
 
     return jsonify({"status": "ok"})  # Respond to confirm the message was received
 
@@ -523,7 +518,36 @@ def stream4():
                     "type": "web_search_preview",
                 }
             ],
-            input=messages_4,
+            input=[
+                {
+                    "role": "system",
+                    "content": [
+                        {
+                            "type": "input_text",
+                            "text": "You are a helpful assistant. The user will provide you with short terms, names, "
+                                    "or references — including people, places, events, organizations, or artistic concepts.\n\n"
+                                    "For each input, provide a clear, short and concise description (1–3 sentences) to help "
+                                    "the user understand what the term means or refers to.\n\n"
+                                    "Always use your web search tool to include up-to-date and relevant information, "
+                                    "especially for people, institutions, or events that may have recent developments.\n\n"
+                                    "Your explanations should be factual, accessible, and easy to understand for a "
+                                    "general audience. Avoid technical jargon unless it's essential.\n\n"
+                                    "IMPORTANT: Do not include citations, links, or source references in your response. "
+                                    "Do not use footnotes or annotations. Just provide the information directly.\n\n"
+                                    "IMPORTANT: The description should be short and concise. 3 sentences max."
+                        }
+                    ]
+                },
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "input_text",
+                            "text": messages_4
+                        }
+                    ]
+                }
+            ],
             stream=True,
         )
         for event in stream:
