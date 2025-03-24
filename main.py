@@ -103,8 +103,10 @@ def get_state(state_id):
 
 
 
-
+# ------------------------------------------------------------------------------------------------  
 # INITIALIZE FLASK APPLICATION AND OPENAI CLIENT
+# ------------------------------------------------------------------------------------------------  
+
 
 # Create Flask app instance with static file path
 # In Flask, an app instance is the main object created when initializing the application.
@@ -127,7 +129,12 @@ Session(app)  # Initialize the session with the app
 # Initialize OpenAI client
 client = OpenAI()
 
-#PYDANTIC MODELS
+
+
+
+# ------------------------------------------------------------------------------------------------  
+# PYDANTIC MODELS
+# ------------------------------------------------------------------------------------------------  
 
 # BaseComponent defines the shared structure for all components.
 # Individual Component Classes define specific types of UI components.
@@ -272,6 +279,8 @@ class Response_3(BaseModel):
 # ------------------------------------------------------------------------------------------------  
 # CHATBOT ROUTES
 # ------------------------------------------------------------------------------------------------
+# FIRST & SECOND CHATBOT
+# ------------------------------------------------------------------------------------------------
 
 # @app.route is provided by Flask and used to define a route;
 # '/': This string represents the URL path for the route;
@@ -287,6 +296,7 @@ def index():
     session['messages_1'] = [prompts["SYSTEM_PROMPT_1"]]
     session['messages_2'] = [prompts["SYSTEM_PROMPT_2"]]
     session['messages_3'] = [prompts["SYSTEM_PROMPT_3"]]
+    session['messages_4'] = [prompts["SYSTEM_PROMPT_4"]]  # Store in session instead of local variable
     # Render the main chat interface (render_template is a function in Flask that locates and loads an HTML File)
     return render_template('index.html')
 
@@ -299,7 +309,7 @@ def content():
     
     # Initialize message list if not in session
     if 'messages_1' not in session:
-        session['messages_1'] = [prompts["SYSTEM_PROMPT_1"]]
+        session['messages_1'] = [["SYSTEM_PROMPT_1"]]
 
     # Get current messages from session
     messages_1 = session['messages_1']
@@ -424,6 +434,10 @@ def handle_second_chatbot(final_completion):
         yield f"data: {json.dumps({'type': 'error', 'content': str(e)})}\n\n"
 
 
+# ------------------------------------------------------------------------------------------------
+# THIRD CHATBOT
+# ------------------------------------------------------------------------------------------------
+
 @app.route('/content3', methods=['POST'])
 def content3():
     user_message = request.json['message']
@@ -472,6 +486,49 @@ def stream3():
                     yield f"data: {json.dumps({'type': 'error', 'content': str(event.error)})}\n\n"
     
     return Response(stream_with_context(generate()), content_type="text/event-stream")
+
+# ------------------------------------------------------------------------------------------------  
+# WEBSEARCH ROUTES
+# ------------------------------------------------------------------------------------------------
+
+@app.route('/content4', methods=['POST'])
+def content4():
+    user_message = request.json['message']
+    
+    if 'messages_4' not in session:
+        session['messages_4'] = [prompts["SYSTEM_PROMPT_4"]]
+    
+    messages_4 = session['messages_4'] 
+
+    session.modified = True             
+    
+    return jsonify({"status": "ok"})  # Respond to confirm the message was received
+
+@app.route('/stream4')
+def stream4():
+    messages_4 = session.get('messages_4', [])
+
+    def generate():
+        stream = client.responses.create(
+            model="gpt-4o-mini",
+            tools=[
+                {
+                    "type": "web_search_preview",
+                }
+            ],
+            input=messages_4,
+            stream=True,
+        )
+        for event in stream:
+            if event.type == "response.output_text.delta":
+                yield f"data: {json.dumps({'type': 'delta', 'content': event.delta})}\n\n"
+                print(f"data: {json.dumps({'type': 'delta', 'content': event.delta})}\n\n")
+
+
+    return Response(stream_with_context(generate()), content_type="text/event-stream")
+
+
+
 
 
 # ------------------------------------------------------------------------------------------------  

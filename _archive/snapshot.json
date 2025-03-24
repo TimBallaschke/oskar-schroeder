@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250324e_Oskar_Website",
+  "original_folder": "250324f_Oskar_Website_implementing_websearch_first_steps",
   "snapshot_date_from_folder": "250324",
   "source_files": [
     {
@@ -33,23 +33,23 @@
     },
     {
       "path": "main.py",
-      "sha1": "c69f445dc42fc3ecf7108323a831cc9aa57e8a8f",
-      "sha256": "9382492871a4577fcfa66b8a3f327e5318de7f48d9dd31793513c6d4be8f4191",
-      "size": 21489,
+      "sha1": "0400d1ef76c60ce40c64295d31c2a3ffbe80206b",
+      "sha256": "dbd1de5fa46d6c7c45cb5bb062fca71e25e0cff03951d4be6830ee760d35088a",
+      "size": 23663,
       "mode": "100644"
     },
     {
       "path": "prompts.py",
-      "sha1": "d03d92882a8d248acf98c9b30fcdeb6680423c7a",
-      "sha256": "8b6cb3a140d5f0c4e6761f03ca553a3bf6c951ccf361ea3b96eb953a08038e84",
-      "size": 7263,
+      "sha1": "05c1cf6aadc9da4a98adc4e89003735fcbd6483c",
+      "sha256": "7f4963ab6779bb95db941c75d2c5bda868505616eb64b8ed8be567890b2ab0b3",
+      "size": 8190,
       "mode": "100644"
     },
     {
       "path": "websearch.py",
-      "sha1": "a96977f844689a9c24732e77ba02976fe2223919",
-      "sha256": "c3ba497e03cc952299a1bfc2ea3337b246237af1b5377dcaf78f46696862e3fd",
-      "size": 2358,
+      "sha1": "7a4d81ebf6506734cf8d0254c2848ef7476ebedf",
+      "sha256": "ee78b55e7e1afdb4b82362ad970e6687ca985c40cbfd8d1e9abfde391826cbe3",
+      "size": 2145,
       "mode": "100644"
     },
     {

@@ -32,15 +32,6 @@ stream = client.responses.create(
                         "Do not use footnotes or annotations. Just provide the information directly."
                 }
             ]
-        },
-        {
-            "role": "user",
-            "content": [
-                {
-                "type": "input_text",
-                "text": "Galerie Kruse, Flensburg"
-                }
-            ]
         }
     ],
     stream=True,
