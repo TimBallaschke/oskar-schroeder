@@ -494,20 +494,27 @@ def stream3():
 @app.route('/content4', methods=['POST'])
 def content4():
     user_message = request.json['message']
-    
+    print("--------------------------------")
+    print("user_message")
+    print(user_message)
+    print("--------------------------------")
     if 'messages_4' not in session:
         session['messages_4'] = [prompts["SYSTEM_PROMPT_4"]]
     
     messages_4 = session['messages_4'] 
+    messages_4.append({"role": "user", "content": user_message})
 
     session.modified = True             
-    
+
+    stream4()
+
     return jsonify({"status": "ok"})  # Respond to confirm the message was received
 
 @app.route('/stream4')
 def stream4():
+    print("stream4")
     messages_4 = session.get('messages_4', [])
-
+    
     def generate():
         stream = client.responses.create(
             model="gpt-4o-mini",
@@ -522,8 +529,8 @@ def stream4():
         for event in stream:
             if event.type == "response.output_text.delta":
                 yield f"data: {json.dumps({'type': 'delta', 'content': event.delta})}\n\n"
-                print(f"data: {json.dumps({'type': 'delta', 'content': event.delta})}\n\n")
-
+            elif event.type == "response.completed":
+                yield f"data: {json.dumps({'type': 'complete'})}\n\n"
 
     return Response(stream_with_context(generate()), content_type="text/event-stream")
 

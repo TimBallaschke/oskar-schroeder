@@ -328,17 +328,19 @@ function sendMessage() {
     } else {
         // Send message to backend (Flask server)
         // This is a post request that triggers the function in main.py
-        fetch('/content', {  // HTTP request to the '/content' endpoint of your server using the Fetch API
+        fetch('/content4', {  // HTTP request to the '/content' endpoint of your server using the Fetch API
             method: 'POST', // Specifies that this is a POST request, which is used to send data to the server
             headers: {
                 'Content-Type': 'application/json', // Specifies the type of content being sent
             },
             body: JSON.stringify({message: message}) // Converts the message to a JSON string and sends it as the body of the request
-        }).then(response => response.json()) // Waits for the response from the server and converts it to a JSON object
+        })
+        .then(response => response.json()) // Waits for the response from the server and converts it to a JSON object
         .then(data => { // waits for the response to be converted to a JSON object
             if (data.status === "ok") { // checks if the status of the response is "ok"
                 responseCount++;
-                startStreamingResponse(); // starts the streaming response
+                // startStreamingResponse(); // starts the streaming response
+                startStreamingWebsearch();
                 addNewVersionHistoryElement()
             }        
         }).catch(error => { // handles any errors that occur during the request
@@ -350,6 +352,47 @@ function sendMessage() {
             clearContentContainer(false);  // Clear the UI content
         }
     }
+}
+
+function startStreamingWebsearch() {
+    console.log("startStreamingWebsearch");
+
+    // Close any existing EventSource connection
+    if (activeEventSource) {
+        activeEventSource.close();
+        console.log("Closed previous activeEventSource connection.");
+    }
+
+    activeEventSource = new EventSource("/stream4"); // creates a new EventSource connection to the "/stream" endpoint. activeEventSource is used for Server-Sent Events (SSE), allowing the server to push data to the client in real-time over a single, long-lived connection
+
+    activeEventSource.onmessage = function(event) { // eventhandler that will be called whenever a message is received from the server
+        const data = JSON.parse(event.data); // parsed the received message data from JSON string format to a JavaScript object
+
+        switch(data.type) { // switch statement to handle different types of messages (switch statement is used to handle different cases based on the value of a variable -> alternative to if-else statements)
+            case 'delta': // if the message type is 'delta', it calls the handleDelta function
+                handleDeltaWebsearch(data.content);
+                break;
+            case 'complete': // if the message type is 'complete', it calls the handleComplete function
+                activeEventSource.close();
+                activeEventSource = null;
+                break;
+            case "error": // if the message type is 'error', it logs the error to the console and closes the event source
+                console.error("Error:", data.content);
+                activeEventSource.close();
+                activeEventSource = null;
+                break;
+        }
+    };
+
+    activeEventSource.onerror = function (error) { // eventhandler that will be called if an error occurs with the event source
+        console.error("activeEventSource failed:", error);
+        activeEventSource.close();
+        activeEventSource = null;
+    };
+}
+
+function handleDeltaWebsearch(content) {
+    console.log("handleDeltaWebsearch: ", content);
 }
 
 function startStreamingResponse() {
