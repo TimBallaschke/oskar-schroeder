@@ -117,9 +117,26 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
 }
 
 function activateTermDescription() {
-    const termDescriptionElements = document.querySelectorAll('.term-description');
-    termDescriptionElements.forEach(termDescriptionElement => {
-        termDescriptionElement.classList.add('animation');
+    const terms = document.querySelectorAll('.term');
+
+    terms.forEach(term => {
+        let termForWebsearch = '';
+        term.addEventListener('click', () => {
+            const termWords = term.querySelectorAll('.paragraph-word');
+                        
+            // Combine all term words into termForWebsearch
+            termWords.forEach(word => {
+                // Add the word text to termForWebsearch
+                // If it's not the first word, add a space before it
+                if (termForWebsearch !== '') {
+                    termForWebsearch += ' ';
+                }
+                termForWebsearch += word.textContent;
+            });
+            
+            console.log('Term for websearch:', termForWebsearch);
+            requestWebsearch(termForWebsearch);
+        });
     });
 }
 
@@ -145,7 +162,11 @@ let reworkRenderingQueue = [];  // Add this with other global variables
 let isReworkProcessing = false; // Add this with other global variables
 let reworkComplete = false;
 let isStreaming = false;
+
 let isWebsearchStreamingURL = false;
+let websearchBuffer = '';
+let websearchWordQueue = [];
+let isProcessingWebsearchWords = false;
 
 const userInput = document.getElementById('user-input');
 
@@ -329,7 +350,7 @@ function sendMessage() {
     } else {
         // Send message to backend (Flask server)
         // This is a post request that triggers the function in main.py
-        fetch('/content4', {  // HTTP request to the '/content' endpoint of your server using the Fetch API
+        fetch('/content', {  // HTTP request to the '/content' endpoint of your server using the Fetch API
             method: 'POST', // Specifies that this is a POST request, which is used to send data to the server
             headers: {
                 'Content-Type': 'application/json', // Specifies the type of content being sent
@@ -340,8 +361,7 @@ function sendMessage() {
         .then(data => { // waits for the response to be converted to a JSON object
             if (data.status === "ok") { // checks if the status of the response is "ok"
                 responseCount++;
-                // startStreamingResponse(); // starts the streaming response
-                startStreamingWebsearch();
+                startStreamingResponse(); // starts the streaming response
                 addNewVersionHistoryElement()
             }        
         }).catch(error => { // handles any errors that occur during the request
@@ -354,108 +374,6 @@ function sendMessage() {
         }
     }
 }
-
-// --------------------------------------------------------------------------------------------
-// WEBSEARCH
-// --------------------------------------------------------------------------------------------
-
-function startStreamingWebsearch() {
-    console.log("startStreamingWebsearch");
-
-    // Close any existing EventSource connection
-    if (activeEventSource) {
-        activeEventSource.close();
-        console.log("Closed previous activeEventSource connection.");
-    }
-
-    activeEventSource = new EventSource("/stream4"); // creates a new EventSource connection to the "/stream" endpoint. activeEventSource is used for Server-Sent Events (SSE), allowing the server to push data to the client in real-time over a single, long-lived connection
-
-    activeEventSource.onmessage = function(event) { // eventhandler that will be called whenever a message is received from the server
-        const data = JSON.parse(event.data); // parsed the received message data from JSON string format to a JavaScript object
-
-        switch(data.type) { // switch statement to handle different types of messages (switch statement is used to handle different cases based on the value of a variable -> alternative to if-else statements)
-            case 'delta': // if the message type is 'delta', it calls the handleDelta function
-                handleDeltaWebsearch(data.content);
-                break;
-            case 'complete': // if the message type is 'complete', it calls the handleComplete function
-                activeEventSource.close();
-                activeEventSource = null;
-                break;
-            case "error": // if the message type is 'error', it logs the error to the console and closes the event source
-                console.error("Error:", data.content);
-                activeEventSource.close();
-                activeEventSource = null;
-                break;
-        }
-    };
-
-    activeEventSource.onerror = function (error) { // eventhandler that will be called if an error occurs with the event source
-        console.error("activeEventSource failed:", error);
-        activeEventSource.close();
-        activeEventSource = null;
-    };
-}
-
-function handleDeltaWebsearch(content) {
-
-    // Exclude URLs from the content
-    if (content.includes('http://') || 
-        content.includes('https://') || 
-        content.includes('www.') ||
-        content.includes('.com') ||
-        content.includes('.org') ||
-        content.includes('.net') ||
-        content.includes('](http') ||
-        content.includes('](##') ||
-        content.trim().startsWith('(http')) {
-        console.log("URL detected: ", content);
-        isWebsearchStreamingURL = true;
-        return;
-    }
-
-    // If the content is a URL and there is a space, the URL has ended
-    if (isWebsearchStreamingURL && content.includes(' ')) {
-        isWebsearchStreamingURL = false;
-    }
-
-    // If the content is not a URL, print the content
-    if (!isWebsearchStreamingURL) {
-        console.log("handleDeltaWebsearch: ", content);
-    }
-
-    // Check if websearch div already exists
-    let websearchDiv = document.querySelector('.websearch');
-
-    // If it doesn't exist, create it and add to content container
-    if (!websearchDiv) {
-        websearchDiv = document.createElement('div');
-        websearchDiv.classList.add('websearch');
-        contentContainer.appendChild(websearchDiv);
-    }
-
-    // Only add content if it's not a URL
-    if (!isWebsearchStreamingURL) {
-        // Create a span for the content
-        const contentSpan = document.createElement('span');
-        contentSpan.classList.add('websearch-content', 'light', 'no-opacity');
-        contentSpan.textContent = content;
-        
-        // Add the span to the websearch div
-        websearchDiv.appendChild(contentSpan);
-        
-        // Animate the span
-        setTimeout(() => {
-            contentSpan.classList.remove('no-opacity');
-        }, 10);
-        
-        setTimeout(() => {
-            contentSpan.classList.remove('light');
-        }, 50);
-    }
-}
-
-
-
 
 
 
@@ -779,7 +697,6 @@ async function handleDelta(content) {
                                                     }
 
                                                     const lightWidth = wordSpan.getBoundingClientRect().width;
-                                                    console.log('lightWidth', lightWidth);
                                                     wordSpan.style.display = 'inline-block';
                                                     wordSpan.style.width = `${lightWidth}px`;
 
@@ -788,11 +705,6 @@ async function handleDelta(content) {
                                                     setTimeout(() => {
                                                         wordSpan.classList.remove('light');
                                                     }, 10);
-
-                                                    // setTimeout(() => {
-                                                    //     const heavyWidth = wordSpan.getBoundingClientRect().width;
-                                                    //     console.log('heavyWidth', heavyWidth);
-                                                    // }, 4000);
                                                     
                                                     wordIndex++;
                                                     // Add small delay between words
@@ -807,10 +719,6 @@ async function handleDelta(content) {
                                                         setTimeout(() => {
                                                             termDescriptionSpan.classList.remove('small');
                                                         }, 10);
-
-                                                        // setTimeout(() => {
-                                                        //     termDescriptionSpan.classList.add('animation');
-                                                        // }, 200);
                                                     }
 
                                                     partIndex++;
@@ -2917,6 +2825,202 @@ function togglePromptProposals() {
             bottomNavigation.classList.remove('prompt-proposal-opening-1');
             }, animationDuration);
     }
+}
+
+
+
+
+// --------------------------------------------------------------------------------------------
+// WEBSEARCH
+// --------------------------------------------------------------------------------------------
+
+function requestWebsearch(term) {
+    
+    const message = term;
+    if (message === '') return;  // Don't send empty messages
+
+    // isStreaming = true;
+    // document.body.classList.add('streaming');
+
+    isWebsearchStreamingURL = false;
+    websearchBuffer = '';
+    websearchWordQueue = [];
+    isProcessingWebsearchWords = false;
+
+    // Send message to backend (Flask server)
+    // This is a post request that triggers the function in main.py
+    fetch('/content4', {  // HTTP request to the '/content' endpoint of your server using the Fetch API
+        method: 'POST', // Specifies that this is a POST request, which is used to send data to the server
+        headers: {
+            'Content-Type': 'application/json', // Specifies the type of content being sent
+        },
+        body: JSON.stringify({message: message}) // Converts the message to a JSON string and sends it as the body of the request
+    })
+    .then(response => response.json()) // Waits for the response from the server and converts it to a JSON object
+    .then(data => { // waits for the response to be converted to a JSON object
+        if (data.status === "ok") { // checks if the status of the response is "ok"
+            startStreamingWebsearch(); // starts the streaming response
+        }        
+    }).catch(error => { // handles any errors that occur during the request
+        console.error('Error sending message:', error); // logs the error to the console
+    });
+}
+
+function startStreamingWebsearch() {
+    console.log("startStreamingWebsearch");
+
+    // Close any existing EventSource connection
+    if (activeEventSource) {
+        activeEventSource.close();
+        console.log("Closed previous activeEventSource connection.");
+    }
+
+    activeEventSource = new EventSource("/stream4"); // creates a new EventSource connection to the "/stream" endpoint. activeEventSource is used for Server-Sent Events (SSE), allowing the server to push data to the client in real-time over a single, long-lived connection
+
+    activeEventSource.onmessage = function(event) { // eventhandler that will be called whenever a message is received from the server
+        const data = JSON.parse(event.data); // parsed the received message data from JSON string format to a JavaScript object
+
+        switch(data.type) { // switch statement to handle different types of messages (switch statement is used to handle different cases based on the value of a variable -> alternative to if-else statements)
+            case 'delta': // if the message type is 'delta', it calls the handleDelta function
+                handleDeltaWebsearch(data.content);
+                break;
+            case 'complete': // if the message type is 'complete', it calls the handleComplete function
+                finalizeWebsearch(); // ensure the last word of the websearch is processed
+                activeEventSource.close();
+                activeEventSource = null;
+                break;
+            case "error": // if the message type is 'error', it logs the error to the console and closes the event source
+                console.error("Error:", data.content);
+                activeEventSource.close();
+                activeEventSource = null;
+                break;
+        }
+    };
+
+    activeEventSource.onerror = function (error) { // eventhandler that will be called if an error occurs with the event source
+        console.error("activeEventSource failed:", error);
+        activeEventSource.close();
+        activeEventSource = null;
+    };
+}
+
+function handleDeltaWebsearch(content) {
+
+    console.log("Websearch Word Queue call on Delta: ", websearchWordQueue);
+
+    // Exclude URLs from the content
+    if (content.includes('http://') || 
+        content.includes('https://') || 
+        content.includes('www.') ||
+        content.includes('.com') ||
+        content.includes('.org') ||
+        content.includes('.net') ||
+        content.includes('](http') ||
+        content.includes('](##') ||
+        content.trim().startsWith('(http')) {
+        console.log("URL detected: ", content);
+        isWebsearchStreamingURL = true;
+        return;
+    }
+
+    // If the content is a URL and there is a space, the URL has ended
+    if (isWebsearchStreamingURL && content.includes(' ')) {
+        isWebsearchStreamingURL = false;
+    }
+
+    // If the content is not a URL, print the content
+    if (!isWebsearchStreamingURL) {
+        // console.log("handleDeltaWebsearch: ", content);
+    }
+
+    // Check if websearch div already exists
+    let websearchDiv = document.querySelector('.websearch');
+
+    // If it doesn't exist, create it and add to content container
+    if (!websearchDiv) {
+        websearchDiv = document.createElement('div');
+        websearchDiv.classList.add('websearch');
+        contentContainer.appendChild(websearchDiv);
+    }
+
+    if (!isWebsearchStreamingURL) {
+
+        websearchBuffer += content;
+
+        // Check if we have complete words (separated by spaces)
+        if (websearchBuffer.includes(' ')) {
+            // Split by space, keeping the last part (which might be incomplete)
+            const parts = websearchBuffer.split(' ');
+            const lastPart = parts.pop(); // Pop() removes the last element from an array and returns that element
+            
+            // Add complete words to the queue
+            websearchWordQueue.push(...parts.filter(word => word.trim() !== '')); // ... is the spread operator, it spreads the elements of the array into individual elements (otherwise it would be added as one array)
+            
+            // Keep the last part in the buffer (it might be incomplete)
+            websearchBuffer = lastPart;
+            
+            // Start processing the queue if not already processing
+            if (!isProcessingWebsearchWords) {
+                processNextWebsearchWord(websearchDiv);
+            }
+        }
+    }
+}
+
+function finalizeWebsearch() {
+    console.log("finalizeWebsearch");
+    // Process any remaining content in the buffer
+    if (websearchBuffer.trim() !== '') {
+        let websearchDiv = document.querySelector('.websearch');
+        if (websearchDiv) {
+            websearchWordQueue.push(websearchBuffer.trim());
+
+            console.log("Websearch Word Queue: ", websearchWordQueue);
+
+            websearchBuffer = '';
+   
+            if (!isProcessingWebsearchWords) {
+                processNextWebsearchWord(websearchDiv);
+            }
+        }
+    }
+}
+
+function processNextWebsearchWord(websearchDiv) {
+    if (websearchWordQueue.length === 0) {
+        isProcessingWebsearchWords = false;
+        return;
+    }
+    
+    isProcessingWebsearchWords = true;
+    const word = websearchWordQueue.shift();
+    
+    // Create a span for the word
+    const wordSpan = document.createElement('span');
+    wordSpan.classList.add('websearch-content', 'light', 'no-opacity');
+    wordSpan.textContent = word;
+    
+    // Add space before word if not the first word
+    if (websearchDiv.childNodes.length > 0) {
+        websearchDiv.appendChild(document.createTextNode(' '));
+    }
+    
+    // Add the span to the websearch div
+    websearchDiv.appendChild(wordSpan);
+    
+    // Animate the span
+    setTimeout(() => {
+        wordSpan.classList.remove('no-opacity');
+    }, 10);
+    
+    setTimeout(() => {
+        wordSpan.classList.remove('light');
+    }, 50);
+    
+    // Process the next word after delay
+    setTimeout(() => {
+        processNextWebsearchWord(websearchDiv);
+    }, 50);
 }
 
 
