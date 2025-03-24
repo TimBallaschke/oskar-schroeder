@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "original_folder": "250320d_Oskar_Website_remove_italic_if_version_history",
-  "snapshot_date_from_folder": "250320",
+  "original_folder": "250324_Oskar_Website_websearch_respones_API_first_steps",
+  "snapshot_date_from_folder": "250324",
   "source_files": [
     {
       "path": ".cursorignore",
@@ -43,6 +43,13 @@
       "sha1": "d03d92882a8d248acf98c9b30fcdeb6680423c7a",
       "sha256": "8b6cb3a140d5f0c4e6761f03ca553a3bf6c951ccf361ea3b96eb953a08038e84",
       "size": 7263,
+      "mode": "100644"
+    },
+    {
+      "path": "websearch.py",
+      "sha1": "e2e957f5d58a87b848cbba2076bf5f1c9355c376",
+      "sha256": "b3ac5c59507db2715bb66369f5d4233139d1aefc89ea83ecd1d6dd94f0612f35",
+      "size": 965,
       "mode": "100644"
     },
     {
@@ -124,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "b98b0d633f96edb68adfaa7f95e3b5ddf27491af",
-      "sha256": "ec6693ec7bb86c1493c903de8f8b6a9e3d36b1af1d936abe00d6f7323e190b7b",
-      "size": 145792,
+      "sha1": "e29621fa0e04d795cf1ec3c90820f8ac6f79c784",
+      "sha256": "c2b462c0b97eb2880093812393f8b3ab43d52f7b3c38c4d91bdb7905787f23de",
+      "size": 145775,
       "mode": "100644"
     },
     {

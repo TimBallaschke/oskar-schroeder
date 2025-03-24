@@ -434,7 +434,7 @@ function clearContentContainer(isVersionHistory) {
                 if (element.classList.contains('italic')) {
                     element.classList.remove('italic');
                 }
-                
+
             }, 10);
         }
     });
@@ -999,7 +999,7 @@ async function handleDelta(content) {
 
                                                         wordIndex++;
                                                         // Add small delay between words
-                                                        setTimeout(addNextWord, 100);
+                                                        setTimeout(addNextWord, 50);
                                                     } else {
                                                         resolve();
                                                     }    
