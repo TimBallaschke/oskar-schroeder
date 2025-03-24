@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250324_Oskar_Website_websearch_respones_API_first_steps",
+  "original_folder": "250324b_Oskar_Website_websearch_no_streaming",
   "snapshot_date_from_folder": "250324",
   "source_files": [
     {
@@ -47,9 +47,9 @@
     },
     {
       "path": "websearch.py",
-      "sha1": "e2e957f5d58a87b848cbba2076bf5f1c9355c376",
-      "sha256": "b3ac5c59507db2715bb66369f5d4233139d1aefc89ea83ecd1d6dd94f0612f35",
-      "size": 965,
+      "sha1": "dd4f50978102d343cf8a8d508ff27a3e0d32784c",
+      "sha256": "d9dc9f067040c0583ac854536ee2d88cd851581a1fbc1b263508e767cd5b3218",
+      "size": 1385,
       "mode": "100644"
     },
     {

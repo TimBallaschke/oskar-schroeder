@@ -24,12 +24,12 @@ client = OpenAI()
 
 stream = client.responses.create(
     model="gpt-4o",
-    input=[
+    tools=[
         {
-            "role": "user",
-            "content": "How big is Hamburg?",
-        },
+            "type": "web_search_preview",
+        }
     ],
+    input="what are the best chinese restaurants in Hamburg?",
     stream=True,
 )
 
@@ -37,4 +37,8 @@ for event in stream:
     if event.type == "response.output_text.delta":
         print("----------------------------------------------------------------------------------")
         print(event.delta)  # ← This is the generated text chunk
-    # print(event)
+    elif event.type == "response.completed":
+        print("----------------------------------------------------------------------------------")
+        print("----------------------------------------------------------------------------------")
+        print("----------------------------------------------------------------------------------")
+        print(event.response.output[0].content[0].annotations)
