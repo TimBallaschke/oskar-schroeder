@@ -247,6 +247,7 @@ p {
   height: 15px;
   position: relative;
   display: inline-block;
+  color: rgb(147, 147, 147);
 }
 .term-description::before {
   content: "";
@@ -269,6 +270,17 @@ p {
 }
 .term-description.animation::before {
   animation: pulse 2s infinite ease-in-out;
+}
+.term-description.display-inline {
+  display: inline;
+}
+
+.websearch {
+  font-size: var(--primary-font-size);
+}
+
+.websearch-content {
+  transition: font-variation-settings var(--animation-duration-2) ease-in-out;
 }
 
 @keyframes pulse {
@@ -810,14 +822,6 @@ p {
 }
 .item-word.animation-settings {
   transition: all var(--animation-duration-2) ease-in-out;
-}
-
-.websearch {
-  font-size: var(--primary-font-size);
-}
-
-.websearch-content {
-  transition: font-variation-settings var(--animation-duration-2) ease-in-out;
 }
 
 #bottom-navigation {

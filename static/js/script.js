@@ -2921,8 +2921,8 @@ function handleDeltaWebsearch(content) {
             contentContainer.appendChild(websearchDescriptionContainer);
         }
     } else {
-        currentWebsearchTerm.style.display = 'inline';
         websearchDescriptionContainer = currentWebsearchTerm.querySelector('.term-description');
+        websearchDescriptionContainer.classList.add('display-inline');
     }
 
 
@@ -2944,7 +2944,7 @@ function handleDeltaWebsearch(content) {
             
             // Start processing the queue if not already processing
             if (!isProcessingWebsearchWords) {
-                processNextWebsearchWord(websearchDescriptionContainer);
+                // processNextWebsearchWord(websearchDescriptionContainer);
             }
         }
     }
@@ -2984,7 +2984,7 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
     // Process the next word after delay
     setTimeout(() => {
         processNextWebsearchWord(websearchDescriptionContainer);
-    }, 50);
+    }, 100);
 }
 
 function finalizeWebsearch() {
@@ -3009,7 +3009,7 @@ function finalizeWebsearch() {
             websearchBuffer = '';
    
             if (!isProcessingWebsearchWords) {
-                processNextWebsearchWord(websearchDiv);
+                processNextWebsearchWord(websearchDescriptionContainer);
             }
         }
     }

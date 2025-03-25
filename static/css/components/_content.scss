@@ -88,6 +88,19 @@
             animation: pulse 2s infinite ease-in-out;
         }
     }
+
+    &.display-inline {
+        display: inline;
+    }
+}
+
+.websearch {
+    @include primary-type;
+}
+
+.websearch-content {
+    display: inline-block
+    transition: font-variation-settings var(--animation-duration-2) ease-in-out;
 }
 
 @keyframes pulse {
@@ -738,13 +751,6 @@
 
 // Websearch
 
-.websearch {
-    @include primary-type;
-}
-
-.websearch-content {
-    transition: font-variation-settings var(--animation-duration-2) ease-in-out;
-}
 
 
 
