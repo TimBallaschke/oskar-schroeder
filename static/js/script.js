@@ -2944,7 +2944,7 @@ function handleDeltaWebsearch(content) {
             
             // Start processing the queue if not already processing
             if (!isProcessingWebsearchWords) {
-                // processNextWebsearchWord(websearchDescriptionContainer);
+                processNextWebsearchWord(websearchDescriptionContainer);
             }
         }
     }
@@ -2961,21 +2961,22 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
 
     // Create a span for the word
     const wordSpan = document.createElement('span');
-    wordSpan.classList.add('websearch-content', 'light', 'no-opacity');
+    wordSpan.classList.add('websearch-content', 'light');
     wordSpan.textContent = word;
     
     // Add space before word if not the first word
     if (websearchDescriptionContainer.childNodes.length > 0) {
         websearchDescriptionContainer.appendChild(document.createTextNode(' '));
+        websearchDescriptionContainer.classList.add('padding-right');
     }
     
     // Add the span to the websearch div
     websearchDescriptionContainer.appendChild(wordSpan);
     
     // Animate the span
-    setTimeout(() => {
-        wordSpan.classList.remove('no-opacity');
-    }, 10);
+    // setTimeout(() => {
+    //     wordSpan.classList.remove('no-opacity');
+    // }, 10);
     
     setTimeout(() => {
         wordSpan.classList.remove('light');
@@ -3023,22 +3024,65 @@ function activateTermDescription() {
         let termForWebsearch = '';
         term.addEventListener('click', () => {
             currentWebsearchTerm = term;
-            const termWords = term.querySelectorAll('.paragraph-word');
+
+            if (!term.classList.contains('active')) {
+                term.classList.add('active');
+
+                const termWords = term.querySelectorAll('.paragraph-word');
                         
-            // Combine all term words into termForWebsearch
-            termWords.forEach(word => {
-                // Add the word text to termForWebsearch
-                // If it's not the first word, add a space before it
-                if (termForWebsearch !== '') {
-                    termForWebsearch += ' ';
-                }
-                termForWebsearch += word.textContent;
-            });
-            
-            console.log('Term for websearch:', termForWebsearch);
-            requestWebsearch(termForWebsearch);
+                // Combine all term words into termForWebsearch
+                termWords.forEach(word => {
+                    // Add the word text to termForWebsearch
+                    // If it's not the first word, add a space before it
+                    if (termForWebsearch !== '') {
+                        termForWebsearch += ' ';
+                    }
+                    termForWebsearch += word.textContent;
+                });
+                
+                console.log('Term for websearch:', termForWebsearch);
+                requestWebsearch(termForWebsearch);
+            } else {
+                term.classList.remove('active');
+                closeWebsearchDescription();
+            }
         });
     });
+}
+
+function closeWebsearchDescription() {
+    console.log("closeWebsearchDescription");
+
+    if (window.innerWidth <= mobileWidth) {
+
+        const termDescription = currentWebsearchTerm.querySelector('.term-description');
+
+        termDescription.querySelectorAll('*').forEach(element => {
+            // Check if this is a leaf node (no element children)
+            const hasElementChildren = Array.from(element.children).length > 0;
+    
+            if (!hasElementChildren && 
+                (element.tagName.toLowerCase() === 'span' || 
+                    element.tagName.toLowerCase() === 'div' || 
+                    element.tagName.toLowerCase() === 'p')) {
+    
+                element.classList.add('animation-settings');
+
+                setTimeout(() => {
+                    element.classList.add('light');
+                }, 10);
+
+                setTimeout(() => {
+                    element.classList.add('no-opacity');
+                }, 300);
+            }
+        });
+
+        setTimeout(() => {
+            termDescription.innerHTML = '';;
+        }, 800);
+
+    }
 }
 
 
