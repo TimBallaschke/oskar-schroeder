@@ -2944,7 +2944,7 @@ function handleDeltaWebsearch(content) {
             
             // Start processing the queue if not already processing
             if (!isProcessingWebsearchWords) {
-                // processNextWebsearchWord(websearchDescriptionContainer);
+                processNextWebsearchWord(websearchDescriptionContainer);
             }
         }
     }
@@ -2958,24 +2958,25 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
     
     isProcessingWebsearchWords = true;
     const word = websearchWordQueue.shift();
-    
+
     // Create a span for the word
     const wordSpan = document.createElement('span');
-    wordSpan.classList.add('websearch-content', 'light', 'no-opacity');
+    wordSpan.classList.add('websearch-content', 'light');
     wordSpan.textContent = word;
     
     // Add space before word if not the first word
     if (websearchDescriptionContainer.childNodes.length > 0) {
         websearchDescriptionContainer.appendChild(document.createTextNode(' '));
+        websearchDescriptionContainer.classList.add('padding-right');
     }
     
     // Add the span to the websearch div
     websearchDescriptionContainer.appendChild(wordSpan);
     
     // Animate the span
-    setTimeout(() => {
-        wordSpan.classList.remove('no-opacity');
-    }, 10);
+    // setTimeout(() => {
+    //     wordSpan.classList.remove('no-opacity');
+    // }, 10);
     
     setTimeout(() => {
         wordSpan.classList.remove('light');
