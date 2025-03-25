@@ -2959,16 +2959,6 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
     isProcessingWebsearchWords = true;
     const word = websearchWordQueue.shift();
 
-    // Create a temporary span for measurement of the natural width of the word
-    const tempSpan = document.createElement('span');
-    tempSpan.classList.add('websearch-content', 'light');
-    tempSpan.textContent = word;
-    tempSpan.style.visibility = 'hidden';
-    tempSpan.style.position = 'absolute';
-    websearchDescriptionContainer.appendChild(tempSpan);
-    const spanWidth = tempSpan.offsetWidth;
-    websearchDescriptionContainer.removeChild(tempSpan);
-    
     // Create a span for the word
     const wordSpan = document.createElement('span');
     wordSpan.classList.add('websearch-content', 'light', 'no-opacity');
@@ -2980,23 +2970,16 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
     }
     
     // Add the span to the websearch div
-    wordSpan.style.width = '0px';
     websearchDescriptionContainer.appendChild(wordSpan);
-
-
-    setTimeout(() => {
-        wordSpan.style.width = `${spanWidth}px`;
-    }, 10);
-
-
-
+    
+    // Animate the span
     setTimeout(() => {
         wordSpan.classList.remove('no-opacity');
-    }, 100);
+    }, 10);
     
     setTimeout(() => {
         wordSpan.classList.remove('light');
-    }, 200);
+    }, 50);
     
     // Process the next word after delay
     setTimeout(() => {

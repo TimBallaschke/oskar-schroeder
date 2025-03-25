@@ -247,7 +247,7 @@ p {
   height: 15px;
   position: relative;
   display: inline-block;
-  color: rgb(147, 147, 147);
+  color: rgb(153, 153, 156);
 }
 .term-description::before {
   content: "";
@@ -281,7 +281,7 @@ p {
 
 .websearch-content {
   display: inline-block;
-  transition: width var(--animation-duration-2) ease-in-out, font-variation-settings var(--animation-duration-2) ease-in-out;
+  transition: font-variation-settings var(--animation-duration-2) ease-in-out;
 }
 
 @keyframes pulse {
