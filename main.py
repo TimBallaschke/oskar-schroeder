@@ -494,10 +494,6 @@ def stream3():
 @app.route('/content4', methods=['POST'])
 def content4():
     user_message = request.json['message']
-    print("--------------------------------")
-    print("user_message")
-    print(user_message)
-    print("--------------------------------")
 
     session['messages_4'] = user_message
 

@@ -116,29 +116,7 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
     });
 }
 
-function activateTermDescription() {
-    const terms = document.querySelectorAll('.term');
 
-    terms.forEach(term => {
-        let termForWebsearch = '';
-        term.addEventListener('click', () => {
-            const termWords = term.querySelectorAll('.paragraph-word');
-                        
-            // Combine all term words into termForWebsearch
-            termWords.forEach(word => {
-                // Add the word text to termForWebsearch
-                // If it's not the first word, add a space before it
-                if (termForWebsearch !== '') {
-                    termForWebsearch += ' ';
-                }
-                termForWebsearch += word.textContent;
-            });
-            
-            console.log('Term for websearch:', termForWebsearch);
-            requestWebsearch(termForWebsearch);
-        });
-    });
-}
 
 
 // --------------------------------------------------------------------------------------------
@@ -167,6 +145,7 @@ let isWebsearchStreamingURL = false;
 let websearchBuffer = '';
 let websearchWordQueue = [];
 let isProcessingWebsearchWords = false;
+let currentWebsearchTerm = null;
 
 const userInput = document.getElementById('user-input');
 
@@ -664,6 +643,8 @@ async function handleDelta(content) {
                                             if (isItalic) {
                                                 italicSpan = document.createElement('span');
                                                 italicSpan.classList.add('term');
+                                                const existingTerms = document.querySelectorAll('.term').length;
+                                                italicSpan.setAttribute('data-term-index', existingTerms);
                                                 paragraphContainer.appendChild(italicSpan);
                                             }
                                             
@@ -2928,20 +2909,22 @@ function handleDeltaWebsearch(content) {
         isWebsearchStreamingURL = false;
     }
 
-    // If the content is not a URL, print the content
-    if (!isWebsearchStreamingURL) {
-        // console.log("handleDeltaWebsearch: ", content);
+    // Get the appropriate container based on screen width
+    let websearchDescriptionContainer;
+    if (window.innerWidth > mobileWidth) {
+        const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
+        websearchDescriptionContainer = document.querySelector(`.term-description-desktop-${termIndex}`);
+
+        if (!websearchDescriptionContainer) {
+            websearchDescriptionContainer = document.createElement('div');
+            websearchDescriptionContainer.classList.add(`term-description-desktop-${termIndex}`);
+            contentContainer.appendChild(websearchDescriptionContainer);
+        }
+    } else {
+        currentWebsearchTerm.style.display = 'inline';
+        websearchDescriptionContainer = currentWebsearchTerm.querySelector('.term-description');
     }
 
-    // Check if websearch div already exists
-    let websearchDiv = document.querySelector('.websearch');
-
-    // If it doesn't exist, create it and add to content container
-    if (!websearchDiv) {
-        websearchDiv = document.createElement('div');
-        websearchDiv.classList.add('websearch');
-        contentContainer.appendChild(websearchDiv);
-    }
 
     if (!isWebsearchStreamingURL) {
 
@@ -2961,32 +2944,13 @@ function handleDeltaWebsearch(content) {
             
             // Start processing the queue if not already processing
             if (!isProcessingWebsearchWords) {
-                processNextWebsearchWord(websearchDiv);
+                processNextWebsearchWord(websearchDescriptionContainer);
             }
         }
     }
 }
 
-function finalizeWebsearch() {
-    console.log("finalizeWebsearch");
-    // Process any remaining content in the buffer
-    if (websearchBuffer.trim() !== '') {
-        let websearchDiv = document.querySelector('.websearch');
-        if (websearchDiv) {
-            websearchWordQueue.push(websearchBuffer.trim());
-
-            console.log("Websearch Word Queue: ", websearchWordQueue);
-
-            websearchBuffer = '';
-   
-            if (!isProcessingWebsearchWords) {
-                processNextWebsearchWord(websearchDiv);
-            }
-        }
-    }
-}
-
-function processNextWebsearchWord(websearchDiv) {
+function processNextWebsearchWord(websearchDescriptionContainer) {
     if (websearchWordQueue.length === 0) {
         isProcessingWebsearchWords = false;
         return;
@@ -3001,12 +2965,12 @@ function processNextWebsearchWord(websearchDiv) {
     wordSpan.textContent = word;
     
     // Add space before word if not the first word
-    if (websearchDiv.childNodes.length > 0) {
-        websearchDiv.appendChild(document.createTextNode(' '));
+    if (websearchDescriptionContainer.childNodes.length > 0) {
+        websearchDescriptionContainer.appendChild(document.createTextNode(' '));
     }
     
     // Add the span to the websearch div
-    websearchDiv.appendChild(wordSpan);
+    websearchDescriptionContainer.appendChild(wordSpan);
     
     // Animate the span
     setTimeout(() => {
@@ -3019,8 +2983,62 @@ function processNextWebsearchWord(websearchDiv) {
     
     // Process the next word after delay
     setTimeout(() => {
-        processNextWebsearchWord(websearchDiv);
+        processNextWebsearchWord(websearchDescriptionContainer);
     }, 50);
+}
+
+function finalizeWebsearch() {
+    console.log("finalizeWebsearch");
+        // Process any remaining content in the buffer
+    if (websearchBuffer.trim() !== '') {
+
+        let websearchDescriptionContainer;
+
+        if (window.innerWidth > mobileWidth) {
+            const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
+            websearchDescriptionContainer = document.querySelector(`.term-description-desktop-${termIndex}`);
+        } else {
+            websearchDescriptionContainer = currentWebsearchTerm.querySelector('.term-description');
+        }
+
+        if (websearchDescriptionContainer) {
+            websearchWordQueue.push(websearchBuffer.trim());
+
+            console.log("Websearch Word Queue: ", websearchWordQueue);
+
+            websearchBuffer = '';
+   
+            if (!isProcessingWebsearchWords) {
+                processNextWebsearchWord(websearchDiv);
+            }
+        }
+    }
+}
+
+
+function activateTermDescription() {
+    const terms = document.querySelectorAll('.term');
+
+    terms.forEach(term => {
+        let termForWebsearch = '';
+        term.addEventListener('click', () => {
+            currentWebsearchTerm = term;
+            const termWords = term.querySelectorAll('.paragraph-word');
+                        
+            // Combine all term words into termForWebsearch
+            termWords.forEach(word => {
+                // Add the word text to termForWebsearch
+                // If it's not the first word, add a space before it
+                if (termForWebsearch !== '') {
+                    termForWebsearch += ' ';
+                }
+                termForWebsearch += word.textContent;
+            });
+            
+            console.log('Term for websearch:', termForWebsearch);
+            requestWebsearch(termForWebsearch);
+        });
+    });
 }
 
 
