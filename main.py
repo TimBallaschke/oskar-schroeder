@@ -141,7 +141,11 @@ client = OpenAI()
 # ComponentUnion allows a list to contain different types of components.
 # Response combines everything into a structured response that can be sent to the front end.
 
-    
+class ImageComponent(BaseModel):
+    UIType: Literal["image"] = Field(description="Indicates this is an image component for displaying an image")
+    image_url: str = Field(description="The URL of the image")
+    caption: str = Field(description="A caption for the image")
+
 class ParagraphComponent(BaseModel):
     UIType: Literal["paragraphs"] = Field(description="Indicates this is a paragraph component for displaying text")
     text: List[str] = Field(
@@ -150,9 +154,11 @@ class ParagraphComponent(BaseModel):
             "Proper names should be wrapped in brackets, including names of individuals, locations, organizations, "
             "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
             "For example: '[Zentrum für Zeitgenössische Kunst]', '[Donald Judd]', '[Barbara Hepworth]', '[Berlin]', "
-            "'[Minimalism]', '[Renaissance]', '[documenta]', '[Conceptual Art]', '[Les Demoiselles d’Avignon]'."
-        )
-)    # images: ImagesComponent = Field(description="Images to the paragraph")
+            "'[Minimalism]', '[Renaissance]', '[documenta]', '[Conceptual Art]', '[Les Demoiselles d'Avignon]'."
+        ),
+    )
+    image: Optional[ImageComponent] = Field(description="An image that matches the content of the paragraph")
+
 
 class ListItem(BaseModel):
     prefix: int = Field(description="A prefix for the list item. For example '2010', '2011', '2012' or '01', '02', '03' etc.")

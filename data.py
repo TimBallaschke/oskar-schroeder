@@ -31,6 +31,43 @@ artist_info = (
     "Through his sculptures, he invites viewers to slow down and engage deeply with the physical world."
 )
 
+images_for_paragraphs = {
+    "images": [
+        {
+            "url": "../static/assets/images/images_for_paragraphs/1.jpg",
+            "description": "Image of University of the Arts Berlin",
+        },
+        {
+            "url": "../static/assets/images/images_for_paragraphs/2.jpg",
+            "description": "Woodworkshop of Oskars grandfather",
+        },
+        {
+            "url": "../static/assets/images/images_for_paragraphs/3.jpg",
+            "description": "Early material studies of Oskar Schroeder",
+        },
+        {
+            "url": "../static/assets/images/images_for_paragraphs/4.jpg",
+            "description": "Oskar Schroeder in Kyoto",
+        },
+        {
+            "url": "../static/assets/images/images_for_paragraphs/5.jpg",
+            "description": "Oskar Schroeder in his studio",
+        },
+        {
+            "url": "../static/assets/images/images_for_paragraphs/6.jpg",
+            "description": "Material studies of Oskar Schroeder with reference to Donald Judd",
+        },
+        {
+            "url": "../static/assets/images/images_for_paragraphs/7.jpg",
+            "description": "Material studies of Oskar Schroeder with reference to Barbara Hepworth",
+        },
+        {
+            "url": "../static/assets/images/images_for_paragraphs/8.jpg",
+            "description": "Material studies of Oskar Schroeder with reference to Barbara Hepworth",
+        }
+    ],
+}
+
 # Date for exhibitions
 exhibition_data_1 = {
     "title": "Liminal Constructs",
@@ -585,6 +622,7 @@ project_data_6 = {
 # Export all data in a dictionary for easy importing
 data = {
     'artist_info': artist_info,
+    'images_for_paragraphs': images_for_paragraphs,
     'project_data_1': project_data_1,
     'project_data_2': project_data_2,
     'project_data_3': project_data_3,
