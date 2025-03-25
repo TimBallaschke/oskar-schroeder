@@ -247,7 +247,7 @@ p {
   height: 15px;
   position: relative;
   display: inline-block;
-  color: rgb(153, 153, 156);
+  color: rgb(147, 147, 147);
 }
 .term-description::before {
   content: "";
@@ -261,21 +261,7 @@ p {
   display: inline-block;
   margin-left: 2px;
   margin-right: 2px;
-  transform: translateY(-1px) scale(1);
-  transform-origin: center center;
-  transition: all var(--animation-duration-1) ease-in-out;
-}
-.term-description::after {
-  content: "";
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: rgba(205, 210, 217, 0.9);
-  display: inline-block;
-  margin-left: 2px;
-  margin-right: 2px;
-  transform: translateY(-1px) scale(1);
+  transform: translateY(0px) scale(1);
   transform-origin: center center;
   transition: all var(--animation-duration-1) ease-in-out;
 }
@@ -287,10 +273,6 @@ p {
 }
 .term-description.display-inline {
   display: inline;
-  padding-left: 24px;
-}
-.term-description.padding-right {
-  padding-right: 24px;
 }
 
 .websearch {
@@ -299,7 +281,7 @@ p {
 
 .websearch-content {
   display: inline-block;
-  transition: font-variation-settings var(--animation-duration-2) ease-in-out;
+  transition: width var(--animation-duration-2) ease-in-out, font-variation-settings var(--animation-duration-2) ease-in-out;
 }
 
 @keyframes pulse {

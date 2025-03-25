@@ -2944,7 +2944,7 @@ function handleDeltaWebsearch(content) {
             
             // Start processing the queue if not already processing
             if (!isProcessingWebsearchWords) {
-                processNextWebsearchWord(websearchDescriptionContainer);
+                // processNextWebsearchWord(websearchDescriptionContainer);
             }
         }
     }
@@ -2959,28 +2959,44 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
     isProcessingWebsearchWords = true;
     const word = websearchWordQueue.shift();
 
+    // Create a temporary span for measurement of the natural width of the word
+    const tempSpan = document.createElement('span');
+    tempSpan.classList.add('websearch-content', 'light');
+    tempSpan.textContent = word;
+    tempSpan.style.visibility = 'hidden';
+    tempSpan.style.position = 'absolute';
+    websearchDescriptionContainer.appendChild(tempSpan);
+    const spanWidth = tempSpan.offsetWidth;
+    websearchDescriptionContainer.removeChild(tempSpan);
+    
     // Create a span for the word
     const wordSpan = document.createElement('span');
-    wordSpan.classList.add('websearch-content', 'light');
+    wordSpan.classList.add('websearch-content', 'light', 'no-opacity');
     wordSpan.textContent = word;
     
     // Add space before word if not the first word
     if (websearchDescriptionContainer.childNodes.length > 0) {
         websearchDescriptionContainer.appendChild(document.createTextNode(' '));
-        websearchDescriptionContainer.classList.add('padding-right');
     }
     
     // Add the span to the websearch div
+    wordSpan.style.width = '0px';
     websearchDescriptionContainer.appendChild(wordSpan);
-    
-    // Animate the span
-    // setTimeout(() => {
-    //     wordSpan.classList.remove('no-opacity');
-    // }, 10);
+
+
+    setTimeout(() => {
+        wordSpan.style.width = `${spanWidth}px`;
+    }, 10);
+
+
+
+    setTimeout(() => {
+        wordSpan.classList.remove('no-opacity');
+    }, 100);
     
     setTimeout(() => {
         wordSpan.classList.remove('light');
-    }, 50);
+    }, 200);
     
     // Process the next word after delay
     setTimeout(() => {
