@@ -141,6 +141,17 @@ client = OpenAI()
 # ComponentUnion allows a list to contain different types of components.
 # Response combines everything into a structured response that can be sent to the front end.
 
+# class HeadlineComponent(BaseModel):
+#     UIType: Literal["headline"] = Field(
+#         description="Indicates this is a standalone headline component used to structure paragraph content."
+#     )
+#     headline: str = Field(
+#         description=(
+#             "A short headline (1–3 words) that introduces a new major topic or section in the paragraph content. "
+#             "Use this component when the following paragraphs begin a new thematic section or shift in focus."
+#         )
+#     )
+
 class ImageComponent(BaseModel):
     UIType: Literal["image"] = Field(description="Indicates this is an image component for displaying an image")
     image_url: str = Field(description="The URL of the image")
@@ -148,6 +159,13 @@ class ImageComponent(BaseModel):
 
 class ParagraphComponent(BaseModel):
     UIType: Literal["paragraphs"] = Field(description="Indicates this is a paragraph component for displaying text")
+    headline: Optional[str] = Field(
+        description=(
+            "A short headline (1–3 words) used **only** when the paragraph introduces a new major topic or section. "
+            "**Do not include a headline** if the paragraph continues or elaborates on the same subject as the previous one. "
+            "Headlines should be used **sparingly** and only to clearly structure the text into distinct sections."
+        )
+    )
     text: List[str] = Field(
         description=(
             "The text content of the paragraph. Each sentence should be a separate paragraph. "
@@ -155,7 +173,7 @@ class ParagraphComponent(BaseModel):
             "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
             "For example: '[Zentrum für Zeitgenössische Kunst]', '[Donald Judd]', '[Barbara Hepworth]', '[Berlin]', "
             "'[Minimalism]', '[Renaissance]', '[documenta]', '[Conceptual Art]', '[Les Demoiselles d'Avignon]'."
-        ),
+        )
     )
     image: Optional[ImageComponent] = Field(description="An image that matches the content of the paragraph")
 
