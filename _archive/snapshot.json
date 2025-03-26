@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250326_Oskar_Website_headline_paragraphy_first_try",
+  "original_folder": "250326b_Oskar_Website_Optional[Literal(\"response\")]",
   "snapshot_date_from_folder": "250326",
   "source_files": [
     {
@@ -33,9 +33,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "1f55ce09a20ab8d875cb51b9940e97b738247f96",
-      "sha256": "9f6556b1a01ba1ea718687b8a974d5452339117cd27e61a56f338b2d12e144a7",
-      "size": 26663,
+      "sha1": "3a92be3edd48340efe1cbb6739eafabab665c714",
+      "sha256": "eee0a86a26b4dd406a834bc854c75609734f99f48b73dc0cdd5ed7d6cf657fbb",
+      "size": 26660,
       "mode": "100644"
     },
     {

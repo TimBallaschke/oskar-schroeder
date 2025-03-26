@@ -225,7 +225,7 @@ class ProjectsList (BaseModel):
 
 # Root level must be a simple object
 class Response_1(BaseModel):
-    type: Literal["response"] = "response"  # Literal makes sure only a certain value is allowed for the type field / Fixed type to ensure root level is a simple object (not a descriminated union)
+    type: Optional[Literal["response"]]  # Literal makes sure only a certain value is allowed for the type field / Fixed type to ensure root level is a simple object (not a descriminated union)
     components: List[Union[ParagraphComponent, ListComponent, TableComponent, ProjectsList]] = Field( # Union allows for a list of different types of components / basically presents a list of options
         description="List of UI components that make up the response"
     )
