@@ -140,7 +140,7 @@ let reworkRenderingQueue = [];  // Add this with other global variables
 let isReworkProcessing = false; // Add this with other global variables
 let reworkComplete = false;
 let isStreaming = false;
-
+let placeholderAnimationActive = true;
 let isWebsearchStreamingURL = false;
 let websearchBuffer = '';
 let websearchWordQueue = [];
@@ -229,11 +229,12 @@ function startStreamingAnimation() {
 };
 
 function stopStreamingAnimation() {
-    displayXButton();
     stopAnimateInput();
 }
 
 function startAnimateInput() {
+
+    placeholderAnimationActive = false;
 
     if (userInput.inputAnimationInterval) {
         clearInterval(userInput.inputAnimationInterval);
@@ -257,15 +258,48 @@ function stopAnimateInput() {
         if (userInput.inputAnimationInterval) {
             clearInterval(userInput.inputAnimationInterval);
         }
-        userInput.classList.add('light');
-        userInput.value = '';
+        userInput.classList.add('light', 'animation-settings-2');
+
+        setTimeout(() => {
+            userInput.classList.add('no-opacity');
+        }, 300);
+
+        setTimeout(() => {
+            userInput.value = '';
+            displayXButton();
+            userInput.classList.remove('no-opacity');
+        }, 500);
+
+        setTimeout(() => {
+            userInput.classList.remove('animation-settings-2');
+            placeholderAnimationActive = true;
+            animateInputPlaceholder();
+        }, 1000);
+
     } else {
         setTimeout(() => {
             if (userInput.inputAnimationInterval) {
                 clearInterval(userInput.inputAnimationInterval);
             }
-            userInput.classList.add('light');
-            userInput.value = '';
+
+            userInput.classList.add('light', 'animation-settings-2');
+
+            setTimeout(() => {
+                userInput.classList.add('no-opacity');
+            }, 300);
+    
+            setTimeout(() => {
+                userInput.value = '';
+                displayXButton();
+                userInput.classList.remove('no-opacity');
+            }, 500);
+
+            setTimeout(() => {
+                userInput.classList.remove('animation-settings-2');
+                placeholderAnimationActive = true;
+                animateInputPlaceholder();
+            }, 1000);
+
         }, 1000);
     }
 }
@@ -475,6 +509,12 @@ function animateInputPlaceholder() {
     let placeholderIndex = 0;
     
     function animateSinglePlaceholder() {
+
+        if (!placeholderAnimationActive) {
+            placeholderIndex = 0;
+            return;
+        }
+
         const currentText = placeholders[placeholderIndex];
         let letterIndex = 0;
         
@@ -517,6 +557,7 @@ function animateInputPlaceholder() {
                     placeholderIndex = (placeholderIndex + 1) % placeholders.length;
 
                     setTimeout(() => {
+                        userInput.placeholder = '';
                         userInput.classList.remove('placeholder-no-opacity');
                     }, 600);
 
