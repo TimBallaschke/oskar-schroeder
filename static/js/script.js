@@ -722,29 +722,35 @@ async function handleDelta(content) {
                                                     wordSpan.style.display = 'inline-block';
                                                     wordSpan.style.width = `${lightWidth}px`;
 
-                                                    
-                                                    // Remove light class after 10ms
                                                     setTimeout(() => {
                                                         wordSpan.classList.remove('light');
                                                     }, 10);
                                                     
                                                     wordIndex++;
-                                                    // Add small delay between words
                                                     setTimeout(addNextWord, 50);
                                                 } else {
-
+                                                    console.log('!wordIndex < words.length');
                                                     if (italicSpan) {
                                                         termDescriptionSpan = document.createElement('span');
-                                                        termDescriptionSpan.classList.add('term-description', 'small');
+                                                        termDescriptionSpan.classList.add('term-description', 'no-height', 'no-width');
                                                         italicSpan.appendChild(termDescriptionSpan);
 
                                                         setTimeout(() => {
-                                                            termDescriptionSpan.classList.remove('small');
+                                                            termDescriptionSpan.classList.remove('no-height');
                                                         }, 10);
+
+                                                        setTimeout(() => {
+                                                            termDescriptionSpan.classList.remove('no-width');
+                                                        }, 400);
+
+                                                        partIndex++;
+                                                        setTimeout(processNextPart, 800);
+                                                    } else {
+                                                        partIndex++;
+                                                        setTimeout(processNextPart, 0);
                                                     }
 
-                                                    partIndex++;
-                                                    setTimeout(processNextPart, 0);
+
                                                 }
                                             }
                                             addNextWord();

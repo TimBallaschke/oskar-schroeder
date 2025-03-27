@@ -247,47 +247,49 @@ p {
 }
 
 .term-description {
-  width: 24px;
   height: 15px;
+  width: 35px;
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: rgb(153, 153, 156);
+  margin-left: 5px;
+  margin-right: 5px;
+  transition: width var(--animation-duration-1) ease-in-out;
 }
 .term-description::before {
   content: "";
   top: 0;
   left: 0;
   position: absolute;
-  width: 20px;
   height: 20px;
-  border-radius: 50%;
-  background-color: rgba(205, 210, 217, 0.9);
+  border-left: 1px solid black;
   display: inline-block;
-  margin-left: 2px;
-  margin-right: 2px;
-  transform: translateY(-1px) scale(1);
+  transform: translateY(-1px);
   transform-origin: center center;
   transition: all var(--animation-duration-1) ease-in-out;
 }
 .term-description::after {
   content: "";
   position: absolute;
-  width: 20px;
+  top: 0;
+  right: 0;
   height: 20px;
-  border-radius: 50%;
-  background-color: rgba(205, 210, 217, 0.9);
+  border-left: 1px solid black;
   display: inline-block;
-  margin-left: 2px;
-  margin-right: 2px;
-  transform: translateY(-1px) scale(1);
+  transform: translate(1px, -1px);
   transform-origin: center center;
   transition: all var(--animation-duration-1) ease-in-out;
 }
-.term-description.small::before {
-  transform: translateY(0px) scale(0.1);
+.term-description.no-height::before {
+  height: 0px;
 }
-.term-description.animation::before {
-  animation: pulse 2s infinite ease-in-out;
+.term-description.no-height::after {
+  height: 0px;
+}
+.term-description.no-width {
+  width: 0px;
 }
 .term-description.display-inline {
   display: inline;
@@ -295,6 +297,10 @@ p {
 }
 .term-description.padding-right {
   padding-right: 24px;
+}
+
+.term-description-plus {
+  display: inline-block;
 }
 
 .websearch {
