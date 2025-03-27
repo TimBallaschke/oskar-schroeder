@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250327_Oskar_Website_websearch_button_rework_first_steps",
+  "original_folder": "250327b_Oskar_Website",
   "snapshot_date_from_folder": "250327",
   "source_files": [
     {
@@ -54,16 +54,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "6c76c69a3c2fa30c991806d4e2c80f13122d3da6",
-      "sha256": "3feef1116b60cdc7de663326a9b9333231ad36d7de534d936e23e45e2f7e5a6c",
-      "size": 30407,
+      "sha1": "c19ac91a5d4489ce67df600694eea82868957e89",
+      "sha256": "802fbe7dfadbca9d88f41ccd5e2cd8b71642311e0175604b7267b0accde92ac2",
+      "size": 30398,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "87ecf6ad0366454ef3eda00ede61fc9ee16f9f01",
-      "sha256": "a20f376af7cf0c15ca57fbd59c604e806f66dab79f1da72458a9c5e51e908ccd",
-      "size": 10962,
+      "sha1": "1d151a1fe1476cc41217d6e9493f68e2b43a77c5",
+      "sha256": "2af548b6e3482f26d8267876e8cc6fef769fc9fdc3bfc4be1ac948c9cf5f5041",
+      "size": 10961,
       "mode": "100644"
     },
     {
@@ -82,9 +82,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "f4129d0ddd0967a6c7d86c0cdb8bc2997bc7aa5b",
-      "sha256": "ea895d998bc5e32dd176ecb029d3fddcd71d0313c24f4822746829fe01e9ad21",
-      "size": 17656,
+      "sha1": "677ac88423c3a964c6c9bd00a75022fca8df70cb",
+      "sha256": "4afc3c848e8bcced816a29562ef21bcf66dc94d64efb56149f684094ede2c800",
+      "size": 17675,
       "mode": "100644"
     },
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "589577c7b51317ee2a5e2e7216125874d1a84ebf",
-      "sha256": "2a1bbd1a241b11e0e355dea690c834295658d8b549fd9f0aabe7cb2bc2f30d05",
-      "size": 157572,
+      "sha1": "fb1e8f5287bdd82825eeb53e7c6341dfad72d351",
+      "sha256": "e556e6c95790677ee8324785b4f6df2ded5324ce62057a82377ce46eb186578b",
+      "size": 158174,
       "mode": "100644"
     },
     {

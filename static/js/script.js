@@ -741,10 +741,17 @@ async function handleDelta(content) {
 
                                                         setTimeout(() => {
                                                             termDescriptionSpan.classList.remove('no-width');
-                                                        }, 400);
+                                                        }, 300);
+
+                                                        setTimeout(() => {
+                                                            const termDescriptionPlus = document.createElement('div');
+                                                            termDescriptionPlus.classList.add('term-description-plus', 'light');
+                                                            termDescriptionPlus.textContent = '+';
+                                                            termDescriptionSpan.appendChild(termDescriptionPlus);
+                                                        }, 600);
 
                                                         partIndex++;
-                                                        setTimeout(processNextPart, 800);
+                                                        setTimeout(processNextPart, 600);
                                                     } else {
                                                         partIndex++;
                                                         setTimeout(processNextPart, 0);
