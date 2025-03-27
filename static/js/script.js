@@ -2976,7 +2976,6 @@ function handleDeltaWebsearch(content) {
         }
     } else {
         websearchDescriptionContainer = currentWebsearchTerm.querySelector('.term-description');
-        websearchDescriptionContainer.classList.add('display-inline');
     }
 
 
@@ -3018,19 +3017,20 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
     wordSpan.classList.add('websearch-content', 'light');
     wordSpan.textContent = word;
     
+    // Check if this is the first websearch-content being added
+    if (!websearchDescriptionContainer.querySelector('.websearch-content')) {
+        websearchDescriptionContainer.classList.add('display-inline');
+        websearchDescriptionContainer.innerHTML = '';
+    }
+    
     // Add space before word if not the first word
-    if (websearchDescriptionContainer.childNodes.length > 0) {
+    if (websearchDescriptionContainer.querySelector('.websearch-content')) {
         websearchDescriptionContainer.appendChild(document.createTextNode(' '));
         websearchDescriptionContainer.classList.add('padding-right');
     }
     
     // Add the span to the websearch div
     websearchDescriptionContainer.appendChild(wordSpan);
-    
-    // Animate the span
-    // setTimeout(() => {
-    //     wordSpan.classList.remove('no-opacity');
-    // }, 10);
     
     setTimeout(() => {
         wordSpan.classList.remove('light');
@@ -3076,6 +3076,7 @@ function activateTermDescription() {
 
     terms.forEach(term => {
         let termForWebsearch = '';
+        term.querySelector('.term-description-plus').classList.remove('light');
         term.addEventListener('click', () => {
             currentWebsearchTerm = term;
 

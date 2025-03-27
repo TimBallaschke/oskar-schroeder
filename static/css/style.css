@@ -253,8 +253,8 @@ p {
   display: inline-flex;
   justify-content: center;
   color: rgb(153, 153, 156);
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 7px;
+  margin-right: 7px;
   transition: width var(--animation-duration-2) ease-in-out;
 }
 .term-description::before {
@@ -262,7 +262,7 @@ p {
   top: 0;
   left: 0;
   position: absolute;
-  height: 20px;
+  height: 18px;
   border-left: 1px solid black;
   display: inline-block;
   transform: translateY(0px);
@@ -272,9 +272,8 @@ p {
 .term-description::after {
   content: "";
   position: absolute;
-  top: 0;
   right: 0;
-  height: 20px;
+  height: 18px;
   border-left: 1px solid black;
   display: inline-block;
   transform: translate(1px, 0px);
@@ -292,15 +291,18 @@ p {
 }
 .term-description.display-inline {
   display: inline;
-  padding-left: 24px;
+  padding-left: 7px;
+  padding-right: 7px;
 }
-.term-description.padding-right {
-  padding-right: 24px;
+.term-description.display-inline::after {
+  right: unset;
+  transform: translate(6px, 0px);
 }
 
 .term-description-plus {
   display: inline-block;
   color: black;
+  transition: all var(--animation-duration-2) ease-in-out;
 }
 
 .websearch {
