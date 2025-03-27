@@ -3149,6 +3149,33 @@ function closeWebsearchDescription() {
     }
 }
 
+// --------------------------------------------------------------------------------------------
+// STOP STREAMING
+// --------------------------------------------------------------------------------------------
+ function stopStreaming() {
+    console.log("stopStreaming");
+
+    if (activeEventSource) {
+        activeEventSource.close();
+        activeEventSource = null;
+    }
+
+    // Reset streaming flags
+    isStreaming = false;
+    isProcessing = false;
+    isProjectRendering = false;
+    isReworkProcessing = false;
+    
+    // Clear all queues
+    renderingQueue = [];
+    projectRenderingQueue = [];
+    reworkRenderingQueue = [];
+
+    stopStreamingAnimation();
+
+    const currentVersionHistoryElement = document.querySelector('.current-version-history-element');
+    currentVersionHistoryElement.classList.add('streaming-stopped-in-process');
+ }
 
 // --------------------------------------------------------------------------------------------
 // ACCESS CONTENT THROUGH URL
@@ -3202,12 +3229,15 @@ function loadStateFromUrl() {
 document.addEventListener('DOMContentLoaded', () => {
     const sendButton = document.getElementById('send-button');
     const startVersionHistoryElement = document.getElementById('version-history-element-1');
+    const xButton = document.getElementById('x-button');
 
     userInput.addEventListener('focus', activateInput);
     userInput.addEventListener('blur', activateInput);
     userInput.addEventListener('input', inputAdded);
 
     sendButton.addEventListener('click', sendMessage);
+
+    xButton.addEventListener('click', stopStreaming);
 
     startVersionHistoryElement.addEventListener('click', handleVersionClick);
 

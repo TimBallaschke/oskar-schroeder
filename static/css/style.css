@@ -262,7 +262,7 @@ p {
   top: 0;
   left: 0;
   position: absolute;
-  height: 17px;
+  height: 16.5px;
   border-left: 1px solid black;
   display: inline-block;
   transform: translateY(1px);
@@ -273,7 +273,7 @@ p {
   content: "";
   position: absolute;
   right: 0;
-  height: 17px;
+  height: 16.5px;
   border-left: 1px solid black;
   display: inline-block;
   transform: translate(1px, 1px);
@@ -1230,6 +1230,11 @@ input {
 }
 .version-history-element.current-version-history-element.new-history-step-3 .version-history-element-title {
   opacity: 0;
+}
+.version-history-element.streaming-stopped-in-process {
+  width: 30px;
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .version-history-element-number {

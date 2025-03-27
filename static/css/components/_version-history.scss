@@ -78,6 +78,12 @@
         }
       }
   }
+
+  &.streaming-stopped-in-process {
+    width: 30px;
+    opacity: 0.3;
+    pointer-events: none;
+  }
 }
 
 .version-history-element-number {
