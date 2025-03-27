@@ -262,10 +262,10 @@ p {
   top: 0;
   left: 0;
   position: absolute;
-  height: 18px;
+  height: 17px;
   border-left: 1px solid black;
   display: inline-block;
-  transform: translateY(0px);
+  transform: translateY(1px);
   transform-origin: center center;
   transition: all var(--animation-duration-2) ease-in-out;
 }
@@ -273,10 +273,10 @@ p {
   content: "";
   position: absolute;
   right: 0;
-  height: 18px;
+  height: 17px;
   border-left: 1px solid black;
   display: inline-block;
-  transform: translate(1px, 0px);
+  transform: translate(1px, 1px);
   transform-origin: center center;
   transition: all var(--animation-duration-2) ease-in-out;
 }

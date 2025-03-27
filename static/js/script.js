@@ -2874,6 +2874,15 @@ function requestWebsearch(term) {
     const message = term;
     if (message === '') return;  // Don't send empty messages
 
+    const termDescriptionPlus = currentWebsearchTerm.querySelector('.term-description-plus');
+    termDescriptionPlus.classList.remove('light');
+
+    currentWebsearchTerm.pulseInterval = setInterval(() => {
+        termDescriptionPlus.classList.add('animation-settings');
+        if (termDescriptionPlus) {
+            termDescriptionPlus.classList.toggle('light');
+        }
+    }, 500);
     // isStreaming = true;
     // document.body.classList.add('streaming');
 
@@ -3076,7 +3085,7 @@ function activateTermDescription() {
 
     terms.forEach(term => {
         let termForWebsearch = '';
-        term.querySelector('.term-description-plus').classList.remove('light');
+        // term.querySelector('.term-description-plus').classList.remove('grey');
         term.addEventListener('click', () => {
             currentWebsearchTerm = term;
 
