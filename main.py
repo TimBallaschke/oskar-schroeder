@@ -167,6 +167,7 @@ class HeadlineComponent(BaseModel):
 
 class ParagraphComponent(BaseModel):
     UIType: Literal["paragraphs"] = Field(description="Indicates this is a paragraph component for displaying text")
+    image: Optional[ImageComponent] = Field(description="An image that matches the content of the paragraph")
     text: List[str] = Field(
         description=(
             "The text content of the paragraph. Each sentence should be a separate paragraph. "
@@ -176,7 +177,6 @@ class ParagraphComponent(BaseModel):
             "'[Minimalism]', '[Renaissance]', '[documenta]', '[Conceptual Art]', '[Les Demoiselles d'Avignon]'."
         )
     )
-    image: Optional[ImageComponent] = Field(description="An image that matches the content of the paragraph")
 
 
 class ListItem(BaseModel):

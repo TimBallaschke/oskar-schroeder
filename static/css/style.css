@@ -246,8 +246,8 @@ p {
   height: var(--headline-height);
   transition: all var(--animation-duration-1) ease-in-out;
   overflow: hidden;
-  margin-bottom: 5px;
-  margin-top: 12.5px;
+  margin-bottom: 7px;
+  margin-top: 5px;
 }
 .headline::before, .headline::after {
   content: "";
@@ -278,12 +278,12 @@ p {
 
 .headline-content {
   position: relative;
-  transform: translateY(3px);
+  transform: translateY(5px);
   font-size: 35px;
   text-align: center;
   font-variation-settings: "wght" 700, "ital" 0;
   letter-spacing: -1px;
-  transition: opacity var(--animation-duration-2) ease, font-variation-settings var(--animation-duration-1) ease;
+  transition: opacity var(--animation-duration-2) ease-in-out, font-variation-settings 500ms ease-in-out;
   line-height: 0.95;
 }
 .headline-content.no-serif {

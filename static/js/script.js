@@ -625,7 +625,7 @@ async function handleDelta(content) {
                             topHeadlineContent.textContent = currentContent.headline.headline;
                             topHeadlineContainer.appendChild(topHeadlineContent);
         
-                            const topHeadlineContainerHeight = topHeadlineContainer.scrollHeight + 5;
+                            const topHeadlineContainerHeight = topHeadlineContainer.scrollHeight + 3;
                             setCSSVarValue('--headline-height', topHeadlineContainerHeight);
 
                             setTimeout(() => {
