@@ -681,6 +681,11 @@ async function handleDelta(content) {
                             contentContainer.appendChild(paragraphContainer);
                         }
 
+                        if (component.image) {
+                            paragraphContainer.classList.add('image-paragraph');
+                            
+                        }
+
                         if (!component.text || !Array.isArray(component.text)) {
                             break;
                         }
