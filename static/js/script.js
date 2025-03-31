@@ -582,7 +582,7 @@ function animateInputPlaceholder() {
 // --------------------------------------------------------------------------------------------
 
 async function handleDelta(content) {
-    // console.log("Received delta:", content);
+    console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -593,10 +593,55 @@ async function handleDelta(content) {
     while (renderingQueue.length > 0) {
 
         const currentContent = renderingQueue.shift();
-        // console.log("Processing queue item - content:", JSON.stringify(currentContent));
 
         try {
             isProcessing = true;
+
+            // Handle headline if it exists
+            if ('headline' in currentContent) {
+                let topHeadlineContainer = document.querySelector('.top-headline');
+                if (!topHeadlineContainer) {
+                    console.log('topHeadlineContainer created');
+                    await new Promise(resolve => {
+                        topHeadlineContainer = document.createElement('div');
+                        topHeadlineContainer.classList.add('top-headline', 'headline', 'no-height', 'no-width');
+                        contentContainer.appendChild(topHeadlineContainer);
+
+                        setTimeout(() => {
+                            topHeadlineContainer.classList.remove('no-width');
+                        }, 10);
+
+                        setTimeout(resolve, animationDuration + 10);
+                    });
+                }
+
+                if (currentContent.headline.headline) {
+                    let topHeadlineContent = document.querySelector('.top-headline-content');
+
+                    if (!topHeadlineContent) {
+                        await new Promise(resolve => {
+                            topHeadlineContent = document.createElement('div');
+                            topHeadlineContent.classList.add('top-headline-content', 'headline-content', 'no-opacity', 'no-serif');
+                            topHeadlineContent.textContent = currentContent.headline.headline;
+                            topHeadlineContainer.appendChild(topHeadlineContent);
+        
+                            const topHeadlineContainerHeight = topHeadlineContainer.scrollHeight + 5;
+                            setCSSVarValue('--headline-height', topHeadlineContainerHeight);
+
+                            setTimeout(() => {
+                                topHeadlineContainer.classList.remove('no-height');
+                            }, 10);
+
+                            setTimeout(() => {
+                                topHeadlineContent.classList.remove('no-opacity', 'no-serif');
+                            }, animationDuration + 10);
+
+                            setTimeout(resolve, 2 * animationDuration);
+                        }); 
+                    }
+                
+                }   
+            }
 
             if (!currentContent.components || !Array.isArray(currentContent.components)) {
                 continue;
