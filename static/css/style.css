@@ -247,7 +247,6 @@ p {
   transition: all var(--animation-duration-1) ease-in-out;
   overflow: hidden;
   margin-bottom: 7px;
-  margin-top: 1px;
 }
 .headline::before, .headline::after {
   content: "";
@@ -280,8 +279,7 @@ p {
   position: relative;
   transform: translateY(5px);
   font-size: 35px;
-  text-align: center;
-  font-variation-settings: "wght" 700, "ital" 0;
+  font-variation-settings: "wght" 650, "ital" 0;
   letter-spacing: -1px;
   transition: opacity var(--animation-duration-2) ease-in-out, font-variation-settings 500ms ease-in-out;
   line-height: 0.95;
