@@ -316,6 +316,7 @@ function sendMessage() {
     
     const message = userInput.value.trim();
     if (message === '') return;  // Don't send empty messages
+    userInput.blur();
 
     isStreaming = true;
     document.body.classList.add('streaming');

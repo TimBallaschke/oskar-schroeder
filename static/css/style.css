@@ -80,7 +80,7 @@ html {
 }
 
 body {
-  background-color: #f0f2fa;
+  background-color: #F1F2F4;
   color: black;
   margin: 0;
   padding: 0;
@@ -111,6 +111,13 @@ body {
 
 .animation-settings-2 {
   transition: all 300ms ease-in-out !important;
+}
+
+.headline {
+  font-size: 8vw;
+  padding-left: 2.5vw;
+  font-family: "KolleVF";
+  font-variation-settings: "wght" 600, "ital" 0, "SASE" 100;
 }
 
 @font-face {
@@ -160,6 +167,14 @@ body {
 @font-face {
   font-family: "Booton";
   src: url("../assets/fonts/BootonTRIALVF.woff2") format("woff2");
+}
+@font-face {
+  font-family: "KolleGX";
+  src: url("../assets/fonts/KolleGX.woff2") format("woff2");
+}
+@font-face {
+  font-family: "KolleVF";
+  src: url("../assets/fonts/KolleVF.woff2") format("woff2");
 }
 p {
   margin: 0;

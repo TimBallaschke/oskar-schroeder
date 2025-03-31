@@ -157,15 +157,16 @@ class ImageComponent(BaseModel):
     image_url: str = Field(description="The URL of the image")
     caption: str = Field(description="A caption for the image")
 
+class HeadlineComponent(BaseModel):
+    UIType: Literal["headline"] = Field(
+        description="Indicates this is a headline component used to structure and organize content into sections."
+    )
+    headline: str = Field(
+        description="A short headline (1–3 words) that introduces a new thematic section or shift in focus. It can be used between components to divide the content into meaningful parts and improve readability."
+    )
+
 class ParagraphComponent(BaseModel):
     UIType: Literal["paragraphs"] = Field(description="Indicates this is a paragraph component for displaying text")
-    headline: Optional[str] = Field(
-        description=(
-            "A short headline (1–3 words) used **only** when the paragraph introduces a new major topic or section. "
-            "**Do not include a headline** if the paragraph continues or elaborates on the same subject as the previous one. "
-            "Headlines should be used **sparingly** and only to clearly structure the text into distinct sections."
-        )
-    )
     text: List[str] = Field(
         description=(
             "The text content of the paragraph. Each sentence should be a separate paragraph. "
@@ -226,7 +227,10 @@ class ProjectsList (BaseModel):
 # Root level must be a simple object
 class Response_1(BaseModel):
     type: Optional[Literal["response"]]  # Literal makes sure only a certain value is allowed for the type field / Fixed type to ensure root level is a simple object (not a descriminated union)
-    components: List[Union[ParagraphComponent, ListComponent, TableComponent, ProjectsList]] = Field( # Union allows for a list of different types of components / basically presents a list of options
+    headline: HeadlineComponent = Field(
+        description="The main headline for this response"
+    )
+    components: List[Union[HeadlineComponent, ParagraphComponent, ListComponent, TableComponent, ProjectsList]] = Field( # Union allows for a list of different types of components / basically presents a list of options
         description="List of UI components that make up the response"
     )
 
