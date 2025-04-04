@@ -2491,24 +2491,66 @@ function displayPreviousVersion(element) {
 
 function handleScrollOnHover() {
     let scrollInterval = null;
-    const scrollSpeed = 5;
-    const scrollDelay = 16;
-
+    let currentSpeed = 0;
+    const maxSpeed = 7; // Maximum scroll speed
+    const acceleration = 0.15; // How quickly we reach max speed
+    const scrollDelay = 16; // 60fps timing
+    
     const startScrolling = (direction) => {
-        if (scrollInterval) return; // Prevent multiple intervals
+        if (scrollInterval) return;
         
         scrollInterval = setInterval(() => {
-            container.scrollLeft += direction * scrollSpeed;
+            // Gradually increase speed until we reach maxSpeed
+            if (Math.abs(currentSpeed) < maxSpeed) {
+                currentSpeed += direction * acceleration;
+            }
+            
+            // Apply the scroll
+            versionHistory.scrollLeft += currentSpeed;
         }, scrollDelay);
     };
 
-    // Stop scrolling when mouse leaves the zone
     const stopScrolling = () => {
         if (scrollInterval) {
             clearInterval(scrollInterval);
             scrollInterval = null;
+            
+            // Decelerate smoothly
+            const decelerate = setInterval(() => {
+                if (Math.abs(currentSpeed) > 0.01) {
+                    currentSpeed *= 0.95; // Reduce speed by 10% each frame
+                    versionHistory.scrollLeft += currentSpeed;
+                } else {
+                    currentSpeed = 0;
+                    clearInterval(decelerate);
+                }
+            }, scrollDelay);
         }
     };
+
+    versionHistory.addEventListener('mousemove', (e) => {
+        // e is the event object that JavaScript creates when an event occurs and contains information about the event (mouseposition)
+        const rect = versionHistory.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+
+        if (mouseX < 75) {
+            // If mouse is within 100px of left edge
+            startScrolling(-1);
+            // Start scrolling left
+        } else if (mouseX > rect.width - 75) {
+            // If mouse is within 100px of right edge
+            startScrolling(1);
+            // Start scrolling right
+        } else {
+            // If mouse is in the middle area
+            stopScrolling();
+            // Stop any active scrolling
+        }
+    });
+
+    versionHistory.addEventListener('mouseleave', () => {
+        stopScrolling();
+    });
 }
 
 
@@ -3315,5 +3357,8 @@ document.addEventListener('DOMContentLoaded', () => {
     startVersionHistoryElement.addEventListener('click', handleVersionClick);
 
     loadStateFromUrl();
+
+    // Version History Scroll on Hover
+    handleScrollOnHover();
 });
 

@@ -1253,23 +1253,6 @@ input {
   display: flex;
   padding-left: var(--page-padding);
 }
-#version-history::before, #version-history::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 100px;
-  z-index: 101;
-  opacity: 0;
-}
-#version-history::before {
-  left: 0;
-  cursor: w-resize;
-}
-#version-history::after {
-  right: 0;
-  cursor: e-resize;
-}
 
 .version-history-element {
   transition: all var(--animation-duration-1) ease-in-out;

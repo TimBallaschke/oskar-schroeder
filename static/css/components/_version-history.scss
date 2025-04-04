@@ -11,27 +11,6 @@
   white-space: nowrap;
   display: flex;
   padding-left: var(--page-padding);
-
-  &::before,
-  &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      height: 100%;
-      width: 100px;
-      z-index: 101;
-      opacity: 0;
-  }
-
-  &::before {
-      left: 0;
-      cursor: w-resize;
-  }
-
-  &::after {
-      right: 0;
-      cursor: e-resize;
-  }
 }
 
 .version-history-element {
