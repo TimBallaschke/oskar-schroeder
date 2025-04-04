@@ -68,11 +68,13 @@ $background-color: #E2E4E9;
   @include desktop-small {
     --primary-font-size: 20px;
     --secondary-font-size: 15px;
+    --large-font-size: 35px;
   }
 
   @include desktop-large {
     --primary-font-size: 20px;
     --secondary-font-size: 15px;
+    --large-font-size: 35px;
   }
 
   @include desktop-x-large {
@@ -85,6 +87,7 @@ $background-color: #E2E4E9;
     --primary-line-height: 27px;
     --secondary-font-size: 15px;
     --secondary-line-height: 17.5px;
+    --large-font-size: 35px;
     --grid-line-height: 14.2px;
 
     // Bottom Nav

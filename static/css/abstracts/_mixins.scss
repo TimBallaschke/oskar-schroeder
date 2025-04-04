@@ -21,6 +21,17 @@
   text-transform: capitalize;
 }
 
+@mixin version-history-light {
+  font-size: var(--secondary-font-size);
+  font-variation-settings: "wght" 350, "ital" 0;
+  text-transform: capitalize;
+}
+
+@mixin version-history-bold {
+  font-variation-settings: "wght" 675, "ital" 0;
+  text-transform: capitalize;
+}
+
 
 // Responsive
 
