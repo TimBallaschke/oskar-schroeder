@@ -1260,11 +1260,19 @@ input {
   height: 50px;
   border-left: 1px solid black;
   border-right: 1px solid black;
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.version-history-element-container:hover {
+  height: 100px;
+}
+.version-history-element-container:hover .version-history-element-title {
+  font-size: 35px;
 }
 
 .version-history-element {
   transition: all var(--animation-duration-1) ease-in-out;
-  font-size: var(--primary-font-size);
+  font-size: var(--secondary-font-size);
+  text-transform: capitalize;
   transform-origin: center center;
   overflow: hidden;
   flex-shrink: 0;
@@ -1318,11 +1326,8 @@ input {
 
 .version-history-element-digits {
   transform: translateY(0px);
-  font-size: var(--secondary-font-size);
-  text-transform: capitalize;
 }
 
 .version-history-element-title {
-  font-size: var(--secondary-font-size);
-  text-transform: capitalize;
+  transition: all var(--animation-duration-1) ease-in-out;
 }/*# sourceMappingURL=style.css.map */

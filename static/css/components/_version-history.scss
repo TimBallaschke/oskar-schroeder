@@ -22,11 +22,20 @@
   height: 50px;
   border-left: 1px solid black;
   border-right: 1px solid black;
+  transition: all var(--animation-duration-1) ease-in-out;
+
+  &:hover {
+    height: 100px;
+
+    .version-history-element-title {
+      font-size: 35px;
+    }
+  }
 }
 
 .version-history-element {
     transition: all var(--animation-duration-1) ease-in-out;
-    @include primary-type;
+    @include secondary-type;
     transform-origin: center center;
     overflow: hidden;
     flex-shrink: 0;
@@ -97,11 +106,10 @@
 .version-history-element-digits {
   transform: translateY(0px);
   // letter-spacing: -0.5px;
-  @include secondary-type;
 }
 
 .version-history-element-title {
-  @include secondary-type;
+  transition: all var(--animation-duration-1) ease-in-out;
 }
 
 // #version-history-close {
