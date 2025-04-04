@@ -67,10 +67,12 @@ $background-color: #E2E4E9;
 
   @include desktop-small {
     --primary-font-size: 20px;
+    --secondary-font-size: 15px;
   }
 
   @include desktop-large {
     --primary-font-size: 20px;
+    --secondary-font-size: 15px;
   }
 
   @include desktop-x-large {

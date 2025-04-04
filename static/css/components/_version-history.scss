@@ -1,6 +1,6 @@
 #version-history {
   position: fixed;
-  top: var(--page-padding);
+  top: 0;
   left: 0;
   width: 100vw;
   color: black;
@@ -14,19 +14,22 @@
   padding-left: var(--page-padding);
 }
 
+.version-history-element-container {
+  display: flex;
+  align-items: flex-end;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 50px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
 .version-history-element {
-    display: flex;
-    align-items: center;
     transition: all var(--animation-duration-1) ease-in-out;
     @include primary-type;
-    flex-shrink: 0;
-    background-color: rgba(205, 210, 217, 0.9);
-    margin-right: 5px;
-    height: 30px;
-    border-radius: 15px;
     transform-origin: center center;
     overflow: hidden;
-
+    flex-shrink: 0;
 
   &.current-version-history-element {
     &.start-version-history-element {
@@ -87,32 +90,18 @@
 }
 
 .version-history-element-number {
-  display: flex;
-  flex-shrink: 0;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  color: black;
   border-radius: calc(var(--small-circle-size) / 2);
   transform: translateY(-0px);
-  height: var(--small-circle-size);
-  width: var(--small-circle-size);
-  margin-left: 3px;
 }
 
 .version-history-element-digits {
-  font-variant-numeric: tabular-nums;
   transform: translateY(0px);
   // letter-spacing: -0.5px;
   @include secondary-type;
 }
 
 .version-history-element-title {
-  display: inline-block;
-  transform: translateY(-0.5px);
-  padding-left: 5px;
-  padding-right: 10px;
-
+  @include secondary-type;
 }
 
 // #version-history-close {
