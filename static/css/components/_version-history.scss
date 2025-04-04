@@ -10,29 +10,55 @@
   overflow-x: auto;
   white-space: nowrap;
   display: flex;
-  align-items: center;
   padding-left: var(--page-padding);
+
+  &::before,
+  &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100px;
+      z-index: 101;
+      opacity: 0;
+  }
+
+  &::before {
+      left: 0;
+      cursor: w-resize;
+  }
+
+  &::after {
+      right: 0;
+      cursor: e-resize;
+  }
 }
 
 .version-history-element {
-    transition: all var(--animation-duration-1) ease-in-out;
-    @include version-history-light;
-    transform-origin: center center;
-    overflow: hidden;
-    height: 100%;
-    display: grid;
-    align-content: space-between;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    flex-shrink: 0;
+  transition: all var(--animation-duration-1) ease-in-out;
+  @include version-history-light;
+  transform-origin: center center;
+  overflow: hidden;
+  height: 100%;
+  display: grid;
+  align-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  flex-shrink: 0;
+  margin-left: -1px; // Negative margin to overlap the borders of the elements
+
+  &:first-child {
+    margin-left: 0; // First element shouldn't have negative margin
+  }
 
   &:hover {
 
     .version-history-element-title {
       font-size: var(--large-font-size);
       @include version-history-bold;
+      letter-spacing: -1px;
     }
 
     .version-history-element-digits {
@@ -41,54 +67,64 @@
   }
 
   &.current-version-history-element {
-    &.start-version-history-element {
-      width: auto;
+
+    .version-history-element-title {
+      font-size: var(--large-font-size);
+      @include version-history-bold;
+      letter-spacing: -1px;
     }
-      display: flex;
-      background-color: black;
-      color: white;
-      width: var(--current-version-history-element-width);
 
-      &.new-history-step-1 {
-        width: 0px;
-        background-color: #cdd2d9;
-        opacity: 0;
-        transform: scale(0.4);
-        margin-right: 0px;
+    .version-history-element-digits {
+      @include version-history-bold;
+    }
+    // &.start-version-history-element {
+    //   width: auto;
+    // }
+    //   display: flex;
+    //   background-color: black;
+    //   color: white;
+    //   width: var(--current-version-history-element-width);
+
+    //   &.new-history-step-1 {
+    //     width: 0px;
+    //     background-color: #cdd2d9;
+    //     opacity: 0;
+    //     transform: scale(0.4);
+    //     margin-right: 0px;
         
-        .version-history-element-title {
-          opacity: 0;
-          // padding-left: 0px;
-          // padding-right: 0px;
-        }
+    //     .version-history-element-title {
+    //       opacity: 0;
+    //       // padding-left: 0px;
+    //       // padding-right: 0px;
+    //     }
 
-      }
+    //   }
 
-      &.new-history-step-2 {
-        width: 30px;
-        background-color: #cdd2d9;
-        opacity: 0;
-        transform: scale(0.4);
+    //   &.new-history-step-2 {
+    //     width: 30px;
+    //     background-color: #cdd2d9;
+    //     opacity: 0;
+    //     transform: scale(0.4);
         
-        .version-history-element-title {
-          opacity: 0;
-          // padding-left: 0px;
-          // padding-right: 0px;
-        }
+    //     .version-history-element-title {
+    //       opacity: 0;
+    //       // padding-left: 0px;
+    //       // padding-right: 0px;
+    //     }
 
-      }
+    //   }
 
-      &.new-history-step-3 {
-        width: 30px;
-        opacity: 1;
-        background-color: #cdd2d9;
+    //   &.new-history-step-3 {
+    //     width: 30px;
+    //     opacity: 1;
+    //     background-color: #cdd2d9;
         
-        .version-history-element-title {
-          opacity: 0;
-          // padding-left: px;
-          // padding-right: 0px;
-        }
-      }
+    //     .version-history-element-title {
+    //       opacity: 0;
+    //       // padding-left: px;
+    //       // padding-right: 0px;
+    //     }
+    //   }
   }
 
   &.streaming-stopped-in-process {

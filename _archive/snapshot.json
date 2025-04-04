@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250404d_Oskar_Website_VersionHistoryLines_Hover",
+  "original_folder": "250404e_Oskar_Website",
   "snapshot_date_from_folder": "250404",
   "source_files": [
     {
@@ -54,16 +54,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "336375b65dc46dcf1b89971c8076491e3a52e32e",
-      "sha256": "d229ee8020dc895643ec6dcad0ca630d3e27c3c8db4b44be2fc88f0963f8042d",
-      "size": 32359,
+      "sha1": "caec506753a7ff29a3bf1390f4f5ac32273c9d64",
+      "sha256": "bab51e6282a59eb8fb232c01d5a9aeadc204f54eadb9ac678eb2b24343468b5c",
+      "size": 31986,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "068cee3f96fa3df4ddf7e8f2b83b46b6d66d5362",
-      "sha256": "6f29dff0e139722dd2e72e0d4054aceaacef14b8e04c091ee057507fa31a4430",
-      "size": 11628,
+      "sha1": "921d676dbd85d86c0f4d84d84ddc7d6172b9ef6a",
+      "sha256": "0ed5cbfc5d5e762d4d95832c6a16d7786901da78bbb3af51e2b8749a8b852eea",
+      "size": 11598,
       "mode": "100644"
     },
     {
@@ -96,9 +96,9 @@
     },
     {
       "path": "static/css/components/_version-history.scss",
-      "sha1": "21bd44d425965b3d20d45a3b0d8d64a93b76e04a",
-      "sha256": "ba71fbc6b88bc757c734bde0ccd3a15020bc668f001a7e63bfb3fa1283fbd4fb",
-      "size": 2560,
+      "sha1": "c4da5ac9309e6b91633b4a89bfaafc70ca3ce9fe",
+      "sha256": "592ea57fd69210b3abeea830c5711e5ef674294f02e51ed7b7e6315dbc02c876",
+      "size": 3347,
       "mode": "100644"
     },
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "7ef29183094cfd2838f1727a3896d6ee36a61f93",
-      "sha256": "6d03a5ac36c767546d020ff1595b003ce621600c5beeb5156f8c43ef21918a10",
-      "size": 162084,
+      "sha1": "84d284c35e337d53da2445ddd59d4bf20ecfce23",
+      "sha256": "da4d5f8817517e5da6eb1f7eb8479ea7ebc3fec2ccac4d20da2c0fa55ad68e74",
+      "size": 162673,
       "mode": "100644"
     },
     {
@@ -656,9 +656,9 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "9f67f14ad8a9615156700e3caa4de932dd9c9952",
-      "sha256": "0184cc802c3c4b1d4009707764c8448d631a7ccf46a8220ebb3b574f61fcc7af",
-      "size": 5278,
+      "sha1": "ac8ba33f623d45c4170cb2c49dfe07f12d016d8b",
+      "sha256": "fb1ea7b5af078e89f28d64fe1f1440ddb0cd1a7a93a1394ea0ef71752119cabd",
+      "size": 8690,
       "mode": "100644"
     }
   ],

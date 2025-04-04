@@ -2489,6 +2489,28 @@ function displayPreviousVersion(element) {
     }, 1100);
 }
 
+function handleScrollOnHover() {
+    let scrollInterval = null;
+    const scrollSpeed = 5;
+    const scrollDelay = 16;
+
+    const startScrolling = (direction) => {
+        if (scrollInterval) return; // Prevent multiple intervals
+        
+        scrollInterval = setInterval(() => {
+            container.scrollLeft += direction * scrollSpeed;
+        }, scrollDelay);
+    };
+
+    // Stop scrolling when mouse leaves the zone
+    const stopScrolling = () => {
+        if (scrollInterval) {
+            clearInterval(scrollInterval);
+            scrollInterval = null;
+        }
+    };
+}
+
 
 
 // --------------------------------------------------------------------------------------------

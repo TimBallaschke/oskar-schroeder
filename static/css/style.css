@@ -1251,8 +1251,24 @@ input {
   overflow-x: auto;
   white-space: nowrap;
   display: flex;
-  align-items: center;
   padding-left: var(--page-padding);
+}
+#version-history::before, #version-history::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100px;
+  z-index: 101;
+  opacity: 0;
+}
+#version-history::before {
+  left: 0;
+  cursor: w-resize;
+}
+#version-history::after {
+  right: 0;
+  cursor: e-resize;
 }
 
 .version-history-element {
@@ -1270,51 +1286,30 @@ input {
   border-left: 1px solid black;
   border-right: 1px solid black;
   flex-shrink: 0;
+  margin-left: -1px;
+}
+.version-history-element:first-child {
+  margin-left: 0;
 }
 .version-history-element:hover .version-history-element-title {
   font-size: var(--large-font-size);
   font-variation-settings: "wght" 675, "ital" 0;
   text-transform: capitalize;
+  letter-spacing: -1px;
 }
 .version-history-element:hover .version-history-element-digits {
   font-variation-settings: "wght" 675, "ital" 0;
   text-transform: capitalize;
 }
-.version-history-element.current-version-history-element {
-  display: flex;
-  background-color: black;
-  color: white;
-  width: var(--current-version-history-element-width);
+.version-history-element.current-version-history-element .version-history-element-title {
+  font-size: var(--large-font-size);
+  font-variation-settings: "wght" 675, "ital" 0;
+  text-transform: capitalize;
+  letter-spacing: -1px;
 }
-.version-history-element.current-version-history-element.start-version-history-element {
-  width: auto;
-}
-.version-history-element.current-version-history-element.new-history-step-1 {
-  width: 0px;
-  background-color: #cdd2d9;
-  opacity: 0;
-  transform: scale(0.4);
-  margin-right: 0px;
-}
-.version-history-element.current-version-history-element.new-history-step-1 .version-history-element-title {
-  opacity: 0;
-}
-.version-history-element.current-version-history-element.new-history-step-2 {
-  width: 30px;
-  background-color: #cdd2d9;
-  opacity: 0;
-  transform: scale(0.4);
-}
-.version-history-element.current-version-history-element.new-history-step-2 .version-history-element-title {
-  opacity: 0;
-}
-.version-history-element.current-version-history-element.new-history-step-3 {
-  width: 30px;
-  opacity: 1;
-  background-color: #cdd2d9;
-}
-.version-history-element.current-version-history-element.new-history-step-3 .version-history-element-title {
-  opacity: 0;
+.version-history-element.current-version-history-element .version-history-element-digits {
+  font-variation-settings: "wght" 675, "ital" 0;
+  text-transform: capitalize;
 }
 .version-history-element.streaming-stopped-in-process {
   width: 30px;
