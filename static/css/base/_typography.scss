@@ -68,6 +68,13 @@
   src: url("../assets/fonts/KolleVF.woff2") format("woff2");
 }
 
+@font-face {
+  font-family: "Diatype";
+  src: url("../assets/fonts/DiatypePlus.woff2") format("woff2");
+}
+
+
+
 p {
     margin: 0;
 }
@@ -115,10 +122,23 @@ p {
 }
 
 @keyframes font-weight-animation {
-  from {
-    font-variation-settings: "wght" 350;
+  0% {
+    font-size: 17px;
+    font-variation-settings: "wght" 300, "MONO" 1;
   }
-  to {
-    font-variation-settings: "wght" 675;
+  50% {
+    font-size: 35px;
+    font-variation-settings: "wght" 800, "MONO" 0;
   }
+  100% {
+    font-size: 17px;
+    font-variation-settings: "wght" 300, "MONO" 1;
+  }
+}
+
+.diatype {
+  font-family: "Diatype";
+  font-size: 25px;
+  font-variation-settings: "wght" 400, "MONO" 0;
+  animation: font-weight-animation 2000ms infinite;
 }

@@ -228,7 +228,7 @@ class ProjectsList (BaseModel):
 class Response_1(BaseModel):
     type: Optional[Literal["response"]]  # Literal makes sure only a certain value is allowed for the type field / Fixed type to ensure root level is a simple object (not a descriminated union)
     headline: HeadlineComponent = Field(
-        description="The main headline for this response"
+        description="The main headline for this response (maximum 2 words)"
     )
     components: List[Union[HeadlineComponent, ParagraphComponent, ListComponent, TableComponent, ProjectsList]] = Field( # Union allows for a list of different types of components / basically presents a list of options
         description="List of UI components that make up the response"
