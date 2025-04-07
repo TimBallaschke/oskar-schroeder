@@ -7,6 +7,10 @@
   --secondary-line-height: 17px;
   --grid-line-height: 14.2px;
   --large-font-size: 35px;
+  --font-weight-bold: 675;
+  --font-weight-light: 350;
+  --letter-spacing-large: -1px;
+  --letter-spacing-small: 0px;
   --animation-duration-1: 300ms;
   --animation-duration-2: 200ms;
   --animation-duration-3: 500ms;
@@ -1248,6 +1252,7 @@ input {
   left: 0;
   width: calc(100vw - var(--page-padding));
   color: black;
+  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
   z-index: 100;
   overflow-x: auto;
   white-space: nowrap;
@@ -1255,6 +1260,7 @@ input {
   padding-bottom: 5px;
   padding-left: var(--page-padding);
   padding-right: calc(100vw - var(--page-padding));
+  scroll-snap-type: x mandatory;
   scroll-padding-left: var(--page-padding);
   background-color: var(--background-color);
 }
@@ -1275,6 +1281,7 @@ input {
 }
 
 .version-history-element {
+  transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--secondary-font-size);
   font-variation-settings: "wght" 350, "ital" 0;
   text-transform: capitalize;
@@ -1330,8 +1337,23 @@ input {
 
 .version-history-element-number {
   padding-top: 15px;
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.no-transition .version-history-element-number {
+  transition: none;
 }
 
 .version-history-element-digits {
   transform: translateY(0px);
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.no-transition .version-history-element-digits {
+  transition: none;
+}
+
+.version-history-element-title {
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.no-transition .version-history-element-title {
+  transition: none;
 }/*# sourceMappingURL=style.css.map */

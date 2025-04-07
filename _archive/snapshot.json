@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250407c_Oskar_Website_fontsize_versionHistory_on_scroll",
+  "original_folder": "250407d_Oskar_Website_update_current_version_history_first_approach",
   "snapshot_date_from_folder": "250407",
   "source_files": [
     {
@@ -54,16 +54,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "f6b90189a5f5eb513472cba0522324a25cded899",
-      "sha256": "92ec2491a35938d26a05688f5c955567f27d7e8fe06b63d38e0dbc7aba594b3a",
-      "size": 32227,
+      "sha1": "7a658dcbee9af44e684d9e04f77bb5ad2576708c",
+      "sha256": "e91d8cf4e3363ccff92ab9e1105a0443a25ebdbb55bff935b5650f1e265fbb05",
+      "size": 32971,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "f1e51cc44615a91e4f52094775436c3bc8466073",
-      "sha256": "03a80629a6ac32e562db8303128e4925e59f272343f0a061ec26d1f1a008923c",
-      "size": 11636,
+      "sha1": "243f71b491de6ad03b3288f82c2bb06e2a66c64e",
+      "sha256": "1188afcadbb89dea9ce9ee003e5d56edc3c5e968efad7ab41f28c3144e5aef59",
+      "size": 11832,
       "mode": "100644"
     },
     {
@@ -96,9 +96,9 @@
     },
     {
       "path": "static/css/components/_version-history.scss",
-      "sha1": "5ca5bbe3aafc66ac6c83f194d4064ab5302506ed",
-      "sha256": "1871902088642d11bbee02e9daecc10534cd179ba092bb9201f184c75451af4c",
-      "size": 3878,
+      "sha1": "ab6b107445c6ab989a25578c0b2d37626f125f61",
+      "sha256": "7acfd832de938ab70a953a3b9ab292d4bdac08ce3875a42764ab3409ea6cb60d",
+      "size": 4004,
       "mode": "100644"
     },
     {
@@ -110,9 +110,9 @@
     },
     {
       "path": "static/css/abstracts/_variables.scss",
-      "sha1": "22bcbd6e1f4a68aaa35e202b5bb2b8f993cb091d",
-      "sha256": "3083f1b7f505e4156736130632140ed15baf9f53d033604834c9cdd1019990d3",
-      "size": 2621,
+      "sha1": "dc0a7a203c06c49c5484a0032f4cc006931de08c",
+      "sha256": "72476ab31bd1be9c44ec023d5af03623e0a8c40b973d9570c3e66dc6b95d79af",
+      "size": 2740,
       "mode": "100644"
     },
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "ebd53b2209a2346be9f1abfb912c5e489ae871d3",
-      "sha256": "8668b03912cf374e6dab67d3e9533972708ecda87e2947f1debdf306f62e08f2",
-      "size": 167839,
+      "sha1": "c502e5dcf5a7e74fb5da461eba918a7ef7ff77cb",
+      "sha256": "279339fd3ea89021b6094cb86e28c62e1ace052fec632b6bbd3fd0e3beb3e7f8",
+      "size": 169768,
       "mode": "100644"
     },
     {
