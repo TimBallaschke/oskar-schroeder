@@ -2609,6 +2609,14 @@ function updateCurrentVersionElement() {
     const maxFontSize = getCSSVarValue('--large-font-size');
     const fontSizeRange = maxFontSize - minFontSize;
 
+    const minFontWeight = getCSSVarValue('--font-weight-light');
+    const maxFontWeight = getCSSVarValue('--font-weight-bold');
+    const fontWeightRange = maxFontWeight - minFontWeight;
+
+    const minLetterSpacing = getCSSVarValue('--letter-spacing-small');
+    const maxLetterSpacing = getCSSVarValue('--letter-spacing-large');
+    const letterSpacingRange = maxLetterSpacing - minLetterSpacing;
+
     historyElements.forEach(element => {
         const elementRect = element.getBoundingClientRect();
         const distance = elementRect.left - leftEdge;
@@ -2648,14 +2656,21 @@ function updateCurrentVersionElement() {
         if (distance <= transitionDistance) {
           const ratio = 1 - (distance / transitionDistance); // 1 when close, 0 when far
           const fontSize = minFontSize + (fontSizeRange * ratio);
+          const fontWeight = minFontWeight + (fontWeightRange * ratio);
+          const letterSpacing = minLetterSpacing + (letterSpacingRange * ratio);
       
           if (titleElement) {
             titleElement.style.fontSize = `${fontSize}px`;
+            titleElement.style.fontVariationSettings = `'wght' ${fontWeight}`;
+            titleElement.style.letterSpacing = `${letterSpacing}px`;
           }
         } else {
           // Reset to default (CSS-defined) if too far
           if (titleElement) {
             titleElement.style.fontSize = '';
+            titleElement.style.fontVariationSettings = '';
+            titleElement.style.letterSpacing = '';
+
           }
         }
     });
