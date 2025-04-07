@@ -1246,18 +1246,16 @@ input {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: calc(100vw - var(--page-padding));
   color: black;
-  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
   z-index: 100;
   overflow-x: auto;
   white-space: nowrap;
   display: flex;
   padding-bottom: 5px;
   padding-left: var(--page-padding);
-  scroll-snap-type: x mandatory;
-  scroll-padding-left: var(--page-padding);
   padding-right: calc(100vw - var(--page-padding));
+  scroll-padding-left: var(--page-padding);
   background-color: var(--background-color);
 }
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -1277,7 +1275,6 @@ input {
 }
 
 .version-history-element {
-  transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--secondary-font-size);
   font-variation-settings: "wght" 350, "ital" 0;
   text-transform: capitalize;
@@ -1333,14 +1330,8 @@ input {
 
 .version-history-element-number {
   padding-top: 15px;
-  transition: all var(--animation-duration-1) ease-in-out;
 }
 
 .version-history-element-digits {
   transform: translateY(0px);
-  transition: all var(--animation-duration-1) ease-in-out;
-}
-
-.version-history-element-title {
-  transition: all var(--animation-duration-1) ease-in-out;
 }/*# sourceMappingURL=style.css.map */

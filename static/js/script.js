@@ -2587,7 +2587,68 @@ function updateVersionHistoryOnPageScroll() {
     scrolling = false;
 }
 
+// function to update the current version history element on mobile devices when verionHistory container gets scrolled
+function updateCurrentVersionElement() {
+    if (window.innerWidth > mobileWidth) return;
 
+}
+
+function animateVersionHistoryScrollMobile() {
+    if (window.innerWidth > mobileWidth) return;
+    
+    const historyElements = document.querySelectorAll('.version-history-element');
+    let closestElementLeft = null;
+    let closestDistanceLeft = Infinity;
+    let closestElementRight = null;
+    let closestDistanceRight = -Infinity;
+
+    const pagePadding = getCSSVarValue('--page-padding');
+    const leftEdge = pagePadding;
+    
+    const minFontSize = getCSSVarValue('--secondary-font-size');
+    const maxFontSize = getCSSVarValue('--large-font-size');
+    const fontSizeRange = maxFontSize - minFontSize;
+
+    historyElements.forEach(element => {
+        const elementRect = element.getBoundingClientRect();
+        const distance = elementRect.left - leftEdge;
+                
+        if (distance < closestDistanceLeft && distance >= -1) {
+            closestDistanceLeft = distance;
+            closestElementLeft = element;
+        }
+
+        if (distance > closestDistanceRight && distance < -1) {
+            closestDistanceRight = distance;
+            closestElementRight = element;
+        }
+    });
+
+    if (closestElementRight) {
+        const titleElement = closestElementRight.querySelector('.version-history-element-title');
+        console.log('titleElement', titleElement);
+        if (titleElement) {
+            const ratio = Math.max(0, 1 - (Math.abs(closestDistanceRight + 1) / 100));
+            console.log('ratio', ratio);
+            const fontSize = minFontSize + (fontSizeRange * ratio);
+            titleElement.style.fontSize = `${fontSize}px`;
+        }
+    }
+
+    // Reset font size for all other elements
+    historyElements.forEach(element => {
+        if (element !== closestElementLeft && element !== closestElementRight) {
+            const titleElement = element.querySelector('.version-history-element-title');
+            if (titleElement) {
+                titleElement.style.fontSize = `${minFontSize}px`;
+            }
+        }
+    });
+}
+
+versionHistory.addEventListener('scroll', () => {
+    animateVersionHistoryScrollMobile();
+});
 
 // --------------------------------------------------------------------------------------------
 // COMPONENT REWORK
@@ -3392,8 +3453,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadStateFromUrl();
 
-    // Version History Scroll on Hover
+    // Version History
     handleScrollOnHover();
+
+    versionHistory.addEventListener('scroll', () => {
+        if (window.innerWidth <= mobileWidth) {
+            // Use requestAnimationFrame for better performance
+            requestAnimationFrame(updateCurrentVersionElement);
+        }
+    });
 
     // On Page Scroll
     window.addEventListener("scroll", () => {

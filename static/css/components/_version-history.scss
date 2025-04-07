@@ -2,19 +2,28 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: calc(100vw - var(--page-padding));
   color: black;
-  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
+  // transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
   z-index: 100;
   overflow-x: auto;
   white-space: nowrap;
   display: flex;
   padding-bottom: 5px;
   padding-left: var(--page-padding);
-  scroll-snap-type: x mandatory;
-  scroll-padding-left: var(--page-padding);
   padding-right: calc(100vw - var(--page-padding));
+  // scroll-snap-type: x mandatory;
+  scroll-padding-left: var(--page-padding);
   background-color: var(--background-color);
+
+  // &::before {
+  //   content: '';
+  //   position: fixed;
+  //   top: 0;
+  //   left: var(--page-padding);
+  //   border-left: 1px solid black;
+  //   height: 59px;
+  // }
 
   @include desktop-small {
     scroll-snap-type: none;
@@ -30,7 +39,7 @@
 }
 
 .version-history-element {
-  transition: all var(--animation-duration-1) ease-in-out;
+  // transition: all var(--animation-duration-1) ease-in-out;
   @include version-history-light;
   transform-origin: center center;
   overflow: hidden;
@@ -142,15 +151,15 @@
 
 .version-history-element-number {
   padding-top: 15px;
-  transition: all var(--animation-duration-1) ease-in-out;
+  // transition: all var(--animation-duration-1) ease-in-out;
 }
 
 .version-history-element-digits {
   transform: translateY(0px);
-  transition: all var(--animation-duration-1) ease-in-out;
+  // transition: all var(--animation-duration-1) ease-in-out;
   // letter-spacing: -0.5px;
 }
 
 .version-history-element-title {
-  transition: all var(--animation-duration-1) ease-in-out;
+  // transition: all var(--animation-duration-1) ease-in-out;
 }
