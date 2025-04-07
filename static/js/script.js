@@ -2107,28 +2107,37 @@ function displayNewVersionHistoryElement(content) {
 
 // Define the handler function separately so it can be removed later
 function handleVersionClick(event) {
-
     if (isStreaming) {
         return;
     }
-    displayPreviousVersion(event.currentTarget);
+
+    if (window.innerWidth > mobileWidth) {
+        const clickedElement = event.currentTarget;
+        const pagePadding = getCSSVarValue('--page-padding');
+        const historyElements = document.querySelectorAll('.version-history-element');
+        
+        historyElements.forEach(el => {
+            el.classList.remove('current-version-history-element');
+        });
+
+        setTimeout(() => {
+            clickedElement.classList.add('current-version-history-element');
+        }, 10);
+
+        // setTimeout(() => {
+        //     versionHistory.scrollTo({
+        //         left: clickedElement.offsetLeft - pagePadding,
+        //         behavior: 'smooth'
+        //     });
+        // }, 10);
+    } else {
+
+    }
+    // displayPreviousVersion(event.currentTarget);
 }
 
 // display previous version
 function displayPreviousVersion(element) {
-
-    const historyElements = document.querySelectorAll('.version-history-element');
-    historyElements.forEach(el => {
-        el.classList.remove('current-version-history-element');
-    });
-
-    setTimeout(() => {
-        const currentVersionHistoryElementWidth = element.scrollWidth;
-        element.classList.add('current-version-history-element');
-
-        console.log('currentVersionHistoryElementWidth: ', currentVersionHistoryElementWidth);
-        setCSSVarValue('--current-version-history-element-width', currentVersionHistoryElementWidth);
-    }, 10);
 
     // Get the version key from the clicked element
     const versionKey = parseInt(element.getAttribute('version-history-key'));
@@ -2492,7 +2501,7 @@ function displayPreviousVersion(element) {
 function handleScrollOnHover() {
     let scrollInterval = null;
     let currentSpeed = 0;
-    const maxSpeed = 7; // Maximum scroll speed
+    const maxSpeed = 8; // Maximum scroll speed
     const acceleration = 0.15; // How quickly we reach max speed
     const scrollDelay = 16; // 60fps timing
     
