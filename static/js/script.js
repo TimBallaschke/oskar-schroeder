@@ -160,7 +160,7 @@ let scrolling = false;
 const thresholdScroll = 10;
 
 let previousClosestElementLeft = null;
-let transitionDistance = 100;
+let transitionDistance = 0;
 
 
 
@@ -2616,18 +2616,24 @@ function updateCurrentVersionElement() {
         if (distance < closestDistanceLeft && distance >= -1) {
             closestDistanceLeft = distance;
             closestElementLeft = element;
-            closestElementLeftWidth = elementRect.width;
         }
 
         if (distance > closestDistanceRight && distance < -1) {
             closestDistanceRight = distance;
             closestElementRight = element;
-            closestElementRightWidth = elementRect.width;
         }
     });
 
+
     if (previousClosestElementLeft !== closestElementLeft) {
-        transitionDistance = Math.abs(closestElementRightWidth - closestElementLeftWidth);
+        // Get title lengths for both elements
+        const leftTitleLength = closestElementLeft ? 
+            closestElementLeft.querySelector('.version-history-element-title').textContent.length : 0;
+        const rightTitleLength = closestElementRight ? 
+            closestElementRight.querySelector('.version-history-element-title').textContent.length : 0;
+        
+        // Use the longer title length multiplied by 5 for transition distance
+        transitionDistance = Math.min(leftTitleLength, rightTitleLength) * 14;
         console.log('transitionDistance', transitionDistance);
 
         previousClosestElementLeft = closestElementLeft;
