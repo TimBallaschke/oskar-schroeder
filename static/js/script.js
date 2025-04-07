@@ -159,7 +159,7 @@ let lastScrollY = window.scrollY;
 let scrolling = false;
 const thresholdScroll = 10;
 
-let lastScrollX = versionHistory.scrollLeft;
+let previousClosestElementLeft = null;
 
 
 
@@ -2593,18 +2593,14 @@ function updateVersionHistoryOnPageScroll() {
 function updateCurrentVersionElement() {
     if (window.innerWidth > mobileWidth) return;
 
-    const currentScrollX = versionHistory.scrollLeft;
-    let scrollDirection = null;
-
-    if (currentScrollX > lastScrollX) {
-        scrollDirection = 'right';
-    } else if (currentScrollX < lastScrollX) {
-        scrollDirection = 'left';
-    }
-
-    lastScrollX = currentScrollX;
-
     const historyElements = document.querySelectorAll('.version-history-element');
+    let closestElementLeft = null;
+    let closestDistanceLeft = Infinity;
+    let closestElementLeftWidth = 0;
+    let closestElementRight = null;
+    let closestDistanceRight = -Infinity;
+    let closestElementRightWidth = 0;
+    let transitionDistance = 0;
 
     const pagePadding = getCSSVarValue('--page-padding');
     const leftEdge = pagePadding;
@@ -2613,16 +2609,35 @@ function updateCurrentVersionElement() {
     const maxFontSize = getCSSVarValue('--large-font-size');
     const fontSizeRange = maxFontSize - minFontSize;
 
+    historyElements.forEach(element => {
+        const elementRect = element.getBoundingClientRect();
+        const distance = elementRect.left - leftEdge;
+                
+        if (distance < closestDistanceLeft && distance >= -1) {
+            closestDistanceLeft = distance;
+            closestElementLeft = element;
+            closestElementLeftWidth = elementRect.width;
+        }
+
+        if (distance > closestDistanceRight && distance < -1) {
+            closestDistanceRight = distance;
+            closestElementRight = element;
+            closestElementRightWidth = elementRect.width;
+        }
+    });
+
+    if (previousClosestElementLeft !== closestElementLeft) {
+        transitionDistance = Math.min(closestElementLeftWidth, closestElementRightWidth) || 100;
+    }
 
     historyElements.forEach(element => {
         const titleElement = element.querySelector('.version-history-element-title');
         const elementRect = element.getBoundingClientRect();
       
         const distance = Math.abs(elementRect.left - leftEdge);
-        const maxDistance = 100; // beyond this, no effect — revert to default
       
-        if (distance <= maxDistance) {
-          const ratio = 1 - (distance / maxDistance); // 1 when close, 0 when far
+        if (distance <= transitionDistance) {
+          const ratio = 1 - (distance / transitionDistance); // 1 when close, 0 when far
           const fontSize = minFontSize + (fontSizeRange * ratio);
       
           if (titleElement) {

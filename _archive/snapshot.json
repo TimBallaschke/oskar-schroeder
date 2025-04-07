@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250407f_Oskar_Website_versionHistory_size_animate",
+  "original_folder": "250407g_Oskar_Website",
   "snapshot_date_from_folder": "250407",
   "source_files": [
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "772d32b239bdd65a69ba45252c97487acfe61060",
-      "sha256": "bb67539be0f0547dc2f326b4f82c9182405fbf99c6f2b9338ef09ebb4c98dd68",
-      "size": 167261,
+      "sha1": "509b59a4487bac598c3f3cdcbe39d899d607c21e",
+      "sha256": "8057c21e0da8e411337ab4c1d6bb4c10256a2b139d93e32ea8d2c86c298800ca",
+      "size": 167947,
       "mode": "100644"
     },
     {
