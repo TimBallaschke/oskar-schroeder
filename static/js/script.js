@@ -2605,10 +2605,6 @@ function updateCurrentVersionElement() {
     lastScrollX = currentScrollX;
 
     const historyElements = document.querySelectorAll('.version-history-element');
-    let closestElementLeft = null;
-    let closestDistanceLeft = Infinity;
-    let closestElementRight = null;
-    let closestDistanceRight = -Infinity;
 
     const pagePadding = getCSSVarValue('--page-padding');
     const leftEdge = pagePadding;
@@ -2617,62 +2613,28 @@ function updateCurrentVersionElement() {
     const maxFontSize = getCSSVarValue('--large-font-size');
     const fontSizeRange = maxFontSize - minFontSize;
 
+
     historyElements.forEach(element => {
         const titleElement = element.querySelector('.version-history-element-title');
-        if (titleElement) {
-            titleElement.style.fontSize = ''; // Remove inline style to use CSS default
-        }
-    });
-
-    historyElements.forEach(element => {
         const elementRect = element.getBoundingClientRect();
-        const distance = elementRect.left - leftEdge;
-                
-        if (distance < closestDistanceLeft && distance >= -1) {
-            closestDistanceLeft = distance;
-            closestElementLeft = element;
-        }
-
-        if (distance > closestDistanceRight && distance < -1) {
-            closestDistanceRight = distance;
-            closestElementRight = element;
+      
+        const distance = Math.abs(elementRect.left - leftEdge);
+        const maxDistance = 100; // beyond this, no effect — revert to default
+      
+        if (distance <= maxDistance) {
+          const ratio = 1 - (distance / maxDistance); // 1 when close, 0 when far
+          const fontSize = minFontSize + (fontSizeRange * ratio);
+      
+          if (titleElement) {
+            titleElement.style.fontSize = `${fontSize}px`;
+          }
+        } else {
+          // Reset to default (CSS-defined) if too far
+          if (titleElement) {
+            titleElement.style.fontSize = '';
+          }
         }
     });
-
-    // Animate font sizes based on scroll direction
-    if (scrollDirection === 'right' && closestElementRight && closestElementLeft) {
-        const titleElementRight = closestElementRight.querySelector('.version-history-element-title');
-        const titleElementLeft = closestElementLeft.querySelector('.version-history-element-title');
-        const elementWidth = closestElementRight.offsetWidth;
-
-        if (titleElementRight) {
-            const ratio = Math.max(0, 1 - (Math.abs(closestDistanceRight) / elementWidth));
-            const fontSize = minFontSize + (fontSizeRange * ratio);
-            titleElementRight.style.fontSize = `${fontSize}px`;
-        }
-
-        if (titleElementLeft) {
-            const ratio = Math.max(0, 1 - (Math.abs(closestDistanceLeft) / elementWidth));
-            const fontSize = minFontSize + (fontSizeRange * ratio);
-            titleElementLeft.style.fontSize = `${fontSize}px`;
-        }
-    } else if (scrollDirection === 'left' && closestElementLeft && closestElementRight) {
-        const titleElementRight = closestElementRight.querySelector('.version-history-element-title');
-        const titleElementLeft = closestElementLeft.querySelector('.version-history-element-title');
-        const elementWidth = closestElementLeft.offsetWidth;
-
-        if (titleElementRight) {
-            const ratio = Math.max(0, 1 - (Math.abs(closestDistanceRight) / elementWidth));
-            const fontSize = minFontSize + (fontSizeRange * ratio);
-            titleElementRight.style.fontSize = `${fontSize}px`;
-        }
-
-        if (titleElementLeft) {
-            const ratio = Math.max(0, 1 - (Math.abs(closestDistanceLeft) / elementWidth));
-            const fontSize = minFontSize + (fontSizeRange * ratio);
-            titleElementLeft.style.fontSize = `${fontSize}px`;
-        }
-    }
 }
 
 // --------------------------------------------------------------------------------------------

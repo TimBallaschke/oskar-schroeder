@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250407e_Oskar_Website_animate_size_scroll_versionHistory",
+  "original_folder": "250407f_Oskar_Website_versionHistory_size_animate",
   "snapshot_date_from_folder": "250407",
   "source_files": [
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "4da9256c3a009ad00e0b78a7bbcf7237078c5942",
-      "sha256": "8eaf4900f308abff5a1505b47682dbff62401e5df50ea5b5283fb9a2e96bdabb",
-      "size": 169189,
+      "sha1": "772d32b239bdd65a69ba45252c97487acfe61060",
+      "sha256": "bb67539be0f0547dc2f326b4f82c9182405fbf99c6f2b9338ef09ebb4c98dd68",
+      "size": 167261,
       "mode": "100644"
     },
     {
@@ -656,9 +656,9 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "0f5aa3fde81e526656cc8c1b29b5f84842c46d3d",
-      "sha256": "15c4c39f05d288502708dc491d5cd12d969fb9c32c6efb87e35f66ec4d730c4d",
-      "size": 11065,
+      "sha1": "ed0ec2df9e1f139fd3990504cb7fe8b39d5e8705",
+      "sha256": "d51ad56881da7ba85bc8529bf0d6e8174e04918a2828543f83be16a77a575656",
+      "size": 11033,
       "mode": "100644"
     }
   ],
