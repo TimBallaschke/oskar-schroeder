@@ -160,6 +160,7 @@ let scrolling = false;
 const thresholdScroll = 10;
 
 let previousClosestElementLeft = null;
+let transitionDistance = 100;
 
 
 
@@ -2600,7 +2601,6 @@ function updateCurrentVersionElement() {
     let closestElementRight = null;
     let closestDistanceRight = -Infinity;
     let closestElementRightWidth = 0;
-    let transitionDistance = 0;
 
     const pagePadding = getCSSVarValue('--page-padding');
     const leftEdge = pagePadding;
@@ -2627,7 +2627,10 @@ function updateCurrentVersionElement() {
     });
 
     if (previousClosestElementLeft !== closestElementLeft) {
-        transitionDistance = Math.min(closestElementLeftWidth, closestElementRightWidth) || 100;
+        transitionDistance = Math.abs(closestElementRightWidth - closestElementLeftWidth);
+        console.log('transitionDistance', transitionDistance);
+
+        previousClosestElementLeft = closestElementLeft;
     }
 
     historyElements.forEach(element => {
