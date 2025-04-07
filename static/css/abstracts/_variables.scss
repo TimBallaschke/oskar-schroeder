@@ -1,13 +1,10 @@
-// SCSS
-$background-color: #E2E4E9;
-
-
 // CSS
 
 :root {
 
   // Base
   --page-padding: 10px;
+  --background-color: #f4f7fc;
 
   // Typography
   --primary-font-size: 16.5px;
@@ -15,6 +12,7 @@ $background-color: #E2E4E9;
   --secondary-font-size: 12px;
   --secondary-line-height: 17px;
   --grid-line-height: 14.2px;
+  --large-font-size: 35px;
 
   // Animation
   --animation-duration-1: 300ms;

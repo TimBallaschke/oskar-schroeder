@@ -4,13 +4,29 @@
   left: 0;
   width: 100vw;
   color: black;
-  // background-color: white;
   transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
   z-index: 100;
   overflow-x: auto;
   white-space: nowrap;
   display: flex;
+  padding-bottom: 5px;
   padding-left: var(--page-padding);
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: var(--page-padding);
+  padding-right: calc(100vw - var(--page-padding));
+  background-color: var(--background-color);
+
+  @include desktop-small {
+    scroll-snap-type: none;
+  }
+
+  @include desktop-large {
+    scroll-snap-type: none;
+  }
+
+  @include desktop-x-large {
+    scroll-snap-type: none;
+  }
 }
 
 .version-history-element {
@@ -27,6 +43,7 @@
   border-right: 1px solid black;
   flex-shrink: 0;
   margin-left: -1px; // Negative margin to overlap the borders of the elements
+  scroll-snap-align: start;
 
   &:first-child {
     margin-left: 0; // First element shouldn't have negative margin
@@ -38,6 +55,11 @@
       font-size: var(--large-font-size);
       @include version-history-bold;
       letter-spacing: -1px;
+
+      .scroll-down & {
+        font-size: var(--secondary-font-size);
+        letter-spacing: 0px;
+      }
     }
 
     .version-history-element-digits {
@@ -51,6 +73,11 @@
       font-size: var(--large-font-size);
       @include version-history-bold;
       letter-spacing: -1px;
+
+      .scroll-down & {
+        font-size: var(--secondary-font-size);
+        letter-spacing: 0px;
+      }
     }
 
     .version-history-element-digits {

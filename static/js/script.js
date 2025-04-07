@@ -150,9 +150,15 @@ let currentWebsearchTerm = null;
 const userInput = document.getElementById('user-input');
 
 const contentContainer = document.getElementById('content-container');
-const versionHistory = document.getElementById('version-history');
 const plusMinusButton = document.getElementById('plus-minus-button');
 let animationDuration = getCSSVarValue('--animation-duration-1', 300);
+
+//Version History
+const versionHistory = document.getElementById('version-history');
+let lastScrollY = window.scrollY;
+let scrolling = false;
+const thresholdScroll = 10;
+
 
 
 // --------------------------------------------------------------------------------------------
@@ -2562,6 +2568,25 @@ function handleScrollOnHover() {
     });
 }
 
+function updateVersionHistoryOnPageScroll() {
+    const currentScrollY = window.scrollY;
+    const scrolledDistance = currentScrollY - lastScrollY;
+  
+    if (Math.abs(scrolledDistance) >= thresholdScroll) {
+      if (scrolledDistance > 0) {
+        // Scrolling down
+        versionHistory.classList.add("scroll-down");
+      } else {
+        // Scrolling up
+        versionHistory.classList.remove("scroll-down");
+      }
+  
+      lastScrollY = currentScrollY;
+    }
+  
+    scrolling = false;
+}
+
 
 
 // --------------------------------------------------------------------------------------------
@@ -3369,5 +3394,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Version History Scroll on Hover
     handleScrollOnHover();
+
+    // On Page Scroll
+    window.addEventListener("scroll", () => {
+        if (!scrolling) {
+          requestAnimationFrame(updateVersionHistoryOnPageScroll);
+          ticking = true;
+        }
+    });
 });
 
