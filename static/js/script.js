@@ -159,6 +159,8 @@ let lastScrollY = window.scrollY;
 let scrolling = false;
 const thresholdScroll = 10;
 
+let lastScrollX = versionHistory.scrollLeft;
+
 
 
 // --------------------------------------------------------------------------------------------
@@ -2591,6 +2593,23 @@ function updateVersionHistoryOnPageScroll() {
 function updateCurrentVersionElement() {
     if (window.innerWidth > mobileWidth) return;
 
+    const currentScrollX = versionHistory.scrollLeft;
+    let scrollDirection = null;
+
+    if (currentScrollX > lastScrollX) {
+        scrollDirection = 'right';
+    } else if (currentScrollX < lastScrollX) {
+        scrollDirection = 'left';
+    }
+
+    lastScrollX = currentScrollX;
+
+    const historyElements = document.querySelectorAll('.version-history-element');
+    let closestElementLeft = null;
+    let closestDistanceLeft = Infinity;
+    let closestElementRight = null;
+    let closestDistanceRight = -Infinity;
+
     const pagePadding = getCSSVarValue('--page-padding');
     const leftEdge = pagePadding;
 
@@ -2598,98 +2617,63 @@ function updateCurrentVersionElement() {
     const maxFontSize = getCSSVarValue('--large-font-size');
     const fontSizeRange = maxFontSize - minFontSize;
 
-    const maxFontWeight = getCSSVarValue('--font-weight-bold');
-    const minFontWeight = getCSSVarValue('--font-weight-light');
-    const fontWeightRange = maxFontWeight - minFontWeight;
+    historyElements.forEach(element => {
+        const titleElement = element.querySelector('.version-history-element-title');
+        if (titleElement) {
+            titleElement.style.fontSize = ''; // Remove inline style to use CSS default
+        }
+    });
 
-    const maxLetterSpacing = getCSSVarValue('--letter-spacing-large');
-    const minLetterSpacing = getCSSVarValue('--letter-spacing-small');
-    const letterSpacingRange = maxLetterSpacing - minLetterSpacing;
+    historyElements.forEach(element => {
+        const elementRect = element.getBoundingClientRect();
+        const distance = elementRect.left - leftEdge;
+                
+        if (distance < closestDistanceLeft && distance >= -1) {
+            closestDistanceLeft = distance;
+            closestElementLeft = element;
+        }
 
-    const currentElement = versionHistory.querySelector('.current-version-history-element');
-    if (currentElement) {
-        currentElement.classList.add('no-transition');
-        const titleElement = currentElement.querySelector('.version-history-element-title');
+        if (distance > closestDistanceRight && distance < -1) {
+            closestDistanceRight = distance;
+            closestElementRight = element;
+        }
+    });
 
-        // Calculate distance from left edge
-        const elementRect = currentElement.getBoundingClientRect();
-        const distance = Math.abs(elementRect.left - leftEdge);
-    
-        const maxDistance = 100;
-        const ratio = Math.max(0, 1 - (distance / maxDistance));
+    // Animate font sizes based on scroll direction
+    if (scrollDirection === 'right' && closestElementRight && closestElementLeft) {
+        const titleElementRight = closestElementRight.querySelector('.version-history-element-title');
+        const titleElementLeft = closestElementLeft.querySelector('.version-history-element-title');
+        const elementWidth = closestElementRight.offsetWidth;
 
-        const fontSize = minFontSize + (fontSizeRange * ratio);
-        const fontWeight = minFontWeight + (fontWeightRange * ratio);
-        const letterSpacing = minLetterSpacing + (letterSpacingRange * ratio);
+        if (titleElementRight) {
+            const ratio = Math.max(0, 1 - (Math.abs(closestDistanceRight) / elementWidth));
+            const fontSize = minFontSize + (fontSizeRange * ratio);
+            titleElementRight.style.fontSize = `${fontSize}px`;
+        }
 
-        titleElement.style.fontSize = `${fontSize}px`;
-        titleElement.style.fontVariationSettings = `"wght" ${fontWeight}`;
-        titleElement.style.letterSpacing = `${letterSpacing}px`;
+        if (titleElementLeft) {
+            const ratio = Math.max(0, 1 - (Math.abs(closestDistanceLeft) / elementWidth));
+            const fontSize = minFontSize + (fontSizeRange * ratio);
+            titleElementLeft.style.fontSize = `${fontSize}px`;
+        }
+    } else if (scrollDirection === 'left' && closestElementLeft && closestElementRight) {
+        const titleElementRight = closestElementRight.querySelector('.version-history-element-title');
+        const titleElementLeft = closestElementLeft.querySelector('.version-history-element-title');
+        const elementWidth = closestElementLeft.offsetWidth;
 
-        if (distance >= maxDistance) {
-            currentElement.classList.remove('current-version-history-element');
+        if (titleElementRight) {
+            const ratio = Math.max(0, 1 - (Math.abs(closestDistanceRight) / elementWidth));
+            const fontSize = minFontSize + (fontSizeRange * ratio);
+            titleElementRight.style.fontSize = `${fontSize}px`;
+        }
 
-            currentElement = null;
+        if (titleElementLeft) {
+            const ratio = Math.max(0, 1 - (Math.abs(closestDistanceLeft) / elementWidth));
+            const fontSize = minFontSize + (fontSizeRange * ratio);
+            titleElementLeft.style.fontSize = `${fontSize}px`;
         }
     }
 }
-
-// function animateVersionHistoryScrollMobile() {
-//     if (window.innerWidth > mobileWidth) return;
-    
-//     const historyElements = document.querySelectorAll('.version-history-element');
-//     let closestElementLeft = null;
-//     let closestDistanceLeft = Infinity;
-//     let closestElementRight = null;
-//     let closestDistanceRight = -Infinity;
-
-//     const pagePadding = getCSSVarValue('--page-padding');
-//     const leftEdge = pagePadding;
-    
-//     const minFontSize = getCSSVarValue('--secondary-font-size');
-//     const maxFontSize = getCSSVarValue('--large-font-size');
-//     const fontSizeRange = maxFontSize - minFontSize;
-
-//     historyElements.forEach(element => {
-//         const elementRect = element.getBoundingClientRect();
-//         const distance = elementRect.left - leftEdge;
-                
-//         if (distance < closestDistanceLeft && distance >= -1) {
-//             closestDistanceLeft = distance;
-//             closestElementLeft = element;
-//         }
-
-//         if (distance > closestDistanceRight && distance < -1) {
-//             closestDistanceRight = distance;
-//             closestElementRight = element;
-//         }
-//     });
-
-//     if (closestElementRight) {
-//         const titleElement = closestElementRight.querySelector('.version-history-element-title');
-//         console.log('titleElement', titleElement);
-//         if (titleElement) {
-//             const ratio = Math.max(0, 1 - (Math.abs(closestDistanceRight + 1) / 100));
-//             console.log('ratio', ratio);
-//             const fontSize = minFontSize + (fontSizeRange * ratio);
-//             titleElement.style.fontSize = `${fontSize}px`;
-//         }
-//     }
-
-//     // Reset font size for all other elements
-//     historyElements.forEach(element => {
-//         if (element !== closestElementLeft && element !== closestElementRight) {
-//             const titleElement = element.querySelector('.version-history-element-title');
-//             if (titleElement) {
-//                 titleElement.style.fontSize = `${minFontSize}px`;
-//             }
-//         }
-//     });
-// }
-
-versionHistory.addEventListener('scroll', () => {
-    updateCurrentVersionElement();
-});
 
 // --------------------------------------------------------------------------------------------
 // COMPONENT REWORK
