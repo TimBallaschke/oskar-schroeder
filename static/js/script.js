@@ -160,7 +160,10 @@ let scrolling = false;
 const thresholdScroll = 10;
 
 let previousClosestElementLeft = null;
-let transitionDistance = 0;
+let transitionDistance = 210;
+
+let isSnapping = false;
+
 
 
 
@@ -2594,13 +2597,12 @@ function updateVersionHistoryOnPageScroll() {
 function updateCurrentVersionElement() {
     if (window.innerWidth > mobileWidth) return;
 
+    if (isSnapping) return;
     const historyElements = document.querySelectorAll('.version-history-element');
-    let closestElementLeft = null;
-    let closestDistanceLeft = Infinity;
-    let closestElementLeftWidth = 0;
-    let closestElementRight = null;
-    let closestDistanceRight = -Infinity;
-    let closestElementRightWidth = 0;
+    // let closestElementLeft = null;
+    // let closestDistanceLeft = Infinity;
+    // let closestElementRight = null;
+    // let closestDistanceRight = -Infinity;
 
     const pagePadding = getCSSVarValue('--page-padding');
     const leftEdge = pagePadding;
@@ -2617,35 +2619,34 @@ function updateCurrentVersionElement() {
     const maxLetterSpacing = getCSSVarValue('--letter-spacing-large');
     const letterSpacingRange = maxLetterSpacing - minLetterSpacing;
 
-    historyElements.forEach(element => {
-        const elementRect = element.getBoundingClientRect();
-        const distance = elementRect.left - leftEdge;
+    // historyElements.forEach(element => {
+    //     const elementRect = element.getBoundingClientRect();
+    //     const distance = elementRect.left - leftEdge;
                 
-        if (distance < closestDistanceLeft && distance >= -1) {
-            closestDistanceLeft = distance;
-            closestElementLeft = element;
-        }
+    //     if (distance < closestDistanceLeft && distance >= -1) {
+    //         closestDistanceLeft = distance;
+    //         closestElementLeft = element;
+    //     }
 
-        if (distance > closestDistanceRight && distance < -1) {
-            closestDistanceRight = distance;
-            closestElementRight = element;
-        }
-    });
+    //     if (distance > closestDistanceRight && distance < -1) {
+    //         closestDistanceRight = distance;
+    //         closestElementRight = element;
+    //     }
+    // });
 
 
-    if (previousClosestElementLeft !== closestElementLeft) {
-        // Get title lengths for both elements
-        const leftTitleLength = closestElementLeft ? 
-            closestElementLeft.querySelector('.version-history-element-title').textContent.length : 0;
-        const rightTitleLength = closestElementRight ? 
-            closestElementRight.querySelector('.version-history-element-title').textContent.length : 0;
+    // if (previousClosestElementLeft !== closestElementLeft) {
+    //     // Get title lengths for both elements
+    //     const leftTitleLength = closestElementLeft ? 
+    //         closestElementLeft.querySelector('.version-history-element-title').textContent.length : 0;
+    //     const rightTitleLength = closestElementRight ? 
+    //         closestElementRight.querySelector('.version-history-element-title').textContent.length : 0;
         
-        // Use the longer title length multiplied by 5 for transition distance
-        transitionDistance = Math.min(leftTitleLength, rightTitleLength) * 14;
-        console.log('transitionDistance', transitionDistance);
+    //     // Use the longer title length multiplied by 5 for transition distance
+    //     transitionDistance = Math.min(leftTitleLength, rightTitleLength) * 14;
 
-        previousClosestElementLeft = closestElementLeft;
-    }
+    //     previousClosestElementLeft = closestElementLeft;
+    // }
 
     historyElements.forEach(element => {
         const titleElement = element.querySelector('.version-history-element-title');
@@ -2675,6 +2676,7 @@ function updateCurrentVersionElement() {
         }
     });
 }
+
 
 // --------------------------------------------------------------------------------------------
 // COMPONENT REWORK
@@ -3482,11 +3484,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Version History
     handleScrollOnHover();
 
+    let scrollTimeout;
+
     versionHistory.addEventListener('scroll', () => {
-        if (window.innerWidth <= mobileWidth) {
-            // Use requestAnimationFrame for better performance
-            requestAnimationFrame(updateCurrentVersionElement);
-        }
+
+        console.log('versionHistory.scroll');
+        updateCurrentVersionElement();
+    
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            snapToClosestVersionElement();
+        }, 100); // Adjust delay if needed
     });
 
     // On Page Scroll
@@ -3497,4 +3505,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+function snapToClosestVersionElement() {
+    if (window.innerWidth > mobileWidth) return;
+
+    isSnapping = true;
+
+    const historyElements = document.querySelectorAll('.version-history-element');
+    const pagePadding = getCSSVarValue('--page-padding');
+    const leftEdge = pagePadding;
+
+    let closestElement = null;
+    let closestDistance = Infinity;
+
+    historyElements.forEach(element => {
+        const elementRect = element.getBoundingClientRect();
+        const distance = Math.abs(elementRect.left - leftEdge);
+
+        if (distance < closestDistance) {
+            closestDistance = distance;
+            closestElement = element;
+            const titleElement = element.querySelector('.version-history-element-title');
+            const numberElement = element.querySelector('.version-history-element-digits');
+            titleElement.classList.add('animation-settings');
+            numberElement.classList.add('animation-settings');
+            closestElement.classList.add('animation-settings', 'current-version-history-element');
+        }
+    });
+
+    setTimeout(() => {
+        if (closestElement) {
+            const scrollLeft = closestElement.offsetLeft - leftEdge;
+            versionHistory.scrollTo({
+                left: scrollLeft,
+                behavior: 'smooth'
+            });
+        }
+    }, 1000);
+
+
+
+    setTimeout(() => {
+        isSnapping = false;
+    }, 3000);
+}
 

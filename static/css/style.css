@@ -1331,6 +1331,9 @@ input {
   opacity: 0.3;
   pointer-events: none;
 }
+.version-history-element.animation-settings {
+  transition: all 1000ms ease-in-out;
+}
 
 .version-history-element-number {
   padding-top: 15px;
@@ -1345,7 +1348,13 @@ input {
 .no-transition .version-history-element-digits {
   transition: none;
 }
+.version-history-element-digits.animation-settings {
+  transition: all 1000ms ease-in-out;
+}
 
 .no-transition .version-history-element-title {
   transition: none;
+}
+.version-history-element-title.animation-settings {
+  transition: all 1000ms ease-in-out;
 }/*# sourceMappingURL=style.css.map */

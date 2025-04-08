@@ -147,6 +147,10 @@
     opacity: 0.3;
     pointer-events: none;
   }
+
+  &.animation-settings {
+    transition: all 1000ms ease-in-out;
+  }
 }
 
 .version-history-element-number {
@@ -166,6 +170,10 @@
   .no-transition & {
     transition: none;
   }
+
+  &.animation-settings {
+    transition: all 1000ms ease-in-out;
+  }
 }
 
 .version-history-element-title {
@@ -173,5 +181,9 @@
 
   .no-transition & {
     transition: none;
+  }
+
+  &.animation-settings {
+    transition: all 1000ms ease-in-out;
   }
 }
