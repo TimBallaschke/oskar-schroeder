@@ -158,12 +158,7 @@ const versionHistory = document.getElementById('version-history');
 let lastScrollY = window.scrollY;
 let scrolling = false;
 const thresholdScroll = 10;
-
-let previousClosestElementLeft = null;
-let transitionDistance = 210;
-
-let isSnapping = false;
-
+let versionHistoryScrollTimeout;
 
 
 
@@ -2594,15 +2589,35 @@ function updateVersionHistoryOnPageScroll() {
 }
 
 // function to update the current version history element on mobile devices when verionHistory container gets scrolled
-function updateCurrentVersionElement() {
+function updateCurrentVersion() {
     if (window.innerWidth > mobileWidth) return;
 
-    if (isSnapping) return;
-    const historyElements = document.querySelectorAll('.version-history-element');
-    // let closestElementLeft = null;
-    // let closestDistanceLeft = Infinity;
-    // let closestElementRight = null;
-    // let closestDistanceRight = -Infinity;
+    let currentVersionElement = null;
+
+    const pagePadding = parseInt(getCSSVarValue('--page-padding'));
+    const leftEdge = pagePadding;
+
+    const historyElements = versionHistory.querySelectorAll('.version-history-element');
+    const threshold = 5;
+
+    historyElements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        const elementLeft = rect.left;
+
+        if (Math.abs(elementLeft - leftEdge) <= threshold) {
+            console.log('Current version element:', element);
+            currentVersionElement = element;
+        }
+    });
+
+    if (currentVersionElement) {
+        currentVersionElement.classList.add('current-version-history-element');
+        displayPreviousVersion(currentVersionElement);
+    }
+}
+
+function startVersionHistoryScrollMobile() {
+    if (window.innerWidth > mobileWidth) return;
 
     const pagePadding = getCSSVarValue('--page-padding');
     const leftEdge = pagePadding;
@@ -2611,71 +2626,95 @@ function updateCurrentVersionElement() {
     const maxFontSize = getCSSVarValue('--large-font-size');
     const fontSizeRange = maxFontSize - minFontSize;
 
-    const minFontWeight = getCSSVarValue('--font-weight-light');
     const maxFontWeight = getCSSVarValue('--font-weight-bold');
+    const minFontWeight = getCSSVarValue('--font-weight-light');
     const fontWeightRange = maxFontWeight - minFontWeight;
 
-    const minLetterSpacing = getCSSVarValue('--letter-spacing-small');
     const maxLetterSpacing = getCSSVarValue('--letter-spacing-large');
+    const minLetterSpacing = getCSSVarValue('--letter-spacing-small');
     const letterSpacingRange = maxLetterSpacing - minLetterSpacing;
 
-    // historyElements.forEach(element => {
-    //     const elementRect = element.getBoundingClientRect();
-    //     const distance = elementRect.left - leftEdge;
-                
-    //     if (distance < closestDistanceLeft && distance >= -1) {
-    //         closestDistanceLeft = distance;
-    //         closestElementLeft = element;
-    //     }
+    let currentElement = versionHistory.querySelector('.current-version-history-element');
+    if (currentElement) {
+        currentElement.classList.add('no-transition');
+        const titleElement = currentElement.querySelector('.version-history-element-title');
 
-    //     if (distance > closestDistanceRight && distance < -1) {
-    //         closestDistanceRight = distance;
-    //         closestElementRight = element;
-    //     }
-    // });
-
-
-    // if (previousClosestElementLeft !== closestElementLeft) {
-    //     // Get title lengths for both elements
-    //     const leftTitleLength = closestElementLeft ? 
-    //         closestElementLeft.querySelector('.version-history-element-title').textContent.length : 0;
-    //     const rightTitleLength = closestElementRight ? 
-    //         closestElementRight.querySelector('.version-history-element-title').textContent.length : 0;
-        
-    //     // Use the longer title length multiplied by 5 for transition distance
-    //     transitionDistance = Math.min(leftTitleLength, rightTitleLength) * 14;
-
-    //     previousClosestElementLeft = closestElementLeft;
-    // }
-
-    historyElements.forEach(element => {
-        const titleElement = element.querySelector('.version-history-element-title');
-        const elementRect = element.getBoundingClientRect();
-      
+        // Calculate distance from left edge
+        const elementRect = currentElement.getBoundingClientRect();
         const distance = Math.abs(elementRect.left - leftEdge);
-      
-        if (distance <= transitionDistance) {
-          const ratio = 1 - (distance / transitionDistance); // 1 when close, 0 when far
-          const fontSize = minFontSize + (fontSizeRange * ratio);
-          const fontWeight = minFontWeight + (fontWeightRange * ratio);
-          const letterSpacing = minLetterSpacing + (letterSpacingRange * ratio);
-      
-          if (titleElement) {
-            titleElement.style.fontSize = `${fontSize}px`;
-            titleElement.style.fontVariationSettings = `'wght' ${fontWeight}`;
-            titleElement.style.letterSpacing = `${letterSpacing}px`;
-          }
-        } else {
-          // Reset to default (CSS-defined) if too far
-          if (titleElement) {
-            titleElement.style.fontSize = '';
-            titleElement.style.fontVariationSettings = '';
-            titleElement.style.letterSpacing = '';
+    
+        const maxDistance = 150;
+        const ratio = Math.max(0, 1 - (distance / maxDistance));
 
-          }
+        const fontSize = minFontSize + (fontSizeRange * ratio);
+        const fontWeight = minFontWeight + (fontWeightRange * ratio);
+        const letterSpacing = minLetterSpacing + (letterSpacingRange * ratio);
+
+        titleElement.style.fontSize = `${fontSize}px`;
+        titleElement.style.fontVariationSettings = `"wght" ${fontWeight}`;
+        titleElement.style.letterSpacing = `${letterSpacing}px`;
+
+        if (distance >= maxDistance) {
+            console.log('distance >= maxDistance');
+            currentElement.classList.remove('current-version-history-element', 'no-transition');
+            clearContentContainer(true);
+            currentElement = null;
         }
-    });
+    }
 }
+
+// function animateVersionHistoryScrollMobile() {
+//     if (window.innerWidth > mobileWidth) return;
+    
+//     const historyElements = document.querySelectorAll('.version-history-element');
+//     let closestElementLeft = null;
+//     let closestDistanceLeft = Infinity;
+//     let closestElementRight = null;
+//     let closestDistanceRight = -Infinity;
+
+//     const pagePadding = getCSSVarValue('--page-padding');
+//     const leftEdge = pagePadding;
+    
+//     const minFontSize = getCSSVarValue('--secondary-font-size');
+//     const maxFontSize = getCSSVarValue('--large-font-size');
+//     const fontSizeRange = maxFontSize - minFontSize;
+
+//     historyElements.forEach(element => {
+//         const elementRect = element.getBoundingClientRect();
+//         const distance = elementRect.left - leftEdge;
+                
+//         if (distance < closestDistanceLeft && distance >= -1) {
+//             closestDistanceLeft = distance;
+//             closestElementLeft = element;
+//         }
+
+//         if (distance > closestDistanceRight && distance < -1) {
+//             closestDistanceRight = distance;
+//             closestElementRight = element;
+//         }
+//     });
+
+//     if (closestElementRight) {
+//         const titleElement = closestElementRight.querySelector('.version-history-element-title');
+//         console.log('titleElement', titleElement);
+//         if (titleElement) {
+//             const ratio = Math.max(0, 1 - (Math.abs(closestDistanceRight + 1) / 100));
+//             console.log('ratio', ratio);
+//             const fontSize = minFontSize + (fontSizeRange * ratio);
+//             titleElement.style.fontSize = `${fontSize}px`;
+//         }
+//     }
+
+//     // Reset font size for all other elements
+//     historyElements.forEach(element => {
+//         if (element !== closestElementLeft && element !== closestElementRight) {
+//             const titleElement = element.querySelector('.version-history-element-title');
+//             if (titleElement) {
+//                 titleElement.style.fontSize = `${minFontSize}px`;
+//             }
+//         }
+//     });
+// }
 
 
 // --------------------------------------------------------------------------------------------
@@ -3484,17 +3523,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Version History
     handleScrollOnHover();
 
-    let scrollTimeout;
-
     versionHistory.addEventListener('scroll', () => {
+        if (window.innerWidth <= mobileWidth) {
+            requestAnimationFrame(startVersionHistoryScrollMobile);
+        }
 
-        console.log('versionHistory.scroll');
-        updateCurrentVersionElement();
-    
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            snapToClosestVersionElement();
-        }, 100); // Adjust delay if needed
+        clearTimeout(versionHistoryScrollTimeout);
+        versionHistoryScrollTimeout = setTimeout(() => {
+            updateCurrentVersion();
+        }, 500); 
     });
 
     // On Page Scroll
@@ -3505,48 +3542,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-function snapToClosestVersionElement() {
-    if (window.innerWidth > mobileWidth) return;
-
-    isSnapping = true;
-
-    const historyElements = document.querySelectorAll('.version-history-element');
-    const pagePadding = getCSSVarValue('--page-padding');
-    const leftEdge = pagePadding;
-
-    let closestElement = null;
-    let closestDistance = Infinity;
-
-    historyElements.forEach(element => {
-        const elementRect = element.getBoundingClientRect();
-        const distance = Math.abs(elementRect.left - leftEdge);
-
-        if (distance < closestDistance) {
-            closestDistance = distance;
-            closestElement = element;
-            const titleElement = element.querySelector('.version-history-element-title');
-            const numberElement = element.querySelector('.version-history-element-digits');
-            titleElement.classList.add('animation-settings');
-            numberElement.classList.add('animation-settings');
-            closestElement.classList.add('animation-settings', 'current-version-history-element');
-        }
-    });
-
-    setTimeout(() => {
-        if (closestElement) {
-            const scrollLeft = closestElement.offsetLeft - leftEdge;
-            versionHistory.scrollTo({
-                left: scrollLeft,
-                behavior: 'smooth'
-            });
-        }
-    }, 1000);
-
-
-
-    setTimeout(() => {
-        isSnapping = false;
-    }, 3000);
-}
 

@@ -4,7 +4,7 @@
   left: 0;
   width: calc(100vw - var(--page-padding));
   color: black;
-  // transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
+  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
   z-index: 100;
   overflow-x: auto;
   white-space: nowrap;
@@ -12,7 +12,7 @@
   padding-bottom: 5px;
   padding-left: var(--page-padding);
   padding-right: calc(100vw - var(--page-padding));
-  // scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory;
   scroll-padding-left: var(--page-padding);
   background-color: var(--background-color);
 
@@ -39,7 +39,7 @@
 }
 
 .version-history-element {
-  // transition: all var(--animation-duration-1) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
   @include version-history-light;
   transform-origin: center center;
   overflow: hidden;
@@ -147,15 +147,11 @@
     opacity: 0.3;
     pointer-events: none;
   }
-
-  &.animation-settings {
-    transition: all 1000ms ease-in-out;
-  }
 }
 
 .version-history-element-number {
   padding-top: 15px;
-  // transition: all var(--animation-duration-1) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
 
   .no-transition & {
     transition: none;
@@ -164,26 +160,18 @@
 
 .version-history-element-digits {
   transform: translateY(0px);
-  // transition: all var(--animation-duration-1) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
   // letter-spacing: -0.5px;
 
   .no-transition & {
     transition: none;
   }
-
-  &.animation-settings {
-    transition: all 1000ms ease-in-out;
-  }
 }
 
 .version-history-element-title {
-  // transition: all var(--animation-duration-1) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
 
   .no-transition & {
     transition: none;
-  }
-
-  &.animation-settings {
-    transition: all 1000ms ease-in-out;
   }
 }
