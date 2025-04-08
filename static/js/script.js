@@ -2643,7 +2643,7 @@ function startVersionHistoryScrollMobile() {
         const elementRect = currentElement.getBoundingClientRect();
         const distance = Math.abs(elementRect.left - leftEdge);
     
-        const maxDistance = 150;
+        const maxDistance = 100;
         const ratio = Math.max(0, 1 - (distance / maxDistance));
 
         const fontSize = minFontSize + (fontSizeRange * ratio);
@@ -2656,6 +2656,11 @@ function startVersionHistoryScrollMobile() {
 
         if (distance >= maxDistance) {
             console.log('distance >= maxDistance');
+            // Reset styles to stylesheet defaults
+            titleElement.style.fontSize = '';
+            titleElement.style.fontVariationSettings = '';
+            titleElement.style.letterSpacing = '';
+
             currentElement.classList.remove('current-version-history-element', 'no-transition');
             clearContentContainer(true);
             currentElement = null;
@@ -3531,7 +3536,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearTimeout(versionHistoryScrollTimeout);
         versionHistoryScrollTimeout = setTimeout(() => {
             updateCurrentVersion();
-        }, 500); 
+        }, 100); 
     });
 
     // On Page Scroll
