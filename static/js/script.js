@@ -591,7 +591,7 @@ function animateInputPlaceholder() {
 // --------------------------------------------------------------------------------------------
 
 async function handleDelta(content) {
-    // console.log("Received delta:", content);
+    console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -2068,16 +2068,16 @@ function addNewVersionHistoryElement(headline) {
     setTimeout(() => {
         versionHistoryDigits.classList.remove('no-opacity');
         versionHistoryTitle.classList.remove('no-opacity');
-    }, 300);
+    }, 500);
 
     setTimeout(() => {
         versionHistoryDigits.classList.remove('light');
         versionHistoryTitle.classList.remove('light');
-    }, 500);
+    }, 800);
 
     setTimeout(() => {
         newHistoryElement.style.width = '';
-    }, 1000);
+    }, 2000);
 
     newHistoryElement.addEventListener('click', (event) => {
         handleVersionEvent(event);
@@ -2148,7 +2148,7 @@ function displayPreviousVersion(element) {
     const versionKey = parseInt(element.getAttribute('version-history-key'));
     const currentVersionKey = parseInt(contentContainer.getAttribute('data-version-key'));
 
-    if (versionKey === currentVersionKey) {
+    if (versionKey === currentVersionKey) { // if the version is already displayed, return
         return;
     }
 

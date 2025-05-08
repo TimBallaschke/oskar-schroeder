@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250508n_Oskar_Website_previousVersionOnHover",
+  "original_folder": "250508o_Oskar_Website_ContentContainer_grid",
   "snapshot_date_from_folder": "250508",
   "source_files": [
     {
@@ -33,9 +33,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "4d21ec70821b127678525bf2ef69725a42c23e55",
-      "sha256": "1f83c0cc0906bb1f7b20df7f7363955d18debbc7637ac6b95daeaeb5d8f9a006",
-      "size": 26830,
+      "sha1": "dd4b8ce86dc1ab7a25e2a5533d2446831d29861b",
+      "sha256": "d5241b7120d1b63c25dbe4cb6aeae417831cbaa1d8478555a812cb482976a531",
+      "size": 26876,
       "mode": "100644"
     },
     {
@@ -54,16 +54,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "7bc7170533110f2c3f7d282ba6206e35acc387e3",
-      "sha256": "d9f63b069c96290b4cca006990db9e0f89beddf729ade65356e1b7b12c71de38",
-      "size": 35431,
+      "sha1": "0b9624104efccc3dd4a126de9bc211a28b6a7861",
+      "sha256": "972669e1c2243584260f218b150eae0641e31437ff16ad53904a33c7ba028935",
+      "size": 35631,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "e9a82491868cb1d20fd44fc04661ef26f1779e97",
-      "sha256": "cc3ec69a961c1e85584ebb4b045c627b05a03fbeada7033a0d622c720fa762e4",
-      "size": 12378,
+      "sha1": "05127e108559a62942166b0a0c011f5863098fe4",
+      "sha256": "a8f67afd87e31aafe83e173824b07235ec62d023dee36d349dccf58d2116f975",
+      "size": 12361,
       "mode": "100644"
     },
     {
@@ -82,9 +82,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "85a340378188a73a154f757ea14b4f5d1ea7d82f",
-      "sha256": "fa40866ed8541fd0f0a7b30b1b51a05445f3f487d4aeaeae62a60d183fdc9487",
-      "size": 19325,
+      "sha1": "56c7b0e6dc713a9c84c2c3bc426a28bfa61a8736",
+      "sha256": "a056a62d5c76c5795a66db1cf6bf213d1a5872eb59801f7f291de508370cdf6f",
+      "size": 18675,
       "mode": "100644"
     },
     {
@@ -110,9 +110,9 @@
     },
     {
       "path": "static/css/abstracts/_variables.scss",
-      "sha1": "6d905e0d8a628f4bd70aa7b578ff6d24bdfe5789",
-      "sha256": "451b252abc841e0ef4fa144f58dc19a79451cab5bcda6f50ff4b4ef273ad7c70",
-      "size": 2783,
+      "sha1": "27d0685756889ea44182b55761a623e383468bf4",
+      "sha256": "ba5ed620c106fb071512ca90ef03a4d96fb3138221156c81fd14f230c2cc0e28",
+      "size": 2785,
       "mode": "100644"
     },
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "f148eab4fecb04935713f7b444540e5fd348f443",
-      "sha256": "dacee080417785ebe1d107ca1fc2f67a74513626ebf4d5e256aced989c744a48",
-      "size": 172448,
+      "sha1": "8bad2c2778e9f40bc07e250966c8aa1350495ec1",
+      "sha256": "a54c6ccacae8a124d527e66f33d1cf9ced1f9f4b697ac004a871aa1c97718bc3",
+      "size": 172492,
       "mode": "100644"
     },
     {
@@ -656,9 +656,9 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "018caf84b1f11ccd77586f3f03c7e7df6d670b10",
-      "sha256": "62d13d98eef85a235fa131d5354e6627b093a7f7dcf9f46c6ac3e0ca6f6221aa",
-      "size": 11602,
+      "sha1": "c28c1bc41b8510848db22c2ebee06d5630bb3c55",
+      "sha256": "f2a28b2bfa81a31b4e8be96dbac53f837344435dbe6d2113b9c52b3a1113d159",
+      "size": 11611,
       "mode": "100644"
     }
   ],

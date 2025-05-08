@@ -155,7 +155,7 @@ client = OpenAI()
 class ImageComponent(BaseModel):
     UIType: Literal["image"] = Field(description="Indicates this is an image component for displaying an image")
     image_url: str = Field(description="The URL of the image")
-    caption: str = Field(description="A caption for the image")
+    caption: str = Field(description="A caption for the image. Important: Should be maximum 1 sentence long")
 
 class HeadlineComponent(BaseModel):
     UIType: Literal["headline"] = Field(
