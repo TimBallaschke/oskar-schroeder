@@ -487,16 +487,16 @@ function clearContentContainer(isVersionHistory) {
 
     setTimeout(() => {
         contentContainer.classList.add('no-opacity');
-    }, 300);
+    }, 100);
 
     setTimeout(() => {
         contentContainer.innerHTML = '';
-    }, 800);
+    }, 300);
 
     if (!isVersionHistory) {
         setTimeout(() => {
             contentContainer.classList.remove('animation-settings', 'no-opacity');
-        }, 810);
+        }, 310);
     }
 }
 
@@ -2456,7 +2456,7 @@ function displayPreviousVersion(element) {
                 }
             });
         }
-    }, 900);
+    }, 350);
 
     setTimeout(() => {
         const targetElements = Array.from(contentContainer.querySelectorAll('*')).filter(element => {
@@ -2484,14 +2484,14 @@ function displayPreviousVersion(element) {
             targetElements.forEach(element => {
                 element.classList.remove('light');
             });
-        }, 500);
+        }, 200);
 
         setTimeout(() => {
             targetElements.forEach(element => {
                 element.classList.remove('animation-settings');
             });
-        }, 900);
-    }, 1100);
+        }, 500);
+    }, 400);
 }
 
 // Scroll on desktop

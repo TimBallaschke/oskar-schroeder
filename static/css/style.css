@@ -119,7 +119,7 @@ body {
 }
 
 .animation-settings {
-  transition: all 500ms ease-in-out !important;
+  transition: all 300ms ease-in-out !important;
 }
 
 .animation-settings-2 {
@@ -208,7 +208,7 @@ p {
 }
 
 .light {
-  font-variation-settings: "wght" 350, "ital" 0;
+  font-variation-settings: "wght" 100, "ital" 0;
 }
 
 .italic {
@@ -1362,7 +1362,6 @@ input {
 
 .start-version-history-element {
   border-right: 0px solid black;
-  pointer-events: none;
 }
 .start-version-history-element .version-history-element-digits {
   opacity: 0;
