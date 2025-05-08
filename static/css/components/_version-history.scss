@@ -130,6 +130,7 @@
 
 .start-version-history-element {
   border-right: 0px solid black;
+  pointer-events: none;
 
   .version-history-element-digits {
     opacity: 0;

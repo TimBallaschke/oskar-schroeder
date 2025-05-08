@@ -1354,6 +1354,7 @@ input {
 
 .start-version-history-element {
   border-right: 0px solid black;
+  pointer-events: none;
 }
 .start-version-history-element .version-history-element-digits {
   opacity: 0;

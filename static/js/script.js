@@ -2069,50 +2069,57 @@ function addNewVersionHistoryElement(headline) {
         versionHistoryTitle.classList.remove('light');
     }, 500);
 
-}
+    newHistoryElement.addEventListener('click', (event) => {
+        handleVersionEvent(event);
+    });
 
-function displayNewVersionHistoryElement(content) {
-    const newHistoryElement = document.querySelector('.current-version-history-element');
-    const versionHistoryTitle = newHistoryElement.querySelector('.version-history-element-title');
+    newHistoryElement.addEventListener('mouseover', (event) => {
+        handleVersionEvent(event);
+    });
 
-    versionHistoryTitle.textContent = content.content_description;
+    newHistoryElement.addEventListener('mouseout', (event) => {
+        handleVersionEvent(event);
+    });
 
-    const currentVersionHistoryElementWidth = newHistoryElement.scrollWidth;
-    setCSSVarValue('--current-version-history-element-width', currentVersionHistoryElementWidth);
-
-    setTimeout(() => {
-        newHistoryElement.classList.remove('new-history-step-3');
-    }, 100);
 }
 
 // Define the handler function separately so it can be removed later
-function handleVersionClick(event) {
+function handleVersionEvent(event) {
+
     if (isStreaming) {
         return;
     }
 
-    console.log('handleVersionClick');
+    const eventTarget = event.currentTarget;
+    const eventType = event.type;
 
-        const clickedElement = event.currentTarget;
-        const pagePadding = getCSSVarValue('--page-padding');
-        const historyElements = document.querySelectorAll('.version-history-element');
+    const pagePadding = getCSSVarValue('--page-padding');
+    const historyElements = document.querySelectorAll('.version-history-element');
+
+    if (eventType === 'click') {
         
         historyElements.forEach(el => {
             el.classList.remove('current-version-history-element');
         });
 
-        setTimeout(() => {
-            clickedElement.classList.add('current-version-history-element');
-        }, 10);
+        eventTarget.classList.add('current-version-history-element');
 
-        // setTimeout(() => {
-        //     const scrollLeft = clickedElement.offsetLeft - pagePadding;
-            
-        //     versionHistory.scrollTo({
-        //         left: scrollLeft,
-        //         behavior: 'smooth'
-        //     });
-        // }, 300);
+    } else if (eventType === 'mouseover') {
+    } else if (eventType === 'mouseout') {
+    }
+    
+    // setTimeout(() => {
+    //     clickedElement.classList.add('current-version-history-element');
+    // }, 10);
+
+    // // setTimeout(() => {
+    // //     const scrollLeft = clickedElement.offsetLeft - pagePadding;
+        
+    // //     versionHistory.scrollTo({
+    // //         left: scrollLeft,
+    // //         behavior: 'smooth'
+    // //     });
+    // // }, 300);
 
     // displayPreviousVersion(event.currentTarget);
 }
@@ -2479,6 +2486,7 @@ function displayPreviousVersion(element) {
     }, 1100);
 }
 
+// Scroll on desktop
 function handleScrollOnHover() {
     let scrollInterval = null;
     let currentSpeed = 0;
@@ -3495,16 +3503,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     xButton.addEventListener('click', stopStreaming);
 
-    // startVersionHistoryElement.addEventListener('click', handleVersionClick);
     const historyElements = document.querySelectorAll('.version-history-element');
     historyElements.forEach(element => {
 
-        element.addEventListener('mouseover', () => {
-            document.body.classList.add('hover');
+        element.addEventListener('click', (event) => {
+            handleVersionEvent(event);
         });
 
-        element.addEventListener('mouseout', () => {
-            document.body.classList.remove('hover');
+        element.addEventListener('mouseover', (event) => {
+            document.body.classList.add('hover');
+            handleVersionEvent(event);
+        });
+
+        element.addEventListener('mouseout', (event) => {
+            handleVersionEvent(event);
         });
     });
     
