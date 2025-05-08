@@ -2023,18 +2023,14 @@ function handleSecondComplete(content, stateId) {
 
 function addNewVersionHistoryElement(headline) {
     headlineProcessed = true;
-    console.log('addNewVersionHistoryElement', headline);
     
-    // const historyElements = document.querySelectorAll('.version-history-element');
-    // historyElements.forEach(element => {
-    //     element.classList.remove('current-version-history-element');
-    // });
+    const historyElements = document.querySelectorAll('.version-history-element');
 
     // Create the new version-history element
     const newHistoryElement = document.createElement('div');
     newHistoryElement.classList.add('version-history-element', 'current-version-history-element', 'no-width');
-    newHistoryElement.id = `version-history-element-${responseCount}`;
-    newHistoryElement.setAttribute('version-history-key', responseCount);
+    newHistoryElement.id = `version-history-element-${responseCount + 1}`;
+    newHistoryElement.setAttribute('version-history-key', responseCount + 1);
 
     const versionHistoryNumber = document.createElement('div');
     versionHistoryNumber.classList.add('version-history-element-number');
@@ -2057,6 +2053,10 @@ function addNewVersionHistoryElement(headline) {
     setTimeout(() => {
         newHistoryElement.style.width = newHistoryElement.scrollWidth + versionHistoryElementPadding + 'px';
         newHistoryElement.classList.remove('no-width');
+
+        historyElements.forEach(element => {
+            element.classList.remove('current-version-history-element');
+        });
     }, 10);
 
     setTimeout(() => {
