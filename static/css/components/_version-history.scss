@@ -49,78 +49,46 @@
   font-variation-settings: "wght" 350;
   transform-origin: center center;
   overflow: hidden;
-  padding-left: 10px;
-  padding-right: 10px;
   border-left: 1px solid black;
   border-right: 1px solid black;
   flex-shrink: 0;
   margin-left: -1px; // Negative margin to overlap the borders of the elements
   scroll-snap-align: start;
   height: fit-content;
+  transition: all var(--animation-duration-1) ease-in-out;
 
   &:first-child {
     margin-left: 0; // First element shouldn't have negative margin
   }
 
   &.current-version-history-element {
+    height: 78px;
 
     .version-history-element-title {
       font-size: var(--large-font-size);
       font-variation-settings: "wght" 675;
       letter-spacing: -1px;
+
+      &.light {
+        font-variation-settings: "wght" 150;
+      }
     }
 
     .version-history-element-digits {
       font-variation-settings: "wght" 675;
+
+      &.light {
+        font-variation-settings: "wght" 150;
+      }
     }
-    // &.start-version-history-element {
-    //   width: auto;
-    // }
-    //   display: flex;
-    //   background-color: black;
-    //   color: white;
-    //   width: var(--current-version-history-element-width);
 
-    //   &.new-history-step-1 {
-    //     width: 0px;
-    //     background-color: #cdd2d9;
-    //     opacity: 0;
-    //     transform: scale(0.4);
-    //     margin-right: 0px;
-        
-    //     .version-history-element-title {
-    //       opacity: 0;
-    //       // padding-left: 0px;
-    //       // padding-right: 0px;
-    //     }
-
-    //   }
-
-    //   &.new-history-step-2 {
-    //     width: 30px;
-    //     background-color: #cdd2d9;
-    //     opacity: 0;
-    //     transform: scale(0.4);
-        
-    //     .version-history-element-title {
-    //       opacity: 0;
-    //       // padding-left: 0px;
-    //       // padding-right: 0px;
-    //     }
-
-    //   }
-
-    //   &.new-history-step-3 {
-    //     width: 30px;
-    //     opacity: 1;
-    //     background-color: #cdd2d9;
-        
-    //     .version-history-element-title {
-    //       opacity: 0;
-    //       // padding-left: px;
-    //       // padding-right: 0px;
-    //     }
-    //   }
+    &.no-height {
+      height: 0px;
+    }
+  
+    &.no-width {
+      width: 0px;
+    }
   }
 
   &.streaming-stopped-in-process {
@@ -132,6 +100,8 @@
 
 .version-history-element-number {
   padding-top: 15px;
+  padding-left: var(--version-history-element-padding);
+  padding-right: var(--version-history-element-padding);
   transition: all var(--animation-duration-1) ease-in-out;
 
   .no-transition & {
@@ -143,11 +113,22 @@
   transform: translateY(0px);
   transition: all var(--animation-duration-1) ease-in-out;
   // letter-spacing: -0.5px;
+
+  &.light {
+    font-variation-settings: "wght" 350;
+  }
 }
 
 .version-history-element-title {
   transition: all var(--animation-duration-1) ease-in-out;
+  padding-left: var(--version-history-element-padding);
+  padding-right: var(--version-history-element-padding);
+
+  &.light {
+    font-variation-settings: "wght" 350;
+  }
 }
+
 
 
 

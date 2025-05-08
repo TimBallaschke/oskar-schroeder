@@ -589,7 +589,7 @@ function animateInputPlaceholder() {
 // --------------------------------------------------------------------------------------------
 
 async function handleDelta(content) {
-    console.log("Received delta:", content);
+    // console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -2000,7 +2000,6 @@ function handleSecondComplete(content, stateId) {
             if (!isStreaming) {
                 clearInterval(checkStreamingInterval);
 
-                displayNewVersionHistoryElement(content);
                 handlePromptProposalsUpdate(content);
                 stopStreamingAnimation();
                 activateTermDescription();
@@ -2010,7 +2009,6 @@ function handleSecondComplete(content, stateId) {
         }, 100);
         
     } else {
-        displayNewVersionHistoryElement(content);
         handlePromptProposalsUpdate(content);
         stopStreamingAnimation();
         activateTermDescription();
@@ -2027,14 +2025,14 @@ function addNewVersionHistoryElement(headline) {
     headlineProcessed = true;
     console.log('addNewVersionHistoryElement', headline);
     
-    const historyElements = document.querySelectorAll('.version-history-element');
-    historyElements.forEach(element => {
-        element.classList.remove('current-version-history-element');
-    });
+    // const historyElements = document.querySelectorAll('.version-history-element');
+    // historyElements.forEach(element => {
+    //     element.classList.remove('current-version-history-element');
+    // });
 
     // Create the new version-history element
     const newHistoryElement = document.createElement('div');
-    newHistoryElement.classList.add('version-history-element', 'current-version-history-element', 'new-history-step-1');
+    newHistoryElement.classList.add('version-history-element', 'current-version-history-element', 'no-width');
     newHistoryElement.id = `version-history-element-${responseCount}`;
     newHistoryElement.setAttribute('version-history-key', responseCount);
 
@@ -2042,29 +2040,34 @@ function addNewVersionHistoryElement(headline) {
     versionHistoryNumber.classList.add('version-history-element-number');
 
     const versionHistoryDigits = document.createElement('div');
-    versionHistoryDigits.classList.add('version-history-element-digits');
+    versionHistoryDigits.classList.add('version-history-element-digits', 'no-opacity', 'light');
     versionHistoryDigits.textContent = (responseCount).toString().padStart(2, '0');
 
     const versionHistoryTitle = document.createElement('div');
-    versionHistoryTitle.classList.add('version-history-element-title');
+    versionHistoryTitle.classList.add('version-history-element-title', 'no-opacity', 'light');
+    versionHistoryTitle.textContent = headline;
 
     versionHistoryNumber.appendChild(versionHistoryDigits);
     newHistoryElement.appendChild(versionHistoryNumber);
     newHistoryElement.appendChild(versionHistoryTitle);
     versionHistory.insertBefore(newHistoryElement, versionHistory.firstChild);
 
-    newHistoryElement.addEventListener('click', handleVersionClick);
-
-
-    setTimeout(() => {
-        newHistoryElement.classList.remove('new-history-step-1');
-        newHistoryElement.classList.add('new-history-step-2');
-    }, animationDuration);
+    const versionHistoryElementPadding = getCSSVarValue('--version-history-element-padding');
 
     setTimeout(() => {
-        newHistoryElement.classList.remove('new-history-step-2');
-        newHistoryElement.classList.add('new-history-step-3');
-    }, animationDuration + 100);
+        newHistoryElement.style.width = newHistoryElement.scrollWidth + versionHistoryElementPadding + 'px';
+        newHistoryElement.classList.remove('no-width');
+    }, 10);
+
+    setTimeout(() => {
+        versionHistoryDigits.classList.remove('no-opacity');
+        versionHistoryTitle.classList.remove('no-opacity');
+    }, 300);
+
+    setTimeout(() => {
+        versionHistoryDigits.classList.remove('light');
+        versionHistoryTitle.classList.remove('light');
+    }, 500);
 
 }
 

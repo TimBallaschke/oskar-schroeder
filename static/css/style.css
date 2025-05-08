@@ -15,6 +15,7 @@
   --animation-duration-2: 200ms;
   --animation-duration-3: 500ms;
   --current-version-history-element-width: 0px;
+  --version-history-element-padding: 10px;
   --bottom-margin-bottom-nav: 4vw;
   --side-margin-bottom-nav: 10px;
   --veritical-padding-bottom-nav: 17.5px;
@@ -1286,8 +1287,6 @@ input {
   font-variation-settings: "wght" 350;
   transform-origin: center center;
   overflow: hidden;
-  padding-left: 10px;
-  padding-right: 10px;
   border-left: 1px solid black;
   border-right: 1px solid black;
   flex-shrink: 0;
@@ -1295,17 +1294,33 @@ input {
   scroll-snap-align: start;
   height: -moz-fit-content;
   height: fit-content;
+  transition: all var(--animation-duration-1) ease-in-out;
 }
 .version-history-element:first-child {
   margin-left: 0;
+}
+.version-history-element.current-version-history-element {
+  height: 78px;
 }
 .version-history-element.current-version-history-element .version-history-element-title {
   font-size: var(--large-font-size);
   font-variation-settings: "wght" 675;
   letter-spacing: -1px;
 }
+.version-history-element.current-version-history-element .version-history-element-title.light {
+  font-variation-settings: "wght" 150;
+}
 .version-history-element.current-version-history-element .version-history-element-digits {
   font-variation-settings: "wght" 675;
+}
+.version-history-element.current-version-history-element .version-history-element-digits.light {
+  font-variation-settings: "wght" 150;
+}
+.version-history-element.current-version-history-element.no-height {
+  height: 0px;
+}
+.version-history-element.current-version-history-element.no-width {
+  width: 0px;
 }
 .version-history-element.streaming-stopped-in-process {
   width: 30px;
@@ -1315,6 +1330,8 @@ input {
 
 .version-history-element-number {
   padding-top: 15px;
+  padding-left: var(--version-history-element-padding);
+  padding-right: var(--version-history-element-padding);
   transition: all var(--animation-duration-1) ease-in-out;
 }
 .no-transition .version-history-element-number {
@@ -1325,9 +1342,17 @@ input {
   transform: translateY(0px);
   transition: all var(--animation-duration-1) ease-in-out;
 }
+.version-history-element-digits.light {
+  font-variation-settings: "wght" 350;
+}
 
 .version-history-element-title {
   transition: all var(--animation-duration-1) ease-in-out;
+  padding-left: var(--version-history-element-padding);
+  padding-right: var(--version-history-element-padding);
+}
+.version-history-element-title.light {
+  font-variation-settings: "wght" 350;
 }
 
 .hover .version-history-element:hover .version-history-element-title {
