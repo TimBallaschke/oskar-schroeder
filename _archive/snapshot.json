@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250508d_Oskar_Website_hover_scroll_down_up",
+  "original_folder": "250508d_Oskar_Website_scroll_snap_JS",
   "snapshot_date_from_folder": "250508",
   "source_files": [
     {
@@ -54,16 +54,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "40c63c5df4d1251f9102a02f64a8b5fc6c7bd106",
-      "sha256": "5ecb7d4ac92b471f10cd121d75b2f425963dd5fd120126a00d6cfbfbdfd701c9",
-      "size": 34241,
+      "sha1": "3bc60c85e56b45669447340a792fc794918a8dd9",
+      "sha256": "58e350df119027e66506a4ebc18a1eb2eb172bdf176d0cb394486b8598199c8a",
+      "size": 32938,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "6ef562cb5c957a847509babf282ef33b0a0cb8bd",
-      "sha256": "29fb21e54b3e53a7da37fd17ef6a4a802b672c1022c6010c25e9d097298731b1",
-      "size": 12067,
+      "sha1": "9a9c2119bd4a01c4d31cd0b612c1180c90edecf5",
+      "sha256": "257e33ee2bc985de4d2869cafce4d13d9e626066b0ece7348d194d024e524df8",
+      "size": 11821,
       "mode": "100644"
     },
     {
@@ -96,9 +96,9 @@
     },
     {
       "path": "static/css/components/_version-history.scss",
-      "sha1": "b541c87b690fb0f2c57610a71c7d700d22b42311",
-      "sha256": "4e5172e97ceba9a7b8e40e203db8e17a0aed5c974aa3279373f05913139749b4",
-      "size": 5657,
+      "sha1": "d2e57518ece00b87ec4f8d8f7e66fc7ada7b17c4",
+      "sha256": "b549db41de75500afc049aee343d4ffa6deeafe44b91b9b70b759e15e40cc806",
+      "size": 4007,
       "mode": "100644"
     },
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "d8442a5fb7f3b8ee7bfbdc1d586b39b623d96155",
-      "sha256": "42f9652e9e22aea5e5a65ccd330c375331c87bf97e789181e72bebdd91cb5a25",
-      "size": 172986,
+      "sha1": "2c182b13682672602b91e1270c60081919bd0c77",
+      "sha256": "0b29f23736fa79873133c3e30b34c365c4606f47bdfb96425297417196304943",
+      "size": 172546,
       "mode": "100644"
     },
     {
@@ -656,8 +656,8 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "251d7874dccf9af9c8d651653b442a5bcc85f8fc",
-      "sha256": "07d62b88396904c3cff3e27d793f706f430d51a7999fc81e4ba9460d9a1618f4",
+      "sha1": "0f5aa3fde81e526656cc8c1b29b5f84842c46d3d",
+      "sha256": "15c4c39f05d288502708dc491d5cd12d969fb9c32c6efb87e35f66ec4d730c4d",
       "size": 11065,
       "mode": "100644"
     }

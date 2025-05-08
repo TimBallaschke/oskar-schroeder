@@ -2118,8 +2118,7 @@ function handleVersionClick(event) {
         return;
     }
 
-    console.log('handleVersionClick');
-
+    if (window.innerWidth > mobileWidth) {
         const clickedElement = event.currentTarget;
         const pagePadding = getCSSVarValue('--page-padding');
         const historyElements = document.querySelectorAll('.version-history-element');
@@ -2133,14 +2132,14 @@ function handleVersionClick(event) {
         }, 10);
 
         // setTimeout(() => {
-        //     const scrollLeft = clickedElement.offsetLeft - pagePadding;
-            
         //     versionHistory.scrollTo({
-        //         left: scrollLeft,
+        //         left: clickedElement.offsetLeft - pagePadding,
         //         behavior: 'smooth'
         //     });
-        // }, 300);
+        // }, 10);
+    } else {
 
+    }
     // displayPreviousVersion(event.currentTarget);
 }
 
@@ -2577,10 +2576,10 @@ function updateVersionHistoryOnPageScroll() {
     if (Math.abs(scrolledDistance) >= thresholdScroll) {
       if (scrolledDistance > 0) {
         // Scrolling down
-        document.body.classList.add("scroll-down");
+        versionHistory.classList.add("scroll-down");
       } else {
         // Scrolling up
-        document.body.classList.remove("scroll-down");
+        versionHistory.classList.remove("scroll-down");
       }
   
       lastScrollY = currentScrollY;
@@ -3522,34 +3521,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     xButton.addEventListener('click', stopStreaming);
 
-    // startVersionHistoryElement.addEventListener('click', handleVersionClick);
-    const historyElements = document.querySelectorAll('.version-history-element');
-    historyElements.forEach(element => {
-        element.addEventListener('mouseover', () => {
-            document.body.classList.add('hover');
-        });
+    startVersionHistoryElement.addEventListener('click', handleVersionClick);
 
-        element.addEventListener('mouseout', () => {
-            document.body.classList.remove('hover');
-        });
-    });
-    
     loadStateFromUrl();
 
     // Version History
     handleScrollOnHover();
 
-    // versionHistory.addEventListener('scroll', () => {
-    //     if (window.innerWidth <= mobileWidth) {
-    //         requestAnimationFrame(startVersionHistoryScrollMobile);
-    //     }
+    versionHistory.addEventListener('scroll', () => {
+        if (window.innerWidth <= mobileWidth) {
+            requestAnimationFrame(startVersionHistoryScrollMobile);
+        }
 
-    //     clearTimeout(versionHistoryScrollTimeout);
-    //     versionHistoryScrollTimeout = setTimeout(() => {
-    //         snapToClosestVersionElement();
-    //         // updateCurrentVersion();
-    //     }, 100); 
-    // });
+        clearTimeout(versionHistoryScrollTimeout);
+        versionHistoryScrollTimeout = setTimeout(() => {
+            snapToClosestVersionElement();
+            // updateCurrentVersion();
+        }, 100); 
+    });
 
     // On Page Scroll
     window.addEventListener("scroll", () => {

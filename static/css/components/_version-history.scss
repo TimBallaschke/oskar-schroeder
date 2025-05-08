@@ -1,12 +1,10 @@
-
-
 #version-history {
   position: fixed;
   top: 0;
   left: 0;
   width: calc(100vw - var(--page-padding));
   color: black;
-  transition: all var(--animation-duration-1) ease-in-out;
+  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
   z-index: 100;
   overflow-x: auto;
   white-space: nowrap;
@@ -17,7 +15,6 @@
   // scroll-snap-type: x mandatory;
   scroll-padding-left: var(--page-padding);
   background-color: var(--background-color);
-  height: 78px;
 
   // &::before {
   //   content: '';
@@ -41,14 +38,14 @@
   }
 }
 
-
-
 .version-history-element {
   transition: all var(--animation-duration-1) ease-in-out;
-  font-size: var(--secondary-font-size);
-  font-variation-settings: "wght" 350;
+  @include version-history-light;
   transform-origin: center center;
   overflow: hidden;
+  height: 100%;
+  display: grid;
+  align-content: space-between;
   padding-left: 10px;
   padding-right: 10px;
   border-left: 1px solid black;
@@ -56,23 +53,44 @@
   flex-shrink: 0;
   margin-left: -1px; // Negative margin to overlap the borders of the elements
   scroll-snap-align: start;
-  height: fit-content;
-
 
   &:first-child {
     margin-left: 0; // First element shouldn't have negative margin
+  }
+
+  &:hover {
+
+    .version-history-element-title {
+      font-size: var(--large-font-size);
+      @include version-history-bold;
+      letter-spacing: -1px;
+
+      .scroll-down & {
+        font-size: var(--secondary-font-size);
+        letter-spacing: 0px;
+      }
+    }
+
+    .version-history-element-digits {
+      @include version-history-bold;
+    }
   }
 
   &.current-version-history-element {
 
     .version-history-element-title {
       font-size: var(--large-font-size);
-      font-variation-settings: "wght" 675;
+      @include version-history-bold;
       letter-spacing: -1px;
+
+      .scroll-down & {
+        font-size: var(--secondary-font-size);
+        letter-spacing: 0px;
+      }
     }
 
     .version-history-element-digits {
-      font-variation-settings: "wght" 675;
+      @include version-history-bold;
     }
     // &.start-version-history-element {
     //   width: auto;
@@ -144,105 +162,16 @@
   transform: translateY(0px);
   transition: all var(--animation-duration-1) ease-in-out;
   // letter-spacing: -0.5px;
+
+  .no-transition & {
+    transition: none;
+  }
 }
 
 .version-history-element-title {
   transition: all var(--animation-duration-1) ease-in-out;
-}
 
-
-
-
-
-// On Hover
-.hover {
-  .version-history-element {
-    &:hover {
-      .version-history-element-title {
-        transition: all var(--animation-duration-1) ease-in-out;
-        font-size: var(--large-font-size);
-        letter-spacing: -1px;
-        font-variation-settings: "wght" 675;
-        transition: all var(--animation-duration-1) ease-in-out;
-      }
-
-      .version-history-element-digits {
-        font-variation-settings: "wght" 675;
-      }
-    }
-
-    &.current-version-history-element {
-      .version-history-element-title {
-        font-size: var(--secondary-font-size);
-        letter-spacing: 0px;
-        font-variation-settings: "wght" 350;
-      }
-
-      .version-history-element-digits {
-        font-variation-settings: "wght" 350;
-      }
-
-      &:hover {
-        .version-history-element-title {
-          font-size: var(--large-font-size);
-          letter-spacing: -1px;
-          font-variation-settings: "wght" 675;
-          transition: all var(--animation-duration-1) ease-in-out;
-        }
-  
-        .version-history-element-digits {
-          font-variation-settings: "wght" 675;
-        }
-      }
-    }
-  }
-}
-
-// On Scroll Down
-
-.scroll-down {
-
-  #version-history {
-    height: 55px;
-  }
-
-  .version-history-element {
-
-    &:hover {
-      .version-history-element-title {
-        font-size: var(--small-font-size);
-        letter-spacing: 0px;
-        font-variation-settings: "wght" 675;
-      }
-
-      .version-history-element-digits {
-        font-variation-settings: "wght" 675;
-      }
-    }
-
-    &.current-version-history-element {
-      .version-history-element-title {
-        font-size: var(--secondary-font-size);
-        letter-spacing: 0px;
-        font-variation-settings: "wght" 675;
-      }
-  
-      .version-history-element-digits {
-        font-variation-settings: "wght" 675;
-      }
-  
-      &:hover {
-        .version-history-element-title {
-          font-size: var(--small-font-size);
-          letter-spacing: 0px;
-          font-variation-settings: "wght" 675;
-          transition: all var(--animation-duration-1) ease-in-out;
-        }
-  
-        .version-history-element-digits {
-          font-variation-settings: "wght" 675;
-        }
-      }
-    } 
+  .no-transition & {
+    transition: none;
   }
 }

@@ -1252,7 +1252,7 @@ input {
   left: 0;
   width: calc(100vw - var(--page-padding));
   color: black;
-  transition: all var(--animation-duration-1) ease-in-out;
+  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out;
   z-index: 100;
   overflow-x: auto;
   white-space: nowrap;
@@ -1262,7 +1262,6 @@ input {
   padding-right: calc(100vw - var(--page-padding));
   scroll-padding-left: var(--page-padding);
   background-color: var(--background-color);
-  height: 78px;
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   #version-history {
@@ -1283,9 +1282,13 @@ input {
 .version-history-element {
   transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--secondary-font-size);
-  font-variation-settings: "wght" 350;
+  font-variation-settings: "wght" 350, "ital" 0;
+  text-transform: capitalize;
   transform-origin: center center;
   overflow: hidden;
+  height: 100%;
+  display: grid;
+  align-content: space-between;
   padding-left: 10px;
   padding-right: 10px;
   border-left: 1px solid black;
@@ -1293,19 +1296,37 @@ input {
   flex-shrink: 0;
   margin-left: -1px;
   scroll-snap-align: start;
-  height: -moz-fit-content;
-  height: fit-content;
 }
 .version-history-element:first-child {
   margin-left: 0;
 }
-.version-history-element.current-version-history-element .version-history-element-title {
+.version-history-element:hover .version-history-element-title {
   font-size: var(--large-font-size);
-  font-variation-settings: "wght" 675;
+  font-variation-settings: "wght" 675, "ital" 0;
+  text-transform: capitalize;
   letter-spacing: -1px;
 }
+.scroll-down .version-history-element:hover .version-history-element-title {
+  font-size: var(--secondary-font-size);
+  letter-spacing: 0px;
+}
+.version-history-element:hover .version-history-element-digits {
+  font-variation-settings: "wght" 675, "ital" 0;
+  text-transform: capitalize;
+}
+.version-history-element.current-version-history-element .version-history-element-title {
+  font-size: var(--large-font-size);
+  font-variation-settings: "wght" 675, "ital" 0;
+  text-transform: capitalize;
+  letter-spacing: -1px;
+}
+.scroll-down .version-history-element.current-version-history-element .version-history-element-title {
+  font-size: var(--secondary-font-size);
+  letter-spacing: 0px;
+}
 .version-history-element.current-version-history-element .version-history-element-digits {
-  font-variation-settings: "wght" 675;
+  font-variation-settings: "wght" 675, "ital" 0;
+  text-transform: capitalize;
 }
 .version-history-element.streaming-stopped-in-process {
   width: 30px;
@@ -1325,64 +1346,13 @@ input {
   transform: translateY(0px);
   transition: all var(--animation-duration-1) ease-in-out;
 }
+.no-transition .version-history-element-digits {
+  transition: none;
+}
 
 .version-history-element-title {
   transition: all var(--animation-duration-1) ease-in-out;
 }
-
-.hover .version-history-element:hover .version-history-element-title {
-  transition: all var(--animation-duration-1) ease-in-out;
-  font-size: var(--large-font-size);
-  letter-spacing: -1px;
-  font-variation-settings: "wght" 675;
-  transition: all var(--animation-duration-1) ease-in-out;
-}
-.hover .version-history-element:hover .version-history-element-digits {
-  font-variation-settings: "wght" 675;
-}
-.hover .version-history-element.current-version-history-element .version-history-element-title {
-  font-size: var(--secondary-font-size);
-  letter-spacing: 0px;
-  font-variation-settings: "wght" 350;
-}
-.hover .version-history-element.current-version-history-element .version-history-element-digits {
-  font-variation-settings: "wght" 350;
-}
-.hover .version-history-element.current-version-history-element:hover .version-history-element-title {
-  font-size: var(--large-font-size);
-  letter-spacing: -1px;
-  font-variation-settings: "wght" 675;
-  transition: all var(--animation-duration-1) ease-in-out;
-}
-.hover .version-history-element.current-version-history-element:hover .version-history-element-digits {
-  font-variation-settings: "wght" 675;
-}
-
-.scroll-down #version-history {
-  height: 55px;
-}
-.scroll-down .version-history-element:hover .version-history-element-title {
-  font-size: var(--small-font-size);
-  letter-spacing: 0px;
-  font-variation-settings: "wght" 675;
-}
-.scroll-down .version-history-element:hover .version-history-element-digits {
-  font-variation-settings: "wght" 675;
-}
-.scroll-down .version-history-element.current-version-history-element .version-history-element-title {
-  font-size: var(--secondary-font-size);
-  letter-spacing: 0px;
-  font-variation-settings: "wght" 675;
-}
-.scroll-down .version-history-element.current-version-history-element .version-history-element-digits {
-  font-variation-settings: "wght" 675;
-}
-.scroll-down .version-history-element.current-version-history-element:hover .version-history-element-title {
-  font-size: var(--small-font-size);
-  letter-spacing: 0px;
-  font-variation-settings: "wght" 675;
-  transition: all var(--animation-duration-1) ease-in-out;
-}
-.scroll-down .version-history-element.current-version-history-element:hover .version-history-element-digits {
-  font-variation-settings: "wght" 675;
+.no-transition .version-history-element-title {
+  transition: none;
 }/*# sourceMappingURL=style.css.map */
