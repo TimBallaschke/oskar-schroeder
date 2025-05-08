@@ -159,6 +159,7 @@ let lastScrollY = window.scrollY;
 let scrolling = false;
 const thresholdScroll = 10;
 let versionHistoryScrollTimeout;
+let headlineProcessed = false;
 
 
 
@@ -383,7 +384,6 @@ function sendMessage() {
             if (data.status === "ok") { // checks if the status of the response is "ok"
                 responseCount++;
                 startStreamingResponse(); // starts the streaming response
-                addNewVersionHistoryElement()
             }        
         }).catch(error => { // handles any errors that occur during the request
             console.error('Error sending message:', error); // logs the error to the console
@@ -606,47 +606,11 @@ async function handleDelta(content) {
 
             // Handle headline if it exists
             if ('headline' in currentContent) {
-                let topHeadlineContainer = document.querySelector('.top-headline');
-                if (!topHeadlineContainer) {
-                    console.log('topHeadlineContainer created');
-                    await new Promise(resolve => {
-                        topHeadlineContainer = document.createElement('div');
-                        topHeadlineContainer.classList.add('top-headline', 'headline', 'no-height', 'no-width');
-                        contentContainer.appendChild(topHeadlineContainer);
-
-                        setTimeout(() => {
-                            topHeadlineContainer.classList.remove('no-width');
-                        }, 10);
-
-                        setTimeout(resolve, animationDuration + 10);
-                    });
-                }
-
                 if (currentContent.headline.headline) {
-                    let topHeadlineContent = document.querySelector('.top-headline-content');
-
-                    if (!topHeadlineContent) {
-                        await new Promise(resolve => {
-                            topHeadlineContent = document.createElement('div');
-                            topHeadlineContent.classList.add('top-headline-content', 'headline-content', 'no-opacity', 'no-serif');
-                            topHeadlineContent.textContent = currentContent.headline.headline;
-                            topHeadlineContainer.appendChild(topHeadlineContent);
-        
-                            const topHeadlineContainerHeight = topHeadlineContainer.scrollHeight + 3;
-                            setCSSVarValue('--headline-height', topHeadlineContainerHeight);
-
-                            setTimeout(() => {
-                                topHeadlineContainer.classList.remove('no-height');
-                            }, 10);
-
-                            setTimeout(() => {
-                                topHeadlineContent.classList.remove('no-opacity', 'no-serif');
-                            }, animationDuration + 10);
-
-                            setTimeout(resolve, 2 * animationDuration);
-                        }); 
+                    if (!headlineProcessed) {
+                        const headline = currentContent.headline.headline;
+                        addNewVersionHistoryElement(headline);
                     }
-                
                 }   
             }
 
@@ -2040,6 +2004,8 @@ function handleSecondComplete(content, stateId) {
                 handlePromptProposalsUpdate(content);
                 stopStreamingAnimation();
                 activateTermDescription();
+
+                headlineProcessed = false;
             }
         }, 100);
         
@@ -2048,6 +2014,8 @@ function handleSecondComplete(content, stateId) {
         handlePromptProposalsUpdate(content);
         stopStreamingAnimation();
         activateTermDescription();
+
+        headlineProcessed = false;
     }
 }
 
@@ -2055,8 +2023,10 @@ function handleSecondComplete(content, stateId) {
 // VERSION HISTORY
 // --------------------------------------------------------------------------------------------
 
-function addNewVersionHistoryElement() {
-    // Hide all existing version-history elements
+function addNewVersionHistoryElement(headline) {
+    headlineProcessed = true;
+    console.log('addNewVersionHistoryElement', headline);
+    
     const historyElements = document.querySelectorAll('.version-history-element');
     historyElements.forEach(element => {
         element.classList.remove('current-version-history-element');
@@ -2765,7 +2735,7 @@ function startStreamingComponentRework() {
 };
 
 async function handleDeltaRework(content) {
-    console.log('handleDeltaRework', content);
+    // console.log('handleDeltaRework', content);
     reworkRenderingQueue.push(content);
 
     if (isReworkProcessing) {
