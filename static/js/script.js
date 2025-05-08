@@ -2118,7 +2118,8 @@ function handleVersionClick(event) {
         return;
     }
 
-    if (window.innerWidth > mobileWidth) {
+    console.log('handleVersionClick');
+
         const clickedElement = event.currentTarget;
         const pagePadding = getCSSVarValue('--page-padding');
         const historyElements = document.querySelectorAll('.version-history-element');
@@ -2132,14 +2133,14 @@ function handleVersionClick(event) {
         }, 10);
 
         // setTimeout(() => {
+        //     const scrollLeft = clickedElement.offsetLeft - pagePadding;
+            
         //     versionHistory.scrollTo({
-        //         left: clickedElement.offsetLeft - pagePadding,
+        //         left: scrollLeft,
         //         behavior: 'smooth'
         //     });
-        // }, 10);
-    } else {
+        // }, 300);
 
-    }
     // displayPreviousVersion(event.currentTarget);
 }
 
@@ -2576,10 +2577,10 @@ function updateVersionHistoryOnPageScroll() {
     if (Math.abs(scrolledDistance) >= thresholdScroll) {
       if (scrolledDistance > 0) {
         // Scrolling down
-        versionHistory.classList.add("scroll-down");
+        document.body.classList.add("scroll-down");
       } else {
         // Scrolling up
-        versionHistory.classList.remove("scroll-down");
+        document.body.classList.remove("scroll-down");
       }
   
       lastScrollY = currentScrollY;
@@ -2636,30 +2637,30 @@ function startVersionHistoryScrollMobile() {
 
     let currentElement = versionHistory.querySelector('.current-version-history-element');
     if (currentElement) {
-        currentElement.classList.add('no-transition');
+        // currentElement.classList.add('no-transition');
         const titleElement = currentElement.querySelector('.version-history-element-title');
 
         // Calculate distance from left edge
         const elementRect = currentElement.getBoundingClientRect();
         const distance = Math.abs(elementRect.left - leftEdge);
     
-        const maxDistance = 100;
+        const maxDistance = 1;
         const ratio = Math.max(0, 1 - (distance / maxDistance));
 
         const fontSize = minFontSize + (fontSizeRange * ratio);
         const fontWeight = minFontWeight + (fontWeightRange * ratio);
         const letterSpacing = minLetterSpacing + (letterSpacingRange * ratio);
 
-        titleElement.style.fontSize = `${fontSize}px`;
-        titleElement.style.fontVariationSettings = `"wght" ${fontWeight}`;
-        titleElement.style.letterSpacing = `${letterSpacing}px`;
+        // titleElement.style.fontSize = `${fontSize}px`;
+        // titleElement.style.fontVariationSettings = `"wght" ${fontWeight}`;
+        // titleElement.style.letterSpacing = `${letterSpacing}px`;
 
         if (distance >= maxDistance) {
             console.log('distance >= maxDistance');
             // Reset styles to stylesheet defaults
-            titleElement.style.fontSize = '';
-            titleElement.style.fontVariationSettings = '';
-            titleElement.style.letterSpacing = '';
+            // titleElement.style.fontSize = '';
+            // titleElement.style.fontVariationSettings = '';
+            // titleElement.style.letterSpacing = '';
 
             currentElement.classList.remove('current-version-history-element', 'no-transition');
             clearContentContainer(true);
@@ -3521,23 +3522,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     xButton.addEventListener('click', stopStreaming);
 
-    startVersionHistoryElement.addEventListener('click', handleVersionClick);
+    // startVersionHistoryElement.addEventListener('click', handleVersionClick);
+    const historyElements = document.querySelectorAll('.version-history-element');
+    historyElements.forEach(element => {
+        element.addEventListener('mouseover', () => {
+            document.body.classList.add('hover');
+        });
 
+        element.addEventListener('mouseout', () => {
+            document.body.classList.remove('hover');
+        });
+    });
+    
     loadStateFromUrl();
 
     // Version History
     handleScrollOnHover();
 
-    versionHistory.addEventListener('scroll', () => {
-        if (window.innerWidth <= mobileWidth) {
-            requestAnimationFrame(startVersionHistoryScrollMobile);
-        }
+    // versionHistory.addEventListener('scroll', () => {
+    //     if (window.innerWidth <= mobileWidth) {
+    //         requestAnimationFrame(startVersionHistoryScrollMobile);
+    //     }
 
-        clearTimeout(versionHistoryScrollTimeout);
-        versionHistoryScrollTimeout = setTimeout(() => {
-            updateCurrentVersion();
-        }, 100); 
-    });
+    //     clearTimeout(versionHistoryScrollTimeout);
+    //     versionHistoryScrollTimeout = setTimeout(() => {
+    //         snapToClosestVersionElement();
+    //         // updateCurrentVersion();
+    //     }, 100); 
+    // });
 
     // On Page Scroll
     window.addEventListener("scroll", () => {
@@ -3547,4 +3559,52 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+function snapToClosestVersionElement() {
+    if (window.innerWidth > mobileWidth) return;
+
+    const historyElements = document.querySelectorAll('.version-history-element');
+    const pagePadding = getCSSVarValue('--page-padding');
+    const leftEdge = pagePadding;
+
+    let closestElement = null;
+    let closestDistance = Infinity;
+
+    historyElements.forEach(element => {
+        const elementRect = element.getBoundingClientRect();
+        const distance = Math.abs(elementRect.left - leftEdge);
+
+        if (distance < closestDistance) {
+            closestDistance = distance;
+            closestElement = element;
+        }
+    });
+
+    if (closestElement) {
+        const targetScrollLeft = closestElement.offsetLeft - leftEdge;
+        
+        // Start scrolling
+        versionHistory.scrollTo({
+            left: targetScrollLeft,
+            behavior: 'smooth'
+        });
+
+        // Check element position
+        const checkPosition = () => {
+            const elementRect = closestElement.getBoundingClientRect();
+            const distance = Math.abs(elementRect.left - leftEdge);
+            
+            if (distance <= 1) {
+                setTimeout(() => {
+                    closestElement.classList.add('current-version-history-element');
+                    displayPreviousVersion(closestElement);
+                }, 100);
+            } else {
+                requestAnimationFrame(checkPosition);
+            }
+        };
+
+        requestAnimationFrame(checkPosition);
+    }
+}
 
