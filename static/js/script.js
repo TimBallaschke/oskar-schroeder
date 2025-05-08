@@ -130,7 +130,7 @@ let isProcessing = false; // Flag to prevent concurrent processing
 let responseMap = {};  // Saving the components for each response
 let processedComponents = new Map(); // Current components that have been processed
 let renderingQueue = [];
-let responseCount = 0;
+let responseCount = 1;
 let projectRenderingQueue = [];
 let isProjectRendering = false;
 
@@ -2029,8 +2029,8 @@ function addNewVersionHistoryElement(headline) {
     // Create the new version-history element
     const newHistoryElement = document.createElement('div');
     newHistoryElement.classList.add('version-history-element', 'current-version-history-element', 'no-width');
-    newHistoryElement.id = `version-history-element-${responseCount + 1}`;
-    newHistoryElement.setAttribute('version-history-key', responseCount + 1);
+    newHistoryElement.id = `version-history-element-${responseCount}`;
+    newHistoryElement.setAttribute('version-history-key', responseCount);
 
     const versionHistoryElementContent = document.createElement('div');
     versionHistoryElementContent.classList.add('version-history-element-content');
@@ -2114,14 +2114,12 @@ function handleVersionEvent(event) {
 
         eventTarget.classList.add('current-version-history-element');
 
+        displayPreviousVersion(event.currentTarget);
+
     } else if (eventType === 'mouseover') {
     } else if (eventType === 'mouseout') {
     }
     
-    // setTimeout(() => {
-    //     clickedElement.classList.add('current-version-history-element');
-    // }, 10);
-
     // // setTimeout(() => {
     // //     const scrollLeft = clickedElement.offsetLeft - pagePadding;
         
@@ -2131,11 +2129,11 @@ function handleVersionEvent(event) {
     // //     });
     // // }, 300);
 
-    // displayPreviousVersion(event.currentTarget);
 }
 
 // display previous version
 function displayPreviousVersion(element) {
+    console.log('displayPreviousVersion');
 
     // Get the version key from the clicked element
     const versionKey = parseInt(element.getAttribute('version-history-key'));
