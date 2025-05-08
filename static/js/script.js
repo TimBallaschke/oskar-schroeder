@@ -160,6 +160,7 @@ let scrolling = false;
 const thresholdScroll = 10;
 let versionHistoryScrollTimeout;
 let headlineProcessed = false;
+let displayVersionOnHoverTimeout;
 
 
 
@@ -383,6 +384,7 @@ function sendMessage() {
         .then(data => { // waits for the response to be converted to a JSON object
             if (data.status === "ok") { // checks if the status of the response is "ok"
                 responseCount++;
+                contentContainer.setAttribute('data-version-key', responseCount);
                 startStreamingResponse(); // starts the streaming response
             }        
         }).catch(error => { // handles any errors that occur during the request
@@ -2117,7 +2119,16 @@ function handleVersionEvent(event) {
         displayPreviousVersion(event.currentTarget);
 
     } else if (eventType === 'mouseover') {
+        clearTimeout(displayVersionOnHoverTimeout);
+        displayVersionOnHoverTimeout = setTimeout(() => {
+            displayPreviousVersion(eventTarget);
+        }, 100);
     } else if (eventType === 'mouseout') {
+        const currentVersionHistoryElement = document.querySelector('.current-version-history-element');
+        clearTimeout(displayVersionOnHoverTimeout);
+        displayVersionOnHoverTimeout = setTimeout(() => {
+            displayPreviousVersion(currentVersionHistoryElement);
+        }, 100);
     }
     
     // // setTimeout(() => {
@@ -2133,14 +2144,20 @@ function handleVersionEvent(event) {
 
 // display previous version
 function displayPreviousVersion(element) {
-    console.log('displayPreviousVersion');
 
-    // Get the version key from the clicked element
     const versionKey = parseInt(element.getAttribute('version-history-key'));
+    const currentVersionKey = parseInt(contentContainer.getAttribute('data-version-key'));
 
-    if (versionKey === 0) {
-        clearContentContainer(true);
+    if (versionKey === currentVersionKey) {
+        return;
+    }
 
+    contentContainer.setAttribute('data-version-key', versionKey);
+    clearContentContainer(true);
+
+
+    if (versionKey === 0 || versionKey === 1) {
+        
         // Reset the URL to the base URL without state parameter
         const baseUrl = `${window.location.origin}${window.location.pathname}`;
         window.history.pushState({}, '', baseUrl);
@@ -2151,13 +2168,13 @@ function displayPreviousVersion(element) {
     const versionContent = responseMap[versionKey].content;
     const stateId = responseMap[versionKey].stateId;
 
+    console.log('versionContent', versionContent);
+
     // Update the URL with the stateId if it exists
     if (stateId) {
         const newUrl = `${window.location.origin}${window.location.pathname}?state=${stateId}`;
         window.history.pushState({ stateId: stateId }, '', newUrl);
     }
-
-    clearContentContainer(true);
 
     setTimeout(() => {
 
@@ -2456,7 +2473,7 @@ function displayPreviousVersion(element) {
                 }
             });
         }
-    }, 350);
+    }, 400);
 
     setTimeout(() => {
         const targetElements = Array.from(contentContainer.querySelectorAll('*')).filter(element => {
@@ -2491,7 +2508,7 @@ function displayPreviousVersion(element) {
                 element.classList.remove('animation-settings');
             });
         }, 500);
-    }, 400);
+    }, 600);
 }
 
 // Scroll on desktop
