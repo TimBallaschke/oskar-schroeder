@@ -2032,6 +2032,9 @@ function addNewVersionHistoryElement(headline) {
     newHistoryElement.id = `version-history-element-${responseCount + 1}`;
     newHistoryElement.setAttribute('version-history-key', responseCount + 1);
 
+    const versionHistoryElementContent = document.createElement('div');
+    versionHistoryElementContent.classList.add('version-history-element-content');
+
     const versionHistoryNumber = document.createElement('div');
     versionHistoryNumber.classList.add('version-history-element-number');
 
@@ -2044,14 +2047,15 @@ function addNewVersionHistoryElement(headline) {
     versionHistoryTitle.textContent = headline;
 
     versionHistoryNumber.appendChild(versionHistoryDigits);
-    newHistoryElement.appendChild(versionHistoryNumber);
-    newHistoryElement.appendChild(versionHistoryTitle);
+    versionHistoryElementContent.appendChild(versionHistoryNumber);
+    versionHistoryElementContent.appendChild(versionHistoryTitle);
+    newHistoryElement.appendChild(versionHistoryElementContent);
     versionHistory.insertBefore(newHistoryElement, versionHistory.firstChild);
 
     const versionHistoryElementPadding = getCSSVarValue('--version-history-element-padding');
 
     setTimeout(() => {
-        newHistoryElement.style.width = newHistoryElement.scrollWidth + versionHistoryElementPadding + 'px';
+        newHistoryElement.style.width = versionHistoryTitle.scrollWidth + 1.5 + 'px';
         newHistoryElement.classList.remove('no-width');
 
         historyElements.forEach(element => {
@@ -2069,15 +2073,21 @@ function addNewVersionHistoryElement(headline) {
         versionHistoryTitle.classList.remove('light');
     }, 500);
 
+    setTimeout(() => {
+        newHistoryElement.style.width = '';
+    }, 1000);
+
     newHistoryElement.addEventListener('click', (event) => {
         handleVersionEvent(event);
     });
 
     newHistoryElement.addEventListener('mouseover', (event) => {
+        document.body.classList.add('hover');
         handleVersionEvent(event);
     });
 
     newHistoryElement.addEventListener('mouseout', (event) => {
+        document.body.classList.remove('hover');
         handleVersionEvent(event);
     });
 
@@ -2097,7 +2107,7 @@ function handleVersionEvent(event) {
     const historyElements = document.querySelectorAll('.version-history-element');
 
     if (eventType === 'click') {
-        
+
         historyElements.forEach(el => {
             el.classList.remove('current-version-history-element');
         });
@@ -3516,6 +3526,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         element.addEventListener('mouseout', (event) => {
+            document.body.classList.remove('hover');
             handleVersionEvent(event);
         });
     });

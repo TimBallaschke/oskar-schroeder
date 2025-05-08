@@ -56,6 +56,7 @@
   scroll-snap-align: start;
   height: fit-content;
   transition: all var(--animation-duration-3) ease-in-out;
+  line-height: 0.8;
 
   &:first-child {
     margin-left: 0; // First element shouldn't have negative margin
@@ -97,11 +98,17 @@
   }
 }
 
+.version-history-element-content {
+  display: inline-flex;  // Changed to inline-flex to only take up needed space
+  flex-direction: column;
+}
+
 .version-history-element-number {
   padding-top: 15px;
   padding-left: var(--version-history-element-padding);
   padding-right: var(--version-history-element-padding);
   transition: all var(--animation-duration-3) ease-in-out;
+  display: block;
 
   .no-transition & {
     transition: none;
@@ -120,8 +127,10 @@
 
 .version-history-element-title {
   transition: all var(--animation-duration-3) ease-in-out;
+  padding-top: 5px;
   padding-left: var(--version-history-element-padding);
   padding-right: var(--version-history-element-padding);
+  display: inline-block;
 
   &.light {
     font-variation-settings: "wght" 350;
