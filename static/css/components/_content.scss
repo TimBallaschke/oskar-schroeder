@@ -60,14 +60,14 @@
     @include primary-type;
     padding: 0 0;
 
-    &.image-paragraph {
+    &.column-switch {
         grid-column: 3 / 5;
     }
 
     @include desktop-small {
         grid-column: 1 / 5;
 
-        &.image-paragraph {
+        &.column-switch {
             grid-column: 3 / 5;
         }
     }
@@ -75,7 +75,7 @@
     @include desktop-large {
         grid-column: 1 / 5;
 
-        &.image-paragraph {
+        &.column-switch {
             grid-column: 3 / 5;
         }
     }

@@ -294,14 +294,14 @@ p {
   font-size: var(--primary-font-size);
   padding: 0 0;
 }
-.paragraph-container.image-paragraph {
+.paragraph-container.column-switch {
   grid-column: 3/5;
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   .paragraph-container {
     grid-column: 1/5;
   }
-  .paragraph-container.image-paragraph {
+  .paragraph-container.column-switch {
     grid-column: 3/5;
   }
 }
@@ -309,7 +309,7 @@ p {
   .paragraph-container {
     grid-column: 1/5;
   }
-  .paragraph-container.image-paragraph {
+  .paragraph-container.column-switch {
     grid-column: 3/5;
   }
 }

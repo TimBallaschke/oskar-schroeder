@@ -162,6 +162,9 @@ let versionHistoryScrollTimeout;
 let headlineProcessed = false;
 let displayVersionOnHoverTimeout;
 
+// Handle Delta
+let previousElement;
+
 
 
 // --------------------------------------------------------------------------------------------
@@ -591,7 +594,7 @@ function animateInputPlaceholder() {
 // --------------------------------------------------------------------------------------------
 
 async function handleDelta(content) {
-    console.log("Received delta:", content);
+    // console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -637,31 +640,54 @@ async function handleDelta(content) {
                 switch (component.UIType) {
                     case 'paragraphs':
                         let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
+
                         if (!paragraphContainer) {
+
+                            previousElement = contentContainer.lastElementChild;
+
                             paragraphContainer = document.createElement('p');
                             paragraphContainer.classList.add('paragraph-container');
                             paragraphContainer.setAttribute('data-component-key', componentID);
                             
                             // Check if the previous element is also a paragraph container if yes add an indent
-                            const previousElement = contentContainer.lastElementChild;
-                            if (previousElement && previousElement.classList.contains('paragraph-container')) {
-                                // Add an indent span at the beginning of this paragraph
-                                const indentSpan = document.createElement('span');
-                                indentSpan.classList.add('indent');
-                                paragraphContainer.appendChild(indentSpan);
+                            if (previousElement && previousElement.classList.contains('paragraph-container') && previousElement.classList.contains('image-paragraph')) {
+                                paragraphContainer.classList.add('column-switch');
                             }
                             
                             contentContainer.appendChild(paragraphContainer);
                         }
 
                         if (component.image) {
-                            paragraphContainer.classList.add('image-paragraph');
-                            
+                            paragraphContainer.classList.add('image-paragraph', 'column-switch'); 
                         }
 
                         if (!component.text || !Array.isArray(component.text)) {
                             break;
                         }
+
+                        // Adding an indent span under certain conditions
+                        if (window.innerWidth > mobileWidth) {
+                            if (previousElement && 
+                                previousElement.classList.contains('paragraph-container') &&
+                                previousElement.classList.contains('column-switch') === paragraphContainer.classList.contains('column-switch') &&
+                                !paragraphContainer.hasAttribute('data-indent-added')) {
+                                const indentSpan = document.createElement('span');
+                                indentSpan.classList.add('indent');
+                                paragraphContainer.appendChild(indentSpan);
+                                paragraphContainer.setAttribute('data-indent-added', 'true');
+                            }
+                        } else {
+                            if (previousElement &&
+                                previousElement.classList.contains('paragraph-container') &&
+                                !previousElement.classList.contains('image-paragraph') &&
+                                !paragraphContainer.hasAttribute('data-indent-added')) {
+                                const indentSpan = document.createElement('span');
+                                indentSpan.classList.add('indent');
+                                paragraphContainer.appendChild(indentSpan);
+                                paragraphContainer.setAttribute('data-indent-added', 'true');
+                            }
+                        }
+
                         
                         for (const sentence of component.text) {
                             if (!componentMap.has(sentence)) {
