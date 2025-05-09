@@ -116,6 +116,24 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
     });
 }
 
+async function processImageQueue() {
+    if (imageQueue.size === 0) {
+        await new Promise(resolve => setTimeout(resolve, 10));
+        return;
+    } else {
+        // Iterate through the imageQueue
+        for (const [componentId, imageData] of imageQueue.entries()) {
+            console.log('--------------------------------');
+            console.log('Processing image:', imageData.url);
+            console.log('--------------------------------');
+        }
+        
+        // Clear the entire queue since we'll never have more than one image
+        imageQueue.clear();
+        await new Promise(resolve => setTimeout(resolve, 5000));
+    }   
+}
+
 
 
 
@@ -164,6 +182,7 @@ let displayVersionOnHoverTimeout;
 
 // Handle Delta
 let previousElement;
+let imageQueue = new Map();
 
 
 
@@ -639,9 +658,12 @@ async function handleDelta(content) {
 
                 switch (component.UIType) {
                     case 'paragraphs':
+
                         let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
 
                         if (!paragraphContainer) {
+
+                            await processImageQueue(); // Render images of previous paragraph
 
                             previousElement = contentContainer.lastElementChild;
 
@@ -659,6 +681,16 @@ async function handleDelta(content) {
 
                         if (component.image) {
                             paragraphContainer.classList.add('image-paragraph', 'column-switch'); 
+
+                            if (component.image.caption && component.image.image_url) {
+                                if (!componentMap.has('image')) {
+                                    componentMap.set('image', true);
+                                    imageQueue.set(componentID, {
+                                        url: component.image.image_url,
+                                        caption: component.image.caption,
+                                    });
+                                }
+                            }
                         }
 
                         if (!component.text || !Array.isArray(component.text)) {
