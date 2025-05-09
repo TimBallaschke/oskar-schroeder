@@ -117,19 +117,17 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
 }
 
 async function processImageQueue() {
-    if (imageQueue.size === 0) {
+    if (!imageQueue) {
         await new Promise(resolve => setTimeout(resolve, 10));
         return;
     } else {
-        // Iterate through the imageQueue
-        for (const [componentId, imageData] of imageQueue.entries()) {
-            console.log('--------------------------------');
-            console.log('Processing image:', imageData.url);
-            console.log('--------------------------------');
-        }
-        
-        // Clear the entire queue since we'll never have more than one image
-        imageQueue.clear();
+        // const imageContainer = document.createElement('div');
+        // imageContainer.classList.add('paragraph-image-container');
+        // contentContainer.appendChild(imageContainer);
+
+       
+        // Clear the queue
+        imageQueue = null;
         await new Promise(resolve => setTimeout(resolve, 5000));
     }   
 }
@@ -182,7 +180,7 @@ let displayVersionOnHoverTimeout;
 
 // Handle Delta
 let previousElement;
-let imageQueue = new Map();
+let imageQueue = null;
 
 
 
@@ -681,14 +679,19 @@ async function handleDelta(content) {
 
                         if (component.image) {
                             paragraphContainer.classList.add('image-paragraph', 'column-switch'); 
+                            const imageContainer = document.createElement('div');
+                            imageContainer.classList.add('paragraph-image-container');
+                            imageContainer.setAttribute('data-component-key', componentID);
+                            contentContainer.appendChild(imageContainer);
 
                             if (component.image.caption && component.image.image_url) {
                                 if (!componentMap.has('image')) {
                                     componentMap.set('image', true);
-                                    imageQueue.set(componentID, {
+                                    imageQueue = {
+                                        componentId: componentID,
                                         url: component.image.image_url,
                                         caption: component.image.caption,
-                                    });
+                                    };
                                 }
                             }
                         }
