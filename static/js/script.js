@@ -611,7 +611,7 @@ function animateInputPlaceholder() {
 // --------------------------------------------------------------------------------------------
 
 async function handleDelta(content) {
-    // console.log("Received delta:", content);
+    console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -657,11 +657,15 @@ async function handleDelta(content) {
                 switch (component.UIType) {
                     case 'paragraphs':
 
+                        if (!component.text || !Array.isArray(component.text)) { // wait till text is available (therefore necessary information for the layout e.g. image will be available)
+                            break;
+                        }
+
                         let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
 
                         if (!paragraphContainer) {
 
-                            await processImageQueue(); // Render images of previous paragraph
+                            // await processImageQueue(); // Render images of previous paragraph
 
                             previousElement = contentContainer.lastElementChild;
 
@@ -673,31 +677,26 @@ async function handleDelta(content) {
                             if (previousElement && previousElement.classList.contains('paragraph-container') && previousElement.classList.contains('image-paragraph')) {
                                 paragraphContainer.classList.add('column-switch');
                             }
-                            
-                            contentContainer.appendChild(paragraphContainer);
-                        }
 
-                        if (component.image) {
-                            paragraphContainer.classList.add('image-paragraph', 'column-switch'); 
-                            const imageContainer = document.createElement('div');
-                            imageContainer.classList.add('paragraph-image-container');
-                            imageContainer.setAttribute('data-component-key', componentID);
-                            contentContainer.appendChild(imageContainer);
-
-                            if (component.image.caption && component.image.image_url) {
-                                if (!componentMap.has('image')) {
-                                    componentMap.set('image', true);
-                                    imageQueue = {
-                                        componentId: componentID,
-                                        url: component.image.image_url,
-                                        caption: component.image.caption,
-                                    };
+                            if (component.image) {
+                                paragraphContainer.classList.add('image-paragraph', 'column-switch'); 
+    
+                                if (component.image.caption && component.image.image_url) {
+                                    if (!componentMap.has('image')) {
+                                        componentMap.set('image', true);
+                                        imageQueue = {
+                                            componentId: componentID,
+                                            url: component.image.image_url,
+                                            caption: component.image.caption,
+                                        };
+                                        console.log('--------------------------------');
+                                        console.log('imageQueue', imageQueue);
+                                        console.log('--------------------------------');
+                                    }
                                 }
                             }
-                        }
-
-                        if (!component.text || !Array.isArray(component.text)) {
-                            break;
+                            
+                            contentContainer.appendChild(paragraphContainer);
                         }
 
                         // Adding an indent span under certain conditions
