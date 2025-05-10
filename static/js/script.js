@@ -138,7 +138,7 @@ async function processImageQueue() {
         // }, 400);
 
         imageQueue = null;
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        await new Promise(resolve => setTimeout(resolve, 100));
     }   
 }
 
@@ -788,7 +788,7 @@ async function handleDelta(content) {
                                                 const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
     
                                                 // check if the image container is taller than the paragraph container
-                                                if (lastHalfWidthImageContainer.scrollHeight < lastHalfWidthParagraphContainer.scrollHeight) {
+                                                if (lastHalfWidthImageContainer.scrollHeight <= lastHalfWidthParagraphContainer.scrollHeight) {
                                                     const fullWidthParagraphContainer = document.createElement('div');
                                                     fullWidthParagraphContainer.classList.add('full-width-paragraph-container', 'margin-top', 'paragraph-outter-container');
                                                     paragraphContainer.classList.add('full-width');
