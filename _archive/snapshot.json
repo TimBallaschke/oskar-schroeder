@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "original_folder": "250509f_Oskar_Website_layout_logic_with_additional_container",
-  "snapshot_date_from_folder": "250509",
+  "original_folder": "250510_Oskar_Website",
+  "snapshot_date_from_folder": "250510",
   "source_files": [
     {
       "path": ".cursorignore",
@@ -54,16 +54,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "cf6cc167c118cf867d3e0e56cbeae3995bd87114",
-      "sha256": "6316b04f07ca21632ad123dcad0ef30433bf8d86c234a63555dc0d28bed5daec",
-      "size": 35966,
+      "sha1": "2e0324231723a1c43d9e40819bf9fea4f9c860e9",
+      "sha256": "e4720e07ec6406b1f72ef425f938e819e65f08808eecb88f59f37bdf299b8f37",
+      "size": 35271,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "45e149913f12281dfd69b59e2f7098911caf198b",
-      "sha256": "b291320697b344468d2bb7b14a9a5137687c5490402ed20d03470b83f5690852",
-      "size": 12485,
+      "sha1": "bc7b7224bab5802d458c406b411d7ce62cf3a667",
+      "sha256": "e999d89671248cce29140a1e6edaeb63f7f4e45e6a93dcc551f6ad0544649505",
+      "size": 12257,
       "mode": "100644"
     },
     {
@@ -82,9 +82,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "3eefc9affc35fa51eaea69c4ae8e71d0bf59ec79",
-      "sha256": "781da7dfb939ddaa2ccc24a0620f9123469b8a11dda93ed804e1fb26af504d99",
-      "size": 18776,
+      "sha1": "9ffc23a4c28f2db00f06f21fa40bf93bc13b0149",
+      "sha256": "331892d1b499df9e2effb6f5e4d27713fee75262633cb48663fd6e7fd67d58e1",
+      "size": 18295,
       "mode": "100644"
     },
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "3441bdc92690bf00197c3a024e21490525cdf678",
-      "sha256": "4d8b5f6dd106486937d8aca9aa1aa910a00a4b036ebe30ed6cdc402f33b90043",
-      "size": 179002,
+      "sha1": "4e3af6427e0e7f4802c88edf489c0ce56733976e",
+      "sha256": "99ddb4c4a97e4a9c3f4e90fc40086180823b08289bcbb43d2c4893ae01878e2a",
+      "size": 181975,
       "mode": "100644"
     },
     {

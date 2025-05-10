@@ -675,8 +675,8 @@ async function handleDelta(content) {
 
                             // check if there is an image in the component
                             if (component.image) {
-                                paragraphContainer.classList.add('image-paragraph'); 
-    
+                                paragraphContainer.setAttribute('data-image-paragraph', 'true');
+
                                 if (component.image.caption && component.image.image_url) {
                                     if (!componentMap.has('image')) {
                                         componentMap.set('image', true);
@@ -694,76 +694,101 @@ async function handleDelta(content) {
                             
                             // Is there a previous element?
                             if (!previousElement) {
-                                // Is the previous element an image paragraph?
-                                if (!paragraphContainer.classList.contains('image-paragraph')) {
+                                // Is the current paragraph an image paragraph?
+                                if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
                                     // Create a full width container if not
-                                    const fullWidthContainer = document.createElement('div');
-                                    fullWidthContainer.classList.add('full-width-container');
-                                    contentContainer.appendChild(fullWidthContainer);
-                                    fullWidthContainer.appendChild(paragraphContainer);
+                                    const fullWidthParagraphContainer = document.createElement('div');
+                                    fullWidthParagraphContainer.classList.add('full-width-paragraph-container');
+                                    paragraphContainer.setAttribute('data-container-width', 'full');
+                                    contentContainer.appendChild(fullWidthParagraphContainer);
+                                    fullWidthParagraphContainer.appendChild(paragraphContainer);
                                 } else {
-                                    // Create a half width container if yes
-                                    const halfWidthContainer = document.createElement('div');
-                                    halfWidthContainer.classList.add('half-width-container');
-                                    contentContainer.appendChild(halfWidthContainer);
-                                    halfWidthContainer.appendChild(paragraphContainer);
+                                    // Create a half width containers for paragraphs and images if yes
+                                    const halfWidthParagraphContainer = document.createElement('div');
+                                    halfWidthParagraphContainer.classList.add('half-width-paragraph-container');
+                                    paragraphContainer.setAttribute('data-container-width', 'half');
+                                    contentContainer.appendChild(halfWidthParagraphContainer);
+                                    halfWidthParagraphContainer.appendChild(paragraphContainer);
+
+                                    const halfWidthImageContainer = document.createElement('div');
+                                    halfWidthImageContainer.classList.add('half-width-image-container');
+                                    contentContainer.appendChild(halfWidthImageContainer);
                                 }
+                            // If there is a previous element
                             } else {
                                 // Is the previous element an image paragraph?
-                                if (!previousElement.classList.contains('image-paragraph')) {
-                                    // Does the current paragraph also not contain an image?
-                                    if (!paragraphContainer.classList.contains('image-paragraph')) {
-                                        // Add the paragraph to the last full width container
-                                        const fullWidthContainer = document.querySelectorAll('.full-width-container');
-                                        const lastFullWidthContainer = fullWidthContainer[fullWidthContainer.length - 1];
-                                        lastFullWidthContainer.appendChild(paragraphContainer);
-                                    } else {
-                                        // Create a half width container if yes
-                                        const halfWidthContainer = document.createElement('div');
-                                        halfWidthContainer.classList.add('half-width-container');
-                                        contentContainer.appendChild(halfWidthContainer);
-                                        halfWidthContainer.appendChild(paragraphContainer);
+                                if (!previousElement.hasAttribute('data-image-paragraph')) {
+                                    // Is the previous element inside a full width container?
+                                    if (previousElement.getAttribute('data-container-width') === 'full') {  
+                                        // Does the current paragraph also not contain an image?
+                                        if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
+                                            // Add the paragraph to the last full width container
+                                            const fullWidthParagraphContainers = document.querySelectorAll('.full-width-paragraph-container');
+                                            const lastFullWidthParagraphContainer = fullWidthParagraphContainers[fullWidthParagraphContainers.length - 1];
+                                            paragraphContainer.setAttribute('data-container-width', 'full');
+                                            lastFullWidthParagraphContainer.appendChild(paragraphContainer);
+                                        } else {
+                                            // if current paragraph contains an image, create a half width container for the paragraph and image
+                                            const halfWidthParagraphContainer = document.createElement('div');
+                                            halfWidthParagraphContainer.classList.add('half-width-paragraph-container');
+                                            paragraphContainer.setAttribute('data-container-width', 'half');
+                                            contentContainer.appendChild(halfWidthParagraphContainer);
+                                            halfWidthParagraphContainer.appendChild(paragraphContainer);
+
+                                            const halfWidthImageContainer = document.createElement('div');
+                                            halfWidthImageContainer.classList.add('half-width-image-container');
+                                            contentContainer.appendChild(halfWidthImageContainer);
+                                        }
+                                    // Is the previous element inside a half width container?
+                                    } else if (previousElement.getAttribute('data-container-width') === 'half') {
+                                        // if current paragraph does not contain an image create a full width container for the paragraph
+                                        if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
+                                            const fullWidthParagraphContainers = document.createElement('div');
+                                            fullWidthParagraphContainers.classList.add('full-width-paragraph-container');
+                                            paragraphContainer.setAttribute('data-container-width', 'full');
+                                            contentContainer.appendChild(fullWidthParagraphContainers);
+                                            fullWidthParagraphContainers.appendChild(paragraphContainer);
+                                        } else {
+                                            // if current paragraph contains an image, add the paragraph to the last half width container
+                                            const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
+                                            const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
+                                            paragraphContainer.setAttribute('data-container-width', 'half');
+                                            lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
+                                        }
                                     }
+                                // Previous element has an image
                                 } else {
-                                    // Does the current paragraph not contain an image?
-                                    if (!paragraphContainer.classList.contains('image-paragraph')) {
-                                        // Create a full width container if not
-                                        const fullWidthContainer = document.createElement('div');
-                                        fullWidthContainer.classList.add('full-width-container');
-                                        contentContainer.appendChild(fullWidthContainer);
-                                        fullWidthContainer.appendChild(paragraphContainer);
-                                    } else {
-                                        // Add the paragraph to the last half width container
-                                        const halfWidthContainer = document.querySelectorAll('.half-width-container');
-                                        const lastHalfWidthContainer = halfWidthContainer[halfWidthContainer.length - 1];
-                                        lastHalfWidthContainer.appendChild(paragraphContainer);
-                                    }
-                                }
+                                    // Add the paragraph to the last half width container
+                                    const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
+                                    const lastHalfWidthParagraphContainers = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
+                                    paragraphContainer.setAttribute('data-container-width', 'half');
+                                    lastHalfWidthParagraphContainers.appendChild(paragraphContainer);
+                                }  
                             } 
                         }
 
                         // Adding an indent span under certain conditions
-                        if (window.innerWidth > mobileWidth) {
-                            if (previousElement && 
-                                previousElement.classList.contains('paragraph-container') &&
-                                previousElement.classList.contains('column-switch') === paragraphContainer.classList.contains('column-switch') &&
-                                !paragraphContainer.hasAttribute('data-indent-added')) {
-                                const indentSpan = document.createElement('span');
-                                indentSpan.classList.add('indent');
-                                paragraphContainer.appendChild(indentSpan);
-                                paragraphContainer.setAttribute('data-indent-added', 'true');
-                            }
-                        } else {
-                            if (previousElement &&
-                                previousElement.classList.contains('paragraph-container') &&
-                                !previousElement.classList.contains('image-paragraph') &&
-                                !paragraphContainer.hasAttribute('data-indent-added')) {
-                                const indentSpan = document.createElement('span');
-                                indentSpan.classList.add('indent');
-                                paragraphContainer.appendChild(indentSpan);
-                                paragraphContainer.setAttribute('data-indent-added', 'true');
-                            }
-                        }
+                        // if (window.innerWidth > mobileWidth) {
+                        //     if (previousElement && 
+                        //         previousElement.classList.contains('paragraph-container') &&
+                        //         previousElement.classList.contains('column-switch') === paragraphContainer.classList.contains('column-switch') &&
+                        //         !paragraphContainer.hasAttribute('data-indent-added')) {
+                        //         const indentSpan = document.createElement('span');
+                        //         indentSpan.classList.add('indent');
+                        //         paragraphContainer.appendChild(indentSpan);
+                        //         paragraphContainer.setAttribute('data-indent-added', 'true');
+                        //     }
+                        // } else {
+                        //     if (previousElement &&
+                        //         previousElement.classList.contains('paragraph-container') &&
+                        //         !previousElement.classList.contains('image-paragraph') &&
+                        //         !paragraphContainer.hasAttribute('data-indent-added')) {
+                        //         const indentSpan = document.createElement('span');
+                        //         indentSpan.classList.add('indent');
+                        //         paragraphContainer.appendChild(indentSpan);
+                        //         paragraphContainer.setAttribute('data-indent-added', 'true');
+                        //     }
+                        // }
 
                         
                         for (const sentence of component.text) {
