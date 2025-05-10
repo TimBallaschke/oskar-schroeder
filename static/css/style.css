@@ -302,6 +302,10 @@ p {
   width: 100%;
 }
 
+.half-width-image-container {
+  height: 0;
+}
+
 .paragraph-container {
   transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);

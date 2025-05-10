@@ -692,7 +692,9 @@ async function handleDelta(content) {
                                 }
                             }  
                             
-                            // Is there a previous element?
+                            // Define Layout based on previous pragraphs and images
+
+                            // Check if there is a previous paragraph container or if it is the first paragraph
                             if (!previousParagraphContainer) {
                                 console.log('Layout decision based on no previous element');
                                 // Is the current paragraph an image paragraph?
@@ -722,22 +724,17 @@ async function handleDelta(content) {
                                 console.log('Layout decision based on previous element:', previousParagraphContainer);
                                 // Is the previous element an image paragraph?
                                 if (!previousParagraphContainer.hasAttribute('data-image-paragraph')) {
-                                    console.log('Previous element is not an image paragraph', previousParagraphContainer);
                                     // Is the previous element inside a full width container?
                                     if (previousParagraphContainer.classList.contains('full-width')) { 
-                                        console.log('Previous element is inside a full width container');
  
                                         // Does the current paragraph also not contain an image?
                                         if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
-                                            console.log('Current paragraph does not contain an image', paragraphContainer);
                                             // Add the paragraph to the last full width container
                                             const fullWidthParagraphContainers = document.querySelectorAll('.full-width-paragraph-container');
                                             const lastFullWidthParagraphContainer = fullWidthParagraphContainers[fullWidthParagraphContainers.length - 1];
                                             paragraphContainer.classList.add('full-width');
                                             lastFullWidthParagraphContainer.appendChild(paragraphContainer);
-                                            console.log('Added paragraph to last full width container: ', lastFullWidthParagraphContainer);
                                         } else {
-                                            console.log('Current paragraph contain an image', paragraphContainer);
 
                                             // if current paragraph contains an image, create a half width container for the paragraph and image
                                             const halfWidthParagraphContainer = document.createElement('div');
@@ -746,44 +743,51 @@ async function handleDelta(content) {
                                             halfWidthParagraphContainer.appendChild(paragraphContainer);
                                             contentContainer.appendChild(halfWidthParagraphContainer);
 
-                                            console.log('Created half width container: ', halfWidthParagraphContainer);
-
                                             const halfWidthImageContainer = document.createElement('div');
                                             halfWidthImageContainer.classList.add('half-width-image-container');
                                             contentContainer.appendChild(halfWidthImageContainer);
                                         }
                                     // Is the previous element inside a half width container?
                                     } else if (previousParagraphContainer.classList.contains('half-width')) {
-                                        console.log('Previous element is inside a half width container');
 
                                         // if current paragraph does not contain an image create a full width container for the paragraph
                                         if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
-                                            console.log('Current paragraph does not contain an image', paragraphContainer);
-                                            const fullWidthParagraphContainer = document.createElement('div');
-                                            fullWidthParagraphContainer.classList.add('full-width-paragraph-container', 'margin-top');
-                                            paragraphContainer.classList.add('full-width');
-                                            fullWidthParagraphContainer.appendChild(paragraphContainer);
-                                            contentContainer.appendChild(fullWidthParagraphContainer);
-                                            console.log('Created full width container: ', fullWidthParagraphContainer);
+
+                                            const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
+                                            const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
+
+                                            const halfWidthImageContainers = document.querySelectorAll('.half-width-image-container');
+                                            const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
+
+                                            // check if the image container is taller than the paragraph container
+                                            if (lastHalfWidthImageContainer.scrollHeight < lastHalfWidthParagraphContainer.scrollHeight) {
+                                                const fullWidthParagraphContainer = document.createElement('div');
+                                                fullWidthParagraphContainer.classList.add('full-width-paragraph-container', 'margin-top');
+                                                paragraphContainer.classList.add('full-width');
+                                                fullWidthParagraphContainer.appendChild(paragraphContainer);
+                                                contentContainer.appendChild(fullWidthParagraphContainer);
+                                            } else {
+                                                const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
+                                                const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
+                                                paragraphContainer.classList.add('half-width');
+                                                lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
+                                            }
+
                                         } else {
-                                            console.log('Current paragraph contain an image', paragraphContainer);
                                             // if current paragraph contains an image, add the paragraph to the last half width container
                                             const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
                                             const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
                                             paragraphContainer.classList.add('half-width');
                                             lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
-                                            console.log('Added paragraph to last half width container: ', lastHalfWidthParagraphContainer);
                                         }
                                     }
                                 // Previous element has an image
                                 } else {
-                                    console.log('Previous element is an image paragraph');
                                     // Add the paragraph to the last half width container
                                     const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
                                     const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
                                     paragraphContainer.classList.add('half-width');
                                     lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
-                                    console.log('Added paragraph to last half width container: ', lastHalfWidthParagraphContainer);
                                 }  
                             } 
                         }
