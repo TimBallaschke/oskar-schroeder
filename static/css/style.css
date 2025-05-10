@@ -296,14 +296,61 @@ p {
 .full-width-paragraph-container.margin-top {
   margin-top: calc(var(--primary-line-height) * 2);
 }
-
-.half-width-paragraph-container {
-  grid-column: 3/5;
-  width: 100%;
+@media (min-width: 769px) and (max-width: 1024px) {
+  .full-width-paragraph-container {
+    grid-column: 1/5;
+    width: 100%;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .full-width-paragraph-container {
+    grid-column: 1/5;
+    width: 100%;
+  }
+}
+@media (min-width: 1441px) {
+  .full-width-paragraph-container {
+    grid-column: 1/5;
+    width: 100%;
+  }
 }
 
-.half-width-image-container {
-  height: 0;
+@media (min-width: 769px) and (max-width: 1024px) {
+  .half-width-paragraph-container {
+    grid-column: 3/5;
+    width: 100%;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .half-width-paragraph-container {
+    grid-column: 3/5;
+    width: 100%;
+  }
+}
+@media (min-width: 1441px) {
+  .half-width-paragraph-container {
+    grid-column: 3/5;
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .half-width-image-container {
+    grid-column: 1/3;
+    width: 100%;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .half-width-image-container {
+    grid-column: 1/3;
+    width: 100%;
+  }
+}
+@media (min-width: 1441px) {
+  .half-width-image-container {
+    grid-column: 1/3;
+    width: 100%;
+  }
 }
 
 .paragraph-container {
@@ -314,6 +361,38 @@ p {
 
 .paragraph-word {
   transition: all var(--animation-duration-1) ease-in-out;
+}
+
+.paragraph-image {
+  height: 100px;
+  width: 100%;
+  position: relative;
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.paragraph-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top: 1px solid black;
+  width: 100%;
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.paragraph-image::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid black;
+  width: 100%;
+  transform: translateY(-1px);
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.paragraph-image.no-height {
+  height: 0;
+}
+.paragraph-image.no-width {
+  width: 0%;
 }
 
 .term-description {
