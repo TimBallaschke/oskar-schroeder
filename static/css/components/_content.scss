@@ -57,6 +57,10 @@
 .full-width-paragraph-container {
     grid-column: 1 / 5;
     width: 100%;
+
+    &.margin-top {
+        margin-top: calc(var(--primary-line-height) * 2);
+    }
 }
 
 .half-width-paragraph-container {

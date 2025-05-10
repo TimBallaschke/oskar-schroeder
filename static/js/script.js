@@ -760,7 +760,7 @@ async function handleDelta(content) {
                                         if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
                                             console.log('Current paragraph does not contain an image', paragraphContainer);
                                             const fullWidthParagraphContainer = document.createElement('div');
-                                            fullWidthParagraphContainer.classList.add('full-width-paragraph-container');
+                                            fullWidthParagraphContainer.classList.add('full-width-paragraph-container', 'margin-top');
                                             paragraphContainer.classList.add('full-width');
                                             fullWidthParagraphContainer.appendChild(paragraphContainer);
                                             contentContainer.appendChild(fullWidthParagraphContainer);
