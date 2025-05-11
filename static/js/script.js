@@ -116,44 +116,6 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
     });
 }
 
-// async function processImageQueue() {
-//     if (!imageQueue) {
-//         await new Promise(resolve => setTimeout(resolve, 10));
-//         return;
-//     } else {
-//         const halfWidthImageContainers = document.querySelectorAll('.half-width-image-container');
-//         const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
-
-//         const imageContainer = document.createElement('div');
-//         imageContainer.classList.add('paragraph-image', 'no-width');
-
-//         // Create and add the image element
-//         const image = document.createElement('img');
-//         image.classList.add('no-opacity', 'blur');
-//         image.src = imageQueue.url;
-//         imageContainer.appendChild(image);
-
-//         lastHalfWidthImageContainer.appendChild(imageContainer);
-
-//         // Wait for image to load before removing no-width class
-//         image.onload = () => {
-//             setTimeout(() => {
-//                 imageContainer.classList.remove('no-width');
-//                 console.log('imageContainer scrollHeight: ', imageContainer.scrollHeight);
-//                 console.log('image offsetHeight:', image.offsetHeight);
-//             }, 10);
-
-//             setTimeout(() => {
-//                 imageContainer.style.height = `${imageContainer.scrollHeight}px`;
-//             }, 550);
-//         };
-
-
-//         imageQueue = null;
-//         await new Promise(resolve => setTimeout(resolve, 100));
-//     }   
-// }
-
 async function processImageQueue() {
     if (isImageQueueProcessing || imageQueue.length === 0) return;
 
@@ -165,11 +127,38 @@ async function processImageQueue() {
             const imageURL = queueImage.url;
             const imageCaption = queueImage.caption;
 
-            console.log('--------------------------------');
-            console.log('imageURL: ', imageURL);
-            console.log('imageCaption: ', imageCaption);
-            console.log('--------------------------------');
-            await new Promise(resolve => setTimeout(resolve, 5000));
+            // const halfWidthImageContainers = document.querySelectorAll('.half-width-image-container');
+            // const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
+    
+            // const imageContainer = document.createElement('div');
+            // imageContainer.classList.add('paragraph-image', 'no-width');
+    
+            // // Create and add the image element
+            // const image = document.createElement('img');
+            // image.classList.add('no-opacity', 'blur');
+            // image.src = imageQueue.url;
+            // imageContainer.appendChild(image);
+    
+            // lastHalfWidthImageContainer.appendChild(imageContainer);
+    
+            // // Wait for image to load before removing no-width class
+            // image.onload = () => {
+            //     setTimeout(() => {
+            //         imageContainer.classList.remove('no-width');
+            //         console.log('imageContainer scrollHeight: ', imageContainer.scrollHeight);
+            //         console.log('image offsetHeight:', image.offsetHeight);
+            //     }, 10);
+    
+            //     setTimeout(() => {
+            //         imageContainer.style.height = `${imageContainer.scrollHeight}px`;
+            //     }, 550);
+            // };
+
+            console.log('-----------------', imageURL);
+            console.log('image URL: ', imageURL);
+            console.log('-----------------', imageURL);
+
+            await new Promise(resolve => setTimeout(resolve, 1500));
         }
     } finally {
         isImageQueueProcessing = false;
@@ -1444,9 +1433,6 @@ async function handleDelta(content) {
                             }
                         }
                         break;
-                    // case 'stream_finished':
-                    //     isStreaming = false;
-                    //     break;
                     default:
                         console.warn('Unknown UIType:', component.UIType);
                         return;
@@ -1471,7 +1457,7 @@ async function renderNextProject() {
             const { id, key, value, container, index } = projectRenderingQueue.shift();
 
             if (key === 'stream_finished') {
-                console.log('stream_finished');
+                
                 isStreaming = false;
                 break;
             }
@@ -2224,10 +2210,10 @@ function handleSecondComplete(content, stateId) {
         }
     }
 
-    // Check if streaming is still in progress and wait for it to complete
+    // Check if streaming is still in progress and/or there is still images to render
     if (isStreaming) {
         const checkStreamingInterval = setInterval(() => {
-            if (!isStreaming) {
+            if (!isStreaming && imageQueue.length === 0) {
                 clearInterval(checkStreamingInterval);
 
                 handlePromptProposalsUpdate(content);
@@ -2239,11 +2225,26 @@ function handleSecondComplete(content, stateId) {
         }, 100);
         
     } else {
-        handlePromptProposalsUpdate(content);
-        stopStreamingAnimation();
-        activateTermDescription();
+        if (!imageQueue.length === 0) {
+            const checkImageQueueInterval = setInterval(() => {
+                if (imageQueue.length === 0) {
+                    clearInterval(checkImageQueueInterval);
+    
+                    handlePromptProposalsUpdate(content);
+                    stopStreamingAnimation();
+                    activateTermDescription();
+    
+                    headlineProcessed = false;
+                }
+            }, 100);
+        } else {
+            handlePromptProposalsUpdate(content);
+            stopStreamingAnimation();
+            activateTermDescription();
+    
+            headlineProcessed = false;
+        }
 
-        headlineProcessed = false;
     }
 }
 

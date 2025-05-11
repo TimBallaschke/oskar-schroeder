@@ -1329,6 +1329,16 @@ input {
     opacity: 1;
   }
 }
+#version-history-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 130px;
+  background: linear-gradient(to bottom, #f4f7fc 0%, rgba(244, 247, 252, 0.9) 30%, rgba(244, 247, 252, 0.5) 70%, rgba(244, 247, 252, 0) 100%);
+  z-index: 90;
+}
+
 #version-history {
   position: fixed;
   top: 0;
@@ -1344,7 +1354,6 @@ input {
   padding-left: var(--page-padding);
   padding-right: calc(100vw - var(--page-padding));
   scroll-padding-left: var(--page-padding);
-  background-color: var(--background-color);
   height: 78px;
 }
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -1478,7 +1487,10 @@ input {
 }
 
 .scroll-down #version-history {
-  height: 55px;
+  height: 100px;
+}
+.scroll-down #version-history-background {
+  height: 90px;
 }
 .scroll-down .version-history-element:hover .version-history-element-title {
   font-size: var(--small-font-size);
