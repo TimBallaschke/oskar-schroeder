@@ -711,6 +711,8 @@ async function handleDelta(content) {
 
                         if (!paragraphContainer) {
 
+                            // On mobile devices the processing of the next paragraph should wait until the previous image in rendered
+                            // On desktop the processing of the images should happen simultaniously to precessing the next paragraph
                             if (window.innerWidth <= mobileWidth) {
                                 await processImageQueue(); // Wait on mobile
                             } else {
@@ -723,7 +725,6 @@ async function handleDelta(content) {
                                 previousPreviousParagraphContainer = allParagraphContainers[allParagraphContainers.length - 2];
                             }
 
-                            
                             paragraphContainer = document.createElement('p');
                             paragraphContainer.classList.add('paragraph-container');
                             paragraphContainer.setAttribute('data-component-key', componentID);
@@ -742,123 +743,130 @@ async function handleDelta(content) {
                                         });
                                     }
                                 }
-                            }  
-                            
+                            }
+
                             // Define Layout based on previous pragraphs and images
+                            if (window.innerWidth <= mobileWidth) { // On mobile
+                                contentContainer.appendChild(paragraphContainer);
 
-                            // Check if there is a previous paragraph container or if it is the first paragraph
-                            if (!previousParagraphContainer) {
-                                console.log('Layout decision based on no previous element');
-                                // Is the current paragraph an image paragraph?
-                                if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
-                                    // Create a full width container if not
-                                    const fullWidthParagraphContainer = document.createElement('div');
-                                    fullWidthParagraphContainer.classList.add('full-width-paragraph-container', 'paragraph-outter-container');
-                                    paragraphContainer.classList.add('full-width');
-                                    fullWidthParagraphContainer.appendChild(paragraphContainer);
-                                    contentContainer.appendChild(fullWidthParagraphContainer);
-                                    console.log('Created full width container for first paragraph');
-                                } else {
-                                    const halfWidthImageContainer = document.createElement('div');
-                                    halfWidthImageContainer.classList.add('half-width-image-container', 'paragraph-outter-container');
+                                const imageContainer = document.createElement('div');
+                                imageContainer.classList.add('half-width-image-container'); // Classname comes from desktop layout
+                                contentContainer.appendChild(imageContainer);
 
-                                    // Create a half width containers for paragraphs and images if yes
-                                    const halfWidthParagraphContainer = document.createElement('div');
-                                    halfWidthParagraphContainer.classList.add('half-width-paragraph-container', 'paragraph-outter-container');
-                                    paragraphContainer.classList.add('half-width');
-                                    halfWidthParagraphContainer.appendChild(paragraphContainer);
-
-                                    if (window.innerWidth > mobileWidth) {
-                                        contentContainer.appendChild(halfWidthImageContainer);
-                                        contentContainer.appendChild(halfWidthParagraphContainer);
+                            } else { // On desktop
+                                // Check if there is a previous paragraph container or if it is the first paragraph
+                                if (!previousParagraphContainer) {
+                                    console.log('Layout decision based on no previous element');
+                                    // Is the current paragraph an image paragraph?
+                                    if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
+                                        // Create a full width container if not
+                                        const fullWidthParagraphContainer = document.createElement('div');
+                                        fullWidthParagraphContainer.classList.add('full-width-paragraph-container', 'paragraph-outter-container');
+                                        paragraphContainer.classList.add('full-width');
+                                        fullWidthParagraphContainer.appendChild(paragraphContainer);
+                                        contentContainer.appendChild(fullWidthParagraphContainer);
+                                        console.log('Created full width container for first paragraph');
                                     } else {
-                                        contentContainer.appendChild(halfWidthParagraphContainer);
-                                        contentContainer.appendChild(halfWidthImageContainer);
-                                    }
-                                }
-                            // If there is a previous element
-                            } else {
-                                console.log('Layout decision based on previous element:', previousParagraphContainer);
-                                // Is the previous element an image paragraph?
-                                if (!previousParagraphContainer.hasAttribute('data-image-paragraph')) {
-                                    // Is the previous element inside a full width container?
-                                    if (previousParagraphContainer.classList.contains('full-width')) { 
- 
-                                        // Does the current paragraph also not contain an image?
-                                        if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
-                                            // Add the paragraph to the last full width container
-                                            const fullWidthParagraphContainers = document.querySelectorAll('.full-width-paragraph-container');
-                                            const lastFullWidthParagraphContainer = fullWidthParagraphContainers[fullWidthParagraphContainers.length - 1];
-                                            paragraphContainer.classList.add('full-width');
-                                            lastFullWidthParagraphContainer.appendChild(paragraphContainer);
+                                        const halfWidthImageContainer = document.createElement('div');
+                                        halfWidthImageContainer.classList.add('half-width-image-container', 'paragraph-outter-container');
+
+                                        // Create a half width containers for paragraphs and images if yes
+                                        const halfWidthParagraphContainer = document.createElement('div');
+                                        halfWidthParagraphContainer.classList.add('half-width-paragraph-container', 'paragraph-outter-container');
+                                        paragraphContainer.classList.add('half-width');
+                                        halfWidthParagraphContainer.appendChild(paragraphContainer);
+
+                                        if (window.innerWidth > mobileWidth) {
+                                            contentContainer.appendChild(halfWidthImageContainer);
+                                            contentContainer.appendChild(halfWidthParagraphContainer);
                                         } else {
-                                            const halfWidthImageContainer = document.createElement('div');
-                                            halfWidthImageContainer.classList.add('half-width-image-container', 'paragraph-outter-container');
-
-                                            // if current paragraph contains an image, create a half width container for the paragraph and image
-                                            const halfWidthParagraphContainer = document.createElement('div');
-                                            halfWidthParagraphContainer.classList.add('half-width-paragraph-container', 'paragraph-outter-container');
-                                            paragraphContainer.classList.add('half-width');
-                                            halfWidthParagraphContainer.appendChild(paragraphContainer);
-
-                                            if (window.innerWidth > mobileWidth) {
-                                                contentContainer.appendChild(halfWidthImageContainer);
-                                                contentContainer.appendChild(halfWidthParagraphContainer);
-                                            } else {
-                                                contentContainer.appendChild(halfWidthParagraphContainer);
-                                                contentContainer.appendChild(halfWidthImageContainer);
-                                            }
+                                            contentContainer.appendChild(halfWidthParagraphContainer);
+                                            contentContainer.appendChild(halfWidthImageContainer);
                                         }
-                                    // Is the previous element inside a half width container?
-                                    } else if (previousParagraphContainer.classList.contains('half-width')) {
-
-                                        // if current paragraph does not contain an image create a full width container for the paragraph
-                                        if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
-                                            if (previousPreviousParagraphContainer && previousPreviousParagraphContainer.hasAttribute('data-image-paragraph')) {
-                                                const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
-                                                const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
-                                                paragraphContainer.classList.add('half-width');
-                                                lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
+                                    }
+                                // If there is a previous element
+                                } else {
+                                    console.log('Layout decision based on previous element:', previousParagraphContainer);
+                                    // Is the previous element an image paragraph?
+                                    if (!previousParagraphContainer.hasAttribute('data-image-paragraph')) {
+                                        // Is the previous element inside a full width container?
+                                        if (previousParagraphContainer.classList.contains('full-width')) { 
+                                            // Does the current paragraph also not contain an image?
+                                            if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
+                                                // Add the paragraph to the last full width container
+                                                const fullWidthParagraphContainers = document.querySelectorAll('.full-width-paragraph-container');
+                                                const lastFullWidthParagraphContainer = fullWidthParagraphContainers[fullWidthParagraphContainers.length - 1];
+                                                paragraphContainer.classList.add('full-width');
+                                                lastFullWidthParagraphContainer.appendChild(paragraphContainer);
                                             } else {
-                                                const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
-                                                const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
-    
-                                                const halfWidthImageContainers = document.querySelectorAll('.half-width-image-container');
-                                                const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
-    
-                                                // check if the image container is taller than the paragraph container
-                                                if (lastHalfWidthImageContainer.scrollHeight <= lastHalfWidthParagraphContainer.scrollHeight) {
-                                                    const fullWidthParagraphContainer = document.createElement('div');
-                                                    fullWidthParagraphContainer.classList.add('full-width-paragraph-container', 'margin-top', 'paragraph-outter-container');
-                                                    paragraphContainer.classList.add('full-width');
-                                                    fullWidthParagraphContainer.appendChild(paragraphContainer);
-                                                    contentContainer.appendChild(fullWidthParagraphContainer);
+                                                const halfWidthImageContainer = document.createElement('div');
+                                                halfWidthImageContainer.classList.add('half-width-image-container', 'paragraph-outter-container');
+
+                                                // if current paragraph contains an image, create a half width container for the paragraph and image
+                                                const halfWidthParagraphContainer = document.createElement('div');
+                                                halfWidthParagraphContainer.classList.add('half-width-paragraph-container', 'paragraph-outter-container');
+                                                paragraphContainer.classList.add('half-width');
+                                                halfWidthParagraphContainer.appendChild(paragraphContainer);
+
+                                                if (window.innerWidth > mobileWidth) {
+                                                    contentContainer.appendChild(halfWidthImageContainer);
+                                                    contentContainer.appendChild(halfWidthParagraphContainer);
                                                 } else {
+                                                    contentContainer.appendChild(halfWidthParagraphContainer);
+                                                    contentContainer.appendChild(halfWidthImageContainer);
+                                                }
+                                            }
+                                        // Is the previous element inside a half width container?
+                                        } else if (previousParagraphContainer.classList.contains('half-width')) {
+                                            // if current paragraph does not contain an image create a full width container for the paragraph
+                                            if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
+                                                if (previousPreviousParagraphContainer && previousPreviousParagraphContainer.hasAttribute('data-image-paragraph')) {
                                                     const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
                                                     const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
                                                     paragraphContainer.classList.add('half-width');
                                                     lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
+                                                } else {
+                                                    const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
+                                                    const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
+        
+                                                    const halfWidthImageContainers = document.querySelectorAll('.half-width-image-container');
+                                                    const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
+        
+                                                    // check if the image container is taller than the paragraph container
+                                                    if (lastHalfWidthImageContainer.scrollHeight <= lastHalfWidthParagraphContainer.scrollHeight) {
+                                                        const fullWidthParagraphContainer = document.createElement('div');
+                                                        fullWidthParagraphContainer.classList.add('full-width-paragraph-container', 'margin-top', 'paragraph-outter-container');
+                                                        paragraphContainer.classList.add('full-width');
+                                                        fullWidthParagraphContainer.appendChild(paragraphContainer);
+                                                        contentContainer.appendChild(fullWidthParagraphContainer);
+                                                    } else {
+                                                        const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
+                                                        const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
+                                                        paragraphContainer.classList.add('half-width');
+                                                        lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
+                                                    }
                                                 }
+                                            } else {
+                                                // if current paragraph contains an image, add the paragraph to the last half width container
+                                                const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
+                                                const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
+                                                paragraphContainer.classList.add('half-width');
+                                                lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
                                             }
-                                        } else {
-                                            // if current paragraph contains an image, add the paragraph to the last half width container
-                                            const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
-                                            const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
-                                            paragraphContainer.classList.add('half-width');
-                                            lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
                                         }
-                                    }
-                                // Previous element has an image
-                                } else {
-                                    // Add the paragraph to the last half width container
-                                    const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
-                                    const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
-                                    paragraphContainer.classList.add('half-width');
-                                    lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
-                                }  
-                            } 
+                                    // Previous element has an image
+                                    } else {
+                                        // Add the paragraph to the last half width container
+                                        const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
+                                        const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
+                                        paragraphContainer.classList.add('half-width');
+                                        lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
+                                    }  
+                                } 
+                            }
                         }
-
+                        
+                        
                         // Adding an indent span under certain conditions
                         // if (window.innerWidth > mobileWidth) {
                         //     if (previousParagraphContainer && 
