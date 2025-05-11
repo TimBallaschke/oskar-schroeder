@@ -116,42 +116,64 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
     });
 }
 
+// async function processImageQueue() {
+//     if (!imageQueue) {
+//         await new Promise(resolve => setTimeout(resolve, 10));
+//         return;
+//     } else {
+//         const halfWidthImageContainers = document.querySelectorAll('.half-width-image-container');
+//         const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
+
+//         const imageContainer = document.createElement('div');
+//         imageContainer.classList.add('paragraph-image', 'no-width');
+
+//         // Create and add the image element
+//         const image = document.createElement('img');
+//         image.classList.add('no-opacity', 'blur');
+//         image.src = imageQueue.url;
+//         imageContainer.appendChild(image);
+
+//         lastHalfWidthImageContainer.appendChild(imageContainer);
+
+//         // Wait for image to load before removing no-width class
+//         image.onload = () => {
+//             setTimeout(() => {
+//                 imageContainer.classList.remove('no-width');
+//                 console.log('imageContainer scrollHeight: ', imageContainer.scrollHeight);
+//                 console.log('image offsetHeight:', image.offsetHeight);
+//             }, 10);
+
+//             setTimeout(() => {
+//                 imageContainer.style.height = `${imageContainer.scrollHeight}px`;
+//             }, 550);
+//         };
+
+
+//         imageQueue = null;
+//         await new Promise(resolve => setTimeout(resolve, 100));
+//     }   
+// }
+
 async function processImageQueue() {
-    if (!imageQueue) {
-        await new Promise(resolve => setTimeout(resolve, 10));
-        return;
-    } else {
-        const halfWidthImageContainers = document.querySelectorAll('.half-width-image-container');
-        const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
+    if (isImageQueueProcessing || imageQueue.length === 0) return;
 
-        const imageContainer = document.createElement('div');
-        imageContainer.classList.add('paragraph-image', 'no-width');
+    isImageQueueProcessing = true;
 
-        // Create and add the image element
-        const image = document.createElement('img');
-        image.classList.add('no-opacity', 'blur');
-        image.src = imageQueue.url;
-        imageContainer.appendChild(image);
+    try {
+        while (imageQueue.length > 0) {
+            const queueImage = imageQueue.shift();
+            const imageURL = queueImage.url;
+            const imageCaption = queueImage.caption;
 
-        lastHalfWidthImageContainer.appendChild(imageContainer);
-
-        // Wait for image to load before removing no-width class
-        image.onload = () => {
-            setTimeout(() => {
-                imageContainer.classList.remove('no-width');
-                console.log('imageContainer scrollHeight: ', imageContainer.scrollHeight);
-                console.log('image offsetHeight:', image.offsetHeight);
-            }, 10);
-
-            setTimeout(() => {
-                imageContainer.style.height = `${imageContainer.scrollHeight}px`;
-            }, 550);
-        };
-
-
-        imageQueue = null;
-        await new Promise(resolve => setTimeout(resolve, 100));
-    }   
+            console.log('--------------------------------');
+            console.log('imageURL: ', imageURL);
+            console.log('imageCaption: ', imageCaption);
+            console.log('--------------------------------');
+            await new Promise(resolve => setTimeout(resolve, 5000));
+        }
+    } finally {
+        isImageQueueProcessing = false;
+    }
 }
 
 
@@ -203,7 +225,8 @@ let displayVersionOnHoverTimeout;
 // Handle Delta
 let previousParagraphContainer;
 let previousPreviousParagraphContainer;
-let imageQueue = null;
+let imageQueue = [];
+let isImageQueueProcessing = false;
 
 
 
@@ -687,7 +710,12 @@ async function handleDelta(content) {
                         let paragraphContainer = document.querySelector(`[data-component-key="${componentID}"]`);
 
                         if (!paragraphContainer) {
-                            await processImageQueue(); // Render images of previous paragraph
+
+                            if (window.innerWidth <= mobileWidth) {
+                                await processImageQueue(); // Wait on mobile
+                            } else {
+                                processImageQueue(); // Fire-and-forget on desktop
+                            }
 
                             if (contentContainer.lastElementChild && contentContainer.lastElementChild.classList.contains('paragraph-outter-container')) { // only execute if there is a paragraph outter container right
                                 allParagraphContainers = contentContainer.querySelectorAll('.paragraph-container');
@@ -708,11 +736,10 @@ async function handleDelta(content) {
                                 if (component.image.caption && component.image.image_url) {
                                     if (!componentMap.has('image')) {
                                         componentMap.set('image', true);
-                                        imageQueue = {
-                                            componentId: componentID,
+                                        imageQueue.push({
                                             url: component.image.image_url,
-                                            caption: component.image.caption,
-                                        };
+                                            caption: component.image.caption
+                                        });
                                     }
                                 }
                             }  
