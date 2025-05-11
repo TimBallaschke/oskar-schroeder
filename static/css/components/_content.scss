@@ -58,9 +58,9 @@
     grid-column: 1 / 5;
     width: 100%;
 
-    // &.margin-top {
-    //     margin-top: calc(var(--primary-line-height) * 2);
-    // }
+    &.margin-top {
+        margin-top: calc(var(--primary-line-height) * 2);
+    }
 
     @include desktop-small {
         grid-column: 1 / 5;

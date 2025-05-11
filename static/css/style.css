@@ -293,6 +293,9 @@ p {
   grid-column: 1/5;
   width: 100%;
 }
+.full-width-paragraph-container.margin-top {
+  margin-top: calc(var(--primary-line-height) * 2);
+}
 @media (min-width: 769px) and (max-width: 1024px) {
   .full-width-paragraph-container {
     grid-column: 1/5;
