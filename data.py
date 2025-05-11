@@ -34,35 +34,35 @@ artist_info = (
 images_for_paragraphs = {
     "images": [
         {
-            "url": "../static/assets/images/images_for_paragraphs/1.jpg",
+            "url": "../static/assets/images/Reference/6.jpg",
             "description": "Image of University of the Arts Berlin",
         },
         {
-            "url": "../static/assets/images/images_for_paragraphs/2.jpg",
+            "url": "../static/assets/images/Reference/6.jpg",
             "description": "Woodworkshop of Oskars grandfather",
         },
         {
-            "url": "../static/assets/images/images_for_paragraphs/3.jpg",
+            "url": "../static/assets/images/Reference/6.jpg",
             "description": "Early material studies of Oskar Schroeder",
         },
         {
-            "url": "../static/assets/images/images_for_paragraphs/4.jpg",
+            "url": "../static/assets/images/Reference/6.jpg",
             "description": "Oskar Schroeder in Kyoto",
         },
         {
-            "url": "../static/assets/images/images_for_paragraphs/5.jpg",
+            "url": "../static/assets/images/Reference/6.jpg",
             "description": "Oskar Schroeder in his studio",
         },
         {
-            "url": "../static/assets/images/images_for_paragraphs/6.jpg",
+            "url": "../static/assets/images/Reference/6.jpg",
             "description": "Material studies of Oskar Schroeder with reference to Donald Judd",
         },
         {
-            "url": "../static/assets/images/images_for_paragraphs/7.jpg",
+            "url": "../static/assets/images/Reference/6.jpg",
             "description": "Material studies of Oskar Schroeder with reference to Barbara Hepworth",
         },
         {
-            "url": "../static/assets/images/images_for_paragraphs/8.jpg",
+            "url": "../static/assets/images/Reference/6.jpg",
             "description": "Material studies of Oskar Schroeder with reference to Barbara Hepworth",
         }
     ],

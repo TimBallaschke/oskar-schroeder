@@ -125,17 +125,29 @@ async function processImageQueue() {
         const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
 
         const imageContainer = document.createElement('div');
-        imageContainer.classList.add('paragraph-image','no-height', 'no-width');
+        imageContainer.classList.add('paragraph-image', 'no-width');
+
+        // Create and add the image element
+        const image = document.createElement('img');
+        image.classList.add('no-opacity', 'blur');
+        image.src = imageQueue.url;
+        imageContainer.appendChild(image);
 
         lastHalfWidthImageContainer.appendChild(imageContainer);
 
-        setTimeout(() => {
-            imageContainer.classList.remove('no-width');
-        }, 100);
+        // Wait for image to load before removing no-width class
+        image.onload = () => {
+            setTimeout(() => {
+                imageContainer.classList.remove('no-width');
+                console.log('imageContainer scrollHeight: ', imageContainer.scrollHeight);
+                console.log('image offsetHeight:', image.offsetHeight);
+            }, 10);
 
-        // setTimeout(() => {
-        //     imageContainer.classList.remove('no-height');
-        // }, 400);
+            setTimeout(() => {
+                imageContainer.style.height = `${imageContainer.scrollHeight}px`;
+            }, 550);
+        };
+
 
         imageQueue = null;
         await new Promise(resolve => setTimeout(resolve, 100));

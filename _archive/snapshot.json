@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250511_Oskar_Website",
+  "original_folder": "250511b_Oskar_Website",
   "snapshot_date_from_folder": "250511",
   "source_files": [
     {
@@ -26,9 +26,9 @@
     },
     {
       "path": "data.py",
-      "sha1": "707f90995a4eb16a7d09965a6829361acbd5a2f4",
-      "sha256": "d37b5636d16c8ed3f372d1e647e09affe3c1aa6a972a3fc4dc51b89e42f31ccf",
-      "size": 42710,
+      "sha1": "3b279db63a6b36900e3218a6325374272f9d861d",
+      "sha256": "57098bbcc5b9a798a822d2307c9917156cdbb6e263018b31374f37e27fcbd42c",
+      "size": 42614,
       "mode": "100644"
     },
     {
@@ -54,16 +54,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "2878938b4168a3a58f11d7877c3a8ee532b257f1",
-      "sha256": "38bc7d4b449dce0cba523bbccdefa3c15a4e6d5e9e62b784f396864a8e72bcfd",
-      "size": 37010,
+      "sha1": "9120996a6f30219883b0fa4012ae006b0ed67e60",
+      "sha256": "35ba412ca40d54abeaa40a4543b874c260603c6a14058e3705fdd445071e69b1",
+      "size": 37320,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "50443225f8c14bf22c678588514096d10f2556fe",
-      "sha256": "a06e7fde22e4eaa377d895e19886af07401c3f007546cf91694a16dcc3c232e4",
-      "size": 12905,
+      "sha1": "3cc582c8684fc60d3222e6f4000afd82de978e6b",
+      "sha256": "d4464e62691974d26aea695ff8bf22eac685a766036e49d56612d9e9617936b6",
+      "size": 13026,
       "mode": "100644"
     },
     {
@@ -82,9 +82,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "94f043d3a61637ab2d782f2e7dd811d16aa7d909",
-      "sha256": "13ff0b288870fc689b393863f895ae66ed9189faee2b09a2ffa41bdc0608b7ff",
-      "size": 19818,
+      "sha1": "a039ea840aa727706189c6c96bade0a9bfe176a0",
+      "sha256": "bb9e65be9f90431558af411604b102bd67509d43233c345f495d9342f8f16834",
+      "size": 20104,
       "mode": "100644"
     },
     {
@@ -110,9 +110,9 @@
     },
     {
       "path": "static/css/abstracts/_variables.scss",
-      "sha1": "f48dd9bea60dd016be89fb0f06c8e72b26c28fbd",
-      "sha256": "cb513c35dd05fc3079e786bc4f68869b8b1cd502e91c8e8883faad603cd4d1e4",
-      "size": 2785,
+      "sha1": "3fe3ff7d3a197ac554de90acbd137e208b4c74f3",
+      "sha256": "3b91c91951619d7ac62febcc7e8dcef8b7d446c08634321ecb235d666304cc89",
+      "size": 2818,
       "mode": "100644"
     },
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "7d1f514b8d75706706bc610b56bdeaa755bc6334",
-      "sha256": "e57368b5406e53aba4ce949186075e64837502ec3af57430ffcaac5666b7f841",
-      "size": 186498,
+      "sha1": "128b167623ec22e4d4bf01ee7a1e7663fe362491",
+      "sha256": "554c22457bd60ffc2a9d37ee79a345a24bf123cef1c1c09ef438aa54e88641f3",
+      "size": 187019,
       "mode": "100644"
     },
     {
@@ -471,6 +471,13 @@
       "sha256": "f71e7aaa4fc4a8967ad9f261fb8e077f2f0f4b442bc47a62efc4c35dabe8b63a",
       "size": 1982369,
       "mode": "100755"
+    },
+    {
+      "path": "static/assets/images/Reference/6.jpg",
+      "sha1": "3aceeb3b2324127481b01a42f379fb9d7db7ddea",
+      "sha256": "dd9322127613a9564c139e8a75cf13499ad9b457e08732079dc1b62e7b28a331",
+      "size": 6384600,
+      "mode": "100644"
     },
     {
       "path": "static/assets/images/Sand/Sand 2.jpg",
