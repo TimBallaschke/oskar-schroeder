@@ -106,6 +106,10 @@ p {
   font-variation-settings: "wght" 100, "ital" 0;
 }
 
+.light-nav {
+  font-variation-settings: "wght" var(--font-weight-light-nav), "ital" 0;
+}
+
 .italic {
   font-variation-settings: "wght" 675, "ital" 9;
 }
@@ -134,11 +138,4 @@ p {
     font-size: 17px;
     font-variation-settings: "wght" 300, "MONO" 1;
   }
-}
-
-.diatype {
-  font-family: "Diatype";
-  font-size: 25px;
-  font-variation-settings: "wght" 400, "MONO" 0;
-  animation: font-weight-animation 2000ms infinite;
 }

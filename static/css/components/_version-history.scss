@@ -4,11 +4,11 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 130px;
+  height: 140px;
   background: linear-gradient(
     to bottom,
     #f4f7fc 0%,
-    rgba(244, 247, 252, 0.9) 30%,
+    rgba(244, 247, 252, 0.9) 40%,
     rgba(244, 247, 252, 0.5) 70%,
     rgba(244, 247, 252, 0) 100%
   );
@@ -73,7 +73,7 @@
 .version-history-element {
   transition: all var(--animation-duration-3) ease-in-out;
   font-size: var(--secondary-font-size);
-  font-variation-settings: "wght" 350;
+  font-variation-settings: "wght" var(--font-weight-light-nav);
   transform-origin: center center;
   overflow: hidden;
   border-left: 1px solid black;

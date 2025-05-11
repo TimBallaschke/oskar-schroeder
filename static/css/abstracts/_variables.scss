@@ -16,6 +16,7 @@
 
   --font-weight-bold: 675;
   --font-weight-light: 350;
+  --font-weight-light-nav: 350;
   --letter-spacing-large: -1px;
   --letter-spacing-small: 0px;
 
@@ -43,13 +44,15 @@
   // Content Container
   --content-padding-top: 110px;
   --content-padding-bottom: 26px;
+  --column-amount-content-container: 5;
+  --column-gap-content-container: 15px;
 
   // Headline
   --headline-height: 0px;
 
   // Project Grid
-  --column-amount: 2;
-  --column-gap: 15px;
+  --column-amount-projects: 2;
+  --column-gap-projects: 15px;
 
   // Project Dot
   --dot-column-width: 37px;
@@ -80,6 +83,7 @@
     --primary-font-size: 20px;
     --secondary-font-size: 15px;
     --large-font-size: 35px;
+    --small-circle-size: 20px;
   }
 
   @include desktop-x-large {
@@ -90,7 +94,7 @@
     // Typography
     --primary-font-size: 24px;
     --primary-line-height: 28.8px;
-    --secondary-font-size: 15px;
+    --secondary-font-size: 18px;
     --secondary-line-height: 17.5px;
     --large-font-size: 35px;
     --grid-line-height: 14.2px;
@@ -101,9 +105,11 @@
     --bottom-margin-bottom-nav: 27.5px;
     --veritical-padding-bottom-nav: 21px;
     --horizontal-padding-bottom-nav: 31px;
-    --input-element-height: calc(var(--primary-font-size) * 1.6);
+    --input-element-height: calc(var(--secondary-font-size) * 1.6);
     --button-size: 39px;
     --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
+    --small-circle-size: 20px;
+
 
     // Content Container
     --content-padding-top: 110px;
