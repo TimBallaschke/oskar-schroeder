@@ -66,8 +66,8 @@
     --page-padding: 20px;
     --primary-font-size: 24px;
     --primary-line-height: 28.8px;
-    --secondary-font-size: 17px;
-    --secondary-line-height: 20.4px;
+    --secondary-font-size: 16px;
+    --secondary-line-height: 19.2px;
     --large-font-size: 35px;
     --grid-line-height: 14.2px;
     --bottom-nav-width: 1000px;
@@ -274,8 +274,8 @@ p {
   #content-container {
     display: grid;
     grid-template-columns: repeat(var(--column-amount-content-container), 1fr);
-    -moz-column-gap: var(--column-gap-content-container);
-         column-gap: var(--column-gap-content-container);
+    -moz-column-gap: 40px;
+         column-gap: 40px;
   }
 }
 .component-selected #content-container .project:not(.selected) {
@@ -353,7 +353,7 @@ p {
 }
 @media (min-width: 1441px) {
   .half-width-image-container {
-    padding-top: 8px;
+    padding-top: 33px;
     grid-column: 1/3;
     width: 100%;
   }
@@ -403,8 +403,8 @@ p {
   -o-object-fit: contain;
      object-fit: contain;
   transition: all var(--animation-duration-1) ease-in-out;
-  padding-top: 15px;
-  padding-bottom: 6px;
+  padding-top: 40px;
+  padding-bottom: 8px;
 }
 .paragraph-image img.blur {
   filter: blur(30px);
@@ -414,7 +414,7 @@ p {
 }
 
 .image-caption {
-  padding-bottom: 10px;
+  padding-bottom: 12.5px;
   font-size: var(--secondary-font-size);
   text-transform: capitalize;
 }
