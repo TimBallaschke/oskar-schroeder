@@ -335,8 +335,8 @@ p {
 }
 
 .half-width-image-container {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 17px;
+  padding-bottom: 17px;
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   .half-width-image-container {
@@ -413,8 +413,8 @@ p {
   -o-object-fit: contain;
      object-fit: contain;
   transition: all var(--animation-duration-1) ease-in-out;
-  padding-top: 14px;
-  padding-bottom: 10px;
+  padding-top: 22px;
+  padding-bottom: 6px;
 }
 .paragraph-image img.blur {
   filter: blur(30px);
@@ -442,7 +442,7 @@ p {
 }
 
 .image-caption {
-  padding-bottom: 5px;
+  padding-bottom: 7px;
   font-size: var(--secondary-font-size);
   text-transform: capitalize;
 }

@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250514c_Oskar_Website",
+  "original_folder": "250514d_Oskar_Website",
   "snapshot_date_from_folder": "250514",
   "source_files": [
     {
@@ -54,15 +54,15 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "4a21024ef1e5e2808ab8a7da2778e78734f1de75",
-      "sha256": "2ccf64872f99d7b6024c424bedd2deb4f8bb3f47e04a79e5288bf6e49742ba71",
-      "size": 40255,
+      "sha1": "40b701698c0c70d640a9b0feb1c24850b57104d2",
+      "sha256": "b99b4c7ab254bffbc692db8e030d6469c2e5f9bf56602d48447236928ba8fdfa",
+      "size": 40254,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "4055b7d8536ef0502633bc6b27095513c82c822c",
-      "sha256": "7a78b0a7a15a785777a3ea692dde0034ec52116613bb6195337170a2875ed5ec",
+      "sha1": "95c8a51228801b67a99a7629ec734c63e095df9e",
+      "sha256": "b2f02fbe3a410a6800ae44810aa49b42429e0f41b26738018c38c8949e53b7b9",
       "size": 13928,
       "mode": "100644"
     },
@@ -82,9 +82,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "7eb7a79ccbe90ca212b8e6dc94cbd1f4a12046ef",
-      "sha256": "5d694b6bd041538e6af2db1fce701fb0c3dcc37913e9b80618d675d5167f0cdb",
-      "size": 21363,
+      "sha1": "4890a498d9c3a6660c3227920a74dda5ed8d53d6",
+      "sha256": "5f79a68e2615aaec384aa469785a13b8e73f09f91489d8699074192a7af0f6c8",
+      "size": 21362,
       "mode": "100644"
     },
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "40924c4ea549d9bc1a07ba6f3e51c0afc3cca654",
-      "sha256": "87a5685a4b2c9f6ccac8e687afb3291e46ca9616f79116eeb597dd9660ba3f4c",
-      "size": 192300,
+      "sha1": "8e4e8e758773ac3f199282ec23acba6c8c4c1483",
+      "sha256": "b98bf0a5db5d80eb2bab9dea64bbd37e510fe8f21fa38a05bb85183ba7bdf7d8",
+      "size": 192301,
       "mode": "100644"
     },
     {

@@ -1518,6 +1518,7 @@ async function renderNextProject() {
 
             if (key === 'stream_finished') {
                 processImageQueue();
+
                 isStreaming = false;
                 break;
             }
