@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250514e_Oskar_Website",
+  "original_folder": "250514f_Oskar_Website",
   "snapshot_date_from_folder": "250514",
   "source_files": [
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "8e4e8e758773ac3f199282ec23acba6c8c4c1483",
-      "sha256": "b98bf0a5db5d80eb2bab9dea64bbd37e510fe8f21fa38a05bb85183ba7bdf7d8",
-      "size": 192301,
+      "sha1": "354d76cb85ec7b37021e2b4fd3e3a1d743d3d0f5",
+      "sha256": "c4e0da0571a0de4a7cd4143740683dd73d8111ec468b744371d93aff70b33245",
+      "size": 196493,
       "mode": "100644"
     },
     {
