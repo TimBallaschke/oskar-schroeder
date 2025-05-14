@@ -225,6 +225,10 @@ p {
   font-variation-settings: "wght" 675, "ital" 9;
 }
 
+.light.italic {
+  font-variation-settings: "wght" 100, "ital" 9;
+}
+
 .indent {
   display: inline-block;
   width: 30px;
@@ -378,7 +382,9 @@ p {
 .paragraph-word {
   transition: all var(--animation-duration-1) ease-in-out;
 }
-
+.paragraph-word.light {
+  transition: all 300ms ease-in-out;
+}
 .paragraph-image {
   height: 0;
   width: 100%;
@@ -517,6 +523,14 @@ p {
 .term-description.display-inline::after {
   right: unset;
   transform: translate(6px, 0px);
+}
+
+.term-description-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: black;
+  border-radius: 50%;
 }
 
 .term-description-plus {

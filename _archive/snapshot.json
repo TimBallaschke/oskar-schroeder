@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250514g_Oskar_Website",
+  "original_folder": "250514h_Oskar_Website",
   "snapshot_date_from_folder": "250514",
   "source_files": [
     {
@@ -54,16 +54,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "64acd7dbbceb44f7083d0d378009bdf1a0903ae1",
-      "sha256": "0a475a56c574280e569e20497b1683f13d804b3b2fcbf351fb9a8cc4d05e43ef",
-      "size": 40254,
+      "sha1": "b584b4fc5903674ad2c7eed2361bf72ba32d4e91",
+      "sha256": "32e5eff3e199d66e9780b3ea96025c8d5b850cd300b652cf2f02fab2005d2578",
+      "size": 40516,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "95c8a51228801b67a99a7629ec734c63e095df9e",
-      "sha256": "b2f02fbe3a410a6800ae44810aa49b42429e0f41b26738018c38c8949e53b7b9",
-      "size": 13928,
+      "sha1": "37687e9004b9f45128775957d0c9e916b3d60578",
+      "sha256": "545c485effea12c7f45e7cb3e497dad35dd5754e71746b1232674ef76b5e1c01",
+      "size": 14041,
       "mode": "100644"
     },
     {
@@ -82,9 +82,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "4890a498d9c3a6660c3227920a74dda5ed8d53d6",
-      "sha256": "5f79a68e2615aaec384aa469785a13b8e73f09f91489d8699074192a7af0f6c8",
-      "size": 21362,
+      "sha1": "355a5a7501f469f2a1e02b1730cfa65ba7316bfd",
+      "sha256": "eb975fdfb157dc378d934d4cb2102136a1eb624fd1d3c8f4bb75d44496ae76a0",
+      "size": 21662,
       "mode": "100644"
     },
     {
@@ -124,16 +124,16 @@
     },
     {
       "path": "static/css/base/_typography.scss",
-      "sha1": "d1aa7d5d1ec04f92c23752e13939c34775826187",
-      "sha256": "638ee830181842959d983b8b8804544feb41a06b35bbc37d2f14af273faf9aff",
-      "size": 2820,
+      "sha1": "d0b8a8753876b63ff57f4141fa8ecd8f05d21579",
+      "sha256": "6b080f2e7ab9f23637d45f5c426be47e096f625249bab05f303cce23c0490793",
+      "size": 2888,
       "mode": "100644"
     },
     {
       "path": "static/js/script.js",
-      "sha1": "11b1f4c2798eb4a1b75cdf6daf6778609ea82971",
-      "sha256": "e02b7afd2ab43e09ebb2e0025cd4dc11effcfa9ad8352e4d618d6c7b142ef0ff",
-      "size": 167641,
+      "sha1": "0471ea7173c2edb34e4f348ad030df7f9bfdb136",
+      "sha256": "d60bbd464ee1c485fb21f6684244894bb5fbb5aa46f7e5fc9b91c64fb07ed84b",
+      "size": 166086,
       "mode": "100644"
     },
     {

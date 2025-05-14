@@ -958,35 +958,17 @@ async function handleDelta(content) {
                                                     wordIndex++;
                                                     setTimeout(addNextWord, 50);
                                                 } else {
-                                                    partIndex++;
-                                                    setTimeout(processNextPart, 0);
-                                                    // if (italicSpan) {
-                                                    //     termDescriptionSpan = document.createElement('span');
-                                                    //     termDescriptionSpan.classList.add('term-description', 'no-height', 'no-width');
-                                                    //     italicSpan.appendChild(termDescriptionSpan);
+                                                    if (isItalic) {
+                                                        partIndex++;
+                                                        setTimeout(processNextPart, 0);
+                                                        const termDescriptionDot = document.createElement('span');
+                                                        termDescriptionDot.classList.add('term-description-dot');
+                                                        paragraphContainer.appendChild(termDescriptionDot);
 
-                                                    //     setTimeout(() => {
-                                                    //         termDescriptionSpan.classList.remove('no-height');
-                                                    //     }, 10);
-
-                                                    //     setTimeout(() => {
-                                                    //         termDescriptionSpan.classList.remove('no-width');
-                                                    //     }, 300);
-
-                                                    //     setTimeout(() => {
-                                                    //         const termDescriptionPlus = document.createElement('div');
-                                                    //         termDescriptionPlus.classList.add('term-description-plus', 'light');
-                                                    //         termDescriptionPlus.textContent = '+';
-                                                    //         termDescriptionSpan.appendChild(termDescriptionPlus);
-                                                    //     }, 600);
-
-                                                    //     partIndex++;
-                                                    //     setTimeout(processNextPart, 600);
-                                                    // } else {
-
-                                                    // }
-
-
+                                                    } else {
+                                                        partIndex++;
+                                                        setTimeout(processNextPart, 0); 
+                                                    }
                                                 }
                                             }
                                             addNextWord();
@@ -2367,80 +2349,77 @@ function handleVersionEvent(event) {
 
 // display previous version
 function displayPreviousVersion(element) {
+
+    const versionKey = parseInt(element.getAttribute('version-history-key'));
+    const currentVersionKey = parseInt(contentContainer.getAttribute('data-version-key'));
+
+    if (versionKey === currentVersionKey) { // if the version is already displayed, return
+        return;
+    }
+
+    contentContainer.setAttribute('data-version-key', versionKey);
+    clearContentContainer(true);
+
+
+    if (versionKey === 0 || versionKey === 1) {
+        
+        // Reset the URL to the base URL without state parameter
+        const baseUrl = `${window.location.origin}${window.location.pathname}`;
+        window.history.pushState({}, '', baseUrl);
+        return;
+    }
+
+    // Get the corresponding content from componentsMap
+    const versionContent = responseMap[versionKey].content;
+    const stateId = responseMap[versionKey].stateId;
+
+    console.log('versionContent', versionContent);
+
+    // Update the URL with the stateId if it exists
+    if (stateId) {
+        const newUrl = `${window.location.origin}${window.location.pathname}?state=${stateId}`;
+        window.history.pushState({ stateId: stateId }, '', newUrl);
+    }
+
     setTimeout(() => {
-        const versionKey = parseInt(element.getAttribute('version-history-key'));
-        const currentVersionKey = parseInt(contentContainer.getAttribute('data-version-key'));
-    
-        if (versionKey === currentVersionKey) { // if the version is already displayed, return
-            return;
-        }
-    
-        contentContainer.setAttribute('data-version-key', versionKey);
-        // clearContentContainer(true);
-        contentContainer.innerHTML = "";
-    
-    
-        if (versionKey === 0 || versionKey === 1) {
+        contentContainer.innerHTML = versionContent;
+    }, 400);
+
+    setTimeout(() => {
+        const targetElements = Array.from(contentContainer.querySelectorAll('*')).filter(element => {
+            const hasElementChildren = Array.from(element.children).length > 0;
+            return !hasElementChildren && 
+                (element.tagName.toLowerCase() === 'span' || 
+                 element.tagName.toLowerCase() === 'div' || 
+                 element.tagName.toLowerCase() === 'p');
+        });
+
+
+        targetElements.forEach(element => {
+            element.classList.add('no-transition', 'light');
             
-            // Reset the URL to the base URL without state parameter
-            const baseUrl = `${window.location.origin}${window.location.pathname}`;
-            window.history.pushState({}, '', baseUrl);
-            return;
-        }
-    
-        // Get the corresponding content from componentsMap
-        const versionContent = responseMap[versionKey].content;
-        const stateId = responseMap[versionKey].stateId;
-    
-        console.log('versionContent', versionContent);
-    
-        // Update the URL with the stateId if it exists
-        if (stateId) {
-            const newUrl = `${window.location.origin}${window.location.pathname}?state=${stateId}`;
-            window.history.pushState({ stateId: stateId }, '', newUrl);
-        }
+            setTimeout(() => {
+                element.classList.add('animation-settings');
+            }, 10);
+        });
+
         setTimeout(() => {
-            contentContainer.innerHTML = versionContent;
-        }, 400);
-    
-    
-        // setTimeout(() => {
-        //     const targetElements = Array.from(contentContainer.querySelectorAll('*')).filter(element => {
-        //         const hasElementChildren = Array.from(element.children).length > 0;
-        //         return !hasElementChildren && 
-        //             (element.tagName.toLowerCase() === 'span' || 
-        //              element.tagName.toLowerCase() === 'div' || 
-        //              element.tagName.toLowerCase() === 'p');
-        //     });
-    
-    
-        //     targetElements.forEach(element => {
-        //         element.classList.add('no-transition', 'light');
-                
-        //         setTimeout(() => {
-        //             element.classList.add('animation-settings');
-        //         }, 10);
-        //     });
-    
-        //     setTimeout(() => {
-        //         contentContainer.classList.remove('no-opacity');
-        //     }, 100);
-    
-        //     setTimeout(() => {
-        //         targetElements.forEach(element => {
-        //             element.classList.remove('light');
-        //         });
-        //     }, 200);
-    
-        //     setTimeout(() => {
-        //         targetElements.forEach(element => {
-        //             element.classList.remove('animation-settings');
-        //         });
-        //     }, 500);
-        // }, 600);
-    }, 5000);
+            contentContainer.classList.remove('no-opacity');
+        }, 100);
 
+        setTimeout(() => {
+            targetElements.forEach(element => {
+                element.classList.remove('light');
+            });
+        }, 200);
 
+        setTimeout(() => {
+            targetElements.forEach(element => {
+                element.classList.remove('animation-settings');
+                element.classList.remove('no-transition');
+            });
+        }, 500);
+    }, 600);
 }
 
 // Scroll on desktop

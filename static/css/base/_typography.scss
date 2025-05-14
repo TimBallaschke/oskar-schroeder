@@ -114,6 +114,10 @@ p {
   font-variation-settings: "wght" 675, "ital" 9;
 }
 
+.light.italic {
+  font-variation-settings: "wght" 100, "ital" 9;
+}
+
 .indent {
   display: inline-block;
   width: 30px;
