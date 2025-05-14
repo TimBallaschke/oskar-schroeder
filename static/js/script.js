@@ -554,6 +554,8 @@ userInput.addEventListener('keypress', function(e) {
 function clearContentContainer(isVersionHistory) {
 
     contentContainer.classList.add('animation-settings');
+    previousParagraphContainer = null;
+    previousPreviousParagraphContainer = null;
 
     // Find only the leaf nodes (elements that don't have element children)
     contentContainer.querySelectorAll('*').forEach(element => {
@@ -865,136 +867,6 @@ async function handleDelta(content) {
                                 }
                             }
                         }
-                      
-
-
-
-
-                            //         // Is the previous element an image paragraph?
-                            //         if (!previousParagraphContainer.hasAttribute('data-image-paragraph')) {
-                            //             // Is the previous element inside a full width container?
-                            //             if (previousParagraphContainer.classList.contains('full-width')) { 
-                            //                 // Does the current paragraph also not contain an image?
-                            //                 if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
-                            //                     // Add the paragraph to the last full width container
-                            //                     const fullWidthParagraphContainers = document.querySelectorAll('.full-width-paragraph-container');
-                            //                     const lastFullWidthParagraphContainer = fullWidthParagraphContainers[fullWidthParagraphContainers.length - 1];
-                            //                     paragraphContainer.classList.add('full-width');
-
-                            //                     const indentSpan = document.createElement('span');
-                            //                     indentSpan.classList.add('indent');
-                            //                     paragraphContainer.appendChild(indentSpan);
-
-                            //                     lastFullWidthParagraphContainer.appendChild(paragraphContainer);
-                            //                 } else {
-                            //                     const halfWidthImageContainer = document.createElement('div');
-                            //                     halfWidthImageContainer.classList.add('half-width-image-container', 'paragraph-outter-container');
-
-                            //                     // if current paragraph contains an image, create a half width container for the paragraph and image
-                            //                     const halfWidthParagraphContainer = document.createElement('div');
-                            //                     halfWidthParagraphContainer.classList.add('half-width-paragraph-container', 'paragraph-outter-container');
-                            //                     paragraphContainer.classList.add('half-width');
-
-                            //                     halfWidthParagraphContainer.appendChild(paragraphContainer);
-
-                            //                     contentContainer.appendChild(halfWidthImageContainer);
-                            //                     contentContainer.appendChild(halfWidthParagraphContainer);
-                                                
-                            //                 }
-                            //             // Is the previous element inside a half width container?
-                            //             } else if (previousParagraphContainer.classList.contains('half-width')) {
-                            //                 // if current paragraph does not contain an image create a full width container for the paragraph
-                            //                 if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
-                            //                     if (previousPreviousParagraphContainer && previousPreviousParagraphContainer.hasAttribute('data-image-paragraph')) {
-                            //                         const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
-                            //                         const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
-                            //                         paragraphContainer.classList.add('half-width');
-
-                            //                         const indentSpan = document.createElement('span');
-                            //                         indentSpan.classList.add('indent');
-                            //                         paragraphContainer.appendChild(indentSpan);
-
-                            //                         lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
-                            //                     } else {
-                            //                         const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
-                            //                         const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
-        
-                            //                         const halfWidthImageContainers = document.querySelectorAll('.half-width-image-container');
-                            //                         const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
-        
-                            //                         // check if the image container is taller than the paragraph container
-                            //                         if (lastHalfWidthImageContainer.scrollHeight <= lastHalfWidthParagraphContainer.scrollHeight) {
-                            //                             const fullWidthParagraphContainer = document.createElement('div');
-                            //                             fullWidthParagraphContainer.classList.add('full-width-paragraph-container', 'margin-top', 'paragraph-outter-container');
-                            //                             paragraphContainer.classList.add('full-width');
-                            //                             fullWidthParagraphContainer.appendChild(paragraphContainer);
-                            //                             contentContainer.appendChild(fullWidthParagraphContainer);
-                            //                         } else {
-                            //                             const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
-                            //                             const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
-                            //                             paragraphContainer.classList.add('half-width');
-
-                            //                             const indentSpan = document.createElement('span');
-                            //                             indentSpan.classList.add('indent');
-                            //                             paragraphContainer.appendChild(indentSpan);
-
-                            //                             lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
-                            //                         }
-                            //                     }
-                            //                 } else {
-                            //                     // if current paragraph contains an image, add the paragraph to the last half width container
-                            //                     const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
-                            //                     const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
-                            //                     paragraphContainer.classList.add('half-width');
-
-                            //                     const indentSpan = document.createElement('span');
-                            //                     indentSpan.classList.add('indent');
-                            //                     paragraphContainer.appendChild(indentSpan);
-
-                            //                     lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
-                            //                 }
-                            //             }
-                            //         // Previous element has an image
-                            //         } else {
-                            //             // Add the paragraph to the last half width container
-                            //             const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
-                            //             const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
-                            //             paragraphContainer.classList.add('half-width');
-
-                            //             const indentSpan = document.createElement('span');
-                            //             indentSpan.classList.add('indent');
-                            //             paragraphContainer.appendChild(indentSpan);
-
-                            //             lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
-                            //         }  
-                            //     } 
-                        //     }
-                        // }
-                        
-                        
-                        // // Adding an indent span under certain conditions
-                        // if (window.innerWidth > mobileWidth) {
-                        //     if (previousParagraphContainer && 
-                        //         previousParagraphContainer.classList.contains('paragraph-container') &&
-                        //         previousParagraphContainer.classList.contains('column-switch') === paragraphContainer.classList.contains('column-switch') &&
-                        //         !paragraphContainer.hasAttribute('data-indent-added')) {
-                        //         const indentSpan = document.createElement('span');
-                        //         indentSpan.classList.add('indent');
-                        //         paragraphContainer.appendChild(indentSpan);
-                        //         paragraphContainer.setAttribute('data-indent-added', 'true');
-                        //     }
-                        // } else {
-                        //     if (previousParagraphContainer &&
-                        //         previousParagraphContainer.classList.contains('paragraph-container') &&
-                        //         !previousParagraphContainer.classList.contains('image-paragraph') &&
-                        //         !paragraphContainer.hasAttribute('data-indent-added')) {
-                        //         const indentSpan = document.createElement('span');
-                        //         indentSpan.classList.add('indent');
-                        //         paragraphContainer.appendChild(indentSpan);
-                        //         paragraphContainer.setAttribute('data-indent-added', 'true');
-                        //     }
-                        // }
-
                         
                         for (const sentence of component.text) {
                             if (!componentMap.has(sentence)) {
@@ -1086,33 +958,33 @@ async function handleDelta(content) {
                                                     wordIndex++;
                                                     setTimeout(addNextWord, 50);
                                                 } else {
-                                                    console.log('!wordIndex < words.length');
-                                                    if (italicSpan) {
-                                                        termDescriptionSpan = document.createElement('span');
-                                                        termDescriptionSpan.classList.add('term-description', 'no-height', 'no-width');
-                                                        italicSpan.appendChild(termDescriptionSpan);
+                                                    partIndex++;
+                                                    setTimeout(processNextPart, 0);
+                                                    // if (italicSpan) {
+                                                    //     termDescriptionSpan = document.createElement('span');
+                                                    //     termDescriptionSpan.classList.add('term-description', 'no-height', 'no-width');
+                                                    //     italicSpan.appendChild(termDescriptionSpan);
 
-                                                        setTimeout(() => {
-                                                            termDescriptionSpan.classList.remove('no-height');
-                                                        }, 10);
+                                                    //     setTimeout(() => {
+                                                    //         termDescriptionSpan.classList.remove('no-height');
+                                                    //     }, 10);
 
-                                                        setTimeout(() => {
-                                                            termDescriptionSpan.classList.remove('no-width');
-                                                        }, 300);
+                                                    //     setTimeout(() => {
+                                                    //         termDescriptionSpan.classList.remove('no-width');
+                                                    //     }, 300);
 
-                                                        setTimeout(() => {
-                                                            const termDescriptionPlus = document.createElement('div');
-                                                            termDescriptionPlus.classList.add('term-description-plus', 'light');
-                                                            termDescriptionPlus.textContent = '+';
-                                                            termDescriptionSpan.appendChild(termDescriptionPlus);
-                                                        }, 600);
+                                                    //     setTimeout(() => {
+                                                    //         const termDescriptionPlus = document.createElement('div');
+                                                    //         termDescriptionPlus.classList.add('term-description-plus', 'light');
+                                                    //         termDescriptionPlus.textContent = '+';
+                                                    //         termDescriptionSpan.appendChild(termDescriptionPlus);
+                                                    //     }, 600);
 
-                                                        partIndex++;
-                                                        setTimeout(processNextPart, 600);
-                                                    } else {
-                                                        partIndex++;
-                                                        setTimeout(processNextPart, 0);
-                                                    }
+                                                    //     partIndex++;
+                                                    //     setTimeout(processNextPart, 600);
+                                                    // } else {
+
+                                                    // }
 
 
                                                 }
@@ -2305,32 +2177,18 @@ async function renderNextProject() {
 
 function handleComplete(content) {
     console.log("Received complete response:", content);
-
-    // Save content in responseMap without stateId
-    responseMap[responseCount] = {
-        content: content,
-        stateId: null
-    };
 }
 
 function handleSecondComplete(content, stateId) {
-    console.log("Received second complete response:", content);
 
     // Generate a unique URL if we have a stateId
     if (stateId) {
         const newUrl = `${window.location.origin}${window.location.pathname}?state=${stateId}`;
         window.history.pushState({ stateId: stateId }, '', newUrl);
-
-        // Update the stateId in responseMap
-        if (responseMap[responseCount]) {
-            responseMap[responseCount].stateId = stateId;
-        }
     }
 
     // Check if streaming is still in progress and/or there is still images to render
     if (isStreaming) {
-        console.log('--------------------------------');
-        console.log('Streaming is still in progress');
         const checkStreamingInterval = setInterval(() => {
             if (!isStreaming && imageQueue.length === 0) {
                 clearInterval(checkStreamingInterval);
@@ -2338,6 +2196,8 @@ function handleSecondComplete(content, stateId) {
                 handlePromptProposalsUpdate(content);
                 stopStreamingAnimation();
                 activateTermDescription();
+                saveCurrentHTML();
+                
 
                 headlineProcessed = false;
             }
@@ -2352,16 +2212,18 @@ function handleSecondComplete(content, stateId) {
                     handlePromptProposalsUpdate(content);
                     stopStreamingAnimation();
                     activateTermDescription();
+                    saveCurrentHTML();
+                    
     
                     headlineProcessed = false;
                 }
             }, 100);
         } else {
-            console.log('--------------------------------');
-            console.log('Image queue is empty');
             handlePromptProposalsUpdate(content);
             stopStreamingAnimation();
             activateTermDescription();
+            saveCurrentHTML();
+            
     
             headlineProcessed = false;
         }
@@ -2372,6 +2234,17 @@ function handleSecondComplete(content, stateId) {
 // --------------------------------------------------------------------------------------------
 // VERSION HISTORY
 // --------------------------------------------------------------------------------------------
+
+function saveCurrentHTML() {
+    const currentHTML = contentContainer.innerHTML;
+    console.log('currentHTML', currentHTML);
+
+    responseMap[responseCount] = {
+        content: currentHTML,
+        stateId: null
+    };
+
+}
 
 function addNewVersionHistoryElement(headline) {
     headlineProcessed = true;
@@ -2494,371 +2367,80 @@ function handleVersionEvent(event) {
 
 // display previous version
 function displayPreviousVersion(element) {
-
-    const versionKey = parseInt(element.getAttribute('version-history-key'));
-    const currentVersionKey = parseInt(contentContainer.getAttribute('data-version-key'));
-
-    if (versionKey === currentVersionKey) { // if the version is already displayed, return
-        return;
-    }
-
-    contentContainer.setAttribute('data-version-key', versionKey);
-    clearContentContainer(true);
-
-
-    if (versionKey === 0 || versionKey === 1) {
-        
-        // Reset the URL to the base URL without state parameter
-        const baseUrl = `${window.location.origin}${window.location.pathname}`;
-        window.history.pushState({}, '', baseUrl);
-        return;
-    }
-
-    // Get the corresponding content from componentsMap
-    const versionContent = responseMap[versionKey].content;
-    const stateId = responseMap[versionKey].stateId;
-
-    console.log('versionContent', versionContent);
-
-    // Update the URL with the stateId if it exists
-    if (stateId) {
-        const newUrl = `${window.location.origin}${window.location.pathname}?state=${stateId}`;
-        window.history.pushState({ stateId: stateId }, '', newUrl);
-    }
-
     setTimeout(() => {
-
-        if (versionContent && versionContent.components) {
-            versionContent.components.forEach(component => {
-                switch (component.UIType) {
-                    case 'paragraphs':
-                        const paragraphContainer = document.createElement('p');
-                        paragraphContainer.classList.add('paragraph-container');
-                        paragraphContainer.textContent = component.text.join(' ');
-                        contentContainer.appendChild(paragraphContainer);
-                        break;
-
-                    case 'list':
-                        const listContainer = document.createElement('div');
-                        listContainer.classList.add('list-container');
-                        contentContainer.appendChild(listContainer);
-                        
-                        // Add list items
-                        if (component.items && Array.isArray(component.items)) {
-                            component.items.forEach((item, index) => {
-                                const itemContainer = document.createElement('div');
-                                itemContainer.classList.add('item-container');
-                                
-                                // Add prefix if it exists
-                                if (item.prefix) {
-                                    const prefixContainer = document.createElement('div');
-                                    prefixContainer.classList.add('item-prefix');
-                                    
-                                    const prefixDigits = document.createElement('div');
-                                    prefixDigits.classList.add('prefix-digits');
-                                    
-                                    const prefixString = item.prefix.toString();
-                                    let prefixText = prefixString.length <= 1 ? "0" + prefixString : prefixString;
-
-                                    const prefixLength = prefixText.length;
-                                    const secondaryFontSize = getCSSVarValue('--secondary-font-size', 16);
-                                    const secondaryFontWidth = secondaryFontSize * 0.6;
-                                    const prefixWidth = (prefixLength + 3) * secondaryFontWidth;
-
-                                    setCSSVarValue('--prefix-width', prefixWidth);
-
-                                    prefixDigits.textContent = prefixText;
-                                    
-                                    prefixContainer.appendChild(prefixDigits);
-                                    itemContainer.appendChild(prefixContainer);
-                                }
-                                
-                                // Add item text
-                                if (item.item) {
-                                    const textContainer = document.createElement('div');
-                                    textContainer.classList.add('item-text');
-                                    textContainer.textContent = item.item;
-                                    itemContainer.appendChild(textContainer);
-                                }
-                                
-                                listContainer.appendChild(itemContainer);
-                            });
-                        }
-                        break;
-
-                    case 'table':
-                        // Create table container
-                        const tableContainer = document.createElement('div');
-                        tableContainer.classList.add('table-container',);
-                        contentContainer.appendChild(tableContainer);
-                        
-                        // Add headers for larger screens
-                        if (component.headers) {
-                            if (window.innerWidth > mobileWidth) {
-                                const headersContainer = document.createElement('div');
-                                headersContainer.classList.add('headers');
-                                
-                                component.headers.forEach(header => {
-                                    const headerItem = document.createElement('div');
-                                    headerItem.classList.add('header-item');
-                                    headerItem.textContent = header;
-                                    headersContainer.appendChild(headerItem);
-                                });
-                                
-                                tableContainer.appendChild(headersContainer);
-                            }
-                        }
-                        
-                        // Add rows
-                        if (component.rows) {
-                            component.rows.forEach((rowData, rowIndex) => {
-                                if (Array.isArray(rowData) && rowData.length > 0) {
-                                    const rowContainer = document.createElement('div');
-                                    rowContainer.classList.add('table-row-container');
-                                    rowContainer.setAttribute('data-row-container-id', `row-${rowIndex}`);
-                                    
-                                    const row = document.createElement('div');
-                                    row.classList.add('table-row');
-                                    row.setAttribute('data-row-id', `row-${rowIndex}`);
-
-                                    row.style.height = 'auto';
-                                    
-                                    // Add headers for mobile
-                                    if (window.innerWidth < mobileWidth && component.headers) {
-                                        component.headers.forEach(header => {
-                                            const headerDiv = document.createElement('div');
-                                            headerDiv.classList.add('table-header');
-                                            headerDiv.textContent = header;
-                                            row.appendChild(headerDiv);
-                                        });
-                                    }
-                                    
-                                    // Add row items
-                                    rowData.forEach((item, itemIndex) => {
-                                        const rowItem = document.createElement('div');
-                                        rowItem.classList.add('row-item');
-                                        rowItem.textContent = item;
-                                        rowItem.style.gridRow = `${itemIndex + 1}`;
-                                        row.appendChild(rowItem);
-
-                                        rowItem.style.height = 'auto';
-                                    });
-                                    
-                                    rowContainer.appendChild(row);
-                                    tableContainer.appendChild(rowContainer);
-                                }
-                            });
-                        }
-                        break;
-                        
-                    case 'projects_list':
-                        // Create projects container
-                        const projectsContainer = document.createElement('div');
-                        projectsContainer.classList.add('projects-container');
-                        
-                        // Add layout classes based on response values
-                        if (component.layout) {
-                            if (component.layout === 'fullscreen') {
-                                projectsContainer.classList.add('fullscreen');
-                            } else if (component.layout === 'grid') {
-                                projectsContainer.classList.add('grid');
-                            }
-                        }
-                        
-                        contentContainer.appendChild(projectsContainer);
-                        
-                        // Handle grid layout
-                        let leftColumnGrid, rightColumnGrid;
-                        if (projectsContainer.classList.contains('grid')) {
-                            leftColumnGrid = document.createElement('div');
-                            leftColumnGrid.classList.add('left-column-grid');
-                            
-                            rightColumnGrid = document.createElement('div');
-                            rightColumnGrid.classList.add('right-column-grid');
-                            
-                            projectsContainer.appendChild(leftColumnGrid);
-                            projectsContainer.appendChild(rightColumnGrid);
-                        }
-                        
-                        // Add projects
-                        if (component.projects && Array.isArray(component.projects)) {
-                            component.projects.forEach((project, index) => {
-                                if (!project.name) return;
-                                
-                                const projectItem = document.createElement('div');
-                                projectItem.classList.add('project');
-                                projectItem.setAttribute('data-project-id', project.name);
-                                
-                                // Create project information container
-                                const projectInfo = document.createElement('div');
-                                projectInfo.classList.add('project-information');
-                                
-                                // Add dot container and dot
-                                const dotContainer = document.createElement('div');
-                                dotContainer.classList.add('project-dot-container');
-                                
-                                const dot = document.createElement('div');
-                                dot.classList.add('project-dot');
-                                
-                                dot.addEventListener('click', () => {
-                                    selectComponent(dot, projectItem);
-                                });
-                                
-                                dotContainer.appendChild(dot);
-                                projectInfo.appendChild(dotContainer);
-                                
-                                // Add project name with name-text span
-                                if (project.name) {
-                                    const projectName = document.createElement('div');
-                                    projectName.classList.add('project-name');
-                                    
-                                    const nameText = document.createElement('span');
-                                    nameText.classList.add('project-name-text');
-                                    nameText.textContent = project.name;
-                                    projectName.appendChild(nameText);
-                                    
-                                    // Add year if available
-                                    if (project.year) {
-                                        const yearText = document.createElement('span');
-                                        yearText.classList.add('project-year');
-                                        yearText.textContent = ` (${project.year})`;
-                                        projectName.appendChild(yearText);
-                                    }
-                                    
-                                    projectInfo.appendChild(projectName);
-                                }
-                                
-                                // Add material and dimensions
-                                if (project.material) {
-                                    const materialDimensionsElement = document.createElement('div');
-                                    materialDimensionsElement.classList.add('project-material-dimensions');
-                                    
-                                    const materialText = document.createElement('span');
-                                    materialText.classList.add('project-material-text');
-                                    materialText.textContent = project.material;
-                                    materialDimensionsElement.appendChild(materialText);
-                                    
-                                    if (project.dimensions) {
-                                        const dimensionsText = document.createElement('span');
-                                        dimensionsText.classList.add('project-dimensions');
-                                        dimensionsText.textContent = `, ${project.dimensions}`;
-                                        materialDimensionsElement.appendChild(dimensionsText);
-                                    }
-                                    
-                                    projectInfo.appendChild(materialDimensionsElement);
-                                }
-                                
-                                projectItem.appendChild(projectInfo);
-                                
-                                // Add images
-                                if (project.images && Array.isArray(project.images)) {
-                                    const imageContainer = document.createElement('div');
-                                    imageContainer.classList.add('project-images');
-                                    
-                                    // Add images
-                                    project.images.forEach(imageUrl => {
-                                        const imageWrapper = document.createElement('div');
-                                        imageWrapper.classList.add('project-image');
-                                        
-                                        const imgElement = document.createElement('img');
-                                        imgElement.classList.add('img-element');
-                                        imgElement.src = imageUrl;
-                                        
-                                        imageWrapper.appendChild(imgElement);
-                                        imageContainer.appendChild(imageWrapper);
-                                    });
-                                    
-                                    // Add image counter
-                                    const imageCounter = document.createElement('div');
-                                    imageCounter.classList.add('image-counter');
-                                    
-                                    const digitsSpan = document.createElement('span');
-                                    digitsSpan.classList.add('image-counter-digits');
-                                    digitsSpan.innerHTML = `01/${project.images.length.toString().padStart(2, '0')}`;
-                                    
-                                    imageCounter.appendChild(digitsSpan);
-                                    projectInfo.appendChild(imageCounter);
-                                    
-                                    // Add scroll event listener
-                                    imageContainer.addEventListener('scroll', () => {
-                                        const scrollPosition = imageContainer.scrollLeft;
-                                        const imageWidth = imageContainer.offsetWidth;
-                                        const currentIndex = Math.round(scrollPosition / imageWidth);
-                                        const totalImages = imageContainer.querySelectorAll('.project-image').length;
-                                        
-                                        if (digitsSpan) {
-                                            digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
-                                        }
-                                    });
-                                    
-                                    projectItem.appendChild(imageContainer);
-                                }
-                                
-                                // Add description
-                                if (project.description && Array.isArray(project.description)) {
-                                    const projectDescription = document.createElement('div');
-                                    projectDescription.classList.add('project-description', 'auto-height'); // auto-height class is important to make the description visible
-                                    
-                                    const paragraphElement = document.createElement('p');
-                                    paragraphElement.classList.add('project-description-paragraph');
-                                    paragraphElement.textContent = project.description.join(' ');
-                                    
-                                    projectDescription.appendChild(paragraphElement);
-                                    projectItem.appendChild(projectDescription);
-                                }
-                                
-                                // Append to appropriate container based on layout
-                                if (projectsContainer.classList.contains('grid')) {
-                                    if (index % 2 === 0) {
-                                        leftColumnGrid.appendChild(projectItem);
-                                    } else {
-                                        rightColumnGrid.appendChild(projectItem);
-                                    }
-                                } else {
-                                    projectsContainer.appendChild(projectItem);
-                                }
-                            });
-                        }
-                        break;
-                }
-            });
+        const versionKey = parseInt(element.getAttribute('version-history-key'));
+        const currentVersionKey = parseInt(contentContainer.getAttribute('data-version-key'));
+    
+        if (versionKey === currentVersionKey) { // if the version is already displayed, return
+            return;
         }
-    }, 400);
-
-    setTimeout(() => {
-        const targetElements = Array.from(contentContainer.querySelectorAll('*')).filter(element => {
-            const hasElementChildren = Array.from(element.children).length > 0;
-            return !hasElementChildren && 
-                (element.tagName.toLowerCase() === 'span' || 
-                 element.tagName.toLowerCase() === 'div' || 
-                 element.tagName.toLowerCase() === 'p');
-        });
-
-
-        targetElements.forEach(element => {
-            element.classList.add('no-transition', 'light');
+    
+        contentContainer.setAttribute('data-version-key', versionKey);
+        // clearContentContainer(true);
+        contentContainer.innerHTML = "";
+    
+    
+        if (versionKey === 0 || versionKey === 1) {
             
-            setTimeout(() => {
-                element.classList.add('animation-settings');
-            }, 10);
-        });
-
+            // Reset the URL to the base URL without state parameter
+            const baseUrl = `${window.location.origin}${window.location.pathname}`;
+            window.history.pushState({}, '', baseUrl);
+            return;
+        }
+    
+        // Get the corresponding content from componentsMap
+        const versionContent = responseMap[versionKey].content;
+        const stateId = responseMap[versionKey].stateId;
+    
+        console.log('versionContent', versionContent);
+    
+        // Update the URL with the stateId if it exists
+        if (stateId) {
+            const newUrl = `${window.location.origin}${window.location.pathname}?state=${stateId}`;
+            window.history.pushState({ stateId: stateId }, '', newUrl);
+        }
         setTimeout(() => {
-            contentContainer.classList.remove('no-opacity');
-        }, 100);
+            contentContainer.innerHTML = versionContent;
+        }, 400);
+    
+    
+        // setTimeout(() => {
+        //     const targetElements = Array.from(contentContainer.querySelectorAll('*')).filter(element => {
+        //         const hasElementChildren = Array.from(element.children).length > 0;
+        //         return !hasElementChildren && 
+        //             (element.tagName.toLowerCase() === 'span' || 
+        //              element.tagName.toLowerCase() === 'div' || 
+        //              element.tagName.toLowerCase() === 'p');
+        //     });
+    
+    
+        //     targetElements.forEach(element => {
+        //         element.classList.add('no-transition', 'light');
+                
+        //         setTimeout(() => {
+        //             element.classList.add('animation-settings');
+        //         }, 10);
+        //     });
+    
+        //     setTimeout(() => {
+        //         contentContainer.classList.remove('no-opacity');
+        //     }, 100);
+    
+        //     setTimeout(() => {
+        //         targetElements.forEach(element => {
+        //             element.classList.remove('light');
+        //         });
+        //     }, 200);
+    
+        //     setTimeout(() => {
+        //         targetElements.forEach(element => {
+        //             element.classList.remove('animation-settings');
+        //         });
+        //     }, 500);
+        // }, 600);
+    }, 5000);
 
-        setTimeout(() => {
-            targetElements.forEach(element => {
-                element.classList.remove('light');
-            });
-        }, 200);
 
-        setTimeout(() => {
-            targetElements.forEach(element => {
-                element.classList.remove('animation-settings');
-            });
-        }, 500);
-    }, 600);
 }
 
 // Scroll on desktop
