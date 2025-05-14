@@ -59,7 +59,7 @@
     width: 100%;
 
     &.margin-top {
-        margin-top: calc(var(--primary-line-height) * 2);
+        // margin-top: calc(var(--primary-line-height) * 2);
     }
 
     @include desktop-small {
@@ -97,23 +97,37 @@
 }
 
 .half-width-image-container {
+    padding-top: 10px;
+    padding-bottom: 10px;
 
     @include desktop-small {
         padding-top: 8px;
         grid-column: 1 / 3;
         width: 100%;
+
+        &.small-padding {
+            padding-top: 6px;
+        }
     }
 
     @include desktop-large {
         padding-top: 8px;
         grid-column: 1 / 3;
         width: 100%;
+
+        &.small-padding {
+            padding-top: 6px;
+        }
     }
 
     @include desktop-x-large {
         padding-top: 33px;
         grid-column: 1 / 3;
         width: 100%;
+
+        &.small-padding {
+            padding-top: 6px;
+        }
     }
 }
 
@@ -166,8 +180,9 @@
         height: auto;
         object-fit: contain;
         transition: all var(--animation-duration-1) ease-in-out;
-        padding-top: 40px;
-        padding-bottom: 8px;
+        padding-top: 14px;
+        padding-bottom: 10px;
+
 
         &.blur {
             filter: blur(30px);
@@ -176,12 +191,39 @@
         &.no-opacity {
             opacity: 0;
         }
+
+        @include desktop-small {
+            padding-top: 42px;
+            padding-bottom: 9px;
+        }
+
+        @include desktop-large {
+            padding-top: 42px;
+            padding-bottom: 9px;
+        }
+
+        @include desktop-x-large {
+            padding-top: 42px;
+            padding-bottom: 9px;
+        }
     }
 }
 
 .image-caption {
-    padding-bottom: 12.5px;
+    padding-bottom: 5px;
     @include secondary-type;
+
+    @include desktop-small {
+        padding-bottom: 14px;
+    }
+
+    @include desktop-large {
+        padding-bottom: 14px;
+    }   
+
+    @include desktop-x-large {
+        padding-bottom: 14px;
+    }
 }
 
 .caption-word {

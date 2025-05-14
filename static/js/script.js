@@ -118,85 +118,83 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
 
 async function processImageQueue() {
     if (isImageQueueProcessing || imageQueue.length === 0) return;
-    console.log('--------------------------------');
-    console.log('processing image queue');
     isImageQueueProcessing = true;
 
     try {
         while (imageQueue.length > 0) {
-            console.log('imageQueue.length: ', imageQueue.length);
-            console.log('imageQueue: ', imageQueue);
-            console.log('--------------------------------');
-            const queueImage = imageQueue.shift();
-            const imageURL = queueImage.url;
-            const imageCaption = queueImage.caption;
+            await new Promise((resolve) => {
+                const queueImage = imageQueue.shift();
+                const imageURL = queueImage.url;
+                const imageCaption = queueImage.caption;
 
-            const halfWidthImageContainers = document.querySelectorAll('.half-width-image-container');
-            const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
-    
-            const imageContainer = document.createElement('div');
-            imageContainer.classList.add('paragraph-image', 'no-width');
-    
-            // Create and add the image element
-            const image = document.createElement('img');
-            image.classList.add('no-opacity', 'blur');
-            image.src = imageURL;
-            imageContainer.appendChild(image);
+                const halfWidthImageContainers = document.querySelectorAll('.half-width-image-container');
+                const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
+        
+                const imageContainer = document.createElement('div');
+                imageContainer.classList.add('paragraph-image', 'no-width');
+        
+                // Create and add the image element
+                const image = document.createElement('img');
+                image.classList.add('no-opacity', 'blur');
+                image.src = imageURL;
+                imageContainer.appendChild(image);
 
-            const captionContainer = document.createElement('div');
-            captionContainer.classList.add('image-caption');
-            
-            const words = imageCaption.split(' ');
-            words.forEach(word => {
-                const wordSpan = document.createElement('span');
-                wordSpan.textContent = word + ' ';
-                wordSpan.classList.add('caption-word', 'no-opacity', 'light');
-                captionContainer.appendChild(wordSpan);
-            });
-            
-            imageContainer.appendChild(captionContainer);
-    
-            lastHalfWidthImageContainer.appendChild(imageContainer);
-    
-            // Wait for image to load before removing no-width class
-            image.onload = () => {
-                setTimeout(() => {
-                    imageContainer.classList.remove('no-width');
-                    console.log('imageContainer scrollHeight: ', imageContainer.scrollHeight);
-                    console.log('image offsetHeight:', image.offsetHeight);
-                }, 10);
-    
-                setTimeout(() => {
-                    imageContainer.style.height = `${imageContainer.scrollHeight}px`;
-                }, 550);
+                const captionContainer = document.createElement('div');
+                captionContainer.classList.add('image-caption');
+                
+                const words = imageCaption.split(' ');
+                words.forEach(word => {
+                    const wordSpan = document.createElement('span');
+                    wordSpan.textContent = word + ' ';
+                    wordSpan.classList.add('caption-word', 'no-opacity', 'light');
+                    captionContainer.appendChild(wordSpan);
+                });
+                
+                imageContainer.appendChild(captionContainer);
+        
+                lastHalfWidthImageContainer.appendChild(imageContainer);
+        
+                // Wait for image to load before removing no-width class
+                image.onload = () => {
+                    setTimeout(() => {
+                        imageContainer.classList.remove('no-width');
+                        console.log('imageContainer scrollHeight: ', imageContainer.scrollHeight);
+                        console.log('image offsetHeight:', image.offsetHeight);
+                    }, 10);
+        
+                    setTimeout(() => {
+                        imageContainer.style.height = `${imageContainer.scrollHeight}px`;
+                    }, 550);
 
-                setTimeout(() => {
-                    image.classList.remove('no-opacity');
-                }, 1300);
+                    setTimeout(() => {
+                        image.classList.remove('no-opacity');
+                    }, 1300);
 
-                setTimeout(() => {
-                    image.classList.remove('blur');
-                }, 1700);
+                    setTimeout(() => {
+                        image.classList.remove('blur');
+                    }, 1700);
 
-                setTimeout(() => {
-                    const captionWords = imageContainer.querySelectorAll('.image-caption span');
-                    let wordIndex = 0;
+                    setTimeout(() => {
+                        const captionWords = imageContainer.querySelectorAll('.image-caption span');
+                        let wordIndex = 0;
 
-                    function revealNextWord() {
-                        if (wordIndex < captionWords.length) {
-                            captionWords[wordIndex].classList.remove('no-opacity', 'light');
 
-                            wordIndex++;
-                            setTimeout(revealNextWord, 100);
+                        function revealNextWord() {
+                            if (wordIndex < captionWords.length) {
+                                captionWords[wordIndex].classList.remove('no-opacity', 'light');
+
+                                wordIndex++;
+                                setTimeout(revealNextWord, 100);
+                            } else  {
+                                resolve();
+                            }
                         }
-                    }
 
-                    revealNextWord();
+                        revealNextWord();
 
-                }, 2000);
-            };
-
-            await new Promise(resolve => setTimeout(resolve, 5000));
+                    }, 2000);
+                };
+            });
         }
     } finally {
         isImageQueueProcessing = false;
@@ -739,15 +737,14 @@ async function handleDelta(content) {
 
                         if (!paragraphContainer) {
 
-                            // On mobile devices the processing of the next paragraph should wait until the previous image in rendered
                             // On desktop the processing of the images should happen simultaniously to precessing the next paragraph
-                            if (window.innerWidth <= mobileWidth) {
-                                await processImageQueue(); // Wait on mobile
+                            if (window.innerWidth > mobileWidth) {
+                                processImageQueue();
                             } else {
-                                processImageQueue(); // Fire-and-forget on desktop
+                                await processImageQueue();
                             }
 
-                            if (contentContainer.lastElementChild && contentContainer.lastElementChild.classList.contains('paragraph-outter-container')) { // only execute if there is a paragraph outter container right
+                            if ((contentContainer.lastElementChild && contentContainer.lastElementChild.classList.contains('paragraph-outter-container')) || window.innerWidth <= mobileWidth) { // only execute if there is a paragraph outter container or on mobile
                                 allParagraphContainers = contentContainer.querySelectorAll('.paragraph-container');
                                 previousParagraphContainer = allParagraphContainers[allParagraphContainers.length - 1];
                                 previousPreviousParagraphContainer = allParagraphContainers[allParagraphContainers.length - 2];
@@ -759,7 +756,6 @@ async function handleDelta(content) {
 
                             // check if there is an image in the component
                             if (component.image) {
-                                console.log('Image found in component:', componentID);
                                 paragraphContainer.setAttribute('data-image-paragraph', 'true');
 
                                 if (component.image.caption && component.image.image_url) {
@@ -775,16 +771,23 @@ async function handleDelta(content) {
 
                             // Define Layout based on previous pragraphs and images
                             if (window.innerWidth <= mobileWidth) { // On mobile
+                                if (previousParagraphContainer && !previousParagraphContainer.hasAttribute('data-image-paragraph')) { // only add an indent if the previous paragraph is not an image paragraph
+                                    const indentSpan = document.createElement('span');
+                                    indentSpan.classList.add('indent');
+                                    paragraphContainer.appendChild(indentSpan); 
+                                }
+
                                 contentContainer.appendChild(paragraphContainer);
 
-                                const imageContainer = document.createElement('div');
-                                imageContainer.classList.add('half-width-image-container'); // Classname comes from desktop layout
-                                contentContainer.appendChild(imageContainer);
+                                if (paragraphContainer.hasAttribute('data-image-paragraph')) {
+                                    const imageContainer = document.createElement('div');
+                                    imageContainer.classList.add('half-width-image-container'); // Classname comes from desktop layout
+                                    contentContainer.appendChild(imageContainer);
+                                }
 
                             } else { // On desktop
                                 // Check if there is a previous paragraph container or if it is the first paragraph
                                 if (!previousParagraphContainer) {
-                                    console.log('Layout decision based on no previous element');
                                     // Is the current paragraph an image paragraph?
                                     if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
                                         // Create a full width container if not
@@ -796,7 +799,7 @@ async function handleDelta(content) {
                                         console.log('Created full width container for first paragraph');
                                     } else {
                                         const halfWidthImageContainer = document.createElement('div');
-                                        halfWidthImageContainer.classList.add('half-width-image-container', 'paragraph-outter-container');
+                                        halfWidthImageContainer.classList.add('half-width-image-container', 'paragraph-outter-container', 'small-padding');
 
                                         // Create a half width containers for paragraphs and images if yes
                                         const halfWidthParagraphContainer = document.createElement('div');
@@ -804,13 +807,9 @@ async function handleDelta(content) {
                                         paragraphContainer.classList.add('half-width');
                                         halfWidthParagraphContainer.appendChild(paragraphContainer);
 
-                                        if (window.innerWidth > mobileWidth) {
-                                            contentContainer.appendChild(halfWidthImageContainer);
-                                            contentContainer.appendChild(halfWidthParagraphContainer);
-                                        } else {
-                                            contentContainer.appendChild(halfWidthParagraphContainer);
-                                            contentContainer.appendChild(halfWidthImageContainer);
-                                        }
+                                        contentContainer.appendChild(halfWidthImageContainer);
+                                        contentContainer.appendChild(halfWidthParagraphContainer);
+                                        
                                     }
                                 // If there is a previous element
                                 } else {
@@ -825,6 +824,11 @@ async function handleDelta(content) {
                                                 const fullWidthParagraphContainers = document.querySelectorAll('.full-width-paragraph-container');
                                                 const lastFullWidthParagraphContainer = fullWidthParagraphContainers[fullWidthParagraphContainers.length - 1];
                                                 paragraphContainer.classList.add('full-width');
+
+                                                const indentSpan = document.createElement('span');
+                                                indentSpan.classList.add('indent');
+                                                paragraphContainer.appendChild(indentSpan);
+
                                                 lastFullWidthParagraphContainer.appendChild(paragraphContainer);
                                             } else {
                                                 const halfWidthImageContainer = document.createElement('div');
@@ -834,15 +838,12 @@ async function handleDelta(content) {
                                                 const halfWidthParagraphContainer = document.createElement('div');
                                                 halfWidthParagraphContainer.classList.add('half-width-paragraph-container', 'paragraph-outter-container');
                                                 paragraphContainer.classList.add('half-width');
+
                                                 halfWidthParagraphContainer.appendChild(paragraphContainer);
 
-                                                if (window.innerWidth > mobileWidth) {
-                                                    contentContainer.appendChild(halfWidthImageContainer);
-                                                    contentContainer.appendChild(halfWidthParagraphContainer);
-                                                } else {
-                                                    contentContainer.appendChild(halfWidthParagraphContainer);
-                                                    contentContainer.appendChild(halfWidthImageContainer);
-                                                }
+                                                contentContainer.appendChild(halfWidthImageContainer);
+                                                contentContainer.appendChild(halfWidthParagraphContainer);
+                                                
                                             }
                                         // Is the previous element inside a half width container?
                                         } else if (previousParagraphContainer.classList.contains('half-width')) {
@@ -852,6 +853,11 @@ async function handleDelta(content) {
                                                     const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
                                                     const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
                                                     paragraphContainer.classList.add('half-width');
+
+                                                    const indentSpan = document.createElement('span');
+                                                    indentSpan.classList.add('indent');
+                                                    paragraphContainer.appendChild(indentSpan);
+
                                                     lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
                                                 } else {
                                                     const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
@@ -871,6 +877,11 @@ async function handleDelta(content) {
                                                         const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
                                                         const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
                                                         paragraphContainer.classList.add('half-width');
+
+                                                        const indentSpan = document.createElement('span');
+                                                        indentSpan.classList.add('indent');
+                                                        paragraphContainer.appendChild(indentSpan);
+
                                                         lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
                                                     }
                                                 }
@@ -879,6 +890,11 @@ async function handleDelta(content) {
                                                 const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
                                                 const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
                                                 paragraphContainer.classList.add('half-width');
+
+                                                const indentSpan = document.createElement('span');
+                                                indentSpan.classList.add('indent');
+                                                paragraphContainer.appendChild(indentSpan);
+
                                                 lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
                                             }
                                         }
@@ -888,6 +904,11 @@ async function handleDelta(content) {
                                         const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
                                         const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
                                         paragraphContainer.classList.add('half-width');
+
+                                        const indentSpan = document.createElement('span');
+                                        indentSpan.classList.add('indent');
+                                        paragraphContainer.appendChild(indentSpan);
+
                                         lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
                                     }  
                                 } 
@@ -895,7 +916,7 @@ async function handleDelta(content) {
                         }
                         
                         
-                        // Adding an indent span under certain conditions
+                        // // Adding an indent span under certain conditions
                         // if (window.innerWidth > mobileWidth) {
                         //     if (previousParagraphContainer && 
                         //         previousParagraphContainer.classList.contains('paragraph-container') &&
@@ -1496,7 +1517,7 @@ async function renderNextProject() {
             const { id, key, value, container, index } = projectRenderingQueue.shift();
 
             if (key === 'stream_finished') {
-                
+                processImageQueue();
                 isStreaming = false;
                 break;
             }
@@ -2251,6 +2272,8 @@ function handleSecondComplete(content, stateId) {
 
     // Check if streaming is still in progress and/or there is still images to render
     if (isStreaming) {
+        console.log('--------------------------------');
+        console.log('Streaming is still in progress');
         const checkStreamingInterval = setInterval(() => {
             if (!isStreaming && imageQueue.length === 0) {
                 clearInterval(checkStreamingInterval);
@@ -2267,6 +2290,8 @@ function handleSecondComplete(content, stateId) {
         if (!imageQueue.length === 0) {
             const checkImageQueueInterval = setInterval(() => {
                 if (imageQueue.length === 0) {
+                    console.log('--------------------------------');
+                    console.log('Image queue is empty');
                     clearInterval(checkImageQueueInterval);
     
                     handlePromptProposalsUpdate(content);
@@ -2277,6 +2302,8 @@ function handleSecondComplete(content, stateId) {
                 }
             }, 100);
         } else {
+            console.log('--------------------------------');
+            console.log('Image queue is empty');
             handlePromptProposalsUpdate(content);
             stopStreamingAnimation();
             activateTermDescription();
