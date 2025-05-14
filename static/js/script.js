@@ -118,47 +118,85 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
 
 async function processImageQueue() {
     if (isImageQueueProcessing || imageQueue.length === 0) return;
-
+    console.log('--------------------------------');
+    console.log('processing image queue');
     isImageQueueProcessing = true;
 
     try {
         while (imageQueue.length > 0) {
+            console.log('imageQueue.length: ', imageQueue.length);
+            console.log('imageQueue: ', imageQueue);
+            console.log('--------------------------------');
             const queueImage = imageQueue.shift();
             const imageURL = queueImage.url;
             const imageCaption = queueImage.caption;
 
-            // const halfWidthImageContainers = document.querySelectorAll('.half-width-image-container');
-            // const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
+            const halfWidthImageContainers = document.querySelectorAll('.half-width-image-container');
+            const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
     
-            // const imageContainer = document.createElement('div');
-            // imageContainer.classList.add('paragraph-image', 'no-width');
+            const imageContainer = document.createElement('div');
+            imageContainer.classList.add('paragraph-image', 'no-width');
     
-            // // Create and add the image element
-            // const image = document.createElement('img');
-            // image.classList.add('no-opacity', 'blur');
-            // image.src = imageQueue.url;
-            // imageContainer.appendChild(image);
-    
-            // lastHalfWidthImageContainer.appendChild(imageContainer);
-    
-            // // Wait for image to load before removing no-width class
-            // image.onload = () => {
-            //     setTimeout(() => {
-            //         imageContainer.classList.remove('no-width');
-            //         console.log('imageContainer scrollHeight: ', imageContainer.scrollHeight);
-            //         console.log('image offsetHeight:', image.offsetHeight);
-            //     }, 10);
-    
-            //     setTimeout(() => {
-            //         imageContainer.style.height = `${imageContainer.scrollHeight}px`;
-            //     }, 550);
-            // };
+            // Create and add the image element
+            const image = document.createElement('img');
+            image.classList.add('no-opacity', 'blur');
+            image.src = imageURL;
+            imageContainer.appendChild(image);
 
-            console.log('-----------------', imageURL);
-            console.log('image URL: ', imageURL);
-            console.log('-----------------', imageURL);
+            const captionContainer = document.createElement('div');
+            captionContainer.classList.add('image-caption');
+            
+            const words = imageCaption.split(' ');
+            words.forEach(word => {
+                const wordSpan = document.createElement('span');
+                wordSpan.textContent = word + ' ';
+                wordSpan.classList.add('caption-word', 'no-opacity', 'light');
+                captionContainer.appendChild(wordSpan);
+            });
+            
+            imageContainer.appendChild(captionContainer);
+    
+            lastHalfWidthImageContainer.appendChild(imageContainer);
+    
+            // Wait for image to load before removing no-width class
+            image.onload = () => {
+                setTimeout(() => {
+                    imageContainer.classList.remove('no-width');
+                    console.log('imageContainer scrollHeight: ', imageContainer.scrollHeight);
+                    console.log('image offsetHeight:', image.offsetHeight);
+                }, 10);
+    
+                setTimeout(() => {
+                    imageContainer.style.height = `${imageContainer.scrollHeight}px`;
+                }, 550);
 
-            await new Promise(resolve => setTimeout(resolve, 1500));
+                setTimeout(() => {
+                    image.classList.remove('no-opacity');
+                }, 1300);
+
+                setTimeout(() => {
+                    image.classList.remove('blur');
+                }, 1700);
+
+                setTimeout(() => {
+                    const captionWords = imageContainer.querySelectorAll('.image-caption span');
+                    let wordIndex = 0;
+
+                    function revealNextWord() {
+                        if (wordIndex < captionWords.length) {
+                            captionWords[wordIndex].classList.remove('no-opacity', 'light');
+
+                            wordIndex++;
+                            setTimeout(revealNextWord, 100);
+                        }
+                    }
+
+                    revealNextWord();
+
+                }, 2000);
+            };
+
+            await new Promise(resolve => setTimeout(resolve, 5000));
         }
     } finally {
         isImageQueueProcessing = false;
@@ -304,7 +342,7 @@ function startAnimateInput() {
         clearInterval(userInput.inputAnimationInterval);
     }
 
-    userInput.classList.remove('light');
+    userInput.classList.remove('light-nav');
 
     userInput.inputAnimationInterval = setInterval(() => {
         
@@ -322,7 +360,8 @@ function stopAnimateInput() {
         if (userInput.inputAnimationInterval) {
             clearInterval(userInput.inputAnimationInterval);
         }
-        userInput.classList.add('light', 'animation-settings-2');
+        userInput.classList.remove('light');
+        userInput.classList.add('light-nav', 'animation-settings-2');
 
         setTimeout(() => {
             userInput.classList.add('no-opacity');
@@ -345,8 +384,8 @@ function stopAnimateInput() {
             if (userInput.inputAnimationInterval) {
                 clearInterval(userInput.inputAnimationInterval);
             }
-
-            userInput.classList.add('light', 'animation-settings-2');
+            userInput.classList.remove('light');
+            userInput.classList.add('light-nav', 'animation-settings-2');
 
             setTimeout(() => {
                 userInput.classList.add('no-opacity');

@@ -66,8 +66,8 @@
     --page-padding: 20px;
     --primary-font-size: 24px;
     --primary-line-height: 28.8px;
-    --secondary-font-size: 18px;
-    --secondary-line-height: 17.5px;
+    --secondary-font-size: 17px;
+    --secondary-line-height: 20.4px;
     --large-font-size: 35px;
     --grid-line-height: 14.2px;
     --bottom-nav-width: 1000px;
@@ -402,12 +402,25 @@ p {
   height: auto;
   -o-object-fit: contain;
      object-fit: contain;
+  transition: all var(--animation-duration-1) ease-in-out;
+  padding-top: 15px;
+  padding-bottom: 6px;
 }
 .paragraph-image img.blur {
   filter: blur(30px);
 }
 .paragraph-image img.no-opacity {
   opacity: 0;
+}
+
+.image-caption {
+  padding-bottom: 10px;
+  font-size: var(--secondary-font-size);
+  text-transform: capitalize;
+}
+
+.caption-word {
+  transition: font-variation-settings var(--animation-duration-1) ease-in-out;
 }
 
 .term-description {
@@ -1072,14 +1085,13 @@ p {
 }
 
 #prompt-proposals {
-  padding-bottom: 0;
   transition: all var(--animation-duration-1) ease-in-out;
 }
 .prompt-proposal-opening-1 #prompt-proposals {
-  padding-bottom: var(--veritical-padding-bottom-nav);
+  padding-bottom: 40px;
 }
 .prompt-proposal-opening-2 #prompt-proposals {
-  padding-bottom: var(--veritical-padding-bottom-nav);
+  padding-bottom: 40px;
 }
 @media (min-width: 1025px) and (max-width: 1440px) {
   #prompt-proposals {

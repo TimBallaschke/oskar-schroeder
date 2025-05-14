@@ -53,15 +53,14 @@
 }
 
 #prompt-proposals {
-  padding-bottom: 0;
   transition: all var(--animation-duration-1) ease-in-out;
 
   .prompt-proposal-opening-1 & {
-    padding-bottom: var(--veritical-padding-bottom-nav);
+    padding-bottom: 40px;
   }
 
   .prompt-proposal-opening-2 & {
-    padding-bottom: var(--veritical-padding-bottom-nav);
+    padding-bottom: 40px;
   }
 
   @include desktop-large {
