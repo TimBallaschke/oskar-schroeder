@@ -143,10 +143,6 @@
     &.light {
         transition: all 300ms ease-in-out;
     }
-
-    &.light.italic {
-        // styles for elements with both light and italic classes
-    }
 }
 
 .paragraph-image {
@@ -303,44 +299,37 @@
     }
 }
 
-.term-description-dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    background-color: black;
-    border-radius: 50%;
-}
-
-.term-description-plus {
-    display: inline-block;
+.term-description-number-container {
+    width: 30px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    transform-origin: center center;
+    transform: translateY(-2px) scale(1);
+    transition: all var(--animation-duration-1) ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 3px;
+    margin-right: 3px;
     color: black;
-    transition: all var(--animation-duration-2) ease-in-out;
-}
 
-.websearch {
-    @include primary-type;
-}
 
-.websearch-content {
-    display: inline-block;
-    // overflow: hidden;
-    // white-space: nowrap;
-    transition: font-variation-settings var(--animation-duration-2) ease-in-out;
-}
-
-@keyframes pulse {
-    0% {
-        transform: translateY(0px) scale(1);
-        opacity: 1;
+    &.small {
+        transform: translateY(-2px) scale(0.5);
     }
-    50% {
-        transform: translateY(0px) scale(0.8);
-    }
-    100% {
-        transform: translateY(0px) scale(1);
+
+    &:hover {
+        background-color: black;
+        color: white;
     }
 }
 
+.term-description-number {
+    @include secondary-type;
+    transition: all var(--animation-duration-1) ease-in-out;
+    // font-variant-numeric: tabular-nums;
+}
 
 .fullscreen {
 

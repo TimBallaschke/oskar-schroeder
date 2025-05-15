@@ -248,10 +248,12 @@ let headlineProcessed = false;
 let displayVersionOnHoverTimeout;
 
 // Handle Delta
+// Paragraphs
 let previousParagraphContainer;
 let previousPreviousParagraphContainer;
 let imageQueue = [];
 let isImageQueueProcessing = false;
+let termDescriptionCount = 0;
 
 
 
@@ -798,7 +800,6 @@ async function handleDelta(content) {
                                         paragraphContainer.classList.add('full-width');
                                         fullWidthParagraphContainer.appendChild(paragraphContainer);
                                         contentContainer.appendChild(fullWidthParagraphContainer);
-                                        console.log('Created full width container for first paragraph');
                                     } else {
                                         const halfWidthImageContainer = document.createElement('div');
                                         halfWidthImageContainer.classList.add('half-width-image-container', 'paragraph-outter-container', 'small-padding');
@@ -811,7 +812,6 @@ async function handleDelta(content) {
 
                                         contentContainer.appendChild(halfWidthImageContainer);
                                         contentContainer.appendChild(halfWidthParagraphContainer);
-                                        
                                     }
                                 // If there is a previous element
                                 } else {
@@ -913,9 +913,9 @@ async function handleDelta(content) {
                                             if (isItalic) {
                                                 italicSpan = document.createElement('span');
                                                 italicSpan.classList.add('term');
-                                                const existingTerms = document.querySelectorAll('.term').length;
-                                                italicSpan.setAttribute('data-term-index', existingTerms);
+                                                italicSpan.setAttribute('data-term-index', termDescriptionCount);
                                                 paragraphContainer.appendChild(italicSpan);
+                                                termDescriptionCount++;
                                             }
                                             
                                             let wordIndex = 0;
@@ -959,11 +959,23 @@ async function handleDelta(content) {
                                                     setTimeout(addNextWord, 50);
                                                 } else {
                                                     if (isItalic) {
+                                                        const termDescriptionNumberContainer = document.createElement('span');
+                                                        termDescriptionNumberContainer.classList.add('term-description-number-container', 'small');
+
+                                                        const termDescriptionNumber = document.createElement('span');
+                                                        termDescriptionNumber.classList.add('term-description-number', 'light');
+                                                        termDescriptionNumber.textContent = termDescriptionCount < 10 ? `0${termDescriptionCount}` : termDescriptionCount;
+
+                                                        termDescriptionNumberContainer.appendChild(termDescriptionNumber);
+                                                        paragraphContainer.appendChild(termDescriptionNumberContainer);
+
+                                                        setTimeout(() => {
+                                                            termDescriptionNumberContainer.classList.remove('small');
+                                                            termDescriptionNumber.classList.remove('light');
+                                                        }, 10);
+
                                                         partIndex++;
-                                                        setTimeout(processNextPart, 0);
-                                                        const termDescriptionDot = document.createElement('span');
-                                                        termDescriptionDot.classList.add('term-description-dot');
-                                                        paragraphContainer.appendChild(termDescriptionDot);
+                                                        setTimeout(processNextPart, 10);
 
                                                     } else {
                                                         partIndex++;
@@ -2179,6 +2191,7 @@ function handleSecondComplete(content, stateId) {
                 stopStreamingAnimation();
                 activateTermDescription();
                 saveCurrentHTML();
+                termDescriptionCount = 0;
                 
 
                 headlineProcessed = false;
@@ -2195,6 +2208,7 @@ function handleSecondComplete(content, stateId) {
                     stopStreamingAnimation();
                     activateTermDescription();
                     saveCurrentHTML();
+                    termDescriptionCount = 0;
                     
     
                     headlineProcessed = false;
@@ -2205,6 +2219,7 @@ function handleSecondComplete(content, stateId) {
             stopStreamingAnimation();
             activateTermDescription();
             saveCurrentHTML();
+            termDescriptionCount = 0;
             
     
             headlineProcessed = false;
@@ -3074,9 +3089,6 @@ function requestWebsearch(term) {
     const message = term;
     if (message === '') return;  // Don't send empty messages
 
-    const termDescriptionPlus = currentWebsearchTerm.querySelector('.term-description-plus');
-    termDescriptionPlus.classList.remove('light');
-
     currentWebsearchTerm.pulseInterval = setInterval(() => {
         termDescriptionPlus.classList.add('animation-settings');
         if (termDescriptionPlus) {
@@ -3281,18 +3293,19 @@ function finalizeWebsearch() {
 
 
 function activateTermDescription() {
-    const terms = document.querySelectorAll('.term');
+    const termsDescriptionNumberContainers = document.querySelectorAll('.term-description-number-container');
 
-    terms.forEach(term => {
-        let termForWebsearch = '';
-        // term.querySelector('.term-description-plus').classList.remove('grey');
-        term.addEventListener('click', () => {
-            currentWebsearchTerm = term;
+    termsDescriptionNumberContainers.forEach(termDescriptionNumberContainer => {
+        termDescriptionNumberContainer.addEventListener('click', () => {
+            const termContainer = termDescriptionNumberContainer.previousElementSibling;
+            let termForWebsearch = '';
 
-            if (!term.classList.contains('active')) {
-                term.classList.add('active');
+            currentWebsearchTerm = termDescriptionNumberContainer;
 
-                const termWords = term.querySelectorAll('.paragraph-word');
+            if (!termDescriptionNumberContainer.classList.contains('active')) {
+                termDescriptionNumberContainer.classList.add('active');
+
+                const termWords = termContainer.querySelectorAll('.paragraph-word');
                         
                 // Combine all term words into termForWebsearch
                 termWords.forEach(word => {
@@ -3305,48 +3318,10 @@ function activateTermDescription() {
                 });
                 
                 console.log('Term for websearch:', termForWebsearch);
-                requestWebsearch(termForWebsearch);
-            } else {
-                term.classList.remove('active');
-                closeWebsearchDescription();
+                // requestWebsearch(termForWebsearch);
             }
         });
     });
-}
-
-function closeWebsearchDescription() {
-    console.log("closeWebsearchDescription");
-
-    if (window.innerWidth <= mobileWidth) {
-
-        const termDescription = currentWebsearchTerm.querySelector('.term-description');
-
-        termDescription.querySelectorAll('*').forEach(element => {
-            // Check if this is a leaf node (no element children)
-            const hasElementChildren = Array.from(element.children).length > 0;
-    
-            if (!hasElementChildren && 
-                (element.tagName.toLowerCase() === 'span' || 
-                    element.tagName.toLowerCase() === 'div' || 
-                    element.tagName.toLowerCase() === 'p')) {
-    
-                element.classList.add('animation-settings');
-
-                setTimeout(() => {
-                    element.classList.add('light');
-                }, 10);
-
-                setTimeout(() => {
-                    element.classList.add('no-opacity');
-                }, 300);
-            }
-        });
-
-        setTimeout(() => {
-            termDescription.innerHTML = '';;
-        }, 800);
-
-    }
 }
 
 // --------------------------------------------------------------------------------------------
