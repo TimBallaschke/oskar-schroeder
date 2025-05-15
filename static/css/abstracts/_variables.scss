@@ -10,6 +10,7 @@
   --primary-font-size: 16.5px;
   --primary-line-height: 19.8px;
   --secondary-font-size: 12px;
+  --secondary-number-font-size: 11px;
   --secondary-line-height: 17px;
   --grid-line-height: 14.2px;
   --large-font-size: 35px;
@@ -76,12 +77,14 @@
   @include desktop-small {
     --primary-font-size: 20px;
     --secondary-font-size: 15px;
+    --secondary-number-font-size: 13px;
     --large-font-size: 35px;
   }
 
   @include desktop-large {
     --primary-font-size: 20px;
     --secondary-font-size: 15px;
+    --secondary-number-font-size: 13px;
     --large-font-size: 35px;
     --small-circle-size: 20px;
   }
@@ -95,6 +98,7 @@
     --primary-font-size: 24px;
     --primary-line-height: 27.5px;
     --secondary-font-size: 16px;
+    --secondary-number-font-size: 14px;
     --secondary-line-height: 19.2px;
     --large-font-size: 35px;
     --grid-line-height: 14.2px;

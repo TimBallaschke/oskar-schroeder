@@ -3115,11 +3115,12 @@ function activateTermDescription() {
                 
                 console.log('Term for websearch:', termForWebsearch);
                 requestWebsearch(termForWebsearch, termDescriptionNumberContainer);
-            }
-
-            if (window.innerWidth <= mobileWidth) {
-
-
+            } else {
+                if (window.innerWidth <= mobileWidth) {
+                    const websearchColumn = document.querySelector('.websearch-column');
+                    websearchColumn.classList.add('translate-x');
+                    contentContainer.classList.add('translate-x');
+                }
             }
         });
     });
@@ -3264,17 +3265,55 @@ async function handleDeltaWebsearch(content) {
         isWebsearchContainerProcessing = true;
 
         await new Promise((resolve) => {
-            websearchDescriptionContainer = document.createElement('div');
-            websearchDescriptionContainer.classList.add('term-description-container', `term-description-container-${termIndex}`, 'no-width');
-            webSearchColumn.appendChild(websearchDescriptionContainer);
 
-            setTimeout(() => {
-                websearchDescriptionContainer.classList.remove('no-width');
-            }, 10);
+            if (window.innerWidth <= mobileWidth) {
 
-            setTimeout(() => {
+                const websearchColumn = document.querySelector('.websearch-column');
+                websearchColumn.classList.add('translate-x');
+                contentContainer.classList.add('translate-x');
+
+                setTimeout(() => {
+                    websearchDescriptionContainer = document.createElement('div');
+                    websearchDescriptionContainer.classList.add('term-description-container', `term-description-container-${termIndex}`, 'no-width');
+                    webSearchColumn.appendChild(websearchDescriptionContainer);
+        
+                    const termDescriptionNumberContainerCopy = document.createElement('span');
+                    termDescriptionNumberContainerCopy.classList.add('term-description-number-container', 'small', 'no-opacity');
+        
+                    const termDescriptionNumberCopy = document.createElement('span');
+                    termDescriptionNumberCopy.classList.add('term-description-number', 'light');
+                    termDescriptionNumberCopy.textContent = termIndex < 10 ? `0${termIndex}` : termIndex;
+                    termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
+        
+                    termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
+                    websearchDescriptionContainer.appendChild(termDescriptionNumberContainerCopy);
+                }, animationDuration * 2);
+    
+                setTimeout(() => {
+                    websearchDescriptionContainer.classList.remove('no-width');
+                }, animationDuration * 2 + 10);
+    
+                setTimeout(() => {
+                    termDescriptionNumberContainerCopy.classList.remove('small', 'no-opacity');
+                    termDescriptionNumberCopy.classList.remove('light');
+    
+                    const indentSpan = document.createElement('span');
+                    indentSpan.classList.add('indent');
+                    websearchDescriptionContainer.appendChild(indentSpan);
+                }, animationDuration * 3 + 10);
+                
+                setTimeout(() => {
+                    isWebsearchContainerProcessing = false;
+                    resolve();
+                }, animationDuration * 4);
+
+            } else {
+                websearchDescriptionContainer = document.createElement('div');
+                websearchDescriptionContainer.classList.add('term-description-container', `term-description-container-${termIndex}`, 'no-width');
+                webSearchColumn.appendChild(websearchDescriptionContainer);
+    
                 const termDescriptionNumberContainerCopy = document.createElement('span');
-                termDescriptionNumberContainerCopy.classList.add('term-description-number-container', 'small');
+                termDescriptionNumberContainerCopy.classList.add('term-description-number-container', 'small', 'no-opacity');
     
                 const termDescriptionNumberCopy = document.createElement('span');
                 termDescriptionNumberCopy.classList.add('term-description-number', 'light');
@@ -3283,26 +3322,26 @@ async function handleDeltaWebsearch(content) {
     
                 termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
                 websearchDescriptionContainer.appendChild(termDescriptionNumberContainerCopy);
-
-                termDescriptionNumberContainerCopy.classList.remove('small');
-                termDescriptionNumberCopy.classList.remove('light');
-
-                const indentSpan = document.createElement('span');
-                indentSpan.classList.add('indent');
-                websearchDescriptionContainer.appendChild(indentSpan);
-            }, animationDuration);
-
-            setTimeout(() => {
-                isWebsearchContainerProcessing = false;
-                resolve();
-            }, animationDuration);
+    
+                setTimeout(() => {
+                    websearchDescriptionContainer.classList.remove('no-width');
+                }, 10);
+    
+                setTimeout(() => {
+                    termDescriptionNumberContainerCopy.classList.remove('small', 'no-opacity');
+                    termDescriptionNumberCopy.classList.remove('light');
+    
+                    const indentSpan = document.createElement('span');
+                    indentSpan.classList.add('indent');
+                    websearchDescriptionContainer.appendChild(indentSpan);
+                }, animationDuration);
+                
+                setTimeout(() => {
+                    isWebsearchContainerProcessing = false;
+                    resolve();
+                }, animationDuration * 2);
+            }
         });
-    }
-
-    if (window.innerWidth > mobileWidth) {
-
-    } else {
-
     }
 
     if (!isWebsearchStreamingURL) {

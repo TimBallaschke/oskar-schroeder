@@ -18,7 +18,11 @@
 @mixin secondary-type {
   font-size: var(--secondary-font-size);
   // text-transform: uppercase;
-  text-transform: capitalize;
+  // text-transform: capitalize;
+}
+
+@mixin secondary-number {
+  font-size: var(--secondary-number-font-size);
 }
 
 @mixin version-history-light {

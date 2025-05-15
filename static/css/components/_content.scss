@@ -8,7 +8,8 @@
 #content-container {
     width: 100vw;
     padding: var(--content-padding-top) var(--page-padding) 200px var(--page-padding);
-    transition: opacity var(--animation-duration-1) ease-in-out;
+    transform: translateX(0px);
+    transition: opacity var(--animation-duration-1) ease-in-out, transform var(--animation-duration-1) ease-in-out;
 
     @include desktop-small {
         display: grid;
@@ -24,10 +25,11 @@
         display: grid;
         grid-template-columns: repeat(var(--column-amount-content-container), 1fr);
     }
+
+    &.translate-x {
+        transform: translateX(-300px);
+    }
     
-
-
-
     .component-selected & {
         .project:not(.selected) {
             opacity: 0.2;
@@ -297,26 +299,54 @@
 }
 
 .term-description-number-container {
-    width: 30px;
-    height: 18px;
+    width: 22px;
+    height: 15px;
     border: 1px solid black;
     border-radius: 9px;
     transform-origin: center center;
-    transform: translateY(-2px) scale(1);
-    transition: all var(--animation-duration-1) ease-in-out;
+    transform: translateY(-1.5px) scale(1);
+    transition: transform var(--animation-duration-1) ease-in-out, font-variation-settings var(--animation-duration-1) ease-in-out;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin-left: 3px;
     margin-right: 3px;
 
+    @include desktop-small {
+        width: 30px;
+        height: 18px;
+        border-radius: 9px;
+        transform: translateY(-1.5px) scale(1);
+        margin-left: 3px;
+        margin-right: 3px;
+
+    }
+
+    @include desktop-large {
+        width: 30px;
+        height: 18px;
+        border-radius: 9px;
+        transform: translateY(-1.5px) scale(1);
+        margin-left: 3px;
+        margin-right: 3px;
+
+    }
+
+    @include desktop-x-large {
+        width: 30px;
+        height: 18px;
+        border-radius: 9px;
+        transform: translateY(-1.5px) scale(1);
+        margin-left: 3px;
+        margin-right: 3px;
+    }
 
     &.small {
-        transform: translateY(-2px) scale(0.5);
+        transform: translateY(-1.5px) scale(0.5);
     }
 
     &.big {
-        transform: translateY(-2px) scale(1.1);
+        transform: translateY(-1.5px) scale(1.1);
     }
 
     &:hover {
@@ -329,7 +359,7 @@
 }
 
 .term-description-number {
-    @include secondary-type;
+    @include secondary-number;
     transition: all var(--animation-duration-1) ease-in-out;
     color: black;
     // font-variant-numeric: tabular-nums;
@@ -360,11 +390,21 @@
 
 .websearch-column {
     position: fixed;
-    height: calc(100vh - var(--content-padding-top));
-    top: var(--content-padding-top);
+    height: 100vh;
+    top: 0;
+    right: -300px;
     overflow-y: scroll;
+    padding-top: var(--content-padding-top);
     padding-left: var(--page-padding);
+    background-color: red;
+    width: 300px;
+    transition: transform var(--animation-duration-1) ease-in-out;
+    transform: translateX(0px);
     @include secondary-type;
+
+    &.translate-x {
+        transform: translateX(-300px);
+    }
 
     @include desktop-small {
         width: calc((100vw - 2 * var(--page-padding)) / var(--column-amount-content-container));
