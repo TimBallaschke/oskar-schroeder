@@ -3303,16 +3303,20 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
 }
 
 function finalizeWebsearch() {
+    console.log("--------------------------------");
     console.log("finalizeWebsearch");
+    console.log("websearchBuffer", websearchBuffer);
     // Process any remaining content in the buffer
     if (websearchBuffer.trim() !== '') {
 
         const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
-        const websearchDescriptionContainer = document.querySelector(`.term-description-${termIndex}`);
+        console.log("termIndex", termIndex);
+        const websearchDescriptionContainer = document.querySelector(`.term-description-container-${termIndex}`);
+        console.log("websearchDescriptionContainer", websearchDescriptionContainer);
 
         if (websearchDescriptionContainer) {
             websearchWordQueue.push(websearchBuffer.trim());
-
+            console.log("websearchWordQueue", websearchWordQueue);
             websearchBuffer = '';
    
             if (!isProcessingWebsearchWords) {
