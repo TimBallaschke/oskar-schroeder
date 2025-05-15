@@ -331,6 +331,14 @@
     // font-variant-numeric: tabular-nums;
 }
 
+.websearch-column {
+    position: fixed;
+    width: 20vw;
+    height: 70vh;
+    overflow-y: scroll;
+    background-color: red;
+}
+
 .fullscreen {
 
     .project {

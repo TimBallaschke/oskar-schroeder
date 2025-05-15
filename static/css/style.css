@@ -555,6 +555,14 @@ p {
   transition: all var(--animation-duration-1) ease-in-out;
 }
 
+.websearch-column {
+  position: fixed;
+  width: 20vw;
+  height: 70vh;
+  overflow-y: scroll;
+  background-color: red;
+}
+
 .fullscreen .project {
   display: grid;
   position: relative;

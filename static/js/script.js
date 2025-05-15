@@ -3084,17 +3084,49 @@ function togglePromptProposals() {
 // WEBSEARCH
 // --------------------------------------------------------------------------------------------
 
-function requestWebsearch(term) {
+function activateTermDescription() {
+    const termsDescriptionNumberContainers = document.querySelectorAll('.term-description-number-container');
+
+    termsDescriptionNumberContainers.forEach(termDescriptionNumberContainer => {
+        termDescriptionNumberContainer.addEventListener('click', () => {
+            const termContainer = termDescriptionNumberContainer.previousElementSibling;
+            let termForWebsearch = '';
+            currentWebsearchTerm = termContainer;
+
+            if (!termDescriptionNumberContainer.classList.contains('active')) {
+                termDescriptionNumberContainer.classList.add('active');
+
+                const termWords = termContainer.querySelectorAll('.paragraph-word');
+                        
+                // Combine all term words into termForWebsearch
+                termWords.forEach(word => {
+                    // Add the word text to termForWebsearch
+                    // If it's not the first word, add a space before it
+                    if (termForWebsearch !== '') {
+                        termForWebsearch += ' ';
+                    }
+                    termForWebsearch += word.textContent;
+                });
+                
+                console.log('Term for websearch:', termForWebsearch);
+                requestWebsearch(termForWebsearch, termDescriptionNumberContainer);
+            }
+        });
+    });
+}
+
+function requestWebsearch(termForWebsearch, termDescriptionNumberContainer) {
     
-    const message = term;
+    const message = termForWebsearch;
     if (message === '') return;  // Don't send empty messages
 
-    currentWebsearchTerm.pulseInterval = setInterval(() => {
-        termDescriptionPlus.classList.add('animation-settings');
-        if (termDescriptionPlus) {
-            termDescriptionPlus.classList.toggle('light');
-        }
-    }, 500);
+    // currentWebsearchTerm.pulseInterval = setInterval(() => {
+    //     termDescriptionPlus.classList.add('animation-settings');
+    //     if (termDescriptionPlus) {
+    //         termDescriptionPlus.classList.toggle('light');
+    //     }
+    // }, 500);
+
     // isStreaming = true;
     // document.body.classList.add('streaming');
 
@@ -3161,8 +3193,8 @@ function startStreamingWebsearch() {
 }
 
 function handleDeltaWebsearch(content) {
-
-    console.log("Websearch Word Queue call on Delta: ", websearchWordQueue);
+    console.log("handleDeltaWebsearch", content);
+    // console.log("Websearch Word Queue call on Delta: ", websearchWordQueue);
 
     // Exclude URLs from the content
     if (content.includes('http://') || 
@@ -3185,18 +3217,27 @@ function handleDeltaWebsearch(content) {
     }
 
     // Get the appropriate container based on screen width
-    let websearchDescriptionContainer;
-    if (window.innerWidth > mobileWidth) {
-        const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
-        websearchDescriptionContainer = document.querySelector(`.term-description-desktop-${termIndex}`);
+    let webSearchColumn = document.querySelector('.websearch-column');
 
-        if (!websearchDescriptionContainer) {
-            websearchDescriptionContainer = document.createElement('div');
-            websearchDescriptionContainer.classList.add(`term-description-desktop-${termIndex}`);
-            contentContainer.appendChild(websearchDescriptionContainer);
-        }
+    if (!webSearchColumn) {
+        webSearchColumn = document.createElement('div');
+        webSearchColumn.classList.add('websearch-column');
+        contentContainer.appendChild(webSearchColumn);
+    }
+
+    const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
+    let websearchDescriptionContainer = document.querySelector(`.term-description-container-${termIndex}`);
+
+    if (!websearchDescriptionContainer) {
+        websearchDescriptionContainer = document.createElement('div');
+        websearchDescriptionContainer.classList.add(`term-description-container-${termIndex}`, 'no-width');
+        webSearchColumn.appendChild(websearchDescriptionContainer);
+    }
+
+    if (window.innerWidth > mobileWidth) {
+
     } else {
-        websearchDescriptionContainer = currentWebsearchTerm.querySelector('.term-description');
+
     }
 
 
@@ -3238,16 +3279,14 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
     wordSpan.classList.add('websearch-content', 'light');
     wordSpan.textContent = word;
     
-    // Check if this is the first websearch-content being added
-    if (!websearchDescriptionContainer.querySelector('.websearch-content')) {
-        websearchDescriptionContainer.classList.add('display-inline');
-        websearchDescriptionContainer.innerHTML = '';
-    }
+    // // Check if this is the first websearch-content being added
+    // if (!websearchDescriptionContainer.querySelector('.websearch-content')) {
+    //     websearchDescriptionContainer.innerHTML = '';
+    // }
     
     // Add space before word if not the first word
     if (websearchDescriptionContainer.querySelector('.websearch-content')) {
         websearchDescriptionContainer.appendChild(document.createTextNode(' '));
-        websearchDescriptionContainer.classList.add('padding-right');
     }
     
     // Add the span to the websearch div
@@ -3265,22 +3304,14 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
 
 function finalizeWebsearch() {
     console.log("finalizeWebsearch");
-        // Process any remaining content in the buffer
+    // Process any remaining content in the buffer
     if (websearchBuffer.trim() !== '') {
 
-        let websearchDescriptionContainer;
-
-        if (window.innerWidth > mobileWidth) {
-            const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
-            websearchDescriptionContainer = document.querySelector(`.term-description-desktop-${termIndex}`);
-        } else {
-            websearchDescriptionContainer = currentWebsearchTerm.querySelector('.term-description');
-        }
+        const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
+        const websearchDescriptionContainer = document.querySelector(`.term-description-${termIndex}`);
 
         if (websearchDescriptionContainer) {
             websearchWordQueue.push(websearchBuffer.trim());
-
-            console.log("Websearch Word Queue: ", websearchWordQueue);
 
             websearchBuffer = '';
    
@@ -3289,39 +3320,6 @@ function finalizeWebsearch() {
             }
         }
     }
-}
-
-
-function activateTermDescription() {
-    const termsDescriptionNumberContainers = document.querySelectorAll('.term-description-number-container');
-
-    termsDescriptionNumberContainers.forEach(termDescriptionNumberContainer => {
-        termDescriptionNumberContainer.addEventListener('click', () => {
-            const termContainer = termDescriptionNumberContainer.previousElementSibling;
-            let termForWebsearch = '';
-
-            currentWebsearchTerm = termDescriptionNumberContainer;
-
-            if (!termDescriptionNumberContainer.classList.contains('active')) {
-                termDescriptionNumberContainer.classList.add('active');
-
-                const termWords = termContainer.querySelectorAll('.paragraph-word');
-                        
-                // Combine all term words into termForWebsearch
-                termWords.forEach(word => {
-                    // Add the word text to termForWebsearch
-                    // If it's not the first word, add a space before it
-                    if (termForWebsearch !== '') {
-                        termForWebsearch += ' ';
-                    }
-                    termForWebsearch += word.textContent;
-                });
-                
-                console.log('Term for websearch:', termForWebsearch);
-                // requestWebsearch(termForWebsearch);
-            }
-        });
-    });
 }
 
 // --------------------------------------------------------------------------------------------
