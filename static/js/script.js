@@ -226,9 +226,12 @@ let isReworkProcessing = false; // Add this with other global variables
 let reworkComplete = false;
 let isStreaming = false;
 let placeholderAnimationActive = true;
+
+// Websearch
 let isWebsearchStreamingURL = false;
 let websearchBuffer = '';
 let websearchWordQueue = [];
+let isWebsearchContainerProcessing = false;
 let isProcessingWebsearchWords = false;
 let currentWebsearchTerm = null;
 
@@ -3201,7 +3204,7 @@ function startStreamingWebsearch() {
     };
 }
 
-function handleDeltaWebsearch(content) {
+async function handleDeltaWebsearch(content) {
     console.log("handleDeltaWebsearch", content);
     // console.log("Websearch Word Queue call on Delta: ", websearchWordQueue);
 
@@ -3225,31 +3228,6 @@ function handleDeltaWebsearch(content) {
         isWebsearchStreamingURL = false;
     }
 
-    // Get the appropriate container based on screen width
-    let webSearchColumn = document.querySelector('.websearch-column');
-
-    if (!webSearchColumn) {
-        webSearchColumn = document.createElement('div');
-        webSearchColumn.classList.add('websearch-column');
-        contentContainer.appendChild(webSearchColumn);
-    }
-
-    const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
-    let websearchDescriptionContainer = document.querySelector(`.term-description-container-${termIndex}`);
-
-    if (!websearchDescriptionContainer) {
-        websearchDescriptionContainer = document.createElement('div');
-        websearchDescriptionContainer.classList.add(`term-description-container-${termIndex}`, 'no-width');
-        webSearchColumn.appendChild(websearchDescriptionContainer);
-    }
-
-    if (window.innerWidth > mobileWidth) {
-
-    } else {
-
-    }
-
-
     if (!isWebsearchStreamingURL) {
 
         websearchBuffer += content;
@@ -3265,11 +3243,72 @@ function handleDeltaWebsearch(content) {
             
             // Keep the last part in the buffer (it might be incomplete)
             websearchBuffer = lastPart;
-            
-            // Start processing the queue if not already processing
-            if (!isProcessingWebsearchWords) {
-                processNextWebsearchWord(websearchDescriptionContainer);
-            }
+        }
+    }
+
+    if (isWebsearchContainerProcessing) return;
+
+    // Get the appropriate container based on screen width
+    let webSearchColumn = document.querySelector('.websearch-column');
+
+    if (!webSearchColumn) {
+        webSearchColumn = document.createElement('div');
+        webSearchColumn.classList.add('websearch-column');
+        contentContainer.appendChild(webSearchColumn);
+    }
+
+    const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
+    let websearchDescriptionContainer = document.querySelector(`.term-description-container-${termIndex}`);
+
+    if (!websearchDescriptionContainer) {
+        isWebsearchContainerProcessing = true;
+
+        await new Promise((resolve) => {
+            websearchDescriptionContainer = document.createElement('div');
+            websearchDescriptionContainer.classList.add('term-description-container', `term-description-container-${termIndex}`, 'no-width');
+            webSearchColumn.appendChild(websearchDescriptionContainer);
+
+            setTimeout(() => {
+                websearchDescriptionContainer.classList.remove('no-width');
+            }, 10);
+
+            setTimeout(() => {
+                const termDescriptionNumberContainerCopy = document.createElement('span');
+                termDescriptionNumberContainerCopy.classList.add('term-description-number-container', 'small');
+    
+                const termDescriptionNumberCopy = document.createElement('span');
+                termDescriptionNumberCopy.classList.add('term-description-number', 'light');
+                termDescriptionNumberCopy.textContent = termIndex < 10 ? `0${termIndex}` : termIndex;
+                termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
+    
+                termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
+                websearchDescriptionContainer.appendChild(termDescriptionNumberContainerCopy);
+
+                termDescriptionNumberContainerCopy.classList.remove('small');
+                termDescriptionNumberCopy.classList.remove('light');
+
+                const indentSpan = document.createElement('span');
+                indentSpan.classList.add('indent');
+                websearchDescriptionContainer.appendChild(indentSpan);
+            }, animationDuration);
+
+            setTimeout(() => {
+                isWebsearchContainerProcessing = false;
+                resolve();
+            }, animationDuration);
+        });
+    }
+
+    if (window.innerWidth > mobileWidth) {
+
+    } else {
+
+    }
+
+    if (!isWebsearchStreamingURL) {
+        // Start processing the queue if not already processing
+        if (!isProcessingWebsearchWords) {
+            processNextWebsearchWord(websearchDescriptionContainer);
         }
     }
 }
@@ -3331,7 +3370,7 @@ function finalizeWebsearch() {
 
                 currentWebsearchTerm = null;
             }
-        }, 3000);
+        }, 4000);
 
         
     }
