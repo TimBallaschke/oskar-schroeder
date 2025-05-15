@@ -911,11 +911,11 @@ async function handleDelta(content) {
                                             let italicSpan = null;
 
                                             if (isItalic) {
+                                                termDescriptionCount++;
                                                 italicSpan = document.createElement('span');
                                                 italicSpan.classList.add('term');
                                                 italicSpan.setAttribute('data-term-index', termDescriptionCount);
                                                 paragraphContainer.appendChild(italicSpan);
-                                                termDescriptionCount++;
                                             }
                                             
                                             let wordIndex = 0;
@@ -960,7 +960,7 @@ async function handleDelta(content) {
                                                 } else {
                                                     if (isItalic) {
                                                         const termDescriptionNumberContainer = document.createElement('span');
-                                                        termDescriptionNumberContainer.classList.add('term-description-number-container', 'small');
+                                                        termDescriptionNumberContainer.classList.add('term-description-number-container', `term-description-number-container-${termDescriptionCount}`, 'small');
 
                                                         const termDescriptionNumber = document.createElement('span');
                                                         termDescriptionNumber.classList.add('term-description-number', 'light');
@@ -3091,10 +3091,12 @@ function activateTermDescription() {
         termDescriptionNumberContainer.addEventListener('click', () => {
             const termContainer = termDescriptionNumberContainer.previousElementSibling;
             let termForWebsearch = '';
-            currentWebsearchTerm = termContainer;
 
-            if (!termDescriptionNumberContainer.classList.contains('active')) {
+            // Check if term was activated already or if there might be a websearch going on at the moment
+            if (!termDescriptionNumberContainer.classList.contains('active') && !currentWebsearchTerm) {
                 termDescriptionNumberContainer.classList.add('active');
+                currentWebsearchTerm = termContainer;
+
 
                 const termWords = termContainer.querySelectorAll('.paragraph-word');
                         
@@ -3111,6 +3113,11 @@ function activateTermDescription() {
                 console.log('Term for websearch:', termForWebsearch);
                 requestWebsearch(termForWebsearch, termDescriptionNumberContainer);
             }
+
+            if (window.innerWidth <= mobileWidth) {
+
+
+            }
         });
     });
 }
@@ -3120,12 +3127,14 @@ function requestWebsearch(termForWebsearch, termDescriptionNumberContainer) {
     const message = termForWebsearch;
     if (message === '') return;  // Don't send empty messages
 
-    // currentWebsearchTerm.pulseInterval = setInterval(() => {
-    //     termDescriptionPlus.classList.add('animation-settings');
-    //     if (termDescriptionPlus) {
-    //         termDescriptionPlus.classList.toggle('light');
-    //     }
-    // }, 500);
+    termDescriptionNumberContainer.pulseInterval = setInterval(() => {
+        termDescriptionNumberContainer.classList.add('animation-settings-3');
+        if (termDescriptionNumberContainer.classList.contains('big')) {
+            termDescriptionNumberContainer.classList.remove('big');
+        } else {
+            termDescriptionNumberContainer.classList.add('big');
+        }
+    }, 1000);
 
     // isStreaming = true;
     // document.body.classList.add('streaming');
@@ -3278,12 +3287,7 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
     const wordSpan = document.createElement('span');
     wordSpan.classList.add('websearch-content', 'light');
     wordSpan.textContent = word;
-    
-    // // Check if this is the first websearch-content being added
-    // if (!websearchDescriptionContainer.querySelector('.websearch-content')) {
-    //     websearchDescriptionContainer.innerHTML = '';
-    // }
-    
+        
     // Add space before word if not the first word
     if (websearchDescriptionContainer.querySelector('.websearch-content')) {
         websearchDescriptionContainer.appendChild(document.createTextNode(' '));
@@ -3303,26 +3307,33 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
 }
 
 function finalizeWebsearch() {
-    console.log("--------------------------------");
-    console.log("finalizeWebsearch");
-    console.log("websearchBuffer", websearchBuffer);
     // Process any remaining content in the buffer
     if (websearchBuffer.trim() !== '') {
 
         const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
-        console.log("termIndex", termIndex);
         const websearchDescriptionContainer = document.querySelector(`.term-description-container-${termIndex}`);
-        console.log("websearchDescriptionContainer", websearchDescriptionContainer);
 
         if (websearchDescriptionContainer) {
             websearchWordQueue.push(websearchBuffer.trim());
-            console.log("websearchWordQueue", websearchWordQueue);
             websearchBuffer = '';
    
             if (!isProcessingWebsearchWords) {
                 processNextWebsearchWord(websearchDescriptionContainer);
             }
         }
+
+        // Clear the pulse animation after 3 seconds (Only temporary solution since this does not match the actual time that the websearch is fully rendered)
+        setTimeout(() => {
+            const termDescriptionNumberContainer = document.querySelector(`.term-description-number-container-${termIndex}`);
+            if (termDescriptionNumberContainer && termDescriptionNumberContainer.pulseInterval) {
+                clearInterval(termDescriptionNumberContainer.pulseInterval);
+                termDescriptionNumberContainer.classList.remove('animation-settings-3', 'big');
+
+                currentWebsearchTerm = null;
+            }
+        }, 3000);
+
+        
     }
 }
 

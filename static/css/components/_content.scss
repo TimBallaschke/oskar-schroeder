@@ -13,19 +13,16 @@
     @include desktop-small {
         display: grid;
         grid-template-columns: repeat(var(--column-amount-content-container), 1fr);
-        column-gap: var(--column-gap-content-container);
     }
 
     @include desktop-large {
         display: grid;
         grid-template-columns: repeat(var(--column-amount-content-container), 1fr);
-        column-gap: var(--column-gap-content-container);
     }
 
     @include desktop-x-large {
         display: grid;
         grid-template-columns: repeat(var(--column-amount-content-container), 1fr);
-        column-gap: 40px;
     }
     
 
@@ -312,31 +309,54 @@
     justify-content: center;
     margin-left: 3px;
     margin-right: 3px;
-    color: black;
 
 
     &.small {
         transform: translateY(-2px) scale(0.5);
     }
 
+    &.big {
+        transform: translateY(-2px) scale(1.1);
+    }
+
     &:hover {
         background-color: black;
-        color: white;
+
+        .term-description-number {
+            color: white;
+        }
     }
 }
 
 .term-description-number {
     @include secondary-type;
     transition: all var(--animation-duration-1) ease-in-out;
+    color: black;
     // font-variant-numeric: tabular-nums;
 }
 
 .websearch-column {
     position: fixed;
-    width: 20vw;
-    height: 70vh;
+    height: calc(100vh - var(--content-padding-top));
+    top: var(--content-padding-top);
     overflow-y: scroll;
-    background-color: red;
+    padding-left: var(--page-padding);
+    @include secondary-type;
+
+    @include desktop-small {
+        width: calc((100vw - 2 * var(--page-padding)) / var(--column-amount-content-container));
+        right: var(--page-padding);
+    }
+
+    @include desktop-large {
+        width: calc((100vw - 2 * var(--page-padding)) / var(--column-amount-content-container));
+        right: var(--page-padding);
+    }
+
+    @include desktop-x-large {
+        width: calc((100vw - 2 * var(--page-padding)) / var(--column-amount-content-container));
+        right: var(--page-padding);
+    }
 }
 
 .fullscreen {
