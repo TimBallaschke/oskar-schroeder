@@ -32,6 +32,10 @@ function setCSSVarValue(varName, value, unit = 'px') {
     document.documentElement.style.setProperty(varName, `${value}${unit}`);
 }
 
+function getRandomInt() {
+    return Math.floor(Math.random() * 3) + 1;
+}
+
 // TABLES
 
 function addTableHeadersMobile(appendDelay, animationDelay, row, headers, lastScrollHeight) {
@@ -746,16 +750,11 @@ async function handleDelta(content) {
                         if (!paragraphContainer) {
 
                             // On desktop the processing of the images should happen simultaniously to precessing the next paragraph
-                            if (window.innerWidth > mobileWidth) {
-                                processImageQueue();
-                            } else {
-                                await processImageQueue();
-                            }
-
+                            // await processImageQueue();
+    
                             if ((contentContainer.lastElementChild && contentContainer.lastElementChild.classList.contains('paragraph-outter-container')) || window.innerWidth <= mobileWidth) { // only execute if there is a paragraph outter container or on mobile
                                 allParagraphContainers = contentContainer.querySelectorAll('.paragraph-container');
                                 previousParagraphContainer = allParagraphContainers[allParagraphContainers.length - 1];
-                                previousPreviousParagraphContainer = allParagraphContainers[allParagraphContainers.length - 2];
                             }
 
                             paragraphContainer = document.createElement('p');
@@ -787,85 +786,63 @@ async function handleDelta(content) {
 
                                 contentContainer.appendChild(paragraphContainer);
 
-                                if (paragraphContainer.hasAttribute('data-image-paragraph')) {
-                                    const imageContainer = document.createElement('div');
-                                    imageContainer.classList.add('half-width-image-container'); // Classname comes from desktop layout
-                                    contentContainer.appendChild(imageContainer);
-                                }
-
                             } else { // On desktop
                                 // Check if there is a previous paragraph container or if it is the first paragraph
                                 if (!previousParagraphContainer) {
-                                    // Is the current paragraph an image paragraph?
-                                    if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
-                                        // Create a full width container if not
-                                        const fullWidthParagraphContainer = document.createElement('div');
-                                        fullWidthParagraphContainer.classList.add('full-width-paragraph-container', 'paragraph-outter-container');
-                                        paragraphContainer.classList.add('full-width');
-                                        fullWidthParagraphContainer.appendChild(paragraphContainer);
-                                        contentContainer.appendChild(fullWidthParagraphContainer);
-                                    } else {
-                                        const halfWidthImageContainer = document.createElement('div');
-                                        halfWidthImageContainer.classList.add('half-width-image-container', 'paragraph-outter-container', 'small-padding');
+                                    const largeParagraphContainer = document.createElement('div');
+                                    largeParagraphContainer.classList.add('large-paragraph-container');
 
-                                        // Create a half width containers for paragraphs and images if yes
-                                        const halfWidthParagraphContainer = document.createElement('div');
-                                        halfWidthParagraphContainer.classList.add('half-width-paragraph-container', 'paragraph-outter-container');
-                                        paragraphContainer.classList.add('half-width');
-                                        halfWidthParagraphContainer.appendChild(paragraphContainer);
+                                    paragraphContainer.classList.add('large-paragraph');
+                                    paragraphContainer.setAttribute('data-width', 'large');
 
-                                        contentContainer.appendChild(halfWidthImageContainer);
-                                        contentContainer.appendChild(halfWidthParagraphContainer);
-                                    }
-                                // If there is a previous element
+                                    largeParagraphContainer.appendChild(paragraphContainer);
+                                    contentContainer.appendChild(largeParagraphContainer);
                                 } else {
-                                    if (!paragraphContainer.hasAttribute('data-image-paragraph')) {
-                                        if (previousParagraphContainer.classList.contains('full-width')) {
-                                            // Add the paragraph to the last full width container
-                                            const fullWidthParagraphContainers = document.querySelectorAll('.full-width-paragraph-container');
-                                            const lastFullWidthParagraphContainer = fullWidthParagraphContainers[fullWidthParagraphContainers.length - 1];
-                                            paragraphContainer.classList.add('full-width');
-                                            
-                                            const indentSpan = document.createElement('span');
-                                            indentSpan.classList.add('indent');
-                                            paragraphContainer.appendChild(indentSpan);
-
-                                            lastFullWidthParagraphContainer.appendChild(paragraphContainer);
+                                    randomNumber = getRandomInt();
+                                    if (randomNumber === 1) {
+                                        if (previousParagraphContainer && 
+                                            previousParagraphContainer.dataset.width === 'large' && 
+                                            !previousParagraphContainer.hasAttribute('data-image-paragraph')) {
+                                                const largeParagraphContainers = document.querySelectorAll('.large-paragraph-container');
+                                                const lastLargeParagraphContainer = largeParagraphContainers[largeParagraphContainers.length - 1];
+                                                lastLargeParagraphContainer.appendChild(paragraphContainer);
                                         } else {
-                                            const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
-                                            const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
-                                            paragraphContainer.classList.add('half-width');
-
-                                            const indentSpan = document.createElement('span');
-                                            indentSpan.classList.add('indent');
-                                            paragraphContainer.appendChild(indentSpan);
-
-                                            lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
+                                            const largeParagraphContainer = document.createElement('div');
+                                            largeParagraphContainer.classList.add('large-paragraph-container', '.paragraph-outter-container');
+                                            paragraphContainer.classList.add('large-paragraph');
+                                            paragraphContainer.setAttribute('data-width', 'large');
+                                            largeParagraphContainer.appendChild(paragraphContainer);
+                                            contentContainer.appendChild(largeParagraphContainer);
                                         }
-                                    } else {
-                                        if (previousParagraphContainer.classList.contains('full-width')) {
-                                            const halfWidthImageContainer = document.createElement('div');
-                                            halfWidthImageContainer.classList.add('half-width-image-container', 'paragraph-outter-container');
-
-                                            // if current paragraph contains an image, create a half width container for the paragraph and image
-                                            const halfWidthParagraphContainer = document.createElement('div');
-                                            halfWidthParagraphContainer.classList.add('half-width-paragraph-container', 'paragraph-outter-container');
-                                            paragraphContainer.classList.add('half-width');
-
-                                            halfWidthParagraphContainer.appendChild(paragraphContainer);
-
-                                            contentContainer.appendChild(halfWidthImageContainer);
-                                            contentContainer.appendChild(halfWidthParagraphContainer);
+                                    } else if (randomNumber === 2) {
+                                        if (previousParagraphContainer && 
+                                            previousParagraphContainer.dataset.width === 'medium' && 
+                                            !previousParagraphContainer.hasAttribute('data-image-paragraph')) {
+                                                const mediumParagraphContainers = document.querySelectorAll('.medium-paragraph-container');
+                                                const lastMediumParagraphContainer = mediumParagraphContainers[mediumParagraphContainers.length - 1];
+                                                lastMediumParagraphContainer.appendChild(paragraphContainer);
                                         } else {
-                                            const halfWidthParagraphContainers = document.querySelectorAll('.half-width-paragraph-container');
-                                            const lastHalfWidthParagraphContainer = halfWidthParagraphContainers[halfWidthParagraphContainers.length - 1];
-                                            paragraphContainer.classList.add('half-width');
-
-                                            const indentSpan = document.createElement('span');
-                                            indentSpan.classList.add('indent');
-                                            paragraphContainer.appendChild(indentSpan);
-
-                                            lastHalfWidthParagraphContainer.appendChild(paragraphContainer);
+                                            const mediumParagraphContainer = document.createElement('div');
+                                            mediumParagraphContainer.classList.add('medium-paragraph-container', '.paragraph-outter-container');
+                                            paragraphContainer.classList.add('medium-paragraph');
+                                            paragraphContainer.setAttribute('data-width', 'medium');
+                                            mediumParagraphContainer.appendChild(paragraphContainer);
+                                            contentContainer.appendChild(mediumParagraphContainer);
+                                        }
+                                    } else if (randomNumber === 3) {
+                                        if (previousParagraphContainer && 
+                                            previousParagraphContainer.dataset.width === 'small' && 
+                                            !previousParagraphContainer.hasAttribute('data-image-paragraph')) {
+                                                const smallParagraphContainers = document.querySelectorAll('.small-paragraph-container');
+                                                const lastSmallParagraphContainer = smallParagraphContainers[smallParagraphContainers.length - 1];
+                                                lastSmallParagraphContainer.appendChild(paragraphContainer);
+                                        } else {
+                                            const smallParagraphContainer = document.createElement('div');
+                                            smallParagraphContainer.classList.add('small-paragraph-container', '.paragraph-outter-container');
+                                            paragraphContainer.classList.add('small-paragraph');
+                                            paragraphContainer.setAttribute('data-width', 'small');
+                                            smallParagraphContainer.appendChild(paragraphContainer);
+                                            contentContainer.appendChild(smallParagraphContainer);
                                         }
                                     }
                                 }
