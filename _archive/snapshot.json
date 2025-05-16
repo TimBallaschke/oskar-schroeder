@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250516b_Oskar_Website",
+  "original_folder": "250516c_Oskar_Website_oskarSchroed_no_hover",
   "snapshot_date_from_folder": "250516",
   "source_files": [
     {
@@ -54,16 +54,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "c4162ca39ce7983cdb354870d5674da961212dce",
-      "sha256": "0271dfd5bdaaab512468030c0444571d965fe825be1939645e1b9b56f5e226c5",
-      "size": 44230,
+      "sha1": "02bafeb4ba45da84f2103b02c66a7f91f8756a04",
+      "sha256": "cd0702a2ed89648e81ff85e3e5ac99b63e530cc822b3f53c736388cfe7f0a4c4",
+      "size": 44658,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "3751d8ddb10bca6bc66e2b364dfad79d1e307413",
-      "sha256": "04eff88000539e78c229b0aaacf7c5ab41c599ed61b7fb03a40af98f01c080e5",
-      "size": 15022,
+      "sha1": "c5a733810d978cd6098da066a23af6194d4ad6cc",
+      "sha256": "c62aa8543586c1f9e47d2d5e0167e9ae4e743ccd164bafb154eb37e968fd0984",
+      "size": 15153,
       "mode": "100644"
     },
     {
@@ -96,9 +96,9 @@
     },
     {
       "path": "static/css/components/_version-history.scss",
-      "sha1": "8824359ef19be7d86c11dea34c29884f98365897",
-      "sha256": "28dddff361ad0a3fb31577813d63e8bbf24605c0c381d775e7e376cd7dd4dc42",
-      "size": 6150,
+      "sha1": "e967bb5c48f47a4f435d08574d4bd84e0130b9b7",
+      "sha256": "9a6a4af60df6a41d35fdfb486b7ccf7126ac1fbc48b78af1477541bc39152cfe",
+      "size": 6583,
       "mode": "100644"
     },
     {
@@ -663,9 +663,9 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "f757ee2340c81f49a133ea6b9d08397cb2296310",
-      "sha256": "d15dc475d1b5c65b8a232aca749d75a5c68ffd47f94c82e03d4e57aa9c3e3e55",
-      "size": 6902,
+      "sha1": "64a6ab3a2e70d04daf4b4a67e8f153225c93b5d1",
+      "sha256": "cf8d4cb1eb1c0e82ba7ae9d719fa0fa2260a5fd4e729732526318c453e4feab1",
+      "size": 6878,
       "mode": "100644"
     }
   ],
