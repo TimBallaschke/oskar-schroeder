@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "original_folder": "250515f_Oskar_Website",
-  "snapshot_date_from_folder": "250515",
+  "original_folder": "250516_Oskar_Website",
+  "snapshot_date_from_folder": "250516",
   "source_files": [
     {
       "path": ".cursorignore",
@@ -54,16 +54,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "e0e589b713e17fe1a4ecf62072cfaa1476b4276c",
-      "sha256": "d91b429f44b043ba06d5a6b229b01db86b52511e9a4e6c3ef53032311f297db8",
-      "size": 42914,
+      "sha1": "46d5101859f9632e3f775f07dba54c94e7e41c6e",
+      "sha256": "3d35b7d45be006a34c838011779ac0a87c56f0bcaac9415f32fae1e0c13ed186",
+      "size": 44147,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "71f3b6ad46370fed793f277267b7432a06e5ea13",
-      "sha256": "840d5554e9d6c3665bf9916917394a684154370e3c500892d7a6a66a8d476256",
-      "size": 14789,
+      "sha1": "28ea662684330ab62bc0e30ce7fb6eae8b8573a0",
+      "sha256": "caf30fff80c4b23a72240dc0e7c2efa7761c8c7b3ecf9f3abe8fcd0ffab95051",
+      "size": 14998,
       "mode": "100644"
     },
     {
@@ -82,9 +82,9 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "cdbedf95da4ddee4de3c28d5369980a169d1726e",
-      "sha256": "64c4a1debaf79acc172d1b28bcc20acf0b91e42355c2bef9f9a982addf527204",
-      "size": 23857,
+      "sha1": "911db38b933aecfc35f044011cf732d3b577cce4",
+      "sha256": "3d4b4579875872ade01adf0bfc1ed7a728f93ca1c133e5668b6dd70649317c77",
+      "size": 24556,
       "mode": "100644"
     },
     {
@@ -110,9 +110,9 @@
     },
     {
       "path": "static/css/abstracts/_variables.scss",
-      "sha1": "553222741458b11953a1eaf6f5d2ff99cc82cb4c",
-      "sha256": "fbe4bc9216eb09981a79e10ea58f7041813877ec6744965b19fbba825e08a070",
-      "size": 3171,
+      "sha1": "bfdcf01a1e8d2599bf53a4a39e8ae79518b728f2",
+      "sha256": "966d53ae5a4bcc795f43591a101970d297d4c21d6fa85f87f6d7b4a8463fe0b8",
+      "size": 3173,
       "mode": "100644"
     },
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "020ae83cd300791876c026b5da8b1d2024bd0a6f",
-      "sha256": "cf1e70cd593db3ef0e609b221e42f01610e6b3138f153583cbbb03e796756389",
-      "size": 170975,
+      "sha1": "b4283df1eb4598ea5519efeb09eefac2fc045d2e",
+      "sha256": "fda1f44c87ba8c141ef40c27f3de0d42474366dcd66b80f85f188e3bddf94eae",
+      "size": 170367,
       "mode": "100644"
     },
     {

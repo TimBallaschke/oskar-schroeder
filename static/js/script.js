@@ -234,6 +234,7 @@ let websearchWordQueue = [];
 let isWebsearchContainerProcessing = false;
 let isProcessingWebsearchWords = false;
 let currentWebsearchTerm = null;
+const webSearchColumn = document.querySelector('.websearch-column');
 
 const userInput = document.getElementById('user-input');
 
@@ -3095,6 +3096,19 @@ function activateTermDescription() {
             const termContainer = termDescriptionNumberContainer.previousElementSibling;
             let termForWebsearch = '';
 
+            if (window.innerWidth <= mobileWidth) {
+                const websearchColumn = document.querySelector('.websearch-column');
+                websearchColumn.classList.add('translate-x');
+                contentContainer.classList.add('translate-x');
+
+                setTimeout(() => {
+                    contentContainer.addEventListener('click', () => {
+                        websearchColumn.classList.remove('translate-x');
+                        contentContainer.classList.remove('translate-x');
+                    }, {once: true});
+                }, 1000);
+            }
+
             // Check if term was activated already or if there might be a websearch going on at the moment
             if (!termDescriptionNumberContainer.classList.contains('active') && !currentWebsearchTerm) {
                 termDescriptionNumberContainer.classList.add('active');
@@ -3115,12 +3129,6 @@ function activateTermDescription() {
                 
                 console.log('Term for websearch:', termForWebsearch);
                 requestWebsearch(termForWebsearch, termDescriptionNumberContainer);
-            } else {
-                if (window.innerWidth <= mobileWidth) {
-                    const websearchColumn = document.querySelector('.websearch-column');
-                    websearchColumn.classList.add('translate-x');
-                    contentContainer.classList.add('translate-x');
-                }
             }
         });
     });
@@ -3249,14 +3257,6 @@ async function handleDeltaWebsearch(content) {
 
     if (isWebsearchContainerProcessing) return;
 
-    // Get the appropriate container based on screen width
-    let webSearchColumn = document.querySelector('.websearch-column');
-
-    if (!webSearchColumn) {
-        webSearchColumn = document.createElement('div');
-        webSearchColumn.classList.add('websearch-column');
-        contentContainer.appendChild(webSearchColumn);
-    }
 
     const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
     let websearchDescriptionContainer = document.querySelector(`.term-description-container-${termIndex}`);
@@ -3266,28 +3266,23 @@ async function handleDeltaWebsearch(content) {
 
         await new Promise((resolve) => {
 
+            // Different timing for desktop and mobile
             if (window.innerWidth <= mobileWidth) {
 
-                const websearchColumn = document.querySelector('.websearch-column');
-                websearchColumn.classList.add('translate-x');
-                contentContainer.classList.add('translate-x');
-
-                setTimeout(() => {
-                    websearchDescriptionContainer = document.createElement('div');
-                    websearchDescriptionContainer.classList.add('term-description-container', `term-description-container-${termIndex}`, 'no-width');
-                    webSearchColumn.appendChild(websearchDescriptionContainer);
-        
-                    const termDescriptionNumberContainerCopy = document.createElement('span');
-                    termDescriptionNumberContainerCopy.classList.add('term-description-number-container', 'small', 'no-opacity');
-        
-                    const termDescriptionNumberCopy = document.createElement('span');
-                    termDescriptionNumberCopy.classList.add('term-description-number', 'light');
-                    termDescriptionNumberCopy.textContent = termIndex < 10 ? `0${termIndex}` : termIndex;
-                    termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
-        
-                    termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
-                    websearchDescriptionContainer.appendChild(termDescriptionNumberContainerCopy);
-                }, animationDuration * 2);
+                websearchDescriptionContainer = document.createElement('div');
+                websearchDescriptionContainer.classList.add('term-description-container', `term-description-container-${termIndex}`, 'no-width');
+                webSearchColumn.appendChild(websearchDescriptionContainer);
+    
+                const termDescriptionNumberContainerCopy = document.createElement('span');
+                termDescriptionNumberContainerCopy.classList.add('term-description-number-container', 'term-description-number-container-copy', 'small', 'no-opacity');
+    
+                const termDescriptionNumberCopy = document.createElement('span');
+                termDescriptionNumberCopy.classList.add('term-description-number', 'light');
+                termDescriptionNumberCopy.textContent = termIndex < 10 ? `0${termIndex}` : termIndex;
+                termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
+    
+                termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
+                websearchDescriptionContainer.appendChild(termDescriptionNumberContainerCopy);
     
                 setTimeout(() => {
                     websearchDescriptionContainer.classList.remove('no-width');
@@ -3296,10 +3291,7 @@ async function handleDeltaWebsearch(content) {
                 setTimeout(() => {
                     termDescriptionNumberContainerCopy.classList.remove('small', 'no-opacity');
                     termDescriptionNumberCopy.classList.remove('light');
-    
-                    const indentSpan = document.createElement('span');
-                    indentSpan.classList.add('indent');
-                    websearchDescriptionContainer.appendChild(indentSpan);
+
                 }, animationDuration * 3 + 10);
                 
                 setTimeout(() => {
@@ -3313,7 +3305,7 @@ async function handleDeltaWebsearch(content) {
                 webSearchColumn.appendChild(websearchDescriptionContainer);
     
                 const termDescriptionNumberContainerCopy = document.createElement('span');
-                termDescriptionNumberContainerCopy.classList.add('term-description-number-container', 'small', 'no-opacity');
+                termDescriptionNumberContainerCopy.classList.add('term-description-number-container', 'term-description-number-container-copy', 'small', 'no-opacity');
     
                 const termDescriptionNumberCopy = document.createElement('span');
                 termDescriptionNumberCopy.classList.add('term-description-number', 'light');
@@ -3330,10 +3322,6 @@ async function handleDeltaWebsearch(content) {
                 setTimeout(() => {
                     termDescriptionNumberContainerCopy.classList.remove('small', 'no-opacity');
                     termDescriptionNumberCopy.classList.remove('light');
-    
-                    const indentSpan = document.createElement('span');
-                    indentSpan.classList.add('indent');
-                    websearchDescriptionContainer.appendChild(indentSpan);
                 }, animationDuration);
                 
                 setTimeout(() => {
