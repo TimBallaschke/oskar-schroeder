@@ -3373,10 +3373,9 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
 }
 
 function finalizeWebsearch() {
+    const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
     // Process any remaining content in the buffer
     if (websearchBuffer.trim() !== '') {
-
-        const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
         const websearchDescriptionContainer = document.querySelector(`.term-description-container-${termIndex}`);
 
         if (websearchDescriptionContainer) {
@@ -3386,21 +3385,19 @@ function finalizeWebsearch() {
             if (!isProcessingWebsearchWords) {
                 processNextWebsearchWord(websearchDescriptionContainer);
             }
-        }
-
-        // Clear the pulse animation after 3 seconds (Only temporary solution since this does not match the actual time that the websearch is fully rendered)
-        setTimeout(() => {
-            const termDescriptionNumberContainer = document.querySelector(`.term-description-number-container-${termIndex}`);
-            if (termDescriptionNumberContainer && termDescriptionNumberContainer.pulseInterval) {
-                clearInterval(termDescriptionNumberContainer.pulseInterval);
-                termDescriptionNumberContainer.classList.remove('animation-settings-3', 'big');
-
-                currentWebsearchTerm = null;
-            }
-        }, 4000);
-
-        
+        }        
     }
+
+    // Clear the pulse animation after 3 seconds (Only temporary solution since this does not match the actual time that the websearch is fully rendered)
+    setTimeout(() => {
+        const termDescriptionNumberContainer = document.querySelector(`.term-description-number-container-${termIndex}`);
+        if (termDescriptionNumberContainer && termDescriptionNumberContainer.pulseInterval) {
+            clearInterval(termDescriptionNumberContainer.pulseInterval);
+            termDescriptionNumberContainer.classList.remove('animation-settings-3', 'big');
+
+            currentWebsearchTerm = null;
+        }
+    }, 4000);
 }
 
 // --------------------------------------------------------------------------------------------

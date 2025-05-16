@@ -686,6 +686,10 @@ p {
   }
 }
 
+.websearch-content {
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+
 .fullscreen .project {
   display: grid;
   position: relative;
