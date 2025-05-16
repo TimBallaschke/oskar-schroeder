@@ -359,6 +359,21 @@ p {
   font-size: var(--primary-font-size);
   padding: 0 0;
 }
+@media (min-width: 769px) and (max-width: 1024px) {
+  .paragraph-container {
+    display: inline;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .paragraph-container {
+    display: inline;
+  }
+}
+@media (min-width: 1441px) {
+  .paragraph-container {
+    display: inline;
+  }
+}
 
 .paragraph-word {
   transition: all var(--animation-duration-1) ease-in-out;

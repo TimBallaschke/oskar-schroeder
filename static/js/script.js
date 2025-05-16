@@ -33,7 +33,7 @@ function setCSSVarValue(varName, value, unit = 'px') {
 }
 
 function getRandomInt() {
-    return Math.floor(Math.random() * 3) + 1;
+    return Math.floor(Math.random() * 2) + 2;
 }
 
 // TABLES
@@ -262,6 +262,7 @@ let previousPreviousParagraphContainer;
 let imageQueue = [];
 let isImageQueueProcessing = false;
 let termDescriptionCount = 0;
+let paragraphContainerCount = 0;
 
 
 
@@ -749,6 +750,9 @@ async function handleDelta(content) {
 
                         if (!paragraphContainer) {
 
+                            paragraphContainerCount++;
+                            console.log('paragraphContainerCount: ', paragraphContainerCount);
+                            
                             // On desktop the processing of the images should happen simultaniously to precessing the next paragraph
                             // await processImageQueue();
     
@@ -790,7 +794,7 @@ async function handleDelta(content) {
                                 // Check if there is a previous paragraph container or if it is the first paragraph
                                 if (!previousParagraphContainer) {
                                     const largeParagraphContainer = document.createElement('div');
-                                    largeParagraphContainer.classList.add('large-paragraph-container');
+                                    largeParagraphContainer.classList.add('large-paragraph-container', 'paragraph-outter-container');
 
                                     paragraphContainer.classList.add('large-paragraph');
                                     paragraphContainer.setAttribute('data-width', 'large');
@@ -798,51 +802,67 @@ async function handleDelta(content) {
                                     largeParagraphContainer.appendChild(paragraphContainer);
                                     contentContainer.appendChild(largeParagraphContainer);
                                 } else {
-                                    randomNumber = getRandomInt();
-                                    if (randomNumber === 1) {
-                                        if (previousParagraphContainer && 
-                                            previousParagraphContainer.dataset.width === 'large' && 
-                                            !previousParagraphContainer.hasAttribute('data-image-paragraph')) {
-                                                const largeParagraphContainers = document.querySelectorAll('.large-paragraph-container');
-                                                const lastLargeParagraphContainer = largeParagraphContainers[largeParagraphContainers.length - 1];
-                                                lastLargeParagraphContainer.appendChild(paragraphContainer);
-                                        } else {
-                                            const largeParagraphContainer = document.createElement('div');
-                                            largeParagraphContainer.classList.add('large-paragraph-container', '.paragraph-outter-container');
-                                            paragraphContainer.classList.add('large-paragraph');
+                                    // Check if the paragraph container even and the previous paragraph container is not an image paragraph
+                                    if ((paragraphContainerCount % 2 === 0) && (!previousParagraphContainer.hasAttribute('data-image-paragraph'))) {
+                                        // Number even
+                                        const outterContainerPreviousParagraph = previousParagraphContainer.parentElement;
+                                        const containerWidth = previousParagraphContainer.getAttribute('data-width');
+
+                                        if (containerWidth === 'large') {
                                             paragraphContainer.setAttribute('data-width', 'large');
-                                            largeParagraphContainer.appendChild(paragraphContainer);
-                                            contentContainer.appendChild(largeParagraphContainer);
-                                        }
-                                    } else if (randomNumber === 2) {
-                                        if (previousParagraphContainer && 
-                                            previousParagraphContainer.dataset.width === 'medium' && 
-                                            !previousParagraphContainer.hasAttribute('data-image-paragraph')) {
-                                                const mediumParagraphContainers = document.querySelectorAll('.medium-paragraph-container');
-                                                const lastMediumParagraphContainer = mediumParagraphContainers[mediumParagraphContainers.length - 1];
-                                                lastMediumParagraphContainer.appendChild(paragraphContainer);
-                                        } else {
-                                            const mediumParagraphContainer = document.createElement('div');
-                                            mediumParagraphContainer.classList.add('medium-paragraph-container', '.paragraph-outter-container');
-                                            paragraphContainer.classList.add('medium-paragraph');
+                                        } else if (containerWidth === 'medium') {
                                             paragraphContainer.setAttribute('data-width', 'medium');
-                                            mediumParagraphContainer.appendChild(paragraphContainer);
-                                            contentContainer.appendChild(mediumParagraphContainer);
-                                        }
-                                    } else if (randomNumber === 3) {
-                                        if (previousParagraphContainer && 
-                                            previousParagraphContainer.dataset.width === 'small' && 
-                                            !previousParagraphContainer.hasAttribute('data-image-paragraph')) {
-                                                const smallParagraphContainers = document.querySelectorAll('.small-paragraph-container');
-                                                const lastSmallParagraphContainer = smallParagraphContainers[smallParagraphContainers.length - 1];
-                                                lastSmallParagraphContainer.appendChild(paragraphContainer);
-                                        } else {
-                                            const smallParagraphContainer = document.createElement('div');
-                                            smallParagraphContainer.classList.add('small-paragraph-container', '.paragraph-outter-container');
-                                            paragraphContainer.classList.add('small-paragraph');
+                                        } else if (containerWidth === 'small') {
                                             paragraphContainer.setAttribute('data-width', 'small');
-                                            smallParagraphContainer.appendChild(paragraphContainer);
-                                            contentContainer.appendChild(smallParagraphContainer);
+                                        }
+
+                                        outterContainerPreviousParagraph.appendChild(paragraphContainer);
+
+                                    } else {
+                                        // Number is odd
+                                        randomNumber = getRandomInt();
+                                        if (randomNumber === 1) {
+                                            if (previousParagraphContainer && 
+                                                previousParagraphContainer.dataset.width === 'large' && 
+                                                !previousParagraphContainer.hasAttribute('data-image-paragraph')) {
+                                                    const largeParagraphContainers = document.querySelectorAll('.large-paragraph-container');
+                                                    const lastLargeParagraphContainer = largeParagraphContainers[largeParagraphContainers.length - 1];
+                                                    lastLargeParagraphContainer.appendChild(paragraphContainer);
+                                            } else {
+                                                const largeParagraphContainer = document.createElement('div');
+                                                largeParagraphContainer.classList.add('large-paragraph-container', 'paragraph-outter-container');
+                                                paragraphContainer.setAttribute('data-width', 'large');
+                                                largeParagraphContainer.appendChild(paragraphContainer);
+                                                contentContainer.appendChild(largeParagraphContainer);
+                                            }
+                                        } else if (randomNumber === 2) {
+                                            if (previousParagraphContainer && 
+                                                previousParagraphContainer.dataset.width === 'medium' && 
+                                                !previousParagraphContainer.hasAttribute('data-image-paragraph')) {
+                                                    const mediumParagraphContainers = document.querySelectorAll('.medium-paragraph-container');
+                                                    const lastMediumParagraphContainer = mediumParagraphContainers[mediumParagraphContainers.length - 1];
+                                                    lastMediumParagraphContainer.appendChild(paragraphContainer);
+                                            } else {
+                                                const mediumParagraphContainer = document.createElement('div');
+                                                mediumParagraphContainer.classList.add('medium-paragraph-container', 'paragraph-outter-container');
+                                                paragraphContainer.setAttribute('data-width', 'medium');
+                                                mediumParagraphContainer.appendChild(paragraphContainer);
+                                                contentContainer.appendChild(mediumParagraphContainer);
+                                            }
+                                        } else if (randomNumber === 3) {
+                                            if (previousParagraphContainer && 
+                                                previousParagraphContainer.dataset.width === 'small' && 
+                                                !previousParagraphContainer.hasAttribute('data-image-paragraph')) {
+                                                    const smallParagraphContainers = document.querySelectorAll('.small-paragraph-container');
+                                                    const lastSmallParagraphContainer = smallParagraphContainers[smallParagraphContainers.length - 1];
+                                                    lastSmallParagraphContainer.appendChild(paragraphContainer);
+                                            } else {
+                                                const smallParagraphContainer = document.createElement('div');
+                                                smallParagraphContainer.classList.add('small-paragraph-container', 'paragraph-outter-container');
+                                                paragraphContainer.setAttribute('data-width', 'small');
+                                                smallParagraphContainer.appendChild(paragraphContainer);
+                                                contentContainer.appendChild(smallParagraphContainer);
+                                            }
                                         }
                                     }
                                 }

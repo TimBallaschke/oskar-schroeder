@@ -108,6 +108,18 @@
     transition: all var(--animation-duration-1) ease-in-out;
     @include primary-type;
     padding: 0 0;
+
+    @include desktop-small {
+        display: inline;
+    }
+
+    @include desktop-large {
+        display: inline;
+    }
+
+    @include desktop-x-large {
+        display: inline;
+    }
 }
 
 .paragraph-word {
