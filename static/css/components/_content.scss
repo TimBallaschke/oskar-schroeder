@@ -69,41 +69,6 @@
 }
 
 
-.half-width-image-container {
-    padding-top: 17px;
-    padding-bottom: 17px;
-
-    @include desktop-small {
-        padding-top: 8px;
-        grid-column: 1 / 3;
-        width: 100%;
-
-        &.small-padding {
-            padding-top: 6px;
-        }
-    }
-
-    @include desktop-large {
-        padding-top: 8px;
-        grid-column: 1 / 3;
-        width: 100%;
-
-        &.small-padding {
-            padding-top: 6px;
-        }
-    }
-
-    @include desktop-x-large {
-        padding-top: 33px;
-        grid-column: 1 / 3;
-        width: 100%;
-
-        &.small-padding {
-            padding-top: 6px;
-        }
-    }
-}
-
 .paragraph-container {
     transition: all var(--animation-duration-1) ease-in-out;
     @include primary-type;
@@ -130,12 +95,58 @@
     }
 }
 
+.image-container {
+    padding-top: calc(var(--primary-font-size) / 2);
+    padding-bottom: calc(var(--primary-font-size) / 2);
+
+    @include desktop-small {
+        grid-column: 1 / 7;
+        width: 100%;
+
+        &.small-padding {
+            padding-top: 6px;
+        }
+    }
+
+    @include desktop-large {
+        grid-column: 1 / 7;
+        width: 100%;
+
+        &.small-padding {
+            padding-top: 6px;
+        }
+    }
+
+    @include desktop-x-large {
+        grid-column: 1 / 7;
+        width: 100%;
+
+        &.small-padding {
+            padding-top: 6px;
+        }
+    }
+}
+
 .paragraph-image {
     height: 0;
     width: 100%;
     position: relative;
     transition: height var(--animation-duration-4) ease-in-out, width var(--animation-duration-3) ease-in-out;
 
+    @include desktop-small {
+        display: grid;
+        grid-template-columns: repeat(calc(var(--column-amount-content-container) - 2), 1fr);
+    }
+
+    @include desktop-large {
+        display: grid;
+        grid-template-columns: repeat(calc(var(--column-amount-content-container) - 2), 1fr);
+    }
+
+    @include desktop-x-large {
+        display: grid;
+        grid-template-columns: repeat(calc(var(--column-amount-content-container) - 2), 1fr);
+    }
 
     &::before {
         content: '';
@@ -171,6 +182,7 @@
         transition: all var(--animation-duration-1) ease-in-out;
         padding-top: 22px;
         padding-bottom: 6px;
+        grid-column: 4 / 7;
 
 
         &.blur {

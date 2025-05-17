@@ -135,43 +135,43 @@ async function processImageQueue() {
                 const imageURL = queueImage.url;
                 const imageCaption = queueImage.caption;
 
-                const halfWidthImageContainers = document.querySelectorAll('.half-width-image-container');
-                const lastHalfWidthImageContainer = halfWidthImageContainers[halfWidthImageContainers.length - 1];
-        
                 const imageContainer = document.createElement('div');
-                imageContainer.classList.add('paragraph-image', 'no-width');
+                imageContainer.classList.add('image-container');
+        
+                const paragraphImage = document.createElement('div');
+                paragraphImage.classList.add('paragraph-image', 'no-width');
         
                 // Create and add the image element
                 const image = document.createElement('img');
                 image.classList.add('no-opacity', 'blur');
                 image.src = imageURL;
-                imageContainer.appendChild(image);
+                paragraphImage.appendChild(image);
 
-                const captionContainer = document.createElement('div');
-                captionContainer.classList.add('image-caption');
+                // const captionContainer = document.createElement('div');
+                // captionContainer.classList.add('image-caption');
                 
-                const words = imageCaption.split(' ');
-                words.forEach(word => {
-                    const wordSpan = document.createElement('span');
-                    wordSpan.textContent = word + ' ';
-                    wordSpan.classList.add('caption-word', 'no-opacity', 'light');
-                    captionContainer.appendChild(wordSpan);
-                });
+                // const words = imageCaption.split(' ');
+                // words.forEach(word => {
+                //     const wordSpan = document.createElement('span');
+                //     wordSpan.textContent = word + ' ';
+                //     wordSpan.classList.add('caption-word', 'no-opacity', 'light');
+                //     captionContainer.appendChild(wordSpan);
+                // });
                 
-                imageContainer.appendChild(captionContainer);
-        
-                lastHalfWidthImageContainer.appendChild(imageContainer);
+                
+                imageContainer.appendChild(paragraphImage);
+                contentContainer.appendChild(imageContainer);
         
                 // Wait for image to load before removing no-width class
                 image.onload = () => {
                     setTimeout(() => {
-                        imageContainer.classList.remove('no-width');
+                        paragraphImage.classList.remove('no-width');
                         console.log('imageContainer scrollHeight: ', imageContainer.scrollHeight);
                         console.log('image offsetHeight:', image.offsetHeight);
                     }, 10);
         
                     setTimeout(() => {
-                        imageContainer.style.height = `${imageContainer.scrollHeight}px`;
+                        paragraphImage.style.height = `${imageContainer.scrollHeight}px`;
                     }, 550);
 
                     setTimeout(() => {
@@ -180,27 +180,28 @@ async function processImageQueue() {
 
                     setTimeout(() => {
                         image.classList.remove('blur');
+                        resolve();
                     }, 1700);
 
-                    setTimeout(() => {
-                        const captionWords = imageContainer.querySelectorAll('.image-caption span');
-                        let wordIndex = 0;
+                    // setTimeout(() => {
+                    //     const captionWords = imageContainer.querySelectorAll('.image-caption span');
+                    //     let wordIndex = 0;
 
 
-                        function revealNextWord() {
-                            if (wordIndex < captionWords.length) {
-                                captionWords[wordIndex].classList.remove('no-opacity', 'light');
+                    //     function revealNextWord() {
+                    //         if (wordIndex < captionWords.length) {
+                    //             captionWords[wordIndex].classList.remove('no-opacity', 'light');
 
-                                wordIndex++;
-                                setTimeout(revealNextWord, 100);
-                            } else  {
-                                resolve();
-                            }
-                        }
+                    //             wordIndex++;
+                    //             setTimeout(revealNextWord, 100);
+                    //         } else  {
+                    //             resolve();
+                    //         }
+                    //     }
 
-                        revealNextWord();
+                    //     revealNextWord();
 
-                    }, 2000);
+                    // }, 2000);
                 };
             });
         }
@@ -757,12 +758,18 @@ async function handleDelta(content) {
 
                             paragraphContainerCount++;
                             
-                            // On desktop the processing of the images should happen simultaniously to precessing the next paragraph
-                            // await processImageQueue();
-    
+                            
                             if ((contentContainer.lastElementChild && contentContainer.lastElementChild.classList.contains('paragraph-outter-container')) || window.innerWidth <= mobileWidth) { // only execute if there is a paragraph outter container or on mobile
                                 allParagraphContainers = contentContainer.querySelectorAll('.paragraph-container');
                                 previousParagraphContainer = allParagraphContainers[allParagraphContainers.length - 1];
+                            }
+
+                            if(window.innerWidth <= mobileWidth) {
+                                await processImageQueue();
+                            } else {
+                                if ((paragraphContainerCount % 2 === 1)) {
+                                    await processImageQueue();
+                                }
                             }
 
                             paragraphContainer = document.createElement('p');
@@ -809,7 +816,7 @@ async function handleDelta(content) {
                                     numberExclude = 1; // so the next container is not as wide as the previous one
                                 } else {
                                     // Check if the paragraph container even and the previous paragraph container is not an image paragraph
-                                    if ((paragraphContainerCount % 2 === 0) && (!previousParagraphContainer.hasAttribute('data-image-paragraph'))) {
+                                    if ((paragraphContainerCount % 2 === 0)) {
                                         // Number even
                                         const outterContainerPreviousParagraph = previousParagraphContainer.parentElement;
                                         const containerWidth = previousParagraphContainer.getAttribute('data-width');
