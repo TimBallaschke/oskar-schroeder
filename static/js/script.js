@@ -1032,20 +1032,26 @@ async function handleDelta(content) {
 
                             let itemContainer = listContainer.querySelector(`[data-item-id="${itemID}"]`);
                             if (!itemContainer) {
-                                itemContainer = document.createElement('div');
-                                itemContainer.classList.add('item-container');
-                                itemContainer.setAttribute('data-item-id', itemID);
-                                listContainer.appendChild(itemContainer);
+                                await new Promise(resolve => {
+                                    itemContainer = document.createElement('div');
+                                    itemContainer.classList.add('item-container', 'no-width');
+                                    itemContainer.setAttribute('data-item-id', itemID);
+                                    listContainer.appendChild(itemContainer);
+
+                                    setTimeout(() => {
+                                        itemContainer.classList.remove('no-width');
+                                    }, 10);
+
+                                    setTimeout(resolve, animationDuration + 10);
+                                });
                             }
 
                             if (listItem.prefix && 'item' in listItem && !componentMap.get(itemID).has('prefix')) {
                                 await new Promise(resolve => {
                                     componentMap.get(itemID).add('prefix');
-                                    const prefixContainer = document.createElement('div');
-                                    const prefixDigits = document.createElement('div');
+                                    const prefix = document.createElement('div');
 
-                                    prefixContainer.classList.add('item-prefix', 'no-height', 'no-width');
-                                    prefixDigits.classList.add('prefix-digits', 'no-opacity', 'light');
+                                    prefix.classList.add('item-prefix', 'light', 'no-opacity');
 
                                     const prefixString = listItem.prefix.toString();
                                     let prefixText = "";
@@ -1055,46 +1061,22 @@ async function handleDelta(content) {
                                     } else {
                                         prefixText = prefixString;
                                     }
-
-                                    const prefixLength = prefixText.length;
-                                    const secondaryFontSize = getCSSVarValue('--secondary-font-size', 16);
-                                    const secondaryFontWidth = secondaryFontSize * 0.6;
-                                    const prefixWidth = (prefixLength + 2) * secondaryFontWidth;
-                                    console.log('prefixWidth', prefixWidth);
-
-                                    const previousPrefixWidth = getCSSVarValue('--prefix-width', 0);
-                                    console.log('previousPrefixWidth', previousPrefixWidth);
-
-                                    if (prefixWidth > previousPrefixWidth) {
-                                        console.log('prefixWidth > previousPrefixWidth');
-                                        setCSSVarValue('--prefix-width', prefixWidth);
-                                    }
                                     
-                                    prefixDigits.textContent = prefixText;
+                                    prefix.textContent = prefixText;
 
-                                    prefixContainer.appendChild(prefixDigits);
-                                    itemContainer.appendChild(prefixContainer);
-
-                                    setTimeout(() => {
-                                        prefixContainer.classList.remove('no-height');
-                                    }, 10);
+                                    itemContainer.appendChild(prefix);
+                                    const itemContainerHeight = itemContainer.scrollHeight;
+                                    itemContainer.style.height = `${itemContainerHeight}px`;
 
                                     setTimeout(() => {
-                                        prefixContainer.classList.remove('no-width');
-                                    }, 200);
+                                        prefix.classList.remove('no-opacity');
+                                    }, animationDuration + 10);
 
                                     setTimeout(() => {
-                                        prefixDigits.classList.remove('no-opacity');
-                                    }, animationDuration + 200);
+                                        prefix.classList.remove('light');
+                                    }, animationDuration + 20);
 
-                                    setTimeout(() => {
-                                        prefixDigits.classList.remove('light');
-                                    }, animationDuration + 210);
-
-                                    setTimeout(() => {
-                                        prefixContainer.classList.remove('light');
-                                        resolve();
-                                    }, animationDuration + 310);
+                                    setTimeout(resolve, animationDuration + 20);
                                 });
                             }
 
@@ -1105,6 +1087,9 @@ async function handleDelta(content) {
                                     const textContainer = document.createElement('div');
                                     textContainer.classList.add('item-text');
                                     itemContainer.appendChild(textContainer);
+
+                                    // Store initial scrollHeight
+                                    let previousScrollHeight = itemContainer.scrollHeight;
                             
                                     // Split the item text into words
                                     const words = listItem.item.split(' ');
@@ -1122,19 +1107,39 @@ async function handleDelta(content) {
                                             wordSpan.textContent = words[wordIndex];
                                             wordSpan.classList.add('item-word', 'light', 'no-opacity');
                                             textContainer.appendChild(wordSpan);
+
+                                            const currentScrollHeight = itemContainer.scrollHeight;
+                                            if (currentScrollHeight !== previousScrollHeight) {
+                                                // Update height to new scrollHeight
+                                                itemContainer.style.height = `${currentScrollHeight}px`;
+                                                previousScrollHeight = currentScrollHeight;
+
+                                                setTimeout(() => {
+                                                    wordSpan.classList.remove('no-opacity');
+                                                }, animationDuration - 200);
+                                                
+                                                setTimeout(() => {
+                                                    wordSpan.classList.remove('light');
+                                                }, animationDuration - 180);
+
+                                                wordIndex++;
+                                                // Add small delay between words
+                                                setTimeout(addNextWord, animationDuration - 180);
+                                            } else {
+                                                setTimeout(() => {
+                                                    wordSpan.classList.remove('no-opacity');
+                                                }, 10);
+
+                                                setTimeout(() => {
+                                                    wordSpan.classList.remove('light');
+                                                }, 50);
+
+                                                wordIndex++;
+                                                // Add small delay between words
+                                                setTimeout(addNextWord, 50);
+                                                
+                                            }
                             
-                                            // Remove light class after a short delay
-                                            setTimeout(() => {
-                                                wordSpan.classList.remove('no-opacity');
-                                            }, 10);
-                            
-                                            setTimeout(() => {
-                                                wordSpan.classList.remove('light');
-                                            }, 50);
-                            
-                                            wordIndex++;
-                                            // Add small delay between words
-                                            setTimeout(addNextWord, 100);
                                         } else {
                                             resolve();
                                         }
