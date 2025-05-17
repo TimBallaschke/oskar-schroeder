@@ -66,7 +66,7 @@
 }
 @media (min-width: 1441px) {
   :root {
-    --page-padding: 20px;
+    --page-padding: 30px;
     --primary-font-size: 24px;
     --primary-line-height: 27.5px;
     --secondary-font-size: 16px;

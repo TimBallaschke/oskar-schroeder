@@ -33,8 +33,12 @@ function setCSSVarValue(varName, value, unit = 'px') {
 }
 
 function getRandomInt() {
-    return Math.floor(Math.random() * 2) + 2;
+    const options = [1, 2, 3].filter(n => n !== numberExclude);
+    return options[Math.floor(Math.random() * options.length)];
 }
+
+
+
 
 // TABLES
 
@@ -263,6 +267,7 @@ let imageQueue = [];
 let isImageQueueProcessing = false;
 let termDescriptionCount = 0;
 let paragraphContainerCount = 0;
+let numberExclude = 0;
 
 
 
@@ -751,7 +756,6 @@ async function handleDelta(content) {
                         if (!paragraphContainer) {
 
                             paragraphContainerCount++;
-                            console.log('paragraphContainerCount: ', paragraphContainerCount);
                             
                             // On desktop the processing of the images should happen simultaniously to precessing the next paragraph
                             // await processImageQueue();
@@ -801,6 +805,8 @@ async function handleDelta(content) {
 
                                     largeParagraphContainer.appendChild(paragraphContainer);
                                     contentContainer.appendChild(largeParagraphContainer);
+
+                                    numberExclude = 1; // so the next container is not as wide as the previous one
                                 } else {
                                     // Check if the paragraph container even and the previous paragraph container is not an image paragraph
                                     if ((paragraphContainerCount % 2 === 0) && (!previousParagraphContainer.hasAttribute('data-image-paragraph'))) {
@@ -822,47 +828,29 @@ async function handleDelta(content) {
                                         // Number is odd
                                         randomNumber = getRandomInt();
                                         if (randomNumber === 1) {
-                                            if (previousParagraphContainer && 
-                                                previousParagraphContainer.dataset.width === 'large' && 
-                                                !previousParagraphContainer.hasAttribute('data-image-paragraph')) {
-                                                    const largeParagraphContainers = document.querySelectorAll('.large-paragraph-container');
-                                                    const lastLargeParagraphContainer = largeParagraphContainers[largeParagraphContainers.length - 1];
-                                                    lastLargeParagraphContainer.appendChild(paragraphContainer);
-                                            } else {
-                                                const largeParagraphContainer = document.createElement('div');
-                                                largeParagraphContainer.classList.add('large-paragraph-container', 'paragraph-outter-container');
-                                                paragraphContainer.setAttribute('data-width', 'large');
-                                                largeParagraphContainer.appendChild(paragraphContainer);
-                                                contentContainer.appendChild(largeParagraphContainer);
-                                            }
+                                            const largeParagraphContainer = document.createElement('div');
+                                            largeParagraphContainer.classList.add('large-paragraph-container', 'paragraph-outter-container');
+                                            paragraphContainer.setAttribute('data-width', 'large');
+                                            largeParagraphContainer.appendChild(paragraphContainer);
+                                            contentContainer.appendChild(largeParagraphContainer);
+
+                                            numberExclude = 1; // so the next container is not as wide as the previous one
                                         } else if (randomNumber === 2) {
-                                            if (previousParagraphContainer && 
-                                                previousParagraphContainer.dataset.width === 'medium' && 
-                                                !previousParagraphContainer.hasAttribute('data-image-paragraph')) {
-                                                    const mediumParagraphContainers = document.querySelectorAll('.medium-paragraph-container');
-                                                    const lastMediumParagraphContainer = mediumParagraphContainers[mediumParagraphContainers.length - 1];
-                                                    lastMediumParagraphContainer.appendChild(paragraphContainer);
-                                            } else {
-                                                const mediumParagraphContainer = document.createElement('div');
-                                                mediumParagraphContainer.classList.add('medium-paragraph-container', 'paragraph-outter-container');
-                                                paragraphContainer.setAttribute('data-width', 'medium');
-                                                mediumParagraphContainer.appendChild(paragraphContainer);
-                                                contentContainer.appendChild(mediumParagraphContainer);
-                                            }
+                                            const mediumParagraphContainer = document.createElement('div');
+                                            mediumParagraphContainer.classList.add('medium-paragraph-container', 'paragraph-outter-container');
+                                            paragraphContainer.setAttribute('data-width', 'medium');
+                                            mediumParagraphContainer.appendChild(paragraphContainer);
+                                            contentContainer.appendChild(mediumParagraphContainer);
+
+                                            numberExclude = 2; // so the next container is not as wide as the previous one
                                         } else if (randomNumber === 3) {
-                                            if (previousParagraphContainer && 
-                                                previousParagraphContainer.dataset.width === 'small' && 
-                                                !previousParagraphContainer.hasAttribute('data-image-paragraph')) {
-                                                    const smallParagraphContainers = document.querySelectorAll('.small-paragraph-container');
-                                                    const lastSmallParagraphContainer = smallParagraphContainers[smallParagraphContainers.length - 1];
-                                                    lastSmallParagraphContainer.appendChild(paragraphContainer);
-                                            } else {
-                                                const smallParagraphContainer = document.createElement('div');
-                                                smallParagraphContainer.classList.add('small-paragraph-container', 'paragraph-outter-container');
-                                                paragraphContainer.setAttribute('data-width', 'small');
-                                                smallParagraphContainer.appendChild(paragraphContainer);
-                                                contentContainer.appendChild(smallParagraphContainer);
-                                            }
+                                            const smallParagraphContainer = document.createElement('div');
+                                            smallParagraphContainer.classList.add('small-paragraph-container', 'paragraph-outter-container');
+                                            paragraphContainer.setAttribute('data-width', 'small');
+                                            smallParagraphContainer.appendChild(paragraphContainer);
+                                            contentContainer.appendChild(smallParagraphContainer);
+
+                                            numberExclude = 3; // so the next container is not as wide as the previous one
                                         }
                                     }
                                 }
