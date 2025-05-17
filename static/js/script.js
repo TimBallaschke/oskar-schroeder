@@ -135,8 +135,16 @@ async function processImageQueue() {
                 const imageURL = queueImage.url;
                 const imageCaption = queueImage.caption;
 
-                const imageContainer = document.createElement('div');
-                imageContainer.classList.add('image-container');
+                let imageContainer;
+
+                // Check if the last element is an image container otherwise create a new one
+                const previousElement = contentContainer.lastElementChild;
+                if (!previousElement || !previousElement.classList.contains('image-container')) {
+                    imageContainer = document.createElement('div');
+                    imageContainer.classList.add('image-container');
+                } else {
+                    imageContainer = previousElement;
+                }
         
                 const paragraphImage = document.createElement('div');
                 paragraphImage.classList.add('paragraph-image', 'no-width');
@@ -145,20 +153,28 @@ async function processImageQueue() {
                 const image = document.createElement('img');
                 image.classList.add('no-opacity', 'blur');
                 image.src = imageURL;
-                paragraphImage.appendChild(image);
+                
 
-                // const captionContainer = document.createElement('div');
-                // captionContainer.classList.add('image-caption');
+                const captionContainer = document.createElement('div');
+                captionContainer.classList.add('image-caption');
                 
-                // const words = imageCaption.split(' ');
-                // words.forEach(word => {
-                //     const wordSpan = document.createElement('span');
-                //     wordSpan.textContent = word + ' ';
-                //     wordSpan.classList.add('caption-word', 'no-opacity', 'light');
-                //     captionContainer.appendChild(wordSpan);
-                // });
+                const words = imageCaption.split(' ');
+                words.forEach(word => {
+                    const wordSpan = document.createElement('span');
+                    wordSpan.textContent = word + ' ';
+                    wordSpan.classList.add('caption-word', 'no-opacity', 'light');
+                    captionContainer.appendChild(wordSpan);
+                });
                 
-                
+                // Different order of adding elements based on mobile or desktop
+                if(window.innerWidth <= mobileWidth) {
+                    paragraphImage.appendChild(image);
+                    paragraphImage.appendChild(captionContainer);
+                } else {
+                    paragraphImage.appendChild(captionContainer);
+                    paragraphImage.appendChild(image);
+                }
+
                 imageContainer.appendChild(paragraphImage);
                 contentContainer.appendChild(imageContainer);
         
@@ -166,12 +182,10 @@ async function processImageQueue() {
                 image.onload = () => {
                     setTimeout(() => {
                         paragraphImage.classList.remove('no-width');
-                        console.log('imageContainer scrollHeight: ', imageContainer.scrollHeight);
-                        console.log('image offsetHeight:', image.offsetHeight);
                     }, 10);
         
                     setTimeout(() => {
-                        paragraphImage.style.height = `${imageContainer.scrollHeight}px`;
+                        paragraphImage.style.height = `${paragraphImage.scrollHeight}px`;
                     }, 550);
 
                     setTimeout(() => {
@@ -180,28 +194,27 @@ async function processImageQueue() {
 
                     setTimeout(() => {
                         image.classList.remove('blur');
-                        resolve();
                     }, 1700);
 
-                    // setTimeout(() => {
-                    //     const captionWords = imageContainer.querySelectorAll('.image-caption span');
-                    //     let wordIndex = 0;
+                    setTimeout(() => {
+                        const captionWords = captionContainer.querySelectorAll('.caption-word');
+                        let wordIndex = 0;
 
 
-                    //     function revealNextWord() {
-                    //         if (wordIndex < captionWords.length) {
-                    //             captionWords[wordIndex].classList.remove('no-opacity', 'light');
+                        function revealNextWord() {
+                            if (wordIndex < captionWords.length) {
+                                captionWords[wordIndex].classList.remove('no-opacity', 'light');
 
-                    //             wordIndex++;
-                    //             setTimeout(revealNextWord, 100);
-                    //         } else  {
-                    //             resolve();
-                    //         }
-                    //     }
+                                wordIndex++;
+                                setTimeout(revealNextWord, 50);
+                            } else  {
+                                resolve();
+                            }
+                        }
 
-                    //     revealNextWord();
+                        revealNextWord();
 
-                    // }, 2000);
+                    }, 1900);
                 };
             });
         }
@@ -1435,6 +1448,12 @@ async function renderNextProject() {
             const { id, key, value, container, index } = projectRenderingQueue.shift();
 
             if (key === 'stream_finished') {
+
+                // Remove the last project container that was only created for marking the end of the stream
+                const projectContainers = document.querySelectorAll('.projects-container');
+                const lastProjectContainer = projectContainers[projectContainers.length - 1];
+                lastProjectContainer.remove();
+
                 processImageQueue();
 
                 isStreaming = false;

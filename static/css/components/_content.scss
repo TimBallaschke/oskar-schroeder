@@ -103,27 +103,18 @@
         grid-column: 1 / 7;
         width: 100%;
 
-        &.small-padding {
-            padding-top: 6px;
-        }
     }
 
     @include desktop-large {
         grid-column: 1 / 7;
         width: 100%;
 
-        &.small-padding {
-            padding-top: 6px;
-        }
     }
 
     @include desktop-x-large {
         grid-column: 1 / 7;
         width: 100%;
 
-        &.small-padding {
-            padding-top: 6px;
-        }
     }
 }
 
@@ -180,8 +171,8 @@
         height: auto;
         object-fit: contain;
         transition: all var(--animation-duration-1) ease-in-out;
-        padding-top: 22px;
-        padding-bottom: 6px;
+        padding-top: calc(var(--primary-font-size) / 2);
+        padding-bottom: calc(var(--primary-font-size) / 2);
         grid-column: 4 / 7;
 
 
@@ -194,18 +185,15 @@
         }
 
         @include desktop-small {
-            padding-top: 42px;
-            padding-bottom: 9px;
+
         }
 
         @include desktop-large {
-            padding-top: 42px;
-            padding-bottom: 9px;
+
         }
 
         @include desktop-x-large {
-            padding-top: 42px;
-            padding-bottom: 9px;
+
         }
     }
 }
@@ -215,15 +203,21 @@
     @include secondary-type;
 
     @include desktop-small {
-        padding-bottom: 14px;
+        grid-column: 1 / 4;
+        padding-top: calc(var(--primary-font-size) / 2);
+        padding-right: 15px;
     }
 
     @include desktop-large {
-        padding-bottom: 14px;
+        grid-column: 1 / 4;
+        padding-top: calc(var(--primary-font-size) / 2);
+        padding-right: 15px;
     }   
 
     @include desktop-x-large {
-        padding-bottom: 14px;
+        grid-column: 1 / 4;
+        padding-top: calc(var(--primary-font-size) / 2);
+        padding-right: 15px;
     }
 }
 
