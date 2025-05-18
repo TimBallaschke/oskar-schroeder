@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 130px;
+  height: 120px;
   background: linear-gradient(
     to bottom,
     #f4f7fc 0%,
@@ -17,18 +17,28 @@
 
 }
 
-#version-history-background-blur {
+.version-history-background-blur {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 50px;
-  backdrop-filter: blur(1px); /* this applies the blur */
-  -webkit-backdrop-filter: blur(1px); /* for Safari support */
+  backdrop-filter: blur(0.5px); /* this applies the blur */
+  -webkit-backdrop-filter: blur(0.5px); /* for Safari support */
   background-color: rgba(255, 255, 255, 0); /* transparent */
   pointer-events: none;
+}
 
+#version-history-background-blur-1 {
+  height: 50px;
+}
 
+#version-history-background-blur-2 {
+  height: 60px;
+}
+
+#version-history-background-blur-3 {
+  height: 70px;
 }
 
 #version-history {
@@ -223,15 +233,23 @@
 .scroll-down {
 
   #version-history {
-    height: 100px;
+    height: 90px;
   }
 
   #version-history-background {
     height: 100px;
   }
 
-  #version-history-background-blur {
-    height: 35px;
+  #version-history-background-blur-1 {
+    height: 30px;
+  }
+  
+  #version-history-background-blur-2 {
+    height: 40px;
+  }
+  
+  #version-history-background-blur-3 {
+    height: 50px;
   }
 
   .version-history-element {

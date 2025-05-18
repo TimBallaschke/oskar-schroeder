@@ -834,6 +834,7 @@ async function handleDelta(content) {
                                             paragraphContainer.setAttribute('data-width', 'small');
                                         }
 
+                                        outterContainerPreviousParagraph.appendChild(document.createTextNode(' '));
                                         outterContainerPreviousParagraph.appendChild(paragraphContainer);
 
                                     } else {
