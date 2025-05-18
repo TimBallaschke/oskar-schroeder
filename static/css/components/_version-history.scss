@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 120px;
+  height: 130px;
   background: linear-gradient(
     to bottom,
     #f4f7fc 0%,
@@ -27,18 +27,19 @@
   -webkit-backdrop-filter: blur(0.5px); /* for Safari support */
   background-color: rgba(255, 255, 255, 0); /* transparent */
   pointer-events: none;
+  z-index: 80;
 }
 
 #version-history-background-blur-1 {
-  height: 50px;
-}
-
-#version-history-background-blur-2 {
   height: 60px;
 }
 
-#version-history-background-blur-3 {
+#version-history-background-blur-2 {
   height: 70px;
+}
+
+#version-history-background-blur-3 {
+  height: 80px;
 }
 
 #version-history {
@@ -237,19 +238,19 @@
   }
 
   #version-history-background {
-    height: 100px;
+    height: 110px;
   }
 
   #version-history-background-blur-1 {
-    height: 30px;
-  }
-  
-  #version-history-background-blur-2 {
     height: 40px;
   }
   
-  #version-history-background-blur-3 {
+  #version-history-background-blur-2 {
     height: 50px;
+  }
+  
+  #version-history-background-blur-3 {
+    height: 60px;
   }
 
   .version-history-element {
