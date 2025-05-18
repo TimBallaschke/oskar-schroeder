@@ -84,7 +84,7 @@
     --button-size: 39px;
     --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
     --small-circle-size: 20px;
-    --content-padding-top: 110px;
+    --content-padding-top: 130px;
     --column-amount: 3;
     --column-gap: 15px;
   }
