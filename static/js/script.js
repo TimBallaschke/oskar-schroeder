@@ -42,8 +42,7 @@ function getRandomInt() {
 
 // TABLES
 
-function addTableHeadersMobile(appendDelay, animationDelay, row, headers, lastScrollHeight) {
-    setCSSVarValue('--table-rows-amount', headers.length, '');
+function addTableHeaders(appendDelay, animationDelay, row, headers, lastScrollHeight) {
 
     headers.forEach(header => {
         const headerDiv = document.createElement('div');
@@ -89,12 +88,9 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
                 rowContainer.classList.remove('no-padding');
             }, animationDuration + 10);
 
-            if (window.innerWidth < mobileWidth) {
-                addTableHeadersMobile(animationDuration + 10, 1000, row, headers, lastScrollHeight);
-                setTimeout(resolve, 1500);
-            } else {
-                setTimeout(resolve, 500);
-            }
+            addTableHeaders(animationDuration + 10, 1000, row, headers, lastScrollHeight);
+            setTimeout(resolve, 1500);
+            
 
         } else {
             rowContainer = document.createElement('div');
@@ -114,12 +110,8 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
                 rowContainer.classList.remove('no-padding');
             }, 10);
 
-            if (window.innerWidth < mobileWidth) {
-                addTableHeadersMobile(10, 500, row, headers);
-                setTimeout(resolve, 600);
-            } else {
-                setTimeout(resolve, 10);
-            }
+            addTableHeaders(10, 500, row, headers);
+            setTimeout(resolve, 600);
         }
     });
 }
@@ -1166,40 +1158,12 @@ async function handleDelta(content) {
                         }
                         
                         if (component.headers && Array.isArray(component.headers)) {
-                            // Create headers container for larger screens
-                            if (window.innerWidth > mobileWidth) {
-                                let headersContainer = tableContainer.querySelector('.headers');
-                                if (!headersContainer) {
-                                    headersContainer = document.createElement('div');
-                                    headersContainer.classList.add('headers');
-                                    tableContainer.insertBefore(headersContainer, tableContainer.firstChild);
+                            // For smaller screens, just track headers without creating elements
+                            for (const header of component.headers) {
+                                if (!componentMap.get('headers').has(header)) {
+                                    componentMap.get('headers').add(header);
                                 }
-
-                                for (const header of component.headers) {
-                                    if (!componentMap.get('headers').has(header)) {
-                                        await new Promise(resolve => {
-                                            componentMap.get('headers').add(header);
-                                            const headerItem = document.createElement('div');
-                                            headerItem.classList.add('header-item', 'light');
-                                            headerItem.textContent = header;
-                                            headersContainer.appendChild(headerItem);
-    
-                                            setTimeout(() => {
-                                                headerItem.classList.remove('light');
-                                            }, 10);
-
-                                            setTimeout(resolve, 500);
-                                        });
-                                    }
-                                };
-                            } else {
-                                // For smaller screens, just track headers without creating elements
-                                for (const header of component.headers) {
-                                    if (!componentMap.get('headers').has(header)) {
-                                        componentMap.get('headers').add(header);
-                                    }
-                                };
-                            }
+                            };
                         }
                         
                         // As soon as the rows are received, add them to the componentMap
@@ -1282,7 +1246,7 @@ async function handleDelta(content) {
 
                                                         setTimeout(() => {
                                                             wordSpan.classList.remove('light');
-                                                        }, 200);
+                                                        }, 50);
 
                                                         wordIndex++;
                                                         // Add small delay between words
