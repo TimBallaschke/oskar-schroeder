@@ -1,6 +1,6 @@
 :root {
   --page-padding: 10px;
-  --background-color: #f4f7fc;
+  --background-color: #F4F4F5;
   --primary-font-size: 16.5px;
   --primary-line-height: 19.8px;
   --secondary-font-size: 12px;
@@ -1656,7 +1656,7 @@ input {
   left: 0;
   width: 100vw;
   height: 130px;
-  background: linear-gradient(to bottom, rgb(244, 247, 252) 20%, rgba(244, 247, 252, 0.9) 55%, rgba(244, 247, 252, 0.5) 85%, rgba(244, 247, 252, 0) 100%);
+  background: linear-gradient(to bottom, rgb(244, 244, 245) 20%, rgba(244, 244, 245, 0.9) 55%, rgba(244, 244, 245, 0.5) 85%, rgba(244, 244, 245, 0) 100%);
   z-index: 90;
   pointer-events: none;
 }
