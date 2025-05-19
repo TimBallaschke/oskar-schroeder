@@ -447,39 +447,20 @@
     transition: all var(--animation-duration-1) ease-in-out;
 }
 
-.projects-container {
+.fullscreen {
     width: 100%;
 
-    &.fullscreen {
-        @include desktop-small {
-            grid-column: 1 / 7;
-        }
-
-        @include desktop-large {
-            grid-column: 1 / 7;
-        }
-
-        @include desktop-x-large {
-            grid-column: 1 / 7;
-        }
+    @include desktop-small {
+        grid-column: 1 / 7;
     }
 
-    &.grid {
-        @include desktop-small {
-            grid-column: 1 / 9;
-        }
-
-        @include desktop-large {
-            grid-column: 1 / 9;
-        }
-
-        @include desktop-x-large {
-            grid-column: 1 / 9;
-        } 
+    @include desktop-large {
+        grid-column: 1 / 7;
     }
-}
 
-.fullscreen {
+    @include desktop-x-large {
+        grid-column: 1 / 7;
+    }
 
     .project {
         display: grid;
@@ -548,7 +529,8 @@
         height: calc(var(--primary-line-height) + var(--secondary-line-height));
         margin: 18px 0 var(--content-padding-bottom) 0;
         transition: all var(--animation-duration-3) ease-in-out;
-    
+        position: relative;
+
         &.no-margin {
             margin: 0;
         }
@@ -558,18 +540,24 @@
         }
 
         @include desktop-small {
+            height: calc(100% - 18px);
             grid-row: 1 / 2;
             grid-column: 1 / 3;
+            margin: 18px 0 0 0;
         }
 
         @include desktop-large {
+            height: calc(100% - 18px);
             grid-row: 1 / 2;
             grid-column: 1 / 3;
+            margin: 18px 0 0 0;
         }
 
         @include desktop-x-large {
+            height: calc(100% - 18px);
             grid-row: 1 / 2;
             grid-column: 1 / 3;
+            margin: 18px 0 0 0;
         }
     }
             
@@ -624,6 +612,7 @@
         gap: 20px;
         margin-top: 26px;
         margin-bottom: 26px;
+        position: relative;
     
         &.blur {
             filter: blur(30px);
@@ -716,8 +705,9 @@
     }
     
     .image-counter {
-        position: relative;
-        grid-area: 1 / 2;
+        position: absolute;
+        bottom: 0;
+        right: 0;
         justify-self: end;  // This will align it to the right of the grid cell
         transition: all var(--animation-duration-2) ease-in-out;
         height: 15px;
@@ -725,7 +715,7 @@
         align-items: center;
         justify-content: center;
         width: 50px;
-        transform: translateY(-11px);
+        // transform: translateY(-11px);
         @include secondary-type;
 
         &::before,
@@ -817,7 +807,23 @@
     display: grid;
     grid-template-columns: repeat(var(--column-amount-projects), 1fr);
     column-gap: var(--column-gap-projects);
+    row-gap: var(--column-gap-projects);
     width: 100%;
+
+    @include desktop-small {
+        grid-column: 1 / 9;
+        grid-template-columns: repeat(var(--column-amount-projects), 1fr);
+    }
+
+    @include desktop-large {
+        grid-column: 1 / 9;
+        grid-template-columns: repeat(var(--column-amount-projects), 1fr);
+    }
+
+    @include desktop-x-large {
+        grid-column: 1 / 9;
+        grid-template-columns: repeat(var(--column-amount-projects), 1fr);
+    } 
 
     .project {
         display: grid;
@@ -826,7 +832,20 @@
         grid-template-rows: repeat(2, auto);
         width: 100%;
         transition: all var(--animation-duration-1) ease-in-out;
-        padding: 8px 0 15px 0;
+        
+        // padding: 8px 0 15px 0;
+
+        @include desktop-small {
+            
+        }
+
+        @include desktop-large {
+            
+        }
+
+        @include desktop-x-large {
+            
+        }
     
         &::before,
         &::after {
@@ -861,30 +880,21 @@
     
     .project-information {
         grid-area: 2 / 1;
-        display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: var(--grid-line-height) 0px;
+        height: var(--grid-line-height);
         padding-top: 7px;
         transition: all var(--animation-duration-1) ease-in-out;
         // height: calc(3 * var(--grid-line-height));
 
         &.no-height {
-            grid-template-rows: 0px 0px;
+            height: 0px;
         }
     
         &.no-padding {
             padding-top: 0;
         }
     }
-    
-    .project-dot-container {
-        display: none;
-    }
-    
-    .project-dot {
-        display: none;
-    }
-    
+        
     .project-name {
         grid-area: 1 / 1;
         transition: all var(--animation-duration-1) ease-in-out;
@@ -896,27 +906,7 @@
     .project-year {
         transition: all var(--animation-duration-1) ease-in-out;
     }
-    
-    .project-material-dimensions {
-        display: none;
-        grid-area: 2 / 1;
-        transition: height var(--animation-duration-1) ease-in-out, font-variation-settings var(--animation-duration-1) ease-in-out;
-        @include secondary-type;
-        @include grid-text-offset;
-    }
-
-    .project-material-text {
-
-    }
-    
-    .project-dimensions {
-        display: none;
-        grid-area: 3 / 1;
-        transition: height var(--animation-duration-1) ease-in-out, font-variation-settings var(--animation-duration-1) ease-in-out;
-        @include secondary-type;
-        @include grid-text-offset;
-    }
-    
+        
     .project-images {
         grid-area: 1 / 1;
         transition: all var(--animation-duration-3) ease-in-out;

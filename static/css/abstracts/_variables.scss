@@ -80,6 +80,10 @@
     --secondary-font-size: 15px;
     --secondary-number-font-size: 13px;
     --large-font-size: 35px;
+
+    // Project Grid
+    --column-amount-projects: 4;
+    --column-gap-projects: 15px;
   }
 
   @include desktop-large {
@@ -88,6 +92,10 @@
     --secondary-number-font-size: 13px;
     --large-font-size: 35px;
     --small-circle-size: 20px;
+
+      // Project Grid
+    --column-amount-projects: 4;
+    --column-gap-projects: 15px;
   }
 
   @include desktop-x-large {
@@ -119,9 +127,9 @@
     // Content Container
     --content-padding-top: 130px;
 
-    // Project Grid
-    --column-amount: 3;
-    --column-gap: 15px;
+  // Project Grid
+  --column-amount-projects: 4;
+  --column-gap-projects: 15px;
   }
 }
 
