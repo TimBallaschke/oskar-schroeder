@@ -203,10 +203,9 @@ class ProjectComponent(BaseModel):
     year: str = Field(description="Year the project was created")
     material: str = Field(description="Primary material used in the project")
     dimensions: str = Field(description="Physical dimensions of the project")
-    description: Optional[List[str]] = Field(
+    description: List[str] = Field(
         description=(
-            "A detailed project description of about 4-8 sentences. Provide this only when the user explicitly requests additional details. "
-            "Do not include an extended narrative unless it is specifically asked for."
+            "A project description."
         )
     )
 

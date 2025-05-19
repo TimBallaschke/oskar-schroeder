@@ -1667,7 +1667,7 @@ async function renderNextProject() {
     
                             if (!imageContainer) {
                                 imageContainer = document.createElement('div');
-                                imageContainer.classList.add('project-images', 'no-height', 'no-margin');
+                                imageContainer.classList.add('project-images', 'no-height', 'no-margin', 'blur');
                                 
                                 projectInfo = document.createElement('div');
                                 projectInfo.classList.add('project-information', 'no-margin', 'no-height');
@@ -1712,8 +1712,7 @@ async function renderNextProject() {
                                 
 
                                 setTimeout(() => {
-                                    resolve();
-
+                                    
                                     // Process each image URL in the array
                                     value.forEach(imageUrl => {
                                         // Check if image with this URL already exists
@@ -1725,7 +1724,7 @@ async function renderNextProject() {
                             
                                             // Create the img element
                                             const imgElement = document.createElement('img');
-                                            imgElement.classList.add('img-element', 'no-opacity', 'blur');
+                                            imgElement.classList.add('img-element', 'no-opacity');
                                             imgElement.src = imageUrl;
                                             
                                             // Add img to wrapper
@@ -1734,7 +1733,12 @@ async function renderNextProject() {
                             
                                             // Add fade-in effect once image is loaded
                                             imgElement.onload = () => {
-                                                imgElement.classList.remove('blur', 'no-opacity');
+                                                imgElement.classList.remove('no-opacity');
+
+                                                setTimeout(() => {
+                                                    imageContainer.classList.remove('blur');
+                                                    imgElement.classList.remove('blur');
+                                                }, 200);
 
                                                 // Update the digits span with new total
                                                 const digitsSpan = projectInfo.querySelector('.image-counter-digits');
@@ -1746,7 +1750,8 @@ async function renderNextProject() {
                                             };
                                         }
                                     }); 
-                                }, animationDuration * 2);
+                                }, animationDuration + 200);
+                                setTimeout(resolve, 1200);
                             } else {
                                 setTimeout(() => {
                                     resolve();
@@ -1771,7 +1776,11 @@ async function renderNextProject() {
                             
                                             // Add fade-in effect once image is loaded
                                             imgElement.onload = () => {
-                                                imgElement.classList.remove('blur', 'no-opacity');
+                                                imgElement.classList.remove('no-opacity');
+
+                                                setTimeout(() => {
+                                                    // imgElement.classList.remove('blur');
+                                                }, 400);
 
                                                 // Update the digits span with new total
                                                 const digitsSpan = projectInfo.querySelector('.image-counter-digits');
@@ -1789,214 +1798,205 @@ async function renderNextProject() {
 
                         break;
                     case 'name':
-                        // await new Promise((resolve) => { 
+                        await new Promise((resolve) => { 
                             
-                        //     // Check if the element already exists to avoid duplicates
-                        //     let projectName = projectItem.querySelector('.project-name');
-                        //     let nameText = projectItem.querySelector('.project-name-text');
+                            // Check if the element already exists to avoid duplicates
+                            let projectInfo = projectItem.querySelector('.project-information');
+                            let projectName = projectItem.querySelector('.project-name');
+                            let nameText = projectItem.querySelector('.project-name-text');
 
-                        //     if (!projectName) {
-                        //         const projectInfo = document.createElement('div');
-                        //         projectInfo.classList.add('project-information', 'no-padding');
-            
-                        //         projectItem.appendChild(projectInfo);
+                            if (!projectName) {
+                            
+                                projectName = document.createElement('div');  // Correctly create the element
+                                projectName.classList.add(`project-${key}`);
+
+                                nameText = document.createElement('span');
+                                nameText.classList.add(`project-name-text`, 'light');
+                                nameText.textContent = value;
+
+                                projectName.appendChild(nameText);
+                                projectInfo.appendChild(projectName);
     
-                        //         setTimeout(() => {
-                        //             projectInfo.classList.remove('no-padding');
-                        //         }, 100);
+                                setTimeout(() => {
+                                    nameText.classList.remove('light');
+                                }, 50);
+                            } else {
+                                // Update the content if it already exists (optional)
+                                nameText.textContent = value;
+                            }
             
-                        //         setTimeout(() => {
-                        //             projectName = document.createElement('div');  // Correctly create the element
-                        //             projectName.classList.add(`project-${key}`);
-
-                        //             nameText = document.createElement('span');
-                        //             nameText.classList.add(`project-name-text`, 'light');
-                        //             nameText.textContent = value;
-
-                        //             projectName.appendChild(nameText);
-                        //             projectInfo.appendChild(projectName);
-                        //         }, 900);
-    
-                        //         setTimeout(() => {
-                        //             nameText.classList.remove('light');
-                        //         }, 1000);
-                        //     } else {
-                        //         // Update the content if it already exists (optional)
-                        //         nameText.textContent = value;
-                        //     }
-            
-                        //     setTimeout(resolve, 1100);
-                        // });
+                            setTimeout(resolve, 150);
+                        });
                         break;
                     case 'year':
-                        // await new Promise((resolve) => {
-                        //     let projectInfo = projectItem.querySelector('.project-information');
-                        //     const projectName = projectInfo.querySelector('.project-name');
+                        await new Promise((resolve) => {
+                            let projectInfo = projectItem.querySelector('.project-information');
+                            const projectName = projectInfo.querySelector('.project-name');
     
-                        //     if (projectName) {
-                        //         let yearText = projectName.querySelector('.project-year');
-                        //         if (!yearText) {
-                        //             yearText = document.createElement('span');
-                        //             yearText.classList.add('project-year', 'light');
-                        //             yearText.textContent = ` (${value})`;
-                        //             projectName.appendChild(yearText);
+                            if (projectName) {
+                                let yearText = projectName.querySelector('.project-year');
+                                if (!yearText) {
+                                    yearText = document.createElement('span');
+                                    yearText.classList.add('project-year', 'light');
+                                    yearText.textContent = ` (${value})`;
+                                    projectName.appendChild(yearText);
     
-                        //             setTimeout(() => {
-                        //                 yearText.classList.remove('light');
-                        //             }, 10);
-                        //         } else {
-                        //             // Update existing year span
-                        //             yearText.textContent = ` (${value})`;
-                        //         }
-                        //     }
-                        //     setTimeout(resolve, 50);
-                        // });
+                                    setTimeout(() => {
+                                        yearText.classList.remove('light');
+                                    }, 50);
+                                } else {
+                                    // Update existing year span
+                                    yearText.textContent = ` (${value})`;
+                                }
+                            }
+                            setTimeout(resolve, 150);
+                        });
                         break;
                     case 'material':
-                        // await new Promise((resolve) => { 
-                        //     let projectInfo = projectItem.querySelector('.project-information');
-                        //     // Check if the element already exists to avoid duplicates
-                        //     let projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
-                        //     let materialText = projectInfo.querySelector('.project-material-text');
+                        await new Promise((resolve) => { 
+                            let projectInfo = projectItem.querySelector('.project-information');
+                            // Check if the element already exists to avoid duplicates
+                            let projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
+                            let materialText = projectInfo.querySelector('.project-material-text');
 
-                        //     if (!projectMaterialDimensions) {
-                        //         projectMaterialDimensions = document.createElement('div');  // Correctly create the element
-                        //         projectMaterialDimensions.classList.add('project-material-dimensions');
+                            if (!projectMaterialDimensions) {
+                                projectMaterialDimensions = document.createElement('div');  // Correctly create the element
+                                projectMaterialDimensions.classList.add('project-material-dimensions');
 
-                        //         materialText = document.createElement('span');
-                        //         materialText.classList.add('project-material-text', 'light');
-                        //         materialText.textContent = value;
-                        //         projectMaterialDimensions.appendChild(materialText);
-                        //         projectInfo.appendChild(projectMaterialDimensions);
+                                materialText = document.createElement('span');
+                                materialText.classList.add('project-material-text', 'light');
+                                materialText.textContent = value;
+                                projectMaterialDimensions.appendChild(materialText);
+                                projectInfo.appendChild(projectMaterialDimensions);
     
-                        //         setTimeout(() => {
-                        //             materialText.classList.remove('light');
-                        //         }, 10);
-                        //     } else {
-                        //         // Update the content if it already exists (optional)
-                        //         materialText.textContent = value;
-                        //     }
+                                setTimeout(() => {
+                                    materialText.classList.remove('light');
+                                }, 50);
+                            } else {
+                                // Update the content if it already exists (optional)
+                                materialText.textContent = value;
+                            }
             
-                        //     setTimeout(resolve, 50);
-                        // });
+                            setTimeout(resolve, 150);
+                        });
                         break;
                     case 'dimensions':
-                        // await new Promise((resolve) => {
-                        //     let projectInfo = projectItem.querySelector('.project-information');
-                        //     const projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
+                        await new Promise((resolve) => {
+                            let projectInfo = projectItem.querySelector('.project-information');
+                            const projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
     
-                        //     if (projectMaterialDimensions) {
-                        //         let dimensionsText = projectMaterialDimensions.querySelector('.project-dimensions');
-                        //         if (!dimensionsText) {
-                        //             dimensionsText = document.createElement('span');
-                        //             dimensionsText.classList.add('project-dimensions', 'light');
-                        //             dimensionsText.textContent = `, ${value}`;
-                        //             projectMaterialDimensions.appendChild(dimensionsText);
+                            if (projectMaterialDimensions) {
+                                let dimensionsText = projectMaterialDimensions.querySelector('.project-dimensions');
+                                if (!dimensionsText) {
+                                    dimensionsText = document.createElement('span');
+                                    dimensionsText.classList.add('project-dimensions', 'light');
+                                    dimensionsText.textContent = `, ${value}`;
+                                    projectMaterialDimensions.appendChild(dimensionsText);
     
-                        //             setTimeout(() => {
-                        //                 dimensionsText.classList.remove('light');
-                        //             }, 10);
-                        //         } else {
-                        //             // Update existing year span
-                        //             dimensionsText.textContent = ` (${value})`;
-                        //         }
-                        //     }
-                        //     setTimeout(resolve, 50);
-                        // });
+                                    setTimeout(() => {
+                                        dimensionsText.classList.remove('light');
+                                    }, 50);
+                                } else {
+                                    // Update existing year span
+                                    dimensionsText.textContent = ` (${value})`;
+                                }
+                            }
+                            setTimeout(resolve, 400);
+                        });
                         break;
                     case 'description':
-                        // await new Promise((resolve) => {
-                        //     let projectDescription = projectItem.querySelector('.project-description');
+                        await new Promise((resolve) => {
+                            let projectDescription = projectItem.querySelector('.project-description');
     
-                        //     async function createProjectDescription() {
-                        //         if (!projectDescription) {
-                        //             await new Promise((descriptionResolve) => {
-                        //                 projectDescription = document.createElement('div');
-                        //                 projectDescription.classList.add('project-description', 'no-padding');
-                        //                 projectItem.appendChild(projectDescription);
+                            async function createProjectDescription() {
+                                if (!projectDescription) {
+                                    await new Promise((descriptionResolve) => {
+                                        projectDescription = document.createElement('div');
+                                        projectDescription.classList.add('project-description', 'no-padding');
+                                        projectItem.appendChild(projectDescription);
                             
-                        //                 setTimeout(() => {
-                        //                     projectDescription.classList.remove('no-padding');
-                        //                 }, 10);
+                                        setTimeout(() => {
+                                            projectDescription.classList.remove('no-padding');
+                                        }, 10);
     
-                        //                 setTimeout(descriptionResolve, 210);
-                        //             });
-                        //         }
-                        //     };
+                                        setTimeout(descriptionResolve, 210);
+                                    });
+                                }
+                            };
                     
-                        //     async function addSentences() {
+                            async function addSentences() {
     
-                        //         // Create a single paragraph for all sentences
-                        //         const paragraphElement = document.createElement('p');
-                        //         paragraphElement.classList.add('project-description-paragraph');
-                        //         projectDescription.appendChild(paragraphElement);
+                                // Create a single paragraph for all sentences
+                                const paragraphElement = document.createElement('p');
+                                paragraphElement.classList.add('project-description-paragraph');
+                                projectDescription.appendChild(paragraphElement);
     
-                        //         // Process each sentence
-                        //         for (const sentence of value) {
-                        //             const safeSentence = btoa(encodeURIComponent(sentence));
+                                // Process each sentence
+                                for (const sentence of value) {
+                                    const safeSentence = btoa(encodeURIComponent(sentence));
                                     
-                        //             // Only process if this sentence hasn't been added yet
-                        //             if (!projectDescription.querySelector(`[data-sentence="${safeSentence}"]`)) {
-                        //                 await new Promise((sentenceResolve) => {
-                        //                     // Add space between sentences if not the first sentence
-                        //                     if (paragraphElement.childNodes.length > 0) {
-                        //                         paragraphElement.appendChild(document.createTextNode(' '));
-                        //                     }
+                                    // Only process if this sentence hasn't been added yet
+                                    if (!projectDescription.querySelector(`[data-sentence="${safeSentence}"]`)) {
+                                        await new Promise((sentenceResolve) => {
+                                            // Add space between sentences if not the first sentence
+                                            if (paragraphElement.childNodes.length > 0) {
+                                                paragraphElement.appendChild(document.createTextNode(' '));
+                                            }
     
-                        //                     // Create a span to group the sentence (optional, for tracking)
-                        //                     const sentenceSpan = document.createElement('span');
-                        //                     sentenceSpan.setAttribute('data-sentence', safeSentence);
-                        //                     paragraphElement.appendChild(sentenceSpan);
+                                            // Create a span to group the sentence (optional, for tracking)
+                                            const sentenceSpan = document.createElement('span');
+                                            sentenceSpan.setAttribute('data-sentence', safeSentence);
+                                            paragraphElement.appendChild(sentenceSpan);
     
-                        //                     // Split sentence into words and add them one by one
-                        //                     const words = sentence.split(' ');
-                        //                     let wordIndex = 0;
+                                            // Split sentence into words and add them one by one
+                                            const words = sentence.split(' ');
+                                            let wordIndex = 0;
     
-                        //                     let lastScrollHeight = projectDescription.scrollHeight;
+                                            let lastScrollHeight = projectDescription.scrollHeight;
     
-                        //                     function addNextWord() {
-                        //                         if (wordIndex < words.length) {
-                        //                             // Add space before word (except for first word)
-                        //                             if (wordIndex > 0) {
-                        //                                 sentenceSpan.appendChild(document.createTextNode(' '));
-                        //                             }
+                                            function addNextWord() {
+                                                if (wordIndex < words.length) {
+                                                    // Add space before word (except for first word)
+                                                    if (wordIndex > 0) {
+                                                        sentenceSpan.appendChild(document.createTextNode(' '));
+                                                    }
                                                     
-                        //                             // Create span for the word
-                        //                             const wordSpan = document.createElement('span');
-                        //                             wordSpan.textContent = words[wordIndex];
-                        //                             wordSpan.classList.add('project-description-word', 'light', 'no-opacity');
-                        //                             sentenceSpan.appendChild(wordSpan);
+                                                    // Create span for the word
+                                                    const wordSpan = document.createElement('span');
+                                                    wordSpan.textContent = words[wordIndex];
+                                                    wordSpan.classList.add('project-description-word', 'light', 'no-opacity');
+                                                    sentenceSpan.appendChild(wordSpan);
     
-                        //                             // adjust the height of the project description for smooth animation of increasing height
-                        //                             const currentScrollHeight = projectDescription.scrollHeight;
-                        //                             if (currentScrollHeight !== lastScrollHeight) {
-                        //                                 console.log('ScrollHeight changed:', currentScrollHeight);
-                        //                                 lastScrollHeight = currentScrollHeight;
-                        //                                 projectDescription.style.height = `${currentScrollHeight}px`;
-                        //                             }
+                                                    // adjust the height of the project description for smooth animation of increasing height
+                                                    const currentScrollHeight = projectDescription.scrollHeight;
+                                                    if (currentScrollHeight !== lastScrollHeight) {
+                                                        console.log('ScrollHeight changed:', currentScrollHeight);
+                                                        lastScrollHeight = currentScrollHeight;
+                                                        projectDescription.style.height = `${currentScrollHeight}px`;
+                                                    }
     
-                        //                             setTimeout(() => {
-                        //                                 wordSpan.classList.remove('light');
-                        //                                 wordSpan.classList.remove('no-opacity');
-                        //                             }, 50);
+                                                    setTimeout(() => {
+                                                        wordSpan.classList.remove('light');
+                                                        wordSpan.classList.remove('no-opacity');
+                                                    }, 50);
     
-                        //                             wordIndex++;
-                        //                             setTimeout(addNextWord, 50);
-                        //                         } else {
-                        //                             console.log('sentenceResolve');
-                        //                             sentenceResolve();
-                        //                         }
-                        //                     }
+                                                    wordIndex++;
+                                                    setTimeout(addNextWord, 50);
+                                                } else {
+                                                    console.log('sentenceResolve');
+                                                    sentenceResolve();
+                                                }
+                                            }
     
-                        //                     addNextWord();
-                        //                 });
-                        //             }
-                        //         }
-                        //     }
+                                            addNextWord();
+                                        });
+                                    }
+                                }
+                            }
     
-                        //     // Call the async function and resolve when complete
-                        //     createProjectDescription().then(() => addSentences().then(() => resolve()));
-                        // });
+                            // Call the async function and resolve when complete
+                            createProjectDescription().then(() => addSentences().then(() => resolve()));
+                        });
                         break;
                 }
             }
