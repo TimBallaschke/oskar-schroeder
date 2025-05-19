@@ -198,11 +198,11 @@ class ProjectsLayout(str, Enum):
 
 class ProjectComponent(BaseModel):
     UIType: Literal["project"] = Field(description="Indicates this is a project component that represents an artwork or installation")
+    images: List[str] = Field(description="A list of URLs for images")
     name: str = Field(description="Name of the project or artwork")
     year: str = Field(description="Year the project was created")
     material: str = Field(description="Primary material used in the project")
     dimensions: str = Field(description="Physical dimensions of the project")
-    images: List[str] = Field(description="A list of URLs for images")
     description: Optional[List[str]] = Field(
         description=(
             "A detailed project description of about 4-8 sentences. Provide this only when the user explicitly requests additional details. "
