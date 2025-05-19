@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250519c_Oskar_Website",
+  "original_folder": "250519d_Oskar_Website",
   "snapshot_date_from_folder": "250519",
   "source_files": [
     {
@@ -18,52 +18,38 @@
       "mode": "100644"
     },
     {
-      "path": "check_db.py",
-      "sha1": "2bfae2dbd29b984247d9648fa20222b738b3b66a",
-      "sha256": "e431d7514b7e9939192aaa0c0407a49c8ade89a67b9563963e69eba46cfe4599",
-      "size": 445,
-      "mode": "100644"
-    },
-    {
       "path": "data.py",
-      "sha1": "3b279db63a6b36900e3218a6325374272f9d861d",
-      "sha256": "57098bbcc5b9a798a822d2307c9917156cdbb6e263018b31374f37e27fcbd42c",
-      "size": 42614,
+      "sha1": "a437baf754c32e1e5753a2f49dbbba97585e042a",
+      "sha256": "83a818e902b0648c66ac1c436f4f387d5c0bed42ce72a3701a9938c21ccfc9f4",
+      "size": 41287,
       "mode": "100644"
     },
     {
       "path": "main.py",
-      "sha1": "ed012c04c8f165817948abd000c7e4b419432424",
-      "sha256": "b50c05bed31bc2d342fc8736da536dc3860a8fbe4b6e42aaf308621bcd103bb1",
-      "size": 26673,
+      "sha1": "b8838d6a8e4080d3bcbc9718824b70f1670cdf21",
+      "sha256": "9a0543ca3df65f34c559be629e22a841c0084462268b2f43438807da74382d3b",
+      "size": 11875,
       "mode": "100644"
     },
     {
       "path": "prompts.py",
-      "sha1": "e8b78af84e538fb250c20549a18082e82d3a8c94",
-      "sha256": "b3ad5149967ad9090b63a0fc8701d73763efafef22a35dee2345eca767dfe428",
-      "size": 8327,
-      "mode": "100644"
-    },
-    {
-      "path": "websearch.py",
-      "sha1": "ccd72ba3bfd75645802591e7d790eab17db0f88d",
-      "sha256": "f14aff2c5a672cf3ac0d2d6cfd87050ec2c86d815a4c4a0d430444b2d600ea9d",
-      "size": 2467,
+      "sha1": "1e476a18d8208ed6106368779db810e628f333dd",
+      "sha256": "fe3b92e16d933a31bf1291e8dc7260a885b921e903cc5b7d4c89d407fd49f625",
+      "size": 3297,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css",
-      "sha1": "2d3c3e0b8081f0fcd9be5970818df96a4de1c550",
-      "sha256": "850aa69b69389224b45fb8174e5e57c0bed6bbf1e852609c2f40710f9c853c1c",
-      "size": 47645,
+      "sha1": "cebfebc10083ae145941b19a61868bd155ca3596",
+      "sha256": "c1c5c21d92b144de53dc5ee8f887e138eccb32fb3d62cf2160d304d24e3a4484",
+      "size": 14762,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "93ca67d123ed730c17076174d489e500360d50b2",
-      "sha256": "e4858ef5d4fa0bb9202ff6ccee5486e83074df8b7f1a4bdf79fbd5ac6d498bf9",
-      "size": 16180,
+      "sha1": "5f122ce363d638ce126d701b7294cda1a709dadc",
+      "sha256": "49a854d992474d514a2d212b21e4b36b76e7a6dffe4c00ee527fc57d92edc627",
+      "size": 5642,
       "mode": "100644"
     },
     {
@@ -82,58 +68,58 @@
     },
     {
       "path": "static/css/components/_content.scss",
-      "sha1": "fa0c13b305389996c7e909ae9c7872c6c99b86ca",
-      "sha256": "0d13c1bbb43ba635bf46ba04785f0641f1702546f22cfca682aeb1e714b6d054",
-      "size": 27023,
+      "sha1": "cf23ee5992cd6d1836a40a0e9b3746819d8c8d2e",
+      "sha256": "23545e1cf0ba95fc4c72c21e011ef48bd0659d2aaa8245abd89bb2f5c6f1c73f",
+      "size": 8062,
       "mode": "100644"
     },
     {
       "path": "static/css/components/_inputbar.scss",
-      "sha1": "b08d68dcacc15bf0a9fef2d4aac269f69bb0d35c",
-      "sha256": "fb01eed0865f3aa7c73becab251b7dc0edb8d88b440312e374841acfff56dbc8",
-      "size": 7180,
+      "sha1": "88f0fc27351ce319fa9bece9ac9563ee337bcadd",
+      "sha256": "e722c61856cfa71dbd3a7cc286c5eda458ea8f327c7eb98642ce9dc40c50b674",
+      "size": 3670,
       "mode": "100644"
     },
     {
       "path": "static/css/components/_version-history.scss",
-      "sha1": "3ac9e57ec90d718d67e6a9c3cbb5ea0c996293a3",
-      "sha256": "0d73ec52f35935021a95dc23d84b0a414ceac2ddaf728ac17240f1423c723a26",
-      "size": 6914,
+      "sha1": "34a940256b9b79494b813faa25f9d2b688dc36b1",
+      "sha256": "26d8ab07112c47760db8dcd2deb967083c49a1499bfb0d917117fd4561fdcb39",
+      "size": 1576,
       "mode": "100644"
     },
     {
       "path": "static/css/abstracts/_mixins.scss",
-      "sha1": "c25b39c90bfbcf3b860331522f8d0ceabbccf5e1",
-      "sha256": "d986e8b975241647ab4f3a6720fcd5ba95d7e16cfb9b16588df5fda1bf934b24",
-      "size": 1409,
+      "sha1": "5d621d73b51c82c524cfb42c08bb692099faa847",
+      "sha256": "dec13fb7458fe1a00724a9cd090c01da065c6cd6238f6d08a13e52bad19c7a3b",
+      "size": 56,
       "mode": "100644"
     },
     {
       "path": "static/css/abstracts/_variables.scss",
-      "sha1": "7bf5cf012ce526deb41275000c9148a9b73a2852",
-      "sha256": "81d6af5f927a63f1d32ded0566273161bf013ceae9c6a8c905ec7e820855848b",
-      "size": 3393,
+      "sha1": "bb08b22cbb29ed48a73cd9b172cbf8d1345519ad",
+      "sha256": "015c9d0a259b83798e6284f126fc34dc852009df7501987f2b0207a5f3156908",
+      "size": 638,
       "mode": "100644"
     },
     {
       "path": "static/css/base/_base.scss",
-      "sha1": "5ec23218647f479d0af403f41f301630601c6a04",
-      "sha256": "5fb90b6558edd52c640da942136a77d4f0b3490ad773b0032dcdfe9295020293",
-      "size": 1272,
+      "sha1": "34cc289100f691c727b191c55ccfce832244222d",
+      "sha256": "1e3a0a5d2cdde5ca4c7b8b2e4836f336aca7b2a01b61dd48dd88a8721dde50c8",
+      "size": 609,
       "mode": "100644"
     },
     {
       "path": "static/css/base/_typography.scss",
-      "sha1": "3d5838b520c59ffd3c2f2965ab8a7bf583256b7e",
-      "sha256": "935288283e21f8daa4c2e88f52f72130fb36096e36eb18da525e925d941ffab2",
-      "size": 2888,
+      "sha1": "f0a2bd2927beab2fbe04383e2b08ed1d9b0a9d99",
+      "sha256": "cac9222634ee2087fa4d11d5772257f25b0b99c56d8155810ab2dc14c0cf3a05",
+      "size": 1613,
       "mode": "100644"
     },
     {
       "path": "static/js/script.js",
-      "sha1": "38d9c35071d0f20817d5a6878ee1b6cd315d60d8",
-      "sha256": "b8b51c86e7b9f1ad920f344e22aecb42e204dd36ab10ec27a36165ec2a8f9d12",
-      "size": 156769,
+      "sha1": "48c073a2a847fb5b5f46276d919738063e8fe4ef",
+      "sha256": "e9865b6834d4f7fa53091d5d39120af3022f2535ebf29a0d127317d987616ef5",
+      "size": 40520,
       "mode": "100644"
     },
     {
@@ -473,13 +459,6 @@
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/Reference/6.jpg",
-      "sha1": "814c080e7dac318acb0ae5bd2d29f39372a958c0",
-      "sha256": "810e8fa6ff0d71711937f298cdb934dcb1412f79f72e7273bc9d904963cd9d31",
-      "size": 5692517,
-      "mode": "100644"
-    },
-    {
       "path": "static/assets/images/Sand/Sand 2.jpg",
       "sha1": "0ad2761fa93f9826cb71cc3137e56a92cfe3f6f4",
       "sha256": "07d4001273ed83b2ad2902741c5c15a2ac92524e2571159248e59d2f6855ea94",
@@ -522,34 +501,6 @@
       "mode": "100644"
     },
     {
-      "path": "static/assets/fonts/BootonTRIALVF.woff2",
-      "sha1": "abcb89193dc9d25a0defdf166c91a7708a6dae37",
-      "sha256": "2b198152a812a46203401a001adc16036b52b09339c0656d2b426d68e3d54ca0",
-      "size": 231608,
-      "mode": "100644"
-    },
-    {
-      "path": "static/assets/fonts/Diatype.woff2",
-      "sha1": "358fdde482020f76bc2cc1ab64a4f5db50ba19c5",
-      "sha256": "24954c2003b68dee0a80905c1d554d38d4730905e6f6fc76e9406716bc0e5f01",
-      "size": 302504,
-      "mode": "100644"
-    },
-    {
-      "path": "static/assets/fonts/DiatypeMono.woff2",
-      "sha1": "9d6c1b62b64650058b46ebd7f1d352b8737f7c3b",
-      "sha256": "caa1474aeb1bdd723bec8ee85040f32b71234623becc75026f2898d28f0a7e4f",
-      "size": 96860,
-      "mode": "100644"
-    },
-    {
-      "path": "static/assets/fonts/DiatypePlus.woff2",
-      "sha1": "c90bb47598644e05a3f8b823f4ce27f5daaeaef6",
-      "sha256": "485c3ba3b88c9a4bee5120125f5c7e35fec771f1f7a3dcd4f68e4d9eeba47fb9",
-      "size": 390548,
-      "mode": "100644"
-    },
-    {
       "path": "static/assets/fonts/Friedl.woff2",
       "sha1": "b0b0329b3d59c227f3cab717e111541e8948ac79",
       "sha256": "626e1f7aba73c30172ee67ab388fd2994a5fcfcbb2dfdfd2f9dbf051461d9c85",
@@ -568,20 +519,6 @@
       "sha1": "3e724275c205572413ff175bbff9bf27886a67b8",
       "sha256": "c900dbe92ad14f9cdbd443817729d69a8a6760bf0d3e2a3e2d4760b3071afd04",
       "size": 12284,
-      "mode": "100644"
-    },
-    {
-      "path": "static/assets/fonts/KolleGX.woff2",
-      "sha1": "600f83ae4e15676aab02fdfc548ae992975702ec",
-      "sha256": "c8ed50e73b73f4371a14eb985fcac35156959c8eaa560538bf2def1bfde47f85",
-      "size": 25680,
-      "mode": "100644"
-    },
-    {
-      "path": "static/assets/fonts/KolleVF.woff2",
-      "sha1": "69bf65f624dd990fae9a4be6475343fd8eb05dd9",
-      "sha256": "f6258cce0b6da64af3f4955f037acfe57c9f69c6a3f0366c67a831c5766ef8f2",
-      "size": 28208,
       "mode": "100644"
     },
     {
@@ -663,16 +600,15 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "8ee92a3a6775a1ba1b02652fa6e5e0aaa72e8ea0",
-      "sha256": "6b2f3a70a023a49954350cd7384c12d39ee45de9f9b9d1f8306a69b3c68b8863",
-      "size": 7232,
+      "sha1": "50772a0509a222c6bb826ae5d19ac751a770584d",
+      "sha256": "2fda24eecd2367ef44b524dc3650457ffcef6e99ca1b99d8d8181e189a10b5c2",
+      "size": 5328,
       "mode": "100644"
     }
   ],
   "excluded_private_files": [
     ".env",
-    "flask_session/",
-    "state_data.db"
+    "flask_session/"
   ],
   "omitted_generated_files": [
     {
