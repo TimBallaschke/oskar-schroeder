@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250520b_Oskar_Website",
+  "original_folder": "250520c_Oskar_Website_Bilder",
   "snapshot_date_from_folder": "250520",
   "source_files": [
     {
@@ -207,52 +207,31 @@
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Blind/1.jpg",
-      "sha1": "d7881f8629229e9a09c8fcad241b0b6d773924a1",
-      "sha256": "53586fcf6cf19781038abf218304c23042ad4502316eefa1164f8344d8315c50",
-      "size": 524552,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Einsatz/1.jpg",
-      "sha1": "4157dc2699b91d9b3663f98f0e5cc746fcc63728",
-      "sha256": "0579febfd87531e01c7a1944f41d4a673f546412d120abf90f1ac6e4bb8432d0",
-      "size": 1759971,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Einsatz/1.webp",
-      "sha1": "471040e1944153a3b0019d7669f542ead3ce9fc3",
-      "sha256": "edb25d945ffdb44e7a7523b2f43bcdd0992025cda110d9c4d852cf1b8507bb2e",
-      "size": 2515250,
+      "path": "static/assets/images/artworks/Blind/1.webp",
+      "sha1": "1cf140d2d852f34a5f2eeeeb2830b0d63cae73e0",
+      "sha256": "6fe11809ff6877793acb75d5453349c0e059478c496ced8cbd5cb96878154d2b",
+      "size": 570198,
       "mode": "100644"
     },
     {
-      "path": "static/assets/images/artworks/Einsatz/3.jpg",
-      "sha1": "795e3f11a18d2ee780b3e3e5de113250edab8280",
-      "sha256": "553ba8538a4ca5b078787562333afb61e685dbc72c2b44132289f24186eafa8a",
-      "size": 901427,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Einsatz/3.webp",
+      "path": "static/assets/images/artworks/Einsatz/1.webp",
       "sha1": "fc565880b346c35242959205ed6edaaf11c8579d",
       "sha256": "cecc7b8438b61423bcb0248166f9808d1d50947caae91baef53b66c5b03abb54",
       "size": 3092808,
       "mode": "100644"
     },
     {
-      "path": "static/assets/images/artworks/Einsatz/5.jpg",
-      "sha1": "99621ba340a4258f18116f9e82d02753a341c8d5",
-      "sha256": "45f87c6f06eb93f90e137fc89b9cdd645206e0f4653ff8857217786bf2619296",
-      "size": 626337,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Einsatz/5.webp",
+      "path": "static/assets/images/artworks/Einsatz/2.webp",
       "sha1": "828a786307c907fdd574180fbb516893c15f44e4",
       "sha256": "cbb7aa7aac4495d826f52df0c1e01306e239fc58768a3e3f48d0a6b14fe002f4",
       "size": 2025878,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/artworks/Einsatz/3.webp",
+      "sha1": "471040e1944153a3b0019d7669f542ead3ce9fc3",
+      "sha256": "edb25d945ffdb44e7a7523b2f43bcdd0992025cda110d9c4d852cf1b8507bb2e",
+      "size": 2515250,
       "mode": "100644"
     },
     {
@@ -284,129 +263,45 @@
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Brunnen für München /1.webp",
-      "sha1": "e1554e8de3d9ac0bd8b052c2aa8f64801ced6046",
-      "sha256": "6a6c35192b22f943b74e247abe769b8fe8eee26fd38260e928b0df1c50cdc2f8",
-      "size": 7362658,
+      "path": "static/assets/images/artworks/Große Stuckmarmorplatte/1.webp",
+      "sha1": "54df9b4963bddf4c7739faaa287bcd8fdca1be22",
+      "sha256": "7224acf23386498d7034c44094ce1b4cfc26c004641e91a9e21255490bdf59eb",
+      "size": 9263046,
       "mode": "100644"
     },
     {
-      "path": "static/assets/images/artworks/Brunnen für München /2.jpg",
-      "sha1": "f455837a4d0d127a024f0b400092900461fa1093",
-      "sha256": "c8043cf6f65116a39bfad17449f6f6afb32b2e6a1f1a83829e55ae8170ab2fdd",
-      "size": 17424099,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Große Stuckmarmorplatte/1.jpg",
-      "sha1": "feec5b97fd3057a41c89f201777f3e804597042f",
-      "sha256": "ded69bd6c2e170554da9e60860db2001ddc600018b9b7c178af1431c8a89eb97",
-      "size": 1426399,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Große Stuckmarmorplatte/2.jpg",
-      "sha1": "65c1bf1a8bbf43e1508b2162cd38ac381037121f",
-      "sha256": "831ed9c1db68bf57c90406e65fc5cf3202ba0f4283b83738e858a0c40ff22cc8",
-      "size": 928633,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Große Stuckmarmorplatte/3.jpg",
-      "sha1": "db39553cd3ffff6d206bdf9f847580b445efe6da",
-      "sha256": "66ad1a4af7abf9c80168708e1df131b6dfcb31480dc9373b1af821ff60af6e0e",
-      "size": 5966953,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/1.1.tif",
-      "sha1": "54d685ffe786ee41dcda5198ded6635cb0d8475b",
-      "sha256": "d10c08b0edf61380e5512db01bc4b3a2e78b6b7b3589a6ded7ae2953aa1503e9",
-      "size": 44638892,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/1.tif",
-      "sha1": "ea081f179dac93726286212b65bec8a705f368f0",
-      "sha256": "efa72dccd2a745edceae8ce1dd5c5d610cff69e296d7c949fc504acb48b8ec1e",
-      "size": 29470100,
-      "mode": "100755"
-    },
-    {
       "path": "static/assets/images/artworks/Fortschritt. und festgehalten/1.webp",
+      "sha1": "f65ae022c02c831e8d4c359541cbeb25c13986ca",
+      "sha256": "acab2913c855cfec6e66a08ebaaac0662ad40713cc6c448fbd1d7b98b510b07a",
+      "size": 4082348,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/2.webp",
       "sha1": "5c826a15332db90976aacd183c7748ca08c83f13",
       "sha256": "5a2db49f9a63af5493c6fd6c028a850da9da9e450b817655a7bff06aa35f177b",
       "size": 2189950,
       "mode": "100644"
     },
     {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/2.1.tif",
-      "sha1": "2014310777d38d0d67ea677a5efb3a6700a100b3",
-      "sha256": "b49c1f42acfa39f9ddc023d888e21184e2ed2ae3f9777e1d2e1aea44ed7b28eb",
-      "size": 90639360,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/2.1.webp",
-      "sha1": "4da585ee0c1dbcd1e61786288d85b7461dd23d22",
-      "sha256": "794cc6f5481f03209dfa976eba931ea18e13043f8b4902d4f918f72ecd0b97db",
-      "size": 3820006,
+      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/3.webp",
+      "sha1": "b659f542bb97f6d9d1f60345bbb57d81ce98dbf6",
+      "sha256": "2b5e11e1cc6250105815c00aebaa895bb5d306e97cadff37e09c42a1c5149ee2",
+      "size": 2885762,
       "mode": "100644"
     },
     {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/2.tif",
-      "sha1": "34d8fa0bbe63dff0862623114a909c627158bf2e",
-      "sha256": "2960b5e90228cfc885499dab4275d1df6598f1eb0cec0e90af08f357beebdc66",
-      "size": 65429448,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/3.1.tif",
-      "sha1": "c749a52bd2946abbf734401ccbaee305048a8399",
-      "sha256": "88a277d34c2dada133331cfba1b184e165c24e44f1579aa4bb8b97ab375aadde",
-      "size": 44644472,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/3.tif",
-      "sha1": "24553e710178d7e29bd711994e2652220f520daa",
-      "sha256": "e3b48593b0bea95ac323c58b18956594e96975063807963c1480d491216bb00a",
-      "size": 27754660,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/4.1.tif",
-      "sha1": "71f90f718ef8dba3b8baf48d8b49b8e074c0cc08",
-      "sha256": "e185cf917df373d0a3bdbab08d33f7273fb5185743b2658433eba971c82df8da",
-      "size": 44644296,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/4.1.webp",
+      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/4.webp",
       "sha1": "d603871757e4142499aaf363a93197ff269aa53d",
       "sha256": "329c67abda2324cc5643057aa6f668d41324904e46cc66aa4a8470043d7118f5",
       "size": 4443774,
       "mode": "100644"
     },
     {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/4.2.tif",
-      "sha1": "c377daf63e5b3c577f626e30b8010aec8642c72d",
-      "sha256": "c458377097ebd80c1efacc25c01f4bc76e0282808ba3219edd639d5c90843671",
-      "size": 44644322,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/4.tif",
-      "sha1": "c4c1d355f012aed3ddca067790f00fed1550f28c",
-      "sha256": "6d5006b34828e5a092f18bdee9c638114041a8a116d0fe104e27530c54177b35",
-      "size": 44199180,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/4.webp",
-      "sha1": "f65ae022c02c831e8d4c359541cbeb25c13986ca",
-      "sha256": "acab2913c855cfec6e66a08ebaaac0662ad40713cc6c448fbd1d7b98b510b07a",
-      "size": 4082348,
+      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/5.webp",
+      "sha1": "4da585ee0c1dbcd1e61786288d85b7461dd23d22",
+      "sha256": "794cc6f5481f03209dfa976eba931ea18e13043f8b4902d4f918f72ecd0b97db",
+      "size": 3820006,
       "mode": "100644"
     },
     {
@@ -417,63 +312,35 @@
       "mode": "100644"
     },
     {
-      "path": "static/assets/images/artworks/Brechungen. Zur Handgreiflichkeit des Denkens/Brechungen. Zur Handgreiflichkeit des Denkens.png",
-      "sha1": "698ff44e4cbf585b085c44047bf5c1866d83dca5",
-      "sha256": "44dcc3aca888e7d765ba6e67a409b87ce2a6924125b720abf87b6bae7c2a711d",
-      "size": 58121547,
-      "mode": "100755"
+      "path": "static/assets/images/artworks/Brechungen. Zur Handgreiflichkeit des Denkens/2.png",
+      "sha1": "d2a84d9a401c27731caa8d16c8907e70e7ccc322",
+      "sha256": "652ddbbd3c744749fafa2066d7c7e0e48908d31e96fc2213f37c545dc9074471",
+      "size": 56251890,
+      "mode": "100644"
     },
     {
-      "path": "static/assets/images/artworks/Vom Erobern und Abeignen/1.tif",
-      "sha1": "14180fa6cf201889888446811d914e2d5ffacf84",
-      "sha256": "9f95690ebc6c5fbb8e3cf771190f3fa9d8337db37e43b96ccf25c9b150986f9b",
-      "size": 44646038,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Vom Erobern und Abeignen/2.tif",
-      "sha1": "97c523a79f2e23c5538affdf8e469942a6f6b92e",
-      "sha256": "dcfdc09734b66e8b2a78938721f1c2e87c0b90f82da21e0cd805d062a974d377",
-      "size": 44645938,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Vom Erobern und Abeignen/3.tif",
-      "sha1": "738ed58a6eb3242914a48988bde4731aca12d6ef",
-      "sha256": "c0c8184ca02ffe0fe22898ae561be98ee01043ddaef26f0aaf5e4e8664ef3e75",
-      "size": 18649828,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Vom Erobern und Abeignen/4.tif",
-      "sha1": "0256f9f153ad0079fda66c80331c4e0ea790c039",
-      "sha256": "b8dbbe667c346b649fb58ffc4d954094185a57a32e4938e02224bf17280e0481",
-      "size": 44646148,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Wild/Wild 2.jpg",
+      "path": "static/assets/images/artworks/Wild/1.jpg",
       "sha1": "7455621527eb07771c9ef3e2fa866b4f9e5c190b",
       "sha256": "245cc15788e4d0ccb66117c2938decc571d7d973f59d408997256376c5832448",
       "size": 710434,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Wild/Wild closeup.jpg",
+      "path": "static/assets/images/artworks/Wild/2.jpg",
       "sha1": "007b6be287a6f15f299891e7c3970708addb1381",
       "sha256": "8ca8b08fd7f19c537e9393508c2ee67f9ae85961c2628b68614db26bfb043de6",
       "size": 1883595,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Wild/Wild, Hypo und Sand totale.jpg",
+      "path": "static/assets/images/artworks/Wild/3.jpg",
       "sha1": "b23ff497bfbf888ce57a177346f8df321243d811",
       "sha256": "fa2c79f135e0b92cfd43b53f69e1d5ffcc1abce5cef39fbbf5637e153c4bdd85",
       "size": 1247593,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Wild/Wild.jpg",
+      "path": "static/assets/images/artworks/Wild/4.jpg",
       "sha1": "7e36b30041afafa4683de30c79995a04b8081d1c",
       "sha256": "f8f3bccefc91dc4447ad403e9f4a2b3e63b71f8d17077d5aa4295e1af4ad5f1a",
       "size": 1607550,
@@ -494,129 +361,52 @@
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Janus/3.jpg",
-      "sha1": "d992ea26ee44f4dde030e2333841bc54b8fe768d",
-      "sha256": "003cc24aecdc7285798ae493d6e69c1cdd775d797fdae013aa27360c2d3d40b6",
-      "size": 57741,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Janus/4.jpg",
-      "sha1": "9a24b32f9913eeaa46349dfad5a974897c2f864e",
-      "sha256": "02d2a926d5d9e9dbf86d65ab178a1556c89f0cb160867897b2f2160ea9c27b38",
-      "size": 1382739,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Memoir/Memoir-2.1.jpg",
-      "sha1": "2dca5b459ef1a829dba122a2432dc6083097876e",
-      "sha256": "dc5f23c18fdb44216b352effb35a6b8a84e5453f184eedce2dc6cb97ccc9f665",
-      "size": 1119250,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Memoir/Memoir-2.jpg",
-      "sha1": "060b0f8a15e03193b58eda7843d6fd9a92cc5546",
-      "sha256": "ccd5d2c292ca2574d0ed16d53ea6132de4324bf821bd11ca63b4915e2e394c51",
-      "size": 1007527,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Memoir/Memoir10.jpg",
-      "sha1": "a56c30e426863101b6933cadf2527559141ea7f9",
-      "sha256": "806ae87489f13785556e8977bf2b54148a5e052e644e815c1c898fc770f0dc25",
-      "size": 1537707,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Memoir/Memoir11.jpg",
-      "sha1": "77ce7f1ac5aecbb641d670619ee5219d8f900337",
-      "sha256": "7dfbd1ce24c7d2fa77ff32acad2b0289a056ad83dd4bfc69bc5e736aeaee0f87",
-      "size": 1644862,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Memoir/Memoir12.jpg",
-      "sha1": "ec3f167b5ad0affe486919d1456c23b6431bf86a",
-      "sha256": "008fb6ebd989f68fd99743baa67d49eb7ab25700f1bccaabf7d8453b4c45b113",
-      "size": 1152027,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Memoir/Memoir5.jpg",
+      "path": "static/assets/images/artworks/Memoir/1.jpg",
       "sha1": "619b67f832253fd403b5acb3e3b703a45d974da3",
       "sha256": "5d877406c0cfd29f9eba483ebdb75104e01339f625b87404a5600f9650fed6c5",
       "size": 1529552,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Memoir/Memoir9.jpg",
+      "path": "static/assets/images/artworks/Memoir/2.png",
+      "sha1": "da39f8e738d859c647d9993fda6217521e8bf34e",
+      "sha256": "20b078a55b4886177136de37fa576d9ea6e690d94c2bcc440e9cf017885f27f5",
+      "size": 4385476,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/artworks/Memoir/3.jpg",
+      "sha1": "a56c30e426863101b6933cadf2527559141ea7f9",
+      "sha256": "806ae87489f13785556e8977bf2b54148a5e052e644e815c1c898fc770f0dc25",
+      "size": 1537707,
+      "mode": "100755"
+    },
+    {
+      "path": "static/assets/images/artworks/Memoir/4.jpg",
       "sha1": "42a2ba7ddf8a43b0bb7b920c6d5bfe33eefbb918",
       "sha256": "cdbc132d1b864e6adc2e859a52ebe274cc059de4d48b25c4e25c77a76933adf2",
       "size": 1236222,
       "mode": "100755"
     },
     {
+      "path": "static/assets/images/artworks/Memoir/5.jpg",
+      "sha1": "77ce7f1ac5aecbb641d670619ee5219d8f900337",
+      "sha256": "7dfbd1ce24c7d2fa77ff32acad2b0289a056ad83dd4bfc69bc5e736aeaee0f87",
+      "size": 1644862,
+      "mode": "100755"
+    },
+    {
+      "path": "static/assets/images/artworks/Memoir/6.jpg",
+      "sha1": "2dca5b459ef1a829dba122a2432dc6083097876e",
+      "sha256": "dc5f23c18fdb44216b352effb35a6b8a84e5453f184eedce2dc6cb97ccc9f665",
+      "size": 1119250,
+      "mode": "100755"
+    },
+    {
       "path": "static/assets/images/artworks/Neuanfang/1.png",
-      "sha1": "3463df7e8f4471ab94a6eca83d80c3845509d145",
-      "sha256": "add63b5d6d3fe378664d26dedbf4fd799e65a3f289545642f232de0868528775",
-      "size": 15589899,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Neuanfang/2.png",
-      "sha1": "fa481564708409acf77520115d5e431e700eb57b",
-      "sha256": "9fe4012c3ecd71f41b1b58367e541eeab47139ef5ee28589c47c63ca87c34ba7",
-      "size": 12429637,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Neuanfang/3.png",
-      "sha1": "eee91292dae5d9102f5a95deebd704495f841b1a",
-      "sha256": "560e139ad103cbfb08b20981930fc91d7b6c83bd29491a676c155aba1439e576",
-      "size": 9851479,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Neuanfang/4.png",
-      "sha1": "2ea7fa0a88a4793233f3a64be21244496a5ba6c8",
-      "sha256": "ab2fa752bd2770b59ed585d829266ffdced2a26f83f4c60f9952f34f5791aa03",
-      "size": 10401029,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/How to Approach a Dream Gently/1.tif",
-      "sha1": "141d0392ca7c871c46700eeffab217925a8d4570",
-      "sha256": "d31c052602364cea1f29dac8db477d68e51532acd8c1442a0fb9ae51221232ec",
-      "size": 44649912,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/How to Approach a Dream Gently/2.tif",
-      "sha1": "0862e3b32457232788125a9eb668256ec402015c",
-      "sha256": "5ecc9ac696bf52e76f140ceb4079ab2dfa0d709c212e8ef77f6639d3c2bb9ae5",
-      "size": 44642814,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/How to Approach a Dream Gently/3.tif",
-      "sha1": "95b270a691a277a230dee5826bcf15b7899f701c",
-      "sha256": "f6969a19412ac7fa7935dd67825ab98fd1dd354ce4f054fbbe21f4a5974b3fe3",
-      "size": 44641066,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/How to Approach a Dream Gently/4.tif",
-      "sha1": "9dc2b5b8a8e04c87ba601ebde650267d58e78848",
-      "sha256": "40d0a6887aae6920c11b1b75678f8539f9d08612689fc9a444483455478255d1",
-      "size": 44641734,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Flug/1.jpg",
-      "sha1": "44dbe8310c491d9c467babd178f5875b30246ea1",
-      "sha256": "37a3ac3fe9651120109c711c4cdb709baffd6e4e724a09aa77c8b09bb0f21ef6",
-      "size": 4063497,
+      "sha1": "2b31270b7b6b455cf52d687bb75dd13e10e40cd2",
+      "sha256": "0ef751fd111ab3816182c78496c3588ae64b7759b88a8ecd8d1c6e56e6689bac",
+      "size": 8205644,
       "mode": "100755"
     },
     {
@@ -624,20 +414,6 @@
       "sha1": "62e1aa4396727c60897c0648ebc3bd6fc1e9e890",
       "sha256": "4a353f7ff22b2ea54387dd7a4c2ccf4e81521a1c31d71259001c7fc4874d920f",
       "size": 5772688,
-      "mode": "100644"
-    },
-    {
-      "path": "static/assets/images/artworks/Flug/2.jpg",
-      "sha1": "3445156958be85c84e770025fca2d8b5960f0803",
-      "sha256": "143d2033f2ba00eecdaf5168853ad5da4b810fb160cb6f04461a34c44f47381f",
-      "size": 1081574,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Flug/2.png",
-      "sha1": "7dbbc32c3210faa96e54101733b32d963eb2bd1a",
-      "sha256": "50999f94bbd3de554543d81a94d8af9c997751a1c0e5eef86984a7d1bc182298",
-      "size": 6335665,
       "mode": "100644"
     },
     {
@@ -656,135 +432,58 @@
     },
     {
       "path": "static/assets/images/artworks/Vivarium/2.jpg",
-      "sha1": "e0b862037ff5645fdaa213119765b44ec803166a",
-      "sha256": "c9dede57cc708fdd355a120b5ed1b90b948d6e366783246e1fe05cd1f94c11a2",
-      "size": 2732556,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Vivarium/3.jpg",
       "sha1": "360a62979664070acf27e95862a7ab3d6195abf8",
       "sha256": "c4ba1ae828f2bffd36ef95b9b862ae61ef52095c3c3df25f63ada3a433aa2741",
       "size": 3243397,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Vivarium/4.png",
-      "sha1": "e087b28bf83fafc4668a55e10a9eec238a72f224",
-      "sha256": "3988e201e5220e08b7d33df1406586d659e6eb2fa36332668dadd3dd9d723479",
-      "size": 11345168,
-      "mode": "100644"
-    },
-    {
-      "path": "static/assets/images/artworks/Vivarium/4.webp",
+      "path": "static/assets/images/artworks/Vivarium/3.webp",
       "sha1": "0a84713a7af5376925090ad422c36e9eb90adf85",
       "sha256": "057dc2a557ce905f708cf68c54773bf72ce284b09cd8731cd47cfd6ace39c558",
       "size": 3243994,
       "mode": "100644"
     },
     {
-      "path": "static/assets/images/artworks/Urne/1.jpg",
-      "sha1": "8ffffb0e017673a37f7076aed2dea3d2406fc23c",
-      "sha256": "b360ea539691dec23e78ce56696b3ad11a01c23f594bf7c0c04d3c0901a88d5f",
-      "size": 1833361,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Urne/2.jpg",
-      "sha1": "bf8af4771b5c3f4860c52d6b0d28e22be2f4c5f7",
-      "sha256": "19bb9b18073e8aef86c7952343f61f0f38245bf7b34d29ad5b7561eeb0b1752e",
-      "size": 2174282,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Urne/3.jpg",
-      "sha1": "c2d5c16115ea30e9803a084c66f588297d331a8b",
-      "sha256": "83d0eb56839b8a2224b3aa841580b67fe12ea9b60c9273fccd770977eadc85db",
-      "size": 2621569,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Landschaft/Landschaft-002.jpg",
+      "path": "static/assets/images/artworks/Landschaft/1.jpg",
       "sha1": "68e08d6999dce9d570bbc65acf04735f4b980258",
       "sha256": "f71e7aaa4fc4a8967ad9f261fb8e077f2f0f4b442bc47a62efc4c35dabe8b63a",
       "size": 1982369,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Landschaft/Landschaft-005.jpg",
+      "path": "static/assets/images/artworks/Landschaft/2.jpg",
       "sha1": "0dac7712ef2a4231b55a7d3883edab72c4acd721",
       "sha256": "de8ba49c47f3645af5f5294a509d0fc6eccc9ecb8ca80f0c339935cabfc25fd1",
       "size": 3119864,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Natur gesetzt/1.JPG",
-      "sha1": "7b53c31f868fe8283bce97717903c5c51decb87d",
-      "sha256": "c54b4723f40a1a403cb0cc32c51bc125a174b0af48f5c5d2836bd54706309f1b",
-      "size": 2935737,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Natur gesetzt/2.jpg",
-      "sha1": "4939e7644b7c13c1d124e6235af068d4c46cb1f8",
-      "sha256": "289b473338006cd46e9c327c7a99643cf552ce2a63f091d4849dad15a6bada95",
-      "size": 2373810,
-      "mode": "100755"
-    },
-    {
       "path": "static/assets/images/artworks/Onward/1.png",
-      "sha1": "fc41ea54701448cf273683444f63c06d9a23746c",
-      "sha256": "84b9588a0dcc503f63c7909d8c24ee863c34033e2eea032f6ae326ebb662693a",
-      "size": 121126224,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Onward/Hund1.png",
       "sha1": "a6034c55faf4508ab847020cd2a3279d3f0b73a5",
       "sha256": "3bf9f88e178a04be2b491f9049a061ada515503d810260e9ca0b0b06fbd70429",
       "size": 2677486,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Onward/Hund2.png",
+      "path": "static/assets/images/artworks/Onward/2.png",
       "sha1": "647a419cd492c5e0de9099c7b4c6ca83b6dd59df",
       "sha256": "f5f29cea0da481e236a5416ddfa2835a59f8cf244012c98a65477de26d2c5866",
       "size": 2582406,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Onward/Hund3.png",
+      "path": "static/assets/images/artworks/Onward/3.png",
       "sha1": "493123182b049968aab66f75e1c75dab39770b5b",
       "sha256": "027656ecb93868034aa9c7c62532f13c0562c94f6e1168cabc5e439281f7266e",
       "size": 3023069,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Onward/Hund4.png",
+      "path": "static/assets/images/artworks/Onward/4.png",
       "sha1": "ad1579c701f882897f35f6765364d60674607822",
       "sha256": "0642d5dddb5dd52f1395262ae7a9f5366217860ba305594d08ba5a0b7774797e",
       "size": 2656603,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Warum Schafe unter Linden sterben/1.jpf",
-      "sha1": "69985d05883a42e687100d7d32db92fd6f091423",
-      "sha256": "3c1a957a6efc7d9bec38f8234f89b47f8336968ef1fed72cdcd8aae8ec5657f8",
-      "size": 7810537,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Sand/1.jpg",
-      "sha1": "0113db93a37bb61f3d3b3386dde709de74913794",
-      "sha256": "35f9d3ced0f3cea438e1b84d1a315761dfc0d2c107c71b9a4bd1218d2bec160f",
-      "size": 375691,
-      "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Sand/2.jpg",
-      "sha1": "0ad2761fa93f9826cb71cc3137e56a92cfe3f6f4",
-      "sha256": "07d4001273ed83b2ad2902741c5c15a2ac92524e2571159248e59d2f6855ea94",
-      "size": 2924569,
       "mode": "100755"
     },
     {
@@ -1022,10 +721,6 @@
       "reason": "generated-file"
     },
     {
-      "path": "static/assets/images/artworks/Brunnen für München /.DS_Store",
-      "reason": "generated-file"
-    },
-    {
       "path": "static/assets/images/artworks/Große Stuckmarmorplatte/.DS_Store",
       "reason": "generated-file"
     },
@@ -1035,10 +730,6 @@
     },
     {
       "path": "static/assets/images/artworks/Brechungen. Zur Handgreiflichkeit des Denkens/.DS_Store",
-      "reason": "generated-file"
-    },
-    {
-      "path": "static/assets/images/artworks/Vom Erobern und Abeignen/.DS_Store",
       "reason": "generated-file"
     },
     {
@@ -1058,10 +749,6 @@
       "reason": "generated-file"
     },
     {
-      "path": "static/assets/images/artworks/How to Approach a Dream Gently/.DS_Store",
-      "reason": "generated-file"
-    },
-    {
       "path": "static/assets/images/artworks/Flug/.DS_Store",
       "reason": "generated-file"
     },
@@ -1070,27 +757,11 @@
       "reason": "generated-file"
     },
     {
-      "path": "static/assets/images/artworks/Urne/.DS_Store",
-      "reason": "generated-file"
-    },
-    {
       "path": "static/assets/images/artworks/Landschaft/.DS_Store",
       "reason": "generated-file"
     },
     {
-      "path": "static/assets/images/artworks/Natur gesetzt/.DS_Store",
-      "reason": "generated-file"
-    },
-    {
       "path": "static/assets/images/artworks/Onward/.DS_Store",
-      "reason": "generated-file"
-    },
-    {
-      "path": "static/assets/images/artworks/Warum Schafe unter Linden sterben/.DS_Store",
-      "reason": "generated-file"
-    },
-    {
-      "path": "static/assets/images/artworks/Sand/.DS_Store",
       "reason": "generated-file"
     },
     {
