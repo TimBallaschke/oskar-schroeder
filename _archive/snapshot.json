@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250520d_Oskar_Website_allImages",
+  "original_folder": "250520e_Oskar_Website_allImages",
   "snapshot_date_from_folder": "250520",
   "source_files": [
     {
@@ -487,11 +487,11 @@
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Warum Schafe unter Linden sterben/1.jpeg",
-      "sha1": "69985d05883a42e687100d7d32db92fd6f091423",
-      "sha256": "3c1a957a6efc7d9bec38f8234f89b47f8336968ef1fed72cdcd8aae8ec5657f8",
-      "size": 7810537,
-      "mode": "100755"
+      "path": "static/assets/images/artworks/Warum Schafe unter Linden sterben/1.jpf",
+      "sha1": "257b7ea891dffa8d773b710c884badc616d9469d",
+      "sha256": "35b0d6a42d522a20fec99cba95a70e3f28842c159656626aef63e4660c3c2e13",
+      "size": 7996062,
+      "mode": "100644"
     },
     {
       "path": "static/assets/fonts/ABCMarist-Medium.woff2",
