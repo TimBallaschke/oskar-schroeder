@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250520e_Oskar_Website_allImages",
+  "original_folder": "250520f_Oskar_Website_allImages",
   "snapshot_date_from_folder": "250520",
   "source_files": [
     {
@@ -54,16 +54,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "95ef8ec89bee5063e02b0fab9b3c78adea895531",
-      "sha256": "c2fa599348305061dadb33d3d9d4f14f47d280f34d3089d8cdadc5ec2e7ac3e8",
-      "size": 47950,
+      "sha1": "0a5188e7e683cf5c3c9a7e981a1e4335a526bdb2",
+      "sha256": "eb9cec7c412a2875ecae528ba97b3012ed601c1b7bd3a74b13867e7db41822ac",
+      "size": 47998,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "e66b125cd08614e52a53aa242e2386b03e5f62d5",
-      "sha256": "0104c6c429f930bee2ddcb1da313566d312775d6671e3c4377b52435e29b563b",
-      "size": 16138,
+      "sha1": "9d4902111c5b6853697f4f0abd73b7d41c92da11",
+      "sha256": "6d08292cd76c1e4280e202e25b66537b5edc48ae7918aee8cbe4c99feefe306a",
+      "size": 16171,
       "mode": "100644"
     },
     {
@@ -117,9 +117,9 @@
     },
     {
       "path": "static/css/base/_base.scss",
-      "sha1": "5ec23218647f479d0af403f41f301630601c6a04",
-      "sha256": "5fb90b6558edd52c640da942136a77d4f0b3490ad773b0032dcdfe9295020293",
-      "size": 1272,
+      "sha1": "5351ba64fe4b00d8bb3cef5fb8b35ce87c6ea5db",
+      "sha256": "7e699050d9dced72d0097025b574edf925a3504ba36e8900d61f16123b16a0bd",
+      "size": 1319,
       "mode": "100644"
     },
     {
@@ -141,6 +141,356 @@
       "sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "size": 0,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/1.webp",
+      "sha1": "a056fb24cab58a408d358a120811413e297951f4",
+      "sha256": "7dfc55dd599124a4b8f9a34d38663d02f0b291283881f3f4f1b6cfd3dd76c55e",
+      "size": 571564,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/10.webp",
+      "sha1": "ff579a57b8d4e56044ced7a1278c68e308136ded",
+      "sha256": "38b9f3216156394e900d20717e757d92a595025265e95992f7ecd19d1afc17bd",
+      "size": 740674,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/11.webp",
+      "sha1": "3b5298ea0879a0811b9c72d33b47e95edb6dd418",
+      "sha256": "11ce525b986362f80e056896fd545fb8aad518db50e164c2d211da16db20a4d6",
+      "size": 371142,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/12.webp",
+      "sha1": "17e6a7cd62ef780e08aa93278c2667c64c89c5f9",
+      "sha256": "e3a0b1ab2b9366c3b57a6cf7015d10da33a8216a46c72e3c79e5f7055deae44a",
+      "size": 451496,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/13.webp",
+      "sha1": "44af8d2da80474670fc414caf481cdb01ea1e51d",
+      "sha256": "04a7a6a86a00b768953cf486939df76e951f4f77f015c18fa14598a63ef56288",
+      "size": 617552,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/14.webp",
+      "sha1": "bdef78af2d318b2895717b2cdee55d6442555af4",
+      "sha256": "6bd138597c5bc2e7967b8111cfc208552a13e0552a80e3074b65daf043550236",
+      "size": 571318,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/2.webp",
+      "sha1": "ac0182f500ff1bf758a78c952c8379f512ab4cdf",
+      "sha256": "49c47bba1bdb43cc0fc8ee0b185c6318be0f62f3283999319f748c42395ddf32",
+      "size": 697358,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/3.webp",
+      "sha1": "8fe07d10c67f4997d82954f01f87d2511b92ecd3",
+      "sha256": "ca7b386c015dfd15dbc6118e64fbb46567921cbf0d3c066d569c9bc4ad5ea975",
+      "size": 564078,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/4.webp",
+      "sha1": "c7dbe575447d0ab991ea5a7d4b5c7bfa9f422307",
+      "sha256": "843399d2772914feb78170ca470c5530f580935f894e2c01ad1603bc954f7b4d",
+      "size": 453828,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/5.webp",
+      "sha1": "c56d38776169f3beb5c36b721bd796364f87e807",
+      "sha256": "b341a4135f602dcf110754adcca840db238eb57972642bc64abbf5a24362f87a",
+      "size": 568772,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/6.webp",
+      "sha1": "40fee7d27844282fe82a3f1555b4444b8c7d1216",
+      "sha256": "b5851fca88ae376839e8dad679122c74d9864ca0b6f88fec08efaa63b51a44fd",
+      "size": 430412,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/7.webp",
+      "sha1": "ed998bb58f3e682d3636b6022d8faf52d3e0accf",
+      "sha256": "d7fc6903bcf1d4d5c9ccd9cbdc5ffbf8f8f6a201496c912efd52183969508c66",
+      "size": 401380,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/8.webp",
+      "sha1": "3ad5612d8ac2537b6b5efa76455d33a71db56221",
+      "sha256": "9027187ce66ada78f1f1f60667d75011ef881def3c6a4495b0205457ccee1e8a",
+      "size": 436478,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/sketches/9.webp",
+      "sha1": "b92367bfd2c4b26edfa6e40e804c22def687a644",
+      "sha256": "fc9061b36ef0c5eba54392ae30e919634da69e04f5292d3331c6dc430512562a",
+      "size": 483808,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/1.webp",
+      "sha1": "fdc60f4b4ed6dd4745cc44d66cb9c232dd4fe2a8",
+      "sha256": "9eb4e86f2f80d2908064614670cd3877615a80b7f70e6edf81d7f31df0074e23",
+      "size": 394892,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/11.webp",
+      "sha1": "1818f8d36e4a99d7f3a3983ad172a66a906fdbba",
+      "sha256": "f1ebb564c22ba1a22546f6230843b97feeda9a9274c2e836f24a0c7cd3abf3c3",
+      "size": 293006,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/12.webp",
+      "sha1": "79938873edae85dc98fe51fd7335e5580d173732",
+      "sha256": "8506297eb9078ca4193d01c8f6137bb425a9c086971dd1279607248012b01530",
+      "size": 302344,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/13.webp",
+      "sha1": "339352e740478c766902bedc33a9564cb36490e3",
+      "sha256": "5627b330976fe6b5ae4068a0cbab9cab271e78d97d4e3da9aeed041a22be605a",
+      "size": 372704,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/14.webp",
+      "sha1": "6dc14fa52e9c7d07cd590779b3e0221611aebbd7",
+      "sha256": "5dec1cb971670bcefed25f1441050da5c5a213a58915fdddd57426ffb8b64dfb",
+      "size": 260056,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/15.webp",
+      "sha1": "5bf2e922da6382907585009a8b50434e4e1634ba",
+      "sha256": "3af68833804c49adbe469553fc7aa19ab7202a599225ebb26c0e0eebc3d9a6d9",
+      "size": 254234,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/16.webp",
+      "sha1": "fa5783a713ee101456d4d20bc36dbf938b4d2054",
+      "sha256": "9e09026b36d23aa3e84f6d3520d95aa80d2a686cf53a842775796beac1ad4f34",
+      "size": 478920,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/18.webp",
+      "sha1": "c7d679fcd954e9442c2ed601ed28151e732adb3b",
+      "sha256": "841914d51c09cca1b9a6b7eecfaff1204f4014ce79a05d5696e160e7915df0a5",
+      "size": 588216,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/19.webp",
+      "sha1": "031e6df6b71fa875269a2da710c53f9bb30a63df",
+      "sha256": "33dfc67df705e6730c18b3af59e94c0a0a7818854f12115745886cb0f1fee8c2",
+      "size": 608418,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/2.webp",
+      "sha1": "c8d2d2110902e1515334c55f9a39f6b66ad885d6",
+      "sha256": "95b3f048e948f71e81b8409eadc03370a4aaa411406789caf8ca6ea05aec4b57",
+      "size": 424916,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/20.webp",
+      "sha1": "95511bad18eac68daa34bf7466ba81e02e355b59",
+      "sha256": "e2394141422c808ec825b41216def31d4407a8ed89641eb2ae2d21ca562ee845",
+      "size": 404208,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/21.webp",
+      "sha1": "48fe9a0ccf70a32fff003a9af3ef174b927023c1",
+      "sha256": "00ccd581cc802e32cb26e025d7a1ed89f5faea7f3b20d4903cd1a7c1d39b564f",
+      "size": 394050,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/22.webp",
+      "sha1": "af223c95e44e5fbe44b1966ee510fac394d450a1",
+      "sha256": "8c80cf54c3b6b9381e75db066ba7551c2d2ba88d5f46ba2266ea713bef5ebc55",
+      "size": 601512,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/24.webp",
+      "sha1": "c7f79c4414b520f8c1d2e8673065e2b030959765",
+      "sha256": "4103bf3e22e1a8627841eb70835b964db0bbf363a86653f790e00b5638a5ef16",
+      "size": 325352,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/25.webp",
+      "sha1": "0f6f8718294bd9be29f42b41fe3d136388b7d690",
+      "sha256": "8a5d1ec790a5d0953d3af5d553ab55465bc2b88980b0d2365d8a73ea1fe5d0df",
+      "size": 385870,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/27.webp",
+      "sha1": "50a8acca86c3b1435f5c47d8b4b1bc2efff0347c",
+      "sha256": "05a39486bf6a9a350c3451ca3934929f3fac18930782254c6583fa8b84854f2a",
+      "size": 633626,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/28.webp",
+      "sha1": "22dc6c52cb940fb2bbaff8193e5538f3da9c5333",
+      "sha256": "af6c7405a0c02042dded83a61d437c247f9334360a87b0ac12a31dff39f39b7c",
+      "size": 147724,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/29.webp",
+      "sha1": "a6ddc0238a58ee162b1617dc9e4d4bd12877a74e",
+      "sha256": "339b7638fc1f068ba1824a7d65e73a119b0b351e5a222a8fa23e1fbc6f660bb0",
+      "size": 758330,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/3.webp",
+      "sha1": "718409f6c873e0a902834336a17b97d00f6c6112",
+      "sha256": "810a81a9ac4526ba83a0a84d4d47a994172ad6cc8309d569cfaff25f7b935bb9",
+      "size": 259236,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/31.webp",
+      "sha1": "b06ef2f24ac47517ab836d265bbdd60f2d37a0f3",
+      "sha256": "364e5663fcbf83bc2e4ed7de17d2b1142d66edf14707769939c21778148b2937",
+      "size": 549024,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/4.webp",
+      "sha1": "c5bb1acb99b4cc422f62adfa23625993ca96a2bc",
+      "sha256": "434a516274680432da98ea0e50d0308b7ae081012eeae4caf5f56c86512e90b0",
+      "size": 358452,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/5.webp",
+      "sha1": "7a52b7e74c6aa2c39425432993b7081e13cb0d2a",
+      "sha256": "968f3a2e90e217e25930982822bd61772023786419ffd6173a01bf9156903d4b",
+      "size": 381792,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/6.webp",
+      "sha1": "d495788f78e0fe840ae66b79c271b3c3d05830bd",
+      "sha256": "cd4d80b5654a9c8b60300c4b8eea1aac6e0bdaf93fdb34d7f58c0efdf4b482b2",
+      "size": 439516,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/7.webp",
+      "sha1": "b3b986db6f0087d7fa45681844d8091ed076cc77",
+      "sha256": "bc7d779f2809ac250f11d5f19b451a256043a47f1417cd99eb51e78b57a76cd6",
+      "size": 234778,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/8.webp",
+      "sha1": "399b9b777edc3dda8c7064075cb49381561298cb",
+      "sha256": "2610cbc56dcf39ae1520d507c3179a2630f10f76dcadd0a4506e9d52d069370c",
+      "size": 349922,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/process_studio/9.webp",
+      "sha1": "382b10d4fb540f5ed71cc24c130126e5e176e916",
+      "sha256": "8a57103f12eb20cc09e8508640ada2097f036db1fb9b9b6307d08c62bc59dade",
+      "size": 410752,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/reference/1.webp",
+      "sha1": "c0294e58334916434641e972bac68d9a7b4f518c",
+      "sha256": "51f548ec800c06de3db85678f861620fe78e108861804752b6a120829ba21e29",
+      "size": 535652,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/reference/10.webp",
+      "sha1": "c10c831a97cfff552a6dd5f73c700c8aca5b8003",
+      "sha256": "6e774306a32c10a239cc71fe9b5ab6ec5b9c7d9ede7a8b53f49eea9373c1aaf9",
+      "size": 281520,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/reference/2.webp",
+      "sha1": "90451d987ff839c478197d5b0874e60684af440a",
+      "sha256": "c0cd91ad6800732389023f35b423a370febdb697b85eb070f7f85cc2b83db988",
+      "size": 524126,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/reference/3.webp",
+      "sha1": "15ed87fb704574f140933a94fdfb831f76e75cbe",
+      "sha256": "80da8ad0049dc7ecb3c7ff09769a3cfcbfa162bb7bbf6f4ef7ecd887fc89135f",
+      "size": 380584,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/reference/4.webp",
+      "sha1": "55504543af311e278d2d82ed7791ae544253608f",
+      "sha256": "01755bc7b87a9afbabce402f1fa8e5e095a0a7492d73fa9e8b602768285353f4",
+      "size": 470346,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/reference/5.webp",
+      "sha1": "f2f3f116ecab69d55dc8eb49ddf8d5dd6ad1798e",
+      "sha256": "187019b2aaeadbfd1bf24e8fc186356b7521f80422506245013462f7df04df97",
+      "size": 529376,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/reference/6.webp",
+      "sha1": "21545fc8f7383c4cb28bc6f495d571e32ad9e7ad",
+      "sha256": "18aa4bcba10739e93627a8b23cda79dc8854a272729e8998aed2f2d5883a112f",
+      "size": 787766,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/reference/7.webp",
+      "sha1": "9a9faec78d9aa907cc83e2ec12eb61317cc4523f",
+      "sha256": "ad418c9c6d503c34053c2c624225c1dcb2df45e1a5b05bcbb8eb97a305592635",
+      "size": 781852,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/reference/8.webp",
+      "sha1": "054000810be06d9994daab20b537ce7fcf9c34a1",
+      "sha256": "af5c673abb8148e2cb4cab9abba220a1f379c7cb65f1ee41ec7bef3b85d52947",
+      "size": 386052,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/other/reference/9.webp",
+      "sha1": "6dda228a4163417ffcaef15c7b7a98a541762c62",
+      "sha256": "3ad5d7b5c150c9384f103d97039bc23e1aaea1e72072a8c64eb7f0731d93ce27",
+      "size": 806296,
       "mode": "100644"
     },
     {
@@ -172,45 +522,52 @@
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Aplikate/1.jpg",
+      "path": "static/assets/images/artworks/Blind/1.webp",
+      "sha1": "1cf140d2d852f34a5f2eeeeb2830b0d63cae73e0",
+      "sha256": "6fe11809ff6877793acb75d5453349c0e059478c496ced8cbd5cb96878154d2b",
+      "size": 570198,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/artworks/Applikate/1.jpg",
       "sha1": "233f592edb225f662a960b4711fdfc74249341c3",
       "sha256": "edec595d133c8935cb08384fe2e994d2b6633d2bf7a348b032fd9f46c709bce1",
       "size": 8943092,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Aplikate/2.jpg",
+      "path": "static/assets/images/artworks/Applikate/2.jpg",
       "sha1": "7536c11869675e6dccd009cef4db67741a1c163e",
       "sha256": "3ef38a469693cd5dd8a524ca9115ae3416e371d7b88df52c7d0d21adce31b922",
       "size": 8712596,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Aplikate/3.jpg",
+      "path": "static/assets/images/artworks/Applikate/3.jpg",
       "sha1": "ab6fa2a4f87ac306f0df1c10b87ab3cd80fab95f",
       "sha256": "9507639164a4aa3af4d95ada7ce32759c04c7ea609e829a23516324e0a31d981",
       "size": 5654133,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Aplikate/4.jpg",
+      "path": "static/assets/images/artworks/Applikate/4.jpg",
       "sha1": "922516ed7d4c84c09d2a63849ab6242ae72e0a69",
       "sha256": "46729f121497ec636a01e81360819ff70116287c71c5e52f3a3e9bf557c2a2da",
       "size": 7436632,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Aplikate/5.jpg",
+      "path": "static/assets/images/artworks/Applikate/5.jpg",
       "sha1": "43e647df997aec1ff15c0de386dc3567db7ffed4",
       "sha256": "39dc26d3fcadb833fd2f229cfe6208ccf7edbb9210484087387819eb6ead50a8",
       "size": 11594155,
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Blind/1.webp",
-      "sha1": "1cf140d2d852f34a5f2eeeeb2830b0d63cae73e0",
-      "sha256": "6fe11809ff6877793acb75d5453349c0e059478c496ced8cbd5cb96878154d2b",
-      "size": 570198,
+      "path": "static/assets/images/artworks/OhneTitel/1.webp",
+      "sha1": "54df9b4963bddf4c7739faaa287bcd8fdca1be22",
+      "sha256": "7224acf23386498d7034c44094ce1b4cfc26c004641e91a9e21255490bdf59eb",
+      "size": 9263046,
       "mode": "100644"
     },
     {
@@ -263,59 +620,38 @@
       "mode": "100755"
     },
     {
-      "path": "static/assets/images/artworks/Große Stuckmarmorplatte/1.webp",
-      "sha1": "54df9b4963bddf4c7739faaa287bcd8fdca1be22",
-      "sha256": "7224acf23386498d7034c44094ce1b4cfc26c004641e91a9e21255490bdf59eb",
-      "size": 9263046,
-      "mode": "100644"
-    },
-    {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/1.webp",
+      "path": "static/assets/images/artworks/FortschrittUndFestgehalten/1.webp",
       "sha1": "f65ae022c02c831e8d4c359541cbeb25c13986ca",
       "sha256": "acab2913c855cfec6e66a08ebaaac0662ad40713cc6c448fbd1d7b98b510b07a",
       "size": 4082348,
       "mode": "100644"
     },
     {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/2.webp",
+      "path": "static/assets/images/artworks/FortschrittUndFestgehalten/2.webp",
       "sha1": "5c826a15332db90976aacd183c7748ca08c83f13",
       "sha256": "5a2db49f9a63af5493c6fd6c028a850da9da9e450b817655a7bff06aa35f177b",
       "size": 2189950,
       "mode": "100644"
     },
     {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/3.webp",
+      "path": "static/assets/images/artworks/FortschrittUndFestgehalten/3.webp",
       "sha1": "b659f542bb97f6d9d1f60345bbb57d81ce98dbf6",
       "sha256": "2b5e11e1cc6250105815c00aebaa895bb5d306e97cadff37e09c42a1c5149ee2",
       "size": 2885762,
       "mode": "100644"
     },
     {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/4.webp",
+      "path": "static/assets/images/artworks/FortschrittUndFestgehalten/4.webp",
       "sha1": "d603871757e4142499aaf363a93197ff269aa53d",
       "sha256": "329c67abda2324cc5643057aa6f668d41324904e46cc66aa4a8470043d7118f5",
       "size": 4443774,
       "mode": "100644"
     },
     {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/5.webp",
+      "path": "static/assets/images/artworks/FortschrittUndFestgehalten/5.webp",
       "sha1": "4da585ee0c1dbcd1e61786288d85b7461dd23d22",
       "sha256": "794cc6f5481f03209dfa976eba931ea18e13043f8b4902d4f918f72ecd0b97db",
       "size": 3820006,
-      "mode": "100644"
-    },
-    {
-      "path": "static/assets/images/artworks/Brechungen. Zur Handgreiflichkeit des Denkens/1.webp",
-      "sha1": "5dadc9175cad4bc07bf1b56ad8f587edcd53ae52",
-      "sha256": "d5a49735268b536f30665ec690f18b0fa1ef7f9ceae24a56b2f0844c56191e59",
-      "size": 1817626,
-      "mode": "100644"
-    },
-    {
-      "path": "static/assets/images/artworks/Brechungen. Zur Handgreiflichkeit des Denkens/2.png",
-      "sha1": "d2a84d9a401c27731caa8d16c8907e70e7ccc322",
-      "sha256": "652ddbbd3c744749fafa2066d7c7e0e48908d31e96fc2213f37c545dc9074471",
-      "size": 56251890,
       "mode": "100644"
     },
     {
@@ -459,6 +795,27 @@
       "mode": "100755"
     },
     {
+      "path": "static/assets/images/artworks/WarumSchafeUnterLindenSterben/1.jpf",
+      "sha1": "257b7ea891dffa8d773b710c884badc616d9469d",
+      "sha256": "35b0d6a42d522a20fec99cba95a70e3f28842c159656626aef63e4660c3c2e13",
+      "size": 7996062,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/artworks/BrechungenZurHandgreiflichkeitDesDenkens/1.webp",
+      "sha1": "5dadc9175cad4bc07bf1b56ad8f587edcd53ae52",
+      "sha256": "d5a49735268b536f30665ec690f18b0fa1ef7f9ceae24a56b2f0844c56191e59",
+      "size": 1817626,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/artworks/BrechungenZurHandgreiflichkeitDesDenkens/2.png",
+      "sha1": "d2a84d9a401c27731caa8d16c8907e70e7ccc322",
+      "sha256": "652ddbbd3c744749fafa2066d7c7e0e48908d31e96fc2213f37c545dc9074471",
+      "size": 56251890,
+      "mode": "100644"
+    },
+    {
       "path": "static/assets/images/artworks/Onward/1.png",
       "sha1": "a6034c55faf4508ab847020cd2a3279d3f0b73a5",
       "sha256": "3bf9f88e178a04be2b491f9049a061ada515503d810260e9ca0b0b06fbd70429",
@@ -485,13 +842,6 @@
       "sha256": "0642d5dddb5dd52f1395262ae7a9f5366217860ba305594d08ba5a0b7774797e",
       "size": 2656603,
       "mode": "100755"
-    },
-    {
-      "path": "static/assets/images/artworks/Warum Schafe unter Linden sterben/1.jpf",
-      "sha1": "257b7ea891dffa8d773b710c884badc616d9469d",
-      "sha256": "35b0d6a42d522a20fec99cba95a70e3f28842c159656626aef63e4660c3c2e13",
-      "size": 7996062,
-      "mode": "100644"
     },
     {
       "path": "static/assets/fonts/ABCMarist-Medium.woff2",
@@ -663,9 +1013,9 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "8ee92a3a6775a1ba1b02652fa6e5e0aaa72e8ea0",
-      "sha256": "6b2f3a70a023a49954350cd7384c12d39ee45de9f9b9d1f8306a69b3c68b8863",
-      "size": 7232,
+      "sha1": "6d2b3ee010fefad18105170b1cecb457c4f46a8d",
+      "sha256": "c560672d0f756f7c57f6fc1b943e5e9d8e01836df17fb8996ff0e60a367a1287",
+      "size": 14586,
       "mode": "100644"
     }
   ],
@@ -712,11 +1062,15 @@
       "reason": "generated-file"
     },
     {
-      "path": "static/assets/images/artworks/Aplikate/.DS_Store",
+      "path": "static/assets/images/artworks/Blind/.DS_Store",
       "reason": "generated-file"
     },
     {
-      "path": "static/assets/images/artworks/Blind/.DS_Store",
+      "path": "static/assets/images/artworks/Applikate/.DS_Store",
+      "reason": "generated-file"
+    },
+    {
+      "path": "static/assets/images/artworks/OhneTitel/.DS_Store",
       "reason": "generated-file"
     },
     {
@@ -728,15 +1082,7 @@
       "reason": "generated-file"
     },
     {
-      "path": "static/assets/images/artworks/Große Stuckmarmorplatte/.DS_Store",
-      "reason": "generated-file"
-    },
-    {
-      "path": "static/assets/images/artworks/Fortschritt. und festgehalten/.DS_Store",
-      "reason": "generated-file"
-    },
-    {
-      "path": "static/assets/images/artworks/Brechungen. Zur Handgreiflichkeit des Denkens/.DS_Store",
+      "path": "static/assets/images/artworks/FortschrittUndFestgehalten/.DS_Store",
       "reason": "generated-file"
     },
     {
@@ -768,11 +1114,15 @@
       "reason": "generated-file"
     },
     {
-      "path": "static/assets/images/artworks/Onward/.DS_Store",
+      "path": "static/assets/images/artworks/WarumSchafeUnterLindenSterben/.DS_Store",
       "reason": "generated-file"
     },
     {
-      "path": "static/assets/images/artworks/Warum Schafe unter Linden sterben/.DS_Store",
+      "path": "static/assets/images/artworks/BrechungenZurHandgreiflichkeitDesDenkens/.DS_Store",
+      "reason": "generated-file"
+    },
+    {
+      "path": "static/assets/images/artworks/Onward/.DS_Store",
       "reason": "generated-file"
     },
     {
