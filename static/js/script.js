@@ -3051,7 +3051,11 @@ async function handleDeltaWebsearch(content) {
     }
 
     // If the content is a URL and there is a space, the URL has ended
-    if (isWebsearchStreamingURL && content.includes(' ')) {
+    if (isWebsearchStreamingURL && 
+        (content.includes(' ') || content.includes('\n') || content.includes('\r\n'))) {
+        // Get the content after the URL by splitting at the first space or newline
+        const splitContent = content.split(/[ \n\r\n]/);
+        content = splitContent.slice(1).join(' '); // Take everything after the URL part
         isWebsearchStreamingURL = false;
     }
 

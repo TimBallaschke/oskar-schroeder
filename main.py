@@ -167,14 +167,24 @@ class HeadlineComponent(BaseModel):
 
 class ParagraphComponent(BaseModel):
     UIType: Literal["paragraphs"] = Field(description="Indicates this is a paragraph component for displaying text")
-    image: Optional[ImageComponent] = Field(description="An image that matches the content of the paragraph")
+    image: Optional[ImageComponent] = Field(
+        description=(
+            "An image that fits the paragraph’s content. "
+            "ALWAYS include if there is an image that is somehow related to the content of the paragraph; set to null only when no suitable image can be found."
+        )
+    )
     text: List[str] = Field(
         description=(
             "The text content of the paragraph. Each sentence should be a separate paragraph. "
-            "Proper names should be wrapped in brackets, including names of individuals, locations, organizations, "
+            "Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "
             "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
-            "For example: '[Zentrum für Zeitgenössische Kunst]', '[Donald Judd]', '[Barbara Hepworth]', '[Berlin]', "
-            "'[Minimalism]', '[Renaissance]', '[documenta]', '[Conceptual Art]', '[Les Demoiselles d'Avignon]'."
+            "For example: '[Muthesius University of Fine Arts]', '[HBK Braunschweig]', '[Thomas Rentmeister]', '[Elisabeth Wagner]', "
+            "'[Flensburg]', '[North Frisia]', '[Stucco marble]', '[New Materialism]', '[Karen Barad]', '[Kunstverein Braunschweig]', "
+            "'[Galerie KuCo]', '[Raum Links Rechts, Hamburg]', '[Galerie Ewelyn Drewes, Hamburg]', '[Prima Kunst Container]', "
+            "'[Kunsthaus Kaufbeuren]', '[Galerie 21]', '[Vorwerkstift Hamburg]', '[Stadtgalerie Kiel]', '[Duborg Skolen]', "
+            "'[Eckener Schule Flensburg]', '[Hannover Re]', '[Prospekt]', '[Maximiliansforum]', '[Galerie der Künstler]', "
+            "'[Beaux‑Arts Nantes Saint‑Nazaire]', '[Regine Schulz]', '[Mats Hoff]', '[Janosch Heydorn]', '[Karin Kamolz]', "
+            "'[Corinna Schnitt]', '[Jan Kochermann]', '[BKH Gutmann]', '[Axel Loytved]', '[Olaf Metzel]', '[Georg Winter]'."
         )
     )
 

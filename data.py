@@ -1,620 +1,926 @@
-# VARIABLES THAT HOLD INFORMATION FOR THE SYSTEM PROMPT
-
-# Information about the artist
 artist_info = (
-    "Oskar Schroeder is a contemporary sculpture artist known for his innovative explorations of materiality, form, and space. "
-    "Born in Berlin, Germany, in 1985, Schroeder developed an early fascination with the physical world and the transformative processes. "
-    "His artistic practice bridges traditional craftsmanship with experimental approaches, resulting in works that challenge perceptions. "
-    "His works evoke a deep engagement with the tactile and the ephemeral.\n\n"
-    "Schroeder's artistic journey began in his youth, when he spent time in his grandfather's woodworking shop. "
-    "These formative experiences instilled in him a deep respect for materials and the stories they carry. "
-    "He later studied fine arts at the Berlin University of the Arts, where he specialized in sculpture. "
-    "During his studies, he explored wood, metal, concrete, and fabric, each chosen for its inherent properties.\n\n"
-    "A pivotal moment came during a residency in Kyoto, Japan, where he learned traditional Japanese woodworking. "
-    "He was introduced to the philosophy of wabi-sabi—the acceptance of imperfection and impermanence. "
-    "This experience had a profound impact on his artistic outlook, inspiring him to embrace irregularities and natural decay.\n\n"
-    "Schroeder's sculptures explore themes of tension, balance, and transformation. "
-    "He is particularly interested in the interplay between order and chaos, permanence and impermanence. "
-    "His works invite viewers to engage with the physicality of materials, to observe light, shadow, and texture.\n\n"
-    "Influenced by historical and contemporary art movements, Schroeder draws inspiration from Donald Judd and Barbara Hepworth. "
-    "His practice incorporates elements of phenomenology and systems theory, exploring how viewers experience space and form.\n\n"
-    "Throughout his career, Schroeder has exhibited extensively in Europe and internationally. "
-    "His works have been featured in prestigious galleries including the Zentrum für Zeitgenössische Kunst in Leipzig. "
-    "His installations often respond to specific architectural contexts, creating immersive experiences.\n\n"
-    "Schroeder is committed to sustainable art practices and often incorporates found or recycled materials. "
-    "His projects frequently involve collaborations with engineers, architects, and scientists. "
-    "These partnerships allow him to explore innovative techniques and engage with cutting-edge research.\n\n"
-    "In addition to his studio practice, Schroeder is an active educator and mentor. "
-    "He regularly conducts workshops on sculpture and material exploration, sharing his knowledge. "
-    "His teaching emphasizes the importance of process and experimentation in the creative journey.\n\n"
-    "Oskar Schroeder's body of work continues to evolve, reflecting his fascination with materials and forms. "
-    "Through his sculptures, he invites viewers to slow down and engage deeply with the physical world."
+    "Oskar Schroeder is a contemporary sculptor whose work explores the interdependence between material, perception, and memory. "
+    "Born in 1991 in Flensburg, Germany, he grew up 50 kilometers outside the city, on a remote family farm in the North Frisian countryside. "
+    "Surrounded by livestock and agricultural land, Schroeder’s early experiences walking the fields left a deep imprint on his artistic practice. "
+    "The contradiction between the seeming naturalness of rural life and the ecological violence of industrial agriculture continues to shape the aesthetic and conceptual foundation of his work.\n\n"
+
+    "After graduating from the Danish-language Duborg-Skolen in Flensburg in 2011, Schroeder completed an apprenticeship as a certified wood sculptor. "
+    "This period grounded him in craft traditions and material literacy, but his artistic engagement took shape more fully during his art studies. "
+    "From 2016 to 2021, he studied sculpture under Elisabeth Wagner at the Muthesius University of Fine Arts in Kiel, where he earned his bachelor’s degree. "
+    "Wagner’s conceptual emphasis and spatial rigor encouraged him to step away from figuration and explore new materials—including stucco marble, "
+    "which would become a central medium in his practice.\n\n"
+
+    "In 2021, Schroeder joined the class of Thomas Rentmeister at HBK Braunschweig, completing his diploma in 2023 and his Meisterschüler in 2024. "
+    "Rentmeister’s radical approach to form and materiality pushed Schroeder further into an experimental process that fuses sculptural tradition "
+    "with contemporary concerns. During this time, his stucco marble works shifted from using synthetic pigments to incorporating organic substances—"
+    "such as ash, bone, soil, and blood—yielding surfaces that feel both archaeological and alchemical.\n\n"
+
+    "Schroeder’s work spans wood sculpture, stucco marble, installation, photography, sound, and film. "
+    "His wood pieces, often hand-carved from found material, resemble embryonic creatures or skeletal remains. "
+    "His photographic work uses blur and depth-of-field to dematerialize objects, probing what remains when contours vanish. "
+    "His sound compositions emerge from field recordings—fragments of ambient life, gathered and layered into immersive sonic textures. "
+    "Across all media, Schroeder is concerned with transformation: how living materials become objects, how absence becomes presence, "
+    "how the material world is animated by forces we can’t fully grasp.\n\n"
+
+    "His artistic thinking is deeply influenced by new materialism and philosophical ecology. "
+    "Texts such as Karen Barad’s »agential realism«, Jane Bennett’s »Vibrant Matter«, Valentin Braitenberg’s »Vehicles«, and Henry David Thoreau’s »Walden« "
+    "have informed his reflection on non-human agency and the porous boundaries between life and matter.\n\n"
+
+    "Oskar Schroeder currently lives and works in Hamburg. His recent practice continues to merge the conceptual clarity of his Kiel years "
+    "with the raw experimentation of his Braunschweig period. Through his evolving materials and hybrid methods, he crafts works that feel at once "
+    "tender, urgent, and elemental—objects that ask us to sense more, and assume less."
+)
+
+artist_profile = {
+    "name": "Oskar Schroeder",
+    "born": 1991,
+    "birthplace": "Flensburg, Germany",
+    "based_in": "Hamburg, Germany",
+    "education": [
+        {
+            "years": "2023–2024",
+            "degree": "Meisterschüler",
+            "institution": "HBK Braunschweig",
+            "mentor": "Prof. Thomas Rentmeister"
+        },
+        {
+            "years": "2021–2023",
+            "degree": "Diplom",
+            "institution": "HBK Braunschweig",
+            "mentor": "Prof. Thomas Rentmeister"
+        },
+        {
+            "years": "2017–2021",
+            "degree": "Bachelor of Fine Arts",
+            "institution": "Muthesius University of Fine Arts, Kiel",
+            "mentor": "Prof. Elisabeth Wagner"
+        },
+        {
+            "years": "2016–2017",
+            "degree": "Foundation Studies",
+            "institution": "Muthesius University of Fine Arts, Kiel",
+            "mentors": ["Prof. Jan Kochermann", "Prof. BKH Gutmann"]
+        },
+        {
+            "years": "2012–2015",
+            "degree": "State-certified Wood Sculptor",
+            "institution": "Eckener Schule, Flensburg"
+        },
+        {
+            "year": 2011,
+            "degree": "Abitur",
+            "institution": "Duborg-Skolen, Flensburg"
+        }
+    ],
+    "grant": {
+        "year": 2023,
+        "name": "SBK – Grant from Stiftung Braunschweigischer Kulturbesitz"
+    },
+    "primary_media": ["Wood sculpture", "Stucco marble (Scagliola)", "Photography", "Video", "Sound installation"],
+    "material_focus": [
+        "Wood", "Gypsum", "Bone glue", "Blood", "Charcoal dust", "Soil", "Plant matter", "Plastic waste", "Ash"
+    ],
+    "methods": [
+        "Hand carving", "Material casting", "Stucco marble processing", "Field recordings", "Analog and digital photography", "Video composition"
+    ],
+    "themes": [
+        "Material transformation", "Non-human agency", "Ecological memory", "Perception and dematerialization",
+        "Nature vs. industrial landscape", "Existential ambiguity"
+    ],
+    "philosophical_influences": [
+        "Karen Barad – Agential Realism",
+        "Jane Bennett – Vibrant Matter",
+        "Valentin Braitenberg – Vehicles",
+        "Henry David Thoreau – Walden"
+    ],
+    "artistic_influences": [
+        "Thomas Rentmeister", "Elisabeth Wagner", "Craft traditions", "North Frisian landscape", "Post-industrial rural life"
+    ],
+    "languages": ["German", "Danish"]
+}
+
+materials_and_techniques = (
+    "Oskar Schroeder works primarily with wood, stucco marble (Scagliola), photography, sound, and video. "
+    "His sculptural process is guided by a deep sensitivity to the inherent qualities of materials—grain, shape, texture, and history. "
+    "In his wood sculptures, he uses chainsaws, axes, chisels, and sanding tools, often working with found wood that already carries a story. "
+    "The final forms—waxed, oiled, or left raw—reveal both the artist’s hand and the wood’s resistance.\n\n"
+    
+    "Stucco marble is a central medium in Schroeder’s practice. He prepares it using traditional methods—mixing gypsum, water, and bone glue, "
+    "then adding pigments or pulverized materials such as charcoal, soil, blood, bone, or plastic waste. "
+    "The result is a surface reminiscent of geological strata or synthetic fossils. Once hardened, the pieces are hand-sanded and polished, then oiled and sealed. "
+    "This process creates objects that feel petrified, archival, and emotionally charged.\n\n"
+    
+    "Photography entered his practice more prominently in 2023. Working with depth-of-field and intentional blur, he treats photography as a tool of dematerialization—"
+    "erasing contours to explore what remains. He photographs collected objects from his surroundings, like childhood figurines or deceased animals, treating them as witnesses to lived experience.\n\n"
+
+    "In his sound works, Schroeder builds immersive compositions from field recordings—ambient fragments of real environments: birdsong, silence, urban noise, or distant voices. "
+    "These are layered, processed, and looped into dense acoustic textures, often used in installations or live performance. "
+    "His entry into sound began in electronic music and gradually shifted toward experimental sound art unconstrained by rhythm or genre.\n\n"
+
+    "Film, for Schroeder, is a way to compress time and space. It allows him to document gestures, landscapes, or ritual-like actions that exist at the intersection of memory and imagination. "
+    "Its portability—unlike the physical heft of sculpture—offers a liberating contrast: art that can be made anywhere, anytime."
+)
+
+material_philosophy = (
+    "Oskar Schroeder understands material not as passive matter, but as an active participant in the shaping of space, perception, and behavior. "
+    "His work begins from the premise that all material is alive—transforming, decaying, affecting us, and being affected. "
+    "Influenced by philosophical texts like Karen Barad’s »agential realism« and Jane Bennett’s »vibrant matter«, Schroeder sees no real boundary between so-called living and non-living things. "
+    "Every material has a story, a past, and a latent energy.\n\n"
+
+    "In his sculptures and installations, Schroeder attempts to preserve traces of origin and mutation—whether through embedding dust, blood, or bone in his stucco marble, "
+    "or carving found wood into ambiguous life forms. These works are not only about material—they are acts of material thinking, where the making process mirrors geological and biological change.\n\n"
+
+    "He is also fascinated by what escapes material presence. In his photographs and sound works, Schroeder tests what happens when form dissolves—when contours vanish and signals distort. "
+    "By stripping away certainty, he explores the »ungraspable«: that which we intuit but cannot name, the forces that shape us but elude us.\n\n"
+
+    "Through this approach, Schroeder’s art becomes both tactile and metaphysical—a meditation on how we inhabit a world made of substances we barely understand, "
+    "and how even »dead« matter continues to speak, respond, and act in silence."
+)
+
+media_background = (
+    "Schroeder’s path into art began with sculpture—first through an apprenticeship in wood carving, then through years of formal study. "
+    "The immediate, physical nature of sculpture—the fact that it shares space with us, that it ages and weighs—remains foundational to his practice.\n\n"
+
+    "Photography had an early place in his life; his father was a photographer, and he received his first camera as a child. "
+    "But it wasn’t until the end of his studies that photography became a serious part of his work. Now, he uses it to investigate presence through absence, "
+    "capturing everyday objects in soft focus to emphasize memory, intuition, and disappearance.\n\n"
+
+    "His interest in sound emerged from electronic music. Early experiments with techno gradually gave way to a freer form of sonic composition—"
+    "based on field recordings, atmospheric layering, and emotional resonance rather than rhythm. "
+    "Sound is used to ground or disorient, to spatialize memory or amplify what’s missing.\n\n"
+
+    "Film, finally, allows Schroeder to work with duration. Through it, he documents space and action, compresses or stretches time, and creates intimate windows into movement, ritual, and atmosphere. "
+    "Unlike his heavy sculptures, his films can be made with little more than a camera and a moment. They offer mobility, immediacy, and story."
 )
 
 images_for_paragraphs = {
-    "images": [
+    "process_and_studio": [
         {
-            "url": "../static/assets/images/Reference/6.webp",
-            "description": "Image of University of the Arts Berlin",
+            "url": "../static/assets/images/other/process_studio/1.webp",
+            "description": "Casting a clay model into plaster during Schroeder’s wood sculpting apprenticeship in Flensburg, 2014."
         },
         {
-            "url": "../static/assets/images/Reference/6.webp",
-            "description": "Woodworkshop of Oskars grandfather",
+            "url": "../static/assets/images/other/process_studio/2.webp",
+            "description": "Watering the plaster negative mold created during Schroeder’s apprenticeship, 2014."
         },
         {
-            "url": "../static/assets/images/Reference/6.webp",
-            "description": "Early material studies of Oskar Schroeder",
+            "url": "../static/assets/images/other/process_studio/3.webp",
+            "description": "Cleaning the plaster positive form from the casting process, Flensburg 2014."
         },
         {
-            "url": "../static/assets/images/Reference/6.webp",
-            "description": "Oskar Schroeder in Kyoto",
+            "url": "../static/assets/images/other/process_studio/4.webp",
+            "description": "Measuring a wood sculpture during Schroeder’s wood sculpting apprenticeship, 2014."
         },
         {
-            "url": "../static/assets/images/Reference/6.webp",
-            "description": "Oskar Schroeder in his studio",
+            "url": "../static/assets/images/other/process_studio/5.webp",
+            "description": "Carving the surface of a wood relief sculpture, 2014."
         },
         {
-            "url": "../static/assets/images/Reference/6.webp",
-            "description": "Material studies of Oskar Schroeder with reference to Donald Judd",
+            "url": "../static/assets/images/other/process_studio/6.webp",
+            "description": "First semester at Muthesius Academy: experimental head modeling, 2016."
         },
         {
-            "url": "../static/assets/images/Reference/6.webp",
-            "description": "Material studies of Oskar Schroeder with reference to Barbara Hepworth",
+            "url": "../static/assets/images/other/process_studio/7.webp",
+            "description": "Early figurative work at Muthesius Academy under Elisabeth Wagner, 2018."
         },
         {
-            "url": "../static/assets/images/Reference/6.webp",
-            "description": "Material studies of Oskar Schroeder with reference to Barbara Hepworth",
+            "url": "../static/assets/images/other/process_studio/8.webp",
+            "description": "Head mounted on a steel rod and cast in plaster, 2017."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/9.webp",
+            "description": "Portrait bust from a modeling workshop in Elisabeth Wagner’s class, 2017."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/11.webp",
+            "description": "Installation view of »Brunnen für München« at the KIL_MUC_SAAR finissage, Munich 2018."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/12.webp",
+            "description": "Transferring measurements from plaster model to oak for carving an arm sculpture."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/13.webp",
+            "description": "Wax being poured into a mold form."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/14.webp",
+            "description": "Large stucco marble slab on a pallet in the Muthesius workshop."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/15.webp",
+            "description": "Cross‑section of a pigmented plaster block, showing charcoal and soil mixed into the gypsum for stucco marble."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/16.webp",
+            "description": "View of Oskar Schroeder’s studio workspace at HBK Braunschweig."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/18.webp",
+            "description": "Poplar wood piece used in the sculpture »Hypo«."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/19.webp",
+            "description": "Early shaping of a poplar wood form for »Hypo«, highlighting how the natural grain guided the carving."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/20.webp",
+            "description": "Poplar wood form prepared for carving »Hypo«."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/21.webp",
+            "description": "Both halves of »Hypo« in process during carving."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/22.webp",
+            "description": "Mirrored »Hypo« sculptures in progress."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/24.webp",
+            "description": "Printed images for the installation »Memoir« in Galerie KuCo, Flensburg."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/25.webp",
+            "description": "Steel rods from the piece »Holz« used in Pinneberg, shown as modular elements."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/27.webp",
+            "description": "Box with fragments of the broken hand sculpture for »Brechungen. Zur Handgreiflichkeit des Denkens«."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/28.webp",
+            "description": "Braunschweig Lion reinterpretation in wood, »Vom Erobern und Aneignen«."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/29.webp",
+            "description": "Freshly collected wood for the Braunschweig sculpture, roughly shaped."
+        },
+        {
+            "url": "../static/assets/images/other/process_studio/31.webp",
+            "description": "Table with tinted plaster blocks for stucco marble production."
         }
     ],
+
+    "references_and_inspirations": [
+        {
+            "url": "../static/assets/images/other/reference/1.webp",
+            "description": "Modular scaffolding as temporary architecture guiding human movement."
+        },
+        {
+            "url": "../static/assets/images/other/reference/2.webp",
+            "description": "Scaffolding blending into the structure of the Eiffel Tower."
+        },
+        {
+            "url": "../static/assets/images/other/reference/3.webp",
+            "description": "Construction formwork enabling earth displacement for building."
+        },
+        {
+            "url": "../static/assets/images/other/reference/4.webp",
+            "description": "Stone sculpture rigged at a church, revealing material decay."
+        },
+        {
+            "url": "../static/assets/images/other/reference/5.webp",
+            "description": "Symmetrical marble slices—organic patterns transformed into design."
+        },
+        {
+            "url": "../static/assets/images/other/reference/6.webp",
+            "description": "Debris of concrete, steel, earth, straw, and fire—material transformation."
+        },
+        {
+            "url": "../static/assets/images/other/reference/7.webp",
+            "description": "Collapsed roof beams exposed to weather after protecting human space."
+        },
+        {
+            "url": "../static/assets/images/other/reference/8.webp",
+            "description": "Dead hornet on grass, transition from living being to decomposed matter."
+        },
+        {
+            "url": "../static/assets/images/other/reference/9.webp",
+            "description": "Branches from a dry riverbed, once part of living trees."
+        },
+        {
+            "url": "../static/assets/images/other/reference/10.webp",
+            "description": "Example of traditional stucco marble (Scagliola)."
+        }
+    ],
+
+    "sketches": [
+        {
+            "url": "../static/assets/images/other/sketches/1.webp",
+            "description": "Sketch inspired by reading Henry David Thoreau’s »Walden«."
+        },
+        {
+            "url": "../static/assets/images/other/sketches/2.webp",
+            "description": "Sketches of forms, constructions, and bodily shapes."
+        },
+        {
+            "url": "../static/assets/images/other/sketches/3.webp",
+            "description": "Drawings of cylindrical forms and modular structures."
+        },
+        {
+            "url": "../static/assets/images/other/sketches/4.webp",
+            "description": "Continued studies of cylindrical and structural concepts."
+        },
+        {
+            "url": "../static/assets/images/other/sketches/5.webp",
+            "description": "Work‑in‑progress sketch related to the sculpture »Wild«."
+        },
+        {
+            "url": "../static/assets/images/other/sketches/6.webp",
+            "description": "Further sketches developed during the creation of »Wild«."
+        },
+        {
+            "url": "../static/assets/images/other/sketches/7.webp",
+            "description": "Visual planning for structural features in »Wild«."
+        },
+        {
+            "url": "../static/assets/images/other/sketches/8.webp",
+            "description": "First conceptual drawing for »Wild«."
+        },
+        {
+            "url": "../static/assets/images/other/sketches/9.webp",
+            "description": "Installation planning sketch for »Wild«."
+        },
+        {
+            "url": "../static/assets/images/other/sketches/10.webp",
+            "description": "Sketches for the organic sculpture »Hypo«."
+        },
+        {
+            "url": "../static/assets/images/other/sketches/11.webp",
+            "description": "Abstract sculptural concept studies."
+        },
+        {
+            "url": "../static/assets/images/other/sketches/12.webp",
+            "description": "Explorations of volume and spatial structure."
+        },
+        {
+            "url": "../static/assets/images/other/sketches/13.webp",
+            "description": "Detailed drawing of a lavender bush."
+        },
+        {
+            "url": "../static/assets/images/other/sketches/14.webp",
+            "description": "Concept sketch for a future sculpture idea."
+        }
+    ]
 }
 
-# Date for exhibitions
-exhibition_data_1 = {
-    "title": "Liminal Constructs",
-    "timeframe": "April 15 – June 30, 2017",
-    "gallery": "Zentrum für Zeitgenössische Kunst",
-    "city": "Leipzig",
-    "artworks": ["Einsatz"],
+artwork_data_1 = {
+    "name": "Applikate",
+    "year": 2021,
+    "material": "Concrete columns, stucco marble, plywood discs",
+    "dimensions": "30×3–230×120 cm",
+    "images": [
+        {"url": "../static/assets/images/artworks/Applikate/1.jpg"},
+        {"url": "../static/assets/images/artworks/Applikate/2.jpg"},
+        {"url": "../static/assets/images/artworks/Applikate/3.jpg"},
+        {"url": "../static/assets/images/artworks/Applikate/4.jpg"},
+        {"url": "../static/assets/images/artworks/Applikate/5.jpg"}
+    ],
     "description": (
-        "Exploring the tensions between order and chaos, 'Liminal Constructs' brought together artists "
-        "working with industrial and organic materials. Oskar Schroeder's 'Einsatz' was the centerpiece, "
-        "engaging viewers with its interplay of rigidity and fluidity in a repurposed factory space."
-    ),
+        "»Applikate« is Oskar Schroeder's bachelor's thesis work, exhibited in 2021 at the Muthesius University of Fine Arts. "
+        "Each individual object in the work features forms such as openings, slots, and holes that allow for various forms of assembly, "
+        "suggesting their potential to become part of a larger whole.\n\n"
+        "This potential is communicated through the physical appearance of each piece, inviting viewers to imagine how they might come together to form monumental structures—"
+        "much like cathedrals built from marble, but here in miniature, like modular building blocks. "
+        "The work engages the imagination of viewers, extending beyond the object to the idea of assembly and transformation."
+    )
+}
+
+artwork_data_2 = {
+    "name": "Blind",
+    "year": 2019,
+    "material": "Video",
+    "dimensions": "5:30min",
+    "images": [
+        {"url": "../static/assets/images/artworks/Blind/1.webp"}
+    ],
+    "description": (
+        "»Blind« is a video performance shown as part of the group exhibition »Trains Boats and Plains« at the Nantes Saint-Nazaire School of Art. "
+        "In the six-minute video, Oskar Schroeder walks silently toward the sunrise along a busy road, following a fence that separates him from the water. "
+        "Wearing a shell on his head, he is blind and must navigate by touch.\n\n"
+        "In this act, Schroeder becomes part of the sculpture—inhabiting the object like a hermit crab, altering his perception and relationship to the world. "
+        "The title »Blind« is intentionally bilingual and identical in both German and English. "
+        "The shell restricts his senses and conceals his face, our primary means of recognition. "
+        "This limitation shifts the focus to his other senses and changes how the artist is perceived by others. "
+        "The piece investigates how sensory constraints redefine bodily presence and orientation."
+    )
+}
+
+artwork_data_3 = {
+    "name": "Brechungen",
+    "year": 2024,
+    "material": "Frame, passe-partout, photo print",
+    "dimensions": "42×43 cm",
+    "images": [
+        {"url": "../static/assets/images/artworks/BrechungenZurHandgreiflichkeitDesDenkens/1.webp"},
+        {"url": "../static/assets/images/artworks/BrechungenZurHandgreiflichkeitDesDenkens/2.png"}
+    ],
+    "description": (
+        "The photographic work was part of the Meisterschüler*in graduation exhibition »How to Approach a Dream Gently« at the Kunstverein Braunschweig. "
+        "It shows a photograph of a broken hand that Schroeder found in the attic of the Kunstverein—a hand once part of a Flora sculpture that used to stand at the building's entrance.\n\n"
+        "Rather than conducting historical research into its origin, Schroeder chose to address the hand directly. "
+        "His photographic approach dissolves its contours and material boundaries, raising the question of what remains. "
+        "Is it merely the information that this was once a plaster hand? Or can we imagine it witnessing people entering and leaving the house?\n\n"
+        "The work contemplates memory, material presence, and photographic perception. "
+        "It forms part of a larger body of work developed during his Meisterschüler year with Thomas Rentmeister, focusing on stucco marble, wood sculpture, and photography."
+    )
+}
+
+artwork_data_4 = {
+    "name": "Einsatz",
+    "year": 2023,
+    "material": "Mounting rails, stucco marble (gypsum, animal glue, blood, coal dust, wood dust, red ochre)",
+    "dimensions": "360×400 cm",
+    "images": [
+        {"url": "../static/assets/images/artworks/Einsatz/1.webp"},
+        {"url": "../static/assets/images/artworks/Einsatz/2.webp"},
+        {"url": "../static/assets/images/artworks/Einsatz/3.webp"}
+    ],
+    "description": (
+        "»Einsatz« was exhibited during the diploma show at HBK Braunschweig as part of Oskar Schroeder’s final project. "
+        "The installation consists of two steel scaffolds leaning against the wall and a column, holding stucco marble panels mounted with steel screws.\n\n"
+        "The arrangement recalls a landscape or map, where the processed materials suggest sedimentation, layering, and accumulation. "
+        "The work explores how tiny particles—dust, waste—can have large-scale ecological and geological consequences when multiplied across the globe.\n\n"
+        "It reflects on the anthropogenic impact on the environment, material culture, and the formation of future strata. "
+        "»Einsatz« offers a poetic and spatial reading of entropy, matter, and the invisible dynamics of transformation."
+    )
+}
+
+artwork_data_5 = {
+    "name": "Flug",
+    "year": 2023,
+    "material": "Stucco marble (gypsum, animal glue, coal dust, red ochre)",
+    "dimensions": "22×20×2.5 cm",
+    "images": [
+        {"url": "../static/assets/images/artworks/Flug/1.webp"},
+        {"url": "../static/assets/images/artworks/Flug/2.webp"}
+    ],
+    "description": (
+        "»Flug« is part of Oskar Schroeder's diploma project and was exhibited during the final show at HBK Braunschweig. "
+        "The work consists of a compact stucco marble panel made of gypsum, animal glue, coal dust, and red ochre. "
+        "Its flat and modest format emphasizes the presence of material and the relationship between surface and content.\n\n"
+        "Presented within the context of the broader installation, it acts as a quiet fragment that reflects and anchors other pieces, "
+        "while maintaining its own sculptural presence. Through its reduced form, the piece invites intimate observation and questions the weight and resonance of small-scale matter."
+    )
+}
+
+artwork_data_6 = {
+    "name": "Fortschritt und festgehalten",
+    "year": 2024,
+    "material": "Stucco marble (gypsum, animal glue, oil, wax, studio floor dust, pulverized coal, blood, pulverized wood)",
+    "dimensions": "Variable",
+    "images": [
+        {"url": "../static/assets/images/artworks/FortschrittUndFestgehalten/1.webp"},
+        {"url": "../static/assets/images/artworks/FortschrittUndFestgehalten/2.webp"},
+        {"url": "../static/assets/images/artworks/FortschrittUndFestgehalten/3.webp"},
+        {"url": "../static/assets/images/artworks/FortschrittUndFestgehalten/4.webp"},
+        {"url": "../static/assets/images/artworks/FortschrittUndFestgehalten/5.webp"}
+    ],
+    "description": (
+        "»Fortschritt. und festgehalten« was exhibited in the Meisterschüler*in graduation exhibition »How to Approach a Dream Gently« at the Kunstverein Braunschweig. "
+        "The work consists of five stucco marble panels in various sizes distributed across the exhibition space.\n\n"
+        "Each panel contains materials such as studio dust, coal, blood, and wood powder, referencing the artist’s process and environment. "
+        "These embedded materials carry both aesthetic and autobiographical weight.\n\n"
+        "The title points to a dual gesture: a progression in form and thought, and a capturing or preserving of that progress in material form. "
+        "This work, along with others in the exhibition, reflects three methods Schroeder explored during his Meisterschüler year with Thomas Rentmeister: stucco marble, figurative wood sculpture, and photography."
+    )
+}
+
+artwork_data_7 = {
+    "name": "Ohne Titel",
+    "year": 2023,
+    "material": "Stucco marble (gypsum, animal glue, coal dust, red ochre)",
+    "dimensions": "170×100×3cm",
+    "images": [
+        {"url": "../static/assets/images/artworks/OhneTitel/1.webp"}
+    ],
+    "description": (
+        "»Ohne Titel« is one of Oskar Schroeder's largest stucco marble works to date, weighing over 100 kilograms. "
+        "It was exhibited during the diploma show at HBK Braunschweig as part of his graduation project.\n\n"
+        "The panel’s massive presence, combined with its intricate mixture of materials—gypsum, animal glue, coal dust, and red ochre—"
+        "makes it both visually dense and materially powerful. "
+        "The lack of a specific title opens the work to interpretation, inviting projection while acknowledging the impossibility of complete naming."
+    )
+}
+
+artwork_data_8 = {
+    "name": "Hypo",
+    "year": 2023,
+    "material": "Poplar wood",
+    "dimensions": "55×20×60cm",
+    "images": [
+        {"url": "../static/assets/images/artworks/Hypo/1.jpg"},
+        {"url": "../static/assets/images/artworks/Hypo/2.jpg"},
+        {"url": "../static/assets/images/artworks/Hypo/3.jpg"},
+        {"url": "../static/assets/images/artworks/Hypo/4.jpg"}
+    ],
+    "description": (
+        "»Hypo« comprises two wooden sculptures lying apart in the space, their mirrored forms suggesting embryonic beings, crustaceans, or insect larvae. "
+        "When imagined together, they also resemble the inner shape of a human brain—particularly the hypothalamus.\n\n"
+        "The name »Hypo« refers to this association and the notion of underlying control and unconscious regulation. "
+        "The carvings are made of poplar wood, shaped intuitively, and emphasize a sensory and formal relationship to biology, vulnerability, and inner states. "
+        "The work was exhibited during Schroeder’s diploma presentation at HBK Braunschweig."
+    )
+}
+
+artwork_data_9 = {
+    "name": "Janus",
+    "year": 2023,
+    "material": "Fountain, water, pump",
+    "dimensions": "80×110×80cm",
+    "images": [
+        {"url": "../static/assets/images/artworks/Janus/1.jpg"},
+        {"url": "../static/assets/images/artworks/Janus/2.jpg"}
+    ],
+    "description": (
+        "»Janus« is an objet trouvé—a fountain that stood for many years in the garden of Oskar Schroeder's parents. "
+        "Its weathered surface is marked by algae and cracks, and the original figurine on top has broken off.\n\n"
+        "The fountain was exhibited as part of Schroeder’s diploma project at HBK Braunschweig. "
+        "It carries personal and symbolic resonance, having silently observed life over time. "
+        "The title refers to the Roman god Janus, who looks both forward and backward, and reflects the circular form of the fountain, which lacks a defined front.\n\n"
+        "The continuous sound of running water filled the space, evoking a sense of presence and memory, giving the object a new personality and importance as a sculptural witness."
+    )
+}
+
+artwork_data_10 = {
+    "name": "Landschaft",
+    "year": 2023,
+    "material": "Canvas fabric",
+    "dimensions": "400×150cm",
+    "images": [
+        {"url": "../static/assets/images/artworks/Landschaft/1.jpg"},
+        {"url": "../static/assets/images/artworks/Landschaft/2.jpg"}
+    ],
+    "description": (
+        "»Landschaft« was shown during Oskar Schroeder's first solo exhibition »collecting construction« at Galerie KuCo in Flensburg. "
+        "The work consists of a piece of canvas that had been buried in a forest. After a week underground, the fabric absorbed moisture, earth, fibers, leaves, and scent, "
+        "transforming into a living surface.\n\n"
+        "Traditionally used as a substrate for painted illusions of landscape, the fabric here becomes landscape itself. "
+        "The act of burial turns the canvas into both a document and material extension of nature. "
+        "The work challenges our visual habits and offers a poetic proposal about our perception of and relationship with nature."
+    )
+}
+
+artwork_data_11 = {
+    "name": "Memoir",
+    "year": 2023,
+    "material": "Photo prints, foils, glass plates",
+    "dimensions": "Variable",
+    "images": [
+        {"url": "../static/assets/images/artworks/Memoir/1.jpg"},
+        {"url": "../static/assets/images/artworks/Memoir/2.png"},
+        {"url": "../static/assets/images/artworks/Memoir/3.jpg"},
+        {"url": "../static/assets/images/artworks/Memoir/4.jpg"},
+        {"url": "../static/assets/images/artworks/Memoir/5.jpg"},
+        {"url": "../static/assets/images/artworks/Memoir/6.jpg"}
+    ],
+    "description": (
+        "»Memoir« was presented during Oskar Schroeder's first solo exhibition »collecting construction« at Galerie KuCo in Flensburg. "
+        "It marks the first time the artist exhibited photographic work.\n\n"
+        "The photographs, mostly of objects Schroeder found and collected, are taken with a shallow depth of field, "
+        "leaving their subjects only partially recognizable. "
+        "They are documented similarly to scientific photography—neutral background, overhead angle—but the intentional ambiguity subverts expectations.\n\n"
+        "The installation, developed on site, features the images under foils and glass plates, enhancing their blurriness. "
+        "The objects depicted were found in the months before the exhibition, and the presentation suggests an archival logic of memory and preservation. "
+        "»Memoir« questions what remains visible when material and form begin to dissolve."
+    )
+}
+
+artwork_data_12 = {
+    "name": "Neuanfang",
+    "year": 2023,
+    "material": "Various materials",
+    "dimensions": "Variable",
+    "images": [
+        {"url": "../static/assets/images/artworks/Neuanfang/1.png"}
+    ],
+    "description": (
+        "»Neuanfang« was shown in the project space of Corinna Schnitt’s class at HBK Braunschweig. "
+        "The installation features a constellation of found and self-made objects arranged across the room—on the floor, walls, and hanging in space.\n\n"
+        "It includes Schroeder’s first bronze cast, a carved wooden arm, two wooden trestles holding silicone strips cast from his studio table, "
+        "and steel rods leaning in a corner like unused tools. "
+        "The room is draped in painter’s plastic, giving the space a feeling of transition—part construction site, part unified installation.\n\n"
+        "The work reflects a shift in the artist’s practice following his transfer from Muthesius University to HBK Braunschweig. "
+        "»Neuanfang« (»New Beginning«) embodies a moment of material and conceptual exploration."
+    )
+}
+
+artwork_data_13 = {
+    "name": "Onward",
+    "year": 2024,
+    "material": "Video loop",
+    "dimensions": "4 sec (loop)",
+    "images": [
+        {"url": "../static/assets/images/artworks/Onward/1.png"},
+        {"url": "../static/assets/images/artworks/Onward/2.png"},
+        {"url": "../static/assets/images/artworks/Onward/3.png"},
+        {"url": "../static/assets/images/artworks/Onward/4.png"}
+    ],
+    "description": (
+        "»Onward« is a video work created in collaboration with Mats Hoff for the exhibition »Begleitgrau« by Oskar Schroeder and Regine Schulz "
+        "at Raum Links Rechts in the Gängeviertel, Hamburg.\n\n"
+        "The video shows a dog running at full speed, filmed in slow motion. The tension between speed and slowness plays out as a visual paradox. "
+        "The dog—an animal balancing control and wildness—was filmed running alongside a car near Kiel, with Hoff using a telephoto lens.\n\n"
+        "The video was projected from inside onto the gallery window, visible from the street even outside regular opening hours. "
+        "»Onward« contemplates instinct, freedom, and the layered registers of movement, memory, and observation."
+    )
+}
+
+artwork_data_14 = {
+    "name": "Vivarium",
+    "year": 2024,
+    "material": "Drywall, glass, photo prints, studio dust",
+    "dimensions": "145×82×65cm",
+    "images": [
+        {"url": "../static/assets/images/artworks/Vivarium/1.webp"},
+        {"url": "../static/assets/images/artworks/Vivarium/2.jpg"},
+        {"url": "../static/assets/images/artworks/Vivarium/3.webp"}
+    ],
+    "description": (
+        "»Vivarium« was shown during the annual »Open Studios« at HBK Braunschweig. "
+        "The work takes the form of a box with glass panels enclosing photo prints. "
+        "The glass surface is coated with a thick layer of studio dust, partially obscuring the images inside.\n\n"
+        "The photos, mostly depicting found objects, are taken in the style of scientific documentation—overhead, neutral background—"
+        "but the use of shallow focus renders their subjects blurry and indistinct. "
+        "This intentional ambiguity challenges viewers’ visual habits and expectations.\n\n"
+        "Despite its title, »Vivarium« does not contain living specimens. "
+        "Instead, it reflects on the desire to observe, preserve, and classify, even when what is seen is ambiguous or disappearing."
+    )
+}
+
+artwork_data_15 = {
+    "name": "Walden",
+    "year": 2023,
+    "material": "Video",
+    "dimensions": "9.5min",
+    "images": [
+        {"url": "../static/assets/images/artworks/Walden/1.webp"},
+        {"url": "../static/assets/images/artworks/Walden/2.png"},
+        {"url": "../static/assets/images/artworks/Walden/3.png"},
+        {"url": "../static/assets/images/artworks/Walden/4.png"}
+    ],
+    "description": (
+        "»Walden« is a video work from Schroeder’s diploma exhibition at HBK Braunschweig. "
+        "It shows five children moving through a sparse, misty landscape of flat fields and thin forests.\n\n"
+        "Their actions evoke ritualistic behaviors—scattering ashes, lighting fireworks, doing push-ups in the woods. "
+        "The soundtrack consists of distorted bird sounds that resemble synthetic tones rather than anything natural.\n\n"
+        "The landscape is that of Schroeder’s own childhood in North Frisia. "
+        "By revisiting it through performance and film, he reflects on memories of play, nature, and rural life—asking if what he once saw as wilderness "
+        "might instead have been industrial farmland. "
+        "»Walden« is a meditation on nostalgia, perception, and the layered meanings of place."
+    )
+}
+
+artwork_data_16 = {
+    "name": "Wild",
+    "year": 2023,
+    "material": "Wood",
+    "dimensions": "165cm",
+    "images": [
+        {"url": "../static/assets/images/artworks/Wild/1.jpg"},
+        {"url": "../static/assets/images/artworks/Wild/2.jpg"},
+        {"url": "../static/assets/images/artworks/Wild/3.jpg"},
+        {"url": "../static/assets/images/artworks/Wild/4.jpg"}
+    ],
+    "description": (
+        "»Wild« was shown during the diploma exhibition at HBK Braunschweig and formed part of Oskar Schroeder’s final project. "
+        "The floor-based sculpture evokes an animalistic form but remains intentionally ambiguous and unidentifiable as any specific species.\n\n"
+        "The wood used for the carving was found in nature. Schroeder approached the work with only a vague idea of its final form. "
+        "The growth patterns and condition of the wood—including rotten sections—shaped the evolving design.\n\n"
+        "The rough form was first worked out using a chainsaw and axe, followed by finer detailing and surface smoothing with carving tools. "
+        "In the final step, the sculpture was finished with antique wax, preserving both its natural texture and the traces of the sculptural process. "
+        "»Wild« explores the tension between instinct and intention, nature and craft, form and formlessness."
+    )
+}
+
+exhibition_data_1 = {
+    "title": "How to Approach a Dream Gently",
+    "timeframe": "2024",
+    "gallery": "Kunstverein Braunschweig",
+    "city": "Braunschweig",
+    "artworks": [],
+    "description": (
+        "The graduation exhibition of Meisterschüler*innen from HBK Braunschweig. "
+        "Traditionally held at Kunstverein Braunschweig, the show presents the culmination of advanced artistic work "
+        "by selected graduates."
+    )
 }
 
 exhibition_data_2 = {
-    "title": "Material Encounters",
-    "timeframe": "October 10 – November 25, 2019",
-    "gallery": "Museum of Contemporary Forms",
-    "city": "Vienna",
-    "artworks": ["Schau"],
+    "title": "four plus one",
+    "timeframe": "2024",
+    "gallery": "Hannover Re",
+    "city": "Hannover",
+    "artworks": [],
     "description": (
-        "The exhibition focused on the use of found materials in contemporary art. "
-        "Schroeder's 'Schau' was exhibited as a minimalist reflection on materiality and perception, "
-        "with a reflective glass surface that interacted dynamically with the gallery's lighting."
-    ),
+        "An annual exhibition curated by Karin Kamolz, presenting four to five Meisterschüler*innen from HBK Braunschweig. "
+        "The works are shown in the headquarters of the Hannover Reinsurance Group."
+    )
 }
 
 exhibition_data_3 = {
-    "title": "Roots and Ruptures",
-    "timeframe": "February 1 – March 20, 2020",
-    "gallery": "Contemporary Sculpture Pavilion",
+    "title": "Grænserum",
+    "timeframe": "2024",
+    "gallery": "Prospekt",
     "city": "Copenhagen",
-    "artworks": ["Wild"],
+    "artworks": [],
     "description": (
-        "This exhibition examined the connections between humanity and nature through sculptural works. "
-        "Schroeder's 'Wild' stood out with its raw wood carving, emphasizing the vulnerability and "
-        "resilience of both human and natural forms."
-    ),
+        "Curated by Janosch Heydorn at Prospekt Space, the exhibition brought together artists from Denmark and Germany "
+        "to explore cross-cultural exchange and artistic dialogue."
+    )
 }
 
 exhibition_data_4 = {
-    "title": "Fragments and Echoes",
-    "timeframe": "May 5 – July 15, 2021",
-    "gallery": "Modern Art Forum",
-    "city": "Zurich",
-    "artworks": ["O.t."],
+    "title": "collecting construction",
+    "timeframe": "2023",
+    "gallery": "KuCo",
+    "city": "Flensburg",
+    "artworks": [],
     "description": (
-        "'Fragments and Echoes' showcased contemporary explorations of geological forms and transformations. "
-        "Schroeder's 'O.t.' highlighted the layered textures of plaster and concrete, inviting viewers "
-        "to engage with themes of time and material evolution."
-    ),
+        "Oskar Schroeder’s first solo exhibition, presented in the fall at KuCo in Flensburg. "
+        "The show marked a significant moment in his practice, consolidating various working methods and material explorations."
+    )
 }
 
 exhibition_data_5 = {
-    "title": "Material Memories",
-    "timeframe": "September 1 – October 20, 2022",
-    "gallery": "Nordic Center for Contemporary Art",
-    "city": "Stockholm",
-    "artworks": ["Landschaft"],
+    "title": "Diplomrundgang",
+    "timeframe": "2023",
+    "gallery": "HBK Braunschweig",
+    "city": "Braunschweig",
+    "artworks": [],
     "description": (
-        "This exhibition explored the connections between art, memory, and natural materials. "
-        "Schroeder's 'Landschaft' invited viewers to experience a tactile interpretation of landscapes, "
-        "crafted from wool, soil, and plant fibers."
-    ),
+        "The traditional graduation exhibition at HBK Braunschweig, where graduating students present their final projects. "
+        "Oskar Schroeder's diploma work was exhibited as part of this major academic milestone."
+    )
 }
 
 exhibition_data_6 = {
-    "title": "States of Becoming",
-    "timeframe": "March 15 – April 30, 2023",
-    "gallery": "Arthouse Project Space",
-    "city": "Basel",
-    "artworks": ["Hypo"],
+    "title": "fffff",
+    "timeframe": "2023",
+    "gallery": "Galerie Ewelyn Drewes",
+    "city": "Hamburg",
+    "artworks": [],
     "description": (
-        "'States of Becoming' focused on sculptures that embody transformation and growth. "
-        "Schroeder's 'Hypo' was a highlight, presenting a fluid, biomorphic form that "
-        "blurred boundaries between organic shapes and abstract expression."
-    ),
+        "A group exhibition at Galerie Ewelyn Drewes in Hamburg, featuring current and former students of Elisabeth Wagner. "
+        "The show highlighted a broad spectrum of contemporary artistic practices shaped through academic lineage."
+    )
 }
 
 exhibition_data_7 = {
-    "title": "Urban Alchemy",
-    "timeframe": "July 10 – August 25, 2018",
-    "gallery": "Urban Arts Gallery",
-    "city": "Berlin",
-    "artworks": ["Einsatz", "Schau"],
+    "title": "malfunctioning storage",
+    "timeframe": "2022",
+    "gallery": "Prima Kunst Container",
+    "city": "Kiel",
+    "artworks": [],
     "description": (
-        "This exhibition delved into the transformation of urban spaces through art. "
-        "Schroeder's works 'Einsatz' and 'Schau' were presented as conversations "
-        "between industrial materials and organic forms."
-    ),
+        "A group exhibition by students from Thomas Rentmeister’s class at HBK Braunschweig. "
+        "Presented in a shipping container run by the art association Prima Kunst, located at Stadtgalerie Kiel."
+    )
 }
 
 exhibition_data_8 = {
-    "title": "Anthropocene Artifacts",
-    "timeframe": "November 1 – December 15, 2021",
-    "gallery": "Industrial Space Gallery",
-    "city": "Manchester",
-    "artworks": ["Wild", "O.t."],
+    "title": "Blick Fang",
+    "timeframe": "2022",
+    "gallery": "Kunsthaus Kaufbeuren",
+    "city": "Kaufbeuren",
+    "artworks": [],
     "description": (
-        "Focusing on humanity's impact on the environment, the exhibition featured "
-        "Schroeder's 'Wild' and 'O.t.', both of which examine the delicate balance "
-        "between natural processes and human intervention."
-    ),
+        "A group exhibition at Kunsthaus Kaufbeuren featuring emerging contemporary artists. "
+        "The show brought together diverse practices in a curated dialogue."
+    )
 }
 
 exhibition_data_9 = {
-    "title": "Temporal Textures",
-    "timeframe": "February 10 – March 31, 2024",
-    "gallery": "Textures of Time Museum",
-    "city": "Oslo",
-    "artworks": ["Landschaft", "Hypo"],
+    "title": "SYMPOIESIS",
+    "timeframe": "2022",
+    "gallery": "Galerie 21, Vorwerkstift",
+    "city": "Hamburg",
+    "artworks": [],
     "description": (
-        "This exhibition explored the themes of time and materiality. "
-        "Schroeder's 'Landschaft' and 'Hypo' invited viewers to reflect on "
-        "natural cycles of growth, decay, and renewal through tactile experiences."
-    ),
+        "A group exhibition at Galerie 21, located in the historic Vorwerkstift in Hamburg. "
+        "The title references collaborative and interdependent systems in art and ecology."
+    )
 }
 
 exhibition_data_10 = {
-    "title": "Art in Flux",
-    "timeframe": "June 5 – July 25, 2025",
-    "gallery": "Flux Contemporary",
-    "city": "Amsterdam",
-    "artworks": ["Einsatz", "O.t.", "Hypo"],
+    "title": "Brockmann Preis Ausstellung",
+    "timeframe": "2021",
+    "gallery": "Stadtgalerie Kiel",
+    "city": "Kiel",
+    "artworks": [],
     "description": (
-        "'Art in Flux' featured works that embody transformation and impermanence. "
-        "Schroeder's pieces demonstrated the evolving nature of materials and forms, "
-        "highlighting the ephemeral aspects of human and natural interactions."
-    ),
+        "The Brockmann Prize Exhibition is held every two years at Stadtgalerie Kiel, "
+        "featuring artists who live in Kiel. A jury selects the participants, and one artist is awarded the prestigious Brockmann Prize. "
+        "Oskar Schroeder was among the selected exhibiting artists in 2021."
+    )
 }
 
-
-# Data for the projects
-project_data_1 = {
-    "name": "Einsatz",
-    "year": 2017,
-    "material": "Steel, Concrete, Fabric",
-    "dimensions": "200×50×400cm",
-    "images": [
-        {
-            "url": "../static/assets/images/Einsatz/1.jpg",
-            "description": "Front view of Einsatz showing the interplay between steel framework and fabric panels",
-            "color": "Raw steel gray contrasting with off-white fabric",
-            "is_detail": False
-        },
-        {
-            "url": "../static/assets/images/Einsatz/2.jpg",
-            "description": "Detail shot highlighting the concrete fragments and their textural qualities",
-            "color": "Charcoal gray concrete with hints of rust orange",
-            "is_detail": False
-        },
-        {
-            "url": "../static/assets/images/Einsatz/3.jpg",
-            "description": "Side angle capturing light filtering through the translucent fabric elements",
-            "color": "Translucent ivory white with shadow gradients",
-            "is_detail": False
-        },
-        {
-            "url": "../static/assets/images/Einsatz/4.jpg",
-            "description": "Close-up of welded joints and structural connections within the piece",
-            "color": "Burnished steel with dark patina",
-            "is_detail": True
-        },
-        {
-            "url": "../static/assets/images/Einsatz/5.jpg",
-            "description": "Full installation view showing the work's relationship with gallery space",
-            "color": "Industrial grays with warm fabric undertones",
-            "is_detail": False
-        }
-    ],
+exhibition_data_11 = {
+    "title": "sinn.vor.ort",
+    "timeframe": "2021",
+    "gallery": "Museum Pinneberg (public space)",
+    "city": "Pinneberg",
+    "artworks": [],
     "description": (
-        "\"Einsatz\" was created through a meticulous process that combined precision engineering with organic experimentation. "
-        "At its core, the artwork utilizes industrial rebar, selected for its resilience and its symbolic representation of construction and support. "
-        "These metal rods were carefully measured, cut, and welded to form a geometric framework that balances tension and stability. "
-        "The angles and intersections of the rods were deliberately manipulated to create a structure that feels both precarious and deliberate, "
-        "emphasizing the tension inherent in the act of deploying materials into a space.\n\n"
-        
-        "Complementing the rigid framework are hand-cast concrete fragments, each uniquely textured and shaped. "
-        "These fragments were produced using molds crafted from natural elements like eroded stones and decaying bark, "
-        "capturing the raw beauty of organic forms in decay. The interplay between these concrete forms and the rebar generates "
-        "a dialogue between solidity and fragmentation.\n\n"
-        
-        "Translucent fabric panels treated with a polymer coating were introduced to soften the composition, "
-        "allowing light to filter through and interact dynamically with the structure. These panels, suspended and draped naturally, "
-        "react to subtle air currents and light variations, adding a sense of movement and impermanence to the work.\n\n"
-        
-        "The production process required an interdisciplinary collaboration involving structural engineers to ensure load-bearing stability "
-        "and material scientists to refine the polymer treatments for the fabric. Extensive iterations and experiments were conducted "
-        "to achieve the intended balance of visual tension and physical stability.\n\n"
-        
-        "\"Einsatz\" examines the complex interplay between order and chaos, rigidity and fluidity, permanence and impermanence. "
-        "The term \"deployment\" reflects the act of positioning, activating, or utilizing elements within a space or system. "
-        "This theme is explored through the juxtaposition of industrial materials like rebar and concrete—symbols of urban development—and "
-        "the ethereal, transient nature of fabric and light.\n\n"
-        
-        "The work reflects humanity's ongoing effort to dominate and organize natural environments through industrialization "
-        "while simultaneously acknowledging the fragility of these constructs. By leaving intentional gaps and spaces within the framework, "
-        "the artist invites viewers to consider what resides in these \"in-betweens\"—unspoken connections, latent potential, and unresolved tensions.\n\n"
-        
-        "The conceptual foundation of the piece draws from systems theory and phenomenology, particularly Martin Heidegger's explorations of being and space. "
-        "The artist also found inspiration in the brutalist architecture of Le Corbusier, whose designs emphasize raw materiality and geometric precision, "
-        "and the organic forms of artists like Eva Hesse.\n\n"
-        
-        "Research for the project included extensive studies into the tensile strength and elasticity of industrial materials, "
-        "seeking to harmonize structural integrity with aesthetic flexibility. Field studies in urban ruins, where nature and infrastructure collide, "
-        "further informed the aesthetic and conceptual approach.\n\n"
-        
-        "\"Einsatz\" premiered at the Liminal Constructs Exhibition at the Zentrum für Zeitgenössische Kunst in Leipzig. "
-        "The exhibition space, a repurposed factory hall, played an integral role in the impact of the artwork. "
-        "With its high ceilings, exposed beams, and expansive windows, the industrial setting resonated with the themes of the piece "
-        "while allowing natural light to dynamically interact with it.\n\n"
-        
-        "The installation was positioned to take full advantage of this light, with morning and evening sunlight casting intricate patterns "
-        "through the translucent fabric onto the gallery's concrete floor. Visitors were encouraged to move around the piece, "
-        "experiencing its shifting spatial dynamics from different perspectives.\n\n"
-        
-        "The gallery's ambient acoustics, enhanced by a subtle soundscape of mechanical hums and wind-like tones, further immersed the audience. "
-        "During the exhibition, discussions on urban renewal and the repurposing of industrial materials in contemporary art provided deeper context for the work. "
-        "Workshops held in conjunction with the exhibition allowed participants to engage directly with casting techniques and fabric manipulation, "
-        "offering insights into the material and conceptual processes behind the artwork."
-    ),
+        "A public space exhibition organized by Museum Pinneberg. "
+        "»sinn.vor.ort« explored artistic interventions outside conventional gallery contexts, directly engaging with the urban environment."
+    )
 }
 
-project_data_2 = {
-    "name": "Schau",
-    "year": 2019,
-    "material": "Wood, Glass",
-    "dimensions": "200×450×600cm",
-    "images": [
-        {
-            "url": "../static/assets/images/Schau/1.jpg",
-            "description": "Front view showing the minimalist cube form with reflective glass surface",
-            "color": "Natural wood tones with reflective clear glass",
-            "is_detail": False
-        },
-        {
-            "url": "../static/assets/images/Schau/2.jpg",
-            "description": "Detail of wood grain and industrial tape pattern",
-            "color": "Warm wood with black geometric lines",
-            "is_detail": True
-        },
-        {
-            "url": "../static/assets/images/Schau/3.jpg",
-            "description": "Side angle capturing light reflections on glass surface",
-            "color": "Mixed reflections on clear glass",
-            "is_detail": False
-        },
-        {
-            "url": "../static/assets/images/Schau/4.jpg",
-            "description": "Close-up of corner joint construction",
-            "color": "Raw plywood edges with dark reinforcement",
-            "is_detail": True
-        }
-    ],
+exhibition_data_12 = {
+    "title": "love your surface",
+    "timeframe": "2021",
+    "gallery": "Automat Space",
+    "city": "Saarbrücken",
+    "artworks": [],
     "description": (
-        "\"Schau\" is a minimalist exploration of materiality and perception, conceived through a deliberate engagement with found materials "
-        "and industrial aesthetics. The production process began with the selection of salvaged plywood panels, which were chosen for their "
-        "visible signs of wear and age. These panels were carefully measured and assembled into a cubic form, emphasizing clean lines and a "
-        "neutral palette that invites focus on the material itself. The artist left the surfaces intentionally untreated apart from a light "
-        "sanding, preserving the imperfections, scratches, and markings that bear the history of the material's previous use. The cube was "
-        "then reinforced with industrial tape, applied in a grid-like pattern to both secure the structure and serve as a visual element that "
-        "contrasts with the raw texture of the plywood.\n\n"
-
-        "To complete the piece, a sheet of glass was placed atop the cube, creating a reflective plane that interacts dynamically with the "
-        "surrounding environment. The glass acts as a subtle mediator between the object and its viewers, offering shifting perspectives as it "
-        "reflects light, shadows, and movement. This element of reflectivity was meticulously calculated during the design process, requiring "
-        "the collaboration of material specialists to ensure the glass's stability and optical clarity. The choice of materials and their "
-        "unadorned presentation underscore the artist's commitment to exposing the inherent qualities of each element.\n\n"
-
-        "At its core, \"Schau\" examines the act of seeing and the subtle interplay between observer and object. By presenting a simple, "
-        "unembellished form, the work challenges viewers to question their expectations of an artwork and focus instead on the act of "
-        "observation itself. The cube, with its utilitarian materials and construction, serves as a vessel for reflection—both literally "
-        "and figuratively. The inclusion of the glass invites a dual engagement: viewers are prompted to consider the object as it exists "
-        "in space while simultaneously confronting their own image and its distortion within the reflective surface. This tension between "
-        "presence and absence, materiality and immateriality, lies at the heart of the work.\n\n"
-
-        "\"Schau\" is conceptually informed by minimalist art movements of the 20th century, particularly the works of Donald Judd and Carl Andre, "
-        "who emphasized materiality and form over narrative or symbolism. The artist also draws inspiration from the philosophies of Zen Buddhism, "
-        "where simplicity and directness are key principles. Research into perceptual psychology played a role in the development of the piece, "
-        "with a focus on how human cognition interprets and assigns meaning to simple shapes and reflective surfaces. This research informed "
-        "decisions about scale, proportion, and the strategic use of reflective elements.\n\n"
-
-        "The artwork was first exhibited at the \"Material Encounters\" group show at the Museum of Contemporary Forms in Vienna. The museum's "
-        "stark, white-walled gallery provided an ideal setting, allowing the piece to occupy the space without distraction. It was placed "
-        "centrally in a room with natural and artificial lighting, creating a dynamic interaction between the work and its environment. The "
-        "shifting reflections on the glass surface changed throughout the day, lending the piece a temporal dimension that encouraged repeat "
-        "viewings. Visitors were invited to walk around the work and observe it from various angles, engaging with the subtle changes in "
-        "perception. The exhibition included a panel discussion on the role of found materials in contemporary art, where the artist shared "
-        "insights into the creation of \"Schau\" and its philosophical underpinnings. By stripping away embellishments and focusing on the "
-        "essentials, \"Schau\" invites a deeper contemplation of how we engage with the objects and spaces around us."
-    ),
+        "A group exhibition held at Automat Space in Saarbrücken. "
+        "The show brought together artists exploring surface, materiality, and visual perception in contemporary sculpture and installation."
+    )
 }
 
-project_data_3 = {
-    "name": "Wild",
-    "year": 2020,
-    "material": "Wood",
-    "dimensions": "5×8×10cm", 
-    "images": [
-        {
-            "url": "../static/assets/images/Wild/1.jpg",
-            "description": "Full view of the carved wooden figure in reclining position",
-            "color": "Rich wood tones with natural variations",
-            "is_detail": False
-        },
-        {
-            "url": "../static/assets/images/Wild/2.jpg",
-            "description": "Detail of chisel marks and wood grain texture",
-            "color": "Deep wood grain patterns with tool marks",
-            "is_detail": True
-        },
-        {
-            "url": "../static/assets/images/Wild/3.jpg",
-            "description": "Profile view highlighting the distorted proportions",
-            "color": "Warm wood with shadow details",
-            "is_detail": False
-        },
-        {
-            "url": "../static/assets/images/Wild/4.jpg",
-            "description": "Close-up of burnt patina treatment",
-            "color": "Charred black transitioning to natural wood",
-            "is_detail": True
-        }
-    ],
+exhibition_data_13 = {
+    "title": "Spechte am Meisenknödel",
+    "timeframe": "2021",
+    "gallery": "Ernst Barlach Haus",
+    "city": "Hamburg",
+    "artworks": [],
     "description": (
-        "\"Wild\" is a raw and evocative sculpture that explores the intersections of humanity, nature, and vulnerability. "
-        "The production process began with the selection of salvaged wood, chosen for its organic irregularities and visible "
-        "imperfections such as knots, cracks, and grain patterns. These imperfections were embraced and amplified as part of "
-        "the artwork's narrative. Using traditional woodcarving techniques, the artist shaped the piece entirely by hand, "
-        "deliberately leaving chisel marks and fractures visible. This approach underscores the physicality of the process and "
-        "connects the artwork to its material origins.\n\n"
-
-        "The sculpture depicts a fragmented humanoid form, reclining against a wall as though in surrender or exhaustion. "
-        "Its anatomy is intentionally distorted, with exaggerated joints and asymmetrical limbs that evoke a primal, almost "
-        "animalistic quality. The rough texture and unfinished edges serve to blur the line between the human figure and the "
-        "natural material from which it is carved. The cracks and splits in the wood were left unfilled, symbolizing the "
-        "fragility and impermanence of both the human body and the natural world. The artist incorporated a subtle burnt patina "
-        "in certain areas, achieved through controlled charring, to add depth and contrast to the wood's natural tones.\n\n"
-
-        "Conceptually, \"Wild\" delves into themes of humanity's connection to the untamed aspects of nature and the primal "
-        "instincts that remain beneath the surface of modern civilization. The title itself suggests a duality—on one hand, "
-        "the raw, unrefined qualities of the material, and on the other, the untamed aspects of the human spirit. The sculpture "
-        "captures a moment of surrender or collapse, inviting viewers to interpret its posture and expression as reflective of "
-        "vulnerability, resilience, or a return to an elemental state of being. The work is as much about the process of carving "
-        "and shaping as it is about the final form, with each mark telling a story of tension between control and release.\n\n"
-
-        "The piece draws on historical traditions of woodcarving and contemporary explorations of the human figure in sculpture. "
-        "The artist cites influences such as the anthropomorphic sculptures of Louise Bourgeois and the existential forms of "
-        "Alberto Giacometti. Research into shamanistic rituals and animist beliefs informed the conceptual approach, particularly "
-        "the idea that natural materials like wood carry a spiritual resonance that connects them to the cycles of life and decay. "
-        "The distorted proportions and raw texture reflect a study of prehistoric art, evoking connections to ancient figurines "
-        "that symbolize humanity's earliest attempts to understand itself through representation.\n\n"
-
-        "\"Wild\" was first exhibited at the \"Roots and Ruptures\" exhibition at the Contemporary Sculpture Pavilion in Copenhagen. "
-        "The pavilion's minimalist architecture created a stark backdrop that emphasized the ruggedness of the piece. It was "
-        "installed leaning against a white wall, allowing the texture and grain of the wood to stand out against the smooth surface. "
-        "Natural light from the gallery's skylights accentuated the interplay of shadow and texture, highlighting the work's "
-        "imperfections and contours. The positioning of the sculpture encouraged viewers to approach closely, inviting them to "
-        "observe the intricate details and connect with the raw materiality of the piece.\n\n"
-
-        "During the exhibition, the artist conducted workshops on traditional woodcarving techniques, emphasizing the importance "
-        "of engaging with natural materials in their purest forms. Accompanying the sculpture was a sound installation featuring "
-        "low, resonant tones and faint natural sounds like creaking wood and distant animal calls, creating an immersive atmosphere "
-        "that deepened the connection between the artwork and its themes. \"Wild\" serves as both a celebration of nature's untamed "
-        "beauty and a poignant reminder of the delicate balance between humanity and the natural world."
-    ),
+        "A class exhibition by students of Elisabeth Wagner, held at the Ernst Barlach Haus in Hamburg. "
+        "The show explored playful and poetic takes on nature, sculpture, and material relationships."
+    )
 }
 
-project_data_4 = {
-    "name": "O.t.",
-    "year": 2021,
-    "material": "Concrete, Plaster",
-    "dimensions": "5×8×10cm", 
-    "images": [
-        {
-            "url": "../static/assets/images/O.t./1.jpg",
-            "description": "Full view of the wall-mounted geological formation",
-            "color": "Layered grays and earth tones",
-            "is_detail": False
-        },
-        {
-            "url": "../static/assets/images/O.t./2.jpg",
-            "description": "Detail of mineral inclusions and surface texture",
-            "color": "Mixed mineral colors with rough texture",
-            "is_detail": True
-        },
-        {
-            "url": "../static/assets/images/O.t./3.jpg",
-            "description": "Side view showing layered construction",
-            "color": "Stratified earth tones and textures",
-            "is_detail": False
-        },
-        {
-            "url": "../static/assets/images/O.t./4.jpg",
-            "description": "Close-up of polished and rough surface contrast",
-            "color": "Smooth and textured concrete surfaces",
-            "is_detail": True
-        },
-        {
-            "url": "../static/assets/images/O.t./5.jpg",
-            "description": "Installation view in gallery context",
-            "color": "Earth-toned sculpture on white wall",
-            "is_detail": False
-        }
-    ],
+exhibition_data_14 = {
+    "title": "UMSPANNEN",
+    "timeframe": "2020",
+    "gallery": "Remise",
+    "city": "Pinneberg",
+    "artworks": [],
     "description": (
-        "\"O.t.\" is a minimalist wall-mounted sculpture that explores themes of geological time, material transformation, and the intersection of natural and human processes. "
-        "The artwork was created using a mixture of plaster, concrete, and natural pigments, resulting in a surface that evokes the textures and patterns of sedimentary rock formations. "
-        "The artist began the process by casting thin layers of plaster into irregularly shaped molds, allowing the material to set unevenly. "
-        "This approach was intentionally organic, with each layer capturing subtle variations in thickness, color, and texture.\n\n"
-
-        "The surface was then sanded and polished in select areas, creating a tactile contrast between smooth, reflective sections and rough, matte regions. "
-        "The edges were left unrefined, emphasizing the irregularity of the form and mimicking the jagged contours found in nature. "
-        "During the production process, small amounts of sand and mineral fragments were embedded into the material, enhancing its geological quality and connecting the work to the natural landscapes that inspired it. "
-        "The layering technique was informed by the artist's research into stratigraphy—the study of rock layers and their historical significance—which became a conceptual foundation for the piece.\n\n"
-
-        "\"O.t.\" is an exploration of form and perception, inviting viewers to engage with its surface and structure as a metaphor for time and transformation. "
-        "The title, an abbreviation for \"Ohne Titel\" (Untitled), reflects the artist's intention to leave the work open to interpretation, free of prescriptive meaning or narrative. "
-        "The irregular, almost map-like appearance of the piece suggests a sense of discovery, as though it were a fragment of a larger, ancient form unearthed and preserved. "
-        "The subtle interplay of materials and textures asks viewers to consider the ways in which natural processes and human intervention overlap, coexist, and reshape one another.\n\n"
-
-        "The artwork is rooted in material experimentation and informed by the aesthetics of land art and minimalism. "
-        "It draws inspiration from artists such as Richard Long, whose work emphasizes the relationship between natural materials and human touch, and the architectural surfaces of Tadao Ando, known for their interplay of light and texture. "
-        "In preparation for \"O.t.\", the artist conducted field studies in quarries and coastal landscapes, photographing rock formations and collecting samples that influenced the composition and materiality of the piece.\n\n"
-
-        "\"O.t.\" was first exhibited in the group show \"Fragments and Echoes\" at the Modern Art Forum in Zurich. "
-        "Installed on a stark white wall, the work appeared to float, its irregular form standing in quiet contrast to the smooth surface behind it. "
-        "Subtle lighting emphasized the texture and depth of the sculpture, casting delicate shadows that shifted with the viewer's perspective. "
-        "The placement encouraged close observation, inviting viewers to trace their fingers along its surface and engage with its tactile qualities. "
-        "Accompanying the exhibition was a series of artist talks and workshops focused on the use of natural and industrial materials in contemporary art, further contextualizing the work within a broader dialogue about materiality and process.\n\n"
-
-        "\"O.t.\" embodies a sense of timelessness and continuity, reminding viewers of the slow, accumulative processes that shape the physical world. "
-        "Its simplicity belies a profound complexity, drawing attention to the beauty found in irregularity and the quiet resonance of material transformations."
-    ),
+        "A group exhibition held in the Remise exhibition space in Pinneberg. "
+        "»UMSPANNEN« brought together diverse student works exploring themes of spatial intervention and material experimentation."
+    )
 }
 
-project_data_5 = {
-    "name": "Landschaft",
-    "year": 2022,
-    "material": "Wool, Plant Fibers, Soil, Ash",
-    "dimensions": "300×100cm", 
-    "images": [
-        {
-            "url": "../static/assets/images/Landschaft/1.jpg",
-            "description": "Full view of the textile landscape installation",
-            "color": "Natural earth tones and fiber textures",
-            "is_detail": False
-        },
-        {
-            "url": "../static/assets/images/Landschaft/2.jpg",
-            "description": "Detail of wool and plant fiber integration",
-            "color": "Mixed natural fibers and pigments",
-            "is_detail": True
-        }
-    ],
+exhibition_data_15 = {
+    "title": "Trains Boats and Planes 2",
+    "timeframe": "2020",
+    "gallery": "Offspace",
+    "city": "Kiel",
+    "artworks": [],
     "description": (
-        "\"Landschaft\" is a meditative and abstract work that redefines the concept of landscapes by translating natural elements into tactile form. "
-        "The piece was created using a process rooted in traditional and experimental fiber art techniques. "
-        "The artist began by gathering organic materials such as wool, plant fibers, and fragments of soil and ash. "
-        "These elements were carefully processed into a raw, felt-like textile, crafted through manual layering, wetting, and compressing of the fibers. "
-        "The resulting material retains the traces of its natural origins, with visible textures, tonal variations, and irregularities.\n\n"
-
-        "The rectangular form of the work is deliberately ambiguous, resembling both a fragment of earth and a minimalist painting. "
-        "Its muted palette of earthy tones—grays, browns, and blacks—is achieved through natural dyes derived from the gathered organic materials. "
-        "The surface is intentionally uneven, bearing the marks of the artist's hands, tools, and the natural fibers themselves. "
-        "This tactile quality encourages viewers to engage not only visually but also physically, as the work seems to invite touch. "
-        "The process was slow and labor-intensive, reflecting the artist's focus on materiality, time, and the physical labor inherent in creating the piece.\n\n"
-
-        "Conceptually, \"Landschaft\" reflects on humanity's relationship with the natural world and our attempts to frame and interpret it through art. "
-        "The title references traditional landscape painting but subverts its conventions by stripping away figurative representation. "
-        "Instead of depicting a scene, the artist presents a material essence of the landscape—earth, fiber, and pigment—allowing viewers to experience the work as a physical manifestation of nature's textures and forms. "
-        "The piece speaks to themes of erosion, decay, and renewal, encapsulating the cyclical processes that define the natural world. "
-        "It also invites contemplation of the boundaries between art and environment, object and viewer, material and memory.\n\n"
-
-        "The work is influenced by land art movements and the minimalist ethos of artists such as Agnes Martin and Richard Serra. "
-        "The artist's research included studying the environmental impact of textile production and exploring sustainable practices, which informed the choice of natural, biodegradable materials. "
-        "The textural and tonal qualities of the piece also reference geological formations and weathered surfaces observed during field studies in remote landscapes. "
-        "By embedding these references within the work's materiality, the artist creates a tactile connection to the environments that inspired it.\n\n"
-
-        "\"Landschaft\" was first exhibited at the \"Material Memories\" exhibition at the Nordic Center for Contemporary Art in Stockholm. "
-        "Displayed against a pristine white wall, the work's subdued tones and organic texture created a striking contrast with the gallery's clean lines. "
-        "The installation emphasized its tactile qualities, with subtle lighting that accentuated the depth and irregularity of the surface. "
-        "Visitors were encouraged to approach closely, observing the interplay of fibers and pigments up close. "
-        "The exhibition included an interactive component where viewers could handle smaller swatches of the same material to better understand its texture and construction.\n\n"
-
-        "Accompanying the exhibition was a program of talks and workshops on sustainable art practices and the use of natural materials in contemporary art. "
-        "The artist shared insights into the labor-intensive process of creating \"Landschaft\" and the philosophical questions underpinning the work. "
-        "By presenting a landscape that is both literal and abstract, tactile and conceptual, \"Landschaft\" challenges traditional notions of representation and invites viewers to engage deeply with the material and its resonances. "
-        "The piece stands as a quiet yet powerful reminder of the interconnectedness between art, materiality, and the natural world."
-    ),
+        "The second part of a collaborative exhibition between Beaux-Arts Nantes Saint-Nazaire and the Muthesius University of Fine Arts. "
+        "Held in Kiel, the show featured cross-border exchanges and joint projects between students from both institutions."
+    )
 }
 
-project_data_6 = {
-    "name": "Hypo",
-    "year": 2023,
-    "material": "Wood",
-    "dimensions": "100×100×50cm", 
-    "images": [
-        {
-            "url": "../static/assets/images/Hypo/1.jpg",
-            "description": "Full view of the curvilinear wooden form",
-            "color": "Light wood with subtle grain patterns",
-            "is_detail": False
-        },
-        {
-            "url": "../static/assets/images/Hypo/3.jpg",
-            "description": "Detail of tool marks and surface texture",
-            "color": "Varied wood textures and tool patterns",
-            "is_detail": True
-        },
-        {
-            "url": "../static/assets/images/Hypo/2.jpg",
-            "description": "Profile view showing organic flowing form",
-            "color": "Warm wood tones with shadow detail",
-            "is_detail": False
-        }
-    ],
+exhibition_data_16 = {
+    "title": "Trains Boats and Planes 1",
+    "timeframe": "2019",
+    "gallery": "Beaux-Arts Nantes Saint-Nazaire",
+    "city": "Nantes",
+    "artworks": [],
     "description": (
-        "\"Hypo\" is a carved wooden sculpture that embodies a sense of tension between vulnerability and latent energy. "
-        "The piece was created from a single block of limewood, chosen for its fine grain and subtle tonal variations. "
-        "The production process began with the artist roughly sketching the form directly onto the wood, emphasizing an organic, intuitive approach. "
-        "Using traditional carving tools, the material was gradually shaped into a curvilinear form that appears simultaneously fetal and serpentine. "
-        "The surface was intentionally left with visible tool marks, adding texture and a sense of motion to the otherwise smooth, flowing contours.\n\n"
+        "The first part of a collaborative exhibition between the Muthesius University of Fine Arts and Beaux-Arts Nantes Saint-Nazaire. "
+        "Hosted in Nantes, the show initiated an international artistic dialogue between students from both schools."
+    )
+}
 
-        "Throughout the creation process, the artist explored the material's natural characteristics, allowing the wood's imperfections—such as knots and subtle cracks—to inform the final shape. "
-        "After carving, the piece was lightly sanded in select areas to highlight the contrast between polished surfaces and the rougher, chiseled regions. "
-        "A natural wax finish was applied to preserve the wood's organic qualities and enhance its tactile appeal, without obscuring its inherent warmth and character.\n\n"
+exhibition_data_17 = {
+    "title": "Hot Spots / Heiße Flecken",
+    "timeframe": "2019",
+    "gallery": "Public space",
+    "city": "Kiel",
+    "artworks": [],
+    "description": (
+        "An exhibition in public space in Kiel, curated and organized by Axel Loytved. "
+        "»Hot Spots / Heiße Flecken« explored site-specific sculpture and ephemeral interventions in urban environments."
+    )
+}
 
-        "Conceptually, \"Hypo\" draws its name from the prefix meaning \"under\" or \"beneath,\" reflecting themes of latent potential and dormant states. "
-        "The work evokes imagery of a curled organism or an embryonic form, poised in a state of quiet anticipation. "
-        "This ambiguity invites viewers to interpret the sculpture as both protective and constrained, gesturing toward ideas of growth, transformation, and the delicate balance between security and restriction. "
-        "The form's tension between openness and enclosure reflects the artist's ongoing exploration of how physical shapes can convey psychological states.\n\n"
+exhibition_data_18 = {
+    "title": "Hot Spots Project",
+    "timeframe": "2018",
+    "gallery": "Public space",
+    "city": "Kiel",
+    "artworks": [],
+    "description": (
+        "A public art exhibition curated and organized by Axel Loytved. "
+        "The project focused on temporary artistic interventions in the cityscape of Kiel, with a strong emphasis on locality and material presence."
+    )
+}
 
-        "The piece is inspired by biomorphic art traditions, as seen in the works of Barbara Hepworth and Henry Moore, but it also incorporates contemporary perspectives on materiality and process. "
-        "The artist conducted research into embryological development and natural growth patterns, drawing from scientific illustrations and microscopic imagery. "
-        "These studies informed the sculpture's fluid lines and emphasized its connection to organic, life-giving forms. "
-        "The choice of wood as a medium further underscores these themes, emphasizing the work's connection to natural cycles of growth, decay, and renewal.\n\n"
-
-        "\"Hypo\" was first exhibited in the solo show \"States of Becoming\" at the Arthouse Project Space in Basel. "
-        "The gallery's concrete floor provided a stark contrast to the warmth of the wood, emphasizing the sculpture's tactile and organic qualities. "
-        "Positioned directly on the ground, the piece invited viewers to engage with it from multiple angles, encouraging close observation of its intricate textures and flowing form. "
-        "The decision to display it at ground level reinforced its sense of groundedness and vulnerability, further blurring the boundary between art object and living organism.\n\n"
-
-        "As part of the exhibition, the artist conducted a workshop on woodcarving techniques, emphasizing the meditative and labor-intensive aspects of working with natural materials. "
-        "An accompanying essay explored the philosophical underpinnings of \"Hypo,\" including its reflections on the interplay between constraint and growth in both natural and human contexts. "
-        "The piece has since been praised for its ability to convey complex emotional and conceptual ideas through a deceptively simple, tactile form, standing as a quiet yet potent meditation on the hidden forces that shape life and matter."
-    ),
+exhibition_data_19 = {
+    "title": "KI_L_MUC_SA_R",
+    "timeframe": "2018",
+    "gallery": "Maximiliansforum and Galerie der Künstler",
+    "city": "Munich",
+    "artworks": [],
+    "description": (
+        "A collaborative exhibition between the classes of Elisabeth Wagner (Kiel), Olaf Metzel (Munich), and Georg Winter (Saarbrücken). "
+        "Held at the Maximiliansforum and Galerie der Künstler, the show explored the intersections of regional identities and academic approaches."
+    )
 }
 
 
@@ -622,13 +928,27 @@ project_data_6 = {
 # Export all data in a dictionary for easy importing
 data = {
     'artist_info': artist_info,
+    'artist_profile': artist_profile,
+    'materials_and_techniques': materials_and_techniques,
+    'material_philosophy': material_philosophy,
+    'media_background': media_background,
     'images_for_paragraphs': images_for_paragraphs,
-    'project_data_1': project_data_1,
-    'project_data_2': project_data_2,
-    'project_data_3': project_data_3,
-    'project_data_4': project_data_4,
-    'project_data_5': project_data_5,
-    'project_data_6': project_data_6,
+    'artwork_data_1': artwork_data_1,
+    'artwork_data_2': artwork_data_2,
+    'artwork_data_3': artwork_data_3,
+    'artwork_data_4': artwork_data_4,
+    'artwork_data_5': artwork_data_5,
+    'artwork_data_6': artwork_data_6,
+    'artwork_data_7': artwork_data_7,
+    'artwork_data_8': artwork_data_8,
+    'artwork_data_9': artwork_data_9,
+    'artwork_data_10': artwork_data_10,
+    'artwork_data_11': artwork_data_11,
+    'artwork_data_12': artwork_data_12,
+    'artwork_data_13': artwork_data_13,
+    'artwork_data_14': artwork_data_14,
+    'artwork_data_15': artwork_data_15,
+    'artwork_data_16': artwork_data_16,
     'exhibition_data_1': exhibition_data_1,
     'exhibition_data_2': exhibition_data_2,
     'exhibition_data_3': exhibition_data_3,
@@ -639,4 +959,13 @@ data = {
     'exhibition_data_8': exhibition_data_8,
     'exhibition_data_9': exhibition_data_9,
     'exhibition_data_10': exhibition_data_10,
+    'exhibition_data_11': exhibition_data_11,
+    'exhibition_data_12': exhibition_data_12,
+    'exhibition_data_13': exhibition_data_13,
+    'exhibition_data_14': exhibition_data_14,
+    'exhibition_data_15': exhibition_data_15,
+    'exhibition_data_16': exhibition_data_16,
+    'exhibition_data_17': exhibition_data_17,
+    'exhibition_data_18': exhibition_data_18,
+    'exhibition_data_19': exhibition_data_19,
 }
