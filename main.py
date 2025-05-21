@@ -169,8 +169,15 @@ class ParagraphComponent(BaseModel):
     UIType: Literal["paragraphs"] = Field(description="Indicates this is a paragraph component for displaying text")
     image: Optional[ImageComponent] = Field(
         description=(
-            "An image that fits the paragraph’s content. "
-            "ALWAYS include if there is an image that is somehow related to the content of the paragraph; set to null only when no suitable image can be found."
+            "Always try to include an image from the available pool, even if it only loosely fits.\n"
+            "Choose based on mood, material, time period, place, or atmosphere.\n\n"
+            "Examples:\n"
+            "• If the paragraph discusses Oskar’s work with materials → choose any image related to material processing or tools.\n"
+            "• If it's about [Elisabeth Wagner] → pick an image from that time period or from early figurative work.\n"
+            "• If it references the wood sculpting apprenticeship → use any image from that phase (e.g. carving, casting, etc.).\n"
+            "• If it covers biographical events → use a fitting image from the matching time (even loosely).\n"
+            "• If the paragraph discusses artistic work → use a process, studio, or sketch image.\n"
+            "• If it's about artistic position or philosophy → choose a reference or inspiration image."
         )
     )
     text: List[str] = Field(
@@ -194,42 +201,44 @@ class ListItem(BaseModel):
     item: str = Field(description="The text content of the list item. Should be a bullet point 1-5 words long.")
 
 class ListComponent(BaseModel):
-    UIType: Literal["list"] = Field(description="Indicates this is a list component for displaying a list of items for example a cv")
+    UIType: Literal["list"] = Field(description="Indicates this is a list component for displaying a list of items for example a CV (curriculum vitae)")
     items: List[ListItem] = Field(description="A list of short text items to be displayed")
 
 class TableComponent(BaseModel):
-    UIType: Literal["table"] = Field(description="Indicates this is a table component for displaying structured data")
+    UIType: Literal["table"] = Field(
+        description="Indicates this is a table component for displaying structured data"
+                    "This format is suitable for structured overviews such as lists of exhibitions")
     headers: List[str] = Field(description="Column headers for the table. Headers should be single words when possible")
     rows: List[List[str]] = Field(description="Rows of data, where each row is a list of strings")
 
-class ProjectsLayout(str, Enum):
+class ArtworksLayout(str, Enum):
     fullscreen = "fullscreen"
     grid = "grid"
 
-class ProjectComponent(BaseModel):
-    UIType: Literal["project"] = Field(description="Indicates this is a project component that represents an artwork or installation")
+class ArtworkComponent(BaseModel):
+    UIType: Literal["artwork"] = Field(description="Indicates this is an artwork component that represents an artwork or installation")
     images: List[str] = Field(description="A list of URLs for images")
-    name: str = Field(description="Name of the project or artwork")
-    year: str = Field(description="Year the project was created")
-    material: str = Field(description="Primary material used in the project")
-    dimensions: str = Field(description="Physical dimensions of the project")
-    description: Optional[List[str]] = Field(
+    name: str = Field(description="Name of the artwork or artwork")
+    year: str = Field(description="Year the artwork was created")
+    material: str = Field(description="Primary material used in the artwork")
+    dimensions: str = Field(description="Physical dimensions of the artwork")
+    description: List[str] = Field(
         description=(
-            "A project description. Only provide a description if the ProjectsLayout is fullscreen."
+            "An artwork description."
         )
     )
 
-class ProjectsList (BaseModel):
-    UIType: Literal["projects_list"] = Field(description="Indicates this is a projects list component for displaying a list of projects")
-    layout: ProjectsLayout = Field(
-        default=ProjectsLayout.fullscreen,
+class ArtworksList (BaseModel):
+    UIType: Literal["projects_list"] = Field(description="Indicates this is an artworks list component for displaying a list of projects")
+    layout: ArtworksLayout = Field(
+        default=ArtworksLayout.fullscreen,
         description=(
-            "Display layout for projects. Defaults to 'fullscreen' to show detailed views of individual projects. "
+            "Display layout for artworks. Defaults to 'fullscreen' to show detailed views of individual artworks. "
             "Switch to 'grid' layout only when the user explicitly requests an overview, filtering, or comparative view "
-            "(for example, 'show all projects made out of wood')."
+            "(for example, 'show all artworks made out of wood')."
         )
     )
-    projects: List[ProjectComponent] = Field(description="A list of projects to be displayed")
+    projects: List[ArtworkComponent] = Field(description="A list of artworks to be displayed")
 
 # FIRST CHATBOT
 
@@ -239,7 +248,7 @@ class Response_1(BaseModel):
     headline: HeadlineComponent = Field(
         description="The main headline for this response. Important: Should be maximum 2 words"
     )
-    components: List[Union[HeadlineComponent, ParagraphComponent, ListComponent, TableComponent, ProjectsList]] = Field( # Union allows for a list of different types of components / basically presents a list of options
+    components: List[Union[HeadlineComponent, ParagraphComponent, ListComponent, TableComponent, ArtworksList]] = Field( # Union allows for a list of different types of components / basically presents a list of options
         description="List of UI components that make up the response"
     )
 
@@ -363,7 +372,7 @@ def stream():
 
     def generate():
         with client.beta.chat.completions.stream(
-            model="gpt-4o-mini",
+            model="gpt-4o",
             messages=messages_1,
             temperature=0.5,
             max_tokens=2048,

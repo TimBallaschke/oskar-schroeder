@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250521_Oskar_Website_websearch_cut_off_rework",
+  "original_folder": "250521b_Oskar_Website",
   "snapshot_date_from_folder": "250521",
   "source_files": [
     {
@@ -33,16 +33,16 @@
     },
     {
       "path": "main.py",
-      "sha1": "d04cae7250cab3ff965ee17e56bba3fa1c7aaee2",
-      "sha256": "386fb8573c39e832b3e7827f660da3da1c83219957967d30f3f910c1f5d2c2b2",
-      "size": 27625,
+      "sha1": "029b8d40e9da8f9a56ba68d717db17bc797ca8ee",
+      "sha256": "1d30aa90af8ad22523c504a0d96a46408721c07c70016172c8a59a78bc4f88ae",
+      "size": 28403,
       "mode": "100644"
     },
     {
       "path": "prompts.py",
-      "sha1": "43404195ede3ba7168f5c580216afa5de4df5e70",
-      "sha256": "c655250349ad455bcef8f37874217c5fc08550406600923a5e7c065ab4070ad4",
-      "size": 9495,
+      "sha1": "070fa4b804d3799157a58ddfcf0e9956e0ec7087",
+      "sha256": "48e90a15f9b0ffcae87da6c1720ca6570c931c9ebc742e3fe82bfe4269e81227",
+      "size": 10333,
       "mode": "100644"
     },
     {
