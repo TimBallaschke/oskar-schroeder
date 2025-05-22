@@ -191,7 +191,8 @@ class ParagraphComponent(BaseModel):
             "'[Kunsthaus Kaufbeuren]', '[Galerie 21]', '[Vorwerkstift Hamburg]', '[Stadtgalerie Kiel]', '[Duborg Skolen]', "
             "'[Eckener Schule Flensburg]', '[Hannover Re]', '[Prospekt]', '[Maximiliansforum]', '[Galerie der Künstler]', "
             "'[Beaux‑Arts Nantes Saint‑Nazaire]', '[Regine Schulz]', '[Mats Hoff]', '[Janosch Heydorn]', '[Karin Kamolz]', "
-            "'[Corinna Schnitt]', '[Jan Kochermann]', '[BKH Gutmann]', '[Axel Loytved]', '[Olaf Metzel]', '[Georg Winter]'."
+            "'[Corinna Schnitt]', '[Jan Kochermann]', '[BKH Gutmann]', '[Axel Loytved]', '[Olaf Metzel]', '[Georg Winter]'.\n\n"
+            "Important: The artist's name 'Oskar Schroeder' should **never** be wrapped in brackets."
         )
     )
 
