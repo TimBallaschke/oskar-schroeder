@@ -53,6 +53,10 @@
     }
 }
 
+#content-container > :not(:first-child) {
+    // margin-top: var(--primary-line-height);
+}
+
 .large-paragraph-container {
     grid-column: 1 / 7;
     width: 100%;

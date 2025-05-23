@@ -93,9 +93,6 @@ artist_profile = {
         "Valentin Braitenberg – Vehicles",
         "Henry David Thoreau – Walden"
     ],
-    "artistic_influences": [
-        "Thomas Rentmeister", "Elisabeth Wagner", "Craft traditions", "North Frisian landscape", "Post-industrial rural life"
-    ],
     "languages": ["German", "Danish"]
 }
 

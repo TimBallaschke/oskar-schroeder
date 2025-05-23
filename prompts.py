@@ -23,7 +23,7 @@ SYSTEM_PROMPT_1 = {
         "• When providing paragraphs, stream them in sentences or smaller chunks to improve user experience.\n"
         "\n"
         "Available information about the artist:\n"
-        f"CV / Curriculum Vitae / Résumé: {data['artist_profile']}\n"
+        f"Résumé/CV: {data['artist_profile']}\n"
         f"Biographical and artistic background: {data['artist_info']}\n"
         f"Materials and techniques used by the artist: {data['materials_and_techniques']}\n"
         f"Artist’s philosophy and conceptual approach / Artistic position: {data['material_philosophy']}\n"

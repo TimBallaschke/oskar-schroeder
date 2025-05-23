@@ -162,28 +162,29 @@ class HeadlineComponent(BaseModel):
         description="Indicates this is a headline component used to structure and organize content into sections."
     )
     headline: str = Field(
-        description="A short headline (1–3 words) that introduces a new thematic section or shift in focus. It can be used between components to divide the content into meaningful parts and improve readability."
+        description="A short headline (1–2 words) that introduces a new thematic section or shift in focus. It can be used to divide the content into meaningful parts and improve readability."
     )
 
 class ParagraphComponent(BaseModel):
-    UIType: Literal["paragraphs"] = Field(description="Indicates this is a paragraph component for displaying text")
+    UIType: Literal["paragraphs"] = Field(
+        description=(
+            "Indicates this is a *paragraph* component for flowing, narrative text only. "
+            "Do **not** use it for lists, tables, or other structured data."
+        )
+    )
+    headline: Optional[str] = Field(description="A short headline for the paragraph")
     image: Optional[ImageComponent] = Field(
         description=(
-            "Always try to include an image from the available pool, even if it only loosely fits.\n"
-            "Choose based on mood, material, time period, place, or atmosphere.\n\n"
-            "Examples:\n"
-            "• If the paragraph discusses Oskar’s work with materials → choose any image related to material processing or tools.\n"
-            "• If it's about [Elisabeth Wagner] → pick an image from that time period or from early figurative work.\n"
-            "• If it references the wood sculpting apprenticeship → use any image from that phase (e.g. carving, casting, etc.).\n"
-            "• If it covers biographical events → use a fitting image from the matching time (even loosely).\n"
-            "• If the paragraph discusses artistic work → use a process, studio, or sketch image.\n"
-            "• If it's about artistic position or philosophy → choose a reference or inspiration image."
+            "IMPORTANT: ALWAYS try to include an image with EVERY paragraph and on EVERY topic.\n"
+            "The image does not need to directly depict the content – choose based on mood, material, time period, place, process, or atmosphere.\n"
+            "This includes biographical content: if the paragraph is about a period in Oskar Schroeder's life (e.g. education or residency), use any image from that timeframe or from the studio or process images.\n"
+            "Only return null if truly no plausible match exists across all available image categories."
         )
     )
     text: List[str] = Field(
         description=(
             "The text content of the paragraph. Each sentence should be a separate paragraph. "
-            "Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "
+            "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "
             "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
             "For example: '[Muthesius University of Fine Arts]', '[HBK Braunschweig]', '[Thomas Rentmeister]', '[Elisabeth Wagner]', "
             "'[Flensburg]', '[North Frisia]', '[Stucco marble]', '[New Materialism]', '[Karen Barad]', '[Kunstverein Braunschweig]', "
@@ -198,17 +199,19 @@ class ParagraphComponent(BaseModel):
 
 
 class ListItem(BaseModel):
-    prefix: int = Field(description="A prefix for the list item. For example '2010', '2011', '2012' or '01', '02', '03' etc.")
+    prefix: int = Field(description="A prefix for the list item. For example '2010', '2011', '2012' or '01', '02', '03' etc."
+                                    "IMPORTANT: Always use a prefix other than 0.")
     item: str = Field(description="The text content of the list item. Should be a bullet point 1-5 words long.")
 
 class ListComponent(BaseModel):
     UIType: Literal["list"] = Field(description="Indicates this is a list component for displaying a list of items for example a CV (curriculum vitae)")
+    headline: Optional[str] = Field(description="A short headline for the list")
     items: List[ListItem] = Field(description="A list of short text items to be displayed")
 
 class TableComponent(BaseModel):
     UIType: Literal["table"] = Field(
         description="Indicates this is a table component for displaying structured data"
-                    "This format is suitable for structured overviews such as lists of exhibitions")
+                    "This format is suitable for structured overviews such as lists of exhibitions and CVs")
     headers: List[str] = Field(description="Column headers for the table. Headers should be single words when possible")
     rows: List[List[str]] = Field(description="Rows of data, where each row is a list of strings")
 
@@ -247,9 +250,14 @@ class ArtworksList (BaseModel):
 class Response_1(BaseModel):
     type: Optional[Literal["response"]]  # Literal makes sure only a certain value is allowed for the type field / Fixed type to ensure root level is a simple object (not a descriminated union)
     headline: HeadlineComponent = Field(
-        description="The main headline for this response. Important: Should be maximum 2 words"
+        description=(
+            "A short, precise title for the response. "
+            "Do not include the artist's name. "
+            "Should clearly reflect the content (e.g. 'Biography', 'Education', 'Artistic Themes'). "
+            "Limit to a maximum of 2 words."
+        )
     )
-    components: List[Union[HeadlineComponent, ParagraphComponent, ListComponent, TableComponent, ArtworksList]] = Field( # Union allows for a list of different types of components / basically presents a list of options
+    components: List[Union[HeadlineComponent, ParagraphComponent, ListComponent, TableComponent, ArtworksList]] = Field(
         description="List of UI components that make up the response"
     )
 
@@ -373,7 +381,7 @@ def stream():
 
     def generate():
         with client.beta.chat.completions.stream(
-            model="gpt-4o",
+            model="gpt-4o-mini",
             messages=messages_1,
             temperature=0.5,
             max_tokens=2048,
