@@ -175,7 +175,7 @@ class ParagraphComponent(BaseModel):
     headline: Optional[str] = Field(description="A short headline for the paragraph")
     image: Optional[ImageComponent] = Field(
         description=(
-            "IMPORTANT: ALWAYS try to include an image with EVERY paragraph and on EVERY topic.\n"
+            "IMPORTANT: Always try to include an image with a paragraph.\n"
             "The image does not need to directly depict the content – choose based on mood, material, time period, place, process, or atmosphere.\n"
             "This includes biographical content: if the paragraph is about a period in Oskar Schroeder's life (e.g. education or residency), use any image from that timeframe or from the studio or process images.\n"
             "Only return null if truly no plausible match exists across all available image categories."
@@ -264,11 +264,28 @@ class Response_1(BaseModel):
 # SECOND CHATBOT
 
 class Response_2(BaseModel):
-    content_description: str = Field(description="A description of the content that is currently displayed")
-    prompt_proposal_1: str = Field(description="A recommendation to the user that offers suggestions or next steps based on the current content")
-    prompt_proposal_2: str = Field(description="A recommendation to the user that offers suggestions or next steps based on the current content")
-    prompt_proposal_3: str = Field(description="A recommendation to the user that offers suggestions or next steps based on the current content")
-    prompt_proposal_4: str = Field(description="A recommendation to the user that offers suggestions or next steps based on the current content")
+    prompt_proposal_1: str = Field(
+        description=(
+            "An actionable suggestion guiding the user toward unexplored or complementary information about Oskar Schroeder. "
+            "This should build on what has already been shown, helping the user navigate toward relevant or related topics."
+        )
+    )
+    prompt_proposal_2: str = Field(
+        description=(
+            "Another concise recommendation for how the user might continue exploring new aspects of Oskar Schroeder’s work, biography, or exhibitions."
+        )
+    )
+    prompt_proposal_3: str = Field(
+        description=(
+            "A third suggestion that encourages discovery of content not yet seen. "
+            "Think about gaps or next logical steps in the user’s journey."
+        )
+    )
+    prompt_proposal_4: str = Field(
+        description=(
+            "A final prompt proposal that remains concise (max. 40 characters), user-friendly, and focused on further exploration of Oskar Schroeder’s artistic universe."
+        )
+    )
 
 
 
