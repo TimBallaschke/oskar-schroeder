@@ -247,7 +247,7 @@ SYSTEM_PROMPT_4 = {
                 "Your explanations should be factual, accessible, and easy to understand for a general audience. "
                 "Avoid technical jargon unless it is essential.\n"
                 "Do not include URLs or refer to the source of the information in any way.\n"
-                "Always use German-style quotation marks: »like this« instead of standard double quotes."
+                "Important: Always use German-style quotation marks: »like this« instead of standard double quotes."
 
             )
         }

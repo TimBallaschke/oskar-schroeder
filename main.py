@@ -199,8 +199,13 @@ class ParagraphComponent(BaseModel):
 
 
 class ListItem(BaseModel):
-    prefix: int = Field(description="A prefix for the list item. For example '2010', '2011', '2012' or '01', '02', '03' etc."
-                                    "IMPORTANT: Always use a prefix other than 0.")
+    prefix: int = Field(
+        description=(
+            "A prefix for the list item. For example '2010', '2011', '2012' or '01', '02', '03' etc.\n"
+            "IMPORTANT: Always use a prefix other than 0.\n"
+            "If the content relates to a chronological event (e.g. CV), use the appropriate year as prefix."
+        )
+    )
     item: str = Field(
         description="The text content of the list item. Should be a bullet point 1-5 words long.\n\n"
                     "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "

@@ -59,6 +59,10 @@ function addTableHeaders(appendDelay, animationDelay, row, headers, lastScrollHe
             }
         }, appendDelay);
 
+        const lightWidth = headerDiv.getBoundingClientRect().width;
+        headerDiv.style.display = 'inline-block';
+        headerDiv.style.width = `${lightWidth}px`;
+
         setTimeout(() => {
             headerDiv.classList.remove('no-opacity', 'light');
         }, animationDelay);
@@ -707,7 +711,7 @@ function animateInputPlaceholder() {
 // --------------------------------------------------------------------------------------------
 
 async function handleDelta(content) {
-    console.log("Received delta:", content);
+    // console.log("Received delta:", content);
 
     renderingQueue.push(content);
 
@@ -948,8 +952,8 @@ async function handleDelta(content) {
                                                         paragraphContainer.appendChild(wordSpan);
                                                     }
 
-                                                    const lightWidth = wordSpan.getBoundingClientRect().width;
                                                     wordSpan.style.display = 'inline-block';
+                                                    const lightWidth = wordSpan.getBoundingClientRect().width;
                                                     wordSpan.style.width = `${lightWidth}px`;
 
                                                     setTimeout(() => {
@@ -1056,6 +1060,10 @@ async function handleDelta(content) {
                                     
                                     prefix.textContent = prefixText;
 
+                                    prefix.style.display = 'inline-block';
+                                    const lightWidth = prefix.getBoundingClientRect().width;
+                                    prefix.style.width = `${lightWidth}px`;
+
                                     itemContainer.appendChild(prefix);
                                     const itemContainerHeight = itemContainer.scrollHeight;
                                     itemContainer.style.height = `${itemContainerHeight}px`;
@@ -1143,8 +1151,8 @@ async function handleDelta(content) {
                                                         textContainer.appendChild(wordSpan);
                                                     }
 
-                                                    const lightWidth = wordSpan.getBoundingClientRect().width;
                                                     wordSpan.style.display = 'inline-block';
+                                                    const lightWidth = wordSpan.getBoundingClientRect().width;
                                                     wordSpan.style.width = `${lightWidth}px`;
                             
                                                     const currentScrollHeight = itemContainer.scrollHeight;
@@ -1271,64 +1279,138 @@ async function handleDelta(content) {
                                                 row = tableContainer.querySelector(`[data-row-id="${rowId}"]`);
                                                 row.classList.add('animation-duration');
                                                 componentMap.get(rowId).add(item);
-
+                                    
                                                 const rowItem = document.createElement('div');
                                                 rowItem.classList.add('row-item');
                                                 rowItem.style.gridRow = `${rowData.indexOf(item) + 1}`;
                                                 row.appendChild(rowItem);
+                                    
+                                                // Split by bracketed and non-bracketed segments
+                                                const parts = item.split(/(\[[^\]]+\])/g);
+                                                let partIndex = 0;
+                                    
+                                                function processNextPart() {
+                                                    if (partIndex < parts.length) {
+                                                        const part = parts[partIndex];
+                                                        if (!part) {
+                                                            partIndex++;
+                                                            processNextPart();
+                                                            return;
+                                                        }
+                                    
+                                                        const isItalic = part.startsWith('[') && part.endsWith(']');
+                                                        const text = isItalic ? part.slice(1, -1) : part;
+                                                        const words = text.trim().split(' ').filter(w => w);
+                                    
+                                                        if (words.length === 0) {
+                                                            partIndex++;
+                                                            processNextPart();
+                                                            return;
+                                                        }
 
-                                                const words = item.split(' ');
-                                                let wordIndex = 0;
-
-                                                function addNextWord() {
-                                                    // Set the height of the row to auto so the height of the rowItems can be animated
-                                                    row.style.height = 'auto';
-
-                                                    // As long as there is words left in the array of words
-                                                    if (wordIndex < words.length) {
-                                                        // Add space before word (except for first word)
-                                                        if (wordIndex > 0) {
+                                                                                                    // Check if this part starts with punctuation
+                                                        const startWithPunctuation = /^[.,;:!?)]/.test(text.trim());
+                                                        
+                                                        // Add space between parts if needed (but not before punctuation)
+                                                        if (partIndex > 0 && !startWithPunctuation && 
+                                                            rowItem.lastChild && 
+                                                            !rowItem.lastChild.textContent.endsWith(' ')) {
                                                             rowItem.appendChild(document.createTextNode(' '));
                                                         }
-
-                                                        // Create span for the word
-                                                        const wordSpan = document.createElement('span');
-                                                        wordSpan.textContent = words[wordIndex];
-                                                        wordSpan.classList.add('table-item-word', 'light', 'no-opacity');
-                                                        rowItem.appendChild(wordSpan);
-
-
-
-                                                        const currentRowItemScrollHeight = rowItem.scrollHeight;
-                                                        if (currentRowItemScrollHeight !== lastRowItemScrollHeight) {
-                                                            lastRowItemScrollHeight = currentRowItemScrollHeight;
-                                                            rowItem.style.height = `${currentRowItemScrollHeight}px`;
+                                    
+                                                        let italicSpan = null;
+                                                        if (isItalic) {
+                                                            termDescriptionCount++;
+                                                            italicSpan = document.createElement('span');
+                                                            italicSpan.classList.add('term');
+                                                            italicSpan.setAttribute('data-term-index', termDescriptionCount);
+                                                            rowItem.appendChild(italicSpan);
                                                         }
+                                    
+                                                        let wordIndex = 0;
+                                    
+                                                        function addNextWord() {
+                                                            row.style.height = 'auto';
+                                                            
+                                                            if (wordIndex < words.length) {
+                                                                if (wordIndex > 0) {
+                                                                    (italicSpan || rowItem).appendChild(document.createTextNode(' '));
+                                                                }
+                                    
+                                                                const wordSpan = document.createElement('span');
+                                                                wordSpan.textContent = words[wordIndex];
+                                                                wordSpan.classList.add('word', 'table-item-word', 'light', 'no-opacity');
+                                                                
+                                                                if (italicSpan) {
+                                                                    italicSpan.appendChild(wordSpan);
 
-                                                        // const currentScrollHeight = row.scrollHeight;
-                                                        // if (currentScrollHeight !== lastScrollHeight) {
-                                                        //     lastScrollHeight = currentScrollHeight;
-                                                        //     row.style.height = `${currentScrollHeight}px`;
-                                                        // }
+                                                                    setTimeout(() => {
+                                                                        wordSpan.classList.add('italic');
+                                                                    }, 10);
+                                                                } else {
+                                                                    rowItem.appendChild(wordSpan);
+                                                                }
+                                                                
+                                                                        
 
-                                                        // Remove light class after 10ms
-                                                        setTimeout(() => {
-                                                            wordSpan.classList.remove('no-opacity');
-                                                        }, 100);
 
-                                                        setTimeout(() => {
-                                                            wordSpan.classList.remove('light');
-                                                        }, 50);
+                                                                wordSpan.style.display = 'inline-block';
+                                                                const lightWidth = wordSpan.getBoundingClientRect().width;
+                                                                wordSpan.style.width = `${lightWidth}px`;
+                                    
+                                                                setTimeout(() => {
+                                                                    wordSpan.classList.remove('no-opacity');
+                                                                }, 100);
+                                                                setTimeout(() => {
+                                                                    wordSpan.classList.remove('light');
+                                                                }, 110);
 
-                                                        wordIndex++;
-                                                        // Add small delay between words
-                                                        setTimeout(addNextWord, 50);
+                                                                const currentRowItemScrollHeight = rowItem.scrollHeight;
+                                                                if (currentRowItemScrollHeight !== lastRowItemScrollHeight) {
+                                                                    lastRowItemScrollHeight = currentRowItemScrollHeight;
+                                                                    rowItem.style.height = `${currentRowItemScrollHeight}px`;
+                                                                }
+                                    
+                                                                wordIndex++;
+                                                                setTimeout(addNextWord, 50);
+                                                            } else {
+                                                                
+                                                                if (isItalic) {
+                                                                    const numberContainer = document.createElement('span');
+                                                                    numberContainer.classList.add(
+                                                                        'term-description-number-container',
+                                                                        `term-description-number-container-${termDescriptionCount}`,
+                                                                        'small'
+                                                                    );
+                                    
+                                                                    const numberSpan = document.createElement('span');
+                                                                    numberSpan.classList.add('term-description-number', 'light');
+                                                                    numberSpan.textContent =
+                                                                        termDescriptionCount < 10
+                                                                            ? `0${termDescriptionCount}`
+                                                                            : termDescriptionCount;
+                                    
+                                                                    numberContainer.appendChild(numberSpan);
+                                                                    rowItem.appendChild(numberContainer);
+
+                                    
+                                                                    setTimeout(() => {
+                                                                        numberContainer.classList.remove('small');
+                                                                        numberSpan.classList.remove('light');
+                                                                    }, 10);
+                                                                }
+                                    
+                                                                partIndex++;
+                                                                setTimeout(processNextPart, 10);
+                                                            }
+                                                        }
+                                    
+                                                        addNextWord();
                                                     } else {
                                                         resolve();
-                                                    }    
+                                                    }
                                                 }
-
-                                                addNextWord();
+                                                processNextPart();
                                             });
                                         }
                                     }
@@ -3471,7 +3553,6 @@ function snapToClosestVersionElement() {
                 requestAnimationFrame(checkPosition);
             }
         };
-
         requestAnimationFrame(checkPosition);
     }
 }

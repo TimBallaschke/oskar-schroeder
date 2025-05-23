@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250523d_Oskar_Website",
+  "original_folder": "250523e_Oskar_Website",
   "snapshot_date_from_folder": "250523",
   "source_files": [
     {
@@ -33,16 +33,16 @@
     },
     {
       "path": "main.py",
-      "sha1": "4a5799d9fb407482b01cc6b574d3b8aacd35ddf7",
-      "sha256": "7a3382e2ecbc824cfcac049241bc315fefb1efd4de2f89b70d6d68d61aec2110",
-      "size": 32959,
+      "sha1": "8206a633110d6f93eea7e81b374311809f2a4d6d",
+      "sha256": "71ec4295d5d2a158fcf2ab7f93aee6aff283fbb94f43e111689a2fbff6975fa1",
+      "size": 33086,
       "mode": "100644"
     },
     {
       "path": "prompts.py",
-      "sha1": "1e22d0d01cf4039c174e2531c2df84cf6aed8564",
-      "sha256": "9b49ad7817b2d18f7486ec3e82044b0344ad420ee8308765d1345e165cc5f08f",
-      "size": 14576,
+      "sha1": "20790fb6de690a3575eb0af16a36d57029eec45a",
+      "sha256": "9d08946272955fe06b86692e3ed376bbc0823256a28333972bf569a208c1e4ad",
+      "size": 14587,
       "mode": "100644"
     },
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "7370d14345a4a1b561d214f99e1b76143d2e399b",
-      "sha256": "530c5410ab711b44d0a9d4bcc37423aae43847d75171eb895a9113c2dc35a46e",
-      "size": 163584,
+      "sha1": "6aee83af77d14164af49ac7560b309537673e7a6",
+      "sha256": "7e139f77403794ed44cd81d192e72618c6e0110e56d7437e49ba7eab95273838",
+      "size": 170488,
       "mode": "100644"
     },
     {
