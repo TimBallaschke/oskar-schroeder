@@ -183,7 +183,7 @@ class ParagraphComponent(BaseModel):
     )
     text: List[str] = Field(
         description=(
-            "The text content of the paragraph. Each sentence should be a separate paragraph. "
+            "The text content of the paragraph. Each sentence should be a separate paragraph.\n\n"
             "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "
             "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
             "For example: '[Muthesius University of Fine Arts]', '[HBK Braunschweig]', '[Thomas Rentmeister]', '[Elisabeth Wagner]', "
@@ -201,7 +201,18 @@ class ParagraphComponent(BaseModel):
 class ListItem(BaseModel):
     prefix: int = Field(description="A prefix for the list item. For example '2010', '2011', '2012' or '01', '02', '03' etc."
                                     "IMPORTANT: Always use a prefix other than 0.")
-    item: str = Field(description="The text content of the list item. Should be a bullet point 1-5 words long.")
+    item: str = Field(
+        description="The text content of the list item. Should be a bullet point 1-5 words long.\n\n"
+                    "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "
+                    "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
+                    "For example: '[Muthesius University of Fine Arts]', '[HBK Braunschweig]', '[Thomas Rentmeister]', '[Elisabeth Wagner]', "
+                    "'[Flensburg]', '[North Frisia]', '[Stucco marble]', '[New Materialism]', '[Karen Barad]', '[Kunstverein Braunschweig]', "
+                    "'[Galerie KuCo]', '[Raum Links Rechts, Hamburg]', '[Galerie Ewelyn Drewes, Hamburg]', '[Prima Kunst Container]', "
+                    "'[Kunsthaus Kaufbeuren]', '[Galerie 21]', '[Vorwerkstift Hamburg]', '[Stadtgalerie Kiel]', '[Duborg Skolen]', "
+                    "'[Eckener Schule Flensburg]', '[Hannover Re]', '[Prospekt]', '[Maximiliansforum]', '[Galerie der Künstler]', "
+                    "'[Beaux‑Arts Nantes Saint‑Nazaire]', '[Regine Schulz]', '[Mats Hoff]', '[Janosch Heydorn]', '[Karin Kamolz]', "
+                    "'[Corinna Schnitt]', '[Jan Kochermann]', '[BKH Gutmann]', '[Axel Loytved]', '[Olaf Metzel]', '[Georg Winter]'.\n\n"
+                    "Important: The artist's name 'Oskar Schroeder' should **never** be wrapped in brackets.")
 
 class ListComponent(BaseModel):
     UIType: Literal["list"] = Field(description="Indicates this is a list component for displaying a list of items for example a CV (curriculum vitae)")
@@ -213,7 +224,18 @@ class TableComponent(BaseModel):
         description="Indicates this is a table component for displaying structured data"
                     "This format is suitable for structured overviews such as lists of exhibitions and CVs")
     headers: List[str] = Field(description="Column headers for the table. Headers should be single words when possible")
-    rows: List[List[str]] = Field(description="Rows of data, where each row is a list of strings")
+    rows: List[List[str]] = Field(
+        description="Rows of data, where each row is a list of strings\n\n"
+                    "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "
+                    "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
+                    "For example: '[Muthesius University of Fine Arts]', '[HBK Braunschweig]', '[Thomas Rentmeister]', '[Elisabeth Wagner]', "
+                    "'[Flensburg]', '[North Frisia]', '[Stucco marble]', '[New Materialism]', '[Karen Barad]', '[Kunstverein Braunschweig]', "
+                    "'[Galerie KuCo]', '[Raum Links Rechts, Hamburg]', '[Galerie Ewelyn Drewes, Hamburg]', '[Prima Kunst Container]', "
+                    "'[Kunsthaus Kaufbeuren]', '[Galerie 21]', '[Vorwerkstift Hamburg]', '[Stadtgalerie Kiel]', '[Duborg Skolen]', "
+                    "'[Eckener Schule Flensburg]', '[Hannover Re]', '[Prospekt]', '[Maximiliansforum]', '[Galerie der Künstler]', "
+                    "'[Beaux‑Arts Nantes Saint‑Nazaire]', '[Regine Schulz]', '[Mats Hoff]', '[Janosch Heydorn]', '[Karin Kamolz]', "
+                    "'[Corinna Schnitt]', '[Jan Kochermann]', '[BKH Gutmann]', '[Axel Loytved]', '[Olaf Metzel]', '[Georg Winter]'.\n\n"
+                    "Important: The artist's name 'Oskar Schroeder' should **never** be wrapped in brackets.")
 
 class ArtworksLayout(str, Enum):
     fullscreen = "fullscreen"
@@ -228,7 +250,17 @@ class ArtworkComponent(BaseModel):
     dimensions: str = Field(description="Physical dimensions of the artwork")
     description: List[str] = Field(
         description=(
-            "An artwork description."
+            "An artwork description.\n\n"
+            "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "
+            "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
+            "For example: '[Muthesius University of Fine Arts]', '[HBK Braunschweig]', '[Thomas Rentmeister]', '[Elisabeth Wagner]', "
+            "'[Flensburg]', '[North Frisia]', '[Stucco marble]', '[New Materialism]', '[Karen Barad]', '[Kunstverein Braunschweig]', "
+            "'[Galerie KuCo]', '[Raum Links Rechts, Hamburg]', '[Galerie Ewelyn Drewes, Hamburg]', '[Prima Kunst Container]', "
+            "'[Kunsthaus Kaufbeuren]', '[Galerie 21]', '[Vorwerkstift Hamburg]', '[Stadtgalerie Kiel]', '[Duborg Skolen]', "
+            "'[Eckener Schule Flensburg]', '[Hannover Re]', '[Prospekt]', '[Maximiliansforum]', '[Galerie der Künstler]', "
+            "'[Beaux‑Arts Nantes Saint‑Nazaire]', '[Regine Schulz]', '[Mats Hoff]', '[Janosch Heydorn]', '[Karin Kamolz]', "
+            "'[Corinna Schnitt]', '[Jan Kochermann]', '[BKH Gutmann]', '[Axel Loytved]', '[Olaf Metzel]', '[Georg Winter]'.\n\n"
+            "Important: The artist's name 'Oskar Schroeder' should **never** be wrapped in brackets."
         )
     )
 

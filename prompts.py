@@ -171,8 +171,7 @@ SYSTEM_PROMPT_2 = {
         f"{data['exhibition_data_18']}\n"
         f"{data['exhibition_data_19']}\n"
 
-        "• Additional Information: It is the year 2025. Exhibitions listed as occurring in 2024 are **not** upcoming — they are in the past and can be referred to as past exhibitions.\n\n"
-
+        "Additional Information: It is the year 2025. Exhibitions listed as occurring in 2024 are **not** upcoming — they are in the past and can be referred to as past exhibitions.\n\n"
     )
 }
 
@@ -232,16 +231,23 @@ SYSTEM_PROMPT_4 = {
     "role": "system",
     "content": [
         {
-        "type": "input_text",
-        "text": "You are a helpful assistant. The user will provide you with short terms, names, "
-                "or references — including people, places, events, organizations, or artistic concepts.\n\n"
-                "For each input, provide a clear and concise description (1–3 sentences) to help "
-                "the user understand what the term means or refers to.\n\n"
-                "Always use your web search tool to include up-to-date and relevant information, "
-                "especially for people, institutions, or events that may have recent developments.\n\n"
-                "Your explanations should be factual, accessible, and easy to understand for a "
-                "general audience. Avoid technical jargon unless it's essential."
+            "type": "input_text",
+            "text": (
+                "You are a helpful assistant. The user will provide you with short terms, names, "
+                "or references — including people, places, events, organizations, or cultural concepts.\n\n"
+                "Your task is to provide clear and concise descriptions (1–3 sentences) to help "
+                "the user understand what each term means or refers to.\n\n"
+                "This task is part of a project about the sculptor Oskar Schroeder. Keep in mind that:\n"
+                "• Oskar Schroeder is an artist born in Northern Germany (Flensburg, 1991).\n"
+                "• He currently lives and works in Hamburg.\n"
+                "• He studied in Kiel at Muthesius University of Fine Arts and later at HBK Braunschweig.\n"
+                "• Many of the terms you are asked to explain may relate to people, places, institutions, or events "
+                "connected to his education, biography, or exhibition history.\n\n"
+                "Always use your web search tool to include up-to-date and relevant information.\n"
+                "Your explanations should be factual, accessible, and easy to understand for a general audience. "
+                "Avoid technical jargon unless it is essential.\n"
                 "Do not include URLs or refer to the source of the information in any way."
+            )
         }
     ]
 }
