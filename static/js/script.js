@@ -935,7 +935,7 @@ async function handleDelta(content) {
                                                     // Create span for the word
                                                     const wordSpan = document.createElement('span');
                                                     wordSpan.textContent = words[wordIndex];
-                                                    wordSpan.classList.add('paragraph-word', 'light');
+                                                    wordSpan.classList.add('word', 'paragraph-word', 'light');
                                                     
                                                     // Add to appropriate parent
                                                     if (italicSpan) {
@@ -1071,74 +1071,146 @@ async function handleDelta(content) {
                                     setTimeout(resolve, animationDuration + 20);
                                 });
                             }
+                            
 
-                            // Handle item text if it exists and hasn't been processed
                             if (listItem.item && !componentMap.get(itemID).has('item')) {
                                 await new Promise(resolve => {
                                     componentMap.get(itemID).add('item');
+                            
                                     const textContainer = document.createElement('div');
                                     textContainer.classList.add('item-text');
                                     itemContainer.appendChild(textContainer);
-
+                            
                                     // Store initial scrollHeight
                                     let previousScrollHeight = itemContainer.scrollHeight;
                             
-                                    // Split the item text into words
-                                    const words = listItem.item.split(' ');
-                                    let wordIndex = 0;
+                                    const parts = listItem.item.split(/(\[[^\]]+\])/g);
+                                    let partIndex = 0;
                             
-                                    function addNextWord() {
-                                        if (wordIndex < words.length) {
-                                            // Add space before word (except for first word)
-                                            if (wordIndex > 0) {
+                                    function processNextPart() {
+                                        if (partIndex < parts.length) {
+                                            const part = parts[partIndex];
+                                            if (!part) {
+                                                partIndex++;
+                                                processNextPart();
+                                                return;
+                                            }
+                            
+                                            const isItalic = part.startsWith('[') && part.endsWith(']');
+                                            const text = isItalic ? part.slice(1, -1) : part;
+                                            const words = text.trim().split(' ').filter(w => w);
+                            
+                                            if (words.length === 0) {
+                                                partIndex++;
+                                                processNextPart();
+                                                return;
+                                            }
+                            
+                                            const startWithPunctuation = /^[.,;:!?)]/.test(text.trim());
+                                            if (partIndex > 0 && !startWithPunctuation &&
+                                                textContainer.lastChild && !textContainer.lastChild.textContent.endsWith(' ')) {
                                                 textContainer.appendChild(document.createTextNode(' '));
                                             }
-                                            
-                                            // Create span for the word
-                                            const wordSpan = document.createElement('span');
-                                            wordSpan.textContent = words[wordIndex];
-                                            wordSpan.classList.add('item-word', 'light', 'no-opacity');
-                                            textContainer.appendChild(wordSpan);
-
-                                            const currentScrollHeight = itemContainer.scrollHeight;
-                                            if (currentScrollHeight !== previousScrollHeight) {
-                                                // Update height to new scrollHeight
-                                                itemContainer.style.height = `${currentScrollHeight}px`;
-                                                previousScrollHeight = currentScrollHeight;
-
-                                                setTimeout(() => {
-                                                    wordSpan.classList.remove('no-opacity');
-                                                }, animationDuration - 200);
-                                                
-                                                setTimeout(() => {
-                                                    wordSpan.classList.remove('light');
-                                                }, animationDuration - 180);
-
-                                                wordIndex++;
-                                                // Add small delay between words
-                                                setTimeout(addNextWord, animationDuration - 180);
-                                            } else {
-                                                setTimeout(() => {
-                                                    wordSpan.classList.remove('no-opacity');
-                                                }, 10);
-
-                                                setTimeout(() => {
-                                                    wordSpan.classList.remove('light');
-                                                }, 50);
-
-                                                wordIndex++;
-                                                // Add small delay between words
-                                                setTimeout(addNextWord, 50);
-                                                
+                            
+                                            let italicSpan = null;
+                                            if (isItalic) {
+                                                termDescriptionCount++;
+                                                italicSpan = document.createElement('span');
+                                                italicSpan.classList.add('term');
+                                                italicSpan.setAttribute('data-term-index', termDescriptionCount);
+                                                textContainer.appendChild(italicSpan);
                                             }
                             
+                                            let wordIndex = 0;
+                            
+                                            function addNextWord() {
+                                                if (wordIndex < words.length) {
+                                                    if (wordIndex > 0) {
+                                                        (italicSpan || textContainer).appendChild(document.createTextNode(' '));
+                                                    }
+                            
+                                                    const wordSpan = document.createElement('span');
+                                                    wordSpan.textContent = words[wordIndex];
+                                                    wordSpan.classList.add('word', 'item-word', 'light', 'no-opacity');
+                            
+                                                    if (italicSpan) {
+                                                        italicSpan.appendChild(wordSpan);
+
+                                                        setTimeout(() => {
+                                                            wordSpan.classList.add('italic');
+                                                        }, 10);
+                                                    } else {
+                                                        textContainer.appendChild(wordSpan);
+                                                    }
+
+                                                    const lightWidth = wordSpan.getBoundingClientRect().width;
+                                                    wordSpan.style.display = 'inline-block';
+                                                    wordSpan.style.width = `${lightWidth}px`;
+                            
+                                                    const currentScrollHeight = itemContainer.scrollHeight;
+                                                    if (currentScrollHeight !== previousScrollHeight) {
+                                                        itemContainer.style.height = `${currentScrollHeight}px`;
+                                                        previousScrollHeight = currentScrollHeight;
+                            
+                                                        setTimeout(() => {
+                                                            wordSpan.classList.remove('no-opacity');
+                                                        }, animationDuration - 200);
+                            
+                                                        setTimeout(() => {
+                                                            wordSpan.classList.remove('light');
+                                                        }, animationDuration - 180);
+                            
+                                                        wordIndex++;
+                                                        setTimeout(addNextWord, animationDuration - 180);
+                                                    } else {
+                                                        setTimeout(() => {
+                                                            wordSpan.classList.remove('no-opacity');
+                                                        }, 10);
+                            
+                                                        setTimeout(() => {
+                                                            wordSpan.classList.remove('light');
+                                                        }, 50);
+                            
+                                                        wordIndex++;
+                                                        setTimeout(addNextWord, 50);
+                                                    }
+                                                } else {
+                                                    if (isItalic) {
+                                                        const numberContainer = document.createElement('span');
+                                                        numberContainer.classList.add(
+                                                            'term-description-number-container',
+                                                            `term-description-number-container-${termDescriptionCount}`,
+                                                            'small'
+                                                        );
+                            
+                                                        const numberSpan = document.createElement('span');
+                                                        numberSpan.classList.add('term-description-number', 'light');
+                                                        numberSpan.textContent =
+                                                            termDescriptionCount < 10
+                                                                ? `0${termDescriptionCount}`
+                                                                : termDescriptionCount;
+                            
+                                                        numberContainer.appendChild(numberSpan);
+                                                        textContainer.appendChild(numberContainer);
+                            
+                                                        setTimeout(() => {
+                                                            numberContainer.classList.remove('small');
+                                                            numberSpan.classList.remove('light');
+                                                        }, 10);
+                                                    }
+                            
+                                                    partIndex++;
+                                                    setTimeout(processNextPart, 10);
+                                                }
+                                            }
+                            
+                                            addNextWord();
                                         } else {
                                             resolve();
                                         }
                                     }
                             
-                                    // Start adding words
-                                    addNextWord();
+                                    processNextPart();
                                 });
                             }
                         }
@@ -2933,7 +3005,7 @@ function activateTermDescription() {
                 currentWebsearchTerm = termContainer;
 
 
-                const termWords = termContainer.querySelectorAll('.paragraph-word');
+                const termWords = termContainer.querySelectorAll('.word');
                         
                 // Combine all term words into termForWebsearch
                 termWords.forEach(word => {
