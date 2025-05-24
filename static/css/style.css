@@ -91,7 +91,7 @@
     --button-size: 39px;
     --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
     --small-circle-size: 20px;
-    --content-padding-top: 140px;
+    --content-padding-top: 150px;
     --column-amount-projects: 4;
     --column-gap-projects: 15px;
   }
@@ -235,7 +235,7 @@ p {
 }
 
 .light {
-  font-variation-settings: "wght" 100, "ital" 0;
+  font-variation-settings: "wght" 200, "ital" 0;
 }
 
 .light-nav {
@@ -247,7 +247,7 @@ p {
 }
 
 .light.italic {
-  font-variation-settings: "wght" 100, "ital" 9;
+  font-variation-settings: "wght" 200, "ital" 9;
 }
 
 .indent {
@@ -916,7 +916,7 @@ p {
   transition: all var(--animation-duration-1) ease-in-out;
 }
 .fullscreen .project-description {
-  padding-bottom: var(--content-padding-bottom);
+  padding-bottom: 200px;
   font-size: var(--primary-font-size);
   height: 0;
   overflow: hidden;
@@ -930,20 +930,23 @@ p {
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   .fullscreen .project-description {
-    grid-row: 3/4;
-    grid-column: 1/7;
+    grid-row: 4;
+    grid-column: 3/7;
+    padding-bottom: 180px;
   }
 }
 @media (min-width: 1025px) and (max-width: 1440px) {
   .fullscreen .project-description {
-    grid-row: 3/4;
-    grid-column: 1/7;
+    grid-row: 4;
+    grid-column: 3/7;
+    padding-bottom: 180px;
   }
 }
 @media (min-width: 1441px) {
   .fullscreen .project-description {
-    grid-row: 3/4;
-    grid-column: 1/7;
+    grid-row: 4;
+    grid-column: 3/7;
+    padding-bottom: 200px;
   }
 }
 .fullscreen .project-description-paragraph {

@@ -364,7 +364,7 @@ artwork_data_1 = {
     "name": "Applikate",
     "year": 2021,
     "material": "Concrete columns, stucco marble, plywood discs",
-    "dimensions": "30×3–230×120 cm",
+    "dimensions": "30×3 – 230×120cm",
     "images": [
         {"url": "../static/assets/images/artworks/Applikate/1.jpg"},
         {"url": "../static/assets/images/artworks/Applikate/2.jpg"},
@@ -448,8 +448,8 @@ artwork_data_5 = {
     "material": "gypsum, animal glue, coal dust, red ochre",
     "dimensions": "22×20×2.5 cm",
     "images": [
-        {"url": "../static/assets/images/artworks/Flug/1.webp"},
-        {"url": "../static/assets/images/artworks/Flug/2.webp"}
+        {"url": "../static/assets/images/artworks/Flug/2.webp"},
+        {"url": "../static/assets/images/artworks/Flug/1.webp"}
     ],
     "description": (
         "»Flug« is part of Oskar Schroeder's diploma project and was exhibited during the final show at HBK Braunschweig. "
@@ -525,8 +525,8 @@ artwork_data_9 = {
     "material": "Fountain, water, pump",
     "dimensions": "80×110×80cm",
     "images": [
-        {"url": "../static/assets/images/artworks/Janus/1.jpg"},
-        {"url": "../static/assets/images/artworks/Janus/2.jpg"}
+        {"url": "../static/assets/images/artworks/Janus/2.jpg"},
+        {"url": "../static/assets/images/artworks/Janus/1.jpg"}
     ],
     "description": (
         "»Janus« is an objet trouvé—a fountain that stood for many years in the garden of Oskar Schroeder's parents. "

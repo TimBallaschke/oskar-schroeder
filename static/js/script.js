@@ -2086,165 +2086,165 @@ async function renderNextProject() {
 
                         break;
                     case 'description':
-                        // await new Promise((resolve) => {
-                        //     let projectDescription = projectItem.querySelector('.project-description');
+                        await new Promise((resolve) => {
+                            let projectDescription = projectItem.querySelector('.project-description');
                     
-                        //     async function createProjectDescription() {
-                        //         if (!projectDescription) {
-                        //             await new Promise((descriptionResolve) => {
-                        //                 projectDescription = document.createElement('div');
-                        //                 projectDescription.classList.add('project-description', 'no-padding');
-                        //                 projectItem.appendChild(projectDescription);
+                            async function createProjectDescription() {
+                                if (!projectDescription) {
+                                    await new Promise((descriptionResolve) => {
+                                        projectDescription = document.createElement('div');
+                                        projectDescription.classList.add('project-description', 'no-padding');
+                                        projectItem.appendChild(projectDescription);
                     
-                        //                 setTimeout(() => {
-                        //                     projectDescription.classList.remove('no-padding');
-                        //                 }, 10);
+                                        setTimeout(() => {
+                                            projectDescription.classList.remove('no-padding');
+                                        }, 10);
                     
-                        //                 setTimeout(descriptionResolve, 210);
-                        //             });
-                        //         }
-                        //     }
+                                        setTimeout(descriptionResolve, 210);
+                                    });
+                                }
+                            }
                     
-                        //     async function addSentences() {
-                        //         // const paragraphElement = document.createElement('p');
-                        //         // paragraphElement.classList.add('project-description-paragraph');
-                        //         // projectDescription.appendChild(paragraphElement);
+                            async function addSentences() {
+                                // const paragraphElement = document.createElement('p');
+                                // paragraphElement.classList.add('project-description-paragraph');
+                                // projectDescription.appendChild(paragraphElement);
                     
-                        //         for (const sentence of value) {
-                        //             const safeSentence = btoa(encodeURIComponent(sentence));
-                        //             if (!projectDescription.querySelector(`[data-sentence="${safeSentence}"]`)) {
-                        //                 await new Promise((sentenceResolve) => {
-                        //                     if (projectDescription.childNodes.length > 0) {
-                        //                         projectDescription.appendChild(document.createTextNode(' '));
-                        //                     }
+                                for (const sentence of value) {
+                                    const safeSentence = btoa(encodeURIComponent(sentence));
+                                    if (!projectDescription.querySelector(`[data-sentence="${safeSentence}"]`)) {
+                                        await new Promise((sentenceResolve) => {
+                                            if (projectDescription.childNodes.length > 0) {
+                                                projectDescription.appendChild(document.createTextNode(' '));
+                                            }
                     
-                        //                     const sentenceSpan = document.createElement('span');
-                        //                     sentenceSpan.setAttribute('data-sentence', safeSentence);
-                        //                     projectDescription.appendChild(sentenceSpan);
+                                            const sentenceSpan = document.createElement('span');
+                                            sentenceSpan.setAttribute('data-sentence', safeSentence);
+                                            projectDescription.appendChild(sentenceSpan);
                     
-                        //                     const parts = sentence.split(/(\[[^\]]+\])/g);
-                        //                     let partIndex = 0;
+                                            const parts = sentence.split(/(\[[^\]]+\])/g);
+                                            let partIndex = 0;
                     
-                        //                     function processNextPart() {
-                        //                         if (partIndex < parts.length) {
-                        //                             const part = parts[partIndex];
-                        //                             if (!part) {
-                        //                                 partIndex++;
-                        //                                 processNextPart();
-                        //                                 return;
-                        //                             }
+                                            function processNextPart() {
+                                                if (partIndex < parts.length) {
+                                                    const part = parts[partIndex];
+                                                    if (!part) {
+                                                        partIndex++;
+                                                        processNextPart();
+                                                        return;
+                                                    }
                     
-                        //                             const isItalic = part.startsWith('[') && part.endsWith(']');
-                        //                             const text = isItalic ? part.slice(1, -1) : part;
-                        //                             const words = text.trim().split(' ').filter(w => w);
+                                                    const isItalic = part.startsWith('[') && part.endsWith(']');
+                                                    const text = isItalic ? part.slice(1, -1) : part;
+                                                    const words = text.trim().split(' ').filter(w => w);
                     
-                        //                             if (words.length === 0) {
-                        //                                 partIndex++;
-                        //                                 processNextPart();
-                        //                                 return;
-                        //                             }
+                                                    if (words.length === 0) {
+                                                        partIndex++;
+                                                        processNextPart();
+                                                        return;
+                                                    }
 
-                        //                             // Check if this part starts with punctuation
-                        //                             const startWithPunctuation = /^[.,;:!?)\]]/.test(text.trim());
+                                                    // Check if this part starts with punctuation
+                                                    const startWithPunctuation = /^[.,;:!?)\]]/.test(text.trim());
                                                     
-                        //                             // Add space between parts if needed (but not before punctuation)
-                        //                             if (partIndex > 0 && !startWithPunctuation && 
-                        //                                 sentenceSpan.lastChild && 
-                        //                                 !sentenceSpan.lastChild.textContent.endsWith(' ')) {
-                        //                                 sentenceSpan.appendChild(document.createTextNode(' '));
-                        //                             }
+                                                    // Add space between parts if needed (but not before punctuation)
+                                                    if (partIndex > 0 && !startWithPunctuation && 
+                                                        sentenceSpan.lastChild && 
+                                                        !sentenceSpan.lastChild.textContent.endsWith(' ')) {
+                                                        sentenceSpan.appendChild(document.createTextNode(' '));
+                                                    }
 
-                        //                             let italicSpan = null;
+                                                    let italicSpan = null;
                     
-                        //                             if (isItalic) {
-                        //                                 termDescriptionCount++;
-                        //                                 italicSpan = document.createElement('span');
-                        //                                 italicSpan.classList.add('term');
-                        //                                 italicSpan.setAttribute('data-term-index', termDescriptionCount);
-                        //                                 sentenceSpan.appendChild(italicSpan);
-                        //                             }
+                                                    if (isItalic) {
+                                                        termDescriptionCount++;
+                                                        italicSpan = document.createElement('span');
+                                                        italicSpan.classList.add('term');
+                                                        italicSpan.setAttribute('data-term-index', termDescriptionCount);
+                                                        sentenceSpan.appendChild(italicSpan);
+                                                    }
                     
-                        //                             let wordIndex = 0;
-                        //                             let lastScrollHeight = projectDescription.scrollHeight;
+                                                    let wordIndex = 0;
+                                                    let lastScrollHeight = projectDescription.scrollHeight;
                     
-                        //                             function addNextWord() {
-                        //                                 if (wordIndex < words.length) {
-                        //                                     if (wordIndex > 0) {
-                        //                                         if (italicSpan) {
-                        //                                             italicSpan.appendChild(document.createTextNode(' '));
-                        //                                         } else {
-                        //                                             sentenceSpan.appendChild(document.createTextNode(' '));
-                        //                                         }
-                        //                                     }
+                                                    function addNextWord() {
+                                                        if (wordIndex < words.length) {
+                                                            if (wordIndex > 0) {
+                                                                if (italicSpan) {
+                                                                    italicSpan.appendChild(document.createTextNode(' '));
+                                                                } else {
+                                                                    sentenceSpan.appendChild(document.createTextNode(' '));
+                                                                }
+                                                            }
                     
-                        //                                     const wordSpan = document.createElement('span');
-                        //                                     wordSpan.textContent = words[wordIndex];
-                        //                                     wordSpan.classList.add('word', 'project-description-word', 'light', 'no-opacity');
-                        //                                     if (isItalic) wordSpan.classList.add('italic');
-                        //                                     if (italicSpan) {
-                        //                                         italicSpan.appendChild(wordSpan);
-                        //                                     } else {
-                        //                                         sentenceSpan.appendChild(wordSpan);
-                        //                                     }
+                                                            const wordSpan = document.createElement('span');
+                                                            wordSpan.textContent = words[wordIndex];
+                                                            wordSpan.classList.add('word', 'project-description-word', 'light', 'no-opacity');
+                                                            if (isItalic) wordSpan.classList.add('italic');
+                                                            if (italicSpan) {
+                                                                italicSpan.appendChild(wordSpan);
+                                                            } else {
+                                                                sentenceSpan.appendChild(wordSpan);
+                                                            }
                     
-                        //                                     const currentScrollHeight = projectDescription.scrollHeight;
-                        //                                     if (currentScrollHeight !== lastScrollHeight) {
-                        //                                         lastScrollHeight = currentScrollHeight;
-                        //                                         projectDescription.style.height = `${currentScrollHeight}px`;
-                        //                                     }
+                                                            const currentScrollHeight = projectDescription.scrollHeight;
+                                                            if (currentScrollHeight !== lastScrollHeight) {
+                                                                lastScrollHeight = currentScrollHeight;
+                                                                projectDescription.style.height = `${currentScrollHeight}px`;
+                                                            }
 
-                        //                                     wordSpan.style.display = 'inline-block';
-                        //                                     const lightWidth = wordSpan.getBoundingClientRect().width;
-                        //                                     wordSpan.style.width = `${lightWidth}px`;
+                                                            wordSpan.style.display = 'inline-block';
+                                                            const lightWidth = wordSpan.getBoundingClientRect().width;
+                                                            wordSpan.style.width = `${lightWidth}px`;
                     
-                        //                                     setTimeout(() => {
-                        //                                         wordSpan.classList.remove('light');
-                        //                                         wordSpan.classList.remove('no-opacity');
-                        //                                     }, 50);
+                                                            setTimeout(() => {
+                                                                wordSpan.classList.remove('light');
+                                                                wordSpan.classList.remove('no-opacity');
+                                                            }, 50);
                     
-                        //                                     wordIndex++;
-                        //                                     setTimeout(addNextWord, 50);
-                        //                                 } else {
-                        //                                     if (isItalic) {
-                        //                                         const termDescriptionNumberContainer = document.createElement('span');
-                        //                                         termDescriptionNumberContainer.classList.add('term-description-number-container', `term-description-number-container-${termDescriptionCount}`, 'small');
+                                                            wordIndex++;
+                                                            setTimeout(addNextWord, 50);
+                                                        } else {
+                                                            if (isItalic) {
+                                                                const termDescriptionNumberContainer = document.createElement('span');
+                                                                termDescriptionNumberContainer.classList.add('term-description-number-container', `term-description-number-container-${termDescriptionCount}`, 'small');
         
-                        //                                         const termDescriptionNumber = document.createElement('span');
-                        //                                         termDescriptionNumber.classList.add('term-description-number', 'light');
-                        //                                         termDescriptionNumber.textContent = termDescriptionCount < 10 ? `0${termDescriptionCount}` : termDescriptionCount;
+                                                                const termDescriptionNumber = document.createElement('span');
+                                                                termDescriptionNumber.classList.add('term-description-number', 'light');
+                                                                termDescriptionNumber.textContent = termDescriptionCount < 10 ? `0${termDescriptionCount}` : termDescriptionCount;
         
-                        //                                         termDescriptionNumberContainer.appendChild(termDescriptionNumber);
-                        //                                         sentenceSpan.appendChild(termDescriptionNumberContainer);
+                                                                termDescriptionNumberContainer.appendChild(termDescriptionNumber);
+                                                                sentenceSpan.appendChild(termDescriptionNumberContainer);
         
-                        //                                         setTimeout(() => {
-                        //                                             termDescriptionNumberContainer.classList.remove('small');
-                        //                                             termDescriptionNumber.classList.remove('light');
-                        //                                         }, 10);
+                                                                setTimeout(() => {
+                                                                    termDescriptionNumberContainer.classList.remove('small');
+                                                                    termDescriptionNumber.classList.remove('light');
+                                                                }, 10);
         
-                        //                                         partIndex++;
-                        //                                         setTimeout(processNextPart, 10);
+                                                                partIndex++;
+                                                                setTimeout(processNextPart, 10);
         
-                        //                                     } else {
-                        //                                         partIndex++;
-                        //                                         setTimeout(processNextPart, 0); 
-                        //                                     }
-                        //                                 }
-                        //                             }
+                                                            } else {
+                                                                partIndex++;
+                                                                setTimeout(processNextPart, 0); 
+                                                            }
+                                                        }
+                                                    }
                     
-                        //                             addNextWord();
-                        //                         } else {
-                        //                             sentenceResolve();
-                        //                         }
-                        //                     }
+                                                    addNextWord();
+                                                } else {
+                                                    sentenceResolve();
+                                                }
+                                            }
                     
-                        //                     processNextPart();
-                        //                 });
-                        //             }
-                        //         }
-                        //     }
+                                            processNextPart();
+                                        });
+                                    }
+                                }
+                            }
                     
-                        //     createProjectDescription().then(() => addSentences().then(() => resolve()));
-                        // });
+                            createProjectDescription().then(() => addSentences().then(() => resolve()));
+                        });
                         break;
                         
                 }

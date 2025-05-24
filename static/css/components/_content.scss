@@ -703,7 +703,7 @@
 
 
     .project-description {
-        padding-bottom: var(--content-padding-bottom);
+        padding-bottom: 200px;
         @include primary-type;
         height: 0;
         overflow: hidden;
@@ -718,18 +718,21 @@
         }
 
         @include desktop-small {
-            grid-row: 3 / 4;
-            grid-column: 1 / 7;
+            grid-row: 4;
+            grid-column: 3 / 7;
+            padding-bottom: 180px;
         }
 
         @include desktop-large {
-            grid-row: 3 / 4;
-            grid-column: 1 / 7;
+            grid-row: 4;
+            grid-column: 3 / 7;
+            padding-bottom: 180px;
         }
 
         @include desktop-x-large {
-            grid-row: 3 / 4;
-            grid-column: 1 / 7;
+            grid-row: 4;
+            grid-column: 3 / 7;
+            padding-bottom: 200px;
         }
     }
 

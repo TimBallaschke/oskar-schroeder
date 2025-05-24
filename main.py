@@ -193,7 +193,7 @@ class ParagraphComponent(BaseModel):
             "'[Eckener Schule Flensburg]', '[Hannover Re]', '[Prospekt]', '[Maximiliansforum]', '[Galerie der Künstler]', "
             "'[Beaux‑Arts Nantes Saint‑Nazaire]', '[Regine Schulz]', '[Mats Hoff]', '[Janosch Heydorn]', '[Karin Kamolz]', "
             "'[Corinna Schnitt]', '[Jan Kochermann]', '[BKH Gutmann]', '[Axel Loytved]', '[Olaf Metzel]', '[Georg Winter]'.\n\n"
-            "Important: The artist's name 'Oskar Schroeder' should **never** be wrapped in brackets."
+            "Important: The artist's name 'Oskar Schroeder' should **never** be wrapped in brackets.\n"
         )
     )
 
