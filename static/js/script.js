@@ -2533,18 +2533,47 @@ versionHistory.addEventListener("mousemove", (e) => {
   const scrollWidth = versionHistory.scrollWidth;
   const maxScroll = scrollWidth - containerWidth;
   
-  // Calculate the inverse position ratio (0 to 1)
-  // When mouse is at far left (mouseX = 0), we want to scroll to far right
-  // When mouse is at far right (mouseX = containerWidth), we want to scroll to far left
+  // Calculate the target scroll position based on mouse position
   const ratio = mouseX / containerWidth;
+  const targetScrollLeft = ratio * maxScroll;
   
-  // Apply the ratio to get the exact scroll position
-  versionHistory.scrollLeft = ratio * maxScroll;
+  // Store the target position
+  versionHistory.targetScrollLeft = targetScrollLeft;
   
+  // If we don't have an animation already running, start one
+  if (!versionHistory.isScrollAnimating) {
+    versionHistory.isScrollAnimating = true;
+    
+    // Create smooth scrolling animation
+    const smoothScroll = () => {
+      // Current position
+      const currentPosition = versionHistory.scrollLeft;
+      // Distance to target (using the possibly updated target value)
+      const distance = versionHistory.targetScrollLeft - currentPosition;
+      
+      // If we're close enough, just set to the target and stop
+      if (Math.abs(distance) < 0.5) {
+        versionHistory.scrollLeft = versionHistory.targetScrollLeft;
+        versionHistory.isScrollAnimating = false;
+        return;
+      }
+      
+      // Otherwise, move a percentage of the remaining distance (easing)
+      const step = distance * 0.1; // Adjust this value to control smoothness
+      versionHistory.scrollLeft = currentPosition + step;
+      
+      // Continue the animation
+      requestAnimationFrame(smoothScroll);
+    };
+    
+    // Start the animation
+    requestAnimationFrame(smoothScroll);
+  }
 });
 
-// Clean up the stored position when mouse leaves
+// Clean up animation state when mouse leaves
 versionHistory.addEventListener("mouseleave", () => {
+  versionHistory.isScrollAnimating = false;
   versionHistory.lastMouseX = undefined;
 });
 
