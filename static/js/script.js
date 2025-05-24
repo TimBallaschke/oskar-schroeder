@@ -1350,7 +1350,6 @@ async function handleDelta(content) {
                                                                 } else {
                                                                     rowItem.appendChild(wordSpan);
                                                                 }
-                                                                
                                                                         
 
 
@@ -2525,6 +2524,30 @@ function displayPreviousVersion(element) {
     }, 600);
 }
 
+// const container = document.getElementById("scroll-container");
+
+versionHistory.addEventListener("mousemove", (e) => {
+  const rect = versionHistory.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left; // position within container
+  const containerWidth = rect.width;
+  const scrollWidth = versionHistory.scrollWidth;
+  const maxScroll = scrollWidth - containerWidth;
+  
+  // Calculate the inverse position ratio (0 to 1)
+  // When mouse is at far left (mouseX = 0), we want to scroll to far right
+  // When mouse is at far right (mouseX = containerWidth), we want to scroll to far left
+  const ratio = mouseX / containerWidth;
+  
+  // Apply the ratio to get the exact scroll position
+  versionHistory.scrollLeft = ratio * maxScroll;
+  
+});
+
+// Clean up the stored position when mouse leaves
+versionHistory.addEventListener("mouseleave", () => {
+  versionHistory.lastMouseX = undefined;
+});
+
 // Scroll on desktop
 function handleScrollOnHover() {
     let scrollInterval = null;
@@ -3603,7 +3626,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadStateFromUrl();
 
     // Version History
-    handleScrollOnHover();
+    // handleScrollOnHover();
 
     // versionHistory.addEventListener('scroll', () => {
     //     if (window.innerWidth <= mobileWidth) {
