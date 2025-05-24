@@ -16,33 +16,22 @@
   }
 
   @include desktop-small {
-    width: calc(100vw - 100vw / var(--column-amount-content-container) * 2);
-    right: calc(100vw / var(--column-amount-content-container));
-
-    .component-selected & {
-      width: calc(var(--bottom-nav-width) - var(--dot-column-width));
-    }
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 4);
+    right: calc((100vw - 2 * var(--page-padding)) / 8 * 2 + var(--page-padding));
   }
 
   @include desktop-large {
-    width: calc(100vw - 100vw / var(--column-amount-content-container) * 2);
-    right: calc(100vw / var(--column-amount-content-container));
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 4);
+    right: calc((100vw - 2 * var(--page-padding)) / 8 * 2 + var(--page-padding));
     @include secondary-type;
-
-    .component-selected & {
-      width: calc(var(--bottom-nav-width) - var(--dot-column-width));
-    }
   }
 
   @include desktop-x-large {
-    width: calc(100vw - 100vw / var(--column-amount-content-container) * 2);
-    right: calc(100vw / var(--column-amount-content-container));
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 4);
+    right: calc((100vw - 2 * var(--page-padding)) / 8 * 2 + var(--page-padding));
     // background-color: red;
     @include secondary-type;
 
-    .component-selected & {
-      width: calc(var(--bottom-nav-width) - var(--dot-column-width));
-    }
   }
 }
 
@@ -56,11 +45,11 @@
   transition: all var(--animation-duration-1) ease-in-out;
 
   .prompt-proposal-opening-1 & {
-    padding-bottom: 40px;
+    padding-bottom: 15px;
   }
 
   .prompt-proposal-opening-2 & {
-    padding-bottom: 40px;
+    padding-bottom: 15px;
   }
 
   @include desktop-large {
