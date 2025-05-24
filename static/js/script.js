@@ -2642,43 +2642,7 @@ function handleScrollOnHover() {
     });
 }
 
-// Function to handle mouse near bottom edge of screen
-function handleBottomHover() {
-    const bottomThreshold = 100; // Distance from bottom of screen to trigger
-    
-    document.addEventListener('mousemove', (e) => {
-        const windowHeight = window.innerHeight;
-        const mouseY = e.clientY;
-        
-        // If mouse is near bottom edge
-        if (bottomNavigation.classList.contains('scroll-down')) {
-            if (windowHeight - mouseY <= bottomThreshold) {
-                bottomNavigation.classList.remove('scroll-down');
-            }
-        }
-    });
-}
 
-function updateNavigationElementsOnPageScroll() {
-    const currentScrollY = window.scrollY;
-    const scrolledDistance = currentScrollY - lastScrollY;
-  
-    if (Math.abs(scrolledDistance) >= thresholdScroll) {
-      if (scrolledDistance > 0) {
-        // Scrolling down
-        document.body.classList.add("scroll-down");
-        bottomNavigation.classList.add("scroll-down");
-      } else {
-        // Scrolling up
-        document.body.classList.remove("scroll-down");
-        bottomNavigation.classList.remove("scroll-down");
-      }
-  
-      lastScrollY = currentScrollY;
-    }
-  
-    scrolling = false;
-}
 
 // function to update the current version history element on mobile devices when verionHistory container gets scrolled
 function updateCurrentVersion() {
@@ -3217,7 +3181,8 @@ document.addEventListener('DOMContentLoaded', () => {
 plusMinusButton.addEventListener('click', togglePromptProposals);
 
 function togglePromptProposals() {
-    const bottomNavigation = document.getElementById('bottom-navigation');
+    // const bottomNavigation = document.getElementById('bottom-navigation');
+    console.log('togglePromptProposals');
 
     if (!bottomNavigation.classList.contains('prompt-proposal-opening-2')) {
         bottomNavigation.classList.add('prompt-proposal-opening-1');
@@ -3234,6 +3199,16 @@ function togglePromptProposals() {
             bottomNavigation.classList.remove('prompt-proposal-opening-1');
             }, animationDuration);
     }
+}
+
+function closePromptProposals() {
+
+    bottomNavigation.classList.remove('prompt-proposal-opening-2');
+    bottomNavigation.classList.add('prompt-proposal-opening-1');
+
+    setTimeout(() => {
+        bottomNavigation.classList.remove('prompt-proposal-opening-1');
+    }, animationDuration);
 }
 
 
@@ -3697,6 +3672,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Function to handle mouse near bottom edge of screen
+function handleBottomHover() {
+    const bottomThreshold = 150; // Distance from bottom of screen to trigger
+    
+    document.addEventListener('mousemove', (e) => {
+        const windowHeight = window.innerHeight;
+        const mouseY = e.clientY;
+        
+        // If mouse is near bottom edge
+        if (bottomNavigation.classList.contains('scroll-down')) {
+            if (windowHeight - mouseY <= bottomThreshold) {
+                bottomNavigation.classList.remove('scroll-down');
+            }
+        }
+    });
+}
+
+function updateNavigationElementsOnPageScroll() {
+    const currentScrollY = window.scrollY;
+    const scrolledDistance = currentScrollY - lastScrollY;
+  
+    if (Math.abs(scrolledDistance) >= thresholdScroll) {
+      if (scrolledDistance > 0) {
+        // Scrolling down
+        document.body.classList.add("scroll-down");
+        bottomNavigation.classList.add("scroll-down");
+
+      } else {
+        // Scrolling up
+        document.body.classList.remove("scroll-down");
+        bottomNavigation.classList.remove("scroll-down");
+      }
+  
+      lastScrollY = currentScrollY;
+    }
+  
+    scrolling = false;
+}
 
 
 

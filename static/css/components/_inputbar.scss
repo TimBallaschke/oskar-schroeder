@@ -8,12 +8,12 @@
   background-color: black;
   border-radius: calc((var(--input-element-height) + 2 * var(--veritical-padding-bottom-nav)) / 2);
   height: auto;
-  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out, transform var(--animation-duration-1) ease-in-out;
+  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out, transform var(--animation-duration-3) ease-in-out;
   transform: translateY(0px);
   @include primary-type;
 
   &.scroll-down {
-    transform: translateY(100px);
+    transform: translateY(200px);
   }
 
   @include desktop-small {
