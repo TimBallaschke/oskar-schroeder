@@ -301,6 +301,7 @@
         font-size: var(--secondary-font-size);
         letter-spacing: 0px;
         font-variation-settings: "wght" 675;
+        margin-top: 0px;
       }
   
       .version-history-element-digits {
@@ -313,6 +314,7 @@
           letter-spacing: 0px;
           font-variation-settings: "wght" 675;
           transition: all var(--animation-duration-3) ease-in-out;
+          margin-top: 0px;
         }
   
         .version-history-element-digits {
