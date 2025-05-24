@@ -438,7 +438,7 @@ def stream():
             model="gpt-4o-mini",
             messages=messages_1,
             temperature=0.5,
-            max_tokens=2048,
+            max_tokens=10000,
             response_format=Response_1,
         ) as stream:
             for event in stream:

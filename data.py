@@ -92,8 +92,7 @@ artist_profile = {
         "Jane Bennett – Vibrant Matter",
         "Valentin Braitenberg – Vehicles",
         "Henry David Thoreau – Walden"
-    ],
-    "languages": ["German", "Danish"]
+    ]
 }
 
 materials_and_techniques = (
@@ -462,7 +461,7 @@ artwork_data_5 = {
 }
 
 artwork_data_6 = {
-    "name": "Fortschritt und festgehalten",
+    "name": "Fortschritt und Festgehalten",
     "year": 2024,
     "material": "Stucco marble (gypsum, animal glue, oil, wax, studio floor dust, pulverized coal, blood, pulverized wood)",
     "dimensions": "Variable",

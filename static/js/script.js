@@ -1785,6 +1785,11 @@ async function renderNextProject() {
                         });
                         break;
                     case 'name':
+                        
+                        if (!value) {
+                            break;
+                        }
+
                         await new Promise((resolve) => { 
                             
                             // Check if the element already exists to avoid duplicates
@@ -1814,19 +1819,23 @@ async function renderNextProject() {
                                     wordSpan.classList.add('project-name-word', 'light');
                                     projectName.appendChild(wordSpan);
 
+                                    wordSpan.style.display = 'inline-block';
+                                    const lightWidth = wordSpan.getBoundingClientRect().width;
+                                    wordSpan.style.width = `${lightWidth}px`;
+
                                     setTimeout(() => {
                                         wordSpan.classList.remove('light');
                                     }, 50);
 
                                     wordIndex++;
 
-                                    setTimeout(addNextWord, 150);
+                                    setTimeout(addNextWord, 100);
                                 } else {
-                                    resolve();
-
                                     setTimeout(() => {
                                         projectItem.classList.remove('no-width');
                                     }, 200);
+
+                                    setTimeout(resolve, animationDuration + 200);
                                 }
                             }
 
@@ -1835,80 +1844,108 @@ async function renderNextProject() {
                         });
                         break;
                     case 'year':
-                        // await new Promise((resolve) => {
-                        //     let projectInfo = projectItem.querySelector('.project-information');
-                        //     const projectName = projectInfo.querySelector('.project-name');
+
+                        if (!value) {
+                            break;
+                        }
+
+                        await new Promise((resolve) => {
+                            let projectInfo = projectItem.querySelector('.project-information');
+
+                            if (!projectInfo) {
+                                projectInfo = document.createElement('div');
+                                projectInfo.classList.add('project-information');
+                                projectItem.appendChild(projectInfo);
+
+                                let yearText = projectInfo.querySelector('.project-year');
+
+                                if (!yearText) {
+                                    yearText = document.createElement('span');
+                                    yearText.classList.add('project-year', 'light');
+                                    yearText.textContent = `${value}, `;
+                                    projectInfo.appendChild(yearText);
     
-                        //     if (projectName) {
-                        //         let yearText = projectName.querySelector('.project-year');
-                        //         if (!yearText) {
-                        //             yearText = document.createElement('span');
-                        //             yearText.classList.add('project-year', 'light');
-                        //             yearText.textContent = ` (${value})`;
-                        //             projectName.appendChild(yearText);
-    
-                        //             setTimeout(() => {
-                        //                 yearText.classList.remove('light');
-                        //             }, 50);
-                        //         } else {
-                        //             // Update existing year span
-                        //             yearText.textContent = ` (${value})`;
-                        //         }
-                        //     }
-                        //     setTimeout(resolve, 100);
-                        // });
+                                    setTimeout(() => {
+                                        yearText.classList.remove('light');
+                                    }, 50);
+                                }
+                            }
+                            setTimeout(resolve, 50);
+                        });
                         break;
                     case 'material':
-                        // await new Promise((resolve) => { 
-                        //     let projectInfo = projectItem.querySelector('.project-information');
-                        //     // Check if the element already exists to avoid duplicates
-                        //     let projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
-                        //     let materialText = projectInfo.querySelector('.project-material-text');
+                        await new Promise((resolve) => { 
+                            // Check if value is empty or undefined
+                            if (!value) {
+                                resolve();
+                                return;
+                            }
+                            
+                            let projectInfo = projectItem.querySelector('.project-information');
+                            let projectMaterial = projectInfo.querySelector('.project-material');
+                    
+                            if (!projectMaterial) {
+                                projectMaterial = document.createElement('span');
+                                projectMaterial.classList.add('project-material');
+                                projectInfo.appendChild(projectMaterial);
+                            }
+                            
+                            const words = value.split(' ');
+                            let wordIndex = 0;
+                    
+                            function addNextWord() {
+                                if (wordIndex < words.length) {
+                                    if (wordIndex > 0) {
+                                        projectMaterial.appendChild(document.createTextNode(' '));
+                                    }
+                    
+                                    const wordSpan = document.createElement('span');
+                                    wordSpan.textContent = words[wordIndex];
+                                    wordSpan.classList.add('project-material-word', 'light');
+                                    projectMaterial.appendChild(wordSpan);
 
-                        //     if (!projectMaterialDimensions) {
-                        //         projectMaterialDimensions = document.createElement('div');  // Correctly create the element
-                        //         projectMaterialDimensions.classList.add('project-material-dimensions');
-
-                        //         materialText = document.createElement('span');
-                        //         materialText.classList.add('project-material-text', 'light');
-                        //         materialText.textContent = value;
-                        //         projectMaterialDimensions.appendChild(materialText);
-                        //         projectInfo.appendChild(projectMaterialDimensions);
-    
-                        //         setTimeout(() => {
-                        //             materialText.classList.remove('light');
-                        //         }, 50);
-                        //     } else {
-                        //         // Update the content if it already exists (optional)
-                        //         materialText.textContent = value;
-                        //     }
-            
-                        //     setTimeout(resolve, 100);
-                        // });
+                                    wordSpan.style.display = 'inline-block';
+                                    const lightWidth = wordSpan.getBoundingClientRect().width;
+                                    wordSpan.style.width = `${lightWidth}px`;
+                    
+                                    setTimeout(() => {
+                                        wordSpan.classList.remove('light');
+                                    }, 50);
+                    
+                                    wordIndex++;
+                    
+                                    setTimeout(addNextWord, 50);
+                                } else {
+                                    resolve();
+                                }
+                            }
+                    
+                            addNextWord();
+                        });
                         break;
                     case 'dimensions':
-                        // await new Promise((resolve) => {
-                        //     let projectInfo = projectItem.querySelector('.project-information');
-                        //     const projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
+
+                        if (!value) {
+                            resolve();
+                            return;
+                        }
+
+                        await new Promise((resolve) => {
+                            let projectInfo = projectItem.querySelector('.project-information');
+                            let projectDimensions = projectInfo.querySelector('.project-dimensions');
+
+                            if (!projectDimensions) {
+                                projectDimensions = document.createElement('span');
+                                projectDimensions.classList.add('project-dimensions', 'light');
+                                projectDimensions.textContent = `, ${value}`;
+                                projectInfo.appendChild(projectDimensions);
     
-                        //     if (projectMaterialDimensions) {
-                        //         let dimensionsText = projectMaterialDimensions.querySelector('.project-dimensions');
-                        //         if (!dimensionsText) {
-                        //             dimensionsText = document.createElement('span');
-                        //             dimensionsText.classList.add('project-dimensions', 'light');
-                        //             dimensionsText.textContent = `, ${value}`;
-                        //             projectMaterialDimensions.appendChild(dimensionsText);
-    
-                        //             setTimeout(() => {
-                        //                 dimensionsText.classList.remove('light');
-                        //             }, 50);
-                        //         } else {
-                        //             // Update existing year span
-                        //             dimensionsText.textContent = ` (${value})`;
-                        //         }
-                        //     }
-                        //     setTimeout(resolve, 400);
-                        // });
+                                setTimeout(() => {
+                                    projectDimensions.classList.remove('light');
+                                }, 50);
+                            }
+                            setTimeout(resolve, 50);
+                        });
                         break;
                     case 'images':
                         // await new Promise((resolve) => {
