@@ -1850,14 +1850,19 @@ async function renderNextProject() {
                         }
 
                         await new Promise((resolve) => {
-                            let projectInfo = projectItem.querySelector('.project-information');
 
-                            if (!projectInfo) {
-                                projectInfo = document.createElement('div');
+                            let projectInfoContainer = projectItem.querySelector('.project-information-container');
+
+                            if (!projectInfoContainer) {
+                                projectInfoContainer = document.createElement('div');
+                                projectInfoContainer.classList.add('project-information-container');
+                                projectItem.appendChild(projectInfoContainer);
+
+                                const projectInfo = document.createElement('div');
                                 projectInfo.classList.add('project-information');
-                                projectItem.appendChild(projectInfo);
+                                projectInfoContainer.appendChild(projectInfo);
 
-                                let yearText = projectInfo.querySelector('.project-year');
+                                let yearText = projectInfoContainer.querySelector('.project-year');
 
                                 if (!yearText) {
                                     yearText = document.createElement('span');
@@ -1948,137 +1953,136 @@ async function renderNextProject() {
                         });
                         break;
                     case 'images':
-                        // await new Promise((resolve) => {
+                        await new Promise((resolve) => {
 
-                        //     let imageContainer = projectItem.querySelector('.project-images');
-                        //     let projectInfo = projectItem.querySelector('.project-information');
+                            let imageContainer = projectItem.querySelector('.project-images');
     
-                        //     if (!imageContainer) {
-                        //         imageContainer = document.createElement('div');
-                        //         imageContainer.classList.add('project-images', 'no-height', 'no-margin', 'blur');
+                            if (!imageContainer) {
+                                imageContainer = document.createElement('div');
+                                imageContainer.classList.add('project-images', 'blur');
                                 
-                        //         projectInfo = document.createElement('div');
-                        //         projectInfo.classList.add('project-information', 'no-margin', 'no-height');
-
-                        //         projectItem.appendChild(projectInfo);
-                        //         projectItem.appendChild(imageContainer);
-
-                                
-                        //         setTimeout(() => {
-                        //             imageContainer.classList.remove('no-height', 'no-margin');
-                        //             projectInfo.classList.remove('no-margin', 'no-height');
-                        //         }, 10);
-                                
-                        //         const imageCounter = document.createElement('div');
-                        //         imageCounter.classList.add('image-counter', 'no-height', 'no-width');
-
-                        //         setTimeout(() => {
-                        //             projectInfo.appendChild(imageCounter);
-                        //         }, 610);
+                                projectItem.appendChild(imageContainer);
             
-                        //         setTimeout(() => {
-                        //             // Create new span for digits
-                        //             const digitsSpan = document.createElement('span');
-                        //             digitsSpan.classList.add('image-counter-digits', 'light');
-                        //             digitsSpan.innerHTML = '01/01';
-                                    
-                        //             // Append digits span to counter
-                        //             imageCounter.appendChild(digitsSpan);
-                        //         }, 610); 
+                                const imageCounter = document.createElement('div');
+                                imageCounter.classList.add('image-counter');
+
+                                const projectInfoContainer = projectItem.querySelector('.project-information-container');
+                                projectInfoContainer.appendChild(imageCounter);
                                 
-                        //         imageContainer.addEventListener('scroll', () => {
-                        //             const digitsSpan = projectInfo.querySelector('.image-counter-digits');
-                        //             const scrollPosition = imageContainer.scrollLeft;
-                        //             const imageWidth = imageContainer.offsetWidth;
-                        //             const currentIndex = Math.round(scrollPosition / imageWidth);
-                        //             const totalImages = imageContainer.querySelectorAll('.project-image').length;
-                                    
-                        //             if (digitsSpan) {
-                        //                 digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
-                        //             }
-                        //         });
+                                // Create new span for digits
+                                const digitsSpanOne = document.createElement('span');
+                                digitsSpanOne.classList.add('image-counter-digits-1', 'image-counter-digits', 'light');
+                                digitsSpanOne.innerHTML = '01';
 
-                        //         setTimeout(() => {
+                                const digitsSpanTwo = document.createElement('span');
+                                digitsSpanTwo.classList.add('image-counter-digits-2', 'image-counter-digits', 'light');
+                                digitsSpanTwo.innerHTML = '/';
+
+                                const digitsSpanThree = document.createElement('span');
+                                digitsSpanThree.classList.add('image-counter-digits-3', 'image-counter-digits', 'light');
+                                digitsSpanThree.innerHTML = '01';
+                                
+                                // Append digits span to counter
+                                imageCounter.appendChild(digitsSpanOne);
+                                imageCounter.appendChild(digitsSpanTwo);
+                                imageCounter.appendChild(digitsSpanThree);
+
+                                setTimeout(() => {
+                                    digitsSpanOne.classList.remove('light');
+                                    digitsSpanTwo.classList.remove('light');
+                                    digitsSpanThree.classList.remove('light');
+                                }, 50);
+                                
+                                
+                                imageContainer.addEventListener('scroll', () => {
+                                    const digitsSpanOne = projectItem.querySelector('.image-counter-digits-1');
+                                    const scrollPosition = imageContainer.scrollLeft;
+                                    const imageWidth = imageContainer.offsetWidth;
+                                    const currentIndex = Math.round(scrollPosition / imageWidth);
+                                    const totalImages = imageContainer.querySelectorAll('.project-image').length;
                                     
-                        //             // Process each image URL in the array
-                        //             value.forEach(imageUrl => {
-                        //                 // Check if image with this URL already exists
-                        //                 const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
-                        //                 if (!existingImage) {
-                        //                     // Create wrapper div with project-image class
-                        //                     const imageWrapper = document.createElement('div');
-                        //                     imageWrapper.classList.add('project-image');
+                                    if (digitsSpanOne) {
+                                        digitsSpanOne.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}`;
+                                    }                                    
+                                    
+                                });
+
+                                setTimeout(() => {
+                                    
+                                    // Process each image URL in the array
+                                    value.forEach(imageUrl => {
+                                        // Check if image with this URL already exists
+                                        const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
+                                        if (!existingImage) {
+                                            // Create wrapper div with project-image class
+                                            const imageWrapper = document.createElement('div');
+                                            imageWrapper.classList.add('project-image');
                             
-                        //                     // Create the img element
-                        //                     const imgElement = document.createElement('img');
-                        //                     imgElement.classList.add('img-element', 'no-opacity');
-                        //                     imgElement.src = imageUrl;
+                                            // Create the img element
+                                            const imgElement = document.createElement('img');
+                                            imgElement.classList.add('img-element', 'no-opacity');
+                                            imgElement.src = imageUrl;
                                             
-                        //                     // Add img to wrapper
-                        //                     imageWrapper.appendChild(imgElement);
-                        //                     imageContainer.appendChild(imageWrapper);
+                                            // Add img to wrapper
+                                            imageWrapper.appendChild(imgElement);
+                                            imageContainer.appendChild(imageWrapper);
                             
-                        //                     // Add fade-in effect once image is loaded
-                        //                     imgElement.onload = () => {
-                        //                         imgElement.classList.remove('no-opacity');
-                        //                         imgElement.classList.remove('blur');
+                                            // Add fade-in effect once image is loaded
+                                            imgElement.onload = () => {
+                                                imgElement.classList.remove('no-opacity');
+                                                imgElement.classList.remove('blur');
 
-                        //                         setTimeout(() => {
-                        //                             imageContainer.classList.remove('blur');
-                        //                         }, 200);
+                                                setTimeout(() => {
+                                                    imageContainer.classList.remove('blur');
+                                                }, 200);
 
-                        //                         // Update the digits span with new total
-                        //                         const digitsSpan = projectInfo.querySelector('.image-counter-digits');
-                        //                         const totalImages = imageContainer.querySelectorAll('.project-image').length;
-                        //                         const currentIndex = Math.round(imageContainer.scrollLeft / imageContainer.offsetWidth);
-                        //                         if (digitsSpan) {
-                        //                             digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
-                        //                         }
-                        //                     };
-                        //                 }
-                        //             }); 
-                        //         }, animationDuration + 200);
-                        //         setTimeout(resolve, 1200);
-                        //     } else {
-                        //         setTimeout(() => {
-                        //             resolve();
+                                                // Update the digits span with new total
+                                                const digitsSpanThree = projectItem.querySelector('.image-counter-digits-3');
+                                                const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                                                digitsSpanThree.textContent = `${totalImages.toString().padStart(2, '0')}`;                                                
+                                            };
+                                        }
+                                    }); 
+                                }, animationDuration + 200);
+                                setTimeout(resolve, 1200);
+                            } else {
+                                setTimeout(() => {
+                                    resolve();
                                     
-                        //             // Process each image URL in the array
-                        //             value.forEach(imageUrl => {
-                        //                 // Check if image with this URL already exists
-                        //                 const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
-                        //                 if (!existingImage) {
-                        //                     // Create wrapper div with project-image class
-                        //                     const imageWrapper = document.createElement('div');
-                        //                     imageWrapper.classList.add('project-image');
+                                    // Process each image URL in the array
+                                    value.forEach(imageUrl => {
+                                        // Check if image with this URL already exists
+                                        const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
+                                        if (!existingImage) {
+                                            // Create wrapper div with project-image class
+                                            const imageWrapper = document.createElement('div');
+                                            imageWrapper.classList.add('project-image');
                             
-                        //                     // Create the img element
-                        //                     const imgElement = document.createElement('img');
-                        //                     imgElement.classList.add('img-element', 'no-opacity', 'blur');
-                        //                     imgElement.src = imageUrl;
+                                            // Create the img element
+                                            const imgElement = document.createElement('img');
+                                            imgElement.classList.add('img-element', 'no-opacity', 'blur');
+                                            imgElement.src = imageUrl;
                                             
-                        //                     // Add img to wrapper
-                        //                     imageWrapper.appendChild(imgElement);
-                        //                     imageContainer.appendChild(imageWrapper);
+                                            // Add img to wrapper
+                                            imageWrapper.appendChild(imgElement);
+                                            imageContainer.appendChild(imageWrapper);
                             
-                        //                     // Add fade-in effect once image is loaded
-                        //                     imgElement.onload = () => {
-                        //                         imgElement.classList.remove('no-opacity');
-                        //                         imgElement.classList.remove('blur');
+                                            // Add fade-in effect once image is loaded
+                                            imgElement.onload = () => {
+                                                imgElement.classList.remove('no-opacity');
+                                                imgElement.classList.remove('blur');
 
-                        //                         // Update the digits span with new total
-                        //                         const digitsSpan = projectInfo.querySelector('.image-counter-digits');
-                        //                         const totalImages = imageContainer.querySelectorAll('.project-image').length;
-                        //                         const currentIndex = Math.round(imageContainer.scrollLeft / imageContainer.offsetWidth);
-                        //                         if (digitsSpan) {
-                        //                             digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
-                        //                         }
-                        //                     };
-                        //                 }
-                        //             }); 
-                        //         }, 10);
-                        //     }
-                        // });
+                                                // Update the digits span with new total
+                                                // Update the digits span with new total
+                                                const digitsSpanThree = projectItem.querySelector('.image-counter-digits-3');
+                                                const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                                                digitsSpanThree.textContent = `${totalImages.toString().padStart(2, '0')}`;    
+                                            };
+                                        }
+                                    }); 
+                                }, 10);
+                            }
+                        });
 
                         break;
                     case 'description':

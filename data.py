@@ -445,7 +445,7 @@ artwork_data_4 = {
 artwork_data_5 = {
     "name": "Flug",
     "year": 2023,
-    "material": "Stucco marble (gypsum, animal glue, coal dust, red ochre)",
+    "material": "gypsum, animal glue, coal dust, red ochre",
     "dimensions": "22×20×2.5 cm",
     "images": [
         {"url": "../static/assets/images/artworks/Flug/1.webp"},
@@ -463,7 +463,7 @@ artwork_data_5 = {
 artwork_data_6 = {
     "name": "Fortschritt und Festgehalten",
     "year": 2024,
-    "material": "Stucco marble (gypsum, animal glue, oil, wax, studio floor dust, pulverized coal, blood, pulverized wood)",
+    "material": "gypsum, animal glue, oil, wax, studio floor dust, pulverized coal, blood, pulverized wood",
     "dimensions": "Variable",
     "images": [
         {"url": "../static/assets/images/artworks/FortschrittUndFestgehalten/1.webp"},
@@ -485,7 +485,7 @@ artwork_data_6 = {
 artwork_data_7 = {
     "name": "Ohne Titel",
     "year": 2023,
-    "material": "Stucco marble (gypsum, animal glue, coal dust, red ochre)",
+    "material": "gypsum, animal glue, coal dust, red ochre",
     "dimensions": "170×100×3cm",
     "images": [
         {"url": "../static/assets/images/artworks/OhneTitel/1.webp"}
@@ -648,7 +648,7 @@ artwork_data_15 = {
     "name": "Walden",
     "year": 2023,
     "material": "Video",
-    "dimensions": "9.5min",
+    "dimensions": "9:30min",
     "images": [
         {"url": "../static/assets/images/artworks/Walden/1.webp"},
         {"url": "../static/assets/images/artworks/Walden/2.png"},
