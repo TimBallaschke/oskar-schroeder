@@ -1773,434 +1773,437 @@ async function renderNextProject() {
             } else {
                 switch (key) {
                     case 'UIType':
-                        if (index === 0) {
-                            await new Promise((resolve) => {
-                                if (!projectItem) {
-                                    projectItem = document.createElement('div');
-                                    projectItem.classList.add('project', 'no-width');
-                                    projectItem.setAttribute('data-project-id', id);
-                                    container.appendChild(projectItem);
-        
-                                    setTimeout(() => {
-                                        projectItem.classList.remove('no-width');
-                                    }, 10);
-                                }
-        
-                                setTimeout(resolve, 410);
-                            });
-                        } else {
-                            await new Promise((resolve) => {
-                                if (!projectItem) {
-                                    projectItem = document.createElement('div');
-                                    projectItem.classList.add('project');
-                                    projectItem.setAttribute('data-project-id', id);
-                                    container.appendChild(projectItem);
-                                }
-                                setTimeout(resolve, 10);
-                            });
-                        }
-                        break;
-                    case 'images':
                         await new Promise((resolve) => {
-
-                            let imageContainer = projectItem.querySelector('.project-images');
-                            let projectInfo = projectItem.querySelector('.project-information');
-    
-                            if (!imageContainer) {
-                                imageContainer = document.createElement('div');
-                                imageContainer.classList.add('project-images', 'no-height', 'no-margin', 'blur');
-                                
-                                projectInfo = document.createElement('div');
-                                projectInfo.classList.add('project-information', 'no-margin', 'no-height');
-
-                                projectItem.appendChild(projectInfo);
-                                projectItem.appendChild(imageContainer);
-
-                                
-                                setTimeout(() => {
-                                    imageContainer.classList.remove('no-height', 'no-margin');
-                                    projectInfo.classList.remove('no-margin', 'no-height');
-                                }, 10);
-                                
-                                const imageCounter = document.createElement('div');
-                                imageCounter.classList.add('image-counter', 'no-height', 'no-width');
-
-                                setTimeout(() => {
-                                    projectInfo.appendChild(imageCounter);
-                                }, 610);
-            
-                                setTimeout(() => {
-                                    // Create new span for digits
-                                    const digitsSpan = document.createElement('span');
-                                    digitsSpan.classList.add('image-counter-digits', 'light');
-                                    digitsSpan.innerHTML = '01/01';
-                                    
-                                    // Append digits span to counter
-                                    imageCounter.appendChild(digitsSpan);
-                                }, 610); 
-                                
-                                imageContainer.addEventListener('scroll', () => {
-                                    const digitsSpan = projectInfo.querySelector('.image-counter-digits');
-                                    const scrollPosition = imageContainer.scrollLeft;
-                                    const imageWidth = imageContainer.offsetWidth;
-                                    const currentIndex = Math.round(scrollPosition / imageWidth);
-                                    const totalImages = imageContainer.querySelectorAll('.project-image').length;
-                                    
-                                    if (digitsSpan) {
-                                        digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
-                                    }
-                                });
-
-                                setTimeout(() => {
-                                    
-                                    // Process each image URL in the array
-                                    value.forEach(imageUrl => {
-                                        // Check if image with this URL already exists
-                                        const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
-                                        if (!existingImage) {
-                                            // Create wrapper div with project-image class
-                                            const imageWrapper = document.createElement('div');
-                                            imageWrapper.classList.add('project-image');
-                            
-                                            // Create the img element
-                                            const imgElement = document.createElement('img');
-                                            imgElement.classList.add('img-element', 'no-opacity');
-                                            imgElement.src = imageUrl;
-                                            
-                                            // Add img to wrapper
-                                            imageWrapper.appendChild(imgElement);
-                                            imageContainer.appendChild(imageWrapper);
-                            
-                                            // Add fade-in effect once image is loaded
-                                            imgElement.onload = () => {
-                                                imgElement.classList.remove('no-opacity');
-                                                imgElement.classList.remove('blur');
-
-                                                setTimeout(() => {
-                                                    imageContainer.classList.remove('blur');
-                                                }, 200);
-
-                                                // Update the digits span with new total
-                                                const digitsSpan = projectInfo.querySelector('.image-counter-digits');
-                                                const totalImages = imageContainer.querySelectorAll('.project-image').length;
-                                                const currentIndex = Math.round(imageContainer.scrollLeft / imageContainer.offsetWidth);
-                                                if (digitsSpan) {
-                                                    digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
-                                                }
-                                            };
-                                        }
-                                    }); 
-                                }, animationDuration + 200);
-                                setTimeout(resolve, 1200);
-                            } else {
-                                setTimeout(() => {
-                                    resolve();
-                                    
-                                    // Process each image URL in the array
-                                    value.forEach(imageUrl => {
-                                        // Check if image with this URL already exists
-                                        const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
-                                        if (!existingImage) {
-                                            // Create wrapper div with project-image class
-                                            const imageWrapper = document.createElement('div');
-                                            imageWrapper.classList.add('project-image');
-                            
-                                            // Create the img element
-                                            const imgElement = document.createElement('img');
-                                            imgElement.classList.add('img-element', 'no-opacity', 'blur');
-                                            imgElement.src = imageUrl;
-                                            
-                                            // Add img to wrapper
-                                            imageWrapper.appendChild(imgElement);
-                                            imageContainer.appendChild(imageWrapper);
-                            
-                                            // Add fade-in effect once image is loaded
-                                            imgElement.onload = () => {
-                                                imgElement.classList.remove('no-opacity');
-                                                imgElement.classList.remove('blur');
-
-                                                // Update the digits span with new total
-                                                const digitsSpan = projectInfo.querySelector('.image-counter-digits');
-                                                const totalImages = imageContainer.querySelectorAll('.project-image').length;
-                                                const currentIndex = Math.round(imageContainer.scrollLeft / imageContainer.offsetWidth);
-                                                if (digitsSpan) {
-                                                    digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
-                                                }
-                                            };
-                                        }
-                                    }); 
-                                }, 10);
+                            if (!projectItem) {
+                                projectItem = document.createElement('div');
+                                projectItem.classList.add('project', 'no-width');
+                                projectItem.setAttribute('data-project-id', id);
+                                container.appendChild(projectItem);
                             }
+    
+                            setTimeout(resolve, 10);
                         });
-
                         break;
                     case 'name':
                         await new Promise((resolve) => { 
                             
                             // Check if the element already exists to avoid duplicates
-                            let projectInfo = projectItem.querySelector('.project-information');
                             let projectName = projectItem.querySelector('.project-name');
-                            let nameText = projectItem.querySelector('.project-name-text');
 
                             if (!projectName) {
                             
                                 projectName = document.createElement('div');  // Correctly create the element
                                 projectName.classList.add(`project-${key}`);
 
-                                nameText = document.createElement('span');
-                                nameText.classList.add(`project-name-text`, 'light');
-                                nameText.textContent = value;
-
-                                projectName.appendChild(nameText);
-                                projectInfo.appendChild(projectName);
-    
-                                setTimeout(() => {
-                                    nameText.classList.remove('light');
-                                }, 50);
-                            } else {
-                                // Update the content if it already exists (optional)
-                                nameText.textContent = value;
+                                projectItem.appendChild(projectName);
                             }
-            
-                            setTimeout(resolve, 100);
+                            
+
+                            const words = value.split(' ');
+                            let wordIndex = 0;
+
+                            function addNextWord() {
+                                if (wordIndex < words.length) {
+
+                                    if (wordIndex > 0) {
+                                        projectName.appendChild(document.createTextNode(' '));
+                                    }
+
+                                    const wordSpan = document.createElement('span');
+                                    wordSpan.textContent = words[wordIndex];
+                                    wordSpan.classList.add('project-name-word', 'light');
+                                    projectName.appendChild(wordSpan);
+
+                                    setTimeout(() => {
+                                        wordSpan.classList.remove('light');
+                                    }, 50);
+
+                                    wordIndex++;
+
+                                    setTimeout(addNextWord, 150);
+                                } else {
+                                    resolve();
+
+                                    setTimeout(() => {
+                                        projectItem.classList.remove('no-width');
+                                    }, 200);
+                                }
+                            }
+
+                            addNextWord();
+
                         });
                         break;
                     case 'year':
-                        await new Promise((resolve) => {
-                            let projectInfo = projectItem.querySelector('.project-information');
-                            const projectName = projectInfo.querySelector('.project-name');
+                        // await new Promise((resolve) => {
+                        //     let projectInfo = projectItem.querySelector('.project-information');
+                        //     const projectName = projectInfo.querySelector('.project-name');
     
-                            if (projectName) {
-                                let yearText = projectName.querySelector('.project-year');
-                                if (!yearText) {
-                                    yearText = document.createElement('span');
-                                    yearText.classList.add('project-year', 'light');
-                                    yearText.textContent = ` (${value})`;
-                                    projectName.appendChild(yearText);
+                        //     if (projectName) {
+                        //         let yearText = projectName.querySelector('.project-year');
+                        //         if (!yearText) {
+                        //             yearText = document.createElement('span');
+                        //             yearText.classList.add('project-year', 'light');
+                        //             yearText.textContent = ` (${value})`;
+                        //             projectName.appendChild(yearText);
     
-                                    setTimeout(() => {
-                                        yearText.classList.remove('light');
-                                    }, 50);
-                                } else {
-                                    // Update existing year span
-                                    yearText.textContent = ` (${value})`;
-                                }
-                            }
-                            setTimeout(resolve, 100);
-                        });
+                        //             setTimeout(() => {
+                        //                 yearText.classList.remove('light');
+                        //             }, 50);
+                        //         } else {
+                        //             // Update existing year span
+                        //             yearText.textContent = ` (${value})`;
+                        //         }
+                        //     }
+                        //     setTimeout(resolve, 100);
+                        // });
                         break;
                     case 'material':
-                        await new Promise((resolve) => { 
-                            let projectInfo = projectItem.querySelector('.project-information');
-                            // Check if the element already exists to avoid duplicates
-                            let projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
-                            let materialText = projectInfo.querySelector('.project-material-text');
+                        // await new Promise((resolve) => { 
+                        //     let projectInfo = projectItem.querySelector('.project-information');
+                        //     // Check if the element already exists to avoid duplicates
+                        //     let projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
+                        //     let materialText = projectInfo.querySelector('.project-material-text');
 
-                            if (!projectMaterialDimensions) {
-                                projectMaterialDimensions = document.createElement('div');  // Correctly create the element
-                                projectMaterialDimensions.classList.add('project-material-dimensions');
+                        //     if (!projectMaterialDimensions) {
+                        //         projectMaterialDimensions = document.createElement('div');  // Correctly create the element
+                        //         projectMaterialDimensions.classList.add('project-material-dimensions');
 
-                                materialText = document.createElement('span');
-                                materialText.classList.add('project-material-text', 'light');
-                                materialText.textContent = value;
-                                projectMaterialDimensions.appendChild(materialText);
-                                projectInfo.appendChild(projectMaterialDimensions);
+                        //         materialText = document.createElement('span');
+                        //         materialText.classList.add('project-material-text', 'light');
+                        //         materialText.textContent = value;
+                        //         projectMaterialDimensions.appendChild(materialText);
+                        //         projectInfo.appendChild(projectMaterialDimensions);
     
-                                setTimeout(() => {
-                                    materialText.classList.remove('light');
-                                }, 50);
-                            } else {
-                                // Update the content if it already exists (optional)
-                                materialText.textContent = value;
-                            }
+                        //         setTimeout(() => {
+                        //             materialText.classList.remove('light');
+                        //         }, 50);
+                        //     } else {
+                        //         // Update the content if it already exists (optional)
+                        //         materialText.textContent = value;
+                        //     }
             
-                            setTimeout(resolve, 100);
-                        });
+                        //     setTimeout(resolve, 100);
+                        // });
                         break;
                     case 'dimensions':
-                        await new Promise((resolve) => {
-                            let projectInfo = projectItem.querySelector('.project-information');
-                            const projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
+                        // await new Promise((resolve) => {
+                        //     let projectInfo = projectItem.querySelector('.project-information');
+                        //     const projectMaterialDimensions = projectInfo.querySelector('.project-material-dimensions');
     
-                            if (projectMaterialDimensions) {
-                                let dimensionsText = projectMaterialDimensions.querySelector('.project-dimensions');
-                                if (!dimensionsText) {
-                                    dimensionsText = document.createElement('span');
-                                    dimensionsText.classList.add('project-dimensions', 'light');
-                                    dimensionsText.textContent = `, ${value}`;
-                                    projectMaterialDimensions.appendChild(dimensionsText);
+                        //     if (projectMaterialDimensions) {
+                        //         let dimensionsText = projectMaterialDimensions.querySelector('.project-dimensions');
+                        //         if (!dimensionsText) {
+                        //             dimensionsText = document.createElement('span');
+                        //             dimensionsText.classList.add('project-dimensions', 'light');
+                        //             dimensionsText.textContent = `, ${value}`;
+                        //             projectMaterialDimensions.appendChild(dimensionsText);
     
-                                    setTimeout(() => {
-                                        dimensionsText.classList.remove('light');
-                                    }, 50);
-                                } else {
-                                    // Update existing year span
-                                    dimensionsText.textContent = ` (${value})`;
-                                }
-                            }
-                            setTimeout(resolve, 400);
-                        });
+                        //             setTimeout(() => {
+                        //                 dimensionsText.classList.remove('light');
+                        //             }, 50);
+                        //         } else {
+                        //             // Update existing year span
+                        //             dimensionsText.textContent = ` (${value})`;
+                        //         }
+                        //     }
+                        //     setTimeout(resolve, 400);
+                        // });
+                        break;
+                    case 'images':
+                        // await new Promise((resolve) => {
+
+                        //     let imageContainer = projectItem.querySelector('.project-images');
+                        //     let projectInfo = projectItem.querySelector('.project-information');
+    
+                        //     if (!imageContainer) {
+                        //         imageContainer = document.createElement('div');
+                        //         imageContainer.classList.add('project-images', 'no-height', 'no-margin', 'blur');
+                                
+                        //         projectInfo = document.createElement('div');
+                        //         projectInfo.classList.add('project-information', 'no-margin', 'no-height');
+
+                        //         projectItem.appendChild(projectInfo);
+                        //         projectItem.appendChild(imageContainer);
+
+                                
+                        //         setTimeout(() => {
+                        //             imageContainer.classList.remove('no-height', 'no-margin');
+                        //             projectInfo.classList.remove('no-margin', 'no-height');
+                        //         }, 10);
+                                
+                        //         const imageCounter = document.createElement('div');
+                        //         imageCounter.classList.add('image-counter', 'no-height', 'no-width');
+
+                        //         setTimeout(() => {
+                        //             projectInfo.appendChild(imageCounter);
+                        //         }, 610);
+            
+                        //         setTimeout(() => {
+                        //             // Create new span for digits
+                        //             const digitsSpan = document.createElement('span');
+                        //             digitsSpan.classList.add('image-counter-digits', 'light');
+                        //             digitsSpan.innerHTML = '01/01';
+                                    
+                        //             // Append digits span to counter
+                        //             imageCounter.appendChild(digitsSpan);
+                        //         }, 610); 
+                                
+                        //         imageContainer.addEventListener('scroll', () => {
+                        //             const digitsSpan = projectInfo.querySelector('.image-counter-digits');
+                        //             const scrollPosition = imageContainer.scrollLeft;
+                        //             const imageWidth = imageContainer.offsetWidth;
+                        //             const currentIndex = Math.round(scrollPosition / imageWidth);
+                        //             const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                                    
+                        //             if (digitsSpan) {
+                        //                 digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
+                        //             }
+                        //         });
+
+                        //         setTimeout(() => {
+                                    
+                        //             // Process each image URL in the array
+                        //             value.forEach(imageUrl => {
+                        //                 // Check if image with this URL already exists
+                        //                 const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
+                        //                 if (!existingImage) {
+                        //                     // Create wrapper div with project-image class
+                        //                     const imageWrapper = document.createElement('div');
+                        //                     imageWrapper.classList.add('project-image');
+                            
+                        //                     // Create the img element
+                        //                     const imgElement = document.createElement('img');
+                        //                     imgElement.classList.add('img-element', 'no-opacity');
+                        //                     imgElement.src = imageUrl;
+                                            
+                        //                     // Add img to wrapper
+                        //                     imageWrapper.appendChild(imgElement);
+                        //                     imageContainer.appendChild(imageWrapper);
+                            
+                        //                     // Add fade-in effect once image is loaded
+                        //                     imgElement.onload = () => {
+                        //                         imgElement.classList.remove('no-opacity');
+                        //                         imgElement.classList.remove('blur');
+
+                        //                         setTimeout(() => {
+                        //                             imageContainer.classList.remove('blur');
+                        //                         }, 200);
+
+                        //                         // Update the digits span with new total
+                        //                         const digitsSpan = projectInfo.querySelector('.image-counter-digits');
+                        //                         const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                        //                         const currentIndex = Math.round(imageContainer.scrollLeft / imageContainer.offsetWidth);
+                        //                         if (digitsSpan) {
+                        //                             digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
+                        //                         }
+                        //                     };
+                        //                 }
+                        //             }); 
+                        //         }, animationDuration + 200);
+                        //         setTimeout(resolve, 1200);
+                        //     } else {
+                        //         setTimeout(() => {
+                        //             resolve();
+                                    
+                        //             // Process each image URL in the array
+                        //             value.forEach(imageUrl => {
+                        //                 // Check if image with this URL already exists
+                        //                 const existingImage = imageContainer.querySelector(`img[src="${imageUrl}"]`);
+                        //                 if (!existingImage) {
+                        //                     // Create wrapper div with project-image class
+                        //                     const imageWrapper = document.createElement('div');
+                        //                     imageWrapper.classList.add('project-image');
+                            
+                        //                     // Create the img element
+                        //                     const imgElement = document.createElement('img');
+                        //                     imgElement.classList.add('img-element', 'no-opacity', 'blur');
+                        //                     imgElement.src = imageUrl;
+                                            
+                        //                     // Add img to wrapper
+                        //                     imageWrapper.appendChild(imgElement);
+                        //                     imageContainer.appendChild(imageWrapper);
+                            
+                        //                     // Add fade-in effect once image is loaded
+                        //                     imgElement.onload = () => {
+                        //                         imgElement.classList.remove('no-opacity');
+                        //                         imgElement.classList.remove('blur');
+
+                        //                         // Update the digits span with new total
+                        //                         const digitsSpan = projectInfo.querySelector('.image-counter-digits');
+                        //                         const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                        //                         const currentIndex = Math.round(imageContainer.scrollLeft / imageContainer.offsetWidth);
+                        //                         if (digitsSpan) {
+                        //                             digitsSpan.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}/${totalImages.toString().padStart(2, '0')}`;
+                        //                         }
+                        //                     };
+                        //                 }
+                        //             }); 
+                        //         }, 10);
+                        //     }
+                        // });
+
                         break;
                     case 'description':
-                        await new Promise((resolve) => {
-                            let projectDescription = projectItem.querySelector('.project-description');
+                        // await new Promise((resolve) => {
+                        //     let projectDescription = projectItem.querySelector('.project-description');
                     
-                            async function createProjectDescription() {
-                                if (!projectDescription) {
-                                    await new Promise((descriptionResolve) => {
-                                        projectDescription = document.createElement('div');
-                                        projectDescription.classList.add('project-description', 'no-padding');
-                                        projectItem.appendChild(projectDescription);
+                        //     async function createProjectDescription() {
+                        //         if (!projectDescription) {
+                        //             await new Promise((descriptionResolve) => {
+                        //                 projectDescription = document.createElement('div');
+                        //                 projectDescription.classList.add('project-description', 'no-padding');
+                        //                 projectItem.appendChild(projectDescription);
                     
-                                        setTimeout(() => {
-                                            projectDescription.classList.remove('no-padding');
-                                        }, 10);
+                        //                 setTimeout(() => {
+                        //                     projectDescription.classList.remove('no-padding');
+                        //                 }, 10);
                     
-                                        setTimeout(descriptionResolve, 210);
-                                    });
-                                }
-                            }
+                        //                 setTimeout(descriptionResolve, 210);
+                        //             });
+                        //         }
+                        //     }
                     
-                            async function addSentences() {
-                                // const paragraphElement = document.createElement('p');
-                                // paragraphElement.classList.add('project-description-paragraph');
-                                // projectDescription.appendChild(paragraphElement);
+                        //     async function addSentences() {
+                        //         // const paragraphElement = document.createElement('p');
+                        //         // paragraphElement.classList.add('project-description-paragraph');
+                        //         // projectDescription.appendChild(paragraphElement);
                     
-                                for (const sentence of value) {
-                                    const safeSentence = btoa(encodeURIComponent(sentence));
-                                    if (!projectDescription.querySelector(`[data-sentence="${safeSentence}"]`)) {
-                                        await new Promise((sentenceResolve) => {
-                                            if (projectDescription.childNodes.length > 0) {
-                                                projectDescription.appendChild(document.createTextNode(' '));
-                                            }
+                        //         for (const sentence of value) {
+                        //             const safeSentence = btoa(encodeURIComponent(sentence));
+                        //             if (!projectDescription.querySelector(`[data-sentence="${safeSentence}"]`)) {
+                        //                 await new Promise((sentenceResolve) => {
+                        //                     if (projectDescription.childNodes.length > 0) {
+                        //                         projectDescription.appendChild(document.createTextNode(' '));
+                        //                     }
                     
-                                            const sentenceSpan = document.createElement('span');
-                                            sentenceSpan.setAttribute('data-sentence', safeSentence);
-                                            projectDescription.appendChild(sentenceSpan);
+                        //                     const sentenceSpan = document.createElement('span');
+                        //                     sentenceSpan.setAttribute('data-sentence', safeSentence);
+                        //                     projectDescription.appendChild(sentenceSpan);
                     
-                                            const parts = sentence.split(/(\[[^\]]+\])/g);
-                                            let partIndex = 0;
+                        //                     const parts = sentence.split(/(\[[^\]]+\])/g);
+                        //                     let partIndex = 0;
                     
-                                            function processNextPart() {
-                                                if (partIndex < parts.length) {
-                                                    const part = parts[partIndex];
-                                                    if (!part) {
-                                                        partIndex++;
-                                                        processNextPart();
-                                                        return;
-                                                    }
+                        //                     function processNextPart() {
+                        //                         if (partIndex < parts.length) {
+                        //                             const part = parts[partIndex];
+                        //                             if (!part) {
+                        //                                 partIndex++;
+                        //                                 processNextPart();
+                        //                                 return;
+                        //                             }
                     
-                                                    const isItalic = part.startsWith('[') && part.endsWith(']');
-                                                    const text = isItalic ? part.slice(1, -1) : part;
-                                                    const words = text.trim().split(' ').filter(w => w);
+                        //                             const isItalic = part.startsWith('[') && part.endsWith(']');
+                        //                             const text = isItalic ? part.slice(1, -1) : part;
+                        //                             const words = text.trim().split(' ').filter(w => w);
                     
-                                                    if (words.length === 0) {
-                                                        partIndex++;
-                                                        processNextPart();
-                                                        return;
-                                                    }
+                        //                             if (words.length === 0) {
+                        //                                 partIndex++;
+                        //                                 processNextPart();
+                        //                                 return;
+                        //                             }
 
-                                                    // Check if this part starts with punctuation
-                                                    const startWithPunctuation = /^[.,;:!?)\]]/.test(text.trim());
+                        //                             // Check if this part starts with punctuation
+                        //                             const startWithPunctuation = /^[.,;:!?)\]]/.test(text.trim());
                                                     
-                                                    // Add space between parts if needed (but not before punctuation)
-                                                    if (partIndex > 0 && !startWithPunctuation && 
-                                                        sentenceSpan.lastChild && 
-                                                        !sentenceSpan.lastChild.textContent.endsWith(' ')) {
-                                                        sentenceSpan.appendChild(document.createTextNode(' '));
-                                                    }
+                        //                             // Add space between parts if needed (but not before punctuation)
+                        //                             if (partIndex > 0 && !startWithPunctuation && 
+                        //                                 sentenceSpan.lastChild && 
+                        //                                 !sentenceSpan.lastChild.textContent.endsWith(' ')) {
+                        //                                 sentenceSpan.appendChild(document.createTextNode(' '));
+                        //                             }
 
-                                                    let italicSpan = null;
+                        //                             let italicSpan = null;
                     
-                                                    if (isItalic) {
-                                                        termDescriptionCount++;
-                                                        italicSpan = document.createElement('span');
-                                                        italicSpan.classList.add('term');
-                                                        italicSpan.setAttribute('data-term-index', termDescriptionCount);
-                                                        sentenceSpan.appendChild(italicSpan);
-                                                    }
+                        //                             if (isItalic) {
+                        //                                 termDescriptionCount++;
+                        //                                 italicSpan = document.createElement('span');
+                        //                                 italicSpan.classList.add('term');
+                        //                                 italicSpan.setAttribute('data-term-index', termDescriptionCount);
+                        //                                 sentenceSpan.appendChild(italicSpan);
+                        //                             }
                     
-                                                    let wordIndex = 0;
-                                                    let lastScrollHeight = projectDescription.scrollHeight;
+                        //                             let wordIndex = 0;
+                        //                             let lastScrollHeight = projectDescription.scrollHeight;
                     
-                                                    function addNextWord() {
-                                                        if (wordIndex < words.length) {
-                                                            if (wordIndex > 0) {
-                                                                if (italicSpan) {
-                                                                    italicSpan.appendChild(document.createTextNode(' '));
-                                                                } else {
-                                                                    sentenceSpan.appendChild(document.createTextNode(' '));
-                                                                }
-                                                            }
+                        //                             function addNextWord() {
+                        //                                 if (wordIndex < words.length) {
+                        //                                     if (wordIndex > 0) {
+                        //                                         if (italicSpan) {
+                        //                                             italicSpan.appendChild(document.createTextNode(' '));
+                        //                                         } else {
+                        //                                             sentenceSpan.appendChild(document.createTextNode(' '));
+                        //                                         }
+                        //                                     }
                     
-                                                            const wordSpan = document.createElement('span');
-                                                            wordSpan.textContent = words[wordIndex];
-                                                            wordSpan.classList.add('word', 'project-description-word', 'light', 'no-opacity');
-                                                            if (isItalic) wordSpan.classList.add('italic');
-                                                            if (italicSpan) {
-                                                                italicSpan.appendChild(wordSpan);
-                                                            } else {
-                                                                sentenceSpan.appendChild(wordSpan);
-                                                            }
+                        //                                     const wordSpan = document.createElement('span');
+                        //                                     wordSpan.textContent = words[wordIndex];
+                        //                                     wordSpan.classList.add('word', 'project-description-word', 'light', 'no-opacity');
+                        //                                     if (isItalic) wordSpan.classList.add('italic');
+                        //                                     if (italicSpan) {
+                        //                                         italicSpan.appendChild(wordSpan);
+                        //                                     } else {
+                        //                                         sentenceSpan.appendChild(wordSpan);
+                        //                                     }
                     
-                                                            const currentScrollHeight = projectDescription.scrollHeight;
-                                                            if (currentScrollHeight !== lastScrollHeight) {
-                                                                lastScrollHeight = currentScrollHeight;
-                                                                projectDescription.style.height = `${currentScrollHeight}px`;
-                                                            }
+                        //                                     const currentScrollHeight = projectDescription.scrollHeight;
+                        //                                     if (currentScrollHeight !== lastScrollHeight) {
+                        //                                         lastScrollHeight = currentScrollHeight;
+                        //                                         projectDescription.style.height = `${currentScrollHeight}px`;
+                        //                                     }
 
-                                                            wordSpan.style.display = 'inline-block';
-                                                            const lightWidth = wordSpan.getBoundingClientRect().width;
-                                                            wordSpan.style.width = `${lightWidth}px`;
+                        //                                     wordSpan.style.display = 'inline-block';
+                        //                                     const lightWidth = wordSpan.getBoundingClientRect().width;
+                        //                                     wordSpan.style.width = `${lightWidth}px`;
                     
-                                                            setTimeout(() => {
-                                                                wordSpan.classList.remove('light');
-                                                                wordSpan.classList.remove('no-opacity');
-                                                            }, 50);
+                        //                                     setTimeout(() => {
+                        //                                         wordSpan.classList.remove('light');
+                        //                                         wordSpan.classList.remove('no-opacity');
+                        //                                     }, 50);
                     
-                                                            wordIndex++;
-                                                            setTimeout(addNextWord, 50);
-                                                        } else {
-                                                            if (isItalic) {
-                                                                const termDescriptionNumberContainer = document.createElement('span');
-                                                                termDescriptionNumberContainer.classList.add('term-description-number-container', `term-description-number-container-${termDescriptionCount}`, 'small');
+                        //                                     wordIndex++;
+                        //                                     setTimeout(addNextWord, 50);
+                        //                                 } else {
+                        //                                     if (isItalic) {
+                        //                                         const termDescriptionNumberContainer = document.createElement('span');
+                        //                                         termDescriptionNumberContainer.classList.add('term-description-number-container', `term-description-number-container-${termDescriptionCount}`, 'small');
         
-                                                                const termDescriptionNumber = document.createElement('span');
-                                                                termDescriptionNumber.classList.add('term-description-number', 'light');
-                                                                termDescriptionNumber.textContent = termDescriptionCount < 10 ? `0${termDescriptionCount}` : termDescriptionCount;
+                        //                                         const termDescriptionNumber = document.createElement('span');
+                        //                                         termDescriptionNumber.classList.add('term-description-number', 'light');
+                        //                                         termDescriptionNumber.textContent = termDescriptionCount < 10 ? `0${termDescriptionCount}` : termDescriptionCount;
         
-                                                                termDescriptionNumberContainer.appendChild(termDescriptionNumber);
-                                                                sentenceSpan.appendChild(termDescriptionNumberContainer);
+                        //                                         termDescriptionNumberContainer.appendChild(termDescriptionNumber);
+                        //                                         sentenceSpan.appendChild(termDescriptionNumberContainer);
         
-                                                                setTimeout(() => {
-                                                                    termDescriptionNumberContainer.classList.remove('small');
-                                                                    termDescriptionNumber.classList.remove('light');
-                                                                }, 10);
+                        //                                         setTimeout(() => {
+                        //                                             termDescriptionNumberContainer.classList.remove('small');
+                        //                                             termDescriptionNumber.classList.remove('light');
+                        //                                         }, 10);
         
-                                                                partIndex++;
-                                                                setTimeout(processNextPart, 10);
+                        //                                         partIndex++;
+                        //                                         setTimeout(processNextPart, 10);
         
-                                                            } else {
-                                                                partIndex++;
-                                                                setTimeout(processNextPart, 0); 
-                                                            }
-                                                        }
-                                                    }
+                        //                                     } else {
+                        //                                         partIndex++;
+                        //                                         setTimeout(processNextPart, 0); 
+                        //                                     }
+                        //                                 }
+                        //                             }
                     
-                                                    addNextWord();
-                                                } else {
-                                                    sentenceResolve();
-                                                }
-                                            }
+                        //                             addNextWord();
+                        //                         } else {
+                        //                             sentenceResolve();
+                        //                         }
+                        //                     }
                     
-                                            processNextPart();
-                                        });
-                                    }
-                                }
-                            }
+                        //                     processNextPart();
+                        //                 });
+                        //             }
+                        //         }
+                        //     }
                     
-                            createProjectDescription().then(() => addSentences().then(() => resolve()));
-                        });
+                        //     createProjectDescription().then(() => addSentences().then(() => resolve()));
+                        // });
                         break;
                         
                 }
