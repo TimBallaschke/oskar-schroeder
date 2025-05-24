@@ -4,12 +4,12 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 130px;
+  height: 145px;
   background: linear-gradient(
     to bottom,
     rgba(244, 244, 245, 1) 20%,
-    rgba(244, 244, 245, 0.9) 55%,
-    rgba(244, 244, 245, 0.5) 80%,
+    rgba(244, 244, 245, 0.9) 35%,
+    rgba(244, 244, 245, 0.5) 70%,
     rgba(244, 244, 245, 0) 100%
   );
   z-index: 90;
@@ -17,19 +17,16 @@
   transition: all var(--animation-duration-1) ease-in-out;
 
   @include desktop-small {
-    width: calc(100vw / 8 * 6 + var(--page-padding));
-
+    width: 100vw;
   }
 
   @include desktop-large {
-    width: calc(100vw / 8 * 6 + var(--page-padding));
-
+    width: 100vw;
   }
 
   @include desktop-x-large {
-    width: calc(100vw / 8 * 6 + var(--page-padding));
+    width: 100vw;
   }
-
 }
 
 .version-history-background-blur {
@@ -267,7 +264,7 @@
   }
 
   #version-history-background {
-    height: 80px;
+    height: 100px;
   }
 
   #version-history-background-blur-1 {
