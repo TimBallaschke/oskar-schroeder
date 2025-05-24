@@ -87,17 +87,17 @@
   // }
 
   @include desktop-small {
-    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + var(--page-padding));
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
 
   }
 
   @include desktop-large {
-    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + var(--page-padding));
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
 
   }
 
   @include desktop-x-large {
-    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + var(--page-padding));
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
   }
 }
 
@@ -118,11 +118,15 @@
   transition: all var(--animation-duration-3) ease-in-out;
 
   &:first-child {
-    margin-left: 0; // First element shouldn't have negative margin
+    // margin-left: 0; // First element shouldn't have negative margin
+  }
+
+  &#version-history-element-0 {
+    border-right: 0px solid black;
   }
 
   &.current-version-history-element {
-  
+    
     .version-history-element-title {
       font-size: var(--large-font-size);
       font-variation-settings: "wght" 675;
@@ -311,6 +315,26 @@
       }
     } 
   }
+
+  .start-version-history-element {
+    @include desktop-small {
+      .version-history-element-title {
+        padding-bottom: 0;
+      }
+    }
+  
+    @include desktop-large {
+      .version-history-element-title {
+        padding-bottom: 0;
+      }
+    }
+  
+    @include desktop-x-large {
+      .version-history-element-title {
+        padding-bottom: 0;
+      }
+    }
+  }
 }
 
 .start-version-history-element {
@@ -325,7 +349,7 @@
   margin-left: -1px; // Negative margin to overlap the borders of the elements
   scroll-snap-align: start;
   height: fit-content;
-  transition: all var(--animation-duration-3) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
 
   .version-history-element-digits {
     opacity: 0;
@@ -354,7 +378,7 @@
   @include desktop-x-large {
     position: fixed;
     top: 0;
-    left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + var(--page-padding));
+    left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
 
     .version-history-element-title {
       padding-bottom: 26px;

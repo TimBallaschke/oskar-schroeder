@@ -2524,7 +2524,6 @@ function displayPreviousVersion(element) {
     }, 600);
 }
 
-// const container = document.getElementById("scroll-container");
 
 versionHistory.addEventListener("mousemove", (e) => {
   const rect = versionHistory.getBoundingClientRect();
@@ -2535,7 +2534,7 @@ versionHistory.addEventListener("mousemove", (e) => {
   
   // Calculate the target scroll position based on mouse position
   const ratio = mouseX / containerWidth;
-  const targetScrollLeft = ratio * maxScroll;
+  const targetScrollLeft = ratio * maxScroll * 1.1;
   
   // Store the target position
   versionHistory.targetScrollLeft = targetScrollLeft;

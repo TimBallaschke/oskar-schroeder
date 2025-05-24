@@ -805,7 +805,7 @@ p {
   .fullscreen .project-information-container {
     grid-row: 2;
     grid-column: 1/7;
-    grid-template-columns: 1fr 50px;
+    grid-template-columns: 1fr 45px;
     padding-top: 15px;
   }
 }
@@ -1689,17 +1689,17 @@ input {
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   #version-history {
-    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + var(--page-padding));
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
   }
 }
 @media (min-width: 1025px) and (max-width: 1440px) {
   #version-history {
-    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + var(--page-padding));
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
   }
 }
 @media (min-width: 1441px) {
   #version-history {
-    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + var(--page-padding));
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
   }
 }
 
@@ -1718,8 +1718,8 @@ input {
   height: fit-content;
   transition: all var(--animation-duration-3) ease-in-out;
 }
-.version-history-element:first-child {
-  margin-left: 0;
+.version-history-element#version-history-element-0 {
+  border-right: 0px solid black;
 }
 .version-history-element.current-version-history-element .version-history-element-title {
   font-size: var(--large-font-size);
@@ -1841,6 +1841,21 @@ input {
 .scroll-down .version-history-element.current-version-history-element:hover .version-history-element-digits {
   font-variation-settings: "wght" 675;
 }
+@media (min-width: 769px) and (max-width: 1024px) {
+  .scroll-down .start-version-history-element .version-history-element-title {
+    padding-bottom: 0;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .scroll-down .start-version-history-element .version-history-element-title {
+    padding-bottom: 0;
+  }
+}
+@media (min-width: 1441px) {
+  .scroll-down .start-version-history-element .version-history-element-title {
+    padding-bottom: 0;
+  }
+}
 
 .start-version-history-element {
   border-right: 0px solid black;
@@ -1855,7 +1870,7 @@ input {
   scroll-snap-align: start;
   height: -moz-fit-content;
   height: fit-content;
-  transition: all var(--animation-duration-3) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
 }
 .start-version-history-element .version-history-element-digits {
   opacity: 0;
@@ -1884,7 +1899,7 @@ input {
   .start-version-history-element {
     position: fixed;
     top: 0;
-    left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + var(--page-padding));
+    left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
   }
   .start-version-history-element .version-history-element-title {
     padding-bottom: 26px;
