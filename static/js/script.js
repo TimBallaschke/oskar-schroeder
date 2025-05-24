@@ -2148,6 +2148,10 @@ async function renderNextProject() {
                                                                 lastScrollHeight = currentScrollHeight;
                                                                 projectDescription.style.height = `${currentScrollHeight}px`;
                                                             }
+
+                                                            wordSpan.style.display = 'inline-block';
+                                                            const lightWidth = wordSpan.getBoundingClientRect().width;
+                                                            wordSpan.style.width = `${lightWidth}px`;
                     
                                                             setTimeout(() => {
                                                                 wordSpan.classList.remove('light');
@@ -3401,10 +3405,14 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
     
     // Add the span to the websearch div
     websearchDescriptionContainer.appendChild(wordSpan);
+
+    wordSpan.style.display = 'inline-block';
+    const lightWidth = wordSpan.getBoundingClientRect().width;
+    wordSpan.style.width = `${lightWidth}px`;
     
     setTimeout(() => {
         wordSpan.classList.remove('light');
-    }, 50);
+    }, 20);
     
     // Process the next word after delay
     setTimeout(() => {

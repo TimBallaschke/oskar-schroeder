@@ -484,8 +484,8 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: 3px;
-  margin-right: 3px;
+  margin-left: 1px;
+  margin-right: 1px;
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   .term-description-number-container {

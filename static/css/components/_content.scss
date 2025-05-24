@@ -239,8 +239,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-left: 3px;
-    margin-right: 3px;
+    margin-left: 1px;
+    margin-right: 1px;
 
     @include desktop-small {
         width: 30px;
