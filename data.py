@@ -473,7 +473,7 @@ artwork_data_6 = {
         {"url": "../static/assets/images/artworks/FortschrittUndFestgehalten/5.webp"}
     ],
     "description": (
-        "»Fortschritt. und festgehalten« was exhibited in the Meisterschüler*in graduation exhibition »How to Approach a Dream Gently« at the Kunstverein Braunschweig. "
+        "»Fortschritt und Festgehalten« was exhibited in the Meisterschüler*in graduation exhibition »How to Approach a Dream Gently« at the Kunstverein Braunschweig. "
         "The work consists of five stucco marble panels in various sizes distributed across the exhibition space.\n\n"
         "Each panel contains materials such as studio dust, coal, blood, and wood powder, referencing the artist’s process and environment. "
         "These embedded materials carry both aesthetic and autobiographical weight.\n\n"
@@ -548,7 +548,7 @@ artwork_data_10 = {
         {"url": "../static/assets/images/artworks/Landschaft/2.jpg"}
     ],
     "description": (
-        "»Landschaft« was shown during Oskar Schroeder's first solo exhibition »collecting construction« at Galerie KuCo in Flensburg. "
+        "»Landschaft« was shown during Oskar Schroeder's first solo exhibition »collecting construction« at Galerie KuCo Flensburg. "
         "The work consists of a piece of canvas that had been buried in a forest. After a week underground, the fabric absorbed moisture, earth, fibers, leaves, and scent, "
         "transforming into a living surface.\n\n"
         "Traditionally used as a substrate for painted illusions of landscape, the fabric here becomes landscape itself. "
@@ -571,7 +571,7 @@ artwork_data_11 = {
         {"url": "../static/assets/images/artworks/Memoir/6.jpg"}
     ],
     "description": (
-        "»Memoir« was presented during Oskar Schroeder's first solo exhibition »collecting construction« at Galerie KuCo in Flensburg. "
+        "»Memoir« was presented during Oskar Schroeder's first solo exhibition »collecting construction« at Galerie KuCo Flensburg. "
         "It marks the first time the artist exhibited photographic work.\n\n"
         "The photographs, mostly of objects Schroeder found and collected, are taken with a shallow depth of field, "
         "leaving their subjects only partially recognizable. "
@@ -614,7 +614,7 @@ artwork_data_13 = {
     ],
     "description": (
         "»Onward« is a video work created in collaboration with Mats Hoff for the exhibition »Begleitgrau« by Oskar Schroeder and Regine Schulz "
-        "at Raum Links Rechts in the Gängeviertel, Hamburg.\n\n"
+        "at Raum Links Rechts Hamburg in the Gängeviertel, Hamburg.\n\n"
         "The video shows a dog running at full speed, filmed in slow motion. The tension between speed and slowness plays out as a visual paradox. "
         "The dog—an animal balancing control and wildness—was filmed running alongside a car near Kiel, with Hoff using a telephoto lens.\n\n"
         "The video was projected from inside onto the gallery window, visible from the street even outside regular opening hours. "
@@ -733,7 +733,7 @@ exhibition_data_4 = {
     "city": "Flensburg",
     "artworks": [],
     "description": (
-        "Oskar Schroeder’s first solo exhibition, presented in the fall at KuCo in Flensburg. "
+        "Oskar Schroeder’s first solo exhibition, presented in the fall at KuCo Flensburg. "
         "The show marked a significant moment in his practice, consolidating various working methods and material explorations."
     )
 }
@@ -793,7 +793,7 @@ exhibition_data_9 = {
     "city": "Hamburg",
     "artworks": [],
     "description": (
-        "A group exhibition at Galerie 21, located in the historic Vorwerkstift in Hamburg. "
+        "A group exhibition at Galerie 21 Vorwerkstift, located in the historic Vorwerkstift in Hamburg. "
         "The title references collaborative and interdependent systems in art and ecology."
     )
 }

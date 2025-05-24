@@ -304,23 +304,24 @@ class Response_2(BaseModel):
     prompt_proposal_1: str = Field(
         description=(
             "An actionable suggestion guiding the user toward unexplored or complementary information about Oskar Schroeder. "
-            "This should build on what has already been shown, helping the user navigate toward relevant or related topics."
+            "This should encourage the discovery of new content, helping the user explore areas of Oskar’s biography, work, or exhibitions that have not yet been shown."
         )
     )
     prompt_proposal_2: str = Field(
         description=(
-            "Another concise recommendation for how the user might continue exploring new aspects of Oskar Schroeder’s work, biography, or exhibitions."
+            "Another concise recommendation that invites the user to continue exploring unfamiliar aspects of Oskar Schroeder’s artistic life. "
+            "Suggestions should introduce new data from the available dataset."
         )
     )
     prompt_proposal_3: str = Field(
         description=(
-            "A third suggestion that encourages discovery of content not yet seen. "
-            "Think about gaps or next logical steps in the user’s journey."
+            "A third prompt that focuses on helping the user uncover content not yet displayed. "
+            "It should be logically connected to the user’s journey but must lead to a distinct topic or dataset."
         )
     )
     prompt_proposal_4: str = Field(
         description=(
-            "A final prompt proposal that remains concise (max. 40 characters), user-friendly, and focused on further exploration of Oskar Schroeder’s artistic universe."
+            "A final proposal (max. 40 characters) that is engaging, easy to understand, and leads to **new** information about Oskar Schroeder."
         )
     )
 
