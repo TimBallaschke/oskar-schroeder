@@ -717,7 +717,7 @@ exhibition_data_2 = {
 exhibition_data_3 = {
     "title": "Grænserum",
     "timeframe": "2024",
-    "gallery": "Prospekt",
+    "gallery": "Prospekt Copenhagen",
     "city": "Copenhagen",
     "artworks": [],
     "description": (
@@ -729,7 +729,7 @@ exhibition_data_3 = {
 exhibition_data_4 = {
     "title": "collecting construction",
     "timeframe": "2023",
-    "gallery": "KuCo",
+    "gallery": "KuCo Flensburg",
     "city": "Flensburg",
     "artworks": [],
     "description": (
@@ -765,7 +765,7 @@ exhibition_data_6 = {
 exhibition_data_7 = {
     "title": "malfunctioning storage",
     "timeframe": "2022",
-    "gallery": "Prima Kunst Container",
+    "gallery": "Prima Kunst Container Kiel",
     "city": "Kiel",
     "artworks": [],
     "description": (
@@ -826,7 +826,7 @@ exhibition_data_11 = {
 exhibition_data_12 = {
     "title": "love your surface",
     "timeframe": "2021",
-    "gallery": "Automat Space",
+    "gallery": "Automat Space Saarbrücken",
     "city": "Saarbrücken",
     "artworks": [],
     "description": (
@@ -850,7 +850,7 @@ exhibition_data_13 = {
 exhibition_data_14 = {
     "title": "UMSPANNEN",
     "timeframe": "2020",
-    "gallery": "Remise",
+    "gallery": "Remise Pinneberg",
     "city": "Pinneberg",
     "artworks": [],
     "description": (
