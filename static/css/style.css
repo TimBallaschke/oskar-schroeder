@@ -319,6 +319,9 @@ p {
   grid-column: 1/7;
   width: 100%;
 }
+.large-paragraph-container.margin-top {
+  margin-top: calc(var(--primary-line-height) * 3);
+}
 
 .medium-paragraph-container {
   grid-column: 2/7;
@@ -1248,7 +1251,7 @@ p {
 .item-container {
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   transition: all var(--animation-duration-1) ease-in-out;
   height: 0;
   position: relative;
@@ -1290,7 +1293,7 @@ p {
 }
 
 .item-text {
-  grid-column: 2/7;
+  grid-column: 2/9;
   font-size: var(--primary-font-size);
   padding-top: 3px;
   padding-bottom: 3px;

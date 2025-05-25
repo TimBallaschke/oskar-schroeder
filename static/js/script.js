@@ -797,7 +797,7 @@ async function handleDelta(content) {
                             if ((contentContainer.lastElementChild && contentContainer.lastElementChild.classList.contains('paragraph-outter-container')) || window.innerWidth <= mobileWidth) { // only execute if there is a paragraph outter container or on mobile
                                 allParagraphContainers = contentContainer.querySelectorAll('.paragraph-container');
                                 previousParagraphContainer = allParagraphContainers[allParagraphContainers.length - 1];
-                            }
+                            } 
 
                             if(window.innerWidth <= mobileWidth) {
                                 await processImageQueue();
@@ -845,6 +845,11 @@ async function handleDelta(content) {
                                     paragraphContainer.classList.add('large-paragraph');
                                     paragraphContainer.setAttribute('data-width', 'large');
 
+                                    if ((contentContainer.lastElementChild && !contentContainer.lastElementChild.classList.contains('paragraph-outter-container'))) { // only execute if there is a paragraph outter container or on mobile
+                                        largeParagraphContainer.classList.add('margin-top');
+                                    } 
+
+
                                     largeParagraphContainer.appendChild(paragraphContainer);
                                     contentContainer.appendChild(largeParagraphContainer);
 
@@ -874,6 +879,7 @@ async function handleDelta(content) {
                                             const largeParagraphContainer = document.createElement('div');
                                             largeParagraphContainer.classList.add('large-paragraph-container', 'paragraph-outter-container');
                                             paragraphContainer.setAttribute('data-width', 'large');
+
                                             largeParagraphContainer.appendChild(paragraphContainer);
                                             contentContainer.appendChild(largeParagraphContainer);
 
@@ -882,6 +888,7 @@ async function handleDelta(content) {
                                             const mediumParagraphContainer = document.createElement('div');
                                             mediumParagraphContainer.classList.add('medium-paragraph-container', 'paragraph-outter-container');
                                             paragraphContainer.setAttribute('data-width', 'medium');
+
                                             mediumParagraphContainer.appendChild(paragraphContainer);
                                             contentContainer.appendChild(mediumParagraphContainer);
 
@@ -890,6 +897,7 @@ async function handleDelta(content) {
                                             const smallParagraphContainer = document.createElement('div');
                                             smallParagraphContainer.classList.add('small-paragraph-container', 'paragraph-outter-container');
                                             paragraphContainer.setAttribute('data-width', 'small');
+
                                             smallParagraphContainer.appendChild(paragraphContainer);
                                             contentContainer.appendChild(smallParagraphContainer);
 
