@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250525l_Oskar_Website",
+  "original_folder": "250525m_Oskar_Website",
   "snapshot_date_from_folder": "250525",
   "source_files": [
     {
@@ -33,9 +33,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "46fc71ad8121071061528c23bcd8dc58d7965635",
-      "sha256": "4229d9b1d9e84c4a6eba9ba70b0da07fa5aca8d0f2edc14c047ef44eaf681452",
-      "size": 33993,
+      "sha1": "d88415004c7ee55f6ae1b119f67cb5968a9eef7f",
+      "sha256": "f7b3186a7c6b34c0a66c1fb050a480ec58ee79aca437e2e824af8c49516f5019",
+      "size": 33988,
       "mode": "100644"
     },
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "15f10a5a907144a98c9d88fa82fce0a207aa8a72",
-      "sha256": "ab9af6d394e73b3ff3f8e1a14fca93aed7021963b0efac27f6503672086b8c98",
-      "size": 182612,
+      "sha1": "15e2f415467a88c56837ff6737ef719300b2ac6b",
+      "sha256": "088839aa386a3afac87c87f86275c1a095a7c868f71230c1ee185e3f8b4f781b",
+      "size": 182513,
       "mode": "100644"
     },
     {

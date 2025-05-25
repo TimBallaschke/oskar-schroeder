@@ -191,7 +191,7 @@ class ParagraphComponent(BaseModel):
             "• Wrap proper names in square brackets.\n"
             "• This includes:\n"
             "  – Individuals (e.g., [Thomas Rentmeister], [Karen Barad], [Elisabeth Wagner], [Jan Kochermann], [Corinna Schnitt], [Axel Loytved], [Janosch Heydorn],[BKH Gutmann], [Olaf Metzel], [Georg Winter], [Karin Kamolz])\n"
-            "  – Cities and locations (e.g., [Flensburg], [North Frisia], [Hamburg], [Kiel])\n"
+            "  – Cities and locations (e.g., [Flensburg], [North Frisia])\n"
             "  – Institutions and organizations (e.g., [Muthesius University of Fine Arts],[Galerie Ewelyn Drewes, Hamburg],[Kunsthaus Kaufbeuren], [HBK Braunschweig], [Galerie KuCo Flensburg], [Maximiliansforum], [Prima Kunst Container Kiel], [Hannover Re],[Kunstverein Braunschweig], [Galerie 21 Vorwerkstift Hamburg], [Raum Links Rechts, Hamburg], [Duborg Skolen], [Eckener Schule Flensburg])\n"
             "  – Cultural and historical references (e.g., [New Materialism], [Stucco marble], [Beaux‑Arts Nantes Saint‑Nazaire])\n"
             "• DO NOT bracket the artist’s name. Always write: Oskar Schroeder (without brackets).\n\n"
@@ -223,7 +223,7 @@ class ListItem(BaseModel):
 class ListComponent(BaseModel):
     UIType: Literal["list"] = Field(description="Indicates this is a list component for displaying a list of items for example a CV (curriculum vitae)")
     headline: Optional[str] = Field(description="A short headline for the list")
-    items: List[ListItem] = Field(description="A list of short text items to be displayed")
+    items: List[ListItem] = Field(description="A list of short text items with a prefix to be displayed")
 
 class TableComponent(BaseModel):
     UIType: Literal["table"] = Field(
