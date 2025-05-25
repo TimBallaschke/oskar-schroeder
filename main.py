@@ -248,8 +248,8 @@ class ArtworksLayout(str, Enum):
 
 class GridArtworkComponent(BaseModel):
     UIType: Literal["grid_artwork"] = Field(description="Indicates this is a grid artwork component that represents an artwork in grid view")
+    images: List[str] = Field(description="A URL for an image. Important: Only return one image.")
     name: str = Field(description="Name of the artwork")
-    image: str = Field(description="A URL for an image, typically just the first/main image for grid view")
 
 class FullscreenArtworkComponent(BaseModel):
     UIType: Literal["fullscreen_artwork"] = Field(description="Indicates this is a fullscreen artwork component that represents an artwork in detailed view")
