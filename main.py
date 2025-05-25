@@ -430,16 +430,7 @@ def index():
 # POST requests are used to send data to the server, such as form submissions, file uploads, or API requests;
 @app.route('/content', methods=['POST'])
 def content():
-    user_message = request.json['message']
-    
-    # Initialize message list if not in session
-    if 'messages_1' not in session:
-        session['messages_1'] = [["SYSTEM_PROMPT_1"]]
-
-    # Get current messages from session
-    messages_1 = session['messages_1']
-    # Append user message
-    messages_1.append({"role": "user", "content": user_message})
+    session['current_user_message'] = request.json['message']
     
     session.modified = True
     
@@ -447,12 +438,19 @@ def content():
 
 @app.route('/stream')
 def stream():
-    messages_1 = session.get('messages_1', [])
+    
+    user_message = session.get('current_user_message')
+
+    # Create fresh messages array with just system prompt and user message
+    messages = [
+        prompts["SYSTEM_PROMPT_1"],
+        {"role": "user", "content": user_message}
+    ]
 
     def generate():
         with client.beta.chat.completions.stream(
             model="gpt-4o-mini",
-            messages=messages_1,
+            messages=messages,
             temperature=0.5,
             max_tokens=10000,
             response_format=Response_1,
@@ -470,17 +468,7 @@ def stream():
 
                     # Get and send the final completion
                     final_completion = stream.get_final_completion().choices[0].message.parsed
-
-                    
-                    # Append assistant's response to conversation history
-                    messages_1.append({
-                        "role": "assistant", 
-                        "content": json.dumps(final_completion.model_dump())
-                    })
-                    
-                    # Mark session as modified
-                    session.modified = True
-                    
+                                        
                     # Send completion event to frontend with state_id
                     yield f"data: {json.dumps({'type': 'complete', 'content': final_completion.model_dump()})}\n\n"
                     # Call the second chatbot
