@@ -755,6 +755,7 @@
     grid-template-columns: repeat(var(--column-amount-projects), 1fr);
     column-gap: var(--column-gap-projects);
     width: 100%;
+    padding-bottom: 60px;
 
     @include desktop-small {
         grid-column: 1 / 9;
@@ -769,7 +770,18 @@
     @include desktop-x-large {
         grid-column: 1 / 9;
         grid-template-columns: repeat(var(--column-amount-projects), 1fr);
-    } 
+    }
+
+
+    .project-list-headline {
+        grid-column: 1 / -1;
+        padding-bottom: 5px;
+        @include primary-type;
+    }
+
+    .project-list-headline-word {
+        transition: all var(--animation-duration-1) ease-in-out;
+    }
 
     .project {
         display: grid;

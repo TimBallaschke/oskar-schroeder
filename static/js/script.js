@@ -1443,6 +1443,54 @@ async function handleDelta(content) {
                             }
                         }
 
+                        if (component.headline) {
+                            if (projectsContainer.classList.contains('grid')) {
+                                const headline = projectsContainer.querySelector('.project-list-headline');
+                                if (!headline) {
+                                    await new Promise((resolve) => {
+                                        const headline = document.createElement('div');
+                                        headline.classList.add('project-list-headline');
+                                        
+                                        // Instead of setting textContent directly, add words one by one
+                                        projectsContainer.appendChild(headline);
+                                        
+                                        // Split headline into words and add them one by one
+                                        const words = component.headline.split(' ');
+                                        let wordIndex = 0;
+                                        
+                                        function addNextHeadlineWord() {
+                                            if (wordIndex < words.length) {
+                                                if (wordIndex > 0) {
+                                                    headline.appendChild(document.createTextNode(' '));
+                                                }
+                                                
+                                                const wordSpan = document.createElement('span');
+                                                wordSpan.textContent = words[wordIndex];
+                                                wordSpan.classList.add('project-list-headline-word', 'light');
+                                                headline.appendChild(wordSpan);
+                                                
+                                                wordSpan.style.display = 'inline-block';
+                                                const lightWidth = wordSpan.getBoundingClientRect().width;
+                                                wordSpan.style.width = `${lightWidth}px`;
+                                                
+                                                setTimeout(() => {
+                                                    wordSpan.classList.remove('light');
+                                                }, 50);
+                                                
+                                                wordIndex++;
+                                                
+                                                setTimeout(addNextHeadlineWord, 50);
+                                            } else {
+                                                resolve();
+                                            }
+                                        }
+                                        
+                                        addNextHeadlineWord();
+                                    });
+                                }
+                            }
+                        }
+
                         if (!component.projects) {
                             break;
                         }
@@ -1620,9 +1668,6 @@ async function renderNextProject() {
                         });
                         break;
                     case 'images':
-                        console.log('--------------------------------');
-                        console.log('images project', value);
-                        console.log('--------------------------------');
                         await new Promise((resolve) => {
 
                             let imageContainer = projectItem.querySelector('.project-images');

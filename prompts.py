@@ -52,7 +52,8 @@ SYSTEM_PROMPT_1 = {
         f"Artwork Walden: {data['artwork_data_walden']}\n"
         f"Artwork Wild: {data['artwork_data_wild']}\n"
         "\n"
-        "Example of artworks sorted/ordered/grouped by year:\n"
+        "When sorting or grouping artworks (e.g. by year, material, theme, size), return the result using multiple 'projects_list' components with 'grid' layout—one per category. Each 'projects_list' must have a clear headline like '2023', 'Wood', or 'Photo' to indicate the group..\n"
+        "Example of artworks sorted/ordered/grouped by year/time period:\n"
         f"{data['artworks_sorted_by_year']}\n\n"
         "Example of artworks sorted/ordered/grouped by material:\n"
         f"{data['artworks_sorted_by_material']}\n\n"
@@ -60,6 +61,8 @@ SYSTEM_PROMPT_1 = {
         f"{data['artworks_sorted_by_theme']}\n\n"
         "Example of artworks sorted/ordered/grouped by size:\n"
         f"{data['artworks_sorted_by_size']}\n\n"
+        "If the user provides the name of a single artwork (e.g. 'Applikate', 'Blind'), return that artwork as a single 'projects_list' component with 'fullscreen' layout.\n"
+
 
         "Available information about exhibitions:\n"
         f"{data['exhibition_data_1']}\n"
