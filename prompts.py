@@ -122,6 +122,7 @@ SYSTEM_PROMPT_2 = {
         "• Oskar's approach to photography\n"
         "• Where did Oskar study?\n"
         "• Show latest artworks\n"
+        "• Show all artworks in detail\n"
         "• List Oskar's artistic influences\n"
         "• Projects about transformation\n"
         "• Display exhibitions\n"

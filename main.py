@@ -246,38 +246,43 @@ class ArtworksLayout(str, Enum):
     fullscreen = "fullscreen"
     grid = "grid"
 
-class ArtworkComponent(BaseModel):
-    UIType: Literal["artwork"] = Field(description="Indicates this is an artwork component that represents an artwork or installation")
-    name: str = Field(description="Name of the artwork or artwork")
-    # year: str = Field(description="Year the artwork was created")
-    # material: str = Field(description="Primary material used in the artwork")
-    # dimensions: str = Field(description="Physical dimensions of the artwork")
-    images: List[str] = Field(description="A list of URLs for images")
-    # description: Optional[List[str]] = Field(
-    #     description=(
-    #         "An artwork description.\n\n"
-    #         "An artwork description should only be provided if the artworks are displayed fullscreen.\n\n"
-    #         "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "
-    #         "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
-    #         "For example: '[Muthesius University of Fine Arts]', '[HBK Braunschweig]', '[Thomas Rentmeister]', '[Elisabeth Wagner]', "
-    #         "'[Flensburg]', '[North Frisia]', '[Stucco marble]', '[New Materialism]', '[Karen Barad]', '[Kunstverein Braunschweig]', "
-    #         "'[Galerie KuCo]', '[Raum Links Rechts, Hamburg]', '[Galerie Ewelyn Drewes, Hamburg]', '[Prima Kunst Container]', "
-    #         "'[Kunsthaus Kaufbeuren]', '[Galerie 21]', '[Vorwerkstift Hamburg]', '[Stadtgalerie Kiel]', '[Duborg Skolen]', "
-    #         "'[Eckener Schule Flensburg]', '[Hannover Re]', '[Prospekt]', '[Maximiliansforum]', '[Galerie der Künstler]', "
-    #         "'[Beaux‑Arts Nantes Saint‑Nazaire]', '[Regine Schulz]', '[Mats Hoff]', '[Janosch Heydorn]', '[Karin Kamolz]', "
-    #         "'[Corinna Schnitt]', '[Jan Kochermann]', '[BKH Gutmann]', '[Axel Loytved]', '[Olaf Metzel]', '[Georg Winter]'.\n\n"
-    #         "Important: The artist's name 'Oskar Schroeder' should **never** be wrapped in brackets."
-    #     )
-    # )
+class GridArtworkComponent(BaseModel):
+    UIType: Literal["grid_artwork"] = Field(description="Indicates this is a grid artwork component that represents an artwork in grid view")
+    name: str = Field(description="Name of the artwork")
+    image: str = Field(description="A URL for an image, typically just the first/main image for grid view")
 
-class ArtworksList (BaseModel):
+class FullscreenArtworkComponent(BaseModel):
+    UIType: Literal["fullscreen_artwork"] = Field(description="Indicates this is a fullscreen artwork component that represents an artwork in detailed view")
+    name: str = Field(description="Name of the artwork")
+    year: str = Field(description="Year the artwork was created")
+    material: str = Field(description="Primary material used in the artwork")
+    dimensions: str = Field(description="Physical dimensions of the artwork")
+    images: List[str] = Field(description="A list of URLs for all available images of the artwork")
+    description: List[str] = Field(
+        description=(
+            "A detailed artwork description.\n\n"
+            "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "
+            "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
+            "For example: '[Muthesius University of Fine Arts]', '[HBK Braunschweig]', '[Thomas Rentmeister]', '[Elisabeth Wagner]', "
+            "'[Flensburg]', '[North Frisia]', '[Stucco marble]', '[New Materialism]', '[Karen Barad]', '[Kunstverein Braunschweig]', "
+            "'[Galerie KuCo]', '[Raum Links Rechts, Hamburg]', '[Galerie Ewelyn Drewes, Hamburg]', '[Prima Kunst Container]', "
+            "'[Kunsthaus Kaufbeuren]', '[Galerie 21]', '[Vorwerkstift Hamburg]', '[Stadtgalerie Kiel]', '[Duborg Skolen]', "
+            "'[Eckener Schule Flensburg]', '[Hannover Re]', '[Prospekt]', '[Maximiliansforum]', '[Galerie der Künstler]', "
+            "'[Beaux‑Arts Nantes Saint‑Nazaire]', '[Regine Schulz]', '[Mats Hoff]', '[Janosch Heydorn]', '[Karin Kamolz]', "
+            "'[Corinna Schnitt]', '[Jan Kochermann]', '[BKH Gutmann]', '[Axel Loytved]', '[Olaf Metzel]', '[Georg Winter]'.\n\n"
+            "Important: The artist's name 'Oskar Schroeder' should **never** be wrapped in brackets."
+        )
+    )
+
+class ArtworksList(BaseModel):
     UIType: Literal["projects_list"] = Field(description="Indicates this is an artworks list component for displaying a list of projects")
     layout: ArtworksLayout = Field(
-        default=ArtworksLayout.grid,
         description=(
-            "Display layout for artworks. Defaults to 'grid' to show detailed views of individual artworks. "
-            "Switch to 'grid' layout only when the user explicitly requests an overview, filtering, or comparative view "
-            "(for example, 'sort artworks by year', 'sort artworks by material', 'sort artworks by theme')."
+            "Display layout for artworks. "
+            "Use 'fullscreen' for detailed views of individual artworks. "
+            "Use 'grid' layout when many artworks are shown, particularly in response to sorting, filtering, or overview requests "
+            "(for example, 'sort artworks by year', 'show all artworks in wood'). "
+            "Use 'fullscreen' when only a few artworks are shown and more detailed textual components are expected for each."
         )
     )
     headline: Optional[str] = Field(
@@ -287,7 +292,9 @@ class ArtworksList (BaseModel):
             "Keep it concise and informative (e.g. 'Wood', '2023')."
         )
     )
-    projects: List[ArtworkComponent] = Field(description="A list of artworks to be displayed")
+    projects: Union[List[GridArtworkComponent], List[FullscreenArtworkComponent]] = Field(
+        description="A list of artwork components. Use GridArtworkComponent for 'grid' layout and FullscreenArtworkComponent for 'fullscreen' layout."
+    )
 
 # FIRST CHATBOT
 

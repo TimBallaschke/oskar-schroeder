@@ -1420,136 +1420,136 @@ async function handleDelta(content) {
                         break;
 
                     case 'projects_list':
-                        // Process the image queue in case the stream is finished which gets marked through rendering a project with UIType: stream_finished
-                        // This is to make sure that the last images of paragraphs are rendered before the projects container that marks the end of the stream is added to the DOM
-                        await processImageQueue();
+                        // // Process the image queue in case the stream is finished which gets marked through rendering a project with UIType: stream_finished
+                        // // This is to make sure that the last images of paragraphs are rendered before the projects container that marks the end of the stream is added to the DOM
+                        // await processImageQueue();
 
-                        let projectsContainer = document.querySelector(`[data-component-key="${componentID}"]`);
-                        if (!projectsContainer) {
-                            projectsContainer = document.createElement('div');
-                            projectsContainer.classList.add('projects-container');
-                            projectsContainer.setAttribute('data-component-key', componentID);
-                            contentContainer.appendChild(projectsContainer);
-                        }
+                        // let projectsContainer = document.querySelector(`[data-component-key="${componentID}"]`);
+                        // if (!projectsContainer) {
+                        //     projectsContainer = document.createElement('div');
+                        //     projectsContainer.classList.add('projects-container');
+                        //     projectsContainer.setAttribute('data-component-key', componentID);
+                        //     contentContainer.appendChild(projectsContainer);
+                        // }
 
-                        // Add layout classes based on response values
-                        if (component.layout) {
-                            if (!projectsContainer.classList.contains('fullscreen') && !projectsContainer.classList.contains('grid')) {
-                                if (component.layout === 'fullscreen') {
-                                    projectsContainer.classList.add('fullscreen');
-                                } else if (component.layout === 'grid') {
-                                    projectsContainer.classList.add('grid');
-                                }
-                            }
-                        }
+                        // // Add layout classes based on response values
+                        // if (component.layout) {
+                        //     if (!projectsContainer.classList.contains('fullscreen') && !projectsContainer.classList.contains('grid')) {
+                        //         if (component.layout === 'fullscreen') {
+                        //             projectsContainer.classList.add('fullscreen');
+                        //         } else if (component.layout === 'grid') {
+                        //             projectsContainer.classList.add('grid');
+                        //         }
+                        //     }
+                        // }
 
-                        if (!component.projects) {
-                            break;
-                        }
+                        // if (!component.projects) {
+                        //     break;
+                        // }
 
-                        for (const project of component.projects) {
+                        // for (const project of component.projects) {
 
-                            if (project.stream_finished) {
-                                console.log('project.stream_finished');
+                        //     if (project.stream_finished) {
+                        //         console.log('project.stream_finished');
 
-                                projectRenderingQueue.push({
-                                    id: true,
-                                    key: 'stream_finished',
-                                    value: true,
-                                    container: true,
-                                    index: true
-                                });
+                        //         projectRenderingQueue.push({
+                        //             id: true,
+                        //             key: 'stream_finished',
+                        //             value: true,
+                        //             container: true,
+                        //             index: true
+                        //         });
 
-                                if (!isProjectRendering) {
-                                    await renderNextProject();
-                                }
-                                break;
-                            }
+                        //         if (!isProjectRendering) {
+                        //             await renderNextProject();
+                        //         }
+                        //         break;
+                        //     }
 
-                            if (!project.name) {
-                                break;
-                            }
+                        //     if (!project.name) {
+                        //         break;
+                        //     }
 
-                            const projectID = project.name;
+                        //     const projectID = project.name;
 
-                            // Track processed fields in projectMap
-                            if (!componentMap.has(projectID)) {
-                                componentMap.set(projectID, new Set());
-                            }
+                        //     // Track processed fields in projectMap
+                        //     if (!componentMap.has(projectID)) {
+                        //         componentMap.set(projectID, new Set());
+                        //     }
 
-                            const processedFields = componentMap.get(projectID);
+                        //     const processedFields = componentMap.get(projectID);
 
-                            // Initialize imagesSet only once per project
-                            if (!processedFields.has('images')) {
-                                processedFields.add('images');
-                                processedFields.images = new Set(); // Store the Set as a property
-                            }
+                        //     // Initialize imagesSet only once per project
+                        //     if (!processedFields.has('images')) {
+                        //         processedFields.add('images');
+                        //         processedFields.images = new Set(); // Store the Set as a property
+                        //     }
 
-                            if (!processedFields.has('description')) {
-                                processedFields.add('description');
-                                processedFields.description = new Set(); // Store the Set as a property
-                            }
+                        //     if (!processedFields.has('description')) {
+                        //         processedFields.add('description');
+                        //         processedFields.description = new Set(); // Store the Set as a property
+                        //     }
                             
-                            const imagesSet = processedFields.images; // Access the Set via property
-                            const descriptionSet = processedFields.description; // Access the Set via property
+                        //     const imagesSet = processedFields.images; // Access the Set via property
+                        //     const descriptionSet = processedFields.description; // Access the Set via property
 
-                            // Check for new data and add rendering tasks to the queue
-                            for (const [key, value] of Object.entries(project)) {
-                                if (key === 'images' && Array.isArray(value)) {
-                                    for (const image of value) {
-                                        if (!imagesSet.has(image)) {
-                                            imagesSet.add(image);
+                        //     // Check for new data and add rendering tasks to the queue
+                        //     for (const [key, value] of Object.entries(project)) {
+                        //         if (key === 'images' && Array.isArray(value)) {
+                        //             for (const image of value) {
+                        //                 if (!imagesSet.has(image)) {
+                        //                     imagesSet.add(image);
 
-                                            projectRenderingQueue.push({
-                                                id: projectID,
-                                                key: 'images',
-                                                value: Array.from(imagesSet),
-                                                container: projectsContainer,
-                                                index: component.projects.indexOf(project)
-                                            });
+                        //                     projectRenderingQueue.push({
+                        //                         id: projectID,
+                        //                         key: 'images',
+                        //                         value: Array.from(imagesSet),
+                        //                         container: projectsContainer,
+                        //                         index: component.projects.indexOf(project)
+                        //                     });
 
-                                            if (!isProjectRendering) {
-                                                await renderNextProject();
-                                            }
-                                        }
-                                    }
-                                } else if (key === 'description' && Array.isArray(value)) {
-                                    for (const sentence of value) {
-                                        if (!descriptionSet.has(sentence)) {
-                                            descriptionSet.add(sentence);
+                        //                     if (!isProjectRendering) {
+                        //                         await renderNextProject();
+                        //                     }
+                        //                 }
+                        //             }
+                        //         } else if (key === 'description' && Array.isArray(value)) {
+                        //             for (const sentence of value) {
+                        //                 if (!descriptionSet.has(sentence)) {
+                        //                     descriptionSet.add(sentence);
 
-                                            projectRenderingQueue.push({
-                                                id: projectID,
-                                                key: 'description',
-                                                value: Array.from(descriptionSet),
-                                                container: projectsContainer,
-                                                index: component.projects.indexOf(project)
-                                            });
+                        //                     projectRenderingQueue.push({
+                        //                         id: projectID,
+                        //                         key: 'description',
+                        //                         value: Array.from(descriptionSet),
+                        //                         container: projectsContainer,
+                        //                         index: component.projects.indexOf(project)
+                        //                     });
 
-                                            if (!isProjectRendering) {
-                                                await renderNextProject();
-                                            }
-                                        }
-                                    }
+                        //                     if (!isProjectRendering) {
+                        //                         await renderNextProject();
+                        //                     }
+                        //                 }
+                        //             }
 
-                                } else if (value && !processedFields.has(key)) {
-                                    processedFields.add(key);
+                        //         } else if (value && !processedFields.has(key)) {
+                        //             processedFields.add(key);
 
-                                    // Push rendering task to the queue
-                                    projectRenderingQueue.push({
-                                        id: projectID,
-                                        key: key,
-                                        value: value,
-                                        container: projectsContainer,
-                                        index: component.projects.indexOf(project)
-                                    });
+                        //             // Push rendering task to the queue
+                        //             projectRenderingQueue.push({
+                        //                 id: projectID,
+                        //                 key: key,
+                        //                 value: value,
+                        //                 container: projectsContainer,
+                        //                 index: component.projects.indexOf(project)
+                        //             });
 
-                                    if (!isProjectRendering) {
-                                        await renderNextProject();
-                                    }
-                                }
-                            }
-                        }
+                        //             if (!isProjectRendering) {
+                        //                 await renderNextProject();
+                        //             }
+                        //         }
+                        //     }
+                        // }
                         break;
                     default:
                         console.warn('Unknown UIType:', component.UIType);
