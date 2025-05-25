@@ -919,102 +919,119 @@ exhibition_data_19 = {
     )
 }
 
-artworks_sorting_by_year_example = [
-    {
-        "UIType": "projects_list",
-        "layout": "grid",
-        "headline": "2019",
-        "projects": [artwork_data_blind]
-    },
-    {
-        "UIType": "projects_list",
-        "layout": "grid",
-        "headline": "2021",
-        "projects": [artwork_data_applikate]
-    },
-    {
-        "UIType": "projects_list",
-        "layout": "grid",
-        "headline": "2023",
-        "projects": [
-            artwork_data_einsatz,
-            artwork_data_flug,
-            artwork_data_ohne_titel,
-            artwork_data_hypo,
-            artwork_data_janus,
-            artwork_data_landschaft,
-            artwork_data_memoir,
-            artwork_data_neuanfang,
-            artwork_data_walden,
-            artwork_data_wild
-        ]
-    },
-    {
-        "UIType": "projects_list",
-        "layout": "grid",
-        "headline": "2024",
-        "projects": [
-            artwork_data_brechungen,
-            artwork_data_fortschritt_und_festgehalten,
-            artwork_data_onward,
-            artwork_data_vivarium
-        ]
-    }
-]
+artworks_sorted_by_year = {
+    2019: [
+        "Blind"
+    ],
+    2021: [
+        "Applikate"
+    ],
+    2023: [
+        "Einsatz",
+        "Flug",
+        "Ohne Titel",
+        "Hypo",
+        "Janus",
+        "Landschaft",
+        "Memoir",
+        "Neuanfang",
+        "Walden",
+        "Wild"
+    ],
+    2024: [
+        "Brechungen",
+        "Fortschritt und Festgehalten",
+        "Onward",
+        "Vivarium"
+    ]
+}
 
-artworks_sorting_by_material_example = [
-    {
-        "UIType": "projects_list",
-        "layout": "grid",
-        "headline": "Stucco Marble",
-        "projects": [
-            artwork_data_applikate,
-            artwork_data_einsatz,
-            artwork_data_flug,
-            artwork_data_fortschritt_und_festgehalten,
-            artwork_data_ohne_titel
-        ]
-    },
-    {
-        "UIType": "projects_list",
-        "layout": "grid",
-        "headline": "Wood",
-        "projects": [
-            artwork_data_hypo,
-            artwork_data_wild
-        ]
-    },
-    {
-        "UIType": "projects_list",
-        "layout": "grid",
-        "headline": "Video",
-        "projects": [
-            artwork_data_blind,
-            artwork_data_onward,
-            artwork_data_walden
-        ]
-    },
-    {
-        "UIType": "projects_list",
-        "layout": "grid",
-        "headline": "Photo",
-        "projects": [
-            artwork_data_brechungen,
-            artwork_data_memoir,
-            artwork_data_vivarium
-        ]
-    },
-    {
-        "UIType": "projects_list",
-        "layout": "grid",
-        "headline": "Mixed Media",
-        "projects": [
-            artwork_data_janus,
-            artwork_data_landschaft,
-            artwork_data_neuanfang
-        ]
-    }
-]
+artworks_sorted_by_material = {
+    "Stucco Marble": [
+        "Applikate",
+        "Einsatz",
+        "Flug",
+        "Fortschritt und Festgehalten",
+        "Ohne Titel"
+    ],
+    "Wood": [
+        "Hypo",
+        "Wild"
+    ],
+    "Video": [
+        "Blind",
+        "Onward",
+        "Walden"
+    ],
+    "Photo": [
+        "Brechungen",
+        "Memoir",
+        "Vivarium"
+    ],
+    "Mixed Media": [
+        "Janus",
+        "Landschaft",
+        "Neuanfang"
+    ]
+}
+
+artworks_sorted_by_theme = {
+    "Material and Transformation": [
+        "Applikate",
+        "Einsatz",
+        "Flug",
+        "Fortschritt und Festgehalten",
+        "Ohne Titel",
+        "Vivarium"
+    ],
+    "Memory and Time": [
+        "Brechungen",
+        "Memoir",
+        "Janus"
+    ],
+    "Body and Perception": [
+        "Blind",
+        "Hypo"
+    ],
+    "Nature and Landscape": [
+        "Landschaft",
+        "Walden",
+        "Wild"
+    ],
+    "Process and Installation": [
+        "Neuanfang"
+    ],
+    "Movement and Instinct": [
+        "Onward"
+    ]
+}
+
+artworks_sorted_by_size = {
+    "Small (under 50 cm)": [
+        "Flug",
+        "Brechungen",
+        "Blind"
+    ],
+    "Medium (50–150 cm)": [
+        "Hypo",
+        "Vivarium",
+        "Wild",
+        "Ohne Titel"
+    ],
+    "Large (over 150 cm)": [
+        "Einsatz",
+        "Landschaft",
+        "Walden"
+    ],
+    "Variable / Installation": [
+        "Applikate",
+        "Fortschritt und Festgehalten",
+        "Memoir",
+        "Neuanfang",
+        "Onward",
+        "Janus"
+    ]
+}
 
 # Export all data in a dictionary for easy importing
 data = {
@@ -1059,6 +1076,8 @@ data = {
     'exhibition_data_17': exhibition_data_17,
     'exhibition_data_18': exhibition_data_18,
     'exhibition_data_19': exhibition_data_19,
-    'artworks_sorting_by_year_example': artworks_sorting_by_year_example,
-    'artworks_sorting_by_material_example': artworks_sorting_by_material_example,
+    'artworks_sorted_by_year': artworks_sorted_by_year,
+    'artworks_sorted_by_material': artworks_sorted_by_material,
+    'artworks_sorted_by_theme': artworks_sorted_by_theme,
+    'artworks_sorted_by_size': artworks_sorted_by_size,
 }

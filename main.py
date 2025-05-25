@@ -249,9 +249,9 @@ class ArtworksLayout(str, Enum):
 class ArtworkComponent(BaseModel):
     UIType: Literal["artwork"] = Field(description="Indicates this is an artwork component that represents an artwork or installation")
     name: str = Field(description="Name of the artwork or artwork")
-    year: str = Field(description="Year the artwork was created")
-    material: str = Field(description="Primary material used in the artwork")
-    dimensions: str = Field(description="Physical dimensions of the artwork")
+    # year: str = Field(description="Year the artwork was created")
+    # material: str = Field(description="Primary material used in the artwork")
+    # dimensions: str = Field(description="Physical dimensions of the artwork")
     images: List[str] = Field(description="A list of URLs for images")
     # description: Optional[List[str]] = Field(
     #     description=(
