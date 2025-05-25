@@ -176,18 +176,19 @@ class ParagraphComponent(BaseModel):
     image: Optional[ImageComponent] = Field(
         description=(
             "IMPORTANT: Always try to include an image with a paragraph.\n"
-            "The image does not need to directly depict the content – choose based on mood, material, time period, place, process, or atmosphere.\n"
-            "This includes biographical content: if the paragraph is about a period in Oskar Schroeder's life (e.g. education or residency), use any image from that timeframe or from the studio or process images.\n"
-            "Only return null if truly no plausible match exists across all available image categories."
+            "Prioritize selecting the image that is *most closely* related to the paragraph content in terms of theme, mood, material, time period, process, or setting.\n"
+            "It does not have to depict the content literally, but the closest match should always be preferred.\n"
+            "This includes biographical or contextual text: for instance, use images from the corresponding timeframe, studio, or process when writing about a phase in Oskar Schroeder’s life or practice.\n"
+            "Only return null if **no suitable match** can be reasonably determined from all available image sources (e.g., process, studio, reference, sketches)."
         )
     )
     text: List[str] = Field(
         description=(
             "The text content of the paragraph. Each sentence should be a separate paragraph.\n\n"
-            "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "
+            "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, cities,organizations, institutions, "
             "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
             "For example: '[Muthesius University of Fine Arts]', '[HBK Braunschweig]', '[Thomas Rentmeister]', '[Elisabeth Wagner]', "
-            "'[Flensburg]', '[North Frisia]', '[Stucco marble]', '[New Materialism]', '[Karen Barad]', '[Kunstverein Braunschweig]', "
+            "'[Flensburg]', '[North Frisia]', '[Kiel]','[Stucco marble]', '[New Materialism]', '[Karen Barad]', '[Kunstverein Braunschweig]', "
             "'[Galerie KuCo]', '[Raum Links Rechts, Hamburg]', '[Galerie Ewelyn Drewes, Hamburg]', '[Prima Kunst Container]', "
             "'[Kunsthaus Kaufbeuren]', '[Galerie 21]', '[Vorwerkstift Hamburg]', '[Stadtgalerie Kiel]', '[Duborg Skolen]', "
             "'[Eckener Schule Flensburg]', '[Hannover Re]', '[Prospekt]', '[Maximiliansforum]', '[Galerie der Künstler]', "
