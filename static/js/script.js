@@ -322,32 +322,50 @@ function displayXButton() {
     const bottomNavigation = document.getElementById('bottom-navigation');
     const xButton = document.getElementById('x-button');
 
-     if (bottomNavigation.classList.contains('input-has-content-2')) {
+    if (!bottomNavigation.classList.contains('prompt-proposal-opening-2')) {
+        if (bottomNavigation.classList.contains('input-has-content-2')) {
 
-        bottomNavigation.classList.remove('input-has-content-2');
-        bottomNavigation.classList.add('input-has-content-1');
-
-        bottomNavigation.classList.add('streaming-1');
+            bottomNavigation.classList.remove('input-has-content-2');
+            bottomNavigation.classList.add('input-has-content-1');
+    
+            bottomNavigation.classList.add('streaming-1');
+    
+            setTimeout(() => {
+                bottomNavigation.classList.remove('input-has-content-1');
+    
+                bottomNavigation.classList.remove('streaming-1');
+                bottomNavigation.classList.add('streaming-2');
+            }, 100);
+         } else {
+            xButton.classList.add('rotate');
+            bottomNavigation.classList.remove('streaming-2');
+            bottomNavigation.classList.add('streaming-1');
+    
+            setTimeout(() => {
+                bottomNavigation.classList.remove('streaming-1');
+            }, 100);
+    
+            setTimeout(() => {
+                xButton.classList.remove('rotate');
+            }, 500);
+         } 
+    } else {
+        closePromptProposals();
 
         setTimeout(() => {
-            bottomNavigation.classList.remove('input-has-content-1');
-
-            bottomNavigation.classList.remove('streaming-1');
-            bottomNavigation.classList.add('streaming-2');
-        }, 100);
-     } else {
-        xButton.classList.add('rotate');
-        bottomNavigation.classList.remove('streaming-2');
-        bottomNavigation.classList.add('streaming-1');
-
-        setTimeout(() => {
-            bottomNavigation.classList.remove('streaming-1');
-        }, 100);
-
-        setTimeout(() => {
-            xButton.classList.remove('rotate');
-        }, 500);
-     }
+            bottomNavigation.classList.remove('input-has-content-2');
+            bottomNavigation.classList.add('input-has-content-1');
+    
+            bottomNavigation.classList.add('streaming-1');
+    
+            setTimeout(() => {
+                bottomNavigation.classList.remove('input-has-content-1');
+    
+                bottomNavigation.classList.remove('streaming-1');
+                bottomNavigation.classList.add('streaming-2');
+            }, 100);
+        }, 1000);
+    }
 }
 
 function startStreamingAnimation() {

@@ -279,10 +279,9 @@ class ArtworksList(BaseModel):
     layout: ArtworksLayout = Field(
         description=(
             "Display layout for artworks. "
-            "Use 'fullscreen' for detailed views of individual artworks. "
+            "Use 'fullscreen' when only a few artworks are shown and more detailed textual components are expected for each."
             "Use 'grid' layout when many artworks are shown, particularly in response to sorting, filtering, or overview requests "
             "(for example, 'sort artworks by year', 'show all artworks in wood'). "
-            "Use 'fullscreen' when only a few artworks are shown and more detailed textual components are expected for each."
         )
     )
     headline: Optional[str] = Field(

@@ -439,7 +439,7 @@ p {
   transition: all var(--animation-duration-1) ease-in-out;
 }
 .paragraph-image img.blur {
-  filter: blur(30px);
+  filter: blur(10px);
 }
 .paragraph-image img.no-opacity {
   opacity: 0;
@@ -840,7 +840,7 @@ p {
   scrollbar-width: none;
 }
 .fullscreen .project-images.blur {
-  filter: blur(30px);
+  filter: blur(10px);
 }
 .fullscreen .project-images::-webkit-scrollbar {
   display: none;
@@ -899,7 +899,7 @@ p {
   opacity: 0;
 }
 .fullscreen .img-element.blur {
-  filter: blur(30px);
+  filter: blur(10px);
 }
 .fullscreen .image-counter {
   grid-column: 2;
@@ -1060,7 +1060,7 @@ p {
   align-items: center;
 }
 .grid .project-images.blur {
-  filter: blur(30px);
+  filter: blur(10px);
 }
 .grid .project-images.no-height {
   height: 0px;

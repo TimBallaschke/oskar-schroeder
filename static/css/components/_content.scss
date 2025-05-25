@@ -179,7 +179,7 @@
 
 
         &.blur {
-            filter: blur(30px);
+            filter: blur(10px);
         }
 
         &.no-opacity {
@@ -613,7 +613,7 @@
         position: relative;
     
         &.blur {
-            filter: blur(30px);
+            filter: blur(10px);
         }
         
         /* Hide scrollbar for Chrome, Safari and Opera */
@@ -680,7 +680,7 @@
         }
 
         &.blur {
-            filter: blur(30px);
+            filter: blur(10px);
         }
     }
     
@@ -875,7 +875,7 @@
         align-items: center;
     
         &.blur {
-            filter: blur(30px);
+            filter: blur(10px);
         }
     
         &.no-height {
