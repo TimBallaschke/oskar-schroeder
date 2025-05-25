@@ -1052,6 +1052,10 @@
 .list-container {
     width: 100%;
 
+    &.margin-top {
+    margin-top: calc(var(--primary-line-height) * 2); 
+    }
+
     @include desktop-small {
         grid-column: 1 / 7;
     }
@@ -1064,6 +1068,14 @@
         grid-column: 1 / 7;
     }
 }
+
+.list-headline {
+    padding-bottom: 4px;
+    @include secondary-type;
+
+}
+
+
 
 .item-container {
     display: grid;

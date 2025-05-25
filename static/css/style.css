@@ -1220,6 +1220,9 @@ p {
 .list-container {
   width: 100%;
 }
+.list-container.margin-top {
+  margin-top: calc(var(--primary-line-height) * 2);
+}
 @media (min-width: 769px) and (max-width: 1024px) {
   .list-container {
     grid-column: 1/7;
@@ -1234,6 +1237,12 @@ p {
   .list-container {
     grid-column: 1/7;
   }
+}
+
+.list-headline {
+  padding-bottom: 4px;
+  font-size: var(--secondary-font-size);
+  letter-spacing: var(--secondary-letter-spacing);
 }
 
 .item-container {

@@ -204,7 +204,7 @@ class ListItem(BaseModel):
         description=(
             "A prefix for the list item. For example '2010', '2011', '2012' or '01', '02', '03' etc.\n"
             "IMPORTANT: Always use a prefix other than 0.\n"
-            "If the content relates to a chronological event (e.g. CV), use the appropriate year as prefix."
+            "If the content relates to a chronological event (e.g. CV), use the appropriate year as prefix. Otherwise simply number the list items."
         )
     )
     item: str = Field(

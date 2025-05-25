@@ -1022,7 +1022,59 @@ async function handleDelta(content) {
                             listContainer = document.createElement('div');
                             listContainer.classList.add('list-container');
                             listContainer.setAttribute('data-component-key', componentID);
+                            
+                            // Check if contentContainer already has children
+                            if (contentContainer.children.length > 0) {
+                                listContainer.classList.add('margin-top');
+                            }
+                            
                             contentContainer.appendChild(listContainer);
+                        }
+
+                        if (component.headline) {
+                                const headline = listContainer.querySelector('.list-headline');
+                                if (!headline) {
+                                    await new Promise((resolve) => {
+                                        const headline = document.createElement('div');
+                                        headline.classList.add('list-headline');
+                                        
+                                        // Instead of setting textContent directly, add words one by one
+                                        listContainer.appendChild(headline);
+                                        
+                                        // Split headline into words and add them one by one
+                                        const words = component.headline.split(' ');
+                                        let wordIndex = 0;
+                                        
+                                        function addNextHeadlineWord() {
+                                            if (wordIndex < words.length) {
+                                                if (wordIndex > 0) {
+                                                    headline.appendChild(document.createTextNode(' '));
+                                                }
+                                                
+                                                const wordSpan = document.createElement('span');
+                                                wordSpan.textContent = words[wordIndex];
+                                                wordSpan.classList.add('list-headline-word', 'light');
+                                                headline.appendChild(wordSpan);
+                                                
+                                                wordSpan.style.display = 'inline-block';
+                                                const lightWidth = wordSpan.getBoundingClientRect().width;
+                                                wordSpan.style.width = `${lightWidth}px`;
+                                                
+                                                setTimeout(() => {
+                                                    wordSpan.classList.remove('light');
+                                                }, 50);
+                                                
+                                                wordIndex++;
+                                                
+                                                setTimeout(addNextHeadlineWord, 50);
+                                            } else {
+                                                resolve();
+                                            }
+                                        }
+                                        
+                                        addNextHeadlineWord();
+                                    });
+                                }
                         }
 
                         if (!component.items) {
