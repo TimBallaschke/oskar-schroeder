@@ -272,11 +272,18 @@ class ArtworkComponent(BaseModel):
 class ArtworksList (BaseModel):
     UIType: Literal["projects_list"] = Field(description="Indicates this is an artworks list component for displaying a list of projects")
     layout: ArtworksLayout = Field(
-        default=ArtworksLayout.fullscreen,
+        default=ArtworksLayout.grid,
         description=(
-            "Display layout for artworks. Defaults to 'fullscreen' to show detailed views of individual artworks. "
+            "Display layout for artworks. Defaults to 'grid' to show detailed views of individual artworks. "
             "Switch to 'grid' layout only when the user explicitly requests an overview, filtering, or comparative view "
-            "(for example, 'show all artworks made out of wood')."
+            "(for example, 'sort artworks by year', 'sort artworks by material', 'sort artworks by theme')."
+        )
+    )
+    headline: Optional[str] = Field(
+        description=(
+            "A short, categorizing headline that helps contextualize the group of artworks shown. "
+            "Only include this if the user request implies a thematic, material-based, or temporal categorization. "
+            "Keep it concise and informative (e.g. 'Wood', '2023')."
         )
     )
     projects: List[ArtworkComponent] = Field(description="A list of artworks to be displayed")

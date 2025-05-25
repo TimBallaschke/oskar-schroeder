@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "original_folder": "250524p_Oskar_Website",
-  "snapshot_date_from_folder": "250524",
+  "original_folder": "250525_Oskar_Website_sorting_by_year",
+  "snapshot_date_from_folder": "250525",
   "source_files": [
     {
       "path": ".cursorignore",
@@ -26,23 +26,23 @@
     },
     {
       "path": "data.py",
-      "sha1": "6a4d17a7fed80ad8edc42a66a7e1d0102f649893",
-      "sha256": "6046af40a9a60b10e036c065e1e85114c5e7b742436bf11e676a6dc483f97122",
-      "size": 49773,
+      "sha1": "585ea63214230acfeacec862566a18836ac41443",
+      "sha256": "9a9778aaa5d2045b5c053d5773887557f5246121157c828f02de4e968e8c3a53",
+      "size": 49772,
       "mode": "100644"
     },
     {
       "path": "main.py",
-      "sha1": "66f1dfc95d7a96eea0cbfa3dcabecfef6177f627",
-      "sha256": "a77db4a5631bd5ff6d06be03b89ce05caceefc4b9a3aeebfb581169742a97274",
-      "size": 33233,
+      "sha1": "faadca67e3b034ae7f5f3238e9cfaadf06372be6",
+      "sha256": "b2a4564642e4e44fc15ba0ff9369e45a138e9766fced3700a5cbc82a3ef44ad9",
+      "size": 33624,
       "mode": "100644"
     },
     {
       "path": "prompts.py",
-      "sha1": "5f98ab0c844481a1100217508a4ad74730ed9007",
-      "sha256": "6c1950c9af4a811df50a6231427a4b95796ce205a089c88b01b110ae0678ed5f",
-      "size": 14869,
+      "sha1": "12387b2d28a02fd0967ca601b9846c86b9b6a006",
+      "sha256": "7b4743ca7d970ddd02fe7cdc8418f31355e351cfcf9bc3bfc49de9c9a13915c1",
+      "size": 15526,
       "mode": "100644"
     },
     {

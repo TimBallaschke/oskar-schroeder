@@ -406,7 +406,7 @@ artwork_data_3 = {
     "name": "Brechungen",
     "year": 2024,
     "material": "Frame, passe-partout, photo print",
-    "dimensions": "42×43 cm",
+    "dimensions": "42×43cm",
     "images": [
         {"url": "../static/assets/images/artworks/BrechungenZurHandgreiflichkeitDesDenkens/1.webp"},
         {"url": "../static/assets/images/artworks/BrechungenZurHandgreiflichkeitDesDenkens/2.png"}
