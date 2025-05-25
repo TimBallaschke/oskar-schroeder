@@ -360,7 +360,7 @@ images_for_paragraphs = {
     ]
 }
 
-artwork_data_1 = {
+artwork_data_applikate = {
     "name": "Applikate",
     "year": 2021,
     "material": "Concrete columns, stucco marble, plywood discs",
@@ -382,7 +382,7 @@ artwork_data_1 = {
     )
 }
 
-artwork_data_2 = {
+artwork_data_blind = {
     "name": "Blind",
     "year": 2019,
     "material": "Video",
@@ -402,7 +402,7 @@ artwork_data_2 = {
     )
 }
 
-artwork_data_3 = {
+artwork_data_brechungen = {
     "name": "Brechungen",
     "year": 2024,
     "material": "Frame, passe-partout, photo print",
@@ -422,7 +422,7 @@ artwork_data_3 = {
     )
 }
 
-artwork_data_4 = {
+artwork_data_einsatz = {
     "name": "Einsatz",
     "year": 2023,
     "material": "Mounting rails, stucco marble (gypsum, animal glue, blood, coal dust, wood dust, red ochre)",
@@ -442,10 +442,10 @@ artwork_data_4 = {
     )
 }
 
-artwork_data_5 = {
+artwork_data_flug = {
     "name": "Flug",
     "year": 2023,
-    "material": "gypsum, animal glue, coal dust, red ochre",
+    "material": "stucco marble (gypsum, animal glue, coal dust, red ochre)",
     "dimensions": "22×20×2.5 cm",
     "images": [
         {"url": "../static/assets/images/artworks/Flug/2.webp"},
@@ -460,10 +460,10 @@ artwork_data_5 = {
     )
 }
 
-artwork_data_6 = {
+artwork_data_fortschritt_und_festgehalten = {
     "name": "Fortschritt und Festgehalten",
     "year": 2024,
-    "material": "gypsum, animal glue, oil, wax, studio floor dust, pulverized coal, blood, pulverized wood",
+    "material": "stucco marble (gypsum, animal glue, oil, wax, studio floor dust, pulverized coal, blood, pulverized wood)",
     "dimensions": "Variable",
     "images": [
         {"url": "../static/assets/images/artworks/FortschrittUndFestgehalten/1.webp"},
@@ -482,10 +482,10 @@ artwork_data_6 = {
     )
 }
 
-artwork_data_7 = {
+artwork_data_ohne_titel = {
     "name": "Ohne Titel",
     "year": 2023,
-    "material": "gypsum, animal glue, coal dust, red ochre",
+    "material": "stucco marble (gypsum, animal glue, coal dust, red ochre)",
     "dimensions": "170×100×3cm",
     "images": [
         {"url": "../static/assets/images/artworks/OhneTitel/1.webp"}
@@ -499,10 +499,10 @@ artwork_data_7 = {
     )
 }
 
-artwork_data_8 = {
+artwork_data_hypo = {
     "name": "Hypo",
     "year": 2023,
-    "material": "Poplar wood",
+    "material": "Wood",
     "dimensions": "55×20×60cm",
     "images": [
         {"url": "../static/assets/images/artworks/Hypo/1.jpg"},
@@ -519,7 +519,7 @@ artwork_data_8 = {
     )
 }
 
-artwork_data_9 = {
+artwork_data_janus = {
     "name": "Janus",
     "year": 2023,
     "material": "Fountain, water, pump",
@@ -538,7 +538,7 @@ artwork_data_9 = {
     )
 }
 
-artwork_data_10 = {
+artwork_data_landschaft = {
     "name": "Landschaft",
     "year": 2023,
     "material": "Canvas fabric",
@@ -557,7 +557,7 @@ artwork_data_10 = {
     )
 }
 
-artwork_data_11 = {
+artwork_data_memoir = {
     "name": "Memoir",
     "year": 2023,
     "material": "Photo prints, foils, glass plates",
@@ -582,7 +582,7 @@ artwork_data_11 = {
     )
 }
 
-artwork_data_12 = {
+artwork_data_neuanfang = {
     "name": "Neuanfang",
     "year": 2023,
     "material": "Various materials",
@@ -601,7 +601,7 @@ artwork_data_12 = {
     )
 }
 
-artwork_data_13 = {
+artwork_data_onward = {
     "name": "Onward",
     "year": 2024,
     "material": "Video loop",
@@ -622,7 +622,7 @@ artwork_data_13 = {
     )
 }
 
-artwork_data_14 = {
+artwork_data_vivarium = {
     "name": "Vivarium",
     "year": 2024,
     "material": "Drywall, glass, photo prints, studio dust",
@@ -644,7 +644,7 @@ artwork_data_14 = {
     )
 }
 
-artwork_data_15 = {
+artwork_data_walden = {
     "name": "Walden",
     "year": 2023,
     "material": "Video",
@@ -667,7 +667,7 @@ artwork_data_15 = {
     )
 }
 
-artwork_data_16 = {
+artwork_data_wild = {
     "name": "Wild",
     "year": 2023,
     "material": "Wood",
@@ -919,7 +919,102 @@ exhibition_data_19 = {
     )
 }
 
+artworks_sorting_by_year_example = [
+    {
+        "UIType": "projects_list",
+        "layout": "grid",
+        "headline": "2019",
+        "projects": [artwork_data_blind]
+    },
+    {
+        "UIType": "projects_list",
+        "layout": "grid",
+        "headline": "2021",
+        "projects": [artwork_data_applikate]
+    },
+    {
+        "UIType": "projects_list",
+        "layout": "grid",
+        "headline": "2023",
+        "projects": [
+            artwork_data_einsatz,
+            artwork_data_flug,
+            artwork_data_ohne_titel,
+            artwork_data_hypo,
+            artwork_data_janus,
+            artwork_data_landschaft,
+            artwork_data_memoir,
+            artwork_data_neuanfang,
+            artwork_data_walden,
+            artwork_data_wild
+        ]
+    },
+    {
+        "UIType": "projects_list",
+        "layout": "grid",
+        "headline": "2024",
+        "projects": [
+            artwork_data_brechungen,
+            artwork_data_fortschritt_und_festgehalten,
+            artwork_data_onward,
+            artwork_data_vivarium
+        ]
+    }
+]
 
+artworks_sorting_by_material_example = [
+    {
+        "UIType": "projects_list",
+        "layout": "grid",
+        "headline": "Stucco Marble",
+        "projects": [
+            artwork_data_applikate,
+            artwork_data_einsatz,
+            artwork_data_flug,
+            artwork_data_fortschritt_und_festgehalten,
+            artwork_data_ohne_titel
+        ]
+    },
+    {
+        "UIType": "projects_list",
+        "layout": "grid",
+        "headline": "Wood",
+        "projects": [
+            artwork_data_hypo,
+            artwork_data_wild
+        ]
+    },
+    {
+        "UIType": "projects_list",
+        "layout": "grid",
+        "headline": "Video",
+        "projects": [
+            artwork_data_blind,
+            artwork_data_onward,
+            artwork_data_walden
+        ]
+    },
+    {
+        "UIType": "projects_list",
+        "layout": "grid",
+        "headline": "Photo",
+        "projects": [
+            artwork_data_brechungen,
+            artwork_data_memoir,
+            artwork_data_vivarium
+        ]
+    },
+    {
+        "UIType": "projects_list",
+        "layout": "grid",
+        "headline": "Mixed Media",
+        "projects": [
+            artwork_data_janus,
+            artwork_data_landschaft,
+            artwork_data_neuanfang
+        ]
+    }
+]
 
 # Export all data in a dictionary for easy importing
 data = {
@@ -929,22 +1024,22 @@ data = {
     'material_philosophy': material_philosophy,
     'media_background': media_background,
     'images_for_paragraphs': images_for_paragraphs,
-    'artwork_data_1': artwork_data_1,
-    'artwork_data_2': artwork_data_2,
-    'artwork_data_3': artwork_data_3,
-    'artwork_data_4': artwork_data_4,
-    'artwork_data_5': artwork_data_5,
-    'artwork_data_6': artwork_data_6,
-    'artwork_data_7': artwork_data_7,
-    'artwork_data_8': artwork_data_8,
-    'artwork_data_9': artwork_data_9,
-    'artwork_data_10': artwork_data_10,
-    'artwork_data_11': artwork_data_11,
-    'artwork_data_12': artwork_data_12,
-    'artwork_data_13': artwork_data_13,
-    'artwork_data_14': artwork_data_14,
-    'artwork_data_15': artwork_data_15,
-    'artwork_data_16': artwork_data_16,
+    'artwork_data_applikate': artwork_data_applikate,
+    'artwork_data_blind': artwork_data_blind,
+    'artwork_data_brechungen': artwork_data_brechungen,
+    'artwork_data_einsatz': artwork_data_einsatz,
+    'artwork_data_flug': artwork_data_flug,
+    'artwork_data_fortschritt_und_festgehalten': artwork_data_fortschritt_und_festgehalten,
+    'artwork_data_ohne_titel': artwork_data_ohne_titel,
+    'artwork_data_hypo': artwork_data_hypo,
+    'artwork_data_janus': artwork_data_janus,
+    'artwork_data_landschaft': artwork_data_landschaft,
+    'artwork_data_memoir': artwork_data_memoir,
+    'artwork_data_neuanfang': artwork_data_neuanfang,
+    'artwork_data_onward': artwork_data_onward,
+    'artwork_data_vivarium': artwork_data_vivarium,
+    'artwork_data_walden': artwork_data_walden,
+    'artwork_data_wild': artwork_data_wild,
     'exhibition_data_1': exhibition_data_1,
     'exhibition_data_2': exhibition_data_2,
     'exhibition_data_3': exhibition_data_3,
@@ -964,4 +1059,6 @@ data = {
     'exhibition_data_17': exhibition_data_17,
     'exhibition_data_18': exhibition_data_18,
     'exhibition_data_19': exhibition_data_19,
+    'artworks_sorting_by_year_example': artworks_sorting_by_year_example,
+    'artworks_sorting_by_material_example': artworks_sorting_by_material_example,
 }

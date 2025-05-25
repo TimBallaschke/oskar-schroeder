@@ -712,7 +712,7 @@ function animateInputPlaceholder() {
 // --------------------------------------------------------------------------------------------
 
 async function handleDelta(content) {
-    // console.log("Received delta:", content);
+    console.log("Received delta:", content);
 
     renderingQueue.push(content);
 

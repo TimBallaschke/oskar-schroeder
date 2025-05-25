@@ -253,21 +253,22 @@ class ArtworkComponent(BaseModel):
     material: str = Field(description="Primary material used in the artwork")
     dimensions: str = Field(description="Physical dimensions of the artwork")
     images: List[str] = Field(description="A list of URLs for images")
-    description: List[str] = Field(
-        description=(
-            "An artwork description.\n\n"
-            "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "
-            "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
-            "For example: '[Muthesius University of Fine Arts]', '[HBK Braunschweig]', '[Thomas Rentmeister]', '[Elisabeth Wagner]', "
-            "'[Flensburg]', '[North Frisia]', '[Stucco marble]', '[New Materialism]', '[Karen Barad]', '[Kunstverein Braunschweig]', "
-            "'[Galerie KuCo]', '[Raum Links Rechts, Hamburg]', '[Galerie Ewelyn Drewes, Hamburg]', '[Prima Kunst Container]', "
-            "'[Kunsthaus Kaufbeuren]', '[Galerie 21]', '[Vorwerkstift Hamburg]', '[Stadtgalerie Kiel]', '[Duborg Skolen]', "
-            "'[Eckener Schule Flensburg]', '[Hannover Re]', '[Prospekt]', '[Maximiliansforum]', '[Galerie der Künstler]', "
-            "'[Beaux‑Arts Nantes Saint‑Nazaire]', '[Regine Schulz]', '[Mats Hoff]', '[Janosch Heydorn]', '[Karin Kamolz]', "
-            "'[Corinna Schnitt]', '[Jan Kochermann]', '[BKH Gutmann]', '[Axel Loytved]', '[Olaf Metzel]', '[Georg Winter]'.\n\n"
-            "Important: The artist's name 'Oskar Schroeder' should **never** be wrapped in brackets."
-        )
-    )
+    # description: Optional[List[str]] = Field(
+    #     description=(
+    #         "An artwork description.\n\n"
+    #         "An artwork description should only be provided if the artworks are displayed fullscreen.\n\n"
+    #         "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "
+    #         "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
+    #         "For example: '[Muthesius University of Fine Arts]', '[HBK Braunschweig]', '[Thomas Rentmeister]', '[Elisabeth Wagner]', "
+    #         "'[Flensburg]', '[North Frisia]', '[Stucco marble]', '[New Materialism]', '[Karen Barad]', '[Kunstverein Braunschweig]', "
+    #         "'[Galerie KuCo]', '[Raum Links Rechts, Hamburg]', '[Galerie Ewelyn Drewes, Hamburg]', '[Prima Kunst Container]', "
+    #         "'[Kunsthaus Kaufbeuren]', '[Galerie 21]', '[Vorwerkstift Hamburg]', '[Stadtgalerie Kiel]', '[Duborg Skolen]', "
+    #         "'[Eckener Schule Flensburg]', '[Hannover Re]', '[Prospekt]', '[Maximiliansforum]', '[Galerie der Künstler]', "
+    #         "'[Beaux‑Arts Nantes Saint‑Nazaire]', '[Regine Schulz]', '[Mats Hoff]', '[Janosch Heydorn]', '[Karin Kamolz]', "
+    #         "'[Corinna Schnitt]', '[Jan Kochermann]', '[BKH Gutmann]', '[Axel Loytved]', '[Olaf Metzel]', '[Georg Winter]'.\n\n"
+    #         "Important: The artist's name 'Oskar Schroeder' should **never** be wrapped in brackets."
+    #     )
+    # )
 
 class ArtworksList (BaseModel):
     UIType: Literal["projects_list"] = Field(description="Indicates this is an artworks list component for displaying a list of projects")
@@ -301,7 +302,7 @@ class Response_1(BaseModel):
             "Limit to a maximum of 2 words."
         )
     )
-    components: List[Union[HeadlineComponent, ParagraphComponent, ListComponent, TableComponent, ArtworksList]] = Field(
+    components: List[Union[ParagraphComponent, ListComponent, TableComponent, ArtworksList]] = Field(
         description="List of UI components that make up the response"
     )
 
