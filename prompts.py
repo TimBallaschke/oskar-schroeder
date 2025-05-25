@@ -52,7 +52,8 @@ SYSTEM_PROMPT_1 = {
         f"Artwork Walden: {data['artwork_data_walden']}\n"
         f"Artwork Wild: {data['artwork_data_wild']}\n"
         "\n"
-        "When sorting or grouping artworks (e.g. by year, material, theme, size), return the result using multiple 'projects_list' components with 'grid' layout—one per category. Each 'projects_list' must have a clear headline like '2023', 'Wood', or 'Photo' to indicate the group..\n"
+        "When the user explicitly asks to sort or group artworks (e.g. 'Sort by year', 'Group the artworks by material'), respond using multiple 'projects_list' components in 'grid' layout — one per category. Each group must have a clear 'headline' such as '2023', 'Wood', or 'Photo'.\n"
+        "If no such sorting or grouping request is made, return a single 'projects_list' to display the artworks without categorization.\n"
         "Example of artworks sorted/ordered/grouped by year/time period:\n"
         f"{data['artworks_sorted_by_year']}\n\n"
         "Example of artworks sorted/ordered/grouped by material:\n"
@@ -61,7 +62,8 @@ SYSTEM_PROMPT_1 = {
         f"{data['artworks_sorted_by_theme']}\n\n"
         "Example of artworks sorted/ordered/grouped by size:\n"
         f"{data['artworks_sorted_by_size']}\n\n"
-        "If the user provides the name of a single artwork (e.g. 'Applikate', 'Blind'), return that artwork as a single 'projects_list' component with 'fullscreen' layout.\n"
+        "If the user provides the name of a single artwork (e.g. 'Applikate', 'Blind'), return that artwork as a single 'projects_list' component with 'fullscreen' layout. This is used for focused, detailed presentation of one or very few works.\n"
+        "If the user asks specifically about one or a few artworks, or clearly references a specific category (e.g. 'Can you show me the stucco marble works?', or 'Show details of early works'), present the results in a 'projects_list' component with 'fullscreen' layout. This format emphasizes detailed, immersive viewing for focused or narrowed-down queries.\n\n"
 
 
         "Available information about exhibitions:\n"

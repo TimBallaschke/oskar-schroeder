@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250525h_Oskar_Website",
+  "original_folder": "250525i_Oskar_Website_no_message_history",
   "snapshot_date_from_folder": "250525",
   "source_files": [
     {
@@ -40,9 +40,9 @@
     },
     {
       "path": "prompts.py",
-      "sha1": "fafc48ee7dd0d78ff668de8b6f98186d30014141",
-      "sha256": "417d42c42b5a3bce07e360bc0c62c05e43d0432d5261d9e613a4180b7c497433",
-      "size": 16373,
+      "sha1": "89a56d89042883c77be27faaedcbcea73879ffe6",
+      "sha256": "a14ecb72b4c99c62d9e200a140515cd2f8a1ff25604505e283b2e38b88294003",
+      "size": 16955,
       "mode": "100644"
     },
     {
