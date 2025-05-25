@@ -322,7 +322,10 @@ function displayXButton() {
     const bottomNavigation = document.getElementById('bottom-navigation');
     const xButton = document.getElementById('x-button');
 
+    
+
     if (bottomNavigation.classList.contains('prompt-proposal-opening-2')) {
+        
         console.log('prompt-proposal-opening-2');
         bottomNavigation.classList.remove('prompt-proposal-opening-2', 'input-has-content-2');
         bottomNavigation.classList.add('prompt-proposal-opening-1', 'input-has-content-1');
@@ -336,7 +339,7 @@ function displayXButton() {
         }, 200);
 
     } else if (bottomNavigation.classList.contains('input-has-content-2')) {
-
+        console.log('displayXButton');
         bottomNavigation.classList.remove('input-has-content-2');
         bottomNavigation.classList.add('input-has-content-1');
 
@@ -349,6 +352,7 @@ function displayXButton() {
             bottomNavigation.classList.add('streaming-2');
         }, 100);
     } else {
+        
         xButton.classList.add('rotate');
         bottomNavigation.classList.remove('streaming-2');
         bottomNavigation.classList.add('streaming-1');
@@ -408,9 +412,13 @@ function stopAnimateInput() {
 
         setTimeout(() => {
             userInput.value = '';
-            displayXButton();
             userInput.classList.remove('no-opacity');
+            inputAdded();
         }, 500);
+
+        setTimeout(() => {
+            displayXButton();
+        }, 800);
 
         setTimeout(() => {
             userInput.classList.remove('animation-settings-2');
@@ -432,9 +440,13 @@ function stopAnimateInput() {
     
             setTimeout(() => {
                 userInput.value = '';
-                displayXButton();
                 userInput.classList.remove('no-opacity');
+                inputAdded();
             }, 500);
+
+            setTimeout(() => {
+                displayXButton();
+            }, 800);
 
             setTimeout(() => {
                 userInput.classList.remove('animation-settings-2');
