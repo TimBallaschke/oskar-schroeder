@@ -246,6 +246,7 @@ let isStreaming = false;
 let placeholderAnimationActive = true;
 
 // Websearch
+let webSearchEventSource = null;
 let isWebsearchStreamingURL = false;
 let websearchBuffer = '';
 let websearchWordQueue = [];
@@ -3405,7 +3406,6 @@ function activateTermDescription() {
                     termForWebsearch += word.textContent;
                 });
                 
-                console.log('Term for websearch:', termForWebsearch);
                 requestWebsearch(termForWebsearch, termDescriptionNumberContainer);
             }
         });
@@ -3457,14 +3457,14 @@ function startStreamingWebsearch() {
     console.log("startStreamingWebsearch");
 
     // Close any existing EventSource connection
-    if (activeEventSource) {
-        activeEventSource.close();
+    if (webSearchEventSource) {
+        webSearchEventSource.close();
         console.log("Closed previous activeEventSource connection.");
     }
 
-    activeEventSource = new EventSource("/stream4"); // creates a new EventSource connection to the "/stream" endpoint. activeEventSource is used for Server-Sent Events (SSE), allowing the server to push data to the client in real-time over a single, long-lived connection
+    webSearchEventSource = new EventSource("/stream4"); // creates a new EventSource connection to the "/stream" endpoint. activeEventSource is used for Server-Sent Events (SSE), allowing the server to push data to the client in real-time over a single, long-lived connection
 
-    activeEventSource.onmessage = function(event) { // eventhandler that will be called whenever a message is received from the server
+    webSearchEventSource.onmessage = function(event) { // eventhandler that will be called whenever a message is received from the server
         const data = JSON.parse(event.data); // parsed the received message data from JSON string format to a JavaScript object
 
         switch(data.type) { // switch statement to handle different types of messages (switch statement is used to handle different cases based on the value of a variable -> alternative to if-else statements)
@@ -3473,21 +3473,21 @@ function startStreamingWebsearch() {
                 break;
             case 'complete': // if the message type is 'complete', it calls the handleComplete function
                 finalizeWebsearch(); // ensure the last word of the websearch is processed
-                activeEventSource.close();
-                activeEventSource = null;
+                webSearchEventSource.close();
+                webSearchEventSource = null;
                 break;
             case "error": // if the message type is 'error', it logs the error to the console and closes the event source
                 console.error("Error:", data.content);
-                activeEventSource.close();
-                activeEventSource = null;
+                webSearchEventSource.close();
+                webSearchEventSource = null;
                 break;
         }
     };
 
-    activeEventSource.onerror = function (error) { // eventhandler that will be called if an error occurs with the event source
+    webSearchEventSource.onerror = function (error) { // eventhandler that will be called if an error occurs with the event source
         console.error("activeEventSource failed:", error);
-        activeEventSource.close();
-        activeEventSource = null;
+        webSearchEventSource.close();
+        webSearchEventSource = null;
     };
 }
 
