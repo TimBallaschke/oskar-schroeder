@@ -1526,6 +1526,9 @@ input {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
+.input-has-content-2 #send-button:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+}
 #send-button.display-none {
   display: none;
 }
@@ -1552,7 +1555,7 @@ input {
   left: 50%;
   height: 52%;
   transform: translateX(-50%);
-  width: 1px;
+  border-right: 1px solid black;
   background-color: black;
 }
 
@@ -1561,6 +1564,9 @@ input {
   transform-origin: center center;
   transition: all var(--animation-duration-1) ease-in-out;
   opacity: 1;
+}
+#plus-minus-button:hover {
+  transform: translate(-50%, -50%) scale(1.2);
 }
 .input-has-content-1 #plus-minus-button {
   display: block;
@@ -1622,6 +1628,9 @@ input {
 .streaming-2 #x-button {
   display: block;
   transform: translate(-50%, -50%) scale(1) rotate(45deg);
+}
+.streaming-2 #x-button:hover {
+  transform: translate(-50%, -50%) scale(1.2);
 }
 #x-button.rotate {
   transform: translate(-50%, -50%) scale(1) rotate(0deg);

@@ -207,6 +207,7 @@ input {
   position: absolute;
   top: 50%;
   left: 50%;
+
 }
 
 #send-button {
@@ -226,6 +227,10 @@ input {
     display: block;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
+
+    &:hover {
+      transform: translate(-50%, -50%) scale(1.2);
+    }
   }
 
   &.display-none {
@@ -256,7 +261,7 @@ input {
   left: 50%;
   height: 52%;
   transform: translateX(-50%);
-  width: 1px;
+  border-right: 1px solid black;
   background-color: black;
 }
 
@@ -266,7 +271,11 @@ input {
   transform-origin: center center;
   transition: all var(--animation-duration-1) ease-in-out;
   opacity: 1;
-  // display: none;
+
+  &:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  
 
   .input-has-content-1 & {
     display: block;
@@ -336,6 +345,10 @@ input {
   .streaming-2 & {
     display: block;
     transform: translate(-50%, -50%) scale(1) rotate(45deg);
+
+    &:hover {
+      transform: translate(-50%, -50%) scale(1.2);
+    }
   }
 
   &.rotate {
