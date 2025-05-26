@@ -1015,46 +1015,7 @@ async function handleDelta(content) {
                                                             termDescriptionNumber.classList.remove('light');
                                                         }, 10);
 
-                                                        setTimeout(() => {
-                                                            termDescriptionNumberContainer.addEventListener('click', () => {
-                                                                const termContainer = termDescriptionNumberContainer.previousElementSibling;
-                                                                let termForWebsearch = '';
-                                                    
-                                                                if (window.innerWidth <= mobileWidth) {
-                                                                    const websearchColumn = document.querySelector('.websearch-column');
-                                                                    websearchColumn.classList.add('translate-x');
-                                                                    contentContainer.classList.add('translate-x');
-                                                    
-                                                                    setTimeout(() => {
-                                                                        contentContainer.addEventListener('click', () => {
-                                                                            websearchColumn.classList.remove('translate-x');
-                                                                            contentContainer.classList.remove('translate-x');
-                                                                        }, {once: true});
-                                                                    }, 1000);
-                                                                }
-                                                    
-                                                                // Check if term was activated already or if there might be a websearch going on at the moment
-                                                                if (!termDescriptionNumberContainer.classList.contains('active') && !currentWebsearchTerm) {
-                                                                    termDescriptionNumberContainer.classList.add('active');
-                                                                    currentWebsearchTerm = termContainer;
-                                                    
-                                                    
-                                                                    const termWords = termContainer.querySelectorAll('.word');
-                                                                            
-                                                                    // Combine all term words into termForWebsearch
-                                                                    termWords.forEach(word => {
-                                                                        // Add the word text to termForWebsearch
-                                                                        // If it's not the first word, add a space before it
-                                                                        if (termForWebsearch !== '') {
-                                                                            termForWebsearch += ' ';
-                                                                        }
-                                                                        termForWebsearch += word.textContent;
-                                                                    });
-                                                                    
-                                                                    requestWebsearch(termForWebsearch, termDescriptionNumberContainer);
-                                                                }
-                                                            });
-                                                        }, animationDuration);
+                                                        termDescriptionNumberContainer.addEventListener('click', handleTermClick);
 
                                                         partIndex++;
                                                         setTimeout(processNextPart, 10);
@@ -1333,6 +1294,8 @@ async function handleDelta(content) {
                                                         setTimeout(() => {
                                                             numberContainer.classList.remove('small');
                                                             numberSpan.classList.remove('light');
+
+                                                            numberContainer.addEventListener('click', handleTermClick);
                                                         }, 10);
                                                     }
                             
@@ -1525,6 +1488,8 @@ async function handleDelta(content) {
                                                                     setTimeout(() => {
                                                                         numberContainer.classList.remove('small');
                                                                         numberSpan.classList.remove('light');
+
+                                                                        numberContainer.addEventListener('click', handleTermClick);
                                                                     }, 10);
                                                                 }
                                     
@@ -2373,6 +2338,8 @@ async function renderNextProject() {
                                                                 setTimeout(() => {
                                                                     termDescriptionNumberContainer.classList.remove('small');
                                                                     termDescriptionNumber.classList.remove('light');
+                                                                    
+                                                                    termDescriptionNumberContainer.addEventListener('click', handleTermClick);
                                                                 }, 10);
         
                                                                 partIndex++;
@@ -3408,12 +3375,45 @@ function removePromptAnimations() {
 // WEBSEARCH
 // --------------------------------------------------------------------------------------------
 
-function activateTermDescription() {
-    const termsDescriptionNumberContainers = document.querySelectorAll('.term-description-number-container');
+function handleTermClick(event) {
+                                                            
+    const termDescriptionNumberContainer = this;
+    const termContainer = termDescriptionNumberContainer.previousElementSibling;
+    let termForWebsearch = '';
 
-    termsDescriptionNumberContainers.forEach(termDescriptionNumberContainer => {
+    if (window.innerWidth <= mobileWidth) {
+        const websearchColumn = document.querySelector('.websearch-column');
+        websearchColumn.classList.add('translate-x');
+        contentContainer.classList.add('translate-x');
 
-    });
+        setTimeout(() => {
+            contentContainer.addEventListener('click', () => {
+                websearchColumn.classList.remove('translate-x');
+                contentContainer.classList.remove('translate-x');
+            }, {once: true});
+        }, 1000);
+    }
+
+    // Check if term was activated already or if there might be a websearch going on at the moment
+    if (!termDescriptionNumberContainer.classList.contains('active') && !currentWebsearchTerm) {
+        termDescriptionNumberContainer.classList.add('active');
+        currentWebsearchTerm = termContainer;
+
+
+        const termWords = termContainer.querySelectorAll('.word');
+                
+        // Combine all term words into termForWebsearch
+        termWords.forEach(word => {
+            // Add the word text to termForWebsearch
+            // If it's not the first word, add a space before it
+            if (termForWebsearch !== '') {
+                termForWebsearch += ' ';
+            }
+            termForWebsearch += word.textContent;
+        });
+        
+        requestWebsearch(termForWebsearch, termDescriptionNumberContainer);
+    }
 }
 
 function requestWebsearch(termForWebsearch, termDescriptionNumberContainer) {

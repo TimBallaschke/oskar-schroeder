@@ -232,16 +232,16 @@ class TableComponent(BaseModel):
     headers: List[str] = Field(description="Column headers for the table. Headers should be single words when possible")
     rows: List[List[str]] = Field(
         description="Rows of data, where each row is a list of strings\n\n"
-                    "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, organizations, institutions, "
+                    "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, cities, organizations, institutions, "
                     "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
-                    "For example: '[Muthesius University of Fine Arts]', '[HBK Braunschweig]', '[Thomas Rentmeister]', '[Elisabeth Wagner]', "
-                    "'[Flensburg]', '[North Frisia]', '[Stucco marble]', '[New Materialism]', '[Karen Barad]', '[Kunstverein Braunschweig]', "
-                    "'[Galerie KuCo]', '[Raum Links Rechts, Hamburg]', '[Galerie Ewelyn Drewes, Hamburg]', '[Prima Kunst Container]', "
-                    "'[Kunsthaus Kaufbeuren]', '[Galerie 21]', '[Vorwerkstift Hamburg]', '[Stadtgalerie Kiel]', '[Duborg Skolen]', "
-                    "'[Eckener Schule Flensburg]', '[Hannover Re]', '[Prospekt]', '[Maximiliansforum]', '[Galerie der Künstler]', "
-                    "'[Beaux‑Arts Nantes Saint‑Nazaire]', '[Regine Schulz]', '[Mats Hoff]', '[Janosch Heydorn]', '[Karin Kamolz]', "
-                    "'[Corinna Schnitt]', '[Jan Kochermann]', '[BKH Gutmann]', '[Axel Loytved]', '[Olaf Metzel]', '[Georg Winter]'.\n\n"
-                    "Important: The artist's name 'Oskar Schroeder' should **never** be wrapped in brackets.")
+                    "IMPORTANT — BRACKETING RULES:\n"
+                    "• Wrap proper names in square brackets.\n"
+                    "• This includes:\n"
+                    "  – Individuals (e.g., [Thomas Rentmeister], [Karen Barad], [Elisabeth Wagner], [Jan Kochermann], [Corinna Schnitt], [Axel Loytved], [Janosch Heydorn],[BKH Gutmann], [Olaf Metzel], [Georg Winter], [Karin Kamolz])\n"
+                    "  – Cities and locations (e.g., [Flensburg], [North Frisia])\n"
+                    "  – Institutions and organizations (e.g., [Muthesius University of Fine Arts],[Galerie Ewelyn Drewes, Hamburg],[Kunsthaus Kaufbeuren], [HBK Braunschweig], [Galerie KuCo Flensburg], [Maximiliansforum], [Prima Kunst Container Kiel], [Hannover Re],[Kunstverein Braunschweig], [Galerie 21 Vorwerkstift Hamburg], [Raum Links Rechts, Hamburg], [Duborg Skolen], [Eckener Schule Flensburg])\n"
+                    "  – Cultural and historical references (e.g., [New Materialism], [Stucco marble], [Beaux‑Arts Nantes Saint‑Nazaire])\n"
+                    "• DO NOT bracket the artist’s name. Always write: Oskar Schroeder (without brackets).\n\n")
 
 class ArtworksLayout(str, Enum):
     fullscreen = "fullscreen"
