@@ -3308,8 +3308,12 @@ function togglePromptProposals() {
         setTimeout(() => {
             bottomNavigation.classList.remove('prompt-proposal-opening-1');
             bottomNavigation.classList.add('prompt-proposal-opening-2');
-            setupPromptAnimations();
+            
         }, animationDuration);
+
+        setTimeout(() => {
+            setupPromptAnimations();
+        }, animationDuration * 8);
 
     } else {
         bottomNavigation.classList.remove('prompt-proposal-opening-2');
@@ -3335,33 +3339,58 @@ function closePromptProposals() {
 // Animate prompt proposals horizontally if to long for the container
 
 function setupPromptAnimations() {
-  document.querySelectorAll('.prompt-proposal').forEach(el => {
-    const container = el.parentElement;
-  
-    // Wait until layout is stable
-    requestAnimationFrame(() => {
-      if (el.scrollWidth > container.clientWidth) {
-        const scrollDistance = container.clientWidth - el.scrollWidth;
-  
-        // Set custom property dynamically
-        el.style.setProperty('--scroll-distance', `${scrollDistance}px`);
-  
-        // Adjust duration based on distance (optional)
-        const baseDuration = 0.2; // seconds per pixel
-        const duration = Math.abs(scrollDistance) * baseDuration;
-        el.style.setProperty('--scroll-duration', `${duration}s`);
-  
-        el.classList.add('animate-scroll');
-      }
+    document.querySelectorAll('.prompt-proposal').forEach(el => {
+      const container = el.parentElement;
+    
+      // Wait until layout is stable
+      requestAnimationFrame(() => {
+        if (el.scrollWidth > container.clientWidth) {
+          const scrollDistance = container.clientWidth - el.scrollWidth;
+    
+          // Set custom property dynamically
+          el.style.setProperty('--scroll-distance', `${scrollDistance}px`);
+    
+          // Adjust duration based on distance
+          const baseDuration = 0.125; // seconds per pixel
+          const duration = Math.abs(scrollDistance) * baseDuration;
+          const durationMS = duration * 1000;
+          el.style.setProperty('--scroll-duration', `${duration}s`);
+    
+          // Initial animation
+          el.classList.add('animate-scroll');
+          
+          // Add a pause between animations
+          const pauseDuration = 2000; // 2 seconds pause between animations
+          const totalCycleDuration = durationMS + pauseDuration;
+          
+          // Set up interval to toggle the animation class
+          const animationInterval = setInterval(() => {
+            // Remove class (stops animation)
+            el.classList.remove('animate-scroll');
+            
+            // Add small delay before restarting animation
+            setTimeout(() => {
+              el.classList.add('animate-scroll');
+            }, pauseDuration);
+            
+          }, totalCycleDuration);
+          
+          // Store the interval ID on the element for cleanup if needed
+          el.animationInterval = animationInterval;
+        }
+      });
     });
-  });
-}
+  }
 
 function removePromptAnimations() {
     document.querySelectorAll('.prompt-proposal').forEach(el => {
+      if (el.animationInterval) {
+        clearInterval(el.animationInterval);
+        el.animationInterval = null;
         el.classList.remove('animate-scroll');
+      }
     });
-}
+  }
 
 
 

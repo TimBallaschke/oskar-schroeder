@@ -119,7 +119,7 @@
   display: inline-block;
 
   &.animate-scroll {
-    animation: scroll-horizontal var(--scroll-duration, 10s) ease-in-out infinite;
+    animation: scroll-horizontal var(--scroll-duration, 10s) ease-in-out;
   }
 }
 
@@ -127,7 +127,10 @@
   0% {
     transform: translateX(0);
   }
-  50% {
+  45% {
+    transform: translateX(var(--scroll-distance));
+  }
+  55% {
     transform: translateX(var(--scroll-distance));
   }
   100% {
