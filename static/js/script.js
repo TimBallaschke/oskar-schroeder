@@ -3717,7 +3717,6 @@ function finalizeWebsearch() {
     stopStreamingAnimation();
 
     const currentVersionHistoryElement = document.querySelector('.current-version-history-element');
-    currentVersionHistoryElement.classList.add('streaming-stopped-in-process');
  }
 
 // --------------------------------------------------------------------------------------------
