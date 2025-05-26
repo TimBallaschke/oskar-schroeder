@@ -3323,6 +3323,34 @@ function closePromptProposals() {
     }, animationDuration);
 }
 
+// Animate prompt proposals horizontally if to long for the container
+
+function setupPromptAnimations() {
+  document.querySelectorAll('.prompt-proposal').forEach(el => {
+    const container = el.parentElement;
+  
+    // Wait until layout is stable
+    requestAnimationFrame(() => {
+      if (el.scrollWidth > container.clientWidth) {
+        const scrollDistance = container.clientWidth - el.scrollWidth;
+  
+        // Set custom property dynamically
+        el.style.setProperty('--scroll-distance', `${scrollDistance}px`);
+  
+        // Adjust duration based on distance (optional)
+        const baseDuration = 0.15; // seconds per pixel
+        const duration = Math.abs(scrollDistance) * baseDuration;
+        el.style.setProperty('--scroll-duration', `${duration}s`);
+  
+        el.classList.add('animate-scroll');
+      }
+    });
+  });
+}
+
+
+
+
 
 
 
@@ -3760,6 +3788,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     loadStateFromUrl();
     handleBottomHover();
+
+    setupPromptAnimations();
 
     // Version History
     // handleScrollOnHover();

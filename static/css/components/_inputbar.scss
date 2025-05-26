@@ -61,6 +61,7 @@
   @include desktop-x-large {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
   }
 }
 
@@ -75,26 +76,10 @@
   overflow: hidden;
   transition: all var(--animation-duration-1) ease-in-out;
   transform: translateX(-2px);
-  // border-bottom: 1px solid rgb(84, 84, 84);
-
-
-
-  .prompt-proposal-opening-1 & {
-    height: var(--input-element-height);
-  }
-
-  .prompt-proposal-opening-2 & {
-    height: var(--input-element-height);
-    opacity: 1;
-  }
-}
-
-.prompt-proposal {
   position: relative;
-  padding-left: 27px;
-  transform: translateY(3px);
+  padding-left: 20px;
 
-  &::before {
+    &::before {
     content: '';
     position: absolute;
     border: solid 1px white;
@@ -111,7 +96,54 @@
       background-color: white;
     }
   }
+  
+
+
+
+  .prompt-proposal-opening-1 & {
+    height: var(--input-element-height);
+  }
+
+  .prompt-proposal-opening-2 & {
+    height: var(--input-element-height);
+    opacity: 1;
+  }
 }
+
+.prompt-proposal {
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  // transform: translateY(3px);
+  white-space: nowrap;
+  display: inline-block;
+
+  &.animate-scroll {
+    animation: scroll-horizontal var(--scroll-duration, 10s) ease-in-out infinite;
+  }
+}
+
+@keyframes scroll-horizontal {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(var(--scroll-distance));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.prompt-proposal-mask {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+}
+
+
+
 
 #input-bar {
   width: calc(100% - var(--button-size));

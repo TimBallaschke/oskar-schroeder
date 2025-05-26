@@ -1369,6 +1369,8 @@ p {
   #prompt-proposals {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    -moz-column-gap: 10px;
+         column-gap: 10px;
   }
 }
 
@@ -1379,6 +1381,22 @@ p {
   overflow: hidden;
   transition: all var(--animation-duration-1) ease-in-out;
   transform: translateX(-2px);
+  position: relative;
+  padding-left: 20px;
+}
+.prompt-proposal-container::before {
+  content: "";
+  position: absolute;
+  border: solid 1px white;
+  width: var(--small-circle-size);
+  height: var(--small-circle-size);
+  border-radius: 15px;
+  left: 0;
+  top: 0;
+  transition: all var(--animation-duration-1) ease-in-out;
+}
+.prompt-proposal-container:hover::before {
+  background-color: white;
 }
 .prompt-proposal-opening-1 .prompt-proposal-container {
   height: var(--input-element-height);
@@ -1390,22 +1408,31 @@ p {
 
 .prompt-proposal {
   position: relative;
-  padding-left: 27px;
-  transform: translateY(3px);
+  padding-left: 10px;
+  padding-right: 10px;
+  white-space: nowrap;
+  display: inline-block;
 }
-.prompt-proposal::before {
-  content: "";
-  position: absolute;
-  border: solid 1px white;
-  width: var(--small-circle-size);
-  height: var(--small-circle-size);
-  border-radius: 15px;
-  left: 0;
-  top: 0;
-  transition: all var(--animation-duration-1) ease-in-out;
+.prompt-proposal.animate-scroll {
+  animation: scroll-horizontal var(--scroll-duration, 10s) ease-in-out infinite;
 }
-.prompt-proposal:hover::before {
-  background-color: white;
+
+@keyframes scroll-horizontal {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(var(--scroll-distance));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.prompt-proposal-mask {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
 }
 
 #input-bar {
