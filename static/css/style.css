@@ -1527,7 +1527,7 @@ input {
   transform: translate(-50%, -50%) scale(1);
 }
 .input-has-content-2 #send-button:hover {
-  transform: translate(-50%, -50%) scale(1.2);
+  transform: translate(-50%, -50%) scale(1.1);
 }
 #send-button.display-none {
   display: none;
@@ -1546,15 +1546,17 @@ input {
   height: 35%;
   border-top: 1px solid black;
   border-right: 1px solid black;
-  transform: translateX(-50%) rotate(-45deg);
+  transform: translate(-50%, 10%) scaleY(1.25) rotate(-45deg);
+  transform-origin: center center;
 }
 
 #arrow-bottom {
   position: absolute;
   top: 26%;
   left: 50%;
-  height: 52%;
-  transform: translateX(-50%);
+  height: 55%;
+  transform: translate(-50%, -2%) scaleX(1.08);
+  transform-origin: center center;
   border-right: 1px solid black;
   background-color: black;
 }
@@ -1566,7 +1568,7 @@ input {
   opacity: 1;
 }
 #plus-minus-button:hover {
-  transform: translate(-50%, -50%) scale(1.2);
+  transform: translate(-50%, -50%) scale(1.1);
 }
 .input-has-content-1 #plus-minus-button {
   display: block;
@@ -1630,7 +1632,7 @@ input {
   transform: translate(-50%, -50%) scale(1) rotate(45deg);
 }
 .streaming-2 #x-button:hover {
-  transform: translate(-50%, -50%) scale(1.2);
+  transform: translate(-50%, -50%) scale(1.1);
 }
 #x-button.rotate {
   transform: translate(-50%, -50%) scale(1) rotate(0deg);

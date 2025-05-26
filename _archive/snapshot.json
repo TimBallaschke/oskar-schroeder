@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250526i_Oskar_Website",
+  "original_folder": "250526j_Oskar_Website_arrow_rework",
   "snapshot_date_from_folder": "250526",
   "source_files": [
     {
@@ -54,16 +54,16 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "75b60bd3188b548962e68924c926a82e1d0a43f3",
-      "sha256": "447972f6f1277b44912310e6970d82d9e1600470be1d13e1b05f986f1be13c29",
-      "size": 50428,
+      "sha1": "1e9c985543388f6e415f5432848d890e1b2cdcb3",
+      "sha256": "99d55359770f2a2674dc45eb220222e64a26329e0994783c8f2a74a0de5e33c7",
+      "size": 50532,
       "mode": "100644"
     },
     {
       "path": "static/css/style.css.map",
-      "sha1": "a492c21ed3855e10ff27649911fbade99aa9bc0e",
-      "sha256": "b72bec39b59fdcde85ae938e9b95426578e0c340cab036533d547521401a3464",
-      "size": 16798,
+      "sha1": "60cc959e6a79b57d120478b6f369826702c19d3a",
+      "sha256": "26c7dd0ba944b4c453f76037c99c8574ce837a25865dcd720e2ee329285c1b5d",
+      "size": 16820,
       "mode": "100644"
     },
     {
@@ -89,9 +89,9 @@
     },
     {
       "path": "static/css/components/_inputbar.scss",
-      "sha1": "1529bfc8b60b265b13d46d36fad6536d43701317",
-      "sha256": "2a786ae6f5aa896244afbeabbd27d1679b10fd5e677eafcf130e8554c019814d",
-      "size": 7770,
+      "sha1": "b9a800dad56e28851d7f378916074f765cb76ebd",
+      "sha256": "e98b262a9e18990eaa9933a23bd6be9ad67242ebe7b65f1ec24c20953ea359ec",
+      "size": 7874,
       "mode": "100644"
     },
     {
