@@ -3270,7 +3270,8 @@ function handlePromptProposalsUpdate(content) {
 
 // Generic handler for clicking on prompt elements that should be copied to input
 function handlePromptClick(element) {
-    userInput.value = element.innerHTML;
+    const promptProposal = element.querySelector('.prompt-proposal');
+    userInput.value = promptProposal.innerHTML;
 
     setTimeout(() => {
         sendMessage();
@@ -3279,15 +3280,15 @@ function handlePromptClick(element) {
 
 // Add event listeners when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    const promptProposal1 = document.getElementById('prompt-proposal-1');
-    const promptProposal2 = document.getElementById('prompt-proposal-2');
-    const promptProposal3 = document.getElementById('prompt-proposal-3');
-    const promptProposal4 = document.getElementById('prompt-proposal-4');
+    const promptProposalContainer1 = document.getElementById('prompt-proposal-container-1');
+    const promptProposalContainer2 = document.getElementById('prompt-proposal-container-2');
+    const promptProposalContainer3 = document.getElementById('prompt-proposal-container-3');
+    const promptProposalContainer4 = document.getElementById('prompt-proposal-container-4');
 
-    promptProposal1.addEventListener('click', () => handlePromptClick(promptProposal1));
-    promptProposal2.addEventListener('click', () => handlePromptClick(promptProposal2));
-    promptProposal3.addEventListener('click', () => handlePromptClick(promptProposal3));
-    promptProposal4.addEventListener('click', () => handlePromptClick(promptProposal4));
+    promptProposalContainer1.addEventListener('click', () => handlePromptClick(promptProposalContainer1));
+    promptProposalContainer2.addEventListener('click', () => handlePromptClick(promptProposalContainer2));
+    promptProposalContainer3.addEventListener('click', () => handlePromptClick(promptProposalContainer3));
+    promptProposalContainer4.addEventListener('click', () => handlePromptClick(promptProposalContainer4));
 });
 
 plusMinusButton.addEventListener('click', togglePromptProposals);
@@ -3301,15 +3302,18 @@ function togglePromptProposals() {
 
         setTimeout(() => {
             bottomNavigation.classList.remove('prompt-proposal-opening-1');
-                bottomNavigation.classList.add('prompt-proposal-opening-2');
-            }, animationDuration);
+            bottomNavigation.classList.add('prompt-proposal-opening-2');
+            setupPromptAnimations();
+        }, animationDuration);
+
     } else {
         bottomNavigation.classList.remove('prompt-proposal-opening-2');
         bottomNavigation.classList.add('prompt-proposal-opening-1');
 
         setTimeout(() => {
             bottomNavigation.classList.remove('prompt-proposal-opening-1');
-            }, animationDuration);
+            removePromptAnimations();
+        }, animationDuration);
     }
 }
 
@@ -3338,7 +3342,7 @@ function setupPromptAnimations() {
         el.style.setProperty('--scroll-distance', `${scrollDistance}px`);
   
         // Adjust duration based on distance (optional)
-        const baseDuration = 0.15; // seconds per pixel
+        const baseDuration = 0.2; // seconds per pixel
         const duration = Math.abs(scrollDistance) * baseDuration;
         el.style.setProperty('--scroll-duration', `${duration}s`);
   
@@ -3346,6 +3350,12 @@ function setupPromptAnimations() {
       }
     });
   });
+}
+
+function removePromptAnimations() {
+    document.querySelectorAll('.prompt-proposal').forEach(el => {
+        el.classList.remove('animate-scroll');
+    });
 }
 
 
@@ -3788,8 +3798,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     loadStateFromUrl();
     handleBottomHover();
-
-    setupPromptAnimations();
 
     // Version History
     // handleScrollOnHover();

@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250526_Oskar_Website_animate_Prompt_proposal",
+  "original_folder": "250526b_Oskar_Website",
   "snapshot_date_from_folder": "250526",
   "source_files": [
     {
@@ -54,8 +54,8 @@
     },
     {
       "path": "static/css/style.css",
-      "sha1": "7e198831caa3c89fc211dbd8a4f7d96acd2a0a37",
-      "sha256": "5020b447c94503166bef79c2fd8468127bd755b51ec823eec2523f9e93eedd7b",
+      "sha1": "b1f5ee334333e03457e68928b6f1bc27cfcd4e22",
+      "sha256": "e84a90b5c5f5bb2b267863d254a99553466f5ce1f69347edf232076b6df1547a",
       "size": 50002,
       "mode": "100644"
     },
@@ -89,8 +89,8 @@
     },
     {
       "path": "static/css/components/_inputbar.scss",
-      "sha1": "c9b74d6e0f366b2156afb13ed9f58c3b8d289684",
-      "sha256": "2b25baab9c0eb2baa87addf5db1232a440e92d87f3b6b5bbcf1545cebcdb02ad",
+      "sha1": "5ffb888b175dc381f7be26bb8e3cdf00f13a14c1",
+      "sha256": "48eb907bc554ac20b3d1862f98d8d18a4514192caf5d79cdd518ae9ecd5ca84a",
       "size": 7557,
       "mode": "100644"
     },
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "91bc50c9829bbb7e101be4b6079eb3819447bbd8",
-      "sha256": "8e0ccb533dd21e0f827a9196c377e5ea999d6adbb8f8204226d18db844b432a4",
-      "size": 187303,
+      "sha1": "39bb1e4027a2eceaff84d5518ae3a1ce6adf7a67",
+      "sha256": "2d668588b18c5f20d4a3e40c6523afd33969e60f97814757dafb98def015317c",
+      "size": 187721,
       "mode": "100644"
     },
     {
@@ -1013,8 +1013,8 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "fad66622d8d68dfad46e58862ca87beec27de917",
-      "sha256": "5b7fcea3b6e1707fbb8af99f9d5ff7a63d5c8a5740625d7ad5496ee1d94b489a",
+      "sha1": "a1888dde88678b55e4315e1dc53bce35e0eb6edd",
+      "sha256": "98f616a4b84bebe77597715a37f529f01608df98bee606cabf3d13097ca2a6f6",
       "size": 7396,
       "mode": "100644"
     }
