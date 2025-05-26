@@ -315,6 +315,14 @@
             color: white;
         }
     }
+
+    &.active {
+        background-color: black;
+
+        .term-description-number {
+            color: white;
+        }
+    }
 }
 
 .term-description-number {

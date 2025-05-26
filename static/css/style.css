@@ -552,6 +552,12 @@ p {
 .term-description-number-container:hover .term-description-number {
   color: white;
 }
+.term-description-number-container.active {
+  background-color: black;
+}
+.term-description-number-container.active .term-description-number {
+  color: white;
+}
 
 .term-description-number {
   font-size: var(--secondary-number-font-size);

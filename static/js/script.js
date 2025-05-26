@@ -2398,7 +2398,6 @@ function handleSecondComplete(content, stateId) {
 
                 handlePromptProposalsUpdate(content);
                 stopStreamingAnimation();
-                activateTermDescription();
                 saveCurrentHTML();
                 termDescriptionCount = 0;
                 
@@ -2415,7 +2414,6 @@ function handleSecondComplete(content, stateId) {
     
                     handlePromptProposalsUpdate(content);
                     stopStreamingAnimation();
-                    activateTermDescription();
                     saveCurrentHTML();
                     termDescriptionCount = 0;
                     
@@ -3376,6 +3374,8 @@ function removePromptAnimations() {
 // --------------------------------------------------------------------------------------------
 
 function handleTermClick(event) {
+
+    currentWebsearchTerm = null;
                                                             
     const termDescriptionNumberContainer = this;
     const termContainer = termDescriptionNumberContainer.previousElementSibling;
@@ -3416,7 +3416,7 @@ function handleTermClick(event) {
     }
 }
 
-function requestWebsearch(termForWebsearch, termDescriptionNumberContainer) {
+async function requestWebsearch(termForWebsearch, termDescriptionNumberContainer) {
     
     const message = termForWebsearch;
     if (message === '') return;  // Don't send empty messages
@@ -3429,6 +3429,83 @@ function requestWebsearch(termForWebsearch, termDescriptionNumberContainer) {
             termDescriptionNumberContainer.classList.add('big');
         }
     }, 1000);
+
+    if (isWebsearchContainerProcessing) return;
+
+
+    const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
+    let websearchDescriptionContainer = document.querySelector(`.term-description-container-${termIndex}`);
+
+    if (!websearchDescriptionContainer) {
+        isWebsearchContainerProcessing = true;
+
+        await new Promise((resolve) => {
+
+            // Different timing for desktop and mobile
+            if (window.innerWidth <= mobileWidth) {
+
+                websearchDescriptionContainer = document.createElement('div');
+                websearchDescriptionContainer.classList.add('term-description-container', `term-description-container-${termIndex}`, 'no-width');
+                webSearchColumn.appendChild(websearchDescriptionContainer);
+    
+                const termDescriptionNumberContainerCopy = document.createElement('span');
+                termDescriptionNumberContainerCopy.classList.add('term-description-number-container', 'term-description-number-container-copy', 'small', 'no-opacity');
+    
+                const termDescriptionNumberCopy = document.createElement('span');
+                termDescriptionNumberCopy.classList.add('term-description-number', 'light');
+                termDescriptionNumberCopy.textContent = termIndex < 10 ? `0${termIndex}` : termIndex;
+                termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
+    
+                termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
+                websearchDescriptionContainer.appendChild(termDescriptionNumberContainerCopy);
+    
+                setTimeout(() => {
+                    websearchDescriptionContainer.classList.remove('no-width');
+                }, animationDuration * 2 + 10);
+    
+                setTimeout(() => {
+                    termDescriptionNumberContainerCopy.classList.remove('small', 'no-opacity');
+                    termDescriptionNumberCopy.classList.remove('light');
+
+                }, animationDuration * 3 + 10);
+                
+                setTimeout(() => {
+                    isWebsearchContainerProcessing = false;
+                    resolve();
+                }, animationDuration * 4);
+
+            } else {
+                websearchDescriptionContainer = document.createElement('div');
+                websearchDescriptionContainer.classList.add('term-description-container', `term-description-container-${termIndex}`, 'no-width');
+                webSearchColumn.appendChild(websearchDescriptionContainer);
+    
+                const termDescriptionNumberContainerCopy = document.createElement('span');
+                termDescriptionNumberContainerCopy.classList.add('term-description-number-container', 'term-description-number-container-copy', 'small', 'no-opacity');
+    
+                const termDescriptionNumberCopy = document.createElement('span');
+                termDescriptionNumberCopy.classList.add('term-description-number', 'light');
+                termDescriptionNumberCopy.textContent = termIndex < 10 ? `0${termIndex}` : termIndex;
+                termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
+    
+                termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
+                websearchDescriptionContainer.appendChild(termDescriptionNumberContainerCopy);
+    
+                setTimeout(() => {
+                    websearchDescriptionContainer.classList.remove('no-width');
+                }, 10);
+    
+                setTimeout(() => {
+                    termDescriptionNumberContainerCopy.classList.remove('small', 'no-opacity');
+                    termDescriptionNumberCopy.classList.remove('light');
+                }, animationDuration);
+                
+                setTimeout(() => {
+                    isWebsearchContainerProcessing = false;
+                    resolve();
+                }, animationDuration * 2);
+            }
+        });
+    }
 
     // isStreaming = true;
     // document.body.classList.add('streaming');
@@ -3541,92 +3618,16 @@ async function handleDeltaWebsearch(content) {
         }
     }
 
-    if (isWebsearchContainerProcessing) return;
-
-
-    const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
-    let websearchDescriptionContainer = document.querySelector(`.term-description-container-${termIndex}`);
-
-    if (!websearchDescriptionContainer) {
-        isWebsearchContainerProcessing = true;
-
-        await new Promise((resolve) => {
-
-            // Different timing for desktop and mobile
-            if (window.innerWidth <= mobileWidth) {
-
-                websearchDescriptionContainer = document.createElement('div');
-                websearchDescriptionContainer.classList.add('term-description-container', `term-description-container-${termIndex}`, 'no-width');
-                webSearchColumn.appendChild(websearchDescriptionContainer);
-    
-                const termDescriptionNumberContainerCopy = document.createElement('span');
-                termDescriptionNumberContainerCopy.classList.add('term-description-number-container', 'term-description-number-container-copy', 'small', 'no-opacity');
-    
-                const termDescriptionNumberCopy = document.createElement('span');
-                termDescriptionNumberCopy.classList.add('term-description-number', 'light');
-                termDescriptionNumberCopy.textContent = termIndex < 10 ? `0${termIndex}` : termIndex;
-                termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
-    
-                termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
-                websearchDescriptionContainer.appendChild(termDescriptionNumberContainerCopy);
-    
-                setTimeout(() => {
-                    websearchDescriptionContainer.classList.remove('no-width');
-                }, animationDuration * 2 + 10);
-    
-                setTimeout(() => {
-                    termDescriptionNumberContainerCopy.classList.remove('small', 'no-opacity');
-                    termDescriptionNumberCopy.classList.remove('light');
-
-                }, animationDuration * 3 + 10);
-                
-                setTimeout(() => {
-                    isWebsearchContainerProcessing = false;
-                    resolve();
-                }, animationDuration * 4);
-
-            } else {
-                websearchDescriptionContainer = document.createElement('div');
-                websearchDescriptionContainer.classList.add('term-description-container', `term-description-container-${termIndex}`, 'no-width');
-                webSearchColumn.appendChild(websearchDescriptionContainer);
-    
-                const termDescriptionNumberContainerCopy = document.createElement('span');
-                termDescriptionNumberContainerCopy.classList.add('term-description-number-container', 'term-description-number-container-copy', 'small', 'no-opacity');
-    
-                const termDescriptionNumberCopy = document.createElement('span');
-                termDescriptionNumberCopy.classList.add('term-description-number', 'light');
-                termDescriptionNumberCopy.textContent = termIndex < 10 ? `0${termIndex}` : termIndex;
-                termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
-    
-                termDescriptionNumberContainerCopy.appendChild(termDescriptionNumberCopy);
-                websearchDescriptionContainer.appendChild(termDescriptionNumberContainerCopy);
-    
-                setTimeout(() => {
-                    websearchDescriptionContainer.classList.remove('no-width');
-                }, 10);
-    
-                setTimeout(() => {
-                    termDescriptionNumberContainerCopy.classList.remove('small', 'no-opacity');
-                    termDescriptionNumberCopy.classList.remove('light');
-                }, animationDuration);
-                
-                setTimeout(() => {
-                    isWebsearchContainerProcessing = false;
-                    resolve();
-                }, animationDuration * 2);
-            }
-        });
-    }
 
     if (!isWebsearchStreamingURL) {
         // Start processing the queue if not already processing
         if (!isProcessingWebsearchWords) {
-            processNextWebsearchWord(websearchDescriptionContainer);
+            processNextWebsearchWord();
         }
     }
 }
 
-function processNextWebsearchWord(websearchDescriptionContainer) {
+function processNextWebsearchWord() {
     if (websearchWordQueue.length === 0) {
         isProcessingWebsearchWords = false;
         return;
@@ -3639,6 +3640,9 @@ function processNextWebsearchWord(websearchDescriptionContainer) {
     const wordSpan = document.createElement('span');
     wordSpan.classList.add('websearch-content', 'light');
     wordSpan.textContent = word;
+
+    const termIndex = currentWebsearchTerm.getAttribute('data-term-index');
+    let websearchDescriptionContainer = document.querySelector(`.term-description-container-${termIndex}`);
         
     // Add space before word if not the first word
     if (websearchDescriptionContainer.querySelector('.websearch-content')) {
@@ -3684,8 +3688,6 @@ function finalizeWebsearch() {
         if (termDescriptionNumberContainer && termDescriptionNumberContainer.pulseInterval) {
             clearInterval(termDescriptionNumberContainer.pulseInterval);
             termDescriptionNumberContainer.classList.remove('animation-settings-3', 'big');
-
-            currentWebsearchTerm = null;
         }
     }, 4000);
 }
