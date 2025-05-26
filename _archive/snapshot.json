@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250526b_Oskar_Website",
+  "original_folder": "250526c_Oskar_Website_display_previous_version_not_on_hover",
   "snapshot_date_from_folder": "250526",
   "source_files": [
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "39bb1e4027a2eceaff84d5518ae3a1ce6adf7a67",
-      "sha256": "2d668588b18c5f20d4a3e40c6523afd33969e60f97814757dafb98def015317c",
-      "size": 187721,
+      "sha1": "73f6840d6a5635126a6bf49e0af8a64eee7cb335",
+      "sha256": "a4cdd9dcbb6a9241ffee01cd524c05a0f91867a1558e58e5726aabe7297d73ec",
+      "size": 187675,
       "mode": "100644"
     },
     {

@@ -2588,8 +2588,6 @@ function displayPreviousVersion(element) {
     const versionContent = responseMap[versionKey].content;
     const stateId = responseMap[versionKey].stateId;
 
-    console.log('versionContent', versionContent);
-
     // Update the URL with the stateId if it exists
     if (stateId) {
         const newUrl = `${window.location.origin}${window.location.pathname}?state=${stateId}`;
@@ -3787,12 +3785,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         element.addEventListener('mouseover', (event) => {
             document.body.classList.add('hover');
-            handleVersionEvent(event);
+            // handleVersionEvent(event);
         });
 
         element.addEventListener('mouseout', (event) => {
             document.body.classList.remove('hover');
-            handleVersionEvent(event);
+            // handleVersionEvent(event);
         });
     });
     
