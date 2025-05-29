@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "original_folder": "250526l_Oskar_Website",
-  "snapshot_date_from_folder": "250526",
+  "original_folder": "250529_Oskar_Website",
+  "snapshot_date_from_folder": "250529",
   "source_files": [
     {
       "path": ".cursorignore",
@@ -491,6 +491,27 @@
       "sha1": "6dda228a4163417ffcaef15c7b7a98a541762c62",
       "sha256": "3ad5d7b5c150c9384f103d97039bc23e1aaea1e72072a8c64eb7f0731d93ce27",
       "size": 806296,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/news/Capture_Cover.png",
+      "sha1": "09fc7a113b221373dafc2f48fd14de51b7bda802",
+      "sha256": "e6d7ab95622d5107e45fa3b2e4a567a41d42ef0984c5e0dd3bebf3238ffabfd2",
+      "size": 11927852,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/news/Capture_Cover_3.png",
+      "sha1": "15cf4313ff64bc17a2dfba5dabe2dc7e19aa7fc4",
+      "sha256": "9f49ffee40c99c22cdbbf49b27d550d176d1e290bef5b8cf0ca3ee1a40b820ee",
+      "size": 16693398,
+      "mode": "100644"
+    },
+    {
+      "path": "static/assets/images/news/Listen_Cover_2.png",
+      "sha1": "94b6e984cc7a3fb4a22daf18182b7a9db8191daf",
+      "sha256": "9477c21d4bba36476ee35c3192e326c52e5a3410bb2f2e130cd2b8963aa78347",
+      "size": 3095712,
       "mode": "100644"
     },
     {
@@ -1013,9 +1034,9 @@
     },
     {
       "path": "templates/index.html",
-      "sha1": "543f722133e2a42a350f209223031b4673edccf1",
-      "sha256": "345186889166235ead8245268b09ad0e99ad72959c43aaad8eddacbb6240d814",
-      "size": 7399,
+      "sha1": "62c14a577ae9d8fe5fe5db8ff949edd84fe9b85c",
+      "sha256": "123143d273d4e811b33e86b8fbb0f851defd1b9706ffdda00b4440d490060cf8",
+      "size": 9052,
       "mode": "100644"
     }
   ],
