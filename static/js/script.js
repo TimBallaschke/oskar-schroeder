@@ -635,6 +635,10 @@ function clearContentContainer(isVersionHistory) {
         }
     });
 
+    document.querySelectorAll('img').forEach(img => {
+        img.classList.add('blur');
+    });
+
     setTimeout(() => {
         contentContainer.classList.add('no-opacity');
     }, 100);
