@@ -172,7 +172,6 @@ class ParagraphComponent(BaseModel):
             "Do **not** use it for lists, tables, or other structured data."
         )
     )
-    headline: Optional[str] = Field(description="A short headline for the paragraph")
     image: Optional[ImageComponent] = Field(
         description=(
             "IMPORTANT: Always try to include an image with a paragraph.\n"
