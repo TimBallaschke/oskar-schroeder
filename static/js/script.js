@@ -2428,7 +2428,6 @@ function handleSecondComplete(content, stateId) {
         } else {
             handlePromptProposalsUpdate(content);
             stopStreamingAnimation();
-            activateTermDescription();
             saveCurrentHTML();
             termDescriptionCount = 0;
             
@@ -2516,12 +2515,12 @@ function addNewVersionHistoryElement(headline) {
 
     newHistoryElement.addEventListener('mouseover', (event) => {
         document.body.classList.add('hover');
-        handleVersionEvent(event);
+        // handleVersionEvent(event);
     });
 
     newHistoryElement.addEventListener('mouseout', (event) => {
         document.body.classList.remove('hover');
-        handleVersionEvent(event);
+        // handleVersionEvent(event);
     });
 
 }
@@ -3947,3 +3946,24 @@ function snapToClosestVersionElement() {
     }
 }
 
+
+// --------------------------------------------------------------------------------------------
+// WINDOW RESIZE
+// --------------------------------------------------------------------------------------------
+
+// Function to reset all inline styles on DIV and SPAN elements
+function resetStyles() {
+    const divs = document.querySelectorAll('div[style]');
+    const spans = document.querySelectorAll('span[style]');
+
+    divs.forEach(div => {
+    div.removeAttribute('style');
+    });
+
+    spans.forEach(span => {
+    span.removeAttribute('style');
+    });
+}
+  
+// Add the event listener for window resize
+window.addEventListener('resize', resetStyles);
