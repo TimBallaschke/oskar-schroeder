@@ -685,14 +685,14 @@ animateInputPlaceholder();
 
 function animateInputPlaceholder() {
     const placeholders = [
-        'Type prompt here...', // English
-        'Prompt hier eingeben...', // German
-        'Escribe tu indicación aquí...', // Spanish
-        '在这里输入提示...', // Chinese
-        'Tapez votre requête ici...', // French
-        'ここに指示を入力...', // Japanese
-        'Digita il comando qui...', // Italian
-        '여기에 명령어를 입력하세요...', // Korean
+        'Ask about Oskar...', // English
+        'Frage nach Oskar...', // German
+        'Pregunta por Oskar...', // Spanish
+        '询问奥斯卡...', // Chinese
+        'Demande à propos d’Oskar...', // French
+        'オスカーについて聞いて...', // Japanese
+        'Chiedi di Oskar...', // Italian
+        '오스카에 대해 물어보세요...', // Korean
     ];
     
     let placeholderIndex = 0;

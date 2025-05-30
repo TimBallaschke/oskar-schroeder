@@ -311,6 +311,12 @@ class Response_1(BaseModel):
     components: List[Union[ParagraphComponent, ListComponent, TableComponent, ArtworksList]] = Field(
         description="List of UI components that make up the response"
     )
+    language: str = Field(
+        description=(
+            "The language of the response. "
+            "For example: 'English' or 'German' or 'French' or 'Spanish'"
+        )
+    )
 
 # SECOND CHATBOT
 
@@ -319,23 +325,27 @@ class Response_2(BaseModel):
         description=(
             "An actionable suggestion guiding the user toward unexplored or complementary information about Oskar Schroeder. "
             "This should encourage the discovery of new content, helping the user explore areas of Oskar’s biography, work, or exhibitions that have not yet been shown."
+            "IMPORTANT: Match the language of the response to the language of the user-facing content."
         )
     )
     prompt_proposal_2: str = Field(
         description=(
             "Another concise recommendation that invites the user to continue exploring unfamiliar aspects of Oskar Schroeder’s artistic life. "
             "Suggestions should introduce new data from the available dataset."
+            "IMPORTANT: Match the language of the response to the language of the user-facing content."
         )
     )
     prompt_proposal_3: str = Field(
         description=(
             "A third prompt that focuses on helping the user uncover content not yet displayed. "
             "It should be logically connected to the user’s journey but must lead to a distinct topic or dataset."
-        )
+            "IMPORTANT: Match the language of the response to the language of the user-facing content."
+            )
     )
     prompt_proposal_4: str = Field(
         description=(
             "A final proposal (max. 40 characters) that is engaging, easy to understand, and leads to **new** information about Oskar Schroeder."
+            "IMPORTANT: Match the language of the response to the language of the user-facing content."
         )
     )
 

@@ -97,6 +97,9 @@ SYSTEM_PROMPT_2 = {
         "Your task is to generate **four short prompt suggestions** based on a structured UI response that reflects what the user has already seen. "
         "Each suggestion should help the user discover **unexplored but available content** in the dataset.\n\n"
 
+        "IMPORTANT: You must always generate the prompt suggestions in the same language defined in the language field of the input response."
+        "If the language is 'French', your output must be in French. This applies to all text you generate, including the wording of each prompt.\n"
+
         "### Objective:\n"
         "Guide the user through a meaningful discovery path. Prioritize core topics like biography, CV, artworks overview, and exhibition history. "
         "Include more specific prompts (themes, media, individual materials or exhibitions) **only when needed to suggest unexplored content**.\n\n"
@@ -107,7 +110,7 @@ SYSTEM_PROMPT_2 = {
         "• Keep each prompt under 40 characters.\n"
         "• Be clear and specific. No vague or generic phrasing.\n"
         "• All prompts must refer to actual data in the dataset.\n"
-        "• Focus first on broad categories (e.g. biography, artworks, CV), then offer more specific follow-ups if needed.\n\n"
+        "• Focus first on broad categories (e.g. biography, artworks, CV), then offer more specific follow-ups if needed.\n"
 
         "### Prioritized Examples (General > Specific):\n"
         "• Show all artworks\n"
