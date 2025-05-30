@@ -608,11 +608,35 @@ userInput.addEventListener('keypress', function(e) {
 function clearContentContainer(isVersionHistory) {
 
     contentContainer.classList.add('animation-settings');
+    webSearchColumn.classList.add('animation-settings');
     previousParagraphContainer = null;
     previousPreviousParagraphContainer = null;
 
     // Find only the leaf nodes (elements that don't have element children)
     contentContainer.querySelectorAll('*').forEach(element => {
+        // Check if this is a leaf node (no element children)
+        const hasElementChildren = Array.from(element.children).length > 0;
+
+        
+        if (!hasElementChildren && 
+            (element.tagName.toLowerCase() === 'span' || 
+                element.tagName.toLowerCase() === 'div' || 
+                element.tagName.toLowerCase() === 'p')) {
+
+            element.classList.add('animation-settings');
+            
+            setTimeout(() => {
+                element.classList.add('light');
+
+                if (element.classList.contains('italic')) {
+                    element.classList.remove('italic');
+                }
+
+            }, 10);
+        }
+    });
+
+    webSearchColumn.querySelectorAll('*').forEach(element => {
         // Check if this is a leaf node (no element children)
         const hasElementChildren = Array.from(element.children).length > 0;
 
@@ -641,15 +665,18 @@ function clearContentContainer(isVersionHistory) {
 
     setTimeout(() => {
         contentContainer.classList.add('no-opacity');
+        webSearchColumn.classList.add('no-opacity');
     }, 100);
 
     setTimeout(() => {
         contentContainer.innerHTML = '';
+        webSearchColumn.innerHTML = '';
     }, 300);
 
     if (!isVersionHistory) {
         setTimeout(() => {
             contentContainer.classList.remove('animation-settings', 'no-opacity');
+            webSearchColumn.classList.remove('animation-settings', 'no-opacity');
         }, 310);
     }
 }
