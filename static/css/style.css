@@ -1635,7 +1635,7 @@ input {
   transform: translate(-50%, -50%) scale(1) rotate(45deg);
 }
 .streaming-2 #x-button:hover {
-  transform: translate(-50%, -50%) scale(1.1);
+  transform: translate(-50%, -50%) scale(1.1) rotate(45deg);
 }
 #x-button.rotate {
   transform: translate(-50%, -50%) scale(1) rotate(0deg);

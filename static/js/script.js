@@ -3374,14 +3374,14 @@ function setupPromptAnimations() {
     
       // Wait until layout is stable
       requestAnimationFrame(() => {
-        if (el.scrollWidth > container.clientWidth) {
+        if (el.scrollWidth > container.clientWidth + 20) {
           const scrollDistance = container.clientWidth - el.scrollWidth;
     
           // Set custom property dynamically
           el.style.setProperty('--scroll-distance', `${scrollDistance}px`);
     
           // Adjust duration based on distance
-          const baseDuration = 0.125; // seconds per pixel
+          const baseDuration = 0.15; // seconds per pixel
           const duration = Math.abs(scrollDistance) * baseDuration;
           const durationMS = duration * 1000;
           el.style.setProperty('--scroll-duration', `${duration}s`);
@@ -3390,7 +3390,7 @@ function setupPromptAnimations() {
           el.classList.add('animate-scroll');
           
           // Add a pause between animations
-          const pauseDuration = 2000; // 2 seconds pause between animations
+          const pauseDuration = 4000; // 2 seconds pause between animations
           const totalCycleDuration = durationMS + pauseDuration;
           
           // Set up interval to toggle the animation class
