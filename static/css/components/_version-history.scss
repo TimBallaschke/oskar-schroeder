@@ -60,7 +60,7 @@
   left: 0;
   width: calc(100vw - var(--page-padding));
   color: black;
-  transition: all var(--animation-duration-3) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
   z-index: 100;
   overflow-x: auto;
   white-space: nowrap;
@@ -101,7 +101,7 @@
 
 
 .version-history-element {
-  transition: all var(--animation-duration-3) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--secondary-font-size);
   font-variation-settings: "wght" var(--font-weight-light-nav);
   transform-origin: center center;
@@ -112,7 +112,7 @@
   margin-left: -1px; // Negative margin to overlap the borders of the elements
   scroll-snap-align: start;
   height: fit-content;
-  transition: all var(--animation-duration-3) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
 
   &:first-child {
     // margin-left: 0; // First element shouldn't have negative margin
@@ -170,7 +170,7 @@
   padding-top: 15px;
   padding-left: var(--version-history-element-padding);
   padding-right: var(--version-history-element-padding);
-  transition: all var(--animation-duration-3) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
   display: block;
 
   .no-transition & {
@@ -180,7 +180,7 @@
 
 .version-history-element-digits {
   transform: translateY(0px);
-  transition: all var(--animation-duration-3) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
   @include secondary-number;
 
   // letter-spacing: -0.5px;
@@ -191,7 +191,7 @@
 }
 
 .version-history-element-title {
-  transition: all var(--animation-duration-3) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
   padding-left: var(--version-history-element-padding);
   padding-right: var(--version-history-element-padding);
   display: inline-block;
@@ -215,11 +215,11 @@
     &:hover {
 
       .version-history-element-title {
-        transition: all var(--animation-duration-3) ease-in-out;
+        transition: all var(--animation-duration-1) ease-in-out;
         font-size: var(--large-font-size);
         letter-spacing: -1px;
         font-variation-settings: "wght" 675;
-        transition: all var(--animation-duration-3) ease-in-out;
+        transition: all var(--animation-duration-1) ease-in-out;
         margin-top: -4px;
       }
 
@@ -244,7 +244,7 @@
           font-size: var(--large-font-size);
           letter-spacing: -1px;
           font-variation-settings: "wght" 675;
-          transition: all var(--animation-duration-3) ease-in-out;
+          transition: all var(--animation-duration-1) ease-in-out;
         }
   
         .version-history-element-digits {
@@ -310,7 +310,7 @@
           font-size: var(--small-font-size);
           letter-spacing: 0px;
           font-variation-settings: "wght" 675;
-          transition: all var(--animation-duration-3) ease-in-out;
+          transition: all var(--animation-duration-1) ease-in-out;
           margin-top: 0px;
         }
   
@@ -344,7 +344,7 @@
 
 .start-version-history-element {
   border-right: 0px solid black;
-  transition: all var(--animation-duration-3) ease-in-out;
+  transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--secondary-font-size);
   font-variation-settings: "wght" var(--font-weight-light-nav);
   transform-origin: center center;

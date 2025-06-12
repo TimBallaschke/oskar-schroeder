@@ -306,6 +306,7 @@ class Response_1(BaseModel):
             "Do not include the artist's name. "
             "Should clearly reflect the content (e.g. 'Biography', 'Education', 'Artistic Themes'). "
             "Limit to a maximum of 2 words."
+            "IMPORTANT: Needs to match the language of the user-facing content."
         )
     )
     components: List[Union[ParagraphComponent, ListComponent, TableComponent, ArtworksList]] = Field(

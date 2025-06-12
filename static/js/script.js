@@ -1901,14 +1901,14 @@ async function renderNextProject() {
 
                                 setTimeout(() => {
                                     nameText.classList.remove('light');
-                                }, 50);
+                                }, 10);
     
                             } else {
                                 // Update the content if it already exists (optional)
                                 projectName.textContent = value;
                             }
             
-                            setTimeout(resolve, 400);
+                            setTimeout(resolve, 200);
                         });
                         break;
                     case 'year':
