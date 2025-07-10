@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250710c_Oskar_Website_thought_process_first_implement",
+  "original_folder": "250710d_Oskar_Website",
   "snapshot_date_from_folder": "250710",
   "source_files": [
     {
@@ -33,9 +33,9 @@
     },
     {
       "path": "main.py",
-      "sha1": "a9a306fad706203a3991d3ddf9b4123190b441cd",
-      "sha256": "12908b99ea57ae5f71eeed25347230a576634b4d1e2c787fadaabee9b73a4156",
-      "size": 35086,
+      "sha1": "5c5a815d21218d46c50e6031a8921681dcb7200f",
+      "sha256": "65663c98f9cc2fbd84ada4bb7c9d8e06099e696335239bde055ac8b7a3f3f0e4",
+      "size": 36350,
       "mode": "100644"
     },
     {

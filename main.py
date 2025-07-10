@@ -172,6 +172,9 @@ class ParagraphComponent(BaseModel):
             "Do **not** use it for lists, tables, or other structured data."
         )
     )
+    thought_process: str = Field(
+        description="Short sentence representing the AI assistant's thoughts while generating the component."
+    )
     image: Optional[ImageComponent] = Field(
         description=(
             "IMPORTANT: Always try to include an image with a paragraph.\n"
@@ -221,6 +224,9 @@ class ListItem(BaseModel):
 
 class ListComponent(BaseModel):
     UIType: Literal["list"] = Field(description="Indicates this is a list component for displaying a list of items for example a CV (curriculum vitae)")
+    thought_process: str = Field(
+        description="Short sentence representing the AI assistant's thoughts while generating the component."
+    )
     headline: Optional[str] = Field(description="A short headline for the list")
     items: List[ListItem] = Field(description="A list of short text items with a prefix to be displayed")
 
@@ -228,6 +234,9 @@ class TableComponent(BaseModel):
     UIType: Literal["table"] = Field(
         description="Indicates this is a table component for displaying structured data"
                     "This format is suitable for structured overviews such as lists of exhibitions and CVs")
+    thought_process: str = Field(
+        description="Short sentence representing the AI assistant's thoughts while generating the component."
+    )
     headers: List[str] = Field(description="Column headers for the table. Headers should be single words when possible")
     rows: List[List[str]] = Field(
         description="Rows of data, where each row is a list of strings\n\n"
@@ -253,6 +262,9 @@ class GridArtworkComponent(BaseModel):
 
 class FullscreenArtworkComponent(BaseModel):
     UIType: Literal["fullscreen_artwork"] = Field(description="Indicates this is a fullscreen artwork component that represents an artwork in detailed view")
+    thought_process: str = Field(
+        description="Short sentence representing the AI assistant's thoughts while generating the component."
+    )
     name: str = Field(description="Name of the artwork")
     year: str = Field(description="Year the artwork was created")
     material: str = Field(description="Primary material used in the artwork")
@@ -276,6 +288,9 @@ class FullscreenArtworkComponent(BaseModel):
 
 class ArtworksList(BaseModel):
     UIType: Literal["projects_list"] = Field(description="Indicates this is an artworks list component for displaying a list of projects")
+    thought_process: str = Field(
+        description="Short sentence representing the AI assistant's thoughts while generating the component."
+    )
     layout: ArtworksLayout = Field(
         description=(
             "Display layout for artworks. "
@@ -301,7 +316,7 @@ class ArtworksList(BaseModel):
 class Response_1(BaseModel):
     type: Optional[Literal["response"]]  # Literal makes sure only a certain value is allowed for the type field / Fixed type to ensure root level is a simple object (not a descriminated union)
     thought_process: List[str] = Field(
-        description="List of multiple short sentences representing the AI assistant's thoughts while generating the response"
+        description="List of multiple short sentences representing the AI assistant's thoughts while generating the response. Each sentence should be concise and actionable, like bullet points in a thought process."
     )
     headline: HeadlineComponent = Field(
         description=(
@@ -312,15 +327,16 @@ class Response_1(BaseModel):
             "IMPORTANT: Needs to match the language of the user-facing content."
         )
     )
-    components: List[Union[ParagraphComponent, ListComponent, TableComponent, ArtworksList]] = Field(
-        description="List of UI components that make up the response"
-    )
     language: str = Field(
         description=(
             "The language of the response. "
             "For example: 'English' or 'German' or 'French' or 'Spanish'"
         )
     )
+    components: List[Union[ParagraphComponent, ListComponent, TableComponent, ArtworksList]] = Field(
+        description="List of UI components that make up the response"
+    )
+
 
 # SECOND CHATBOT
 
@@ -482,6 +498,10 @@ def stream():
 
                     # Get and send the final completion
                     final_completion = stream.get_final_completion().choices[0].message.parsed
+                    
+                    # Save the language for later use in websearch
+                    session['current_language'] = final_completion.language
+                    session.modified = True
                                         
                     # Send completion event to frontend with state_id
                     yield f"data: {json.dumps({'type': 'complete', 'content': final_completion.model_dump()})}\n\n"
@@ -633,6 +653,8 @@ def content4():
 def stream4():
     print("stream4")
     messages_4 = session.get('messages_4', [])
+    current_language = session.get('current_language')
+    print(f"Current language for websearch: {current_language}")
     
     def generate():
         stream = client.responses.create(
@@ -648,7 +670,8 @@ def stream4():
                     "content": [
                         {
                             "type": "input_text",
-                            "text": "You are a helpful assistant. The user will provide you with short terms, names, "
+                            "text": "IMPORTANT: Always respond in {current_language}.\n\n"
+                                    "You are a helpful assistant. The user will provide you with short terms, names, "
                                     "or references — including people, places, events, organizations, or artistic concepts.\n\n"
                                     "For each input, provide a clear, short and concise description (1–3 sentences) to help "
                                     "the user understand what the term means or refers to.\n\n"
@@ -658,7 +681,7 @@ def stream4():
                                     "general audience. Avoid technical jargon unless it's essential.\n\n"
                                     "IMPORTANT: Do not include citations, links, or source references in your response. "
                                     "Do not use footnotes or annotations. Just provide the information directly.\n\n"
-                                    "IMPORTANT: The description should be short and concise. 3 sentences max."
+                                    "IMPORTANT: The description should be short and concise. 3 sentences max.\n\n"
                         }
                     ]
                 },
