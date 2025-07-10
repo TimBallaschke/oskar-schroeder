@@ -253,6 +253,7 @@ let websearchWordQueue = [];
 let isWebsearchContainerProcessing = false;
 let isProcessingWebsearchWords = false;
 let currentWebsearchTerm = null;
+let currentLanguage = 'English'; // Global variable to store current AI response language
 const webSearchColumn = document.querySelector('.websearch-column');
 
 const userInput = document.getElementById('user-input');
@@ -837,6 +838,12 @@ function clearThoughtProcess() {
 
 async function handleDelta(content) {
     console.log("Received delta:", content);
+
+    // Capture the language from AI response for websearch as soon as it's available
+    if (content && content.language) {
+        currentLanguage = content.language;
+        console.log("Captured language from delta for websearch:", currentLanguage);
+    }
 
     // Handle thought process first
     if (content && content.thought_process) {
@@ -3663,7 +3670,7 @@ async function requestWebsearch(termForWebsearch, termDescriptionNumberContainer
         headers: {
             'Content-Type': 'application/json', // Specifies the type of content being sent
         },
-        body: JSON.stringify({message: message}) // Converts the message to a JSON string and sends it as the body of the request
+        body: JSON.stringify({message: message, language: currentLanguage}) // Include the current language from AI response
     })
     .then(response => response.json()) // Waits for the response from the server and converts it to a JSON object
     .then(data => { // waits for the response to be converted to a JSON object

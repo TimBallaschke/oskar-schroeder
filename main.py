@@ -123,7 +123,8 @@ app.secret_key = os.urandom(24)
 # Configure server-side session
 app.config['SESSION_TYPE'] = 'filesystem'  # You can also use 'redis', 'memcached', etc.
 app.config['SESSION_FILE_DIR'] = './flask_session/'  # Directory to store session files
-app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_PERMANENT'] = True  # Make sessions permanent so they persist
+app.config['SESSION_USE_SIGNER'] = True  # Sign session cookies for security
 Session(app)  # Initialize the session with the app
 
 # Initialize OpenAI client
@@ -498,10 +499,6 @@ def stream():
 
                     # Get and send the final completion
                     final_completion = stream.get_final_completion().choices[0].message.parsed
-                    
-                    # Save the language for later use in websearch
-                    session['current_language'] = final_completion.language
-                    session.modified = True
                                         
                     # Send completion event to frontend with state_id
                     yield f"data: {json.dumps({'type': 'complete', 'content': final_completion.model_dump()})}\n\n"
@@ -642,8 +639,12 @@ def stream3():
 @app.route('/content4', methods=['POST'])
 def content4():
     user_message = request.json['message']
+    language = request.json.get('language', 'English')  # Get language from frontend, default to English
 
     session['messages_4'] = user_message
+    session['websearch_language'] = language  # Store language for websearch
+    
+    print(f"Received websearch request with language: {language}")
 
     session.modified = True             
 
@@ -653,8 +654,8 @@ def content4():
 def stream4():
     print("stream4")
     messages_4 = session.get('messages_4', [])
-    current_language = session.get('current_language')
-    print(f"Current language for websearch: {current_language}")
+    current_language = session.get('websearch_language', 'English')  # Get language from websearch request
+    print(f"Using language for websearch: {current_language}")
     
     def generate():
         stream = client.responses.create(
@@ -670,18 +671,18 @@ def stream4():
                     "content": [
                         {
                             "type": "input_text",
-                            "text": "IMPORTANT: Always respond in {current_language}.\n\n"
-                                    "You are a helpful assistant. The user will provide you with short terms, names, "
-                                    "or references — including people, places, events, organizations, or artistic concepts.\n\n"
-                                    "For each input, provide a clear, short and concise description (1–3 sentences) to help "
-                                    "the user understand what the term means or refers to.\n\n"
-                                    "Always use your web search tool to include up-to-date and relevant information, "
-                                    "especially for people, institutions, or events that may have recent developments.\n\n"
-                                    "Your explanations should be factual, accessible, and easy to understand for a "
-                                    "general audience. Avoid technical jargon unless it's essential.\n\n"
-                                    "IMPORTANT: Do not include citations, links, or source references in your response. "
-                                    "Do not use footnotes or annotations. Just provide the information directly.\n\n"
-                                    "IMPORTANT: The description should be short and concise. 3 sentences max.\n\n"
+                            "text": f"You are a helpful assistant. The user will provide you with short terms, names, "
+                                    f"or references — including people, places, events, organizations, or artistic concepts.\n\n"
+                                    f"For each input, provide a clear, short and concise description (1–3 sentences) to help "
+                                    f"the user understand what the term means or refers to.\n\n"
+                                    f"Always use your web search tool to include up-to-date and relevant information, "
+                                    f"especially for people, institutions, or events that may have recent developments.\n\n"
+                                    f"Your explanations should be factual, accessible, and easy to understand for a "
+                                    f"general audience. Avoid technical jargon unless it's essential.\n\n"
+                                    f"IMPORTANT: Do not include citations, links, or source references in your response. "
+                                    f"Do not use footnotes or annotations. Just provide the information directly.\n\n"
+                                    f"IMPORTANT: The description should be short and concise. 3 sentences max.\n\n"
+                                    f"IMPORTANT: Always respond in {current_language}."
                         }
                     ]
                 },
