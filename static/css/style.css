@@ -240,6 +240,7 @@ p {
 
 .light-nav {
   font-variation-settings: "wght" var(--font-weight-light-nav), "ital" 0;
+  color: white;
 }
 
 .italic {
@@ -1725,6 +1726,10 @@ input {
     opacity: 1;
   }
 }
+#thought-process-container {
+  padding-bottom: 40px;
+}
+
 #version-history-background {
   position: fixed;
   top: 0;

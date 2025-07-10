@@ -282,6 +282,12 @@ let termDescriptionCount = 0;
 let paragraphContainerCount = 0;
 let numberExclude = 0;
 
+// Thought process variables
+let thoughtProcessArray = [];
+let currentThoughtIndex = 0;
+let thoughtProcessTimer = null;
+const thoughtProcessElement = document.getElementById('thought-process');
+
 
 
 // --------------------------------------------------------------------------------------------
@@ -769,11 +775,73 @@ function animateInputPlaceholder() {
 
 
 // --------------------------------------------------------------------------------------------
+// THOUGHT PROCESS HANDLING
+// --------------------------------------------------------------------------------------------
+
+function handleThoughtProcess(thoughtProcessData) {
+    if (!thoughtProcessData || !Array.isArray(thoughtProcessData) || thoughtProcessData.length === 0) {
+        return;
+    }
+
+    // Update the thought process array with new data
+    thoughtProcessArray = [...thoughtProcessData];
+    
+    // If we don't have a timer running and there's at least one thought, start displaying
+    if (!thoughtProcessTimer && thoughtProcessArray.length > 0) {
+        currentThoughtIndex = 0;
+        displayCurrentThought();
+        startThoughtProcessTimer();
+    }
+}
+
+function displayCurrentThought() {
+    if (thoughtProcessElement && currentThoughtIndex < thoughtProcessArray.length) {
+        thoughtProcessElement.textContent = thoughtProcessArray[currentThoughtIndex];
+    }
+}
+
+function startThoughtProcessTimer() {
+    // Clear any existing timer
+    if (thoughtProcessTimer) {
+        clearInterval(thoughtProcessTimer);
+    }
+    
+    // Start a new timer that checks every 5 seconds
+    thoughtProcessTimer = setInterval(() => {
+        // Check if there's a next thought to display
+        if (currentThoughtIndex + 1 < thoughtProcessArray.length) {
+            currentThoughtIndex++;
+            displayCurrentThought();
+        } else {
+            // No more thoughts to display, keep the timer running in case new ones arrive
+            // but don't increment the index
+        }
+    }, 2000);
+}
+
+function clearThoughtProcess() {
+    if (thoughtProcessTimer) {
+        clearInterval(thoughtProcessTimer);
+        thoughtProcessTimer = null;
+    }
+    thoughtProcessArray = [];
+    currentThoughtIndex = 0;
+    if (thoughtProcessElement) {
+        thoughtProcessElement.textContent = '';
+    }
+}
+
+// --------------------------------------------------------------------------------------------
 // HANDLE RESPONSE TYPES
 // --------------------------------------------------------------------------------------------
 
 async function handleDelta(content) {
     console.log("Received delta:", content);
+
+    // Handle thought process first
+    if (content && content.thought_process) {
+        handleThoughtProcess(content.thought_process);
+    }
 
     renderingQueue.push(content);
 
