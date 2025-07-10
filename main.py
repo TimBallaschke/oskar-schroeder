@@ -300,6 +300,9 @@ class ArtworksList(BaseModel):
 # Root level must be a simple object
 class Response_1(BaseModel):
     type: Optional[Literal["response"]]  # Literal makes sure only a certain value is allowed for the type field / Fixed type to ensure root level is a simple object (not a descriminated union)
+    thought_process: List[str] = Field(
+        description="List of multiple short sentences representing the AI assistant's thoughts while generating the response"
+    )
     headline: HeadlineComponent = Field(
         description=(
             "A short, precise title for the response. "
@@ -462,8 +465,9 @@ def stream():
             model="gpt-4o-mini",
             messages=messages,
             temperature=0.5,
-            max_tokens=10000,
+            max_tokens=6000,
             response_format=Response_1,
+            stream_options={"include_usage": False}  # Skip token counting for faster response
         ) as stream:
             for event in stream:
                 if event.type == "content.delta":
@@ -517,7 +521,7 @@ def handle_second_chatbot(final_completion):
             messages=messages_2,
             temperature=0.5,
             max_tokens=2048,
-            response_format=Response_2,
+            response_format=Response_2
         )
 
         second_response = response.choices[0].message.parsed
@@ -587,6 +591,7 @@ def stream3():
             temperature=0.5,
             max_tokens=2048,
             response_format=Response_3,
+            stream_options={"include_usage": False}  # Skip token counting for faster response
         ) as stream:
             for event in stream:
                 if event.type == "content.delta":

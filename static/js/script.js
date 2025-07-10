@@ -257,6 +257,7 @@ const webSearchColumn = document.querySelector('.websearch-column');
 
 const userInput = document.getElementById('user-input');
 const bottomNavigation = document.getElementById("bottom-navigation");
+const bottomNavigationBack = document.getElementById("bottom-navigation-back");
 
 const contentContainer = document.getElementById('content-container');
 const plusMinusButton = document.getElementById('plus-minus-button');
@@ -320,7 +321,6 @@ function inputAdded() {
 }
 
 function displayXButton() {
-    const bottomNavigation = document.getElementById('bottom-navigation');
     const xButton = document.getElementById('x-button');
 
     
@@ -329,11 +329,14 @@ function displayXButton() {
         
         console.log('prompt-proposal-opening-2');
         bottomNavigation.classList.remove('prompt-proposal-opening-2', 'input-has-content-2');
+        bottomNavigationBack.classList.remove('prompt-proposal-opening-2');
         bottomNavigation.classList.add('prompt-proposal-opening-1', 'input-has-content-1');
+        bottomNavigationBack.classList.add('prompt-proposal-opening-1');
         bottomNavigation.classList.add('streaming-1');
 
         setTimeout(() => {
             bottomNavigation.classList.remove('prompt-proposal-opening-1', 'input-has-content-1');
+            bottomNavigationBack.classList.remove('prompt-proposal-opening-1');
             bottomNavigation.classList.remove('streaming-1');
             bottomNavigation.classList.add('streaming-2');
 
@@ -3334,10 +3337,14 @@ function togglePromptProposals() {
 
     if (!bottomNavigation.classList.contains('prompt-proposal-opening-2')) {
         bottomNavigation.classList.add('prompt-proposal-opening-1');
+        bottomNavigationBack.classList.add('prompt-proposal-opening-1');
 
         setTimeout(() => {
             bottomNavigation.classList.remove('prompt-proposal-opening-1');
             bottomNavigation.classList.add('prompt-proposal-opening-2');
+
+            bottomNavigationBack.classList.remove('prompt-proposal-opening-1');
+            bottomNavigationBack.classList.add('prompt-proposal-opening-2');
             
         }, animationDuration);
 
@@ -3349,8 +3356,12 @@ function togglePromptProposals() {
         bottomNavigation.classList.remove('prompt-proposal-opening-2');
         bottomNavigation.classList.add('prompt-proposal-opening-1');
 
+        bottomNavigationBack.classList.remove('prompt-proposal-opening-2');
+        bottomNavigationBack.classList.add('prompt-proposal-opening-1');
+
         setTimeout(() => {
             bottomNavigation.classList.remove('prompt-proposal-opening-1');
+            bottomNavigationBack.classList.remove('prompt-proposal-opening-1');
             removePromptAnimations();
         }, animationDuration);
     }
@@ -3361,8 +3372,12 @@ function closePromptProposals() {
     bottomNavigation.classList.remove('prompt-proposal-opening-2');
     bottomNavigation.classList.add('prompt-proposal-opening-1');
 
+    bottomNavigationBack.classList.remove('prompt-proposal-opening-2');
+    bottomNavigationBack.classList.add('prompt-proposal-opening-1');
+
     setTimeout(() => {
         bottomNavigation.classList.remove('prompt-proposal-opening-1');
+        bottomNavigationBack.classList.remove('prompt-proposal-opening-1');
     }, animationDuration);
 }
 
@@ -3910,11 +3925,13 @@ function updateNavigationElementsOnPageScroll() {
         // Scrolling down
         document.body.classList.add("scroll-down");
         bottomNavigation.classList.add("scroll-down");
+        bottomNavigationBack.classList.add("scroll-down");
 
       } else {
         // Scrolling up
         document.body.classList.remove("scroll-down");
         bottomNavigation.classList.remove("scroll-down");
+        bottomNavigationBack.classList.remove("scroll-down");
       }
   
       lastScrollY = currentScrollY;

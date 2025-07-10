@@ -12,6 +12,45 @@
   transform: translateY(0px);
   @include primary-type;
 
+
+  &.scroll-down {
+    transform: translateY(200px);
+  }
+
+  @include desktop-small {
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 4);
+    right: calc((100vw - 2 * var(--page-padding)) / 8 * 2 + var(--page-padding));
+  }
+
+  @include desktop-large {
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 4);
+    right: calc((100vw - 2 * var(--page-padding)) / 8 * 2 + var(--page-padding));
+    @include secondary-type;
+  }
+
+  @include desktop-x-large {
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 4);
+    right: calc((100vw - 2 * var(--page-padding)) / 8 * 2 + var(--page-padding));
+    // background-color: red;
+    @include secondary-type;
+
+  }
+}
+
+#bottom-navigation-back {
+  position: fixed;
+  width: calc(100vw - 2 * var(--side-margin-bottom-nav));
+  right: var(--side-margin-bottom-nav);
+  bottom: var(--bottom-margin-bottom-nav);
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  border-radius: calc((var(--input-element-height) + 2 * var(--veritical-padding-bottom-nav)) / 2);
+  height: auto;
+  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out, transform var(--animation-duration-3) ease-in-out;
+  transform: translateY(0px);
+  @include primary-type;
+
+
   &.scroll-down {
     transform: translateY(200px);
   }
@@ -46,11 +85,11 @@
   transition: all var(--animation-duration-1) ease-in-out;
 
   .prompt-proposal-opening-1 & {
-    padding-bottom: 15px;
+    padding-bottom: 35px;
   }
 
   .prompt-proposal-opening-2 & {
-    padding-bottom: 15px;
+    padding-bottom:35px;
   }
 
   @include desktop-large {
@@ -149,6 +188,12 @@
 
 
 #input-bar {
+  width: calc(100% - var(--button-size));
+  height: var(--input-element-height);
+  transition: width var(--animation-duration-1) ease-in-out;
+}
+
+#input-bar-placeholder {
   width: calc(100% - var(--button-size));
   height: var(--input-element-height);
   transition: width var(--animation-duration-1) ease-in-out;
