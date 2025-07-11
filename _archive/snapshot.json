@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "original_folder": "250710e_Oskar_Website_websearch_language_adjustmen",
-  "snapshot_date_from_folder": "250710",
+  "original_folder": "250711_Oskar_Website_saveCurrentHTML_when_stopStreaming",
+  "snapshot_date_from_folder": "250711",
   "source_files": [
     {
       "path": ".cursorignore",
@@ -152,9 +152,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "21f19687a52585b8ca8c33bcad8694884a7553bc",
-      "sha256": "0acb34a27ca211e253650e20c9822a314297de88daca809311df096382385ccd",
-      "size": 194218,
+      "sha1": "6883453f7ada7aa244f91736a6fa8e22e7d992f4",
+      "sha256": "067471f92b228fef7dd5903ffefe30129d357f5a07c179a603678bebe353c5c6",
+      "size": 194433,
       "mode": "100644"
     },
     {

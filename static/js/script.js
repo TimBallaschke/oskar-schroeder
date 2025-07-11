@@ -586,6 +586,9 @@ function startStreamingResponse() {
                 console.error("Error:", data.content);
                 activeEventSource.close();
                 activeEventSource = null;
+                isStreaming = false;
+                stopStreamingAnimation();
+                saveCurrentHTML(); // Save HTML even on error
                 break;
         }
     };
@@ -3863,6 +3866,9 @@ function finalizeWebsearch() {
     reworkRenderingQueue = [];
 
     stopStreamingAnimation();
+    
+    // Save current HTML when streaming stops
+    saveCurrentHTML();
 
     const currentVersionHistoryElement = document.querySelector('.current-version-history-element');
  }
