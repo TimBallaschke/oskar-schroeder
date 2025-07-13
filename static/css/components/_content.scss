@@ -720,7 +720,6 @@
     .project-description {
         padding-bottom: 200px;
         @include primary-type;
-        height: 0;
         overflow: hidden;
         transition: all var(--animation-duration-2) ease-in-out;
 

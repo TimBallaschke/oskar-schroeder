@@ -928,7 +928,6 @@ p {
 .fullscreen .project-description {
   padding-bottom: 200px;
   font-size: var(--primary-font-size);
-  height: 0;
   overflow: hidden;
   transition: all var(--animation-duration-2) ease-in-out;
 }
