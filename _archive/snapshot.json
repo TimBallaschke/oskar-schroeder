@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250713c_Oskar_Website_loadHTMLfromURL",
+  "original_folder": "250713d_Oskar_Website_db_URL_with_Headline",
   "snapshot_date_from_folder": "250713",
   "source_files": [
     {
@@ -33,16 +33,16 @@
     },
     {
       "path": "main.py",
-      "sha1": "b9f602671ef2e96d2cd81aeed3d4d07494a05ea9",
-      "sha256": "3599d95824409f66c6b65b31529e7639750838f40f2b3e87ef8ac91140ec79ae",
-      "size": 37808,
+      "sha1": "8eb4f0dfe4f969463c4c126839836a4e2ad646a4",
+      "sha256": "75a22f54f79c13cc09cd13f25ba0a44665e51f7af981184f407c40cc8450c190",
+      "size": 38050,
       "mode": "100644"
     },
     {
       "path": "migrate_db.py",
-      "sha1": "92e7244bda85d629df656883e2ea2922c936e112",
-      "sha256": "177faff364b8b50e731cb3f3cf157e76cf86cabf81aac4b5b3a43cccd2ebd92a",
-      "size": 1271,
+      "sha1": "cf4edcd65177fe2a48114aa130d6ce011bb687b3",
+      "sha256": "2bee185ebf1d161eefd6ae6b195020739eecf2893ba79fd6369f6a8ef1796845",
+      "size": 1772,
       "mode": "100644"
     },
     {
@@ -159,9 +159,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "a82b1c4571ca194e0c4768df1fd0187aa8ee9bce",
-      "sha256": "63e70e555124e0aec0d12f7107097fe193b2c0396590a5d7601a2ee29c7f1c41",
-      "size": 195901,
+      "sha1": "5de6245d111d8fe78253fb1c226f4ba5fbd5ecca",
+      "sha256": "88ae8d2cbe02938402f02644b608075110f89f4a33e5f7afc10b7eed5f65ed5a",
+      "size": 196647,
       "mode": "100644"
     },
     {

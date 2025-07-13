@@ -2495,6 +2495,11 @@ function handleComplete(content) {
 
 function handleSecondComplete(content, stateId) {
 
+    // Store the stateId in the current response
+    if (responseMap[responseCount]) {
+        responseMap[responseCount].stateId = stateId;
+    }
+
     // Generate a unique URL if we have a stateId
     if (stateId) {
         const newUrl = `${window.location.origin}${window.location.pathname}?state=${stateId}`;
@@ -2554,8 +2559,14 @@ function saveCurrentHTML() {
     const currentHTML = contentContainer.innerHTML;
     console.log('currentHTML', currentHTML);
 
+    // Get the current headline from the version history element
+    const currentVersionElement = document.querySelector('.current-version-history-element');
+    const currentHeadline = currentVersionElement ? 
+        currentVersionElement.querySelector('.version-history-element-title')?.textContent : null;
+
     responseMap[responseCount] = {
         content: currentHTML,
+        headline: currentHeadline,
         stateId: null
     };
 
@@ -2572,7 +2583,8 @@ function saveCurrentHTML() {
             },
             body: JSON.stringify({
                 state_id: stateId,
-                content: currentHTML
+                content: currentHTML,
+                headline: currentHeadline
             })
         })
         .then(response => response.json())
@@ -3934,11 +3946,15 @@ function loadStateFromUrl() {
                     responseCount++;
                     responseMap[responseCount] = {
                         content: data.content,
+                        headline: data.headline,
                         stateId: stateId
                     };
                     
+                    // Use the headline from the database, or a fallback
+                    const headline = data.headline || "Loaded State";
                     // Reset styles and update version history
-                    updateCurrentVersion();
+                    addNewVersionHistoryElement(headline);
+
                     
                     console.log("State loaded successfully");
                 } else {

@@ -51,11 +51,12 @@ def init_db():
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         
-        # Create states table with created_at column
+        # Create states table with created_at and headline columns
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS states (
                 id TEXT PRIMARY KEY,
                 content TEXT NOT NULL,
+                headline TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
@@ -69,17 +70,17 @@ def init_db():
         if 'conn' in locals():
             conn.close()
 
-def save_state(state_id, content):
+def save_state(state_id, content, headline=None):
     """Save a state to the database"""
     try:
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         
-        # Insert state with current timestamp
+        # Insert state with current timestamp and headline
         cursor.execute("""
-            INSERT INTO states (id, content, created_at)
-            VALUES (?, ?, CURRENT_TIMESTAMP)
-        """, (state_id, content))
+            INSERT INTO states (id, content, headline, created_at)
+            VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+        """, (state_id, content, headline))
         
         conn.commit()
         return True
@@ -96,12 +97,15 @@ def get_state(state_id):
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         
-        cursor.execute("SELECT content FROM states WHERE id = ?", (state_id,))
+        cursor.execute("SELECT content, headline FROM states WHERE id = ?", (state_id,))
         result = cursor.fetchone()
         
         if result:
-            # Return the content as a dictionary with the expected format
-            return {"content": result[0]}
+            # Return the content and headline as a dictionary
+            return {
+                "content": result[0],
+                "headline": result[1]
+            }
         return None
     except Exception as e:
         print(f"Database error retrieving state: {str(e)}")
@@ -759,11 +763,12 @@ def save_state_route():
         data = request.get_json()
         state_id = data.get('state_id')
         content = data.get('content')
+        headline = data.get('headline')  # Get headline from request
         
         if not state_id or not content:
             return jsonify({"error": "Missing state_id or content"}), 400
             
-        success = save_state(state_id, content)
+        success = save_state(state_id, content, headline)
         if success:
             # Clean up old states after saving new one
             cleanup_old_states()
