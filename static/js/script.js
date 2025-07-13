@@ -2563,6 +2563,12 @@ function saveCurrentHTML() {
     // Remove all style attributes using regex (faster than DOM manipulation)
     currentHTML = currentHTML.replace(/\s*style\s*=\s*["'][^"']*["']/gi, '');
     
+    // Remove 'active' class from all elements using regex
+    currentHTML = currentHTML.replace(/\s*class\s*=\s*["']([^"']*)["']/gi, (match, classes) => {
+        const cleanedClasses = classes.replace(/\b\s*active\s*\b/g, '').replace(/\s+/g, ' ').trim();
+        return cleanedClasses ? ` class="${cleanedClasses}"` : '';
+    });
+    
     console.log('currentHTML', currentHTML);
 
     // Get the current headline from the version history element
