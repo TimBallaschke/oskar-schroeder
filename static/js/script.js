@@ -490,6 +490,7 @@ function sendMessage() {
 
     processedComponents.clear(); // Clear processed components for a new request
     renderingQueue = [];  // Clear the rendering queue
+    headlineProcessed = false; // Reset headline processing flag for new request
 
     if (document.body.classList.contains('component-selected')) {
         const selectedComponent = document.querySelector('.selected');
@@ -2607,6 +2608,7 @@ function saveCurrentHTML() {
 }
 
 function addNewVersionHistoryElement(headline) {
+    console.log('addNewVersionHistoryElement', headline);
     headlineProcessed = true;
     
     const historyElements = document.querySelectorAll('.version-history-element');
@@ -3954,6 +3956,7 @@ function loadStateFromUrl() {
                     
                     // Update response count and map
                     responseCount++;
+                    contentContainer.setAttribute('data-version-key', responseCount);
                     responseMap[responseCount] = {
                         content: data.content,
                         headline: data.headline,
