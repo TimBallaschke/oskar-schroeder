@@ -97,8 +97,9 @@ SYSTEM_PROMPT_2 = {
         "Your task is to generate **four short prompt suggestions** based on a structured UI response that reflects what the user has already seen. "
         "Each suggestion should help the user discover **unexplored but available content** in the dataset.\n\n"
 
-        "IMPORTANT: You must always generate the prompt suggestions in the same language defined in the language field of the input response."
-        "If the language is 'French', your output must be in French. This applies to all text you generate, including the wording of each prompt.\n"
+        "IMPORTANT: You must always generate the prompt suggestions in the same language defined in the language field of the input response.\n"
+        "If the language is 'French', your output must be in French. This applies to all text you generate, including the wording of each prompt AND thought process.\n"
+        "VERY IMPORTANT: ALL thought processes must be written in the SAME LANGUAGE as the user request. If you respond in German, think in German. If you respond in french, think in french. If you respond in spanish, think in spanish.\n"
 
         "### Objective:\n"
         "Guide the user through a meaningful discovery path. Prioritize core topics like biography, CV, artworks overview, and exhibition history. "

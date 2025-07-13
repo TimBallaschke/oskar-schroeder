@@ -216,7 +216,7 @@ class ParagraphComponent(BaseModel):
         )
     )
     thought_process: str = Field(
-        description="Short sentence representing the AI assistant's thoughts while generating the component."
+        description="Short sentence representing the AI assistant's thoughts while generating the component. IMPORTANT: ALL thought processes must be written in the SAME LANGUAGE as the user request."
     )
     image: Optional[ImageComponent] = Field(
         description=(
@@ -268,7 +268,7 @@ class ListItem(BaseModel):
 class ListComponent(BaseModel):
     UIType: Literal["list"] = Field(description="Indicates this is a list component for displaying a list of items for example a CV (curriculum vitae)")
     thought_process: str = Field(
-        description="Short sentence representing the AI assistant's thoughts while generating the component."
+        description="Short sentence representing the AI assistant's thoughts while generating the component. IMPORTANT: ALL thought processes must be written in the SAME LANGUAGE as the user request."
     )
     headline: Optional[str] = Field(description="A short headline for the list")
     items: List[ListItem] = Field(description="A list of short text items with a prefix to be displayed")
@@ -278,7 +278,7 @@ class TableComponent(BaseModel):
         description="Indicates this is a table component for displaying structured data"
                     "This format is suitable for structured overviews such as lists of exhibitions and CVs")
     thought_process: str = Field(
-        description="Short sentence representing the AI assistant's thoughts while generating the component."
+        description="Short sentence representing the AI assistant's thoughts while generating the component. IMPORTANT: ALL thought processes must be written in the SAME LANGUAGE as the user request."
     )
     headers: List[str] = Field(description="Column headers for the table. Headers should be single words when possible")
     rows: List[List[str]] = Field(
@@ -306,7 +306,7 @@ class GridArtworkComponent(BaseModel):
 class FullscreenArtworkComponent(BaseModel):
     UIType: Literal["fullscreen_artwork"] = Field(description="Indicates this is a fullscreen artwork component that represents an artwork in detailed view")
     thought_process: str = Field(
-        description="Short sentence representing the AI assistant's thoughts while generating the component."
+        description="Short sentence representing the AI assistant's thoughts while generating the component. IMPORTANT: ALL thought processes must be written in the SAME LANGUAGE as the user request."
     )
     name: str = Field(description="Name of the artwork")
     year: str = Field(description="Year the artwork was created")
@@ -332,7 +332,7 @@ class FullscreenArtworkComponent(BaseModel):
 class ArtworksList(BaseModel):
     UIType: Literal["projects_list"] = Field(description="Indicates this is an artworks list component for displaying a list of projects")
     thought_process: str = Field(
-        description="Short sentence representing the AI assistant's thoughts while generating the component."
+        description="Short sentence representing the AI assistant's thoughts while generating the component. IMPORTANT: ALL thought processes must be written in the SAME LANGUAGE as the user request."
     )
     layout: ArtworksLayout = Field(
         description=(
@@ -359,7 +359,7 @@ class ArtworksList(BaseModel):
 class Response_1(BaseModel):
     type: Optional[Literal["response"]]  # Literal makes sure only a certain value is allowed for the type field / Fixed type to ensure root level is a simple object (not a descriminated union)
     thought_process: List[str] = Field(
-        description="List of multiple short sentences representing the AI assistant's thoughts while generating the response. Each sentence should be concise and actionable, like bullet points in a thought process."
+        description="List of multiple short sentences representing the AI assistant's thoughts while generating the response. Each sentence should be concise and actionable. IMPORTANT: ALL thought processes must be written in the SAME LANGUAGE as the user request."
     )
     headline: HeadlineComponent = Field(
         description=(

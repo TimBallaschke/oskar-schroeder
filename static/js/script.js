@@ -290,7 +290,9 @@ let numberExclude = 0;
 let thoughtProcessArray = []; // Queue for processing
 let processedThoughts = []; // Track all thoughts that have been processed
 let isProcessingThoughts = false;
+let dotAnimationInterval = null;
 const thoughtProcessElement = document.getElementById('thought-process');
+const thoughtProcessDots = document.getElementById('thought-process-dots');
 
 
 
@@ -382,93 +384,120 @@ function displayXButton() {
 }
 
 function startStreamingAnimation() {
+
     startAnimateInput();
     displayXButton();
+
+    setTimeout(() => {
+        const thoughtProcessContainer = document.getElementById('thought-process-container');
+        thoughtProcessContainer.classList.add('thinking-active');
+        startDotAnimation(); // Start the dot animation
+    }, 200);
 };
 
 function stopStreamingAnimation() {
+
     stopAnimateInput();
+
+    const thoughtProcessContainer = document.getElementById('thought-process-container');
+    thoughtProcessContainer.classList.remove('thinking-active');
+    thoughtProcessElement.classList.add('no-opacity');
+
+    stopDotAnimation(); // Stop the dot animation
 }
 
 function startAnimateInput() {
 
     placeholderAnimationActive = false;
 
-    if (userInput.inputAnimationInterval) {
-        clearInterval(userInput.inputAnimationInterval);
-    }
-
+    userInput.classList.add('animation-settings-2');
     userInput.classList.remove('light-nav');
 
-    userInput.inputAnimationInterval = setInterval(() => {
+    // userInput.inputAnimationInterval = setInterval(() => {
         
-        if (userInput.classList.contains('light')) {
-            userInput.classList.remove('light');
-        } else {
-            userInput.classList.add('light');
-        }
+    //     if (userInput.classList.contains('light')) {
+    //         userInput.classList.remove('light');
+    //     } else {
+    //         userInput.classList.add('light');
+    //     }
 
-    }, 1000);
+    // }, 1000);
 }
 
 function stopAnimateInput() {
-    if (userInput.classList.contains('light')) {
-        if (userInput.inputAnimationInterval) {
-            clearInterval(userInput.inputAnimationInterval);
-        }
-        userInput.classList.remove('light');
-        userInput.classList.add('light-nav', 'animation-settings-2');
 
-        setTimeout(() => {
-            userInput.classList.add('no-opacity');
-        }, 300);
+    userInput.classList.add('no-opacity', 'light-nav');
 
-        setTimeout(() => {
-            userInput.value = '';
-            userInput.classList.remove('no-opacity');
-            inputAdded();
-        }, 500);
+    setTimeout(() => {
+        userInput.value = '';
+        userInput.classList.remove('no-opacity');
+        displayXButton();
+        inputAdded();
+    }, 200);
 
-        setTimeout(() => {
-            displayXButton();
-        }, 800);
+    setTimeout(() => {
+        userInput.classList.remove('animation-settings-2');
+        placeholderAnimationActive = true;
+        animateInputPlaceholder();
+    }, 800);
 
-        setTimeout(() => {
-            userInput.classList.remove('animation-settings-2');
-            placeholderAnimationActive = true;
-            animateInputPlaceholder();
-        }, 1000);
+    // if (userInput.classList.contains('light')) {
+    //     if (userInput.inputAnimationInterval) {
+    //         clearInterval(userInput.inputAnimationInterval);
+    //     }
+    //     userInput.classList.remove('light');
+    //     userInput.classList.add('light-nav', 'animation-settings-2');
 
-    } else {
-        setTimeout(() => {
-            if (userInput.inputAnimationInterval) {
-                clearInterval(userInput.inputAnimationInterval);
-            }
-            userInput.classList.remove('light');
-            userInput.classList.add('light-nav', 'animation-settings-2');
+    //     setTimeout(() => {
+    //         userInput.classList.add('no-opacity');
+    //     }, 300);
 
-            setTimeout(() => {
-                userInput.classList.add('no-opacity');
-            }, 300);
+    //     setTimeout(() => {
+    //         userInput.value = '';
+    //         userInput.classList.remove('no-opacity');
+    //         inputAdded();
+    //     }, 500);
+
+    //     setTimeout(() => {
+    //         displayXButton();
+    //     }, 800);
+
+    //     setTimeout(() => {
+    //         userInput.classList.remove('animation-settings-2');
+    //         placeholderAnimationActive = true;
+    //         animateInputPlaceholder();
+    //     }, 1000);
+
+    // } else {
+    //     setTimeout(() => {
+    //         if (userInput.inputAnimationInterval) {
+    //             clearInterval(userInput.inputAnimationInterval);
+    //         }
+    //         userInput.classList.remove('light');
+    //         userInput.classList.add('light-nav', 'animation-settings-2');
+
+    //         setTimeout(() => {
+    //             userInput.classList.add('no-opacity');
+    //         }, 300);
     
-            setTimeout(() => {
-                userInput.value = '';
-                userInput.classList.remove('no-opacity');
-                inputAdded();
-            }, 500);
+    //         setTimeout(() => {
+    //             userInput.value = '';
+    //             userInput.classList.remove('no-opacity');
+    //             inputAdded();
+    //         }, 500);
 
-            setTimeout(() => {
-                displayXButton();
-            }, 800);
+    //         setTimeout(() => {
+    //             displayXButton();
+    //         }, 800);
 
-            setTimeout(() => {
-                userInput.classList.remove('animation-settings-2');
-                placeholderAnimationActive = true;
-                animateInputPlaceholder();
-            }, 1000);
+    //         setTimeout(() => {
+    //             userInput.classList.remove('animation-settings-2');
+    //             placeholderAnimationActive = true;
+    //             animateInputPlaceholder();
+    //         }, 1000);
 
-        }, 1000);
-    }
+    //     }, 1000);
+    // }
 }
 
 
@@ -784,10 +813,12 @@ function animateInputPlaceholder() {
 // THOUGHT PROCESS HANDLING
 // --------------------------------------------------------------------------------------------
 
-function handleThoughtProcess(thoughtProcessData) {
+async function handleThoughtProcess(thoughtProcessData) {
     if (!thoughtProcessData) {
         return;
     }
+
+    await stopDotAnimation(); // Stop the dot animation and wait for it to complete
 
     // Normalize input: convert string to array, keep arrays as-is
     let thoughtsArray;
@@ -813,9 +844,11 @@ function handleThoughtProcess(thoughtProcessData) {
     }
     
     // Start processing the queue if not already processing
-    if (!isProcessingThoughts && thoughtProcessArray.length > 0) {
-        processThoughtQueue();
-    }
+    setTimeout(() => {
+        if (!isProcessingThoughts && thoughtProcessArray.length > 0) {
+            processThoughtQueue();
+        }
+    }, 300);
 }
 
 async function processThoughtQueue() {
@@ -836,7 +869,11 @@ async function processThoughtQueue() {
             await new Promise(resolve => {
                 setTimeout(() => {
                     thoughtProcessElement.textContent = currentThought;
-                    thoughtProcessElement.classList.remove('no-opacity');
+
+                    if (isStreaming) {
+                        thoughtProcessElement.classList.remove('no-opacity');
+                    }
+
                     resolve();
                 }, 300);
             });
@@ -849,6 +886,60 @@ async function processThoughtQueue() {
     }
     
     isProcessingThoughts = false;
+}
+
+function startDotAnimation() {
+    if (!thoughtProcessDots || dotAnimationInterval) {
+        return; // Exit if element doesn't exist or animation already running
+    }
+    
+    let dotCount = 0;
+    const maxDots = 3;
+    
+    // Clear any existing content
+    thoughtProcessDots.textContent = '';
+    thoughtProcessDots.classList.remove('no-opacity');
+
+    
+    dotAnimationInterval = setInterval(() => {
+        if (dotCount < maxDots) {
+            thoughtProcessDots.textContent += '.';
+            dotCount++;
+        } else {
+            // All dots shown, clear them and start over
+            thoughtProcessDots.textContent = '';
+            dotCount = 0;
+        }
+    }, 200); // Add a dot every 200ms
+}
+
+async function stopDotAnimation() {
+    if (!dotAnimationInterval) {
+        return; // No animation running
+    }
+
+    return new Promise(resolve => {
+        // Let the current cycle complete naturally
+        const checkCycle = () => {
+            if (thoughtProcessDots.textContent === '...') {
+                // Full cycle completed, now stop
+                clearInterval(dotAnimationInterval);
+                dotAnimationInterval = null;
+                
+                thoughtProcessDots.classList.add('no-opacity');
+                
+                setTimeout(() => {
+                    thoughtProcessDots.textContent = '';
+                    resolve();
+                }, 200);
+            } else {
+                // Check again in a short time
+                setTimeout(checkCycle, 50);
+            }
+        };
+        
+        checkCycle();
+    });
 }
 
 
