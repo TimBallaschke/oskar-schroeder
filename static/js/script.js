@@ -2780,6 +2780,11 @@ function displayPreviousVersion(element) {
 
         setTimeout(() => {
             targetElements.forEach(element => {
+                // Measure and set width before removing light class
+                const elementWidth = element.getBoundingClientRect().width;
+                element.style.width = `${elementWidth}px`;
+                element.style.display = 'inline-block';
+                
                 element.classList.remove('light');
             });
         }, 200);
