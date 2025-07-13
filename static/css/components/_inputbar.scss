@@ -449,3 +449,23 @@ input {
   padding-bottom: 40px;
 }
 
+#thought-process {
+  opacity: 1;
+  transition: all 300ms ease-in-out;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+
+  &.no-opacity {
+    opacity: 0;
+  }
+
+  &.no-width {
+    width: 0;
+  }
+
+
+}
+
+
+

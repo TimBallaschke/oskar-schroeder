@@ -1740,6 +1740,20 @@ input {
   padding-bottom: 40px;
 }
 
+#thought-process {
+  opacity: 1;
+  transition: all 300ms ease-in-out;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+#thought-process.no-opacity {
+  opacity: 0;
+}
+#thought-process.no-width {
+  width: 0;
+}
+
 #version-history-background {
   position: fixed;
   top: 0;

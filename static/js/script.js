@@ -287,9 +287,9 @@ let paragraphContainerCount = 0;
 let numberExclude = 0;
 
 // Thought process variables
-let thoughtProcessArray = [];
-let currentThoughtIndex = 0;
-let thoughtProcessTimer = null;
+let thoughtProcessArray = []; // Queue for processing
+let processedThoughts = []; // Track all thoughts that have been processed
+let isProcessingThoughts = false;
 const thoughtProcessElement = document.getElementById('thought-process');
 
 
@@ -785,64 +785,80 @@ function animateInputPlaceholder() {
 // --------------------------------------------------------------------------------------------
 
 function handleThoughtProcess(thoughtProcessData) {
-    if (!thoughtProcessData || !Array.isArray(thoughtProcessData) || thoughtProcessData.length === 0) {
+    if (!thoughtProcessData) {
         return;
     }
 
-    // Update the thought process array with new data
-    thoughtProcessArray = [...thoughtProcessData];
-    
-    // If we don't have a timer running and there's at least one thought, start displaying
-    if (!thoughtProcessTimer && thoughtProcessArray.length > 0) {
-        currentThoughtIndex = 0;
-        displayCurrentThought();
-        startThoughtProcessTimer();
+    // Normalize input: convert string to array, keep arrays as-is
+    let thoughtsArray;
+    if (typeof thoughtProcessData === 'string') {
+        thoughtsArray = [thoughtProcessData]; // Wrap string in array
+    } else if (Array.isArray(thoughtProcessData)) {
+        thoughtsArray = thoughtProcessData;
+    } else {
+        return; // Invalid input type
     }
-}
 
-function displayCurrentThought() {
-    if (thoughtProcessElement && currentThoughtIndex < thoughtProcessArray.length) {
-        thoughtProcessElement.textContent = thoughtProcessArray[currentThoughtIndex];
+    if (thoughtsArray.length === 0) {
+        return;
     }
-}
 
-function startThoughtProcessTimer() {
-    // Clear any existing timer
-    if (thoughtProcessTimer) {
-        clearInterval(thoughtProcessTimer);
-    }
-    
-    // Start a new timer that checks every 5 seconds
-    thoughtProcessTimer = setInterval(() => {
-        // Check if there's a next thought to display
-        if (currentThoughtIndex + 1 < thoughtProcessArray.length) {
-            currentThoughtIndex++;
-            displayCurrentThought();
-        } else {
-            // No more thoughts to display, keep the timer running in case new ones arrive
-            // but don't increment the index
+    // Add new thoughts to queue (avoiding duplicates based on processed thoughts)
+    for (const thought of thoughtsArray) {
+        if (!processedThoughts.includes(thought)) {
+            thoughtProcessArray.push(thought);
+            processedThoughts.push(thought);
+            console.log('Added thought to queue:', thought);
         }
-    }, 2000);
+    }
+    
+    // Start processing the queue if not already processing
+    if (!isProcessingThoughts && thoughtProcessArray.length > 0) {
+        processThoughtQueue();
+    }
 }
 
-function clearThoughtProcess() {
-    if (thoughtProcessTimer) {
-        clearInterval(thoughtProcessTimer);
-        thoughtProcessTimer = null;
+async function processThoughtQueue() {
+    if (isProcessingThoughts || thoughtProcessArray.length === 0) {
+        return;
     }
-    thoughtProcessArray = [];
-    currentThoughtIndex = 0;
-    if (thoughtProcessElement) {
-        thoughtProcessElement.textContent = '';
+    
+    isProcessingThoughts = true;
+    
+    while (thoughtProcessArray.length > 0) {
+        const currentThought = thoughtProcessArray.shift(); // Get first thought from queue
+        
+        if (thoughtProcessElement) {
+            // Add fade-out effect
+            thoughtProcessElement.classList.add('no-opacity');
+
+            // Wait 200ms, then update content and fade back in
+            await new Promise(resolve => {
+                setTimeout(() => {
+                    thoughtProcessElement.textContent = currentThought;
+                    thoughtProcessElement.classList.remove('no-opacity');
+                    resolve();
+                }, 300);
+            });
+            
+            // Wait a bit before processing next thought (optional - adjust timing as needed)
+            await new Promise(resolve => setTimeout(resolve, 2000));
+        } else {
+            break; // Exit if no element to display in
+        }
     }
+    
+    isProcessingThoughts = false;
 }
+
+
 
 // --------------------------------------------------------------------------------------------
 // HANDLE RESPONSE TYPES
 // --------------------------------------------------------------------------------------------
 
 async function handleDelta(content) {
-    console.log("Received delta:", content);
+    // console.log("Received delta:", content);
 
     // Capture the language from AI response for websearch as soon as it's available
     if (content && content.language) {
@@ -898,6 +914,10 @@ async function handleDelta(content) {
 
                 switch (component.UIType) {
                     case 'paragraphs':
+
+                        if (component.thought_process) {
+                            handleThoughtProcess(component.thought_process);
+                        }
 
                         if (!component.text || !Array.isArray(component.text)) { // wait till text is available (therefore necessary information for the layout e.g. image will be available)
                             break;
@@ -2599,6 +2619,7 @@ function saveCurrentHTML() {
                 content: currentHTML,
                 headline: currentHeadline
             })
+
         })
         .then(response => response.json())
         .then(data => {
@@ -3071,230 +3092,6 @@ function startVersionHistoryScrollMobile() {
 //     });
 // }
 
-
-// --------------------------------------------------------------------------------------------
-// COMPONENT REWORK
-// --------------------------------------------------------------------------------------------
-
-function startStreamingComponentRework() {
-    // Close any existing EventSource connection
-    if (activeEventSource) {
-        activeEventSource.close();
-        console.log("Closed previous activeEventSource connection.");
-    }
-
-    activeEventSource = new EventSource("/stream3"); // creates a new EventSource connection to the "/stream" endpoint. activeEventSource is used for Server-Sent Events (SSE), allowing the server to push data to the client in real-time over a single, long-lived connection
-    console.log(activeEventSource);
-
-    activeEventSource.onmessage = function(event) { // eventhandler that will be called whenever a message is received from the server
-        const data = JSON.parse(event.data); // parsed the received message data from JSON string format to a JavaScript object
-
-        switch(data.type) { // switch statement to handle different types of messages (switch statement is used to handle different cases based on the value of a variable -> alternative to if-else statements)
-            case 'delta': // if the message type is 'delta', it calls the handleDelta function
-                handleDeltaRework(data.content);
-                break;
-            case 'complete': // if the message type is 'complete', it calls the handleComplete function
-                handleCompleteRework(data.content);
-                activeEventSource.close();
-                activeEventSource = null;
-                break;
-            case "error": // if the message type is 'error', it logs the error to the console and closes the event source
-                console.error("Error:", data.content);
-                activeEventSource.close();
-                activeEventSource = null;
-                break;
-        }
-    };
-
-    activeEventSource.onerror = function (error) { // eventhandler that will be called if an error occurs with the event source
-        console.error("activeEventSource failed:", error);
-        activeEventSource.close();
-        activeEventSource = null;
-    };
-};
-
-async function handleDeltaRework(content) {
-    // console.log('handleDeltaRework', content);
-    reworkRenderingQueue.push(content);
-
-    if (isReworkProcessing) {
-        return; // Exit if already processing
-    }
-
-    while (reworkRenderingQueue.length > 0) {
-        try {
-            isReworkProcessing = true;
-            const currentContent = reworkRenderingQueue.shift();
-
-            if (!currentContent.component || !currentContent.component.UIType) {
-                console.warn("Invalid content structure:", currentContent);
-                continue;
-            }
-
-            switch (currentContent.component.UIType) {
-                case "project":
-                    const project = currentContent.component;
-
-                    if (!selectedComponent) {
-                        console.warn(`Project element not found for ID: ${project.name?.value}`);
-                        continue;
-                    }
-
-                    const updateField = (selector, value) => {
-                        const element = selectedComponent.querySelector(selector);
-                        if (element) {
-                            element.textContent = value;
-                        } else {
-                            // Only create new element if selector exists in the original component structure
-                            const selectorExists = selectedComponent.querySelector(selector.split('.')[1]);
-                            if (selectorExists) {
-                                const newElement = document.createElement("div");
-                                newElement.classList.add(selector.replace(".", ""));
-                                newElement.textContent = value;
-                                selectedComponent.appendChild(newElement);
-                            } else {
-                                console.warn(`Element with selector ${selector} not found in component structure`);
-                            }
-                        }
-                    };
-
-                    if (project.name && project.name.changed) {
-                        await updateField(".project-name", project.name.value);
-                    }
-
-                    if (project.year && project.year.changed) {
-                        await updateField(".project-year", project.year.value);
-                    }
-
-                    if (project.material && project.material.changed) {
-                        await updateField(".project-material", project.material.value);
-                    }
-
-                    if (project.dimensions && project.dimensions.changed) {
-                        await updateField(".project-dimensions", project.dimensions.value);
-                    } else {
-                        const dimensionsElement = selectedComponent.querySelector('.project-dimensions');
-                        if (dimensionsElement) {
-                            dimensionsElement.classList.remove('light');
-                        }
-                    }
-
-                    if (project.images && project.images.changed) {
-                        const imagesContainer = projectElement.querySelector(".project-images") || document.createElement("div");
-                        imagesContainer.classList.add("project-images");
-                        imagesContainer.innerHTML = ""; // Clear previous images
-
-                        project.images.value.forEach(imageUrl => {
-                            const img = document.createElement("img");
-                            img.src = imageUrl;
-                            img.classList.add("project-image");
-                            imagesContainer.appendChild(img);
-                        });
-
-                        if (!selectedComponent.contains(imagesContainer)) {
-                            selectedComponent.appendChild(imagesContainer);
-                        }
-                    }
-
-                    if (project.description?.changed && Array.isArray(project.description.value)) {
-                        let projectDescription = selectedComponent.querySelector('.project-description');
-                        if (!projectDescription) {
-                            await new Promise((resolveDescription) => {
-                                projectDescription = document.createElement('div');
-                                projectDescription.classList.add('project-description', 'no-padding');
-                                selectedComponent.appendChild(projectDescription);
-
-                                setTimeout(() => {
-                                    projectDescription.classList.remove('no-padding');
-                                }, 10);
-                                setTimeout(resolveDescription, 210);
-                            });
-                        }
-
-                        // Ensure the processed descriptions are tracked
-                        if (!selectedComponent.processedDescriptions) {
-                            selectedComponent.processedDescriptions = new Set();
-                            console.log('processedDescriptions', selectedComponent);
-                        }
-
-                        for (const sentence of project.description.value) {
-                            console.log('sentence', sentence);
-                            if (!selectedComponent.processedDescriptions.has(sentence)) {
-                                selectedComponent.processedDescriptions.add(sentence);
-
-                                await new Promise(resolveSentence => {
-                                    console.log('resolveSentence');
-                                    const sentenceContainer = document.createElement('p');
-                                    sentenceContainer.classList.add('project-description-paragraph');
-                                    projectDescription.appendChild(sentenceContainer);
-
-                                    const words = sentence.split(' ');
-                                    let wordIndex = 0;
-
-                                    let lastScrollHeight = projectDescription.scrollHeight;
-
-                                    function addNextWord() {
-                                        if (wordIndex < words.length) {
-                                            if (wordIndex > 0) {
-                                                sentenceContainer.appendChild(document.createTextNode(' '));
-                                            }
-
-                                            const wordSpan = document.createElement('span');
-                                            wordSpan.textContent = words[wordIndex];
-                                            wordSpan.classList.add('project-description-word', 'light', 'no-opacity');
-                                            sentenceContainer.appendChild(wordSpan);
-
-                                            // Check if scrollHeight has changed
-                                            const currentScrollHeight = projectDescription.scrollHeight;
-                                            if (currentScrollHeight !== lastScrollHeight) {
-                                                lastScrollHeight = currentScrollHeight;
-                                                projectDescription.style.height = `${currentScrollHeight}px`;
-                                            }
-
-                                            setTimeout(() => {
-                                                wordSpan.classList.remove('light');
-                                                wordSpan.classList.remove('no-opacity');
-                                            }, 50);
-
-                                            wordIndex++;
-                                            setTimeout(addNextWord, 50);
-                                        } else {
-                                            resolveSentence();
-                                        }
-                                    }
-                                    addNextWord();
-                                });
-                            }
-                        }
-                    }
-                    break;
-
-                default:
-                    console.warn(`Unknown UIType: ${currentContent.component.UIType}`);
-                    break;
-            }
-        } catch (error) {
-            console.error("Error processing rework content:", error);
-        } finally {
-            isReworkProcessing = false;
-            setTimeout(() => {
-                if (reworkRenderingQueue.length === 0 && reworkComplete) {
-                    reworkComplete = false;
-                    console.log('reworkRenderingQueue.length === 0');
-                    // Remove 'light' class from selected component
-                    if (selectedComponent) {
-                        selectedComponent.classList.remove('light');
-                    }
-                }
-            }, 2500);
-        }
-    }
-}
-
-function handleCompleteRework(content) {
-    console.log('handleCompleteRework', content);
-    reworkComplete = true;
-}
 
 // --------------------------------------------------------------------------------------------
 // SELECT COMPONENT
@@ -4214,3 +4011,4 @@ function resetStyles() {
   
 // Add the event listener for window resize
 window.addEventListener('resize', resetStyles);
+
