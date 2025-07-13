@@ -79,6 +79,7 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
         
             row = document.createElement('div');
             row.classList.add('table-row');
+            row.style.height = `0px`;
             row.setAttribute('data-row-id', rowId);
         
             rowContainer.appendChild(row);
@@ -103,6 +104,7 @@ function createTableRow(tableContainer, rowId, rowContainer, row, isFirstRow, he
         
             row = document.createElement('div');
             row.classList.add('table-row');
+            row.style.height = `0px`;
             row.setAttribute('data-row-id', rowId);
             console.log('create other row: ', row);
 
@@ -1234,6 +1236,7 @@ async function handleDelta(content) {
                                 await new Promise(resolve => {
                                     itemContainer = document.createElement('div');
                                     itemContainer.classList.add('item-container', 'no-width');
+                                    itemContainer.style.height = `0px`;
                                     itemContainer.setAttribute('data-item-id', itemID);
                                     listContainer.appendChild(itemContainer);
 
