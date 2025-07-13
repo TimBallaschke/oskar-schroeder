@@ -2559,6 +2559,34 @@ function saveCurrentHTML() {
         stateId: null
     };
 
+    // If we have a stateId in the URL, save the content to the database
+    const urlParams = new URLSearchParams(window.location.search);
+    const stateId = urlParams.get('state');
+    
+    if (stateId) {
+        // Save the current state to the database
+        fetch('/save_state', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                state_id: stateId,
+                content: currentHTML
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('State saved successfully');
+            } else {
+                console.error('Failed to save state:', data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error saving state:', error);
+        });
+    }
 }
 
 function addNewVersionHistoryElement(headline) {

@@ -45,32 +45,41 @@ def generate_unique_id():
 # SQLITE DATABASE
 DB_PATH = "state_data.db"  # Path to the database file
 
-def create_table(): # Creates a table if it doesn't exist
-    conn = sqlite3.connect(DB_PATH) # Connect to the database
-    cursor = conn.cursor() # Cursor is used to execute SQL commands
-    
-    cursor.execute(""" 
-    CREATE TABLE IF NOT EXISTS states (
-        id TEXT PRIMARY KEY,
-        content TEXT
-    );
-    """)
-    
-    conn.commit()
-    conn.close()
-
-
-# Save state to database
-def save_state(state_id, content):
-    """Save state to database with error handling and connection management"""
+def init_db():
+    """Initialize the database with the required tables"""
     try:
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         
-        cursor.execute(
-            "INSERT INTO states (id, content) VALUES (?, ?)",
-            (state_id, content)
-        )
+        # Create states table with created_at column
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS states (
+                id TEXT PRIMARY KEY,
+                content TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+        
+        conn.commit()
+        return True
+    except Exception as e:
+        print(f"Database initialization error: {str(e)}")
+        return False
+    finally:
+        if 'conn' in locals():
+            conn.close()
+
+def save_state(state_id, content):
+    """Save a state to the database"""
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        
+        # Insert state with current timestamp
+        cursor.execute("""
+            INSERT INTO states (id, content, created_at)
+            VALUES (?, ?, CURRENT_TIMESTAMP)
+        """, (state_id, content))
         
         conn.commit()
         return True
@@ -94,6 +103,32 @@ def get_state(state_id):
     except Exception as e:
         print(f"Database error retrieving state: {str(e)}")
         return None
+    finally:
+        if 'conn' in locals():
+            conn.close()
+
+def cleanup_old_states():
+    """Delete states older than 2 weeks"""
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        
+        # Delete states older than 2 weeks
+        cursor.execute("""
+            DELETE FROM states 
+            WHERE created_at < datetime('now', '-14 days')
+        """)
+        
+        deleted_count = cursor.rowcount
+        conn.commit()
+        
+        if deleted_count > 0:
+            print(f"Cleaned up {deleted_count} old states from the database")
+        
+        return True
+    except Exception as e:
+        print(f"Database error cleaning up old states: {str(e)}")
+        return False
     finally:
         if 'conn' in locals():
             conn.close()
@@ -549,28 +584,18 @@ def handle_second_chatbot(final_completion):
         print("\n=== Second Chatbot Parsed Response ===")
         print(json.dumps(second_response.model_dump(), indent=2))
 
-        # Save the state to the database
+        # Generate a unique state ID
         state_id = generate_unique_id()
-        # Create a combined content object with both responses for Database Storage
-        combined_content = {
-            "first_response": final_completion.model_dump(),
-            "second_response": second_response.model_dump()
-        }
 
-        # Save both responses together
-        if save_state(state_id, json.dumps(combined_content)):
-            # Append chatbot 2's response to session
-            messages_2.append({
-                "role": "assistant",
-                "content": json.dumps(second_response.model_dump())
-            })
-            session.modified = True
+        # Append chatbot 2's response to session
+        messages_2.append({
+            "role": "assistant",
+            "content": json.dumps(second_response.model_dump())
+        })
+        session.modified = True
 
-            # Send chatbot 2's response to the frontend with the state_id
-            yield f"data: {json.dumps({'type': 'second_complete', 'content': second_response.model_dump(), 'stateId': state_id})}\n\n"
-        else:
-            # Still send the response but without stateId
-            yield f"data: {json.dumps({'type': 'second_complete', 'content': second_response.model_dump(), 'error': 'Failed to save state'})}\n\n"
+        # Send chatbot 2's response to the frontend with the state_id
+        yield f"data: {json.dumps({'type': 'second_complete', 'content': second_response.model_dump(), 'stateId': state_id})}\n\n"
 
     except Exception as e:
         print("\n=== Second Chatbot Error ===")
@@ -725,6 +750,26 @@ def get_state_route(state_id):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/save_state', methods=['POST'])
+def save_state_route():
+    try:
+        data = request.get_json()
+        state_id = data.get('state_id')
+        content = data.get('content')
+        
+        if not state_id or not content:
+            return jsonify({"error": "Missing state_id or content"}), 400
+            
+        success = save_state(state_id, content)
+        if success:
+            # Clean up old states after saving new one
+            cleanup_old_states()
+            return jsonify({"success": True})
+        else:
+            return jsonify({"error": "Failed to save state"}), 500
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 
 
@@ -736,7 +781,7 @@ def get_state_route(state_id):
 # if __name__ is '__main__', it means the script is being run directly; 
 # not necessary in this case, but good practice to have
 if __name__ == '__main__':
-    create_table()
+    init_db()
     print("Database and table initialized!")
     # app.run() is a method that starts the Flask development server;
     # debug=True enables debug mode, which provides detailed error messages and automatic reloading;
