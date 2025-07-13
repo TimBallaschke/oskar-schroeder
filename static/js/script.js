@@ -144,7 +144,8 @@ async function processImageQueue() {
         
                 const paragraphImage = document.createElement('div');
                 paragraphImage.classList.add('paragraph-image', 'no-width');
-        
+                paragraphImage.style.height = `0px`;
+
                 // Create and add the image element
                 const image = document.createElement('img');
                 image.classList.add('no-opacity', 'blur');
@@ -2555,8 +2556,12 @@ function handleSecondComplete(content, stateId) {
 // --------------------------------------------------------------------------------------------
 
 function saveCurrentHTML() {
-    resetStyles();
-    const currentHTML = contentContainer.innerHTML;
+    // More efficient approach: use regex to remove style attributes from HTML string
+    let currentHTML = contentContainer.innerHTML;
+    
+    // Remove all style attributes using regex (faster than DOM manipulation)
+    currentHTML = currentHTML.replace(/\s*style\s*=\s*["'][^"']*["']/gi, '');
+    
     console.log('currentHTML', currentHTML);
 
     // Get the current headline from the version history element

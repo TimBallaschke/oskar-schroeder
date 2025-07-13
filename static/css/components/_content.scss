@@ -127,7 +127,6 @@
 }
 
 .paragraph-image {
-    height: 0;
     width: 100%;
     position: relative;
     transition: height var(--animation-duration-4) ease-in-out, width var(--animation-duration-3) ease-in-out;
@@ -168,6 +167,10 @@
         transform: translateY(1px);
         transition: all var(--animation-duration-3) ease-in-out;
 
+    }
+
+    &.no-height {
+        height: 0;
     }
 
     &.no-width {
