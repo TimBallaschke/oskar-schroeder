@@ -702,10 +702,9 @@ function animateInputPlaceholder() {
         'Frage nach Oskar...', // German
         'Pregunta por Oskar...', // Spanish
         '询问奥斯卡...', // Chinese
-        'Demande à propos d’Oskar...', // French
+        'Demande à propos d\'Oskar...', // French
         'オスカーについて聞いて...', // Japanese
         'Chiedi di Oskar...', // Italian
-        '오스카에 대해 물어보세요...', // Korean
     ];
     
     let placeholderIndex = 0;
@@ -3913,7 +3912,6 @@ function loadStateFromUrl() {
     if (stateId) {
         console.log("Found state ID in URL:", stateId);
         
-        
         // Fetch the state data from the server
         fetch(`/get_state/${stateId}`)
             .then(response => {
@@ -3925,22 +3923,35 @@ function loadStateFromUrl() {
             .then(data => {
                 console.log("Loaded state data:", data);
                 
-                // Process first response
-                if (data.first_response) {
-                    // processContent(data.first_response);
-                    console.log("data.first_response", data.first_response);
-                }
-
-                if (data.second_response) {
-                    console.log("data.second_response", data.second_response);
-
-                    // displayNewVersionHistoryElement(data.second_response);
-                    // handlePromptProposalsUpdate(data.second_response);
+                if (data.content) {
+                    // Clear existing content
+                    // clearContentContainer();
+                    
+                    // Set the loaded content
+                    contentContainer.innerHTML = data.content;
+                    
+                    // Update response count and map
+                    responseCount++;
+                    responseMap[responseCount] = {
+                        content: data.content,
+                        stateId: stateId
+                    };
+                    
+                    // Reset styles and update version history
+                    updateCurrentVersion();
+                    
+                    console.log("State loaded successfully");
+                } else {
+                    console.error("No content found in state data");
                 }
             })
             .catch(error => {
                 console.error("Error loading state:", error);
-                // Optionally show an error message to the user
+                // Show error message to user
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'error-message';
+                errorMessage.textContent = 'Could not load the requested state. It may have expired or been deleted.';
+                contentContainer.appendChild(errorMessage);
             });
     }
 }

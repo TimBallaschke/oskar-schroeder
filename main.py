@@ -99,7 +99,10 @@ def get_state(state_id):
         cursor.execute("SELECT content FROM states WHERE id = ?", (state_id,))
         result = cursor.fetchone()
         
-        return result[0] if result else None
+        if result:
+            # Return the content as a dictionary with the expected format
+            return {"content": result[0]}
+        return None
     except Exception as e:
         print(f"Database error retrieving state: {str(e)}")
         return None
@@ -285,7 +288,7 @@ class TableComponent(BaseModel):
                     "  – Cities and locations (e.g., [Flensburg], [North Frisia])\n"
                     "  – Institutions and organizations (e.g., [Muthesius University of Fine Arts],[Galerie Ewelyn Drewes, Hamburg],[Kunsthaus Kaufbeuren], [HBK Braunschweig], [Galerie KuCo Flensburg], [Maximiliansforum], [Prima Kunst Container Kiel], [Hannover Re],[Kunstverein Braunschweig], [Galerie 21 Vorwerkstift Hamburg], [Raum Links Rechts, Hamburg], [Duborg Skolen], [Eckener Schule Flensburg])\n"
                     "  – Cultural and historical references (e.g., [New Materialism], [Stucco marble], [Beaux‑Arts Nantes Saint‑Nazaire])\n"
-                    "• DO NOT bracket the artist’s name. Always write: Oskar Schroeder (without brackets).\n\n")
+                    "• DO NOT bracket the artist's name. Always write: Oskar Schroeder (without brackets).\n\n")
 
 class ArtworksLayout(str, Enum):
     fullscreen = "fullscreen"
@@ -380,13 +383,13 @@ class Response_2(BaseModel):
     prompt_proposal_1: str = Field(
         description=(
             "An actionable suggestion guiding the user toward unexplored or complementary information about Oskar Schroeder. "
-            "This should encourage the discovery of new content, helping the user explore areas of Oskar’s biography, work, or exhibitions that have not yet been shown."
+            "This should encourage the discovery of new content, helping the user explore areas of Oskar's biography, work, or exhibitions that have not yet been shown."
             "IMPORTANT: Match the language of the response to the language of the user-facing content."
         )
     )
     prompt_proposal_2: str = Field(
         description=(
-            "Another concise recommendation that invites the user to continue exploring unfamiliar aspects of Oskar Schroeder’s artistic life. "
+            "Another concise recommendation that invites the user to continue exploring unfamiliar aspects of Oskar Schroeder's artistic life. "
             "Suggestions should introduce new data from the available dataset."
             "IMPORTANT: Match the language of the response to the language of the user-facing content."
         )
@@ -394,7 +397,7 @@ class Response_2(BaseModel):
     prompt_proposal_3: str = Field(
         description=(
             "A third prompt that focuses on helping the user uncover content not yet displayed. "
-            "It should be logically connected to the user’s journey but must lead to a distinct topic or dataset."
+            "It should be logically connected to the user's journey but must lead to a distinct topic or dataset."
             "IMPORTANT: Match the language of the response to the language of the user-facing content."
             )
     )
@@ -744,7 +747,7 @@ def get_state_route(state_id):
     try:
         state_data = get_state(state_id)
         if state_data:
-            return jsonify(json.loads(state_data))
+            return jsonify(state_data)
         else:
             return jsonify({"error": "State not found"}), 404
     except Exception as e:
