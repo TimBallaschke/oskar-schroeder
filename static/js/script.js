@@ -353,7 +353,6 @@ function displayXButton() {
         }, 200);
 
     } else if (bottomNavigation.classList.contains('input-has-content-2')) {
-        console.log('displayXButton');
         bottomNavigation.classList.remove('input-has-content-2');
         bottomNavigation.classList.add('input-has-content-1');
 
@@ -1835,17 +1834,7 @@ async function renderNextProject() {
                 const gridProjects = document.querySelectorAll('.grid > .project');
                 
                 gridProjects.forEach(project => {
-                    project.addEventListener('click', () => {
-                        const projectNameElement = project.querySelector('.project-name-text');
-
-                        if (projectNameElement) {
-                            userInput.value = projectNameElement.textContent;
-
-                            setTimeout(() => {
-                                sendMessage();
-                            }, 100);
-                        }
-                    });
+                    project.addEventListener('click', handleGridProjectClick);
                 });
 
                 isStreaming = false;
@@ -2499,11 +2488,14 @@ function handleComplete(content) {
 }
 
 function handleSecondComplete(content, stateId) {
+    console.log('handleSecondComplete called with stateId:', stateId, 'responseCount:', responseCount);
 
     // Store the stateId in the current response
-    if (responseMap[responseCount]) {
-        responseMap[responseCount].stateId = stateId;
+    if (!responseMap[responseCount]) {
+        responseMap[responseCount] = {};
     }
+    responseMap[responseCount].stateId = stateId;
+    console.log('Set stateId in responseMap[' + responseCount + ']:', responseMap[responseCount]);
 
     // Generate a unique URL if we have a stateId
     if (stateId) {
@@ -2579,11 +2571,17 @@ function saveCurrentHTML() {
     const currentHeadline = currentVersionElement ? 
         currentVersionElement.querySelector('.version-history-element-title')?.textContent : null;
 
+    // Preserve existing data if it exists
+    const existingEntry = responseMap[responseCount] || {};
+    console.log('saveCurrentHTML called for responseCount:', responseCount, 'existing entry:', existingEntry);
+    
     responseMap[responseCount] = {
+        ...existingEntry, // Preserve any existing data (including stateId)
         content: currentHTML,
-        headline: currentHeadline,
-        stateId: null
+        headline: currentHeadline
     };
+    
+    console.log('Updated responseMap[' + responseCount + ']:', responseMap[responseCount]);
 
     // If we have a stateId in the URL, save the content to the database
     const urlParams = new URLSearchParams(window.location.search);
@@ -2766,6 +2764,9 @@ function displayPreviousVersion(element) {
     if (stateId) {
         const newUrl = `${window.location.origin}${window.location.pathname}?state=${stateId}`;
         window.history.pushState({ stateId: stateId }, '', newUrl);
+        console.log('URL updated to:', newUrl);
+    } else {
+        console.log('No stateId found for version:', versionKey, 'responseMap entry:', responseMap[versionKey]);
     }
 
     setTimeout(() => {
@@ -3598,6 +3599,28 @@ function reattachEventListeners() {
         // Add the event listener
         container.addEventListener('click', handleTermClick);
     });
+
+    // Reattach click event listeners to all grid projects
+    const gridProjects = document.querySelectorAll('.grid > .project');
+    gridProjects.forEach(project => {
+        // Remove any existing listeners to avoid duplicates
+        project.removeEventListener('click', handleGridProjectClick);
+        // Add the event listener
+        project.addEventListener('click', handleGridProjectClick);
+    });
+}
+
+function handleGridProjectClick() {
+    const projectNameElement = this.querySelector('.project-name-text');
+
+    if (projectNameElement) {
+        userInput.value = projectNameElement.textContent;
+        inputAdded();
+
+        setTimeout(() => {
+            sendMessage();
+        }, 100);
+    }
 }
 
 // --------------------------------------------------------------------------------------------
