@@ -2551,6 +2551,7 @@ function handleSecondComplete(content, stateId) {
 // --------------------------------------------------------------------------------------------
 
 function saveCurrentHTML() {
+    resetStyles();
     const currentHTML = contentContainer.innerHTML;
     console.log('currentHTML', currentHTML);
 

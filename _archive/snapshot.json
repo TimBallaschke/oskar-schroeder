@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250713_Oskar_Website_saveHTMLtoDatabase",
+  "original_folder": "250713b_Oskar_Website_resetStyles_when_saveHTML",
   "snapshot_date_from_folder": "250713",
   "source_files": [
     {
@@ -159,9 +159,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "41e410af403f877e31069e12a3fe19e0d1c356a2",
-      "sha256": "b2be10e5f85cd15c365b6a7511a614d6f6d1bda8e3d0fb56ee44775e0bb24f39",
-      "size": 195344,
+      "sha1": "ec89e39f68cb4e6131cb41f7baa5e2cc74230c8f",
+      "sha256": "7c86e2a8d8c1d8ce2d8028fe51501b669b926d794837a4e04299ef14c3610935",
+      "size": 195363,
       "mode": "100644"
     },
     {
