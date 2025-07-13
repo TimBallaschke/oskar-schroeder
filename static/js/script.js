@@ -1265,6 +1265,10 @@ async function handleDelta(content) {
 
                     case 'list':
 
+                        if (component.thought_process) {
+                            handleThoughtProcess(component.thought_process);
+                        }
+
                         let listContainer = document.querySelector(`[data-component-key="${componentID}"]`);
                         if (!listContainer) {
                             listContainer = document.createElement('div');

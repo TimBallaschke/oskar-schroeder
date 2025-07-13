@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "original_folder": "250713n_Oskar_Website_thoughtProcess_languages",
+  "original_folder": "250713o_Oskar_Website",
   "snapshot_date_from_folder": "250713",
   "source_files": [
     {
@@ -159,9 +159,9 @@
     },
     {
       "path": "static/js/script.js",
-      "sha1": "20ec841dcf09a84df4ff13777b71f068d1a161a8",
-      "sha256": "75026e579f1a3c90ef3979e44c89e45cb1e5439db97a7629807d16701943a9a0",
-      "size": 192322,
+      "sha1": "8d0fcc4475f62aba566883bb2abb1957efefcadb",
+      "sha256": "0733493b5c0ed42723fc2c60f36a217fa035bf48c2c592a6aa742e039aa7f87c",
+      "size": 192483,
       "mode": "100644"
     },
     {
