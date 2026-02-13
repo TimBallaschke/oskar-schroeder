@@ -249,6 +249,16 @@
     margin-right: 1px;
     cursor: pointer;
 
+    @include mobile {
+        margin-left: 3px;
+        margin-right: 2px;
+    }
+
+    @include tablet {
+        margin-left: 3px;
+        margin-right: 2px;
+    }
+
     @include desktop-small {
         width: 30px;
         height: 18px;
@@ -1104,6 +1114,10 @@
     grid-template-columns: repeat(8, 1fr);
     transition: all var(--animation-duration-1) ease-in-out;
     position: relative;
+
+    @include mobile {
+        grid-template-columns: repeat(7, 1fr);
+    }
 
     &::before {
         content: '';

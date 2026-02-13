@@ -58,7 +58,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: calc(100vw - var(--page-padding));
+  width: calc(100vw);
   color: black;
   transition: all var(--animation-duration-1) ease-in-out;
   z-index: 100;

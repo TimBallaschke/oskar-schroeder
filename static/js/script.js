@@ -2887,6 +2887,9 @@ function displayPreviousVersion(element) {
 
     setTimeout(() => {
         contentContainer.innerHTML = versionContent;
+        contentContainer.querySelectorAll('div[style], span[style]').forEach(el => {
+            el.removeAttribute('style');
+        });
     }, 400);
 
     setTimeout(() => {
@@ -2937,6 +2940,7 @@ function displayPreviousVersion(element) {
 
 
 versionHistory.addEventListener("mousemove", (e) => {
+  if (window.innerWidth <= mobileWidth) return;
   const rect = versionHistory.getBoundingClientRect();
   const mouseX = e.clientX - rect.left; // position within container
   const containerWidth = rect.width;
