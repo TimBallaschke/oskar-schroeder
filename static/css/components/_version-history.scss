@@ -121,6 +121,10 @@
 
   &#version-history-element-0 {
     border-right: 0px solid black;
+
+    .version-history-element-digits {
+      opacity: 0;
+    }
   }
 
 

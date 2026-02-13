@@ -2765,7 +2765,7 @@ function addNewVersionHistoryElement(headline) {
 
     const versionHistoryDigits = document.createElement('div');
     versionHistoryDigits.classList.add('version-history-element-digits', 'no-opacity', 'light');
-    versionHistoryDigits.textContent = (responseCount).toString().padStart(2, '0');
+    versionHistoryDigits.textContent = (responseCount - 1).toString().padStart(2, '0');
 
     const versionHistoryTitle = document.createElement('div');
     versionHistoryTitle.classList.add('version-history-element-title', 'no-opacity', 'light');

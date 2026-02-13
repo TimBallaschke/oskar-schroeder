@@ -1938,6 +1938,9 @@ input {
 .version-history-element#version-history-element-0 {
   border-right: 0px solid black;
 }
+.version-history-element#version-history-element-0 .version-history-element-digits {
+  opacity: 0;
+}
 .version-history-element.current-version-history-element .version-history-element-title {
   font-size: var(--large-font-size);
   font-variation-settings: "wght" 675;
