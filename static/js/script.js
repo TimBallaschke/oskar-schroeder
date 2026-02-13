@@ -2823,7 +2823,7 @@ function addNewVersionHistoryElement(headline) {
 function handleVersionEvent(event) {
 
     if (isStreaming) {
-        return;
+        stopStreaming();
     }
 
     const eventTarget = event.currentTarget;
@@ -4028,6 +4028,7 @@ function handleBottomHover() {
         if (bottomNavigation.classList.contains('scroll-down')) {
             if (windowHeight - mouseY <= bottomThreshold) {
                 bottomNavigation.classList.remove('scroll-down');
+                bottomNavigationBack.classList.remove('scroll-down');
             }
         }
     });
