@@ -46,6 +46,8 @@
 @media (min-width: 481px) and (max-width: 768px) {
   :root {
     --primary-font-size: 20px;
+    --secondary-font-size: 13px;
+    --large-font-size: 35px;
   }
 }
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -2089,6 +2091,17 @@ input {
   height: fit-content;
   transition: all var(--animation-duration-1) ease-in-out;
   cursor: pointer;
+  padding-bottom: 0;
+}
+@media (max-width: 480px) {
+  .start-version-history-element.starting-page-active {
+    padding-bottom: 13px;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .start-version-history-element.starting-page-active {
+    padding-bottom: 14px;
+  }
 }
 .start-version-history-element .version-history-element-digits {
   opacity: 0;

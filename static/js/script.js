@@ -270,6 +270,16 @@ let animationDuration = getCSSVarValue('--animation-duration-1', 300);
 
 //Version History
 const versionHistory = document.getElementById('version-history');
+const startVersionHistoryElement = document.querySelector('.start-version-history-element');
+
+function updateStartingPageActive() {
+    const versionOneElement = document.querySelector('.version-history-element[version-history-key="1"]');
+    if (versionOneElement && versionOneElement.classList.contains('current-version-history-element')) {
+        startVersionHistoryElement.classList.add('starting-page-active');
+    } else {
+        startVersionHistoryElement.classList.remove('starting-page-active');
+    }
+}
 let lastScrollY = window.scrollY;
 let scrolling = false;
 const thresholdScroll = 10;
@@ -2772,6 +2782,7 @@ function addNewVersionHistoryElement(headline) {
         historyElements.forEach(element => {
             element.classList.remove('current-version-history-element');
         });
+        updateStartingPageActive();
     }, 10);
 
     setTimeout(() => {
@@ -2824,6 +2835,7 @@ function handleVersionEvent(event) {
         });
 
         eventTarget.classList.add('current-version-history-element');
+        updateStartingPageActive();
 
         displayPreviousVersion(event.currentTarget);
 
@@ -3083,6 +3095,7 @@ function updateCurrentVersion() {
 
     if (currentVersionElement) {
         currentVersionElement.classList.add('current-version-history-element');
+        updateStartingPageActive();
         displayPreviousVersion(currentVersionElement);
     }
 }
@@ -3973,6 +3986,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     loadStateFromUrl();
+    updateStartingPageActive();
     handleBottomHover();
 
     // Version History
@@ -4080,6 +4094,7 @@ function snapToClosestVersionElement() {
             if (distance <= 1) {
                 setTimeout(() => {
                     closestElement.classList.add('current-version-history-element');
+                    updateStartingPageActive();
                     displayPreviousVersion(closestElement);
                 }, 100);
             } else {

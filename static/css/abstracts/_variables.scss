@@ -73,6 +73,8 @@
 
   @include tablet {
     --primary-font-size: 20px;
+    --secondary-font-size: 13px;
+    --large-font-size: 35px;
   }
 
   @include desktop-small {

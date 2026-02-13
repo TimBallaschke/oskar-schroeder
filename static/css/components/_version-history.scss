@@ -357,6 +357,18 @@
   height: fit-content;
   transition: all var(--animation-duration-1) ease-in-out;
   cursor: pointer;
+  padding-bottom: 0;
+
+  &.starting-page-active {
+
+    @include mobile {
+      padding-bottom: 13px;
+    }
+
+    @include tablet {
+      padding-bottom: 14px;
+    }
+  }
 
   .version-history-element-digits {
     opacity: 0;
