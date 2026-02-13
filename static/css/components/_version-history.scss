@@ -359,19 +359,26 @@
   cursor: pointer;
   padding-bottom: 0;
 
-  &.starting-page-active {
+  .version-history-element-digits {
+    opacity: 0;
+  }
 
-    @include mobile {
-      padding-bottom: 13px;
-    }
+  .version-history-element-title {
+    opacity: 0;
+  }
 
-    @include tablet {
-      padding-bottom: 14px;
+  &.title-not-in-view {
+    .version-history-element-title {
+      opacity: 1;
     }
   }
 
-  .version-history-element-digits {
-    opacity: 0;
+  @include mobile {
+    display: none;
+  }
+
+  @include tablet {
+    display: none;
   }
 
   @include desktop-small {

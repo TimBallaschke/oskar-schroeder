@@ -2093,18 +2093,24 @@ input {
   cursor: pointer;
   padding-bottom: 0;
 }
+.start-version-history-element .version-history-element-digits {
+  opacity: 0;
+}
+.start-version-history-element .version-history-element-title {
+  opacity: 0;
+}
+.start-version-history-element.title-not-in-view .version-history-element-title {
+  opacity: 1;
+}
 @media (max-width: 480px) {
-  .start-version-history-element.starting-page-active {
-    padding-bottom: 13px;
+  .start-version-history-element {
+    display: none;
   }
 }
 @media (min-width: 481px) and (max-width: 768px) {
-  .start-version-history-element.starting-page-active {
-    padding-bottom: 14px;
+  .start-version-history-element {
+    display: none;
   }
-}
-.start-version-history-element .version-history-element-digits {
-  opacity: 0;
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   .start-version-history-element {

@@ -271,15 +271,19 @@ let animationDuration = getCSSVarValue('--animation-duration-1', 300);
 //Version History
 const versionHistory = document.getElementById('version-history');
 const startVersionHistoryElement = document.querySelector('.start-version-history-element');
+const versionHistoryElement0 = document.getElementById('version-history-element-0');
 
-function updateStartingPageActive() {
-    const versionOneElement = document.querySelector('.version-history-element[version-history-key="1"]');
-    if (versionOneElement && versionOneElement.classList.contains('current-version-history-element')) {
-        startVersionHistoryElement.classList.add('starting-page-active');
+function updateTitleNotInView() {
+    const containerRect = versionHistory.getBoundingClientRect();
+    const elementRect = versionHistoryElement0.getBoundingClientRect();
+
+    if (elementRect.left >= containerRect.right) {
+        startVersionHistoryElement.classList.add('title-not-in-view');
     } else {
-        startVersionHistoryElement.classList.remove('starting-page-active');
+        startVersionHistoryElement.classList.remove('title-not-in-view');
     }
 }
+
 let lastScrollY = window.scrollY;
 let scrolling = false;
 const thresholdScroll = 10;
@@ -2782,7 +2786,6 @@ function addNewVersionHistoryElement(headline) {
         historyElements.forEach(element => {
             element.classList.remove('current-version-history-element');
         });
-        updateStartingPageActive();
     }, 10);
 
     setTimeout(() => {
@@ -2797,6 +2800,7 @@ function addNewVersionHistoryElement(headline) {
 
     setTimeout(() => {
         newHistoryElement.style.width = '';
+        updateTitleNotInView();
     }, 2000);
 
     newHistoryElement.addEventListener('click', (event) => {
@@ -2835,7 +2839,6 @@ function handleVersionEvent(event) {
         });
 
         eventTarget.classList.add('current-version-history-element');
-        updateStartingPageActive();
 
         displayPreviousVersion(event.currentTarget);
 
@@ -2982,13 +2985,15 @@ versionHistory.addEventListener("mousemove", (e) => {
       if (Math.abs(distance) < 0.5) {
         versionHistory.scrollLeft = versionHistory.targetScrollLeft;
         versionHistory.isScrollAnimating = false;
+        updateTitleNotInView();
         return;
       }
-      
+
       // Otherwise, move a percentage of the remaining distance (easing)
       const step = distance * 0.1; // Adjust this value to control smoothness
       versionHistory.scrollLeft = currentPosition + step;
-      
+      updateTitleNotInView();
+
       // Continue the animation
       requestAnimationFrame(smoothScroll);
     };
@@ -3095,7 +3100,6 @@ function updateCurrentVersion() {
 
     if (currentVersionElement) {
         currentVersionElement.classList.add('current-version-history-element');
-        updateStartingPageActive();
         displayPreviousVersion(currentVersionElement);
     }
 }
@@ -3986,7 +3990,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     loadStateFromUrl();
-    updateStartingPageActive();
     handleBottomHover();
 
     // Version History
@@ -4094,8 +4097,7 @@ function snapToClosestVersionElement() {
             if (distance <= 1) {
                 setTimeout(() => {
                     closestElement.classList.add('current-version-history-element');
-                    updateStartingPageActive();
-                    displayPreviousVersion(closestElement);
+                                displayPreviousVersion(closestElement);
                 }, 100);
             } else {
                 requestAnimationFrame(checkPosition);
