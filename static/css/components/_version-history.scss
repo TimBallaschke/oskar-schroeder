@@ -365,7 +365,7 @@
   @include desktop-small {
     position: fixed;
     top: 0;
-    left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + var(--page-padding));
+    left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
 
     .version-history-element-title {
       padding-bottom: 30px;
@@ -375,7 +375,7 @@
   @include desktop-large {
     position: fixed;
     top: 0;
-    left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + var(--page-padding));
+    left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
 
     .version-history-element-title {
       padding-bottom: 22px;

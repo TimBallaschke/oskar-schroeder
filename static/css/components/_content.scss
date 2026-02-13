@@ -478,10 +478,10 @@
     }
 
     @include desktop-small {
-        width: calc((100vw - 2 * var(--page-padding)) / var(--column-amount-content-container));
+        width: calc((100vw - 2 * var(--page-padding)) / var(--column-amount-content-container) * 2);
         right: var(--page-padding);
         padding-right: 0;
-        padding-left: calc(var(--page-padding) * 2);
+        padding-left: calc(var(--page-padding) * 1);
         transform: translate(0px, 2px);
     }
 
@@ -489,7 +489,7 @@
         width: calc((100vw - 2 * var(--page-padding)) / var(--column-amount-content-container) * var(--column-amount-websearch));
         right: var(--page-padding);
         padding-right: 0;
-        padding-left: calc(var(--page-padding) * 2);
+        padding-left: calc(var(--page-padding) * 1);
         transform: translate(0px, 2px);
     }
 

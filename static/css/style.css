@@ -711,10 +711,10 @@ p {
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   .websearch-column {
-    width: calc((100vw - 2 * var(--page-padding)) / var(--column-amount-content-container));
+    width: calc((100vw - 2 * var(--page-padding)) / var(--column-amount-content-container) * 2);
     right: var(--page-padding);
     padding-right: 0;
-    padding-left: calc(var(--page-padding) * 2);
+    padding-left: calc(var(--page-padding) * 1);
     transform: translate(0px, 2px);
   }
 }
@@ -723,7 +723,7 @@ p {
     width: calc((100vw - 2 * var(--page-padding)) / var(--column-amount-content-container) * var(--column-amount-websearch));
     right: var(--page-padding);
     padding-right: 0;
-    padding-left: calc(var(--page-padding) * 2);
+    padding-left: calc(var(--page-padding) * 1);
     transform: translate(0px, 2px);
   }
 }
@@ -2097,7 +2097,7 @@ input {
   .start-version-history-element {
     position: fixed;
     top: 0;
-    left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + var(--page-padding));
+    left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
   }
   .start-version-history-element .version-history-element-title {
     padding-bottom: 30px;
@@ -2107,7 +2107,7 @@ input {
   .start-version-history-element {
     position: fixed;
     top: 0;
-    left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + var(--page-padding));
+    left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
   }
   .start-version-history-element .version-history-element-title {
     padding-bottom: 22px;

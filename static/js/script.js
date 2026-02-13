@@ -230,6 +230,7 @@ async function processImageQueue() {
 // --------------------------------------------------------------------------------------------
 
 const mobileWidth = 600;
+const tabletWidth = 768;
 
 let activeEventSource = null; // Track the active activeEventSource connection
 let isProcessing = false; // Flag to prevent concurrent processing
@@ -3531,7 +3532,7 @@ function handleTermClick(event) {
     const termContainer = termDescriptionNumberContainer.previousElementSibling;
     let termForWebsearch = '';
 
-    if (window.innerWidth <= mobileWidth) {
+    if (window.innerWidth <= tabletWidth) {
         const websearchColumn = document.querySelector('.websearch-column');
         websearchColumn.classList.add('translate-x');
         contentContainer.classList.add('translate-x');
