@@ -354,6 +354,16 @@ p {
     display: inline;
   }
 }
+@media (max-width: 480px) {
+  .paragraph-container + .paragraph-container {
+    text-indent: 10px;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .paragraph-container + .paragraph-container {
+    text-indent: 15px;
+  }
+}
 
 .paragraph-word {
   transition: all var(--animation-duration-1) ease-in-out;
@@ -452,6 +462,18 @@ p {
   font-size: var(--secondary-font-size);
   letter-spacing: var(--secondary-letter-spacing);
 }
+@media (max-width: 480px) {
+  .image-caption {
+    padding-top: calc(var(--primary-font-size) / 2 - 1px);
+    padding-bottom: 0px;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .image-caption {
+    padding-top: calc(var(--primary-font-size) / 2 - 1px);
+    padding-bottom: 0px;
+  }
+}
 @media (min-width: 769px) and (max-width: 1024px) {
   .image-caption {
     grid-column: 1/4;
@@ -492,6 +514,7 @@ p {
   margin-left: 1px;
   margin-right: 1px;
   cursor: pointer;
+  text-indent: 0;
 }
 @media (max-width: 480px) {
   .term-description-number-container {
@@ -1970,11 +1993,8 @@ input {
 
 .hover .version-history-element:hover .version-history-element-title {
   transition: all var(--animation-duration-1) ease-in-out;
-  font-size: var(--large-font-size);
-  letter-spacing: -1px;
   font-variation-settings: "wght" 675;
   transition: all var(--animation-duration-1) ease-in-out;
-  margin-top: -4px;
 }
 .hover .version-history-element:hover .version-history-element-digits {
   font-variation-settings: "wght" 675;

@@ -217,11 +217,11 @@
 
       .version-history-element-title {
         transition: all var(--animation-duration-1) ease-in-out;
-        font-size: var(--large-font-size);
-        letter-spacing: -1px;
+        // font-size: var(--large-font-size);
+        // letter-spacing: -1px;
         font-variation-settings: "wght" 675;
         transition: all var(--animation-duration-1) ease-in-out;
-        margin-top: -4px;
+        // margin-top: -4px;
       }
 
       .version-history-element-digits {

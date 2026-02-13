@@ -84,7 +84,6 @@
     @include primary-type;
     padding: 0 0;
 
-
     @include desktop-small {
         display: inline;
     }
@@ -95,6 +94,16 @@
 
     @include desktop-x-large {
         display: inline;
+    }
+
+    & + & {
+        @include mobile {
+            text-indent: 10px;
+        }
+
+        @include tablet {
+            text-indent: 15px;
+        }
     }
 }
 
@@ -210,6 +219,16 @@
     padding-bottom: 7px;
     @include secondary-type;
 
+    @include mobile {
+        padding-top: calc(var(--primary-font-size) / 2 - 1px);
+        padding-bottom: 0px;
+    }
+
+    @include tablet {
+        padding-top: calc(var(--primary-font-size) / 2 - 1px);
+        padding-bottom: 0px;
+    }
+
     @include desktop-small {
         grid-column: 1 / 4;
         padding-top: calc(var(--primary-font-size) / 2 - 3px);
@@ -248,6 +267,7 @@
     margin-left: 1px;
     margin-right: 1px;
     cursor: pointer;
+    text-indent: 0;
 
     @include mobile {
         margin-left: 3px;
