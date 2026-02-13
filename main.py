@@ -788,11 +788,7 @@ def save_state_route():
 # this condition checks if the script is being run directly (not imported as a module in another script);
 # if __name__ is '__main__', it means the script is being run directly; 
 # not necessary in this case, but good practice to have
+init_db()
+
 if __name__ == '__main__':
-    init_db()
-    print("Database and table initialized!")
-    # app.run() is a method that starts the Flask development server;
-    # debug=True enables debug mode, which provides detailed error messages and automatic reloading;
-    # host='127.0.0.1' specifies the host address to bind the server to (localhost);
-    # port=5000 specifies the port number to bind the server to (5000 is the default port for Flask development servers)
-    app.run(debug=True, host='127.0.0.1', port=5000)  
+    app.run(debug=True, host='127.0.0.1', port=5000)
