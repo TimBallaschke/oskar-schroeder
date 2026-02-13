@@ -1,0 +1,138 @@
+// CSS
+
+:root {
+
+  // Base
+  --page-padding: 10px;
+  --background-color: #F4F4F5;
+
+  // Typography
+  --primary-font-size: 16.5px;
+  --primary-line-height: 19.8px;
+  --secondary-font-size: 12px;
+  --secondary-number-font-size: 10.5px;
+  --secondary-line-height: 15px;
+  --grid-line-height: 14.2px;
+  --large-font-size: 35px;
+
+  --font-weight-bold: 675;
+  --font-weight-light: 350;
+  --font-weight-light-nav: 350;
+  --letter-spacing-large: -1px;
+  --letter-spacing-small: 0px;
+
+  // Animation
+  --animation-duration-1: 300ms;
+  --animation-duration-2: 200ms;
+  --animation-duration-3: 500ms;
+  --animation-duration-4: 600ms;
+
+  // Version History
+  --current-version-history-element-width: 0px;
+  --version-history-element-padding: 10px;
+
+  // Bottom Nav
+  --bottom-margin-bottom-nav: 4vw;
+  --side-margin-bottom-nav: 10px;
+  --veritical-padding-bottom-nav: 17.5px;
+  --horizontal-padding-bottom-nav: 25px;
+  --input-element-height: calc(var(--primary-font-size) * 1.6);
+  --button-size: 39px;
+  --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
+
+  --small-circle-size: 24px;
+
+  // Content Container
+  --content-padding-top: 110px;
+  --content-padding-bottom: 26px;
+  --column-amount-content-container: 8;
+  --column-amount-websearch: 2;
+  --column-gap-content-container: 15px;
+
+  // Headline
+  --headline-height: 0px;
+
+  // Project Grid
+  --column-amount-projects: 2;
+  --column-gap-projects: 15px;
+
+  // Project Dot
+  --dot-column-width: 37px;
+  --dot-width: 31px;
+
+  // Project Line
+  --project-line-height: 100px;
+  --project-line-bottom: calc(var(--margin-bottom-nav) + (var(--veritical-padding-bottom-nav) * 2 + var(--input-element-height)) / 2);
+  --project-line-top: 0;
+
+  // Tables
+  --table-rows-amount: 0;
+
+  // List
+  --prefix-width: 0px;
+
+  @include tablet {
+    --primary-font-size: 20px;
+  }
+
+  @include desktop-small {
+    --primary-font-size: 20px;
+    --secondary-font-size: 15px;
+    --secondary-number-font-size: 13px;
+    --large-font-size: 35px;
+    --grid-line-height: 20px;
+
+    // Project Grid
+    --column-amount-projects: 4;
+    --column-gap-projects: 15px;
+  }
+
+  @include desktop-large {
+    --primary-font-size: 20px;
+    --secondary-font-size: 15px;
+    --secondary-number-font-size: 13px;
+    --large-font-size: 35px;
+    --small-circle-size: 20px;
+    --grid-line-height: 20px;
+
+      // Project Grid
+    --column-amount-projects: 4;
+    --column-gap-projects: 15px;
+  }
+
+  @include desktop-x-large {
+
+    // Base
+    --page-padding: 30px;
+
+    // Typography
+    --primary-font-size: 24px;
+    --primary-line-height: 27.5px;
+    --secondary-font-size: 16px;
+    --secondary-number-font-size: 15px;
+    --secondary-line-height: 19.2px;
+    --secondary-letter-spacing: -0.1px;
+    --large-font-size: 45px;
+    --grid-line-height: 20px;
+
+    // Bottom Nav
+    --bottom-nav-width: 1000px;
+    --side-margin-bottom-nav: calc((100vw - var(--bottom-nav-width)) / 2);
+    --bottom-margin-bottom-nav: 27.5px;
+    --veritical-padding-bottom-nav: 21px;
+    --horizontal-padding-bottom-nav: 31px;
+    --input-element-height: calc(var(--secondary-font-size) * 1.6);
+    --button-size: 39px;
+    --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
+    --small-circle-size: 20px;
+
+
+  // Content Container
+  --content-padding-top: 150px;
+
+  // Project Grid
+  --column-amount-projects: 4;
+  --column-gap-projects: 15px;
+  }
+}
+

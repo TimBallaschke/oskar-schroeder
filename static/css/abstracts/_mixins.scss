@@ -1,0 +1,78 @@
+@mixin primary-text-offset {
+    transform: translateY(4.5px);
+  }
+
+@mixin secondary-text-offset {
+    transform: translateY(6px);
+  }
+
+@mixin grid-text-offset {
+    transform: translateY(5px);
+}
+
+@mixin primary-type {
+  font-size: var(--primary-font-size);
+  // line-height: var(--primary-line-height);
+}
+
+@mixin secondary-type {
+  font-size: var(--secondary-font-size);
+  letter-spacing: var(--secondary-letter-spacing);
+  // text-transform: uppercase;
+  // text-transform: capitalize;
+}
+
+@mixin secondary-number {
+  font-size: var(--secondary-number-font-size);
+}
+
+@mixin version-history-light {
+  font-size: var(--secondary-font-size);
+  font-variation-settings: "wght" 350, "ital" 0;
+  text-transform: capitalize;
+}
+
+@mixin version-history-bold {
+  font-variation-settings: "wght" 675, "ital" 0;
+  text-transform: capitalize;
+}
+
+
+// Responsive
+
+// Breakpoints
+$mobile: 480px;
+$tablet: 768px;
+$desktop-small: 1024px;
+$desktop-large: 1440px;
+
+
+@mixin mobile {
+  @media (max-width: $mobile) {
+      @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: ($mobile + 1px)) and (max-width: $tablet) {
+      @content;
+  }
+}
+
+@mixin desktop-small {
+  @media (min-width: ($tablet + 1px)  ) and (max-width: $desktop-small) {
+      @content;
+  }
+}
+
+@mixin desktop-large {
+  @media (min-width: ($desktop-small + 1px)) and (max-width: $desktop-large) {
+      @content;
+  }
+}
+
+@mixin desktop-x-large {
+  @media (min-width: ($desktop-large + 1px)) {
+      @content;
+  }
+}

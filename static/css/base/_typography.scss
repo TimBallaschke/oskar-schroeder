@@ -1,0 +1,146 @@
+@font-face {
+    font-family: "Suisse Mono Regular";
+    src: url("../assets/fonts/SuisseIntlMono-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Suisse Mono Light";
+  src: url("../assets/fonts/SuisseIntlMono-Light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Suisse Works Medium";
+  src: url("../assets/fonts/SuisseWorks-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Suisse Works Regular";
+  src: url("../assets/fonts/SuisseWorks-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Ivar Text Regular";
+  src: url("../assets/fonts/IvarText-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Ivar Text Medium";
+  src: url("../assets/fonts/IvarText-Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Marist Medium";
+  src: url("../assets/fonts/ABCMarist-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Marist Regular";
+  src: url("../assets/fonts/ABCMarist-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Monument Grotesk Bold";
+  src: url("../assets/fonts/ABCMonumentGrotesk-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Monument Grotesk Regular";
+  src: url("../assets/fonts/ABCMonumentGrotesk-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Friedl";
+  src: url("../assets/fonts/Friedl.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Booton";
+  src: url("../assets/fonts/BootonTRIALVF.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "KolleGX";
+  src: url("../assets/fonts/KolleGX.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "KolleVF";
+  src: url("../assets/fonts/KolleVF.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Diatype";
+  src: url("../assets/fonts/DiatypePlus.woff2") format("woff2");
+}
+
+
+
+p {
+    margin: 0;
+}
+
+// p:not(:first-of-type) {
+//     text-indent: 30px;
+// }
+
+.paragraph-word {
+    transition: all var(--animation-duration-2) ease-in-out;
+}
+
+
+
+.navigation-type {
+    color: white
+}
+
+.primary-type {
+  font-size: 16.5px;
+}
+
+.secondary-type {
+  font-size: var(--secondary-font-size);
+  text-transform: uppercase;
+}
+
+.light {
+  font-variation-settings: "wght" 200, "ital" 0;
+}
+
+.light-nav {
+  font-variation-settings: "wght" var(--font-weight-light-nav), "ital" 0;
+  color: white;
+}
+
+.italic {
+  font-variation-settings: "wght" 675, "ital" 9;
+}
+
+.light.italic {
+  font-variation-settings: "wght" 200, "ital" 9;
+}
+
+.indent {
+  display: inline-block;
+  width: 20px;
+}
+
+
+.font-weight-animation {
+  transition: font-variation-settings 0.5s ease-in-out;
+  animation: font-weight-animation 300ms ease-in-out;
+}
+
+@keyframes font-weight-animation {
+  0% {
+    font-size: 17px;
+    font-variation-settings: "wght" 300, "MONO" 1;
+  }
+  50% {
+    font-size: 35px;
+    font-variation-settings: "wght" 800, "MONO" 0;
+  }
+  100% {
+    font-size: 17px;
+    font-variation-settings: "wght" 300, "MONO" 1;
+  }
+}

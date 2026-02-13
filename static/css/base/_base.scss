@@ -1,0 +1,78 @@
+html {
+    box-sizing: border-box;
+    font-size: 1vw;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: never; /* Note: font-smooth is not widely supported */
+  }
+  
+*, *:before, *:after {
+  box-sizing: inherit;
+  scrollbar-width: none; /* Firefox */
+}
+
+body {
+
+  background-color: var(--background-color);
+  color: black;
+  margin: 0;
+  padding: 0;
+  font-family: "Booton";
+  // font-family: "Friedl";
+  font-variation-settings: "wght" 675, "ital" 0;
+  transition: font-variation-settings 0.4s ease;
+  overscroll-behavior: none; /* Prevents overscroll/bounce effect */
+
+  @include tablet {
+    // background-color: #c8d2fa;
+  }
+
+  @include desktop-small {
+    // background-color: #96a9f6;
+  }
+
+  @include desktop-large {
+    // background-color: #5576fa;
+  }
+
+  @include desktop-x-large {
+    // background-color: #1645ff;
+  }
+}
+
+
+
+
+
+.display-none {
+    display: none;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+.no-opacity {
+    opacity: 0;
+}
+
+.no-transition {
+    transition: none !important;
+}
+
+.animation-settings {
+    transition: all 300ms ease-in-out !important;
+}
+
+.animation-settings-2 {
+  transition: all 300ms ease-in-out !important;
+}
+
+.animation-settings-3 {
+  transition: all 1000ms ease-in-out !important;
+}
+
+.test-image {
+  width: 10vw;
+  height: auto;
+}

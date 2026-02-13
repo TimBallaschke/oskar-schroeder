@@ -1,0 +1,24 @@
+# .gitignore
+
+# Sensitive files
+.env
+.env.*
+
+# Flask session data
+flask_session/
+
+# Database
+state_data.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE and system files
+.DS_Store
+.idea/
+.vscode/
+.cursorignore
+*.swp
+*.swo

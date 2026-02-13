@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oskar Schoreder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="">
+    <!-- <div class="webpage-title">Oskar Schroeder</div> -->
+
+    <div class="" id="content-container" data-version-key="1">
+
+    </div>
+    <div class="websearch-column"></div>
+    <div class="version-history-overlay"></div>
+    <div class="light" id="version-history">
+        <div class="current-version-history-element version-history-element" id="version-history-element-0" version-history-key="1">
+            <div class="version-history-element-content">
+                <div class="version-history-element-number">
+                    <div class="version-history-element-digits">01</div>
+                </div>
+                <div class="version-history-element-title">Starting Page</div>
+            </div>
+        </div>
+        <div class="start-version-history-element" version-history-key="0">
+            <div class="version-history-element-content">
+                <div class="version-history-element-number">
+                    <div class="version-history-element-digits">00</div>
+                </div>
+                <div class="version-history-element-title">Oskar Schroeder</div>
+            </div>
+        </div>
+        <!-- <div class="version-history-element" id="version-history-element-0" version-history-key="0">
+            <div class="version-history-element-number">
+                <div class="version-history-element-digits">02</div>
+            </div>
+            <div class="version-history-element-title">Exhibitions</div>
+        </div>
+        <div class="version-history-element" id="version-history-element-0" version-history-key="0">
+            <div class="version-history-element-number">
+                <div class="version-history-element-digits">03</div>
+            </div>
+            <div class="version-history-element-title">Artworks</div>
+        </div>
+        <div class="version-history-element" id="version-history-element-1" version-history-key="0">
+            <div class="version-history-element-number">
+                <div class="version-history-element-digits">04</div>
+            </div>
+            <div class="version-history-element-title">Material Studies</div>
+        </div>
+        <div class="version-history-element" id="version-history-element-0" version-history-key="0">
+            <div class="version-history-element-number">
+                <div class="version-history-element-digits">05</div>
+            </div>
+            <div class="version-history-element-title">Sculpture</div>
+        </div>
+        <div class="version-history-element" id="version-history-element-0" version-history-key="0">
+            <div class="version-history-element-number">
+                <div class="version-history-element-digits">06</div>
+            </div>
+            <div class="version-history-element-title">Education</div>
+        </div>
+        <div class="version-history-element" id="version-history-element-0" version-history-key="0">
+            <div class="version-history-element-number">
+                <div class="version-history-element-digits">07</div>
+            </div>
+            <div class="version-history-element-title">Latest Exhibitions</div>
+        </div>
+        <div class="version-history-element" id="version-history-element-0" version-history-key="0">
+            <div class="version-history-element-number">
+                <div class="version-history-element-digits">08</div>
+            </div>
+            <div class="version-history-element-title">Biography</div>
+        </div>
+        <div class="version-history-element" id="version-history-element-0" version-history-key="0">
+            <div class="version-history-element-number">
+                <div class="version-history-element-digits">09</div>
+            </div>
+            <div class="version-history-element-title">Latest Artworks</div>
+        </div>
+        <div class="version-history-element" id="version-history-element-0" version-history-key="0">
+            <div class="version-history-element-number">
+                <div class="version-history-element-digits">10</div>
+            </div>
+            <div class="version-history-element-title">Inspirations</div>
+        </div>
+        <div class="version-history-element" id="version-history-element-0" version-history-key="0">
+            <div class="version-history-element-number">
+                <div class="version-history-element-digits">11</div>
+            </div>
+            <div class="version-history-element-title">Contact</div>
+        </div> -->
+    </div>
+    <div id="version-history-background"></div>
+    <div class="" id="bottom-navigation-back">
+        <div id="bottom-navigation-elements">
+            <div id="thought-process-container">
+                <div class="light-nav" id="thought-process"></div>
+                <div class="light-nav" id="thought-process-dots"></div>
+            </div>
+            <div class="light-nav" id="prompt-proposals">
+                <div class="prompt-proposal-container" id="prompt-proposal-container-1">
+                    <div class="prompt-proposal-mask">
+                        <div class="prompt-proposal navigation-type" id="prompt-proposal-1">Show Oskars CV</div>
+                    </div>
+                </div>
+                <div class="prompt-proposal-container" id="prompt-proposal-container-2">
+                    <div class="prompt-proposal-mask">
+                        <div class="prompt-proposal navigation-type" id="prompt-proposal-2">Tell me about Oskars Biography</div>
+                    </div>
+                </div>
+                <div class="prompt-proposal-container" id="prompt-proposal-container-3">
+                    <div class="prompt-proposal-mask">
+                        <div class="prompt-proposal navigation-type" id="prompt-proposal-3">Show Exhibition History</div>
+                    </div>
+                </div>
+                <div class="prompt-proposal-container" id="prompt-proposal-container-4">
+                    <div class="prompt-proposal-mask">
+                        <div class="prompt-proposal navigation-type" id="prompt-proposal-4">Show Oskars Artworks</div>
+                    </div>     
+                </div>
+            </div>
+            <div id="input-bar-placeholder">
+                <div id="user-input-container-placeholder">
+                    <input type="text" class="light-nav" id="user-input-placeholder" placeholder="" autocomplete="off" spellcheck="false">
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div class="" id="bottom-navigation">
+        <div id="bottom-navigation-elements">
+            <div id="input-bar">
+                <div id="user-input-container">
+                    <input type="text" class="light-nav" id="user-input" placeholder="" autocomplete="off" spellcheck="false">
+                </div>
+            </div>
+            <div id="buttons-outter-container">
+                <div id="buttons-container">
+                    <div class="button" id="send-button">
+                        <div id="arrow-top"></div>
+                        <div id="arrow-bottom"></div>
+                    </div>
+                    <div class="button" id="plus-minus-button">
+                        <div id="plus-minus-horizontal"></div>
+                        <div id="plus-minus-vertical"></div>
+                    </div>
+                    <div class="button" id="x-button">
+                        <div id="x-horizontal"></div>
+                        <div id="x-vertical"></div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
