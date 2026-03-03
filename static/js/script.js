@@ -873,10 +873,21 @@ async function processThoughtQueue() {
             // Wait 200ms, then update content and fade back in
             await new Promise(resolve => {
                 setTimeout(() => {
-                    thoughtProcessElement.textContent = currentThought;
+                    // Clear any previous animation
+                    const oldSpan = thoughtProcessElement.querySelector('.thought-process-text');
+                    if (oldSpan && oldSpan.animationInterval) {
+                        clearInterval(oldSpan.animationInterval);
+                    }
+
+                    const span = document.createElement('span');
+                    span.classList.add('thought-process-text');
+                    span.textContent = currentThought;
+                    thoughtProcessElement.innerHTML = '';
+                    thoughtProcessElement.appendChild(span);
 
                     if (isStreaming) {
                         thoughtProcessElement.classList.remove('no-opacity');
+                        setupThoughtProcessAnimation();
                     }
 
                     resolve();
@@ -3469,6 +3480,40 @@ function removePromptAnimations() {
       }
     });
   }
+
+function setupThoughtProcessAnimation() {
+    const textEl = thoughtProcessElement.querySelector('.thought-process-text');
+    if (!textEl) return;
+
+    requestAnimationFrame(() => {
+        if (textEl.scrollWidth > thoughtProcessElement.clientWidth + 20) {
+            const scrollDistance = thoughtProcessElement.clientWidth - textEl.scrollWidth;
+
+            textEl.style.setProperty('--scroll-distance', `${scrollDistance}px`);
+
+            const baseDuration = 0.15;
+            const duration = Math.abs(scrollDistance) * baseDuration;
+            const durationMS = duration * 1000;
+            textEl.style.setProperty('--scroll-duration', `${duration}s`);
+
+            textEl.classList.add('animate-scroll');
+
+            const pauseDuration = 4000;
+            const totalCycleDuration = durationMS + pauseDuration;
+
+            if (textEl.animationInterval) {
+                clearInterval(textEl.animationInterval);
+            }
+
+            textEl.animationInterval = setInterval(() => {
+                textEl.classList.remove('animate-scroll');
+                setTimeout(() => {
+                    textEl.classList.add('animate-scroll');
+                }, pauseDuration);
+            }, totalCycleDuration);
+        }
+    });
+}
 
 
 

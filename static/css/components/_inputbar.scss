@@ -85,21 +85,32 @@
   transition: all var(--animation-duration-1) ease-in-out;
 
   .prompt-proposal-opening-1 & {
-    padding-bottom: 35px;
+    padding-bottom: 25px;
+
+    @include desktop-x-large {
+      padding-bottom: 35px;
+    }
   }
 
   .prompt-proposal-opening-2 & {
-    padding-bottom:35px;
+    padding-bottom:25px;
+
+    @include desktop-x-large {
+      padding-bottom: 35px;
+    }
   }
 
   @include desktop-small {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
   }
 
   @include desktop-large {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+
   }
 
   @include desktop-x-large {
@@ -125,39 +136,66 @@
   cursor: pointer;
 
     &::before {
-    content: '';
-    position: absolute;
-    border: solid 1px white;
-    width: var(--small-circle-size);
-    height: var(--small-circle-size);
-    border-radius: 15px;
-    left: 0;
-    top: 0;
-    transition: all var(--animation-duration-1) ease-in-out;
-  }
+        content: '';
+        position: absolute;
+        border: solid 1px white;
+        width: var(--small-circle-size);
+        height: var(--small-circle-size);
+        border-radius: 15px;
+        left: 0;
+        top: 0;
+        transition: all var(--animation-duration-1) ease-in-out;
+        transform: translateY(1px);
+    }
+
 
   &:hover {
     &::before {
       background-color: white;
     }
   }
-  
+
+
 
 
 
   .prompt-proposal-opening-1 & {
-    height: var(--input-element-height);
+    height: calc(var(--input-element-height));
+
+    @include desktop-small {
+      height: calc(var(--input-element-height) - 3px);
+    }
+
+    @include desktop-large {
+      height: calc(var(--input-element-height) - 6px);
+    }
+
+    @include desktop-x-large {
+      height: calc(var(--input-element-height));
+    }
   }
 
   .prompt-proposal-opening-2 & {
-    height: var(--input-element-height);
+    height: calc(var(--input-element-height));
     opacity: 1;
+
+    @include desktop-small {
+      height: calc(var(--input-element-height) - 3px);
+    }
+
+    @include desktop-large {
+      height: calc(var(--input-element-height) - 6px);
+    }
+
+    @include desktop-x-large {
+      height: calc(var(--input-element-height));
+    }
   }
 }
 
 .prompt-proposal {
   position: relative;
-  padding-left: 10px;
+  padding-left: 7px;
   padding-right: 10px;
   // transform: translateY(3px);
   white-space: nowrap;
@@ -165,6 +203,18 @@
 
   &.animate-scroll {
     animation: scroll-horizontal var(--scroll-duration, 10s) ease-in-out;
+  }
+
+  @include desktop-small {
+    transform: translateY(0px);
+  }
+
+  @include desktop-large {
+    transform: translateY(2px);
+  }
+
+  @include desktop-x-large {
+    transform: translateY(1px);
   }
 }
 
@@ -186,8 +236,9 @@
 .prompt-proposal-mask {
   position: relative;
   overflow: hidden;
-  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+  height: 100%;
+  mask-image: linear-gradient(to right, transparent 0%, black 1%, black 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 1%, black 97%, transparent 100%);
 }
 
 
@@ -460,9 +511,11 @@ input {
   padding-bottom: 0px;
   transition: all var(--animation-duration-1) ease-in-out;
   position: relative;
+  font-size: var(--secondary-font-size);
+
 
   &.thinking-active {
-    padding-bottom: 30px;
+    padding-bottom: 20px;
   }
 }
 
@@ -472,7 +525,25 @@ input {
   overflow: hidden;
   white-space: nowrap;
   width: 100%;
+  mask-image: linear-gradient(to right, transparent 0%, black 0%, black 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 0%, black 97%, transparent 100%);
   height: 0;
+
+  @include desktop-small {
+    white-space: nowrap;
+}
+
+  @include desktop-large {
+    white-space: nowrap;
+  }
+
+  @include desktop-x-large {
+    white-space: nowrap;
+  }
+
+  @include tablet {
+    white-space: nowrap;
+  }
 
   &.no-opacity {
     opacity: 0;
@@ -486,6 +557,15 @@ input {
     height: var(--input-element-height);
   }
 
+}
+
+.thought-process-text {
+  display: inline-block;
+  white-space: nowrap;
+
+  &.animate-scroll {
+    animation: scroll-horizontal var(--scroll-duration, 10s) ease-in-out;
+  }
 }
 
 #thought-process-dots {

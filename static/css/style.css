@@ -1164,6 +1164,10 @@ p {
   transform-origin: center bottom;
 }
 
+.error-message {
+  font-size: var(--primary-font-size);
+}
+
 .table-container {
   transition: all var(--animation-duration-2) ease-in-out;
 }
@@ -1465,21 +1469,35 @@ p {
   transition: all var(--animation-duration-1) ease-in-out;
 }
 .prompt-proposal-opening-1 #prompt-proposals {
-  padding-bottom: 35px;
+  padding-bottom: 25px;
+}
+@media (min-width: 1441px) {
+  .prompt-proposal-opening-1 #prompt-proposals {
+    padding-bottom: 35px;
+  }
 }
 .prompt-proposal-opening-2 #prompt-proposals {
-  padding-bottom: 35px;
+  padding-bottom: 25px;
+}
+@media (min-width: 1441px) {
+  .prompt-proposal-opening-2 #prompt-proposals {
+    padding-bottom: 35px;
+  }
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   #prompt-proposals {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    -moz-column-gap: 10px;
+         column-gap: 10px;
   }
 }
 @media (min-width: 1025px) and (max-width: 1440px) {
   #prompt-proposals {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    -moz-column-gap: 10px;
+         column-gap: 10px;
   }
 }
 @media (min-width: 1441px) {
@@ -1512,27 +1530,73 @@ p {
   left: 0;
   top: 0;
   transition: all var(--animation-duration-1) ease-in-out;
+  transform: translateY(1px);
 }
 .prompt-proposal-container:hover::before {
   background-color: white;
 }
 .prompt-proposal-opening-1 .prompt-proposal-container {
-  height: var(--input-element-height);
+  height: calc(var(--input-element-height));
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .prompt-proposal-opening-1 .prompt-proposal-container {
+    height: calc(var(--input-element-height) - 3px);
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .prompt-proposal-opening-1 .prompt-proposal-container {
+    height: calc(var(--input-element-height) - 6px);
+  }
+}
+@media (min-width: 1441px) {
+  .prompt-proposal-opening-1 .prompt-proposal-container {
+    height: calc(var(--input-element-height));
+  }
 }
 .prompt-proposal-opening-2 .prompt-proposal-container {
-  height: var(--input-element-height);
+  height: calc(var(--input-element-height));
   opacity: 1;
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .prompt-proposal-opening-2 .prompt-proposal-container {
+    height: calc(var(--input-element-height) - 3px);
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .prompt-proposal-opening-2 .prompt-proposal-container {
+    height: calc(var(--input-element-height) - 6px);
+  }
+}
+@media (min-width: 1441px) {
+  .prompt-proposal-opening-2 .prompt-proposal-container {
+    height: calc(var(--input-element-height));
+  }
 }
 
 .prompt-proposal {
   position: relative;
-  padding-left: 10px;
+  padding-left: 7px;
   padding-right: 10px;
   white-space: nowrap;
   display: inline-block;
 }
 .prompt-proposal.animate-scroll {
   animation: scroll-horizontal var(--scroll-duration, 10s) ease-in-out;
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .prompt-proposal {
+    transform: translateY(0px);
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .prompt-proposal {
+    transform: translateY(2px);
+  }
+}
+@media (min-width: 1441px) {
+  .prompt-proposal {
+    transform: translateY(1px);
+  }
 }
 
 @keyframes scroll-horizontal {
@@ -1552,8 +1616,9 @@ p {
 .prompt-proposal-mask {
   position: relative;
   overflow: hidden;
-  mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 3%, black 97%, transparent 100%);
+  height: 100%;
+  mask-image: linear-gradient(to right, transparent 0%, black 1%, black 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 1%, black 97%, transparent 100%);
 }
 
 #input-bar {
@@ -1806,9 +1871,10 @@ input {
   padding-bottom: 0px;
   transition: all var(--animation-duration-1) ease-in-out;
   position: relative;
+  font-size: var(--secondary-font-size);
 }
 #thought-process-container.thinking-active {
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 
 #thought-process {
@@ -1817,7 +1883,29 @@ input {
   overflow: hidden;
   white-space: nowrap;
   width: 100%;
+  mask-image: linear-gradient(to right, transparent 0%, black 0%, black 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 0%, black 97%, transparent 100%);
   height: 0;
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  #thought-process {
+    white-space: nowrap;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  #thought-process {
+    white-space: nowrap;
+  }
+}
+@media (min-width: 1441px) {
+  #thought-process {
+    white-space: nowrap;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  #thought-process {
+    white-space: nowrap;
+  }
 }
 #thought-process.no-opacity {
   opacity: 0;
@@ -1827,6 +1915,14 @@ input {
 }
 .thinking-active #thought-process {
   height: var(--input-element-height);
+}
+
+.thought-process-text {
+  display: inline-block;
+  white-space: nowrap;
+}
+.thought-process-text.animate-scroll {
+  animation: scroll-horizontal var(--scroll-duration, 10s) ease-in-out;
 }
 
 #thought-process-dots {
