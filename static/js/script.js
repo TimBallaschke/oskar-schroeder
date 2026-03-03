@@ -273,16 +273,6 @@ const versionHistory = document.getElementById('version-history');
 const startVersionHistoryElement = document.querySelector('.start-version-history-element');
 const versionHistoryElement0 = document.getElementById('version-history-element-0');
 
-function updateTitleNotInView() {
-    const containerRect = versionHistory.getBoundingClientRect();
-    const elementRect = versionHistoryElement0.getBoundingClientRect();
-
-    if (elementRect.left >= containerRect.right) {
-        startVersionHistoryElement.classList.add('title-not-in-view');
-    } else {
-        startVersionHistoryElement.classList.remove('title-not-in-view');
-    }
-}
 
 let lastScrollY = window.scrollY;
 let scrolling = false;
@@ -2800,7 +2790,6 @@ function addNewVersionHistoryElement(headline) {
 
     setTimeout(() => {
         newHistoryElement.style.width = '';
-        updateTitleNotInView();
     }, 2000);
 
     newHistoryElement.addEventListener('click', (event) => {
@@ -2985,14 +2974,12 @@ versionHistory.addEventListener("mousemove", (e) => {
       if (Math.abs(distance) < 0.5) {
         versionHistory.scrollLeft = versionHistory.targetScrollLeft;
         versionHistory.isScrollAnimating = false;
-        updateTitleNotInView();
         return;
       }
 
       // Otherwise, move a percentage of the remaining distance (easing)
       const step = distance * 0.1; // Adjust this value to control smoothness
       versionHistory.scrollLeft = currentPosition + step;
-      updateTitleNotInView();
 
       // Continue the animation
       requestAnimationFrame(smoothScroll);

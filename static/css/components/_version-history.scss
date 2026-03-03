@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 145px;
+  height: 135px;
   background: linear-gradient(
     to bottom,
     rgba(244, 244, 245, 1) 20%,
@@ -121,10 +121,6 @@
 
   &#version-history-element-0 {
     border-right: 0px solid black;
-
-    .version-history-element-digits {
-      opacity: 0;
-    }
   }
 
 
@@ -136,6 +132,13 @@
       font-variation-settings: "wght" 675;
       letter-spacing: -1px;
       margin-top: -4px;
+
+
+
+      @include desktop-x-large {
+        letter-spacing: -1.5px;
+
+      }
 
       &.light {
         font-variation-settings: "wght" 150;
@@ -247,7 +250,6 @@
       &:hover {
         .version-history-element-title {
           font-size: var(--large-font-size);
-          letter-spacing: -1px;
           font-variation-settings: "wght" 675;
           transition: all var(--animation-duration-1) ease-in-out;
         }
@@ -368,13 +370,7 @@
   }
 
   .version-history-element-title {
-    opacity: 0;
-  }
-
-  &.title-not-in-view {
-    .version-history-element-title {
-      opacity: 1;
-    }
+    font-variation-settings: "wght" 675;
   }
 
   @include mobile {

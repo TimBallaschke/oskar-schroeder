@@ -18,8 +18,8 @@
   }
 
   @include desktop-small {
-    width: calc((100vw - 2 * var(--page-padding)) / 8 * 4);
-    right: calc((100vw - 2 * var(--page-padding)) / 8 * 2 + var(--page-padding));
+    width: calc((100vw - 2 * var(--page-padding)));
+    right: var(--side-margin-bottom-nav);
   }
 
   @include desktop-large {
@@ -56,8 +56,8 @@
   }
 
   @include desktop-small {
-    width: calc((100vw - 2 * var(--page-padding)) / 8 * 4);
-    right: calc((100vw - 2 * var(--page-padding)) / 8 * 2 + var(--page-padding));
+    width: calc((100vw - 2 * var(--page-padding)));
+    right: var(--side-margin-bottom-nav);
   }
 
   @include desktop-large {
@@ -90,6 +90,11 @@
 
   .prompt-proposal-opening-2 & {
     padding-bottom:35px;
+  }
+
+  @include desktop-small {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   @include desktop-large {
@@ -213,11 +218,15 @@ input {
   font: inherit;
 }
 
+#user-input-container {
+  height: 100%;
+}
+
 #user-input {
   height: 100%;
   width: 100%;
   color: white;
-  transform: translateY(2px);
+  transform: translateY(-2px);
   transition: all 1000ms ease-in-out;
   
 

@@ -26,8 +26,8 @@
   --input-element-height: calc(var(--primary-font-size) * 1.6);
   --button-size: 39px;
   --button-padding: calc(((var(--input-element-height) + var(--veritical-padding-bottom-nav) * 2) - var(--button-size)) / 2);
-  --small-circle-size: 24px;
-  --content-padding-top: 110px;
+  --small-circle-size: 20px;
+  --content-padding-top: 115px;
   --content-padding-bottom: 26px;
   --column-amount-content-container: 8;
   --column-amount-websearch: 2;
@@ -1395,8 +1395,8 @@ p {
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   #bottom-navigation {
-    width: calc((100vw - 2 * var(--page-padding)) / 8 * 4);
-    right: calc((100vw - 2 * var(--page-padding)) / 8 * 2 + var(--page-padding));
+    width: calc(100vw - 2 * var(--page-padding));
+    right: var(--side-margin-bottom-nav);
   }
 }
 @media (min-width: 1025px) and (max-width: 1440px) {
@@ -1434,8 +1434,8 @@ p {
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   #bottom-navigation-back {
-    width: calc((100vw - 2 * var(--page-padding)) / 8 * 4);
-    right: calc((100vw - 2 * var(--page-padding)) / 8 * 2 + var(--page-padding));
+    width: calc(100vw - 2 * var(--page-padding));
+    right: var(--side-margin-bottom-nav);
   }
 }
 @media (min-width: 1025px) and (max-width: 1440px) {
@@ -1469,6 +1469,12 @@ p {
 }
 .prompt-proposal-opening-2 #prompt-proposals {
   padding-bottom: 35px;
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  #prompt-proposals {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 @media (min-width: 1025px) and (max-width: 1440px) {
   #prompt-proposals {
@@ -1575,11 +1581,15 @@ input {
   font: inherit;
 }
 
+#user-input-container {
+  height: 100%;
+}
+
 #user-input {
   height: 100%;
   width: 100%;
   color: white;
-  transform: translateY(2px);
+  transform: translateY(-2px);
   transition: all 1000ms ease-in-out;
 }
 #user-input::-moz-placeholder {
@@ -1839,7 +1849,7 @@ input {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 145px;
+  height: 135px;
   background: linear-gradient(to bottom, rgb(244, 244, 245) 20%, rgba(244, 244, 245, 0.9) 35%, rgba(244, 244, 245, 0.5) 70%, rgba(244, 244, 245, 0) 100%);
   z-index: 90;
   pointer-events: none;
@@ -1938,14 +1948,16 @@ input {
 .version-history-element#version-history-element-0 {
   border-right: 0px solid black;
 }
-.version-history-element#version-history-element-0 .version-history-element-digits {
-  opacity: 0;
-}
 .version-history-element.current-version-history-element .version-history-element-title {
   font-size: var(--large-font-size);
   font-variation-settings: "wght" 675;
   letter-spacing: -1px;
   margin-top: -4px;
+}
+@media (min-width: 1441px) {
+  .version-history-element.current-version-history-element .version-history-element-title {
+    letter-spacing: -1.5px;
+  }
 }
 .version-history-element.current-version-history-element .version-history-element-title.light {
   font-variation-settings: "wght" 150;
@@ -2013,7 +2025,6 @@ input {
 }
 .hover .version-history-element.current-version-history-element:hover .version-history-element-title {
   font-size: var(--large-font-size);
-  letter-spacing: -1px;
   font-variation-settings: "wght" 675;
   transition: all var(--animation-duration-1) ease-in-out;
 }
@@ -2100,10 +2111,7 @@ input {
   opacity: 0;
 }
 .start-version-history-element .version-history-element-title {
-  opacity: 0;
-}
-.start-version-history-element.title-not-in-view .version-history-element-title {
-  opacity: 1;
+  font-variation-settings: "wght" 675;
 }
 @media (max-width: 480px) {
   .start-version-history-element {
