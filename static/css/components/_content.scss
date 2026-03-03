@@ -231,8 +231,8 @@
     }
 
     @include tablet {
-        padding-top: calc(var(--primary-font-size) / 2 - 1px);
-        padding-bottom: 0px;
+        padding-top: 0;
+        padding-bottom: 7px;
     }
 
     @include desktop-small {

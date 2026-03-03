@@ -1025,17 +1025,13 @@ async function handleDelta(content) {
 
                             paragraphContainerCount++;
                             
-                            if ((contentContainer.lastElementChild && contentContainer.lastElementChild.classList.contains('paragraph-outter-container')) || window.innerWidth <= mobileWidth) { // only execute if there is a paragraph outter container or on mobile
+                            if (contentContainer.lastElementChild && contentContainer.lastElementChild.classList.contains('paragraph-outter-container')) {
                                 allParagraphContainers = contentContainer.querySelectorAll('.paragraph-container');
                                 previousParagraphContainer = allParagraphContainers[allParagraphContainers.length - 1];
-                            } 
+                            }
 
-                            if(window.innerWidth <= mobileWidth) {
+                            if ((paragraphContainerCount % 2 === 1)) {
                                 await processImageQueue();
-                            } else {
-                                if ((paragraphContainerCount % 2 === 1)) {
-                                    await processImageQueue();
-                                }
                             }
 
                             paragraphContainer = document.createElement('p');
@@ -1057,17 +1053,9 @@ async function handleDelta(content) {
                                 }
                             }
 
-                            // Define Layout based on previous pragraphs and images
-                            if (window.innerWidth <= mobileWidth) { // On mobile
-                                if (previousParagraphContainer && !previousParagraphContainer.hasAttribute('data-image-paragraph')) { // only add an indent if the previous paragraph is not an image paragraph
-                                    const indentSpan = document.createElement('span');
-                                    indentSpan.classList.add('indent');
-                                    paragraphContainer.appendChild(indentSpan); 
-                                }
-
-                                contentContainer.appendChild(paragraphContainer);
-
-                            } else { // On desktop
+                            // Define Layout based on previous paragraphs and images
+                            // Always use desktop wrapper div structure so CSS grid-column works at all viewport sizes
+                            {
                                 // Check if there is a previous paragraph container or if it is the first paragraph
                                 if (!previousParagraphContainer) {
                                     const largeParagraphContainer = document.createElement('div');
@@ -3905,7 +3893,8 @@ function loadStateFromUrl() {
                     
                     // Set the loaded content
                     contentContainer.innerHTML = data.content;
-                    
+                    wrapBareParagraphContainers();
+
                     // Update response count and map
                     responseCount++;
                     contentContainer.setAttribute('data-version-key', responseCount);
@@ -4112,8 +4101,24 @@ function resetStyles() {
     spans.forEach(span => {
     span.removeAttribute('style');
     });
+
+    wrapBareParagraphContainers();
 }
-  
+
+// Wraps any bare .paragraph-container direct children of contentContainer in a
+// large-paragraph-container div so the CSS grid-column rules apply on desktop.
+// This fixes content that was saved / rendered with the old mobile-only structure.
+function wrapBareParagraphContainers() {
+    Array.from(contentContainer.children)
+        .filter(el => el.classList.contains('paragraph-container'))
+        .forEach(p => {
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('large-paragraph-container', 'paragraph-outter-container');
+            contentContainer.insertBefore(wrapper, p);
+            wrapper.appendChild(p);
+        });
+}
+
 // Add the event listener for window resize
 window.addEventListener('resize', resetStyles);
 
