@@ -1876,6 +1876,11 @@ input {
 #thought-process-container.thinking-active {
   padding-bottom: 20px;
 }
+@media (min-width: 1441px) {
+  #thought-process-container.thinking-active {
+    padding-bottom: 30px;
+  }
+}
 
 #thought-process {
   opacity: 1;

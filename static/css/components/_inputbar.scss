@@ -516,7 +516,13 @@ input {
 
   &.thinking-active {
     padding-bottom: 20px;
+
+    @include desktop-x-large {
+      padding-bottom: 30px;
+    }
   }
+
+
 }
 
 #thought-process {

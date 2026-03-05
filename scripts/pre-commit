@@ -1,0 +1,20 @@
+#!/bin/sh
+# Git pre-commit hook: converts new images to WebP before committing.
+# Install by running: scripts/setup_hooks.sh
+
+REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+
+cd "$REPO_ROOT"
+
+python3 scripts/convert_images.py
+if [ $? -ne 0 ]; then
+    echo "Image conversion failed. Aborting commit."
+    exit 1
+fi
+
+# Stage any newly created .webp files and updated reference files
+git add static/assets/images/
+git add data.py
+git add templates/ static/js/ 2>/dev/null || true
+
+exit 0

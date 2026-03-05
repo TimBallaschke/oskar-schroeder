@@ -366,11 +366,11 @@ artwork_data_applikate = {
     "material": "Concrete columns, stucco marble, plywood discs",
     "dimensions": "30×3 – 230×120cm",
     "images": [
-        {"url": "../static/assets/images/artworks/Applikate/1.jpg"},
-        {"url": "../static/assets/images/artworks/Applikate/2.jpg"},
-        {"url": "../static/assets/images/artworks/Applikate/3.jpg"},
-        {"url": "../static/assets/images/artworks/Applikate/4.jpg"},
-        {"url": "../static/assets/images/artworks/Applikate/5.jpg"}
+        {"url": "../static/assets/images/artworks/Applikate/1.webp"},
+        {"url": "../static/assets/images/artworks/Applikate/2.webp"},
+        {"url": "../static/assets/images/artworks/Applikate/3.webp"},
+        {"url": "../static/assets/images/artworks/Applikate/4.webp"},
+        {"url": "../static/assets/images/artworks/Applikate/5.webp"}
     ],
     "description": (
         "»Applikate« is Oskar Schroeder's bachelor's thesis work, exhibited in 2021 at the Muthesius University of Fine Arts. "
@@ -409,7 +409,7 @@ artwork_data_brechungen = {
     "dimensions": "42×43cm",
     "images": [
         {"url": "../static/assets/images/artworks/BrechungenZurHandgreiflichkeitDesDenkens/1.webp"},
-        {"url": "../static/assets/images/artworks/BrechungenZurHandgreiflichkeitDesDenkens/2.png"}
+        {"url": "../static/assets/images/artworks/BrechungenZurHandgreiflichkeitDesDenkens/2.webp"}
     ],
     "description": (
         "The photographic work was part of the Meisterschüler*in graduation exhibition »How to Approach a Dream Gently« at the Kunstverein Braunschweig. "
@@ -505,10 +505,10 @@ artwork_data_hypo = {
     "material": "Wood",
     "dimensions": "55×20×60cm",
     "images": [
-        {"url": "../static/assets/images/artworks/Hypo/1.jpg"},
-        {"url": "../static/assets/images/artworks/Hypo/2.jpg"},
-        {"url": "../static/assets/images/artworks/Hypo/3.jpg"},
-        {"url": "../static/assets/images/artworks/Hypo/4.jpg"}
+        {"url": "../static/assets/images/artworks/Hypo/1.webp"},
+        {"url": "../static/assets/images/artworks/Hypo/2.webp"},
+        {"url": "../static/assets/images/artworks/Hypo/3.webp"},
+        {"url": "../static/assets/images/artworks/Hypo/4.webp"}
     ],
     "description": (
         "»Hypo« comprises two wooden sculptures lying apart in the space, their mirrored forms suggesting embryonic beings, crustaceans, or insect larvae. "
@@ -525,8 +525,8 @@ artwork_data_janus = {
     "material": "Fountain, water, pump",
     "dimensions": "80×110×80cm",
     "images": [
-        {"url": "../static/assets/images/artworks/Janus/2.jpg"},
-        {"url": "../static/assets/images/artworks/Janus/1.jpg"}
+        {"url": "../static/assets/images/artworks/Janus/2.webp"},
+        {"url": "../static/assets/images/artworks/Janus/1.webp"}
     ],
     "description": (
         "»Janus« is an objet trouvé—a fountain that stood for many years in the garden of Oskar Schroeder's parents. "
@@ -544,8 +544,8 @@ artwork_data_landschaft = {
     "material": "Canvas fabric",
     "dimensions": "400×150cm",
     "images": [
-        {"url": "../static/assets/images/artworks/Landschaft/1.jpg"},
-        {"url": "../static/assets/images/artworks/Landschaft/2.jpg"}
+        {"url": "../static/assets/images/artworks/Landschaft/1.webp"},
+        {"url": "../static/assets/images/artworks/Landschaft/2.webp"}
     ],
     "description": (
         "»Landschaft« was shown during Oskar Schroeder's first solo exhibition »collecting construction« at Galerie KuCo Flensburg. "
@@ -563,12 +563,12 @@ artwork_data_memoir = {
     "material": "Photo prints, foils, glass plates",
     "dimensions": "Variable",
     "images": [
-        {"url": "../static/assets/images/artworks/Memoir/1.jpg"},
-        {"url": "../static/assets/images/artworks/Memoir/2.png"},
-        {"url": "../static/assets/images/artworks/Memoir/3.jpg"},
-        {"url": "../static/assets/images/artworks/Memoir/4.jpg"},
-        {"url": "../static/assets/images/artworks/Memoir/5.jpg"},
-        {"url": "../static/assets/images/artworks/Memoir/6.jpg"}
+        {"url": "../static/assets/images/artworks/Memoir/1.webp"},
+        {"url": "../static/assets/images/artworks/Memoir/2.webp"},
+        {"url": "../static/assets/images/artworks/Memoir/3.webp"},
+        {"url": "../static/assets/images/artworks/Memoir/4.webp"},
+        {"url": "../static/assets/images/artworks/Memoir/5.webp"},
+        {"url": "../static/assets/images/artworks/Memoir/6.webp"}
     ],
     "description": (
         "»Memoir« was presented during Oskar Schroeder's first solo exhibition »collecting construction« at Galerie KuCo Flensburg. "
@@ -588,7 +588,7 @@ artwork_data_neuanfang = {
     "material": "Various materials",
     "dimensions": "Variable",
     "images": [
-        {"url": "../static/assets/images/artworks/Neuanfang/1.png"}
+        {"url": "../static/assets/images/artworks/Neuanfang/1.webp"}
     ],
     "description": (
         "»Neuanfang« was shown in the project space of Corinna Schnitt’s class at HBK Braunschweig. "
@@ -607,10 +607,10 @@ artwork_data_onward = {
     "material": "Video loop",
     "dimensions": "4 sec (loop)",
     "images": [
-        {"url": "../static/assets/images/artworks/Onward/1.png"},
-        {"url": "../static/assets/images/artworks/Onward/2.png"},
-        {"url": "../static/assets/images/artworks/Onward/3.png"},
-        {"url": "../static/assets/images/artworks/Onward/4.png"}
+        {"url": "../static/assets/images/artworks/Onward/1.webp"},
+        {"url": "../static/assets/images/artworks/Onward/2.webp"},
+        {"url": "../static/assets/images/artworks/Onward/3.webp"},
+        {"url": "../static/assets/images/artworks/Onward/4.webp"}
     ],
     "description": (
         "»Onward« is a video work created in collaboration with Mats Hoff for the exhibition »Begleitgrau« by Oskar Schroeder and Regine Schulz "
@@ -629,7 +629,7 @@ artwork_data_vivarium = {
     "dimensions": "145×82×65cm",
     "images": [
         {"url": "../static/assets/images/artworks/Vivarium/1.webp"},
-        {"url": "../static/assets/images/artworks/Vivarium/2.jpg"},
+        {"url": "../static/assets/images/artworks/Vivarium/2.webp"},
         {"url": "../static/assets/images/artworks/Vivarium/3.webp"}
     ],
     "description": (
@@ -651,9 +651,9 @@ artwork_data_walden = {
     "dimensions": "9:30min",
     "images": [
         {"url": "../static/assets/images/artworks/Walden/1.webp"},
-        {"url": "../static/assets/images/artworks/Walden/2.png"},
-        {"url": "../static/assets/images/artworks/Walden/3.png"},
-        {"url": "../static/assets/images/artworks/Walden/4.png"}
+        {"url": "../static/assets/images/artworks/Walden/2.webp"},
+        {"url": "../static/assets/images/artworks/Walden/3.webp"},
+        {"url": "../static/assets/images/artworks/Walden/4.webp"}
     ],
     "description": (
         "»Walden« is a video work from Schroeder’s diploma exhibition at HBK Braunschweig. "
@@ -673,10 +673,10 @@ artwork_data_wild = {
     "material": "Wood",
     "dimensions": "165cm",
     "images": [
-        {"url": "../static/assets/images/artworks/Wild/1.jpg"},
-        {"url": "../static/assets/images/artworks/Wild/2.jpg"},
-        {"url": "../static/assets/images/artworks/Wild/3.jpg"},
-        {"url": "../static/assets/images/artworks/Wild/4.jpg"}
+        {"url": "../static/assets/images/artworks/Wild/1.webp"},
+        {"url": "../static/assets/images/artworks/Wild/2.webp"},
+        {"url": "../static/assets/images/artworks/Wild/3.webp"},
+        {"url": "../static/assets/images/artworks/Wild/4.webp"}
     ],
     "description": (
         "»Wild« was shown during the diploma exhibition at HBK Braunschweig and formed part of Oskar Schroeder’s final project. "
