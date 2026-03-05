@@ -232,7 +232,7 @@ async function processImageQueue() {
 const mobileWidth = 600;
 const tabletWidth = 768;
 
-let activeEventSource = null; // Track the active activeEventSource connection
+let activeStreamAbort = null; // Track the active stream connection
 let isProcessing = false; // Flag to prevent concurrent processing
 let responseMap = {};  // Saving the components for each response
 let processedComponents = new Map(); // Current components that have been processed
@@ -564,25 +564,9 @@ function sendMessage() {
         });
 
     } else {
-        // Send message to backend (Flask server)
-        // This is a post request that triggers the function in main.py
-        fetch('/content', {  // HTTP request to the '/content' endpoint of your server using the Fetch API
-            method: 'POST', // Specifies that this is a POST request, which is used to send data to the server
-            headers: {
-                'Content-Type': 'application/json', // Specifies the type of content being sent
-            },
-            body: JSON.stringify({message: message}) // Converts the message to a JSON string and sends it as the body of the request
-        })
-        .then(response => response.json()) // Waits for the response from the server and converts it to a JSON object
-        .then(data => { // waits for the response to be converted to a JSON object
-            if (data.status === "ok") { // checks if the status of the response is "ok"
-                responseCount++;
-                contentContainer.setAttribute('data-version-key', responseCount);
-                startStreamingResponse(); // starts the streaming response
-            }        
-        }).catch(error => { // handles any errors that occur during the request
-            console.error('Error sending message:', error); // logs the error to the console
-        });
+        responseCount++;
+        contentContainer.setAttribute('data-version-key', responseCount);
+        startStreamingResponse(message);
 
         // Only clear content container if it has content
         if (contentContainer.children.length > 0) {
@@ -593,48 +577,69 @@ function sendMessage() {
 
 
 
-function startStreamingResponse() {
+function startStreamingResponse(message) {
 
-    // Close any existing EventSource connection
-    if (activeEventSource) {
-        activeEventSource.close();
-        console.log("Closed previous activeEventSource connection.");
+    if (activeStreamAbort) {
+        activeStreamAbort.abort();
+        activeStreamAbort = null;
     }
 
-    activeEventSource = new EventSource("/stream"); // creates a new EventSource connection to the "/stream" endpoint. activeEventSource is used for Server-Sent Events (SSE), allowing the server to push data to the client in real-time over a single, long-lived connection
-    console.log(activeEventSource);
+    activeStreamAbort = new AbortController();
 
-    activeEventSource.onmessage = function(event) { // eventhandler that will be called whenever a message is received from the server
-        const data = JSON.parse(event.data); // parsed the received message data from JSON string format to a JavaScript object
+    fetch('/stream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message }),
+        signal: activeStreamAbort.signal
+    }).then(async response => {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
 
-        switch(data.type) { // switch statement to handle different types of messages (switch statement is used to handle different cases based on the value of a variable -> alternative to if-else statements)
-            case 'delta': // if the message type is 'delta', it calls the handleDelta function
-                handleDelta(data.content);
-                break;
-            case 'complete': // if the message type is 'complete', it calls the handleComplete function
-                handleComplete(data.content);
-                break;
-            case 'second_complete':
-                handleSecondComplete(data.content, data.stateId);  // New function to process the second chatbot's response
-                activeEventSource.close();
-                activeEventSource = null;
-                break;
-            case "error": // if the message type is 'error', it logs the error to the console and closes the event source
-                console.error("Error:", data.content);
-                activeEventSource.close();
-                activeEventSource = null;
-                isStreaming = false;
-                stopStreamingAnimation();
-                saveCurrentHTML(); // Save HTML even on error
-                break;
+        try {
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop();
+
+                for (const line of lines) {
+                    if (!line.startsWith('data: ')) continue;
+                    const data = JSON.parse(line.slice(6));
+                    switch (data.type) {
+                        case 'delta':
+                            handleDelta(data.content);
+                            break;
+                        case 'complete':
+                            handleComplete(data.content);
+                            break;
+                        case 'second_complete':
+                            handleSecondComplete(data.content, data.stateId);
+                            activeStreamAbort = null;
+                            reader.cancel();
+                            return;
+                        case 'error':
+                            console.error("Error:", data.content);
+                            activeStreamAbort = null;
+                            isStreaming = false;
+                            stopStreamingAnimation();
+                            saveCurrentHTML();
+                            return;
+                    }
+                }
+            }
+        } catch (e) {
+            if (e.name !== 'AbortError') {
+                console.error("Stream error:", e);
+            }
         }
-    };
-
-    activeEventSource.onerror = function (error) { // eventhandler that will be called if an error occurs with the event source
-        console.error("activeEventSource failed:", error);
-        activeEventSource.close();
-        activeEventSource = null;
-    };
+    }).catch(error => {
+        if (error.name !== 'AbortError') {
+            console.error("Stream failed:", error);
+            activeStreamAbort = null;
+        }
+    });
 }
 
 // Add ability to send message by pressing Enter key
@@ -2343,11 +2348,34 @@ async function renderNextProject() {
                                     const imageWidth = imageContainer.offsetWidth;
                                     const currentIndex = Math.round(scrollPosition / imageWidth);
                                     const totalImages = imageContainer.querySelectorAll('.project-image').length;
-                                    
+
                                     if (digitsSpanOne) {
                                         digitsSpanOne.innerHTML = `${(currentIndex + 1).toString().padStart(2, '0')}`;
-                                    }                                    
-                                    
+                                    }
+
+                                });
+
+                                imageContainer.addEventListener('mousemove', (e) => {
+                                    const rect = imageContainer.getBoundingClientRect();
+                                    const isRightHalf = (e.clientX - rect.left) > rect.width / 2;
+                                    imageContainer.classList.toggle('cursor-next', isRightHalf);
+                                    imageContainer.classList.toggle('cursor-prev', !isRightHalf);
+                                });
+
+                                imageContainer.addEventListener('mouseleave', () => {
+                                    imageContainer.classList.remove('cursor-next', 'cursor-prev');
+                                });
+
+                                imageContainer.addEventListener('click', (e) => {
+                                    const rect = imageContainer.getBoundingClientRect();
+                                    const isRightHalf = (e.clientX - rect.left) > rect.width / 2;
+                                    const imageWidth = imageContainer.offsetWidth;
+                                    const currentIndex = Math.round(imageContainer.scrollLeft / imageWidth);
+                                    const totalImages = imageContainer.querySelectorAll('.project-image').length;
+                                    const nextIndex = isRightHalf
+                                        ? Math.min(currentIndex + 1, totalImages - 1)
+                                        : Math.max(currentIndex - 1, 0);
+                                    imageContainer.scrollTo({ left: nextIndex * imageWidth, behavior: 'smooth' });
                                 });
 
                                 setTimeout(() => {
@@ -3883,9 +3911,9 @@ function finalizeWebsearch() {
  function stopStreaming() {
     console.log("stopStreaming");
 
-    if (activeEventSource) {
-        activeEventSource.close();
-        activeEventSource = null;
+    if (activeStreamAbort) {
+        activeStreamAbort.abort();
+        activeStreamAbort = null;
     }
 
     // Reset streaming flags
@@ -4163,4 +4191,23 @@ function wrapBareParagraphContainers() {
 
 // Add the event listener for window resize
 window.addEventListener('resize', resetStyles);
+
+// Favicon
+document.fonts.ready.then(() => {
+    const size = 64;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, size, size);
+    ctx.font = `350 ${size * 0.6}px Booton`;
+    ctx.fillStyle = '#000000';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('00', size / 2, size / 2);
+    const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
+    link.rel = 'icon';
+    link.href = canvas.toDataURL('image/png');
+    document.head.appendChild(link);
+});
 

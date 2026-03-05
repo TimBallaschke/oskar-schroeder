@@ -283,10 +283,11 @@ class TableComponent(BaseModel):
     headers: List[str] = Field(description="Column headers for the table. Headers should be single words when possible")
     rows: List[List[str]] = Field(
         description="Rows of data, where each row is a list of strings\n\n"
-                    "IMPORTANT: Proper names should be wrapped in brackets, including names of individuals, locations, cities, organizations, institutions, "
-                    "historical and cultural periods, artistic movements, theories, styles, significant events, and well-known works. "
-                    "IMPORTANT — BRACKETING RULES:\n"
-                    "• Wrap proper names in square brackets.\n"
+                    "IMPORTANT — BRACKETING RULES (apply to ALL cells, including short single-value cells):\n"
+                    "• Wrap EVERY proper name in square brackets — even if it is the only word in a cell.\n"
+                    "• Example: a Gallery cell must be '[Kunstverein Braunschweig]', NOT 'Kunstverein Braunschweig'.\n"
+                    "• Example: a City cell must be '[Flensburg]', NOT 'Flensburg'.\n"
+                    "• This applies to ALL cell types — short label cells, description cells, every cell.\n"
                     "• This includes:\n"
                     "  – Individuals (e.g., [Thomas Rentmeister], [Karen Barad], [Elisabeth Wagner], [Jan Kochermann], [Corinna Schnitt], [Axel Loytved], [Janosch Heydorn],[BKH Gutmann], [Olaf Metzel], [Georg Winter], [Karin Kamolz])\n"
                     "  – Cities and locations (e.g., [Flensburg], [North Frisia])\n"
@@ -504,18 +505,10 @@ def index():
 
 # Define route for api endpoint, accepting POST requests;
 # POST requests are used to send data to the server, such as form submissions, file uploads, or API requests;
-@app.route('/content', methods=['POST'])
-def content():
-    session['current_user_message'] = request.json['message']
-    
-    session.modified = True
-    
-    return jsonify({"status": "ok"})  # Respond to confirm the message was received
-
-@app.route('/stream')
+@app.route('/stream', methods=['POST'])
 def stream():
-    
-    user_message = session.get('current_user_message')
+
+    user_message = request.json['message']
 
     # Create fresh messages array with just system prompt and user message
     messages = [
@@ -524,6 +517,7 @@ def stream():
     ]
 
     def generate():
+        yield ": keepalive\n\n"
         with client.beta.chat.completions.stream(
             model="gpt-4o-mini",
             messages=messages,
@@ -535,10 +529,6 @@ def stream():
             for event in stream:
                 if event.type == "content.delta":
                     if event.parsed is not None:
-                        # Send the parsed delta to the frontend
-                        # yield is used to send data to the frontend in a streaming manner (turns function into a generator)
-                        # a function is creating all values at once, but a generator sends them one by one
-                        print(json.dumps(event.parsed, indent=2))
                         yield f"data: {json.dumps({'type': 'delta', 'content': event.parsed})}\n\n"
                 elif event.type == "content.done":
                     yield f"data: {json.dumps({'type': 'delta', 'content': {'type': 'response', 'components': [{'UIType': 'projects_list', 'projects': [{'UIType': 'project', 'stream_finished': 'true'}]}]}})}\n\n"
@@ -561,7 +551,15 @@ def stream():
     # content_type="text/event-stream" specifies the content type of the response
     # this tells the browser that the response is an event stream
     # the browser will use this information to handle the response as an event stream
-    return Response(stream_with_context(generate()), content_type="text/event-stream")
+    return Response(
+        stream_with_context(generate()),
+        content_type="text/event-stream",
+        headers={
+            "X-Accel-Buffering": "no",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+        }
+    )
 
 def handle_second_chatbot(final_completion):
     if 'messages_2' not in session:
@@ -638,6 +636,7 @@ def stream3():
     messages_3 = session.get('messages_3', [])
     
     def generate():
+        yield ": keepalive\n\n"
         with client.beta.chat.completions.stream(
             model="gpt-4o-mini",
             messages=messages_3,
@@ -649,13 +648,9 @@ def stream3():
             for event in stream:
                 if event.type == "content.delta":
                     if event.parsed is not None:
-                        print("\n=== Delta Update ===")
-                        print(json.dumps(event.parsed, indent=2))
                         yield f"data: {json.dumps({'type': 'delta', 'content': event.parsed})}\n\n"
                 elif event.type == "content.done":
                     final_completion = stream.get_final_completion().choices[0].message.parsed
-                    print("\n=== Final Completion ===")
-                    print(json.dumps(final_completion.model_dump(), indent=2))
 
                     messages_3.append({
                         "role": "assistant",
@@ -666,9 +661,17 @@ def stream3():
                 elif event.type == "error":
                     yield f"data: {json.dumps({'type': 'error', 'content': str(event.error)})}\n\n"
     
-    return Response(stream_with_context(generate()), content_type="text/event-stream")
+    return Response(
+        stream_with_context(generate()),
+        content_type="text/event-stream",
+        headers={
+            "X-Accel-Buffering": "no",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+        }
+    )
 
-# ------------------------------------------------------------------------------------------------  
+# ------------------------------------------------------------------------------------------------
 # WEBSEARCH ROUTES
 # ------------------------------------------------------------------------------------------------
 
@@ -694,6 +697,7 @@ def stream4():
     print(f"Using language for websearch: {current_language}")
     
     def generate():
+        yield ": keepalive\n\n"
         stream = client.responses.create(
             model="gpt-4o-mini",
             tools=[
@@ -740,7 +744,15 @@ def stream4():
             elif event.type == "response.completed":
                 yield f"data: {json.dumps({'type': 'complete'})}\n\n"
 
-    return Response(stream_with_context(generate()), content_type="text/event-stream")
+    return Response(
+        stream_with_context(generate()),
+        content_type="text/event-stream",
+        headers={
+            "X-Accel-Buffering": "no",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+        }
+    )
 
 
 

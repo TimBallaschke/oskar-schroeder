@@ -11,6 +11,7 @@
   transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out, transform var(--animation-duration-3) ease-in-out;
   transform: translateY(0px);
   @include primary-type;
+  font-size: calc(var(--primary-font-size) - 1px);
 
 
   &.scroll-down {

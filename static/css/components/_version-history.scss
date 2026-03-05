@@ -70,7 +70,7 @@
   // padding-right: calc(100vw - var(--page-padding));
   // scroll-snap-type: x mandatory;
   scroll-padding-left: var(--page-padding);
-  height: 78px;
+  height: 81px;
   overflow: scroll;
   // scroll-behavior: smooth;
 
@@ -175,7 +175,7 @@
 }
 
 .version-history-element-number {
-  padding-top: 15px;
+  padding-top: 18px;
   padding-left: var(--version-history-element-padding);
   padding-right: var(--version-history-element-padding);
   transition: all var(--animation-duration-1) ease-in-out;
@@ -370,7 +370,8 @@
   }
 
   .version-history-element-title {
-    font-variation-settings: "wght" 675;
+    // transform: translateY(-65%);
+    // font-variation-settings: "wght" 675;
   }
 
   @include mobile {

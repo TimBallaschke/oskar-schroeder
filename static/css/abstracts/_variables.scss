@@ -72,14 +72,15 @@
   --prefix-width: 0px;
 
   @include tablet {
-    --primary-font-size: 20px;
+    --primary-font-size: 21px;
     --secondary-font-size: 13px;
     --large-font-size: 35px;
   }
 
   @include desktop-small {
-    --primary-font-size: 20px;
-    --secondary-font-size: 15px;
+    --primary-font-size: 21px;
+    --primary-line-height: 25px;
+    --secondary-font-size: 13px;
     --secondary-number-font-size: 13px;
     --large-font-size: 35px;
     --grid-line-height: 20px;
@@ -90,7 +91,8 @@
   }
 
   @include desktop-large {
-    --primary-font-size: 20px;
+    --primary-font-size: 22px;
+    --primary-line-height: 19.8px;
     --secondary-font-size: 15px;
     --secondary-number-font-size: 13px;
     --large-font-size: 35px;
