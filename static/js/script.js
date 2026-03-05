@@ -2780,12 +2780,9 @@ function addNewVersionHistoryElement(headline) {
     setTimeout(() => {
         versionHistoryDigits.classList.remove('no-opacity');
         versionHistoryTitle.classList.remove('no-opacity');
-    }, 500);
-
-    setTimeout(() => {
         versionHistoryDigits.classList.remove('light');
         versionHistoryTitle.classList.remove('light');
-    }, 800);
+    }, 500);
 
     setTimeout(() => {
         newHistoryElement.style.width = '';
