@@ -365,8 +365,11 @@ class Response_1(BaseModel):
         description=(
             "A short, precise title for the response. "
             "Do not include the artist's name. "
-            "Should clearly reflect the content (e.g. 'About', 'Biography', 'Education', 'Artistic Themes'). "
-            "Limit to a maximum of 2 words."
+            "IMPORTANT: Must reflect the user's request, not just the topic. "
+            "If the user asks for an 'extensive description', the headline should say 'Extensive Description'. "
+            "If the user asks for a 'biography', the headline should say 'Biography'. "
+            "Mirror the intent and phrasing of the user's request where possible. "
+            "Limit to a maximum of 2 words. "
             "IMPORTANT: Needs to match the language of the user-facing content."
         )
     )
