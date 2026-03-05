@@ -363,12 +363,13 @@ class Response_1(BaseModel):
     )
     headline: HeadlineComponent = Field(
         description=(
-            "A short, precise title for the response. "
+            "IMPORTANT: The headline must be derived directly from the wording of the user's request. "
+            "Take the key word(s) from what the user asked and use them as the headline. "
+            "Example: user asks 'give me an extensive description' → headline is 'Extensive Description'. "
+            "Example: user asks 'tell me about his biography' → headline is 'Biography'. "
+            "Example: user asks 'what are his artistic themes?' → headline is 'Artistic Themes'. "
+            "Do NOT invent a generic label — always reflect the user's own words. "
             "Do not include the artist's name. "
-            "IMPORTANT: Must reflect the user's request, not just the topic. "
-            "If the user asks for an 'extensive description', the headline should say 'Extensive Description'. "
-            "If the user asks for a 'biography', the headline should say 'Biography'. "
-            "Mirror the intent and phrasing of the user's request where possible. "
             "Limit to a maximum of 2 words. "
             "IMPORTANT: Needs to match the language of the user-facing content."
         )

@@ -339,6 +339,7 @@ p {
 .paragraph-container {
   transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
+  letter-spacing: -0.15px;
   padding: 0 0;
 }
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -811,6 +812,7 @@ p {
   grid-area: 1/2;
   transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
+  letter-spacing: -0.15px;
   transform: translateY(4.5px);
 }
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -977,6 +979,7 @@ p {
 .fullscreen .project-description {
   padding-bottom: 200px;
   font-size: var(--primary-font-size);
+  letter-spacing: -0.15px;
   overflow: hidden;
   transition: all var(--animation-duration-2) ease-in-out;
 }
@@ -1047,6 +1050,7 @@ p {
   grid-column: 1/-1;
   padding-bottom: 5px;
   font-size: var(--primary-font-size);
+  letter-spacing: -0.15px;
 }
 .grid .project-list-headline-word {
   transition: all var(--animation-duration-1) ease-in-out;
@@ -1280,6 +1284,7 @@ p {
 .row-item {
   grid-column: 2;
   font-size: var(--primary-font-size);
+  letter-spacing: -0.15px;
   transition: font-variation-settings var(--animation-duration-1) ease-in-out, height var(--animation-duration-2) ease-in-out;
   transform: translateY(-2px);
   word-break: break-word;
@@ -1363,6 +1368,7 @@ p {
   grid-column: 1/2;
   transition: font-variation-settings var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
+  letter-spacing: -0.15px;
   padding-top: 3px;
   padding-bottom: 3px;
   font-variant-numeric: tabular-nums;
@@ -1371,6 +1377,7 @@ p {
 .item-text {
   grid-column: 2/9;
   font-size: var(--primary-font-size);
+  letter-spacing: -0.15px;
   padding-top: 3px;
   padding-bottom: 3px;
 }
@@ -1393,6 +1400,7 @@ p {
   transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out, transform var(--animation-duration-3) ease-in-out;
   transform: translateY(0px);
   font-size: var(--primary-font-size);
+  letter-spacing: -0.15px;
 }
 #bottom-navigation.scroll-down {
   transform: translateY(200px);
@@ -1432,6 +1440,7 @@ p {
   transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out, transform var(--animation-duration-3) ease-in-out;
   transform: translateY(0px);
   font-size: var(--primary-font-size);
+  letter-spacing: -0.15px;
 }
 #bottom-navigation-back.scroll-down {
   transform: translateY(200px);

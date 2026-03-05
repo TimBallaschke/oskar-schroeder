@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 try:
-    from PIL import Image
+    from PIL import Image, ImageOps
 except ImportError:
     print("Pillow not installed. Run: pip install Pillow")
     sys.exit(1)
@@ -47,6 +47,7 @@ def convert_images():
 
         try:
             with Image.open(src_path) as img:
+                img = ImageOps.exif_transpose(img)
                 if img.mode in ("RGBA", "LA", "P"):
                     img = img.convert("RGBA")
                 else:

@@ -12,6 +12,7 @@
 
 @mixin primary-type {
   font-size: var(--primary-font-size);
+  letter-spacing: -0.15px;
   // line-height: var(--primary-line-height);
 }
 
