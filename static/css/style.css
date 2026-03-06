@@ -1302,7 +1302,7 @@ p {
   grid-column: 1;
   text-align: left;
   transition: font-variation-settings var(--animation-duration-1) ease-in-out;
-  padding-bottom: 7px;
+  padding-bottom: 9px;
   font-size: var(--secondary-font-size);
   letter-spacing: var(--secondary-letter-spacing);
 }
@@ -2242,6 +2242,9 @@ input {
 .scroll-down .version-history-element.current-version-history-element:hover .version-history-element-digits {
   font-variation-settings: "wght" 675;
 }
+.scroll-down .start-version-history-element .version-history-element-title {
+  transform: translateY(0);
+}
 @media (min-width: 769px) and (max-width: 1024px) {
   .scroll-down .start-version-history-element .version-history-element-title {
     padding-bottom: 0;
@@ -2277,6 +2280,9 @@ input {
 }
 .start-version-history-element .version-history-element-digits {
   opacity: 0;
+}
+.start-version-history-element .version-history-element-title {
+  transform: translateY(22px);
 }
 @media (max-width: 480px) {
   .start-version-history-element {

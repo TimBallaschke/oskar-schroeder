@@ -397,6 +397,7 @@ function displayXButton() {
 
 function startStreamingAnimation() {
 
+    startFaviconLoading();
     startAnimateInput();
     displayXButton();
 
@@ -409,6 +410,7 @@ function startStreamingAnimation() {
 
 function stopStreamingAnimation() {
 
+    stopFaviconLoading();
     stopAnimateInput();
 
     const thoughtProcessContainer = document.getElementById('thought-process-container');
@@ -3896,6 +3898,10 @@ function startStreamingWebsearch() {
                 console.error("Error:", data.content);
                 webSearchEventSource.close();
                 webSearchEventSource = null;
+                const serverErrorMessage = document.createElement('div');
+                serverErrorMessage.className = 'error-message';
+                serverErrorMessage.textContent = 'Something went wrong. Please try again.';
+                contentContainer.appendChild(serverErrorMessage);
                 break;
         }
     };
@@ -3904,6 +3910,10 @@ function startStreamingWebsearch() {
         console.error("activeEventSource failed:", error);
         webSearchEventSource.close();
         webSearchEventSource = null;
+        const connectionErrorMessage = document.createElement('div');
+        connectionErrorMessage.className = 'error-message';
+        connectionErrorMessage.textContent = 'Something went wrong. Please try again.';
+        contentContainer.appendChild(connectionErrorMessage);
     };
 }
 
@@ -4324,21 +4334,60 @@ function wrapBareParagraphContainers() {
 window.addEventListener('resize', resetStyles);
 
 // Favicon
-document.fonts.ready.then(() => {
+const faviconCanvas = document.createElement('canvas');
+faviconCanvas.width = 64;
+faviconCanvas.height = 64;
+const faviconCtx = faviconCanvas.getContext('2d');
+
+const faviconLink = document.createElement('link');
+faviconLink.rel = 'icon';
+document.head.appendChild(faviconLink);
+
+function renderFaviconLabel(label) {
     const size = 64;
-    const canvas = document.createElement('canvas');
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, size, size);
-    ctx.font = `350 ${size * 0.6}px Booton`;
-    ctx.fillStyle = '#000000';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('00', size / 2, size / 2);
-    const link = document.querySelector("link[rel~='icon']") || document.createElement('link');
-    link.rel = 'icon';
-    link.href = canvas.toDataURL('image/png');
-    document.head.appendChild(link);
+    faviconCtx.clearRect(0, 0, size, size);
+    faviconCtx.font = `625 ${size * 0.8}px Booton`;
+    faviconCtx.fillStyle = '#000000';
+    faviconCtx.textAlign = 'center';
+    faviconCtx.textBaseline = 'middle';
+    faviconCtx.fillText(label, size / 2, size / 2);
+    faviconLink.href = faviconCanvas.toDataURL('image/png');
+}
+
+function updateFavicon(key) {
+    renderFaviconLabel(String(key).padStart(2, '0'));
+}
+
+const faviconLoadingChars = ['S', '/', '!', '&', 'O', '$', '*', '(', '=', '#', ')', '+', '?'];
+let faviconLoadingInterval = null;
+let faviconLoadingIndex = 0;
+
+function startFaviconLoading() {
+    faviconLoadingIndex = 0;
+    faviconLoadingInterval = setInterval(() => {
+        renderFaviconLabel(faviconLoadingChars[faviconLoadingIndex % faviconLoadingChars.length]);
+        faviconLoadingIndex++;
+    }, 200);
+}
+
+function stopFaviconLoading() {
+    if (faviconLoadingInterval) {
+        clearInterval(faviconLoadingInterval);
+        faviconLoadingInterval = null;
+        const current = document.querySelector('.current-version-history-element');
+        updateFavicon(current ? parseInt(current.getAttribute('version-history-key')) - 1 : 0);
+    }
+}
+
+document.fonts.ready.then(() => {
+    updateFavicon(0);
+
+    const versionHistory = document.getElementById('version-history');
+    if (versionHistory) {
+        new MutationObserver(() => {
+            const current = document.querySelector('.current-version-history-element');
+            if (current) updateFavicon(parseInt(current.getAttribute('version-history-key')) - 1);
+        }).observe(versionHistory, { subtree: true, attributeFilter: ['class'] });
+    }
 });
 

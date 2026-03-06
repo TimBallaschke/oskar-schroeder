@@ -329,6 +329,10 @@
   }
 
   .start-version-history-element {
+    .version-history-element-title {
+      transform: translateY(0);
+    }
+
     @include desktop-small {
       .version-history-element-title {
         padding-bottom: 0;
@@ -372,6 +376,7 @@
   .version-history-element-title {
     // transform: translateY(-65%);
     // font-variation-settings: "wght" 675;
+    transform: translateY(22px);
   }
 
   @include mobile {
