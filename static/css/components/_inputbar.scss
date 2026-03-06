@@ -4,11 +4,11 @@
   position: fixed;
   width: calc(100vw - 2 * var(--side-margin-bottom-nav));
   right: var(--side-margin-bottom-nav);
-  bottom: var(--bottom-margin-bottom-nav);
+  bottom: calc(var(--bottom-margin-bottom-nav) + var(--keyboard-inset, 0px));
   background-color: black;
   border-radius: calc((var(--input-element-height) + 2 * var(--veritical-padding-bottom-nav)) / 2);
   height: auto;
-  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out, transform var(--animation-duration-3) ease-in-out;
+  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out, transform var(--animation-duration-3) ease-in-out, bottom var(--animation-duration-2) ease-out;
   transform: translateY(0px);
   @include primary-type;
   font-size: calc(var(--primary-font-size) - 1px);
@@ -42,12 +42,12 @@
   position: fixed;
   width: calc(100vw - 2 * var(--side-margin-bottom-nav));
   right: var(--side-margin-bottom-nav);
-  bottom: var(--bottom-margin-bottom-nav);
+  bottom: calc(var(--bottom-margin-bottom-nav) + var(--keyboard-inset, 0px));
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(5px);
   border-radius: calc((var(--input-element-height) + 2 * var(--veritical-padding-bottom-nav)) / 2);
   height: auto;
-  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out, transform var(--animation-duration-3) ease-in-out;
+  transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out, transform var(--animation-duration-3) ease-in-out, bottom var(--animation-duration-2) ease-out;
   transform: translateY(0px);
   @include primary-type;
 

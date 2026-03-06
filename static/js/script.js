@@ -4289,8 +4289,13 @@ function updateNavigationElementsOnPageScroll() {
     scrolling = false;
 }
 
-
-
+// Virtual keyboard handling
+if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', () => {
+        const keyboardInset = Math.max(0, window.innerHeight - window.visualViewport.height - window.visualViewport.offsetTop);
+        document.documentElement.style.setProperty('--keyboard-inset', `${keyboardInset}px`);
+    });
+}
 
 function snapToClosestVersionElement() {
     if (window.innerWidth > mobileWidth) return;
