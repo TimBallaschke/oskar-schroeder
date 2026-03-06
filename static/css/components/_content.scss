@@ -474,7 +474,7 @@
     top: 0;
     right: -250px;
     overflow-y: scroll;
-    padding-top: var(--content-padding-top);
+    padding-top: calc(var(--content-padding-top) + 2.5px);
     padding-left: 0;
     padding-right: var(--page-padding);
     padding-bottom: 30vh;
