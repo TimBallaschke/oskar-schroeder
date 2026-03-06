@@ -1183,7 +1183,7 @@ async function handleDelta(content) {
                                             }
 
                                             // Check if this part starts with punctuation
-                                            const startWithPunctuation = /^[.,;:!?)]/.test(text.trim());
+                                            const startWithPunctuation = /^[.,;:!?)'"]/.test(text.trim());
 
                                             // Add space between parts if needed (but not before punctuation)
                                             if (partIndex > 0 && !startWithPunctuation &&
@@ -1198,7 +1198,7 @@ async function handleDelta(content) {
                                                 }
                                                 if (lastEl?.classList.contains('term-nowrap')) {
                                                     lastEl.querySelector('.term-description-number-container')?.classList.add('no-margin-right');
-                                                    const punctMatch = text.match(/^([.,!?;:]+)/);
+                                                    const punctMatch = text.match(/^([.,!?;:'"]+)/);
                                                     if (punctMatch) {
                                                         lastEl.appendChild(document.createTextNode(punctMatch[1]));
                                                         text = text.slice(punctMatch[1].length).trimStart();
@@ -1479,7 +1479,7 @@ async function handleDelta(content) {
                                                 return;
                                             }
 
-                                            const startWithPunctuation = /^[.,;:!?)]/.test(text.trim());
+                                            const startWithPunctuation = /^[.,;:!?)'"]/.test(text.trim());
                                             if (partIndex > 0 && !startWithPunctuation &&
                                                 textContainer.lastChild && !textContainer.lastChild.textContent.endsWith(' ')) {
                                                 textContainer.appendChild(document.createTextNode(' '));
@@ -1491,7 +1491,7 @@ async function handleDelta(content) {
                                                 }
                                                 if (lastEl?.classList.contains('term-nowrap')) {
                                                     lastEl.querySelector('.term-description-number-container')?.classList.add('no-margin-right');
-                                                    const punctMatch = text.match(/^([.,!?;:]+)/);
+                                                    const punctMatch = text.match(/^([.,!?;:'"]+)/);
                                                     if (punctMatch) {
                                                         lastEl.appendChild(document.createTextNode(punctMatch[1]));
                                                         text = text.slice(punctMatch[1].length).trimStart();
@@ -1703,7 +1703,7 @@ async function handleDelta(content) {
                                                         }
 
                                                         // Check if this part starts with punctuation
-                                                        const startWithPunctuation = /^[.,;:!?)]/.test(text.trim());
+                                                        const startWithPunctuation = /^[.,;:!?)'"]/.test(text.trim());
 
                                                         // Add space between parts if needed (but not before punctuation)
                                                         if (partIndex > 0 && !startWithPunctuation &&
@@ -1718,7 +1718,7 @@ async function handleDelta(content) {
                                                             }
                                                             if (lastEl?.classList.contains('term-nowrap')) {
                                                                 lastEl.querySelector('.term-description-number-container')?.classList.add('no-margin-right');
-                                                                const punctMatch = text.match(/^([.,!?;:]+)/);
+                                                                const punctMatch = text.match(/^([.,!?;:'"]+)/);
                                                                 if (punctMatch) {
                                                                     lastEl.appendChild(document.createTextNode(punctMatch[1]));
                                                                     text = text.slice(punctMatch[1].length).trimStart();
@@ -2606,7 +2606,7 @@ async function renderNextProject() {
                                                     }
 
                                                     // Check if this part starts with punctuation
-                                                    const startWithPunctuation = /^[.,;:!?)\]]/.test(text.trim());
+                                                    const startWithPunctuation = /^[.,;:!?)\]'"]/.test(text.trim());
 
                                                     // Add space between parts if needed (but not before punctuation)
                                                     if (partIndex > 0 && !startWithPunctuation &&
@@ -2621,7 +2621,7 @@ async function renderNextProject() {
                                                         }
                                                         if (lastEl?.classList.contains('term-nowrap')) {
                                                             lastEl.querySelector('.term-description-number-container')?.classList.add('no-margin-right');
-                                                            const punctMatch = text.match(/^([.,!?;:]+)/);
+                                                            const punctMatch = text.match(/^([.,!?;:'"]+)/);
                                                             if (punctMatch) {
                                                                 lastEl.appendChild(document.createTextNode(punctMatch[1]));
                                                                 text = text.slice(punctMatch[1].length).trimStart();
@@ -3916,6 +3916,7 @@ function startStreamingWebsearch() {
                         case 'error':
                             console.error("Error:", data.content);
                             webSearchEventSource = null;
+                            showWebsearchError();
                             reader.cancel();
                             return;
                     }
@@ -3924,14 +3925,23 @@ function startStreamingWebsearch() {
         } catch (e) {
             if (e.name !== 'AbortError') {
                 console.error("Websearch stream error:", e);
+                showWebsearchError();
             }
         }
     }).catch(error => {
         if (error.name !== 'AbortError') {
             console.error("Websearch stream failed:", error);
             webSearchEventSource = null;
+            showWebsearchError();
         }
     });
+}
+
+function showWebsearchError() {
+    const errorMessage = document.createElement('div');
+    errorMessage.className = 'error-message';
+    errorMessage.textContent = 'Something went wrong. Please try again.';
+    webSearchColumn.appendChild(errorMessage);
 }
 
 async function handleDeltaWebsearch(content) {

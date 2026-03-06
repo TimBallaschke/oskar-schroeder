@@ -512,8 +512,8 @@ p {
 }
 
 .term-description-number-container {
-  width: 22px;
-  height: 15px;
+  width: 25px;
+  height: 17px;
   border: 1px solid black;
   border-radius: 9px;
   transform-origin: center center;
