@@ -3879,47 +3879,59 @@ async function requestWebsearch(termForWebsearch, termDescriptionNumberContainer
 function startStreamingWebsearch() {
     console.log("startStreamingWebsearch");
 
-    // Close any existing EventSource connection
     if (webSearchEventSource) {
-        webSearchEventSource.close();
-        console.log("Closed previous activeEventSource connection.");
+        webSearchEventSource.abort();
+        webSearchEventSource = null;
     }
 
-    webSearchEventSource = new EventSource("/stream4"); // creates a new EventSource connection to the "/stream" endpoint. activeEventSource is used for Server-Sent Events (SSE), allowing the server to push data to the client in real-time over a single, long-lived connection
+    const abortController = new AbortController();
+    webSearchEventSource = abortController;
 
-    webSearchEventSource.onmessage = function(event) { // eventhandler that will be called whenever a message is received from the server
-        const data = JSON.parse(event.data); // parsed the received message data from JSON string format to a JavaScript object
+    fetch('/stream4', { signal: abortController.signal })
+    .then(async response => {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
 
-        switch(data.type) { // switch statement to handle different types of messages (switch statement is used to handle different cases based on the value of a variable -> alternative to if-else statements)
-            case 'delta': // if the message type is 'delta', it calls the handleDelta function
-                handleDeltaWebsearch(data.content);
-                break;
-            case 'complete': // if the message type is 'complete', it calls the handleComplete function
-                finalizeWebsearch(); // ensure the last word of the websearch is processed
-                webSearchEventSource.close();
-                webSearchEventSource = null;
-                break;
-            case "error": // if the message type is 'error', it logs the error to the console and closes the event source
-                console.error("Error:", data.content);
-                webSearchEventSource.close();
-                webSearchEventSource = null;
-                const serverErrorMessage = document.createElement('div');
-                serverErrorMessage.className = 'error-message';
-                serverErrorMessage.textContent = 'Something went wrong. Please try again.';
-                contentContainer.appendChild(serverErrorMessage);
-                break;
+        try {
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop();
+
+                for (const line of lines) {
+                    if (!line.startsWith('data: ')) continue;
+                    const data = JSON.parse(line.slice(6));
+                    switch (data.type) {
+                        case 'delta':
+                            handleDeltaWebsearch(data.content);
+                            break;
+                        case 'complete':
+                            finalizeWebsearch();
+                            webSearchEventSource = null;
+                            reader.cancel();
+                            return;
+                        case 'error':
+                            console.error("Error:", data.content);
+                            webSearchEventSource = null;
+                            reader.cancel();
+                            return;
+                    }
+                }
+            }
+        } catch (e) {
+            if (e.name !== 'AbortError') {
+                console.error("Websearch stream error:", e);
+            }
         }
-    };
-
-    webSearchEventSource.onerror = function (error) { // eventhandler that will be called if an error occurs with the event source
-        console.error("activeEventSource failed:", error);
-        webSearchEventSource.close();
-        webSearchEventSource = null;
-        const connectionErrorMessage = document.createElement('div');
-        connectionErrorMessage.className = 'error-message';
-        connectionErrorMessage.textContent = 'Something went wrong. Please try again.';
-        contentContainer.appendChild(connectionErrorMessage);
-    };
+    }).catch(error => {
+        if (error.name !== 'AbortError') {
+            console.error("Websearch stream failed:", error);
+            webSearchEventSource = null;
+        }
+    });
 }
 
 async function handleDeltaWebsearch(content) {
