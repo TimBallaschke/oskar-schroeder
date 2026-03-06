@@ -2046,8 +2046,9 @@ async function renderNextProject() {
 
             if (key === 'stream_finished') {
                 const gridProjects = document.querySelectorAll('.grid > .project');
-                
+
                 gridProjects.forEach(project => {
+                    project.removeEventListener('click', handleGridProjectClick);
                     project.addEventListener('click', handleGridProjectClick);
                 });
 
@@ -2068,6 +2069,7 @@ async function renderNextProject() {
                                 projectItem = document.createElement('div');
                                 projectItem.classList.add('project', 'no-width', 'no-padding', 'no-height');
                                 projectItem.setAttribute('data-project-id', id);
+                                projectItem.addEventListener('click', handleGridProjectClick);
 
                                 container.appendChild(projectItem);
 
@@ -3697,12 +3699,15 @@ function handleGridProjectClick() {
     const projectNameElement = this.querySelector('.project-name-text');
 
     if (projectNameElement) {
-        userInput.value = projectNameElement.textContent;
-        inputAdded();
+        const projectName = projectNameElement.textContent;
+
+        if (isStreaming) stopStreaming();
 
         setTimeout(() => {
+            userInput.value = projectName;
+            inputAdded();
             sendMessage();
-        }, 100);
+        }, 500);
     }
 }
 

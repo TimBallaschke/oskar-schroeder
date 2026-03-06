@@ -105,6 +105,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-smooth: never; /* Note: font-smooth is not widely supported */
+  background-color: var(--background-color);
 }
 
 *, *:before, *:after {
