@@ -10,6 +10,7 @@
     padding: var(--content-padding-top) var(--page-padding) 200px var(--page-padding);
     transform: translateX(0px);
     transition: opacity var(--animation-duration-1) ease-in-out, transform var(--animation-duration-4) ease-in-out;
+    overflow: hidden;
 
     @include desktop-small {
         display: grid;

@@ -276,7 +276,7 @@ const versionHistoryElement0 = document.getElementById('version-history-element-
 
 let lastScrollY = window.scrollY;
 let scrolling = false;
-const thresholdScroll = 10;
+const thresholdScroll = 1;
 let inputFocused = false;
 let versionHistoryScrollTimeout;
 let headlineProcessed = false;
@@ -3715,7 +3715,10 @@ function handleTermClick(event) {
     currentWebsearchTerm = null;
                                                             
     const termDescriptionNumberContainer = this;
-    const termContainer = termDescriptionNumberContainer.previousElementSibling;
+    const nowrapSpan = termDescriptionNumberContainer.closest('.term-nowrap');
+    const termContainer = nowrapSpan
+        ? nowrapSpan.previousElementSibling
+        : termDescriptionNumberContainer.previousElementSibling;
     let termForWebsearch = '';
 
     if (window.innerWidth <= tabletWidth) {
@@ -3736,9 +3739,11 @@ function handleTermClick(event) {
         termDescriptionNumberContainer.classList.add('active');
         currentWebsearchTerm = termContainer;
 
+        const termWords = [
+            ...(termContainer ? termContainer.querySelectorAll('.word') : []),
+            ...(nowrapSpan ? nowrapSpan.querySelectorAll('.word') : [])
+        ];
 
-        const termWords = termContainer.querySelectorAll('.word');
-                
         // Combine all term words into termForWebsearch
         termWords.forEach(word => {
             // Add the word text to termForWebsearch
@@ -3748,7 +3753,7 @@ function handleTermClick(event) {
             }
             termForWebsearch += word.textContent;
         });
-        
+
         requestWebsearch(termForWebsearch, termDescriptionNumberContainer);
     }
 }
@@ -4223,6 +4228,23 @@ function updateNavigationElementsOnPageScroll() {
     }
 
     const currentScrollY = window.scrollY;
+
+    if (currentScrollY <= 0) {
+        document.body.classList.remove("scroll-down");
+        bottomNavigation.classList.remove("scroll-down");
+        bottomNavigationBack.classList.remove("scroll-down");
+        lastScrollY = 0;
+        scrolling = false;
+        return;
+    }
+
+    const maxScrollY = document.documentElement.scrollHeight - window.innerHeight;
+    if (currentScrollY >= maxScrollY) {
+        lastScrollY = currentScrollY;
+        scrolling = false;
+        return;
+    }
+
     const scrolledDistance = currentScrollY - lastScrollY;
 
     if (Math.abs(scrolledDistance) >= thresholdScroll) {
@@ -4238,10 +4260,10 @@ function updateNavigationElementsOnPageScroll() {
         bottomNavigation.classList.remove("scroll-down");
         bottomNavigationBack.classList.remove("scroll-down");
       }
-  
+
       lastScrollY = currentScrollY;
     }
-  
+
     scrolling = false;
 }
 

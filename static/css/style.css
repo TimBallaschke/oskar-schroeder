@@ -1,13 +1,13 @@
 :root {
   --page-padding: 10px;
   --background-color: #F4F4F5;
-  --primary-font-size: 16.5px;
+  --primary-font-size: 17.5px;
   --primary-line-height: 19.8px;
   --secondary-font-size: 12px;
   --secondary-number-font-size: 10.5px;
   --secondary-line-height: 15px;
   --grid-line-height: 14.2px;
-  --large-font-size: 28px;
+  --large-font-size: 30px;
   --font-weight-bold: 675;
   --font-weight-light: 350;
   --font-weight-light-nav: 350;
@@ -282,6 +282,7 @@ p {
   padding: var(--content-padding-top) var(--page-padding) 200px var(--page-padding);
   transform: translateX(0px);
   transition: opacity var(--animation-duration-1) ease-in-out, transform var(--animation-duration-4) ease-in-out;
+  overflow: hidden;
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   #content-container {
@@ -1641,17 +1642,17 @@ p {
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   .prompt-proposal {
-    transform: translateY(0px);
+    margin-top: 0px;
   }
 }
 @media (min-width: 1025px) and (max-width: 1440px) {
   .prompt-proposal {
-    transform: translateY(2px);
+    margin-top: 2px;
   }
 }
 @media (min-width: 1441px) {
   .prompt-proposal {
-    transform: translateY(1px);
+    margin-top: 1px;
   }
 }
 
@@ -2070,7 +2071,7 @@ input {
   left: 0;
   width: 100vw;
   color: black;
-  transition: all var(--animation-duration-1) ease-in-out;
+  transition: all var(--animation-duration-3) ease-in-out;
   z-index: 100;
   overflow-x: auto;
   white-space: nowrap;
@@ -2078,7 +2079,7 @@ input {
   padding-bottom: 5px;
   padding-left: var(--page-padding);
   scroll-padding-left: var(--page-padding);
-  height: 81px;
+  height: 84px;
   overflow: scroll;
 }
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -2121,6 +2122,7 @@ input {
   font-variation-settings: "wght" 675;
   letter-spacing: -1px;
   margin-top: -4px;
+  line-height: 1.2;
 }
 @media (min-width: 1441px) {
   .version-history-element.current-version-history-element .version-history-element-title {
@@ -2299,6 +2301,8 @@ input {
     position: fixed;
     top: 0;
     left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
+    overflow: visible;
+    -webkit-transform: translateZ(0);
   }
   .start-version-history-element .version-history-element-title {
     padding-bottom: 30px;
@@ -2309,6 +2313,8 @@ input {
     position: fixed;
     top: 0;
     left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
+    overflow: visible;
+    -webkit-transform: translateZ(0);
   }
   .start-version-history-element .version-history-element-title {
     padding-bottom: 22px;
@@ -2319,6 +2325,8 @@ input {
     position: fixed;
     top: 0;
     left: calc((100vw - 2 * var(--page-padding)) / 8 * 6 + 2 * var(--page-padding));
+    overflow: visible;
+    -webkit-transform: translateZ(0);
   }
   .start-version-history-element .version-history-element-title {
     padding-bottom: 26px;

@@ -21,6 +21,7 @@ body {
   // font-family: "Friedl";
   font-variation-settings: "wght" 675, "ital" 0;
   transition: font-variation-settings 0.4s ease;
+  // overflow: hidden;
   overscroll-behavior: none; /* Prevents overscroll/bounce effect */
 
   @include tablet {

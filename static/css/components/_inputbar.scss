@@ -207,33 +207,30 @@
   }
 
   @include desktop-small {
-    --scroll-translate-y: 0px;
-    transform: translateY(0px);
+    margin-top: 0px;
   }
 
   @include desktop-large {
-    --scroll-translate-y: 2px;
-    transform: translateY(2px);
+    margin-top: 2px;
   }
 
   @include desktop-x-large {
-    --scroll-translate-y: 1px;
-    transform: translateY(1px);
+    margin-top: 1px;
   }
 }
 
 @keyframes scroll-horizontal {
   0% {
-    transform: translateX(0) translateY(var(--scroll-translate-y, 0px));
+    transform: translateX(0);
   }
   45% {
-    transform: translateX(var(--scroll-distance)) translateY(var(--scroll-translate-y, 0px));
+    transform: translateX(var(--scroll-distance));
   }
   55% {
-    transform: translateX(var(--scroll-distance)) translateY(var(--scroll-translate-y, 0px));
+    transform: translateX(var(--scroll-distance));
   }
   100% {
-    transform: translateX(0) translateY(var(--scroll-translate-y, 0px));
+    transform: translateX(0);
   }
 }
 
