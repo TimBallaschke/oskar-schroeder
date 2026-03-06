@@ -293,10 +293,6 @@ images_for_paragraphs = {
         {
             "url": "../static/assets/images/other/reference/9.webp",
             "description": "Branches from a dry riverbed, once part of living trees."
-        },
-        {
-            "url": "../static/assets/images/other/reference/10.webp",
-            "description": "Example of traditional stucco marble (Scagliola)."
         }
     ],
 

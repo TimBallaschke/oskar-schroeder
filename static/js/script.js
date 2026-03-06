@@ -4291,9 +4291,19 @@ function updateNavigationElementsOnPageScroll() {
 
 // Virtual keyboard handling
 if (window.visualViewport) {
-    window.visualViewport.addEventListener('resize', () => {
+    const updateKeyboardInset = () => {
         const keyboardInset = Math.max(0, window.innerHeight - window.visualViewport.height - window.visualViewport.offsetTop);
         document.documentElement.style.setProperty('--keyboard-inset', `${keyboardInset}px`);
+    };
+
+    window.visualViewport.addEventListener('resize', updateKeyboardInset);
+
+    // On iOS Safari, prevent the page from scrolling up when the keyboard opens
+    window.visualViewport.addEventListener('scroll', () => {
+        if (document.activeElement === userInput) {
+            window.scrollTo(0, window.visualViewport.offsetTop);
+        }
+        updateKeyboardInset();
     });
 }
 

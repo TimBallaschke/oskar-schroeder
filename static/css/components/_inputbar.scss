@@ -21,6 +21,7 @@
   @include desktop-small {
     width: calc((100vw - 2 * var(--page-padding)) / 8 * 6);
     right: calc((100vw - 2 * var(--page-padding)) / 8 * 1 + var(--page-padding));
+    @include secondary-type;
   }
 
   @include desktop-large {
@@ -59,6 +60,7 @@
   @include desktop-small {
     width: calc((100vw - 2 * var(--page-padding)) / 8 * 6);
     right: calc((100vw - 2 * var(--page-padding)) / 8 * 1 + var(--page-padding));
+    @include secondary-type;
   }
 
   @include desktop-large {
@@ -164,7 +166,7 @@
     height: calc(var(--input-element-height));
 
     @include desktop-small {
-      height: calc(var(--input-element-height) - 3px);
+      height: calc(var(--input-element-height) - 8px);
     }
 
     @include desktop-large {
@@ -181,7 +183,7 @@
     opacity: 1;
 
     @include desktop-small {
-      height: calc(var(--input-element-height) - 3px);
+      height: calc(var(--input-element-height) - 8px);
     }
 
     @include desktop-large {
@@ -207,7 +209,7 @@
   }
 
   @include desktop-small {
-    margin-top: 0px;
+    margin-top: 2px;
   }
 
   @include desktop-large {
@@ -281,6 +283,10 @@ input {
   transform: translateY(-2px);
   transition: all 1000ms ease-in-out;
   font-size: max(16px, calc(var(--primary-font-size) - 1px));
+
+  @include desktop-small {
+    font-size: var(--secondary-font-size);
+  }
 
   @include desktop-large {
     font-size: var(--secondary-font-size);

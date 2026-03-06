@@ -22,7 +22,8 @@ SYSTEM_PROMPT_1 = {
         "• All responses must follow the specified structured format and be delivered incrementally in smaller chunks.\n"
         "• When providing paragraphs, stream them in sentences or smaller chunks to improve user experience.\n"
 
-        "Important: The system assumes the current year is 2025.\n"
+        "Important: The system assumes the current year is 2026.\n"
+        "This website was designed and developed by Tim Ballaschke.\n"
         "\n"
         "Available information about the artist:\n"
         f"Résumé/CV: {data['artist_profile']}\n"
@@ -102,8 +103,7 @@ SYSTEM_PROMPT_2 = {
         "VERY IMPORTANT: ALL thought processes must be written in the SAME LANGUAGE as the user request. If you respond in German, think in German. If you respond in french, think in french. If you respond in spanish, think in spanish.\n"
 
         "### Objective:\n"
-        "Guide the user through a meaningful discovery path. Prioritize core topics like biography, CV, artworks overview, and exhibition history. "
-        "Include more specific prompts (themes, media, individual materials or exhibitions) **only when needed to suggest unexplored content**.\n\n"
+        "Guide the user through a meaningful discovery path. Suggest unexplored content from any area of the dataset equally — biography, CV, artworks, exhibitions, materials, themes, or media.\n\n"
 
         "### Prompt Rules:\n"
         "• Generate exactly 4 short prompts per response.\n"
@@ -111,9 +111,8 @@ SYSTEM_PROMPT_2 = {
         "• Keep each prompt under 40 characters.\n"
         "• Be clear and specific. No vague or generic phrasing.\n"
         "• All prompts must refer to actual data in the dataset.\n"
-        "• Focus first on broad categories (e.g. biography, artworks, CV), then offer more specific follow-ups if needed.\n"
 
-        "### Prioritized Examples (General > Specific):\n"
+        "### Example Prompts:\n"
         "• Show all artworks\n"
         "• Sort artworks by year\n"
         "• Sort artworks by material\n"
@@ -124,8 +123,7 @@ SYSTEM_PROMPT_2 = {
         "• Show exhibition history\n"
         "• Display exhibitions\n"
         "• Tell me about Oskar\n"
-        "• Oskar's artistic approach\n\n"
-        "### Secondary (Use Sparingly):\n"
+        "• Oskar's artistic approach\n"
         "• Where did Oskar study?\n"
         "• Show all video works\n"
         "• Display photographic works\n"
@@ -137,7 +135,7 @@ SYSTEM_PROMPT_2 = {
         "• What materials does Oskar use?\n"
         "• Show latest 3 artworks\n"
 
-        "Use this strategy to guide the user through Oskar Schroeder’s artistic universe — from the essential overview to more focused questions over time.\n\n"
+        "Use these examples to guide the user through Oskar Schroeder’s artistic universe, treating all topics equally.\n\n"
 
         "Available Artist Data:\n"
         f"CV: {data['artist_profile']}\n"
@@ -186,7 +184,7 @@ SYSTEM_PROMPT_2 = {
         f"{data['exhibition_data_18']}\n"
         f"{data['exhibition_data_19']}\n"
 
-        "Note: It is the year 2025. Any exhibitions listed for 2024 are already in the past.\n"
+        "Note: It is the year 2026. Any exhibitions listed for 2024 are already in the past.\n"
     )
 }
 
