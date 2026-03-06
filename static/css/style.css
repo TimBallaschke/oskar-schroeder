@@ -53,10 +53,9 @@
 @media (min-width: 769px) and (max-width: 1024px) {
   :root {
     --primary-font-size: 21px;
-    --primary-line-height: 25px;
     --secondary-font-size: 13px;
     --secondary-number-font-size: 13px;
-    --large-font-size: 35px;
+    --large-font-size: 40px;
     --grid-line-height: 20px;
     --column-amount-projects: 4;
     --column-gap-projects: 15px;
@@ -65,10 +64,9 @@
 @media (min-width: 1025px) and (max-width: 1440px) {
   :root {
     --primary-font-size: 22px;
-    --primary-line-height: 19.8px;
     --secondary-font-size: 15px;
     --secondary-number-font-size: 13px;
-    --large-font-size: 35px;
+    --large-font-size: 40px;
     --small-circle-size: 20px;
     --grid-line-height: 20px;
     --column-amount-projects: 4;
@@ -341,7 +339,7 @@ p {
 .paragraph-container {
   transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
-  letter-spacing: -0.15px;
+  letter-spacing: -0.2px;
   padding: 0 0;
 }
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -612,6 +610,13 @@ p {
   transition: all var(--animation-duration-1) ease-in-out;
   color: black;
 }
+.term-description-number-container.no-margin-right {
+  margin-right: 0 !important;
+}
+
+.term-nowrap {
+  white-space: nowrap;
+}
 
 .term-description-number-container-copy {
   margin-left: 0;
@@ -830,7 +835,7 @@ p {
   grid-area: 1/2;
   transition: all var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
-  letter-spacing: -0.15px;
+  letter-spacing: -0.2px;
   transform: translateY(4.5px);
 }
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -1005,7 +1010,7 @@ p {
 .fullscreen .project-description {
   padding-bottom: 200px;
   font-size: var(--primary-font-size);
-  letter-spacing: -0.15px;
+  letter-spacing: -0.2px;
   overflow: hidden;
   transition: all var(--animation-duration-2) ease-in-out;
 }
@@ -1076,7 +1081,7 @@ p {
   grid-column: 1/-1;
   padding-bottom: 5px;
   font-size: var(--primary-font-size);
-  letter-spacing: -0.15px;
+  letter-spacing: -0.2px;
 }
 .grid .project-list-headline-word {
   transition: all var(--animation-duration-1) ease-in-out;
@@ -1197,6 +1202,21 @@ p {
 .error-message {
   font-size: var(--primary-font-size);
 }
+@media (min-width: 769px) and (max-width: 1024px) {
+  .error-message {
+    grid-column: 1/7;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .error-message {
+    grid-column: 1/7;
+  }
+}
+@media (min-width: 1441px) {
+  .error-message {
+    grid-column: 1/7;
+  }
+}
 
 .table-container {
   transition: all var(--animation-duration-2) ease-in-out;
@@ -1310,7 +1330,7 @@ p {
 .row-item {
   grid-column: 2;
   font-size: var(--primary-font-size);
-  letter-spacing: -0.15px;
+  letter-spacing: -0.2px;
   transition: font-variation-settings var(--animation-duration-1) ease-in-out, height var(--animation-duration-2) ease-in-out;
   transform: translateY(-2px);
   word-break: break-word;
@@ -1394,7 +1414,7 @@ p {
   grid-column: 1/2;
   transition: font-variation-settings var(--animation-duration-1) ease-in-out;
   font-size: var(--primary-font-size);
-  letter-spacing: -0.15px;
+  letter-spacing: -0.2px;
   padding-top: 3px;
   padding-bottom: 3px;
   font-variant-numeric: tabular-nums;
@@ -1403,7 +1423,7 @@ p {
 .item-text {
   grid-column: 2/9;
   font-size: var(--primary-font-size);
-  letter-spacing: -0.15px;
+  letter-spacing: -0.2px;
   padding-top: 3px;
   padding-bottom: 3px;
 }
@@ -1426,7 +1446,7 @@ p {
   transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out, transform var(--animation-duration-3) ease-in-out;
   transform: translateY(0px);
   font-size: var(--primary-font-size);
-  letter-spacing: -0.15px;
+  letter-spacing: -0.2px;
   font-size: calc(var(--primary-font-size) - 1px);
 }
 #bottom-navigation.scroll-down {
@@ -1434,8 +1454,8 @@ p {
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   #bottom-navigation {
-    width: calc(100vw - 2 * var(--page-padding));
-    right: var(--side-margin-bottom-nav);
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6);
+    right: calc((100vw - 2 * var(--page-padding)) / 8 * 1 + var(--page-padding));
   }
 }
 @media (min-width: 1025px) and (max-width: 1440px) {
@@ -1467,15 +1487,15 @@ p {
   transition: height var(--animation-duration-1) ease-in-out, width var(--animation-duration-1) ease-in-out, transform var(--animation-duration-3) ease-in-out;
   transform: translateY(0px);
   font-size: var(--primary-font-size);
-  letter-spacing: -0.15px;
+  letter-spacing: -0.2px;
 }
 #bottom-navigation-back.scroll-down {
   transform: translateY(200px);
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   #bottom-navigation-back {
-    width: calc(100vw - 2 * var(--page-padding));
-    right: var(--side-margin-bottom-nav);
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6);
+    right: calc((100vw - 2 * var(--page-padding)) / 8 * 1 + var(--page-padding));
   }
 }
 @media (min-width: 1025px) and (max-width: 1440px) {
@@ -1692,6 +1712,17 @@ input {
   color: white;
   transform: translateY(-2px);
   transition: all 1000ms ease-in-out;
+  font-size: max(16px, var(--primary-font-size) - 1px);
+}
+@media (min-width: 1025px) and (max-width: 1440px) {
+  #user-input {
+    font-size: var(--secondary-font-size);
+  }
+}
+@media (min-width: 1441px) {
+  #user-input {
+    font-size: var(--secondary-font-size);
+  }
 }
 #user-input::-moz-placeholder {
   -moz-transition: all 600ms ease-in-out;

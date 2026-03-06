@@ -19,8 +19,8 @@
   }
 
   @include desktop-small {
-    width: calc((100vw - 2 * var(--page-padding)));
-    right: var(--side-margin-bottom-nav);
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6);
+    right: calc((100vw - 2 * var(--page-padding)) / 8 * 1 + var(--page-padding));
   }
 
   @include desktop-large {
@@ -57,8 +57,8 @@
   }
 
   @include desktop-small {
-    width: calc((100vw - 2 * var(--page-padding)));
-    right: var(--side-margin-bottom-nav);
+    width: calc((100vw - 2 * var(--page-padding)) / 8 * 6);
+    right: calc((100vw - 2 * var(--page-padding)) / 8 * 1 + var(--page-padding));
   }
 
   @include desktop-large {
@@ -280,7 +280,16 @@ input {
   color: white;
   transform: translateY(-2px);
   transition: all 1000ms ease-in-out;
-  
+  font-size: max(16px, calc(var(--primary-font-size) - 1px));
+
+  @include desktop-large {
+    font-size: var(--secondary-font-size);
+  }
+
+  @include desktop-x-large {
+    font-size: var(--secondary-font-size);
+  }
+
 
   &::placeholder {
     transition: all 600ms ease-in-out;

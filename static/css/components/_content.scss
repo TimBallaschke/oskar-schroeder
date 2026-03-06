@@ -367,6 +367,14 @@
     transition: all var(--animation-duration-1) ease-in-out;
     color: black;
     // font-variant-numeric: tabular-nums;
+
+    &-container.no-margin-right {
+        margin-right: 0 !important;
+    }
+}
+
+.term-nowrap {
+    white-space: nowrap;
 }
 
 .term-description-number-container-copy {
@@ -1015,6 +1023,18 @@
 
 .error-message {
     font-size: var(--primary-font-size);
+
+    @include desktop-small {
+        grid-column: 1 / 7;
+    }
+
+    @include desktop-large {
+        grid-column: 1 / 7;
+    }
+
+    @include desktop-x-large {
+        grid-column: 1 / 7;
+    }
 }
 
 // Table

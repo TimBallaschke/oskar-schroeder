@@ -277,6 +277,7 @@ const versionHistoryElement0 = document.getElementById('version-history-element-
 let lastScrollY = window.scrollY;
 let scrolling = false;
 const thresholdScroll = 10;
+let inputFocused = false;
 let versionHistoryScrollTimeout;
 let headlineProcessed = false;
 let displayVersionOnHoverTimeout;
@@ -305,13 +306,19 @@ const thoughtProcessDots = document.getElementById('thought-process-dots');
 // INPUTBAR
 // --------------------------------------------------------------------------------------------
 
-function activateInput() {
+function activateInput(e) {
     const bottomNavigation = document.getElementById('bottom-navigation');
 
     if (!bottomNavigation.classList.contains('input-active')) {
         bottomNavigation.classList.add('input-active');
+        inputFocused = true;
     } else {
         bottomNavigation.classList.remove('input-active');
+        // Delay clearing the flag so keyboard-close scroll is also ignored
+        setTimeout(() => {
+            inputFocused = false;
+            lastScrollY = window.scrollY;
+        }, 400);
     }
 }
 
@@ -1164,9 +1171,9 @@ async function handleDelta(content) {
                                             }
                                             
                                             const isItalic = part.startsWith('[') && part.endsWith(']'); // boolean to check if the part is italic
-                                            const text = isItalic ? part.slice(1, -1) : part; // if the part is italic, remove the brackets and the text
-                                            const words = text.trim().split(' ').filter(w => w); // split the text into words and remove empty strings
-                                            
+                                            let text = isItalic ? part.slice(1, -1) : part; // if the part is italic, remove the brackets and the text
+                                            let words = text.trim().split(' ').filter(w => w); // split the text into words and remove empty strings
+
                                             if (words.length === 0) {
                                                 partIndex++;
                                                 processNextPart();
@@ -1175,14 +1182,31 @@ async function handleDelta(content) {
 
                                             // Check if this part starts with punctuation
                                             const startWithPunctuation = /^[.,;:!?)]/.test(text.trim());
-                                            
+
                                             // Add space between parts if needed (but not before punctuation)
-                                            if (partIndex > 0 && !startWithPunctuation && 
-                                                paragraphContainer.lastChild && 
+                                            if (partIndex > 0 && !startWithPunctuation &&
+                                                paragraphContainer.lastChild &&
                                                 !paragraphContainer.lastChild.textContent.endsWith(' ')) {
                                                 paragraphContainer.appendChild(document.createTextNode(' '));
                                             }
-                                            
+                                            if (startWithPunctuation) {
+                                                const lastEl = paragraphContainer.lastElementChild;
+                                                if (lastEl?.classList.contains('term-description-number-container')) {
+                                                    lastEl.classList.add('no-margin-right');
+                                                }
+                                                if (lastEl?.classList.contains('term-nowrap')) {
+                                                    lastEl.querySelector('.term-description-number-container')?.classList.add('no-margin-right');
+                                                    const punctMatch = text.match(/^([.,!?;:]+)/);
+                                                    if (punctMatch) {
+                                                        lastEl.appendChild(document.createTextNode(punctMatch[1]));
+                                                        text = text.slice(punctMatch[1].length).trimStart();
+                                                        words = text.trim().split(' ').filter(w => w);
+                                                        if (words.length === 0) { partIndex++; processNextPart(); return; }
+                                                        paragraphContainer.appendChild(document.createTextNode(' '));
+                                                    }
+                                                }
+                                            }
+
                                             let italicSpan = null;
 
                                             if (isItalic) {
@@ -1242,7 +1266,17 @@ async function handleDelta(content) {
                                                         termDescriptionNumber.textContent = termDescriptionCount < 10 ? `0${termDescriptionCount}` : termDescriptionCount;
 
                                                         termDescriptionNumberContainer.appendChild(termDescriptionNumber);
-                                                        paragraphContainer.appendChild(termDescriptionNumberContainer);
+
+                                                        const noWrapSpan = document.createElement('span');
+                                                        noWrapSpan.classList.add('term-nowrap');
+                                                        noWrapSpan.style.whiteSpace = 'nowrap';
+                                                        const lastWord = italicSpan?.lastElementChild;
+                                                        if (lastWord) {
+                                                            italicSpan.removeChild(lastWord);
+                                                            noWrapSpan.appendChild(lastWord);
+                                                        }
+                                                        noWrapSpan.appendChild(termDescriptionNumberContainer);
+                                                        paragraphContainer.appendChild(noWrapSpan);
 
                                                         setTimeout(() => {
                                                             termDescriptionNumberContainer.classList.remove('small');
@@ -1434,21 +1468,38 @@ async function handleDelta(content) {
                                             }
                             
                                             const isItalic = part.startsWith('[') && part.endsWith(']');
-                                            const text = isItalic ? part.slice(1, -1) : part;
-                                            const words = text.trim().split(' ').filter(w => w);
-                            
+                                            let text = isItalic ? part.slice(1, -1) : part;
+                                            let words = text.trim().split(' ').filter(w => w);
+
                                             if (words.length === 0) {
                                                 partIndex++;
                                                 processNextPart();
                                                 return;
                                             }
-                            
+
                                             const startWithPunctuation = /^[.,;:!?)]/.test(text.trim());
                                             if (partIndex > 0 && !startWithPunctuation &&
                                                 textContainer.lastChild && !textContainer.lastChild.textContent.endsWith(' ')) {
                                                 textContainer.appendChild(document.createTextNode(' '));
                                             }
-                            
+                                            if (startWithPunctuation) {
+                                                const lastEl = textContainer.lastElementChild;
+                                                if (lastEl?.classList.contains('term-description-number-container')) {
+                                                    lastEl.classList.add('no-margin-right');
+                                                }
+                                                if (lastEl?.classList.contains('term-nowrap')) {
+                                                    lastEl.querySelector('.term-description-number-container')?.classList.add('no-margin-right');
+                                                    const punctMatch = text.match(/^([.,!?;:]+)/);
+                                                    if (punctMatch) {
+                                                        lastEl.appendChild(document.createTextNode(punctMatch[1]));
+                                                        text = text.slice(punctMatch[1].length).trimStart();
+                                                        words = text.trim().split(' ').filter(w => w);
+                                                        if (words.length === 0) { partIndex++; processNextPart(); return; }
+                                                        textContainer.appendChild(document.createTextNode(' '));
+                                                    }
+                                                }
+                                            }
+
                                             let italicSpan = null;
                                             if (isItalic) {
                                                 termDescriptionCount++;
@@ -1528,7 +1579,17 @@ async function handleDelta(content) {
                                                                 : termDescriptionCount;
                             
                                                         numberContainer.appendChild(numberSpan);
-                                                        textContainer.appendChild(numberContainer);
+
+                                                        const noWrapSpan = document.createElement('span');
+                                                        noWrapSpan.classList.add('term-nowrap');
+                                                        noWrapSpan.style.whiteSpace = 'nowrap';
+                                                        const lastWord = italicSpan?.lastElementChild;
+                                                        if (lastWord) {
+                                                            italicSpan.removeChild(lastWord);
+                                                            noWrapSpan.appendChild(lastWord);
+                                                        }
+                                                        noWrapSpan.appendChild(numberContainer);
+                                                        textContainer.appendChild(noWrapSpan);
                             
                                                         setTimeout(() => {
                                                             numberContainer.classList.remove('small');
@@ -1630,25 +1691,42 @@ async function handleDelta(content) {
                                                         }
                                     
                                                         const isItalic = part.startsWith('[') && part.endsWith(']');
-                                                        const text = isItalic ? part.slice(1, -1) : part;
-                                                        const words = text.trim().split(' ').filter(w => w);
-                                    
+                                                        let text = isItalic ? part.slice(1, -1) : part;
+                                                        let words = text.trim().split(' ').filter(w => w);
+
                                                         if (words.length === 0) {
                                                             partIndex++;
                                                             processNextPart();
                                                             return;
                                                         }
 
-                                                                                                    // Check if this part starts with punctuation
+                                                        // Check if this part starts with punctuation
                                                         const startWithPunctuation = /^[.,;:!?)]/.test(text.trim());
-                                                        
+
                                                         // Add space between parts if needed (but not before punctuation)
-                                                        if (partIndex > 0 && !startWithPunctuation && 
-                                                            rowItem.lastChild && 
+                                                        if (partIndex > 0 && !startWithPunctuation &&
+                                                            rowItem.lastChild &&
                                                             !rowItem.lastChild.textContent.endsWith(' ')) {
                                                             rowItem.appendChild(document.createTextNode(' '));
                                                         }
-                                    
+                                                        if (startWithPunctuation) {
+                                                            const lastEl = rowItem.lastElementChild;
+                                                            if (lastEl?.classList.contains('term-description-number-container')) {
+                                                                lastEl.classList.add('no-margin-right');
+                                                            }
+                                                            if (lastEl?.classList.contains('term-nowrap')) {
+                                                                lastEl.querySelector('.term-description-number-container')?.classList.add('no-margin-right');
+                                                                const punctMatch = text.match(/^([.,!?;:]+)/);
+                                                                if (punctMatch) {
+                                                                    lastEl.appendChild(document.createTextNode(punctMatch[1]));
+                                                                    text = text.slice(punctMatch[1].length).trimStart();
+                                                                    words = text.trim().split(' ').filter(w => w);
+                                                                    if (words.length === 0) { partIndex++; processNextPart(); return; }
+                                                                    rowItem.appendChild(document.createTextNode(' '));
+                                                                }
+                                                            }
+                                                        }
+
                                                         let italicSpan = null;
                                                         if (isItalic) {
                                                             termDescriptionCount++;
@@ -1721,7 +1799,17 @@ async function handleDelta(content) {
                                                                             : termDescriptionCount;
                                     
                                                                     numberContainer.appendChild(numberSpan);
-                                                                    rowItem.appendChild(numberContainer);
+
+                                                                    const noWrapSpan = document.createElement('span');
+                                                                    noWrapSpan.classList.add('term-nowrap');
+                                                                    noWrapSpan.style.whiteSpace = 'nowrap';
+                                                                    const lastWord = italicSpan?.lastElementChild;
+                                                                    if (lastWord) {
+                                                                        italicSpan.removeChild(lastWord);
+                                                                        noWrapSpan.appendChild(lastWord);
+                                                                    }
+                                                                    noWrapSpan.appendChild(numberContainer);
+                                                                    rowItem.appendChild(noWrapSpan);
 
                                     
                                                                     setTimeout(() => {
@@ -2506,9 +2594,9 @@ async function renderNextProject() {
                                                     }
                     
                                                     const isItalic = part.startsWith('[') && part.endsWith(']');
-                                                    const text = isItalic ? part.slice(1, -1) : part;
-                                                    const words = text.trim().split(' ').filter(w => w);
-                    
+                                                    let text = isItalic ? part.slice(1, -1) : part;
+                                                    let words = text.trim().split(' ').filter(w => w);
+
                                                     if (words.length === 0) {
                                                         partIndex++;
                                                         processNextPart();
@@ -2517,16 +2605,33 @@ async function renderNextProject() {
 
                                                     // Check if this part starts with punctuation
                                                     const startWithPunctuation = /^[.,;:!?)\]]/.test(text.trim());
-                                                    
+
                                                     // Add space between parts if needed (but not before punctuation)
-                                                    if (partIndex > 0 && !startWithPunctuation && 
-                                                        sentenceSpan.lastChild && 
+                                                    if (partIndex > 0 && !startWithPunctuation &&
+                                                        sentenceSpan.lastChild &&
                                                         !sentenceSpan.lastChild.textContent.endsWith(' ')) {
                                                         sentenceSpan.appendChild(document.createTextNode(' '));
                                                     }
+                                                    if (startWithPunctuation) {
+                                                        const lastEl = sentenceSpan.lastElementChild;
+                                                        if (lastEl?.classList.contains('term-description-number-container')) {
+                                                            lastEl.classList.add('no-margin-right');
+                                                        }
+                                                        if (lastEl?.classList.contains('term-nowrap')) {
+                                                            lastEl.querySelector('.term-description-number-container')?.classList.add('no-margin-right');
+                                                            const punctMatch = text.match(/^([.,!?;:]+)/);
+                                                            if (punctMatch) {
+                                                                lastEl.appendChild(document.createTextNode(punctMatch[1]));
+                                                                text = text.slice(punctMatch[1].length).trimStart();
+                                                                words = text.trim().split(' ').filter(w => w);
+                                                                if (words.length === 0) { partIndex++; processNextPart(); return; }
+                                                                sentenceSpan.appendChild(document.createTextNode(' '));
+                                                            }
+                                                        }
+                                                    }
 
                                                     let italicSpan = null;
-                    
+
                                                     if (isItalic) {
                                                         termDescriptionCount++;
                                                         italicSpan = document.createElement('span');
@@ -2585,7 +2690,17 @@ async function renderNextProject() {
                                                                 termDescriptionNumber.textContent = termDescriptionCount < 10 ? `0${termDescriptionCount}` : termDescriptionCount;
         
                                                                 termDescriptionNumberContainer.appendChild(termDescriptionNumber);
-                                                                sentenceSpan.appendChild(termDescriptionNumberContainer);
+
+                                                                const noWrapSpan = document.createElement('span');
+                                                                noWrapSpan.classList.add('term-nowrap');
+                                                                noWrapSpan.style.whiteSpace = 'nowrap';
+                                                                const lastWord = italicSpan?.lastElementChild;
+                                                                if (lastWord) {
+                                                                    italicSpan.removeChild(lastWord);
+                                                                    noWrapSpan.appendChild(lastWord);
+                                                                }
+                                                                noWrapSpan.appendChild(termDescriptionNumberContainer);
+                                                                sentenceSpan.appendChild(noWrapSpan);
         
                                                                 setTimeout(() => {
                                                                     termDescriptionNumberContainer.classList.remove('small');
@@ -2821,11 +2936,13 @@ function addNewVersionHistoryElement(headline) {
     });
 
     newHistoryElement.addEventListener('mouseover', (event) => {
+        if (window.matchMedia('(pointer: coarse)').matches) return;
         document.body.classList.add('hover');
         // handleVersionEvent(event);
     });
 
     newHistoryElement.addEventListener('mouseout', (event) => {
+        if (window.matchMedia('(pointer: coarse)').matches) return;
         document.body.classList.remove('hover');
         // handleVersionEvent(event);
     });
@@ -2969,7 +3086,7 @@ function displayPreviousVersion(element) {
 
 
 versionHistory.addEventListener("mousemove", (e) => {
-  if (window.innerWidth <= mobileWidth) return;
+  if (window.matchMedia('(pointer: coarse)').matches) return;
   const rect = versionHistory.getBoundingClientRect();
   const mouseX = e.clientX - rect.left; // position within container
   const containerWidth = rect.width;
@@ -3369,6 +3486,8 @@ function handlePromptProposalsUpdate(content) {
     const promptProposal3 = document.getElementById('prompt-proposal-3');
     const promptProposal4 = document.getElementById('prompt-proposal-4');
 
+    document.querySelectorAll('.prompt-proposal-container').forEach(c => c.classList.remove('selected'));
+
     promptProposal1.textContent = content.prompt_proposal_1;
     promptProposal2.textContent = content.prompt_proposal_2;
     promptProposal3.textContent = content.prompt_proposal_3;
@@ -3379,6 +3498,9 @@ function handlePromptProposalsUpdate(content) {
 function handlePromptClick(element) {
     const promptProposal = element.querySelector('.prompt-proposal');
     userInput.value = promptProposal.innerHTML;
+
+    document.querySelectorAll('.prompt-proposal-container').forEach(c => c.classList.remove('selected'));
+    element.classList.add('selected');
 
     setTimeout(() => {
         sendMessage();
@@ -3864,6 +3986,7 @@ function processNextWebsearchWord() {
     
     // Add the span to the websearch div
     websearchDescriptionContainer.appendChild(wordSpan);
+    webSearchColumn.scrollTo({ top: webSearchColumn.scrollHeight, behavior: 'smooth' });
 
     wordSpan.style.display = 'inline-block';
     const lightWidth = wordSpan.getBoundingClientRect().width;
@@ -4025,11 +4148,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         element.addEventListener('mouseover', (event) => {
+            if (window.matchMedia('(pointer: coarse)').matches) return;
             document.body.classList.add('hover');
             // handleVersionEvent(event);
         });
 
         element.addEventListener('mouseout', (event) => {
+            if (window.matchMedia('(pointer: coarse)').matches) return;
             document.body.classList.remove('hover');
             // handleVersionEvent(event);
         });
@@ -4081,9 +4206,15 @@ function handleBottomHover() {
 }
 
 function updateNavigationElementsOnPageScroll() {
+    if (inputFocused) {
+        lastScrollY = window.scrollY;
+        scrolling = false;
+        return;
+    }
+
     const currentScrollY = window.scrollY;
     const scrolledDistance = currentScrollY - lastScrollY;
-  
+
     if (Math.abs(scrolledDistance) >= thresholdScroll) {
       if (scrolledDistance > 0) {
         // Scrolling down

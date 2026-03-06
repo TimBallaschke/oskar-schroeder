@@ -79,10 +79,9 @@
 
   @include desktop-small {
     --primary-font-size: 21px;
-    --primary-line-height: 25px;
     --secondary-font-size: 13px;
     --secondary-number-font-size: 13px;
-    --large-font-size: 35px;
+    --large-font-size: 40px;
     --grid-line-height: 20px;
 
     // Project Grid
@@ -92,10 +91,9 @@
 
   @include desktop-large {
     --primary-font-size: 22px;
-    --primary-line-height: 19.8px;
     --secondary-font-size: 15px;
     --secondary-number-font-size: 13px;
-    --large-font-size: 35px;
+    --large-font-size: 40px;
     --small-circle-size: 20px;
     --grid-line-height: 20px;
 
