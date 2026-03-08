@@ -1459,10 +1459,19 @@ async function handleDelta(content) {
                             if (listItem.item && !componentMap.get(itemID).has('item')) {
                                 await new Promise(resolve => {
                                     componentMap.get(itemID).add('item');
-                            
+
                                     const textContainer = document.createElement('div');
                                     textContainer.classList.add('item-text');
                                     itemContainer.appendChild(textContainer);
+                                    const _originalResolve = resolve;
+                                    resolve = () => {
+                                        const finalHeight = itemContainer.scrollHeight;
+                                        itemContainer.style.height = `${finalHeight}px`;
+                                        setTimeout(() => {
+                                            itemContainer.style.height = 'auto';
+                                        }, animationDuration + 50);
+                                        _originalResolve();
+                                    };
                             
                                     // Store initial scrollHeight
                                     let previousScrollHeight = itemContainer.scrollHeight;
