@@ -474,7 +474,7 @@
     top: 0;
     right: -250px;
     overflow-y: scroll;
-    padding-top: calc(var(--content-padding-top) + 2.5px);
+    padding-top: calc(var(--content-padding-top));
     padding-left: 0;
     padding-right: var(--page-padding);
     padding-bottom: 30vh;
@@ -490,6 +490,7 @@
     @include desktop-small {
         width: calc((100vw - 2 * var(--page-padding)) / var(--column-amount-content-container) * 2);
         right: var(--page-padding);
+        padding-top: calc(var(--content-padding-top) + 2.5px);
         padding-right: 0;
         padding-left: calc(var(--page-padding) * 1);
         transform: translate(0px, 2px);
@@ -497,6 +498,7 @@
 
     @include desktop-large {
         width: calc((100vw - 2 * var(--page-padding)) / var(--column-amount-content-container) * var(--column-amount-websearch));
+        padding-top: calc(var(--content-padding-top) + 2.5px);
         right: var(--page-padding);
         padding-right: 0;
         padding-left: calc(var(--page-padding) * 1);
@@ -505,6 +507,7 @@
 
     @include desktop-x-large {
         width: calc((100vw - 2 * var(--page-padding)) / var(--column-amount-content-container) * var(--column-amount-websearch));
+        padding-top: calc(var(--content-padding-top) + 2.5px);
         right: var(--page-padding);
         padding-right: 0;
         padding-left: calc(var(--page-padding));
@@ -1146,6 +1149,7 @@
 .row-item {
     grid-column: 2;
     @include primary-type;
+    line-height: var(--primary-line-height);
     transition: font-variation-settings var(--animation-duration-1) ease-in-out, height var(--animation-duration-2) ease-in-out;
     transform: translateY(-2px);
     word-break: break-word;

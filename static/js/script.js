@@ -656,6 +656,13 @@ function startStreamingResponse(message) {
     });
 }
 
+// Abort streaming when the page goes to the background (e.g. phone lock)
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden && isStreaming) {
+        stopStreaming();
+    }
+});
+
 // Add ability to send message by pressing Enter key
 userInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
@@ -1699,7 +1706,17 @@ async function handleDelta(content) {
                                                 rowItem.classList.add('row-item');
                                                 rowItem.style.gridRow = `${rowData.indexOf(item) + 1}`;
                                                 row.appendChild(rowItem);
-                                    
+
+                                                const _originalResolve = resolve;
+                                                resolve = () => {
+                                                    const finalHeight = rowItem.scrollHeight;
+                                                    rowItem.style.height = `${finalHeight}px`;
+                                                    setTimeout(() => {
+                                                        rowItem.style.height = 'auto';
+                                                    }, animationDuration + 50);
+                                                    _originalResolve();
+                                                };
+
                                                 // Split by bracketed and non-bracketed segments
                                                 const parts = item.split(/(\[[^\]]+\])/g);
                                                 let partIndex = 0;
@@ -3651,21 +3668,24 @@ function setupPromptAnimations() {
     
           // Initial animation
           el.classList.add('animate-scroll');
-          
+          container.classList.add('mask-active');
+
           // Add a pause between animations
           const pauseDuration = 4000; // 2 seconds pause between animations
           const totalCycleDuration = durationMS + pauseDuration;
-          
+
           // Set up interval to toggle the animation class
           const animationInterval = setInterval(() => {
             // Remove class (stops animation)
             el.classList.remove('animate-scroll');
-            
+            container.classList.remove('mask-active');
+
             // Add small delay before restarting animation
             setTimeout(() => {
               el.classList.add('animate-scroll');
+              container.classList.add('mask-active');
             }, pauseDuration);
-            
+
           }, totalCycleDuration);
           
           // Store the interval ID on the element for cleanup if needed
@@ -3681,6 +3701,7 @@ function removePromptAnimations() {
         clearInterval(el.animationInterval);
         el.animationInterval = null;
         el.classList.remove('animate-scroll');
+        el.parentElement.classList.remove('mask-active');
       }
     });
   }

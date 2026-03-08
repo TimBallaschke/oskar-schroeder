@@ -240,8 +240,11 @@
   position: relative;
   overflow: hidden;
   height: 100%;
-  mask-image: linear-gradient(to right, transparent 0%, black 1%, black 97%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 1%, black 97%, transparent 100%);
+
+  &.mask-active {
+    mask-image: linear-gradient(to right, transparent 0%, black 1%, black 97%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 1%, black 97%, transparent 100%);
+  }
 }
 
 
