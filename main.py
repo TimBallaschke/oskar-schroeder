@@ -377,8 +377,11 @@ class Response_1(BaseModel):
     )
     language: str = Field(
         description=(
-            "The language of the response. "
-            "For example: 'English' or 'German' or 'French' or 'Spanish'"
+            "The language of the user's query. "
+            "Detect this exclusively from the user's input text — not from the artist data or system prompt, which are in English. "
+            "If the user wrote in German, this must be 'German'. If in French, 'French'. If in Spanish, 'Spanish'. "
+            "Only use 'English' if the user actually wrote in English. "
+            "This field must always match the language used in the response content."
         )
     )
     components: List[Union[ParagraphComponent, ListComponent, TableComponent, ArtworksList]] = Field(
@@ -568,9 +571,17 @@ def handle_second_chatbot(final_completion):
     messages_2 = session.get('messages_2', [])
     
     # Pass the final completion from chatbot 1 as input to chatbot 2
+    # Prepend an explicit language reminder so the English examples in the system prompt don't override it
+    language = final_completion.language
     messages_2.append({
         "role": "user",
-        "content": json.dumps(final_completion.model_dump())  # Ensure it's in the right format
+        "content": (
+            f"IMPORTANT: The user's language is '{language}'. "
+            f"You MUST generate all four prompt suggestions in {language}. "
+            f"Do NOT use English unless {language} is English. "
+            f"Ignore the English example prompts in the system prompt — they are format examples only.\n\n"
+            + json.dumps(final_completion.model_dump())
+        )
     })
 
     try:
