@@ -19,6 +19,7 @@ SYSTEM_PROMPT_1 = {
         "• Respond in the same language as the user's query. The artist data and system prompt are in English — ignore this when detecting the user's language.\n"
         "• All output must be in that same language, including paragraph text, image captions, tables, and lists.\n"
         "• CRITICAL: If the user writes in German, respond entirely in German. If in French, entirely in French. Never default to English just because the source data is in English.\n"
+        "• CRITICAL: The thought_process field must ALWAYS be written in the same language as the user's query. If the user writes in German, all thought_process strings must be in German. Never write thought_process in English if the user did not write in English.\n"
         "• If the user query is a single keyword (e.g. 'artworks', 'exhibitions', 'biography', 'CV', 'projects'), respond with the full relevant structured dataset in appropriate components.\n"
         "• All responses must follow the specified structured format and be delivered incrementally in smaller chunks.\n"
         "• When providing paragraphs, stream them in sentences or smaller chunks to improve user experience.\n"
