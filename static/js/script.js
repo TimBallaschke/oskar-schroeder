@@ -248,6 +248,7 @@ let isReworkProcessing = false; // Add this with other global variables
 let reworkComplete = false;
 let isStreaming = false;
 let placeholderAnimationActive = true;
+let placeholderTypeInterval = null;
 
 // Websearch
 let webSearchEventSource = null;
@@ -423,6 +424,10 @@ function stopStreamingAnimation() {
 function startAnimateInput() {
 
     placeholderAnimationActive = false;
+    if (placeholderTypeInterval) {
+        clearInterval(placeholderTypeInterval);
+        placeholderTypeInterval = null;
+    }
 
     userInput.classList.add('animation-settings-2');
     userInput.classList.remove('light-nav');
@@ -769,30 +774,32 @@ function animateInputPlaceholder() {
 
         const currentText = placeholders[placeholderIndex];
         let letterIndex = 0;
-        
+
         // Clear the placeholder initially
         userInput.placeholder = '';
-        
+
         // Type in the placeholder character by character
-        const typeInterval = setInterval(() => {
+        if (placeholderTypeInterval) clearInterval(placeholderTypeInterval);
+        placeholderTypeInterval = setInterval(() => {
             if (letterIndex < currentText.length) {
                 // Check if current character is a space
                 if (currentText[letterIndex] === ' ') {
                     // Skip the space for now (don't increment letterIndex yet)
                     let spacesToAdd = '';
-                    
+
                     // Count consecutive spaces
                     while (letterIndex < currentText.length && currentText[letterIndex] === ' ') {
                         spacesToAdd += ' ';
                         letterIndex++;
                     }
-                    
+
                     // If we're at the end of the string after spaces, clear interval
                     if (letterIndex >= currentText.length) {
-                        clearInterval(typeInterval);
+                        clearInterval(placeholderTypeInterval);
+                        placeholderTypeInterval = null;
                         return;
                     }
-                    
+
                     // Add spaces plus the next character
                     userInput.placeholder += spacesToAdd + currentText[letterIndex];
                     letterIndex++;
@@ -802,7 +809,8 @@ function animateInputPlaceholder() {
                     letterIndex++;
                 }
             } else {
-                clearInterval(typeInterval);    
+                clearInterval(placeholderTypeInterval);
+                placeholderTypeInterval = null;
 
                 setTimeout(() => {
                     userInput.classList.add('placeholder-no-opacity');
@@ -1183,7 +1191,7 @@ async function handleDelta(content) {
                                             }
 
                                             // Check if this part starts with punctuation
-                                            const startWithPunctuation = /^[.,;:!?)'"]/.test(text.trim());
+                                            const startWithPunctuation = /^[.,;:!?)'\u2019"]/.test(text.trim());
 
                                             // Add space between parts if needed (but not before punctuation)
                                             if (partIndex > 0 && !startWithPunctuation &&
@@ -1198,13 +1206,15 @@ async function handleDelta(content) {
                                                 }
                                                 if (lastEl?.classList.contains('term-nowrap')) {
                                                     lastEl.querySelector('.term-description-number-container')?.classList.add('no-margin-right');
-                                                    const punctMatch = text.match(/^([.,!?;:'"]+)/);
+                                                    const punctMatch = text.match(/^([.,!?;:'\u2019"]+)/);
                                                     if (punctMatch) {
                                                         lastEl.appendChild(document.createTextNode(punctMatch[1]));
-                                                        text = text.slice(punctMatch[1].length).trimStart();
+                                                        const textAfterPunct = text.slice(punctMatch[1].length);
+                                                        const hadSpaceAfterPunct = textAfterPunct.startsWith(' ');
+                                                        text = textAfterPunct.trimStart();
                                                         words = text.trim().split(' ').filter(w => w);
                                                         if (words.length === 0) { partIndex++; processNextPart(); return; }
-                                                        paragraphContainer.appendChild(document.createTextNode(' '));
+                                                        if (hadSpaceAfterPunct) paragraphContainer.appendChild(document.createTextNode(' '));
                                                     }
                                                 }
                                             }
@@ -1479,7 +1489,7 @@ async function handleDelta(content) {
                                                 return;
                                             }
 
-                                            const startWithPunctuation = /^[.,;:!?)'"]/.test(text.trim());
+                                            const startWithPunctuation = /^[.,;:!?)'\u2019"]/.test(text.trim());
                                             if (partIndex > 0 && !startWithPunctuation &&
                                                 textContainer.lastChild && !textContainer.lastChild.textContent.endsWith(' ')) {
                                                 textContainer.appendChild(document.createTextNode(' '));
@@ -1491,13 +1501,15 @@ async function handleDelta(content) {
                                                 }
                                                 if (lastEl?.classList.contains('term-nowrap')) {
                                                     lastEl.querySelector('.term-description-number-container')?.classList.add('no-margin-right');
-                                                    const punctMatch = text.match(/^([.,!?;:'"]+)/);
+                                                    const punctMatch = text.match(/^([.,!?;:'\u2019"]+)/);
                                                     if (punctMatch) {
                                                         lastEl.appendChild(document.createTextNode(punctMatch[1]));
-                                                        text = text.slice(punctMatch[1].length).trimStart();
+                                                        const textAfterPunct = text.slice(punctMatch[1].length);
+                                                        const hadSpaceAfterPunct = textAfterPunct.startsWith(' ');
+                                                        text = textAfterPunct.trimStart();
                                                         words = text.trim().split(' ').filter(w => w);
                                                         if (words.length === 0) { partIndex++; processNextPart(); return; }
-                                                        textContainer.appendChild(document.createTextNode(' '));
+                                                        if (hadSpaceAfterPunct) textContainer.appendChild(document.createTextNode(' '));
                                                     }
                                                 }
                                             }
@@ -1703,7 +1715,7 @@ async function handleDelta(content) {
                                                         }
 
                                                         // Check if this part starts with punctuation
-                                                        const startWithPunctuation = /^[.,;:!?)'"]/.test(text.trim());
+                                                        const startWithPunctuation = /^[.,;:!?)'\u2019"]/.test(text.trim());
 
                                                         // Add space between parts if needed (but not before punctuation)
                                                         if (partIndex > 0 && !startWithPunctuation &&
@@ -1718,13 +1730,15 @@ async function handleDelta(content) {
                                                             }
                                                             if (lastEl?.classList.contains('term-nowrap')) {
                                                                 lastEl.querySelector('.term-description-number-container')?.classList.add('no-margin-right');
-                                                                const punctMatch = text.match(/^([.,!?;:'"]+)/);
+                                                                const punctMatch = text.match(/^([.,!?;:'\u2019"]+)/);
                                                                 if (punctMatch) {
                                                                     lastEl.appendChild(document.createTextNode(punctMatch[1]));
-                                                                    text = text.slice(punctMatch[1].length).trimStart();
+                                                                    const textAfterPunct = text.slice(punctMatch[1].length);
+                                                                    const hadSpaceAfterPunct = textAfterPunct.startsWith(' ');
+                                                                    text = textAfterPunct.trimStart();
                                                                     words = text.trim().split(' ').filter(w => w);
                                                                     if (words.length === 0) { partIndex++; processNextPart(); return; }
-                                                                    rowItem.appendChild(document.createTextNode(' '));
+                                                                    if (hadSpaceAfterPunct) rowItem.appendChild(document.createTextNode(' '));
                                                                 }
                                                             }
                                                         }
@@ -2608,7 +2622,7 @@ async function renderNextProject() {
                                                     }
 
                                                     // Check if this part starts with punctuation
-                                                    const startWithPunctuation = /^[.,;:!?)\]'"]/.test(text.trim());
+                                                    const startWithPunctuation = /^[.,;:!?)\]'\u2019"]/.test(text.trim());
 
                                                     // Add space between parts if needed (but not before punctuation)
                                                     if (partIndex > 0 && !startWithPunctuation &&
@@ -2623,13 +2637,15 @@ async function renderNextProject() {
                                                         }
                                                         if (lastEl?.classList.contains('term-nowrap')) {
                                                             lastEl.querySelector('.term-description-number-container')?.classList.add('no-margin-right');
-                                                            const punctMatch = text.match(/^([.,!?;:'"]+)/);
+                                                            const punctMatch = text.match(/^([.,!?;:'\u2019"]+)/);
                                                             if (punctMatch) {
                                                                 lastEl.appendChild(document.createTextNode(punctMatch[1]));
-                                                                text = text.slice(punctMatch[1].length).trimStart();
+                                                                const textAfterPunct = text.slice(punctMatch[1].length);
+                                                                const hadSpaceAfterPunct = textAfterPunct.startsWith(' ');
+                                                                text = textAfterPunct.trimStart();
                                                                 words = text.trim().split(' ').filter(w => w);
                                                                 if (words.length === 0) { partIndex++; processNextPart(); return; }
-                                                                sentenceSpan.appendChild(document.createTextNode(' '));
+                                                                if (hadSpaceAfterPunct) sentenceSpan.appendChild(document.createTextNode(' '));
                                                             }
                                                         }
                                                     }
@@ -2912,6 +2928,9 @@ function addNewVersionHistoryElement(headline) {
     versionHistoryElementContent.appendChild(versionHistoryTitle);
     newHistoryElement.appendChild(versionHistoryElementContent);
     versionHistory.insertBefore(newHistoryElement, versionHistory.firstChild);
+    versionHistory.isScrollAnimating = false;
+    versionHistory.targetScrollLeft = 0;
+    versionHistory.scrollLeft = 0;
 
     const versionHistoryElementPadding = getCSSVarValue('--version-history-element-padding');
 
@@ -3135,10 +3154,33 @@ versionHistory.addEventListener("mousemove", (e) => {
   }
 });
 
-// Clean up animation state when mouse leaves
+// Scroll current element into view when mouse leaves
 versionHistory.addEventListener("mouseleave", () => {
-  versionHistory.isScrollAnimating = false;
   versionHistory.lastMouseX = undefined;
+
+  const currentElement = versionHistory.querySelector('.current-version-history-element');
+  const targetScrollLeft = currentElement ? currentElement.offsetLeft : 0;
+
+  versionHistory.isScrollAnimating = true;
+  versionHistory.targetScrollLeft = targetScrollLeft;
+
+  const smoothScrollBack = () => {
+    if (!versionHistory.isScrollAnimating) return;
+
+    const currentPosition = versionHistory.scrollLeft;
+    const distance = versionHistory.targetScrollLeft - currentPosition;
+
+    if (Math.abs(distance) < 0.5) {
+      versionHistory.scrollLeft = versionHistory.targetScrollLeft;
+      versionHistory.isScrollAnimating = false;
+      return;
+    }
+
+    versionHistory.scrollLeft = currentPosition + distance * 0.1;
+    requestAnimationFrame(smoothScrollBack);
+  };
+
+  requestAnimationFrame(smoothScrollBack);
 });
 
 // Scroll on desktop
@@ -3525,6 +3567,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 plusMinusButton.addEventListener('click', togglePromptProposals);
+
+togglePromptProposals();
 
 function togglePromptProposals() {
     // const bottomNavigation = document.getElementById('bottom-navigation');
