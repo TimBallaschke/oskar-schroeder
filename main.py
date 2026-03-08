@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, jsonify, session, Response, stream_with_context
 from flask_session import Session  # Import Session from flask_session
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
@@ -168,6 +170,14 @@ app.config['SESSION_FILE_DIR'] = './flask_session/'  # Directory to store sessio
 app.config['SESSION_PERMANENT'] = True  # Make sessions permanent so they persist
 app.config['SESSION_USE_SIGNER'] = True  # Sign session cookies for security
 Session(app)  # Initialize the session with the app
+
+# Rate limiting to prevent API abuse
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=[],
+    storage_uri="memory://"
+)
 
 # Initialize OpenAI client
 client = OpenAI()
@@ -509,6 +519,7 @@ def index():
 # Define route for api endpoint, accepting POST requests;
 # POST requests are used to send data to the server, such as form submissions, file uploads, or API requests;
 @app.route('/stream', methods=['POST'])
+@limiter.limit("30 per hour")
 def stream():
 
     user_message = request.json['message']
@@ -628,6 +639,7 @@ def handle_second_chatbot(final_completion):
 # ------------------------------------------------------------------------------------------------
 
 @app.route('/content3', methods=['POST'])
+@limiter.limit("30 per hour")
 def content3():
     user_message = request.json['message']
     print(user_message)
@@ -687,6 +699,7 @@ def stream3():
 # ------------------------------------------------------------------------------------------------
 
 @app.route('/content4', methods=['POST'])
+@limiter.limit("30 per hour")
 def content4():
     user_message = request.json['message']
     language = request.json.get('language', 'English')  # Get language from frontend, default to English
@@ -818,4 +831,4 @@ def save_state_route():
 init_db()
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    app.run(debug=False, host='127.0.0.1', port=5000)
