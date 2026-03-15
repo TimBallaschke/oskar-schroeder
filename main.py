@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, session, Response, stream_with_context
+from flask import Flask, render_template, request, jsonify, session, Response, stream_with_context, abort
 from flask_session import Session  # Import Session from flask_session
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -11,13 +11,70 @@ from pydantic import BaseModel, Field
 from typing import List, Union, Literal, Annotated, Optional, TypeVar, Generic
 from enum import Enum
 from datetime import datetime
+from functools import wraps
 from prompts import prompts  # Import the prompts dictionary
 import sqlite3
 
 # Load environment variables from .env file (including API key)
 load_dotenv()
 
+# Allowed origins for API endpoint protection
+ALLOWED_ORIGINS = [
+    "https://oskarschroeder.com",
+    "https://www.oskarschroeder.com",
+    "http://127.0.0.1:5000",
+    "http://localhost:5000",
+]
 
+MAX_MESSAGE_LENGTH = 500  # Maximum allowed characters per user message
+
+
+def validate_origin(f):
+    """Decorator that rejects requests not originating from allowed origins."""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        origin = request.headers.get("Origin")
+        referer = request.headers.get("Referer")
+
+        # Check Origin header first, fall back to Referer
+        if origin:
+            if origin.rstrip("/") not in ALLOWED_ORIGINS:
+                abort(403)
+        elif referer:
+            # Extract origin from referer (scheme + host)
+            from urllib.parse import urlparse
+            parsed = urlparse(referer)
+            referer_origin = f"{parsed.scheme}://{parsed.netloc}"
+            if referer_origin.rstrip("/") not in ALLOWED_ORIGINS:
+                abort(403)
+        else:
+            # No Origin or Referer header → likely a direct curl/API call
+            abort(403)
+
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+def validate_message(data, field="message"):
+    """Validate that the request contains a message within length limits.
+    Returns (message, error_response) — error_response is None on success."""
+    if not data or field not in data:
+        return None, (jsonify({"error": "Missing message"}), 400)
+
+    message = data[field]
+
+    if not isinstance(message, str):
+        return None, (jsonify({"error": "Message must be a string"}), 400)
+
+    message = message.strip()
+
+    if not message:
+        return None, (jsonify({"error": "Message cannot be empty"}), 400)
+
+    if len(message) > MAX_MESSAGE_LENGTH:
+        return None, (jsonify({"error": f"Message exceeds maximum length of {MAX_MESSAGE_LENGTH} characters"}), 400)
+
+    return message, None
 
 
 
@@ -520,9 +577,12 @@ def index():
 # POST requests are used to send data to the server, such as form submissions, file uploads, or API requests;
 @app.route('/stream', methods=['POST'])
 @limiter.limit("30 per hour")
+@validate_origin
 def stream():
 
-    user_message = request.json['message']
+    user_message, error = validate_message(request.json)
+    if error:
+        return error
 
     # Create fresh messages array with just system prompt and user message
     messages = [
@@ -640,8 +700,11 @@ def handle_second_chatbot(final_completion):
 
 @app.route('/content3', methods=['POST'])
 @limiter.limit("30 per hour")
+@validate_origin
 def content3():
-    user_message = request.json['message']
+    user_message, error = validate_message(request.json)
+    if error:
+        return error
     print(user_message)
     
     # Initialize message list for chatbot 3 if not in session
@@ -655,6 +718,8 @@ def content3():
     return jsonify({"status": "ok"})
 
 @app.route('/stream3')
+@limiter.limit("30 per hour")
+@validate_origin
 def stream3():
     messages_3 = session.get('messages_3', [])
     
@@ -700,8 +765,11 @@ def stream3():
 
 @app.route('/content4', methods=['POST'])
 @limiter.limit("30 per hour")
+@validate_origin
 def content4():
-    user_message = request.json['message']
+    user_message, error = validate_message(request.json)
+    if error:
+        return error
     language = request.json.get('language', 'English')  # Get language from frontend, default to English
 
     session['messages_4'] = user_message
@@ -714,6 +782,8 @@ def content4():
     return jsonify({"status": "ok"})  # Respond to confirm the message was received
 
 @app.route('/stream4')
+@limiter.limit("30 per hour")
+@validate_origin
 def stream4():
     print("stream4")
     messages_4 = session.get('messages_4', [])
@@ -786,7 +856,8 @@ def stream4():
 # DATABASE ROUTES
 # ------------------------------------------------------------------------------------------------
 
-@app.route('/get_state/<state_id>') 
+@app.route('/get_state/<state_id>')
+@limiter.limit("60 per hour")
 def get_state_route(state_id):
     try:
         state_data = get_state(state_id)
@@ -798,6 +869,8 @@ def get_state_route(state_id):
         return jsonify({"error": str(e)}), 500
 
 @app.route('/save_state', methods=['POST'])
+@limiter.limit("30 per hour")
+@validate_origin
 def save_state_route():
     try:
         data = request.get_json()
