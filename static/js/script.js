@@ -611,6 +611,7 @@ function startStreamingResponse(message) {
         let buffer = '';
 
         try {
+            let receivedSecondComplete = false;
             while (true) {
                 const { done, value } = await reader.read();
                 if (done) break;
@@ -629,6 +630,7 @@ function startStreamingResponse(message) {
                             handleComplete(data.content);
                             break;
                         case 'second_complete':
+                            receivedSecondComplete = true;
                             handleSecondComplete(data.content, data.stateId);
                             activeStreamAbort = null;
                             reader.cancel();
@@ -643,9 +645,19 @@ function startStreamingResponse(message) {
                     }
                 }
             }
+            // Stream ended without second_complete — clean up UI
+            if (!receivedSecondComplete) {
+                activeStreamAbort = null;
+                isStreaming = false;
+                stopStreamingAnimation();
+                saveCurrentHTML();
+            }
         } catch (e) {
             if (e.name !== 'AbortError') {
                 console.error("Stream error:", e);
+                activeStreamAbort = null;
+                isStreaming = false;
+                stopStreamingAnimation();
             }
         }
     }).catch(error => {
@@ -685,6 +697,8 @@ function clearContentContainer(isVersionHistory) {
 
     contentContainer.classList.add('animation-settings');
     webSearchColumn.classList.add('animation-settings');
+    contentContainer.classList.remove('translate-x');
+    webSearchColumn.classList.remove('translate-x');
     previousParagraphContainer = null;
     previousPreviousParagraphContainer = null;
 
