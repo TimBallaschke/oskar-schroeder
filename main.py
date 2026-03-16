@@ -774,10 +774,10 @@ def content4():
 
     session['messages_4'] = user_message
     session['websearch_language'] = language  # Store language for websearch
-    
+
     print(f"Received websearch request with language: {language}")
 
-    session.modified = True             
+    session.modified = True
 
     return jsonify({"status": "ok"})  # Respond to confirm the message was received
 
@@ -786,57 +786,67 @@ def content4():
 @validate_origin
 def stream4():
     print("stream4")
-    messages_4 = session.get('messages_4', [])
+    messages_4 = session.get('messages_4', '')
     current_language = session.get('websearch_language', 'English')  # Get language from websearch request
     print(f"Using language for websearch: {current_language}")
-    
+
+    if not messages_4:
+        return Response(
+            f"data: {json.dumps({'type': 'error', 'content': 'No websearch message found'})}\n\n",
+            content_type="text/event-stream",
+        )
+
     def generate():
         yield ": keepalive\n\n"
-        stream = client.responses.create(
-            model="gpt-4o-mini",
-            tools=[
-                {
-                    "type": "web_search_preview",
-                }
-            ],
-            input=[
-                {
-                    "role": "system",
-                    "content": [
-                        {
-                            "type": "input_text",
-                            "text": f"You are a helpful assistant. The user will provide you with short terms, names, "
-                                    f"or references — including people, places, events, organizations, or artistic concepts.\n\n"
-                                    f"For each input, provide a clear, short and concise description (1–3 sentences) to help "
-                                    f"the user understand what the term means or refers to.\n\n"
-                                    f"Always use your web search tool to include up-to-date and relevant information, "
-                                    f"especially for people, institutions, or events that may have recent developments.\n\n"
-                                    f"Your explanations should be factual, accessible, and easy to understand for a "
-                                    f"general audience. Avoid technical jargon unless it's essential.\n\n"
-                                    f"IMPORTANT: Do not include citations, links, or source references in your response. "
-                                    f"Do not use footnotes or annotations. Just provide the information directly.\n\n"
-                                    f"IMPORTANT: The description should be short and concise. 3 sentences max.\n\n"
-                                    f"IMPORTANT: Always respond in {current_language}."
-                        }
-                    ]
-                },
-                {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "input_text",
-                            "text": messages_4
-                        }
-                    ]
-                }
-            ],
-            stream=True,
-        )
-        for event in stream:
-            if event.type == "response.output_text.delta":
-                yield f"data: {json.dumps({'type': 'delta', 'content': event.delta})}\n\n"
-            elif event.type == "response.completed":
-                yield f"data: {json.dumps({'type': 'complete'})}\n\n"
+        try:
+            stream = client.responses.create(
+                model="gpt-4o-mini",
+                tools=[
+                    {
+                        "type": "web_search_preview",
+                    }
+                ],
+                input=[
+                    {
+                        "role": "system",
+                        "content": [
+                            {
+                                "type": "input_text",
+                                "text": f"You are a helpful assistant. The user will provide you with short terms, names, "
+                                        f"or references — including people, places, events, organizations, or artistic concepts.\n\n"
+                                        f"For each input, provide a clear, short and concise description (1–3 sentences) to help "
+                                        f"the user understand what the term means or refers to.\n\n"
+                                        f"Always use your web search tool to include up-to-date and relevant information, "
+                                        f"especially for people, institutions, or events that may have recent developments.\n\n"
+                                        f"Your explanations should be factual, accessible, and easy to understand for a "
+                                        f"general audience. Avoid technical jargon unless it's essential.\n\n"
+                                        f"IMPORTANT: Do not include citations, links, or source references in your response. "
+                                        f"Do not use footnotes or annotations. Just provide the information directly.\n\n"
+                                        f"IMPORTANT: The description should be short and concise. 3 sentences max.\n\n"
+                                        f"IMPORTANT: Always respond in {current_language}."
+                            }
+                        ]
+                    },
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "input_text",
+                                "text": messages_4
+                            }
+                        ]
+                    }
+                ],
+                stream=True,
+            )
+            for event in stream:
+                if event.type == "response.output_text.delta":
+                    yield f"data: {json.dumps({'type': 'delta', 'content': event.delta})}\n\n"
+                elif event.type == "response.completed":
+                    yield f"data: {json.dumps({'type': 'complete'})}\n\n"
+        except Exception as e:
+            print(f"Websearch streaming error: {str(e)}")
+            yield f"data: {json.dumps({'type': 'error', 'content': 'Websearch failed'})}\n\n"
 
     return Response(
         stream_with_context(generate()),
