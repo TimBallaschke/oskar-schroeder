@@ -1,0 +1,2654 @@
+{
+  "format": 1,
+  "branch": "codex/archive-legacy-snapshots",
+  "date_source": "Original folder-name dates; actual modification dates were not inferred.",
+  "restore": "Find the original folder name in snapshots, then check out its commit. Git LFS is required for the oversized historical image. Environment files, databases and sessions are preserved only in the separate private local backup.",
+  "snapshots": [
+    {
+      "folder": "241029_Oskar_Website",
+      "source_files": 3,
+      "private_files": 1,
+      "commit": "214d29f3409484f2a83d47bc1b4d168779d9080d"
+    },
+    {
+      "folder": "241029b_Oskar_Website_nostreaming",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "603ddc3e5aa7a9d4c117a22e245f7372e22db22d"
+    },
+    {
+      "folder": "241029c_Oskar_Website",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "deac47af86cc6f57bdb8da2680ad2f5fd5ad57e4"
+    },
+    {
+      "folder": "241113_Oskar_Website",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "bb1163e2cae3cce5284a09e5498d71c447aaec83"
+    },
+    {
+      "folder": "241114_Oskar_Website_streaming",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "bba4ab1a373353654d26b3593f8642bda0f0bd1a"
+    },
+    {
+      "folder": "241114b_Oskar_Website",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "de88750975d1e2840a31506e32917f5c205484ca"
+    },
+    {
+      "folder": "241114c_Oskar_Website_no_interface",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "d42d72648e543d696d0de3a3476ee21c4e10843f"
+    },
+    {
+      "folder": "241114d_Oskar_Website_structured_Output",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "8e045f099aa1862a94735230135db94ec568c342"
+    },
+    {
+      "folder": "241114e_Oskar_Website_structured_output",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "1d22102adf37bf830348201a0ec6bd580968f8a8"
+    },
+    {
+      "folder": "241114f_Oskar_Website_structured_output",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "2e7511c3319b5bbd395d8bb2e37eb791146f52b7"
+    },
+    {
+      "folder": "241119_Oskar_Website_structured_output",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "8494d29e142dcd3e7fe1c4eac8ce596c3052db2a"
+    },
+    {
+      "folder": "241119b_Oskar_Website_structured_output",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "8fc2b83b07d3451ed35baefd2667f7ca9b2dc5cb"
+    },
+    {
+      "folder": "241119c_Oskar_Website_structured_output",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "16610eb7329547095d3d15ed7615b9617cce95a5"
+    },
+    {
+      "folder": "241119d_Oskar_Website_structured_output",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "c9a93e98c81aa656eb9394ede6e5727cb066be1b"
+    },
+    {
+      "folder": "241121_Oskar_Website_json_fetch_frontend",
+      "source_files": 6,
+      "private_files": 1,
+      "commit": "a88dce33d20afc960611732f7ef99c453b930854"
+    },
+    {
+      "folder": "241122_Oskar_Website_DIVs_for_projects",
+      "source_files": 8,
+      "private_files": 1,
+      "commit": "96a6002c5aedec647226b710423604ac752f3e64"
+    },
+    {
+      "folder": "241122b_Oskar_Website_new_strcutured_output",
+      "source_files": 8,
+      "private_files": 1,
+      "commit": "d0c683982973a702fc009df9b6db3306bfe1d154"
+    },
+    {
+      "folder": "241122c_Oskar_Website_DIVs_for_projects_NEW",
+      "source_files": 8,
+      "private_files": 1,
+      "commit": "bd9acdb5b8bdd45d101ee6d3e197646641e7d5dc"
+    },
+    {
+      "folder": "241122d_Oskar_Website_information displayed_onwebpage",
+      "source_files": 8,
+      "private_files": 1,
+      "commit": "13d30c3d337ab092b34365eed39ef8ca179da54d"
+    },
+    {
+      "folder": "241122e_Oskar_Website_promp_proposals",
+      "source_files": 8,
+      "private_files": 1,
+      "commit": "a8fb166211d2453dde6cd22c2961bcd4e57942b9"
+    },
+    {
+      "folder": "241122f_Oskar_Website_invalid_requests",
+      "source_files": 8,
+      "private_files": 1,
+      "commit": "7b691006145789ba14726386e47670b91a15fc0c"
+    },
+    {
+      "folder": "241129_Oskar_Website_grid_layout",
+      "source_files": 8,
+      "private_files": 1,
+      "commit": "34b8d436801144c5ca905ff1599d9c7a4989617a"
+    },
+    {
+      "folder": "241129b_Oskar_Website_new_system_prompt",
+      "source_files": 9,
+      "private_files": 1,
+      "commit": "202924496a8ffa392ab8ec941f63a918f11f3184"
+    },
+    {
+      "folder": "241129c_Oskar_Website_images(try)",
+      "source_files": 58,
+      "private_files": 1,
+      "commit": "e63781d2add516724258033255d499d8e33d98f9"
+    },
+    {
+      "folder": "241202_Oskar_Website_(prompt_proposals_eventlistener)",
+      "source_files": 73,
+      "private_files": 1,
+      "commit": "1fab966373a2fd793c38d5451d0dde657e7fb4ca"
+    },
+    {
+      "folder": "241203_Oskar_Website_placeholder_informations_projects",
+      "source_files": 73,
+      "private_files": 1,
+      "commit": "5c3dd43b25a94f93e4ce5834d8751ddd8afca240"
+    },
+    {
+      "folder": "241203b_Oskar_Website_new_systemprompt",
+      "source_files": 75,
+      "private_files": 1,
+      "commit": "46766937caeb888803ba995e022508d1251e1f53"
+    },
+    {
+      "folder": "241203c_Oskar_Website_multiple_images",
+      "source_files": 75,
+      "private_files": 1,
+      "commit": "479f3a1f2cd4c3268e8198acc4e099aea0d7d4af"
+    },
+    {
+      "folder": "241204_Oskar_Website_multiple_images_name_info_span",
+      "source_files": 75,
+      "private_files": 1,
+      "commit": "40797e807ddc734f720ebce3916bed84d228982c"
+    },
+    {
+      "folder": "241204b_Oskar_Website_systemprompt_improved",
+      "source_files": 75,
+      "private_files": 1,
+      "commit": "3e2c6746796e864d116e298e4fa7f2979cb285e1"
+    },
+    {
+      "folder": "241204c_Oskar_Website_assistant_message_appended_cookies_too_large",
+      "source_files": 75,
+      "private_files": 1,
+      "commit": "6e238b8a310aed662a29aebdd87d0b40ce11cfcd"
+    },
+    {
+      "folder": "241204d_Oskar_Website_serverside_sessionstorage",
+      "source_files": 75,
+      "private_files": 3,
+      "commit": "ed6405c3bf12f8fb25feccb10d22f33aa37f25cb"
+    },
+    {
+      "folder": "241204e_Oskar_Website_longPrompt",
+      "source_files": 75,
+      "private_files": 3,
+      "commit": "3efda3c599823500d73ef09b340a13beebfdd274"
+    },
+    {
+      "folder": "241204f_Oskar_Website_shortPrompt",
+      "source_files": 75,
+      "private_files": 3,
+      "commit": "b460d51b4064b31313ab5958e29e06e987d7a009"
+    },
+    {
+      "folder": "241204g_Oskar_Website_longPrompt_reworked",
+      "source_files": 75,
+      "private_files": 3,
+      "commit": "affd3eb044cbe89569dfd99023fb2c1965ba000b"
+    },
+    {
+      "folder": "250104_Oskar_Website",
+      "source_files": 75,
+      "private_files": 5,
+      "commit": "af5184ed18ab5b487bc9e3d576468cca4ecd8ab0"
+    },
+    {
+      "folder": "250106_Oskar_Website_new_structured_output",
+      "source_files": 75,
+      "private_files": 3,
+      "commit": "de9336536a95476ee3a755f584301116fe424c53"
+    },
+    {
+      "folder": "250106b_Oskar_Website_structured_output_approach_1",
+      "source_files": 75,
+      "private_files": 3,
+      "commit": "9c36228892c2f4d214bfa76edabc3080f5633467"
+    },
+    {
+      "folder": "250106c_Oskar_Website_structured_Output_approach_2",
+      "source_files": 75,
+      "private_files": 8,
+      "commit": "c5795a34b1f387aee3da298e092028918f9884e3"
+    },
+    {
+      "folder": "250107_Oskar_Website",
+      "source_files": 75,
+      "private_files": 8,
+      "commit": "d3fcbe9a30193b33d159a2a559c46ccbe3385a0d"
+    },
+    {
+      "folder": "250107b_Oskar_Website",
+      "source_files": 75,
+      "private_files": 8,
+      "commit": "a8616839fe21a73b6c1d9f9d549ca922cf843d20"
+    },
+    {
+      "folder": "250107c_Oskar_Website_streaming_structured_output",
+      "source_files": 77,
+      "private_files": 8,
+      "commit": "2cfec3163d6f3c9db5aa818eba101c1cc90c24af"
+    },
+    {
+      "folder": "250107d_Oskar_Website_streaming_structured_output",
+      "source_files": 77,
+      "private_files": 9,
+      "commit": "82853afa8b4ff9c0853625ad807b7685f3ef1366"
+    },
+    {
+      "folder": "250107e_Oskar_Website_pass_streaming_to_frontend_try",
+      "source_files": 77,
+      "private_files": 9,
+      "commit": "13f5513b57eb02e26f48d90776ff7662178ad445"
+    },
+    {
+      "folder": "250107f_Oskar_Website_streaming_frontend_try",
+      "source_files": 76,
+      "private_files": 9,
+      "commit": "0f8b4154801609fcb3659adff78bdcbf19ccdf69"
+    },
+    {
+      "folder": "250127_Oskar_Website",
+      "source_files": 76,
+      "private_files": 9,
+      "commit": "5718f80ac50b34fade156b4f57f24a01fdfa6268"
+    },
+    {
+      "folder": "250127b_Oskar_Website_console.log_streamed_response",
+      "source_files": 77,
+      "private_files": 10,
+      "commit": "1e64171f6631ae39f11b611cbb08cc28812679b0"
+    },
+    {
+      "folder": "250127c_console.log_streamed_response_parsed_Oskar_Website",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "e6524c75789f18fcfd7a77e7f5b47ac2829ee96a"
+    },
+    {
+      "folder": "250127d_Oskar_Website_eventSource_handling",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "e394de2be7cfb00ecf5c4c5b942b53d4711f2a7f"
+    },
+    {
+      "folder": "250127e_Oskar_Website_handling_of_loading",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "95578b716b269fecf1cc3880b1d013ad3e169a7d"
+    },
+    {
+      "folder": "250128_Oskar_Website_createHTML_first_try",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "dd229dfe5017c897c41d1cb3bcff39f6a61d73df"
+    },
+    {
+      "folder": "250128b_Oskar_Website_createHTML_no_duplacte_components",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "898e8140229d9938d7b5715698ee90e2cd7ddbf9"
+    },
+    {
+      "folder": "250128c_Oskar_Website",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "fb643f84449e643f97d03709b619bcb6dd5880a2"
+    },
+    {
+      "folder": "250128d_Oskar_Website_component_id",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "4cd5fc6a63d68596c2a18f087cc9a5f8739d9d1c"
+    },
+    {
+      "folder": "250128e_Oskar_Website_correct_appending_of_paragraphs",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "bda79a5cc7cc9fa03a196c7d657138052bfa11d9"
+    },
+    {
+      "folder": "250128f_Oskar_Website_add_paragraphs_DOM",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "9975ddb644bd89f506bafd9fc61230a6be638ea7"
+    },
+    {
+      "folder": "250128g_Oskar_Website_failed_async_await",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "18b5c35f37e5550d27ce1b634361885ef121b74a"
+    },
+    {
+      "folder": "250128h_Oskar_Website_word_by_word_try",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "7291584148ff8d28672b7cb3240ca33050f9135e"
+    },
+    {
+      "folder": "250128i_Oskar_Website_component_by_component_try",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "261b9e6b1edb5ef004e0a44930d1bb24e7af0e3b"
+    },
+    {
+      "folder": "250128j_Oskar_Website_component_by_component_try",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "0931ba812ef15845c5d31355a9088b5fb7cb8e34"
+    },
+    {
+      "folder": "250128k_Oskar_Website_async_frame",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "3a25b98ae1a4c5fceeb0d507cef20866b602b57b"
+    },
+    {
+      "folder": "250128l_Oskar_Website_async_await",
+      "source_files": 77,
+      "private_files": 11,
+      "commit": "0fd108dd1cb7644817196afc05c7336c9e4bcd1b"
+    },
+    {
+      "folder": "250129_Oskar_Website_promise_inside_promise",
+      "source_files": 77,
+      "private_files": 12,
+      "commit": "bbe6e1a77e67f363ce07739e78f20ab7d292895e"
+    },
+    {
+      "folder": "250129b_Oskar_Website_map_from_streamed_data",
+      "source_files": 77,
+      "private_files": 12,
+      "commit": "cd880fc94681a43b5b91992e58cbd2c9fecdc697"
+    },
+    {
+      "folder": "250129c_Oskar_Website_rendering_queu_map_try",
+      "source_files": 77,
+      "private_files": 12,
+      "commit": "6209728ced798493d51aefa438fd0d6fbd8d2e24"
+    },
+    {
+      "folder": "250129d_Oskar_Website_rendering_queu_retry",
+      "source_files": 77,
+      "private_files": 12,
+      "commit": "fcae0fce8374d7fce2eafe3e10c673c0b8fc4406"
+    },
+    {
+      "folder": "250129e_Oskar_Website_rendering_queu",
+      "source_files": 77,
+      "private_files": 12,
+      "commit": "9644ce5f49c2109d81322192048ea8d8db1bc4c2"
+    },
+    {
+      "folder": "250203_Oskar_Website_renderingQueue",
+      "source_files": 77,
+      "private_files": 13,
+      "commit": "fb62fd6e075d6c487111ddd9063d2ad76573b3e0"
+    },
+    {
+      "folder": "250203b_Oskar_Website_rendering_queue",
+      "source_files": 77,
+      "private_files": 13,
+      "commit": "8e0bd06c5d7b867c420af49c65a7a58f73df11a6"
+    },
+    {
+      "folder": "250203c_Oskar_Website_Friedl_Font",
+      "source_files": 78,
+      "private_files": 14,
+      "commit": "0b5a47a0c87478a2c3de6d31d33fa559e9aa128a"
+    },
+    {
+      "folder": "250203d_Oskar_Website_processed_class",
+      "source_files": 78,
+      "private_files": 14,
+      "commit": "e2341de40e6470297e309866ef5b789f5054c313"
+    },
+    {
+      "folder": "250203e_Oskar_Website_indent",
+      "source_files": 78,
+      "private_files": 14,
+      "commit": "225e5c7a878e18b3a5f0ba0e38a50ed64a448da7"
+    },
+    {
+      "folder": "250204_Oskar_Website",
+      "source_files": 78,
+      "private_files": 17,
+      "commit": "76a09ee035dfc25e0c3a1a1b99da97f1f9d7551c"
+    },
+    {
+      "folder": "250204b_Oskar_Website_multiple_files_py",
+      "source_files": 79,
+      "private_files": 17,
+      "commit": "89f8455fd1e6ca80ea07b798807e8460ab72e77f"
+    },
+    {
+      "folder": "250204c_Oskar_Website_second_bot_backend",
+      "source_files": 79,
+      "private_files": 17,
+      "commit": "719138224e750b067c8cab8726339c4bf70dd69c"
+    },
+    {
+      "folder": "250204d_Oskar_Website_second_bot_frontend",
+      "source_files": 79,
+      "private_files": 17,
+      "commit": "350cb3e3eff7be3b08abe723a8adcb9e19642c63"
+    },
+    {
+      "folder": "250204e_Oskar_Website_save_each_response",
+      "source_files": 79,
+      "private_files": 17,
+      "commit": "b153ae9872727df4c0c95bdbfa8f64ca0a863442"
+    },
+    {
+      "folder": "250205_Oskar_Website_versionHistory_html_updated",
+      "source_files": 79,
+      "private_files": 20,
+      "commit": "f9f1968018eab5b9c55eca62ea2b12454674c3d1"
+    },
+    {
+      "folder": "250205b_Oskar_Website_move_to_previous_version",
+      "source_files": 79,
+      "private_files": 20,
+      "commit": "77c44ca9c8d8dcfdb3203541931c68a296ea3614"
+    },
+    {
+      "folder": "250205c_Oskar_Website_versionHistory",
+      "source_files": 79,
+      "private_files": 20,
+      "commit": "73c20b17d5784cabf9939c9633ca5ca1b5478f77"
+    },
+    {
+      "folder": "250205d_Oskar_Website_prompt_html_update",
+      "source_files": 79,
+      "private_files": 20,
+      "commit": "e21048228941d1baa7447bb16855a005e0264827"
+    },
+    {
+      "folder": "250205e_Oskar_Website_SCSS_structure",
+      "source_files": 86,
+      "private_files": 20,
+      "commit": "ad8a943409f0f1658cef6b0d76c5ae801e2a3678"
+    },
+    {
+      "folder": "250206_Oskar_Website_CSS_bottomNav",
+      "source_files": 86,
+      "private_files": 21,
+      "commit": "8eaff4a472e8e0c3f8695d2cded02e22f22acdc9"
+    },
+    {
+      "folder": "250206b_Oskar_Website_buttons_bottomNav",
+      "source_files": 86,
+      "private_files": 21,
+      "commit": "c8b466f68c5ee9497b7cc06a8142fdb4b69ef4c1"
+    },
+    {
+      "folder": "250206c_Oskar_Website_project_processing_first_try",
+      "source_files": 86,
+      "private_files": 21,
+      "commit": "6d33d3b51fd641790ec19b1673d68a5650cf8938"
+    },
+    {
+      "folder": "250206d_Oskar_Website_project_create_try",
+      "source_files": 86,
+      "private_files": 21,
+      "commit": "0a4d2570280fda16c968b70980f04f1d0e52fa43"
+    },
+    {
+      "folder": "250206e_Oskar_Website",
+      "source_files": 86,
+      "private_files": 21,
+      "commit": "a0500fe12769d120ca5f272e80276d46add85682"
+    },
+    {
+      "folder": "250206f_Oskar_Website_project_rendering_try",
+      "source_files": 86,
+      "private_files": 21,
+      "commit": "aba552a6c279825588fbea0464a9c6b9cc407e15"
+    },
+    {
+      "folder": "250206g_Oskar_Website_project_rendering",
+      "source_files": 86,
+      "private_files": 22,
+      "commit": "88eeb70f36ee39071739d83222ac4999c8d7de16"
+    },
+    {
+      "folder": "250206h_Oskar_Website_number_works",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "601c18265b6fafa8a65cc86056762d9c89b97297"
+    },
+    {
+      "folder": "250206i_Oskar_Website_paragraph_with_new_approach",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "d760cdedaf4795f6b2a2010b72ac481f1d2dbc2a"
+    },
+    {
+      "folder": "250206l_Oskar_Website_image_URLs_not_redundant",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "3b5a86019858af97675bb7e6f3fad3407bb7faa9"
+    },
+    {
+      "folder": "250206m_Oskar_Website_url_not_redundant",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "e500d601190aa01b574242a5bb575af2e97717a3"
+    },
+    {
+      "folder": "250207_Oskar_Website_animate_in_project_data",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "cadb6453c2728ff60b239f90c38256e70d298aa1"
+    },
+    {
+      "folder": "250207b_Oskar_Website_img_scroller_css",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "6d364789e5b9ac863ff1d0e281fec05ffe1b346e"
+    },
+    {
+      "folder": "250207c_Oskar_Website_image_slider_generate",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "bf30ece1b0eafc37de40572b534eef9c03e4f18a"
+    },
+    {
+      "folder": "250207d_Oskar_Website_slider_generate_update_number",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "a088b410072d4090641e4dca79856ed3387c1ca7"
+    },
+    {
+      "folder": "250207e_Oskar_Website_image_counter_works",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "136cf09135c6917de2fa1768453f107139735090"
+    },
+    {
+      "folder": "250207f_Oskar_Website_text_offset",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "4a00d33a05e01f1bef60b430fc2c8b6d32afc112"
+    },
+    {
+      "folder": "250207g_Oskar_Website_project_info_padding",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "9da04e5ee0378ef7729e960c1079893cc18c78f7"
+    },
+    {
+      "folder": "250207h_Oskar_Website_genereateProject_speed_up",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "be3e7d8e05f61062d0ad51d102ff09c8f6c63319"
+    },
+    {
+      "folder": "250207i_Oskar_Website_span_every_word",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "43a2962438e35fece90efc69628351da19b4b612"
+    },
+    {
+      "folder": "250207j_Oskar_Website_content_fade_out",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "e4a7e284532db6ab1579700b0130b223190a103b"
+    },
+    {
+      "folder": "250207k_Oskar_Website_selected_dot",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "837b58ddb1fe781463ee92d531653d07bdc91443"
+    },
+    {
+      "folder": "250207l_Oskar_Website_image_URLs",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "b6cfb2d7b2dc439070a7dcf04aa24580dfd0b36c"
+    },
+    {
+      "folder": "250207m_Oskar_Website_version_history_open",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "e2ebf4f6c5a457a183f1755dcc86480d3443ca38"
+    },
+    {
+      "folder": "250207n_Oskar_Website_version_history_close",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "67ba7ca8d03a7f1a38dc6503bfaac68df395e299"
+    },
+    {
+      "folder": "250207o_Oskar_Website_headline_projects",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "0ecae342f5a9c077c10c7a37d0c79b7fbc797de6"
+    },
+    {
+      "folder": "250207p_Oskar_Website_speed_up_project_rendering",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "1093ae04c59a208ed5b04cb33e376456cca190b2"
+    },
+    {
+      "folder": "250207q_Oskar_Website_input_glow",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "1dc98430f28869124a68f8f152608a6d27493121"
+    },
+    {
+      "folder": "250210_Oskar_Website",
+      "source_files": 86,
+      "private_files": 24,
+      "commit": "8c78c5ccd108e3610ec8508108404b321d226a97"
+    },
+    {
+      "folder": "250210b_Oskar_Website_project_description_output",
+      "source_files": 86,
+      "private_files": 24,
+      "commit": "b1e50037ebe7e49b7793f9f739b564dec64267a3"
+    },
+    {
+      "folder": "250210c_Oskar_Website_grid:fullscreen_response",
+      "source_files": 86,
+      "private_files": 24,
+      "commit": "8aa0bc56b51a7af19c6035e3004712cd8af6c312"
+    },
+    {
+      "folder": "250210d_Oskar_Website_top_title",
+      "source_files": 86,
+      "private_files": 24,
+      "commit": "736d166dc73edac436e9633c0b27e2f9adaaf14a"
+    },
+    {
+      "folder": "250210e_Oskar_Website_clearContent_light",
+      "source_files": 86,
+      "private_files": 24,
+      "commit": "e3ec978c4f3b86e4b72ba7926ff55ebcf5db793b"
+    },
+    {
+      "folder": "250210f_Oskar_Website_project_desciption_sentence_by_sentence",
+      "source_files": 86,
+      "private_files": 24,
+      "commit": "a121d61fbef41def4a9353d4f126005e77495b33"
+    },
+    {
+      "folder": "250210g_Oskar_Website_description_streaming_logic_incorrect?",
+      "source_files": 86,
+      "private_files": 24,
+      "commit": "1ca15aed19249bf804abdeaa3ee1f0a95baed101"
+    },
+    {
+      "folder": "250210h_Oskar_Website_discription_streaming_incorrect?",
+      "source_files": 86,
+      "private_files": 24,
+      "commit": "7753274f132d3a01b4987e26cc95ce4db9b4b6a3"
+    },
+    {
+      "folder": "250210i_Oskar_Website",
+      "source_files": 86,
+      "private_files": 24,
+      "commit": "5f5639ccbfe4470b61fb1b65aed4977e7f5f0674"
+    },
+    {
+      "folder": "250210j_Oskar_Website_third_chatbot",
+      "source_files": 86,
+      "private_files": 25,
+      "commit": "9a11cddd89114e8c00ebac30cbe4dac8db60d32f"
+    },
+    {
+      "folder": "250210k_Oskar_Website_selectedProject",
+      "source_files": 86,
+      "private_files": 25,
+      "commit": "31a13ede16a0ae1084ec14971db65c7d442357a3"
+    },
+    {
+      "folder": "250210l_Oskar_Website_selectedProject_sendingback_rework",
+      "source_files": 86,
+      "private_files": 25,
+      "commit": "5211fb6699943ce34e3906d43ccb275f519f735a"
+    },
+    {
+      "folder": "250210m_Oskar_Website_pydenticModel_flags",
+      "source_files": 86,
+      "private_files": 26,
+      "commit": "94bfb5ee45af2e8bac65b01fb47699c18e97cdf3"
+    },
+    {
+      "folder": "250210n_Oskar_Website_objectCorrectlyPassed",
+      "source_files": 86,
+      "private_files": 26,
+      "commit": "c3c491c66232687e35e84f8b1d2170b795494698"
+    },
+    {
+      "folder": "250210o_Oskar_Website_selectedComponent_HTML_element",
+      "source_files": 86,
+      "private_files": 26,
+      "commit": "6ef8c67918ed652304b1ebef79b87095f52e7ebf"
+    },
+    {
+      "folder": "250210p_Oskar_Website_pydentic_Rework",
+      "source_files": 86,
+      "private_files": 26,
+      "commit": "f6329950ae51cbc47f6a1f10f9b8d3e59043b37a"
+    },
+    {
+      "folder": "250210q_Oskar_Website_component_rework",
+      "source_files": 86,
+      "private_files": 26,
+      "commit": "413411f4161d4ebb528bd45ced4053fbdd61f452"
+    },
+    {
+      "folder": "250213_Oskar_Website_line_dot_first_steps",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "2044ef4346d27d4d0c906c4909426eb9737b6979"
+    },
+    {
+      "folder": "250213_Oskar_Website_next_steps_dot_line",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "a4e543904a0d7700dfb8ec9e720aa2fa5561d423"
+    },
+    {
+      "folder": "250213b_Oskar_Website_line_dot_second_steps",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "d954503d917b0ec7889a68371f59ae0c513d88d1"
+    },
+    {
+      "folder": "250213c_Oskar_Website_line_dot",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "336887319969377c02605f7b898d896a0d60ef69"
+    },
+    {
+      "folder": "250213d_Oskar_Website_body_no_overscroll",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "9330b9c9f3a3ae4c7b614a3ec7309f32d19f429a"
+    },
+    {
+      "folder": "250218_Oskar_Website",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "67be6387f9e2b5b040413fb91749aabe85ca1882"
+    },
+    {
+      "folder": "250218b_Oskar_Website_layout_projects",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "98ab9c6d5de8f0424d762acf68ab6ba31a1c1277"
+    },
+    {
+      "folder": "250218c_Oskar_Website_animation_projects",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "300c0d744010619371de62fa0d9ffbfc85665b02"
+    },
+    {
+      "folder": "250218d_Oskar_Website_image_digits_process",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "b4d4643f542b098fd5fd7ac92c537555e2e91fbc"
+    },
+    {
+      "folder": "250218e_Oskar_Website_image_digits_process2",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "a5e20e5c2193750b527b9052474582276c20ffc8"
+    },
+    {
+      "folder": "250218f_Oskar_Website_image_digits",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "b235ac91e8021f8bfcc347bd9cbf32b67ccb178f"
+    },
+    {
+      "folder": "250218g_Oskar_Website_project_animation_hackt",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "bb1768ec691be787b090e2079a645a2ef2fdad60"
+    },
+    {
+      "folder": "250218h_Oskar_Website",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "eb15c0f59cd5187095b6312d32576dfd65239cab"
+    },
+    {
+      "folder": "250218i_Oskar_Website_closeButtonLine",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "5d1ac80d85af6790a95ba32752b2e646fe869a4d"
+    },
+    {
+      "folder": "250218j_Oskar_Website_moveElementsOpenButtonLine",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "ba6d8fb890a2ba5fedd7ffe14a99ceb3f6865e91"
+    },
+    {
+      "folder": "250218k_Oskar_Website_selectComponent",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "cf8aa7393b6b8134987024510d5f34fb6987cf41"
+    },
+    {
+      "folder": "250219_Oskar_Website_table_first_approach",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "ff859ac6e53b79faa9d6fadd776c40e976e2549d"
+    },
+    {
+      "folder": "250219b_Oskar_Website_Table_not_async",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "8a6238c39b0d5daf5a6108b1abc3691ee3c4089d"
+    },
+    {
+      "folder": "250219c_Oskar_Website_async_rowItems",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "a27b58117f397b2031dc298bf735700973307df5"
+    },
+    {
+      "folder": "250219d_Oskar_Website_async_rows",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "8ae588a0d8bde45a36647576feaf33f6ee4014ba"
+    },
+    {
+      "folder": "250219e_Oskar_Website_line_draws",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "19588240606306fd9380c38b5ad16793b56ed7e6"
+    },
+    {
+      "folder": "250219f_Oskar_Website_table",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "5cc8d32f571833a1a96d97ce1660d41431de2cac"
+    },
+    {
+      "folder": "250219g_Oskar_Website_description_animate_container_expansion",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "5bcc0c02a342b507e96e8aef0f7d9272b8889e09"
+    },
+    {
+      "folder": "250219h_Oskar_Website_description_animate_deltaRework",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "c237a71a6f7df840b3c388a4bf28945afbe0ace4"
+    },
+    {
+      "folder": "250219i_Oskar_Website_reworkDelta",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "9f44bb879557c545ba6ff0d0f6265afd51a5da81"
+    },
+    {
+      "folder": "250219j_Oskar_Website_description_rework",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "1f204a67bc8f59715520a1e89d7ade8d750134ca"
+    },
+    {
+      "folder": "250219k_Oskar_Website_target_all_elements_after_selected",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "4e953a5a2cb5c96316c82085ab7fc3728fa3952e"
+    },
+    {
+      "folder": "250219l_Oskar_Website_animate_width_version_history",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "3d8c46dbe3d9e00c9e25ac00ffffa94813d7627d"
+    },
+    {
+      "folder": "250219m_Oskar_Website_version_history_animate_width",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "610bf8b4f3d3f14fcc7a150df14a42652ac2070f"
+    },
+    {
+      "folder": "250220_Oskar_Website_table",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "287a5250efe17c6bd0f683363405dab39c06ac4e"
+    },
+    {
+      "folder": "250221_Oskar_Website_only_first_project_no-width_animation",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "9bae4b378d624fdfd21e16307c283fbfa16a6c0e"
+    },
+    {
+      "folder": "250221_Oskar_Website_only_first_project_noWidth_animation",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "55795c88fddb6f05af78ec28d25b0227eef6aca6"
+    },
+    {
+      "folder": "250221b_Oskar_Website_padding_table_animation_not_working",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "22756efece4ea99512668f6ec615c80379398c6a"
+    },
+    {
+      "folder": "250224_Oskar_Website_prompt_dots",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "e62177fa7fbef6cbc129f29b5ff30e342aef8f48"
+    },
+    {
+      "folder": "250227_Oskar_Website_table",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "737991868ec64ce2fdae84faeb9e69fcc5d559b0"
+    },
+    {
+      "folder": "250227b_Oskar_Website_table",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "039e5f14347f887b932dcd0d3142399bcdf28395"
+    },
+    {
+      "folder": "250227c_Oskar_Website_table_word_by_word",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "289fdc9f4279de042d0bc5d041bd7fc233634877"
+    },
+    {
+      "folder": "250227d_Oskar_Website_table_word_by_word_2_columns",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "241d116a679716445254fcc9388d95e4c73dc2e7"
+    },
+    {
+      "folder": "250227e_Oskar_Website_line_by_line_table",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "6a5413cf2308d76c43740cbdb650c65e2f9681cd"
+    },
+    {
+      "folder": "250227f_Oskar_Website_table_all_headers_at_once",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "64bfd95a2e44366f180fe8c7f657507944c09496"
+    },
+    {
+      "folder": "250228_Oskar_Website_table_row_all_headers_at_once",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "1230aa05c7f6b5a013c4df79137fdf0d268b4905"
+    },
+    {
+      "folder": "250228b_Oskar_Website_table_row_all_headers_at_once",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "7b4d7d0d4b807e8efd15a0d5edfb0b02b0b75f69"
+    },
+    {
+      "folder": "250228c_Oskar_Website_table_row_all_headers",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "7ffda1f991658fc7a5915a42b0cc1d958b0c5e0d"
+    },
+    {
+      "folder": "250228d_Oskar_Website_table_row_modular_try",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "37f6db80fe6a7a63cb916009af057ab95d1e9cbd"
+    },
+    {
+      "folder": "250228e_Oskar_Website_table_row_modular_try",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "21c254876fcaf585fc4da73385597096fa1f2294"
+    },
+    {
+      "folder": "250228f_Oskar_Website_table_row_modular_try",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "7a8283040ab000605fcbf964a682a004baf63f7e"
+    },
+    {
+      "folder": "250228g_Oskar_Website_table_row",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "fa6d840739771f7479da140cf3548f1a65327e71"
+    },
+    {
+      "folder": "250228h_Oskar_Website_table_row",
+      "source_files": 86,
+      "private_files": 27,
+      "commit": "847ffb2f6865ef52824458e40d4581f2d05acfb8"
+    },
+    {
+      "folder": "250308_Oskar_Website_start_overview_projects",
+      "source_files": 86,
+      "private_files": 28,
+      "commit": "e0caef8bd38dbdca5768329027a67b16ca208871"
+    },
+    {
+      "folder": "250308b_Oskar_Website_grid_leftColumn_rightColumn_start",
+      "source_files": 86,
+      "private_files": 28,
+      "commit": "3e4cd8e89a57f0b44c6dca3b219de27252bcf705"
+    },
+    {
+      "folder": "250308c_Oskar_Website_overview_project_images_one_after_another",
+      "source_files": 86,
+      "private_files": 28,
+      "commit": "4e48bcef498c72dd4fcfb2b58556ade2cc0118d5"
+    },
+    {
+      "folder": "250308d_Oskar_Website_projects_grid_all_images_at_ones",
+      "source_files": 86,
+      "private_files": 28,
+      "commit": "dd8d5e12dc93a0f7e6ab39e396328dd59db11d2f"
+    },
+    {
+      "folder": "250308e_Oskar_Website_projects_overview_image_one_by_one",
+      "source_files": 86,
+      "private_files": 29,
+      "commit": "2ca10f997513d91a6f1f2871d7d40b6fcfb9f5e6"
+    },
+    {
+      "folder": "250308e_Oskar_Website_streaming_finished_response_object",
+      "source_files": 86,
+      "private_files": 29,
+      "commit": "a81794e467c1446cdf88d15460dd3cbdaad4bb53"
+    },
+    {
+      "folder": "250308f_Oskar_Website_project_overview_all_info",
+      "source_files": 86,
+      "private_files": 29,
+      "commit": "c4fa25e75d342d40f272982f3b1904a04d3831bb"
+    },
+    {
+      "folder": "250308g_Oskar_Website_project_overview_only_title",
+      "source_files": 86,
+      "private_files": 29,
+      "commit": "f0b6af296fe65b1ecacfe1a984b966333e85fda1"
+    },
+    {
+      "folder": "250308h_Oskar_Website_project_overview_only_title_narrow",
+      "source_files": 86,
+      "private_files": 29,
+      "commit": "ee408294b1c7ee049e6ada5c7cad1d64d80f2ea9"
+    },
+    {
+      "folder": "250313_Oskar_Website_list_py",
+      "source_files": 88,
+      "private_files": 32,
+      "commit": "24bfe62f03f4a9186d3dece6c5fe23ad456d04c0"
+    },
+    {
+      "folder": "250313b_Oskar_Website_names_in_brackets",
+      "source_files": 89,
+      "private_files": 32,
+      "commit": "46d98d962992102c0b63b825769e3c85eb2b4507"
+    },
+    {
+      "folder": "250313c_Oskar_Website_list_container",
+      "source_files": 89,
+      "private_files": 32,
+      "commit": "52d95380e2cd30c9abdd444b840cb139be235f30"
+    },
+    {
+      "folder": "250313d_Oskar_Website_list_async",
+      "source_files": 89,
+      "private_files": 32,
+      "commit": "ae05de0fa196feddc58999e05bfb9bab74f3b730"
+    },
+    {
+      "folder": "250313e_Oskar_Website_List_int",
+      "source_files": 89,
+      "private_files": 32,
+      "commit": "ffd05a8518c747f546dc8758d38776bd9293f72b"
+    },
+    {
+      "folder": "250315_Oskar_Website_list_very_quick",
+      "source_files": 89,
+      "private_files": 33,
+      "commit": "9d06293f63fd972f682b0c75d11bae50b535b528"
+    },
+    {
+      "folder": "250315b_Oskar_Website_list_slow",
+      "source_files": 89,
+      "private_files": 33,
+      "commit": "a8ba3f9fbe0a96cde586beffcc46006cc1d0ba42"
+    },
+    {
+      "folder": "250315c_Oskar_Website_list_version_history",
+      "source_files": 89,
+      "private_files": 33,
+      "commit": "3d5e6897fffeb6f7ba54bd27af5cc45a935e1af9"
+    },
+    {
+      "folder": "250315d_Oskar_Website",
+      "source_files": 89,
+      "private_files": 34,
+      "commit": "2b9aba518a3fa4485a1f7474c40766eab77cb0c2"
+    },
+    {
+      "folder": "250315e_Oskar_Website_clearContent_function_rework",
+      "source_files": 89,
+      "private_files": 34,
+      "commit": "51969cead873dd1f933421d5633077d9e2750f4b"
+    },
+    {
+      "folder": "250315f_Oskar_Website_versionHistory_without_projects",
+      "source_files": 89,
+      "private_files": 34,
+      "commit": "b6acc7b8838664ce9c8b7092a69d473768513e35"
+    },
+    {
+      "folder": "250316_Oskar_Website_project_list_first",
+      "source_files": 89,
+      "private_files": 35,
+      "commit": "c341435396cf319dfa37ddc93513309187e85f9c"
+    },
+    {
+      "folder": "250316b_Oskar_Website_overview_name_span",
+      "source_files": 89,
+      "private_files": 35,
+      "commit": "3c60fb3abb63a647fb69ff659a3575df1e4a2909"
+    },
+    {
+      "folder": "250316c_Oskar_Website_overview_projects_rework",
+      "source_files": 89,
+      "private_files": 35,
+      "commit": "dca2240f4f20c213f1a3945ebdcee8de8de64e5b"
+    },
+    {
+      "folder": "250316d_Oskar_Website_fullscreen_projects_rework",
+      "source_files": 89,
+      "private_files": 35,
+      "commit": "cc3d5862828d32d419548ca5f6acb22e8822bf49"
+    },
+    {
+      "folder": "250316e_Oskar_Website_versionHistory_projectList",
+      "source_files": 89,
+      "private_files": 35,
+      "commit": "a8f7a703a4f3fb3b3fdc435758d56d32ce9939d5"
+    },
+    {
+      "folder": "250316f_Oskar_Website_new_version_history_look",
+      "source_files": 89,
+      "private_files": 35,
+      "commit": "f604478af4aca01434b819108127a95e27f4ae74"
+    },
+    {
+      "folder": "250317_Oskar_Website_new_look_version_history",
+      "source_files": 89,
+      "private_files": 36,
+      "commit": "17b56ffee1ea670193e50968d40e78a8056452b3"
+    },
+    {
+      "folder": "250317b_Oskar_Website_stream_finished_delta",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "7bd8325bdfba03da16c19551c3c3ce20c2ad8c59"
+    },
+    {
+      "folder": "250317c_Oskar_Website_version_history_switching_between_versions",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "a06062276e92afba91e65e8a1581a70632f1a596"
+    },
+    {
+      "folder": "250317d_Oskar_Website_start_version_history",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "51cd37ed606b1f82a58dfa7eb6862fd8412dd2ba"
+    },
+    {
+      "folder": "250317e_Oskar_Website_inout_animation",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "ce9c66d518ecf2cff3d417b1f5110f9c23bd647c"
+    },
+    {
+      "folder": "250317f_Oskar_Website_sendButton_animated",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "5b864bedbbb80f3eaf47f5242ce4020830df7a12"
+    },
+    {
+      "folder": "250317g_Oskar_Website_input_bar",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "711e35a67268acda3b670bd4faaf9d7cf528b338"
+    },
+    {
+      "folder": "250317h_Oskar_Website_input_bar",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "be0c6a6cc13881d9f18ade73a7b06690fc396365"
+    },
+    {
+      "folder": "250317i_Oskar_Website_multiple_languages",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "81184649aad02c493c2b45a972ddce4ecde3f346"
+    },
+    {
+      "folder": "250317j_Oskar_Website_multiple_languages",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "cf75a26f6e89130480e5fb94a66ebe7e67d6ee32"
+    },
+    {
+      "folder": "250317k_Oskar_Website",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "4bb8f0e630f082dcf8436d252c5dfaff5eafb4e3"
+    },
+    {
+      "folder": "250318_Oskar_Website_x-button_animation",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "287f2ccf95bc4855f74f039dab3628a1a452fc6d"
+    },
+    {
+      "folder": "250318b_Oskar_Website_spans_instead_of_brackets",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "68dc20cb9ad25a9da0425cedfb720b2b0b2adf89"
+    },
+    {
+      "folder": "250318c_Oskar_Website_isStreaming_flag_improved",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "8096ffdc8e7b5c3c94154947cb176a0f5196bbfd"
+    },
+    {
+      "folder": "250318d_Oskar_Website_dots_in_text",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "21e57eca5c984595b642272cb4d98436ebaa60b1"
+    },
+    {
+      "folder": "250318e_Oskar_Website_dots_in_text",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "889896981d3fe59be33f6537b62efd172f496a68"
+    },
+    {
+      "folder": "250318f_Oskar_Website",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "9c0427970350d51d98d6d1ba4c6332f54ef01e98"
+    },
+    {
+      "folder": "250318g_Oskar_Website",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "faf7901950617fd8b33c6211023d5367f730a6fd"
+    },
+    {
+      "folder": "250318h_Oskar_Website_responsiveness",
+      "source_files": 89,
+      "private_files": 37,
+      "commit": "a0f994b0fea8fe2c2f271cc72e7840708fb4fa38"
+    },
+    {
+      "folder": "250319_Oskar_Website_responsive_first",
+      "source_files": 89,
+      "private_files": 39,
+      "commit": "b6467048e00e4b09623246778458d601d60abcdc"
+    },
+    {
+      "folder": "250319b_Oskar_Website",
+      "source_files": 89,
+      "private_files": 39,
+      "commit": "fd5fdd8d6d689b16b208641d17d4fc1a98ad4b57"
+    },
+    {
+      "folder": "250319c_Oskar_Website_Database_for_States",
+      "source_files": 90,
+      "private_files": 41,
+      "commit": "3131f3fc216e638ca0d7f6960ec26a1c5de26546"
+    },
+    {
+      "folder": "250319d_Oskar_Website_URL_generation",
+      "source_files": 90,
+      "private_files": 43,
+      "commit": "a1e5fee07e92bf312744f14ec5aaaa6c34f62d85"
+    },
+    {
+      "folder": "250319e_Oskar_Website_Data_from_URL_gets_send",
+      "source_files": 90,
+      "private_files": 43,
+      "commit": "fe292f8027078ff4b3fb8b495ee88337b0640f2b"
+    },
+    {
+      "folder": "250319f_Oskar_Website_URL_version_history",
+      "source_files": 90,
+      "private_files": 43,
+      "commit": "2210046e786f4533cbb4fb2d5e9def8df429d36b"
+    },
+    {
+      "folder": "250319g_Oskar_Website_await_renderNextProject()",
+      "source_files": 90,
+      "private_files": 43,
+      "commit": "05b4467af0641897bb6a308d540415c50c578f70"
+    },
+    {
+      "folder": "250320_Oskar_Website_no_shifting_in_paragraphs",
+      "source_files": 90,
+      "private_files": 43,
+      "commit": "b51531040bf37d6bb4583008a8319df52235f804"
+    },
+    {
+      "folder": "250320b_Oskar_Website_indent_span",
+      "source_files": 90,
+      "private_files": 43,
+      "commit": "429ffb03f7e55132d358d70bdbcb3848d23791ad"
+    },
+    {
+      "folder": "250320c_Oskar_Website_versionHistory_description_height",
+      "source_files": 90,
+      "private_files": 43,
+      "commit": "bdc40c093325b0148595ad045107ed395b5d0657"
+    },
+    {
+      "folder": "250320d_Oskar_Website_remove_italic_if_version_history",
+      "source_files": 90,
+      "private_files": 43,
+      "commit": "9e8e14fa7ae7ce8c6c7c1e3510a55fcdc5ca31d1"
+    },
+    {
+      "folder": "250324_Oskar_Website_websearch_respones_API_first_steps",
+      "source_files": 91,
+      "private_files": 43,
+      "commit": "8c2692d297a9421b3f83d59d08f06b2d9ea72d9e"
+    },
+    {
+      "folder": "250324b_Oskar_Website_websearch_no_streaming",
+      "source_files": 91,
+      "private_files": 43,
+      "commit": "fb5883fde6a2e44e53dd4cd83187bbc10340cdd0"
+    },
+    {
+      "folder": "250324c_Oskar_Website_websearch",
+      "source_files": 91,
+      "private_files": 43,
+      "commit": "b089e30ddd9d611c3d66d77425635a47a37429e6"
+    },
+    {
+      "folder": "250324d_Oskar_Website_websearch_stream",
+      "source_files": 91,
+      "private_files": 43,
+      "commit": "91174c1a03c9de69217d7b9e26506e70b50c6a35"
+    },
+    {
+      "folder": "250324e_Oskar_Website",
+      "source_files": 91,
+      "private_files": 43,
+      "commit": "e594a1d77e7bdaee453eed5c928e52d824315e8a"
+    },
+    {
+      "folder": "250324f_Oskar_Website_implementing_websearch_first_steps",
+      "source_files": 91,
+      "private_files": 43,
+      "commit": "8f4448b312c757885b2073ef9edc18f495f830d1"
+    },
+    {
+      "folder": "250324g_Oskar_Website_websearch_function_streaming_response",
+      "source_files": 91,
+      "private_files": 45,
+      "commit": "38e9569bbe9953a3487ff72925d8da8bdf1ea14f"
+    },
+    {
+      "folder": "250324h_Oskar_Website_display_websearch_in_DOM",
+      "source_files": 91,
+      "private_files": 45,
+      "commit": "a863897b3db6d986181f509659c03c749a487921"
+    },
+    {
+      "folder": "250324i_Oskar_Website_call_websearch_on_click",
+      "source_files": 91,
+      "private_files": 45,
+      "commit": "b1dd9b3074192cdbe8b51aa318884ceb4ad20d07"
+    },
+    {
+      "folder": "250324j_Oskar_Website_call_websearch_on_click",
+      "source_files": 91,
+      "private_files": 45,
+      "commit": "2c865eb8e7a0ad1f4c675dd5d0578ade57e1e9a4"
+    },
+    {
+      "folder": "250325_Oskar_Website_index_numbers_terms",
+      "source_files": 91,
+      "private_files": 45,
+      "commit": "859154c74af2e598250cdabae86ca07a9809e533"
+    },
+    {
+      "folder": "250325b_Oskar_Website",
+      "source_files": 91,
+      "private_files": 45,
+      "commit": "8eb99b1e3edc5c6acb9b98f25df468912a3345f5"
+    },
+    {
+      "folder": "250325c_Oskar_Website",
+      "source_files": 91,
+      "private_files": 46,
+      "commit": "1777dfa4944e2735fae85cbab9538a4a63a9471a"
+    },
+    {
+      "folder": "250325c_Oskar_Website_websearch_animate_width_span",
+      "source_files": 91,
+      "private_files": 45,
+      "commit": "602698385ec41af9b2348e5c611da47c92ef1528"
+    },
+    {
+      "folder": "250325d_Oskar_Website_no_animation_websear_span",
+      "source_files": 91,
+      "private_files": 45,
+      "commit": "7f9be6f65c480def07e5d5728fd3ce22f82c2a47"
+    },
+    {
+      "folder": "250325e_Oskar_Website_websearch",
+      "source_files": 91,
+      "private_files": 46,
+      "commit": "38610895c603a37c9cdc1ceb0b5375d7802b7124"
+    },
+    {
+      "folder": "250325f_Oskar_Website_Bilder_first_try",
+      "source_files": 91,
+      "private_files": 47,
+      "commit": "15a19e89fec5dbd63e155a19323aa9159f8507b6"
+    },
+    {
+      "folder": "250326_Oskar_Website_headline_paragraphy_first_try",
+      "source_files": 91,
+      "private_files": 48,
+      "commit": "eb5fea83c795498fdf232719578cdf193ab3a09d"
+    },
+    {
+      "folder": "250326b_Oskar_Website_Optional[Literal(\"response\")]",
+      "source_files": 91,
+      "private_files": 48,
+      "commit": "bf8b82437a01db58b71d20f5682acff0c3f43fdc"
+    },
+    {
+      "folder": "250326c_Oskar_Website_animate_placeholder_rework",
+      "source_files": 91,
+      "private_files": 49,
+      "commit": "76fc45594d7752774c8ff541321908fe89c5d81a"
+    },
+    {
+      "folder": "250327_Oskar_Website_websearch_button_rework_first_steps",
+      "source_files": 91,
+      "private_files": 49,
+      "commit": "f9e9caae9f34b0c225ce5ca84dff22a76dae2472"
+    },
+    {
+      "folder": "250327b_Oskar_Website",
+      "source_files": 91,
+      "private_files": 49,
+      "commit": "cb50f4d309d2ae27f757037c65f5bb0852852429"
+    },
+    {
+      "folder": "250327c_Oskar_Website_Add_term_description_lines",
+      "source_files": 91,
+      "private_files": 49,
+      "commit": "c4e0b62432db33f4d7c003f1d835679993a9d697"
+    },
+    {
+      "folder": "250327d_Oskar_Website",
+      "source_files": 91,
+      "private_files": 49,
+      "commit": "35e0dbfb4c0bb5d18c9404b0829d94c71c5e1ff6"
+    },
+    {
+      "folder": "250327e_Oskar_Website",
+      "source_files": 91,
+      "private_files": 49,
+      "commit": "2e056369dc0c6f999635c9821ebcd118001baa49"
+    },
+    {
+      "folder": "250331_Oskar_Website_Headlines",
+      "source_files": 91,
+      "private_files": 50,
+      "commit": "f55ad82652b236a610541e5efd90d0a94403b74e"
+    },
+    {
+      "folder": "250331b_Oskar_Website_Headlines",
+      "source_files": 91,
+      "private_files": 50,
+      "commit": "c962b644feb71ca864c861f896c24109854780a4"
+    },
+    {
+      "folder": "250331c_Oskar_Website_Headlines",
+      "source_files": 91,
+      "private_files": 50,
+      "commit": "8cbef335de392e36172aa458d910218bf07cf151"
+    },
+    {
+      "folder": "250331d_Oskar_Website_Headlines",
+      "source_files": 91,
+      "private_files": 50,
+      "commit": "0fb41881fbc1b4497ff17ff11d53fa8e9ee3b6b2"
+    },
+    {
+      "folder": "250331e_Oskar_Website",
+      "source_files": 91,
+      "private_files": 51,
+      "commit": "29a03ff11bd722454c26beacb98a2c2b2e6b8dca"
+    },
+    {
+      "folder": "250404_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "91ad253c24463702957da1eb831e6d4e89d1cafb"
+    },
+    {
+      "folder": "250404b_Oskar_Website_VersionHistory_Lines_first_steps",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "feb77cfef57f6c2828d42328dd8704b744a5910b"
+    },
+    {
+      "folder": "250404c_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "bf69f288acabd2cdf234f1a68d4895205d5c12a0"
+    },
+    {
+      "folder": "250404d_Oskar_Website_VersionHistoryLines_Hover",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "782a4d7bd169d1ccebfa6aaa08d4d33ea7120f71"
+    },
+    {
+      "folder": "250404e_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "25bb42dbd79b42e300177503e8934405ce84b33e"
+    },
+    {
+      "folder": "250404f_Oskar_Website_VersionHistory_Scroll_on_Hover",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "8071100888f76f7f1cb56974659742bd0f9f9968"
+    },
+    {
+      "folder": "250407_Oskar_Website_versionHistory_clickDesktop",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "1089e94d342d41192f109e8600c46b061b850a4d"
+    },
+    {
+      "folder": "250407b_Oskar_Website_scrollDown_class",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "e02270e5dc947cb5580145b9be45c1efb2de3cf8"
+    },
+    {
+      "folder": "250407c_Oskar_Website_fontsize_versionHistory_on_scroll",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "6a4fa18d51b077dc83eee0d525ee650c7c038921"
+    },
+    {
+      "folder": "250407d_Oskar_Website_update_current_version_history_first_approach",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "e1f277d5dbb29c014b854a608632a30a7eb74804"
+    },
+    {
+      "folder": "250407e_Oskar_Website_animate_size_scroll_versionHistory",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "6ab6ed19a625c6bfa21bdaf9ff3967cf11fdad19"
+    },
+    {
+      "folder": "250407f_Oskar_Website_versionHistory_size_animate",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "50ed91b88671974035079577b38e8a4d700c537f"
+    },
+    {
+      "folder": "250407g_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "ecf64e644e2045c4d1dc41531d641feb1fa4b702"
+    },
+    {
+      "folder": "250407h_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "f71e6ef2f393faa0503e21516732b5900e2314e6"
+    },
+    {
+      "folder": "250407i_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "47183a032e123a316783b1fb50d5dcd081ee1a3f"
+    },
+    {
+      "folder": "250407j_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "b546a47b776099d0a7a9dab6c4847d7b20df28e0"
+    },
+    {
+      "folder": "250408_Oskar_Website_scol_snap_failed",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "605ff43440aba4bb2a71bca65c3637d81f8e6437"
+    },
+    {
+      "folder": "250408b_Oskar_Website_no_fontSize_change_on_scroll",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "245e1463f5050460bcf524a253961eb35cb5a502"
+    },
+    {
+      "folder": "250408c_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "fe08cdaa544447cb48239bb2254cf6df6bf385d8"
+    },
+    {
+      "folder": "250508d_Oskar_Website_hover_scroll_down_up",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "092b8769bae1285659c65de3ee9d76b1837e709c"
+    },
+    {
+      "folder": "250508d_Oskar_Website_scroll_snap_JS",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "6065fb526ea0f9e6fed90a74dbc75c1d1b46f47a"
+    },
+    {
+      "folder": "250508e_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "e401facc07cb02a9237df429286dee2997f41f60"
+    },
+    {
+      "folder": "250508f_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "ac437dfd7693f43c28b4e273844fd7f4569c8798"
+    },
+    {
+      "folder": "250508g_Oskar_Website_newVersionHistoryElement",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "7c3b18e0f4393c79edb53ceba82e425f1e4b40cf"
+    },
+    {
+      "folder": "250508h_Oskar_Website_newVersionHistoryElement",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "7ee470d800e5b130c50f5a792387621021230452"
+    },
+    {
+      "folder": "250508i_Oskar_Website_handleVersionEvent_first_steps",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "35d09e4dd79b3a89b9977b1df140cf41d7448b5f"
+    },
+    {
+      "folder": "250508j_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "86970c8a5fd56718da73cfc2fec99727f6758673"
+    },
+    {
+      "folder": "250508k_Oskar_Website_negativeMargin",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "047ee641dca57f7b876d929f2939b569d917abb5"
+    },
+    {
+      "folder": "250508l_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "a6fab9882e118a52fa9b4ba10a5d514bef464596"
+    },
+    {
+      "folder": "250508m_Oskar_Website_clearContent_new",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "11a0fdb538fc4d3eb3f2ec08e45e5ed8cf741231"
+    },
+    {
+      "folder": "250508n_Oskar_Website_previousVersionOnHover",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "8a8d36dc2007681bd8c23f788e829d13071b43ee"
+    },
+    {
+      "folder": "250508o_Oskar_Website_ContentContainer_grid",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "e983c6098b7a229033274effedacaa39b10971dc"
+    },
+    {
+      "folder": "250509_Oskar_Website_indents",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "d952bad6429d21657ac49ccaf3ed528af668d7be"
+    },
+    {
+      "folder": "250509b_Oskar_Website_indent",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "76e9417f9f6d2b6a534bd5034210e27cf65f3245"
+    },
+    {
+      "folder": "250509c_Oskar_Website_image_queue",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "b80919b9103646d5286f83a17db246268d2d0068"
+    },
+    {
+      "folder": "250509d_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "65dfc4266fe3e36c2c449874a7ca8c2f366ac0cb"
+    },
+    {
+      "folder": "250509e_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "4f8e07d9b8a7154d7939fd30561541d93c51a65e"
+    },
+    {
+      "folder": "250509f_Oskar_Website_layout_logic_with_additional_container",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "bb7db62b56fe9f3788fd32554fe2136cf02d8175"
+    },
+    {
+      "folder": "250510_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "0457f7fb706a18a2bd5cc99bb3cd9c8bfbbcd816"
+    },
+    {
+      "folder": "250510b_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "97d55c828ce1ab4cee5ec4cc7f26c0584d309d8b"
+    },
+    {
+      "folder": "250510c_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "f25086b929580bd030f5c55b41aab410c7a6b8c8"
+    },
+    {
+      "folder": "250510d_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "4494dd897ac21b660f8f0818df5bc6607b39874b"
+    },
+    {
+      "folder": "250510e_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "c49a63b95890679204a2c4dbd9a6851502fb4aed"
+    },
+    {
+      "folder": "250510g_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "2f3ff18e2e00709ba68f42883ea83ee89eb01db6"
+    },
+    {
+      "folder": "250510h_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "392993f59f46c196a376313ad15b687766d79f5e"
+    },
+    {
+      "folder": "250510i_Oskar_Website",
+      "source_files": 94,
+      "private_files": 52,
+      "commit": "de12423c1d52239435e1fd9fbfa2cdc2338ca80f"
+    },
+    {
+      "folder": "250511_Oskar_Website",
+      "source_files": 94,
+      "private_files": 53,
+      "commit": "68dbf79a405545b14da3b0f440746ac43bc68436"
+    },
+    {
+      "folder": "250511b_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "e444773c6dd6f8c3c4fe7c7e2b5dfa11842afd30"
+    },
+    {
+      "folder": "250511c_Oskar_Website_imageQueue_logic",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "61df89e84fc2bb1c7ff49270e0183fe631833dbd"
+    },
+    {
+      "folder": "250511d_Oskar_Website_image_layout_mobileVSdesktop",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "fff1cfd0b517313a4cf2f7835ed08f2c4560b5b6"
+    },
+    {
+      "folder": "250511e_Oskar_Website_gradient_header",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "6a3756a9bf2d7a4b24827485631c47883a378f5b"
+    },
+    {
+      "folder": "250511f_Oskar_Website_header_blur",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "14364375a4fd80c1db3340ea6ffbc6595f9d5868"
+    },
+    {
+      "folder": "250511g_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "c2a367c8a5ead6944c0ac81f3cd8b54953cd3760"
+    },
+    {
+      "folder": "250514_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "f5daf81273c5c21359a4e5fe3059f92eca6864c9"
+    },
+    {
+      "folder": "250514b_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "c2d34f65c17cc51e83f1a51ca20e2497b21497cd"
+    },
+    {
+      "folder": "250514c_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "2aa4fa1c5c7c44a85efef4b2816898df28c50471"
+    },
+    {
+      "folder": "250514d_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "8a3c0bcb6e34166e90731f1ece73b522f6e539ee"
+    },
+    {
+      "folder": "250514e_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "f6b99d5aab9cb364fd4719f17d4d40c5e92cc39b"
+    },
+    {
+      "folder": "250514f_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "0fac0b2349a40bf560988d289bf8eaa536e19e52"
+    },
+    {
+      "folder": "250514g_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "3f2c1d4a56b865ea575b02c7cb5c5f86e5cb8597"
+    },
+    {
+      "folder": "250514h_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "af89ea287a13da1e43a2e7978299cf91458f5853"
+    },
+    {
+      "folder": "250515_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "b0984d44de6c02d9b4c9e880145fc59c7d295fee"
+    },
+    {
+      "folder": "250515b_Oskar_Website_websearch_rework",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "525c4bd52b7f43712a86ae58145da4552510285c"
+    },
+    {
+      "folder": "250515c_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "06000e30b9dc82ef3118416f4ddfbc95de621c18"
+    },
+    {
+      "folder": "250515d_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "20f4bad507e810b45295e8ef86531fab81367f64"
+    },
+    {
+      "folder": "250515e_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "51955c6de1d25920c51adbfb8db808fbd6764cbb"
+    },
+    {
+      "folder": "250515f_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "228db69516845e239c030decd3d2eef1025f0204"
+    },
+    {
+      "folder": "250516_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "80e425f52bc97215b51bf6cebaee24bd6f772685"
+    },
+    {
+      "folder": "250516b_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "fd3a327c26ca79cab0cc08e7fe0f508bb96125dc"
+    },
+    {
+      "folder": "250516c_Oskar_Website_oskarSchroed_no_hover",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "3e06f88841458691b53591ca4fbcd5a60858af87"
+    },
+    {
+      "folder": "250516d_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "f3989c93cd76a12c0c72a0b4c8ee1c13a4dfa2ce"
+    },
+    {
+      "folder": "250516e_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "34650e4d1a194aa24cde0a1752a8dbf7a68f3828"
+    },
+    {
+      "folder": "250517_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "be26afbf635aa2e91a01145e1a81b3fbfc00aced"
+    },
+    {
+      "folder": "250517b_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "05cb28f8877485f688a405d16aedcc199bb5753e"
+    },
+    {
+      "folder": "250517c_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "d218226dd5be0b00a7ade94bc72ab921d5f03276"
+    },
+    {
+      "folder": "250517d_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "453945dbb67d21faae81157a9b93fea158ae399f"
+    },
+    {
+      "folder": "250517e_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "521acb15775e08332d5e69f35ece38a3db322f2c"
+    },
+    {
+      "folder": "250518_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "253ed803156f63e971d6734ba7695393a4cd0e7c"
+    },
+    {
+      "folder": "250518B_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "878c93c11045929923ae4b39c62dc9dfd0248749"
+    },
+    {
+      "folder": "250518c_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "a603226541228b64ae24e5db5eecfadee437e35a"
+    },
+    {
+      "folder": "250518d_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "4d77f56bdcb9086d2f66add37caa370f45cf2c64"
+    },
+    {
+      "folder": "250519_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "b439637a0d0a4345db927877d7920f2ef4b0ecbc"
+    },
+    {
+      "folder": "250519b_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "dac17385064af55d998abbdf0086fabf91bdc55a"
+    },
+    {
+      "folder": "250519c_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "1629fc2bedf09cf307c06c1879822b69b3a1bca7"
+    },
+    {
+      "folder": "250519d_Oskar_Website",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "bb4fa9dd79f81c02798c3400c3f253e620a76edf"
+    },
+    {
+      "folder": "250519e_Oskar_Website",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "96fea3b8730f4e24db84026411a22e1ef0de79e4"
+    },
+    {
+      "folder": "250519f_Oskar_Website",
+      "source_files": 86,
+      "private_files": 23,
+      "commit": "b04a85af99ad6005b81b2ef938a403534896a653"
+    },
+    {
+      "folder": "250519g_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "cab0dfbcd7452b0cae1be5328ab50f3884e2f755"
+    },
+    {
+      "folder": "250519h_Oskar_Website",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "db3767501bcc139fdf40fee137123161b517a96d"
+    },
+    {
+      "folder": "250519i_Oskar_Website",
+      "source_files": 126,
+      "private_files": 53,
+      "commit": "8ebcd33ff7aa6968ab2c56f415b8bd3f017ffd55"
+    },
+    {
+      "folder": "250520_Oskar_Website_Bilder_edit",
+      "source_files": 98,
+      "private_files": 53,
+      "commit": "58a45ce35d8f9871cf027ae1550ec41a7077b55c"
+    },
+    {
+      "folder": "250520b_Oskar_Website",
+      "source_files": 137,
+      "private_files": 53,
+      "commit": "6bc4b39c0dcc55c931ca325228adf83590a0b0d1"
+    },
+    {
+      "folder": "250520c_Oskar_Website_Bilder",
+      "source_files": 94,
+      "private_files": 53,
+      "commit": "8878049ee87d155c46365c49653af81757fc0917"
+    },
+    {
+      "folder": "250520d_Oskar_Website_allImages",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "60245ee5583706a88e9acac6c92ba97df45f115a"
+    },
+    {
+      "folder": "250520e_Oskar_Website_allImages",
+      "source_files": 95,
+      "private_files": 53,
+      "commit": "1780a1e9b0234453c99ea7a72e04f375436a55dd"
+    },
+    {
+      "folder": "250520f_Oskar_Website_allImages",
+      "source_files": 145,
+      "private_files": 53,
+      "commit": "6138822f336998a0dc4a19e751b51ffab0bbe456"
+    },
+    {
+      "folder": "250521_Oskar_Website_websearch_cut_off_rework",
+      "source_files": 145,
+      "private_files": 54,
+      "commit": "3ea2b0e0d59f150b5400dbd48f3730f1fb7191cf"
+    },
+    {
+      "folder": "250521b_Oskar_Website",
+      "source_files": 145,
+      "private_files": 55,
+      "commit": "71cc0bf79bc8d1570dfba9436608f4939daa0003"
+    },
+    {
+      "folder": "250521c_Oskar_Website",
+      "source_files": 145,
+      "private_files": 55,
+      "commit": "5e89747d93e98ccc24f45bd6c182a428bef44d8f"
+    },
+    {
+      "folder": "250521d_Oskar_Website",
+      "source_files": 145,
+      "private_files": 63,
+      "commit": "2c66fee213e34b21cedb51b025bb233db3a48272"
+    },
+    {
+      "folder": "250522e_Oskar_Website",
+      "source_files": 145,
+      "private_files": 63,
+      "commit": "d90be7390b13eb575e9a4cbfa03b93fd8baaa530"
+    },
+    {
+      "folder": "250522f_Oskar_Website",
+      "source_files": 145,
+      "private_files": 63,
+      "commit": "d6a5c85606afd37d2b0f95cbc8042c6bc37048ab"
+    },
+    {
+      "folder": "250523_Oskar_Website_promp_optimization",
+      "source_files": 145,
+      "private_files": 70,
+      "commit": "2fd9c884b262acadbad893ae03fa9ba045764d4a"
+    },
+    {
+      "folder": "250523b_Oskar_Website",
+      "source_files": 145,
+      "private_files": 70,
+      "commit": "57ea1161d67829a42eda532e708f81929f37c9c5"
+    },
+    {
+      "folder": "250523c_Oskar_Website",
+      "source_files": 145,
+      "private_files": 70,
+      "commit": "50c5cf30987c0e0c40f9d1146e02fdace49ad1b1"
+    },
+    {
+      "folder": "250523d_Oskar_Website",
+      "source_files": 145,
+      "private_files": 70,
+      "commit": "b4a0c0175d90808aedf74a6808b81621327eb4c1"
+    },
+    {
+      "folder": "250523e_Oskar_Website",
+      "source_files": 145,
+      "private_files": 70,
+      "commit": "37816a19b5c85689a751fa77c064b897d5bef873"
+    },
+    {
+      "folder": "250524_Oskar_Website",
+      "source_files": 145,
+      "private_files": 70,
+      "commit": "9909d7ada915f7ca4582ab8206fb681a8a7b440b"
+    },
+    {
+      "folder": "250524b_Oskar_Website",
+      "source_files": 145,
+      "private_files": 70,
+      "commit": "03e071717e054a5755396252d745ae0dcb382f9e"
+    },
+    {
+      "folder": "250524c_Oskar_Website",
+      "source_files": 145,
+      "private_files": 70,
+      "commit": "9c41004b54862a8fa343fbffacea421b336e2bb3"
+    },
+    {
+      "folder": "250524d_Oskar_Website",
+      "source_files": 145,
+      "private_files": 70,
+      "commit": "830c5758a32ae6f02f8f086f5e2d4c35377651f0"
+    },
+    {
+      "folder": "250524e_Oskar_Website",
+      "source_files": 145,
+      "private_files": 70,
+      "commit": "947978e2aacc9d68b233e2d15aa1774db43ee395"
+    },
+    {
+      "folder": "250524f_Oskar_Website",
+      "source_files": 145,
+      "private_files": 71,
+      "commit": "e37381c62753084ae542ce51781104f3b8a4e6a5"
+    },
+    {
+      "folder": "250524g_Oskar_Website",
+      "source_files": 145,
+      "private_files": 71,
+      "commit": "f5e8ea82c562cc999bb4c9a31cb7744853c2be25"
+    },
+    {
+      "folder": "250524h_Oskar_Website_VersionHistory_newScroll",
+      "source_files": 145,
+      "private_files": 71,
+      "commit": "028c18705d9b58b7d0a02ead0535f4e1bce4c91a"
+    },
+    {
+      "folder": "250524i_Oskar_Website",
+      "source_files": 145,
+      "private_files": 71,
+      "commit": "5e8884bfda6bb2614f5d967da22f91b337b31017"
+    },
+    {
+      "folder": "250524j_Oskar_Website",
+      "source_files": 145,
+      "private_files": 71,
+      "commit": "ec758a29da281da44baea30737a8740d11536b4d"
+    },
+    {
+      "folder": "250524k_Oskar_Website",
+      "source_files": 145,
+      "private_files": 71,
+      "commit": "4cbc8af90e86a184f347b5934e5a2de6c86fda83"
+    },
+    {
+      "folder": "250524l_Oskar_Website",
+      "source_files": 145,
+      "private_files": 71,
+      "commit": "e25178aecd2153b25a97ccddbd59683ce4c3c34c"
+    },
+    {
+      "folder": "250524m_Oskar_Website",
+      "source_files": 145,
+      "private_files": 71,
+      "commit": "9476a6ad890f257e6714524c9738412f7a738a93"
+    },
+    {
+      "folder": "250524n_Oskar_Website",
+      "source_files": 145,
+      "private_files": 71,
+      "commit": "3ded7bddb629ab73603a5bd947c856be3103a77a"
+    },
+    {
+      "folder": "250524o_Oskar_Website",
+      "source_files": 145,
+      "private_files": 71,
+      "commit": "6738032a21fb942c72cdaf0b5641f8f6980ce80a"
+    },
+    {
+      "folder": "250524p_Oskar_Website",
+      "source_files": 145,
+      "private_files": 71,
+      "commit": "22d71c7aef177870fd397fa1824f5612da945243"
+    },
+    {
+      "folder": "250525_Oskar_Website_sorting_by_year",
+      "source_files": 145,
+      "private_files": 71,
+      "commit": "fcf4abed05acc0e4813b79124590d42e3da2be07"
+    },
+    {
+      "folder": "250525b_Oskar_Website_sorting_examples_full_length",
+      "source_files": 145,
+      "private_files": 71,
+      "commit": "3ab26c64163f02714201f45ae503e25615b0a176"
+    },
+    {
+      "folder": "250525c_Oskar_Website",
+      "source_files": 145,
+      "private_files": 74,
+      "commit": "3cc0e8669d3c99b57a69ce330abfe85f5f25c751"
+    },
+    {
+      "folder": "250525d_Oskar_Website_sorting_examples",
+      "source_files": 145,
+      "private_files": 74,
+      "commit": "44e39ca39395a584504ba9c5c5f237b3c0143225"
+    },
+    {
+      "folder": "250525e_Oskar_Website",
+      "source_files": 145,
+      "private_files": 74,
+      "commit": "8b1553ee63adaa78099bb60559a3c882c957e1a8"
+    },
+    {
+      "folder": "250525f_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "2baaaaa5bb29eba58b09297495c28e6b0725ec35"
+    },
+    {
+      "folder": "250525g_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "b29ad01c30b187edfc5ba610d1548c67e506fc7f"
+    },
+    {
+      "folder": "250525h_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "922a584331d672b0539f836ae106c50a9b0f3b2e"
+    },
+    {
+      "folder": "250525i_Oskar_Website_no_message_history",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "5c9f65270f84c2409dda06c3b8314ccaa299c114"
+    },
+    {
+      "folder": "250525J_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "d6de7bb4a8690020c483f34dc3fe50f56b480034"
+    },
+    {
+      "folder": "250525k_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "e5cbf2aebad8d289395f3a1393f58d0831c4c437"
+    },
+    {
+      "folder": "250525l_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "e49a21331e2d984cee4c4cc54b5d7687e0fd2c1d"
+    },
+    {
+      "folder": "250525m_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "917d34857c9a2191562a41f9dd9753aed78b199b"
+    },
+    {
+      "folder": "250525n_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "ca89fdd69f7d12fd51d472e8ac3cbf8d1bde9f81"
+    },
+    {
+      "folder": "250525o_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "01455eb7fb0c76f04131c24f3ecb5ebb07e27597"
+    },
+    {
+      "folder": "250525p_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "4d313f655f7961f8b5f7b1cd6166872de32f2593"
+    },
+    {
+      "folder": "250526_Oskar_Website_animate_Prompt_proposal",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "2afb9efc7138b822e50533ea3af2ceccb0ed8fa1"
+    },
+    {
+      "folder": "250526b_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "048cf0b57a2744004119fb183df70587e23e1ded"
+    },
+    {
+      "folder": "250526c_Oskar_Website_display_previous_version_not_on_hover",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "786405b9997b3eeb64b9e691f99e227c830215ea"
+    },
+    {
+      "folder": "250526d_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "8bca10675083267584d97b69fcebe3bdf71a9e8a"
+    },
+    {
+      "folder": "250526e_Oskar_Website_webSearch_immedeatly_first_steps",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "86a2f3b54ff4c60a6ed3fff1c9ae2e0e1982990a"
+    },
+    {
+      "folder": "250526f_Oskar_Website_termDescription_immedeatly_added",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "dc11a2189e380eccd1b5c2ee2d2f07707b3af602"
+    },
+    {
+      "folder": "250526g_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "90ef9530655b6952cd357ffba85194b9f2b597dd"
+    },
+    {
+      "folder": "250526h_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "45328e1ee0be47e23d72fcea4e39b87ee42c1d29"
+    },
+    {
+      "folder": "250526i_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "7f039a6db834e145cf1c4e657b9f88d997a821c0"
+    },
+    {
+      "folder": "250526j_Oskar_Website_arrow_rework",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "47998ace170b1e7ed5f81f23389e49d8d245dd03"
+    },
+    {
+      "folder": "250526k_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "4a886cc01925abb8b7f1df0920dd87e31b8b0736"
+    },
+    {
+      "folder": "250526l_Oskar_Website",
+      "source_files": 145,
+      "private_files": 75,
+      "commit": "e0e68ec8dc516d710ee4a7100cb2ce30c4c67f0f"
+    },
+    {
+      "folder": "250529_Oskar_Website",
+      "source_files": 148,
+      "private_files": 75,
+      "commit": "b3ffb6d732785e7ba5b6ffaf51628fbbe627e72b"
+    },
+    {
+      "folder": "250529b_Oskar_Website",
+      "source_files": 148,
+      "private_files": 75,
+      "commit": "5bad438ef7e26a7c5b54a62628be9eed0c0d31a9"
+    },
+    {
+      "folder": "250529c_Oskar_Website",
+      "source_files": 148,
+      "private_files": 75,
+      "commit": "00f3cc39caf880f3bfa6c0f84918940b00a53bfd"
+    },
+    {
+      "folder": "250529d_Oskar_Website",
+      "source_files": 148,
+      "private_files": 75,
+      "commit": "0e40111e836d46b3dfa3ecb5d3fc54a95f05404b"
+    },
+    {
+      "folder": "250530_Oskar_Website",
+      "source_files": 148,
+      "private_files": 77,
+      "commit": "fd85f69cb57d4861ca3ae13aa146610c0dc870f0"
+    },
+    {
+      "folder": "250530b_Oskar_Website",
+      "source_files": 148,
+      "private_files": 77,
+      "commit": "f88d92e5d5fbcf19530e1afa6be5a79dbb27df8b"
+    },
+    {
+      "folder": "250530c_Oskar_Website",
+      "source_files": 148,
+      "private_files": 78,
+      "commit": "8e72e081bb0ea3f8218ff9fe32333fbdda934484"
+    },
+    {
+      "folder": "250612_Oskar_Website",
+      "source_files": 148,
+      "private_files": 81,
+      "commit": "22234aba9d3249ecae9f35d0703389ba814846cf"
+    },
+    {
+      "folder": "250710_Oskar_Website_thought_process",
+      "source_files": 148,
+      "private_files": 81,
+      "commit": "582ab3ce2a248188882725da7fccb19b43b30d28"
+    },
+    {
+      "folder": "250710b_Oskar_Website_prompt-proposal-blur",
+      "source_files": 151,
+      "private_files": 85,
+      "commit": "5b3d877b66e676113bdb95ca8e630984d5b2db15"
+    },
+    {
+      "folder": "250710c_Oskar_Website_thought_process_first_implement",
+      "source_files": 151,
+      "private_files": 85,
+      "commit": "5ded9957bab8fe6044111a656ddc09bfba7a768f"
+    },
+    {
+      "folder": "250710d_Oskar_Website",
+      "source_files": 151,
+      "private_files": 86,
+      "commit": "0d386327d9b1c6d85ac4c7d141c41c6932e7e3e1"
+    },
+    {
+      "folder": "250710e_Oskar_Website_websearch_language_adjustmen",
+      "source_files": 151,
+      "private_files": 89,
+      "commit": "cdb22ba575c2ecbe00192983fdc4e2f1caa81c64"
+    },
+    {
+      "folder": "250711_Oskar_Website_saveCurrentHTML_when_stopStreaming",
+      "source_files": 151,
+      "private_files": 89,
+      "commit": "8a79f793877bd30916502cb5af77ebe4f75f1842"
+    },
+    {
+      "folder": "250713_Oskar_Website_saveHTMLtoDatabase",
+      "source_files": 152,
+      "private_files": 92,
+      "commit": "d26d7e19a320640a771ee984ed61d1083abeafbe"
+    },
+    {
+      "folder": "250713b_Oskar_Website_resetStyles_when_saveHTML",
+      "source_files": 152,
+      "private_files": 92,
+      "commit": "2551b3dcd3f663e02318539a9a4588468724bac4"
+    },
+    {
+      "folder": "250713c_Oskar_Website_loadHTMLfromURL",
+      "source_files": 152,
+      "private_files": 93,
+      "commit": "4524cad1b6dce582bea9a36e4fe1d504eac7a315"
+    },
+    {
+      "folder": "250713d_Oskar_Website_db_URL_with_Headline",
+      "source_files": 152,
+      "private_files": 94,
+      "commit": "677c7f84389983834e94ab1f77d5e92aa733cd44"
+    },
+    {
+      "folder": "250713e_Oskar_Website",
+      "source_files": 152,
+      "private_files": 94,
+      "commit": "3cb6975da865d26a4455378b44a66ab9e0536513"
+    },
+    {
+      "folder": "250713f_Oskar_Website",
+      "source_files": 152,
+      "private_files": 94,
+      "commit": "2c728bc9d40dd45bd542b1b38db87f50da0a0695"
+    },
+    {
+      "folder": "250713g_Oskar_Website_loadStatefromURL",
+      "source_files": 152,
+      "private_files": 94,
+      "commit": "936df912b8edcbb13adde4314fd35b2e75044bb4"
+    },
+    {
+      "folder": "250713h_Oskar_Website_webSearch_previous",
+      "source_files": 152,
+      "private_files": 94,
+      "commit": "455064e3195cdae44146560e2e4fcf89f4f4eeeb"
+    },
+    {
+      "folder": "250713i_Oskar_Website_remove_active_class_from_Websearch_if_URL",
+      "source_files": 152,
+      "private_files": 94,
+      "commit": "102c7ed04a2ae900affe6e09cf4af2e649a7ea57"
+    },
+    {
+      "folder": "250713j_Oskar_Website_list_and_rows_responsive",
+      "source_files": 152,
+      "private_files": 94,
+      "commit": "cde9588927fff5913648d3659f7a09d913a214ce"
+    },
+    {
+      "folder": "250713k_Oskar_Website_Projects_fullscreen-responsive",
+      "source_files": 152,
+      "private_files": 94,
+      "commit": "d7dc8a1ffa6d40dd6fc5c746c65aef223d916b26"
+    },
+    {
+      "folder": "250713l_Oskar_Website_url_versionHistory_fixed",
+      "source_files": 152,
+      "private_files": 95,
+      "commit": "891c97370cc150d1fcea199f475edb86a925976c"
+    },
+    {
+      "folder": "250713m_Oskar_Website_thoughtProcess_Paragraphs",
+      "source_files": 152,
+      "private_files": 95,
+      "commit": "3ac67fdfea2d7c2a8591e7fe079d05e079d4ed33"
+    },
+    {
+      "folder": "250713n_Oskar_Website_thoughtProcess_languages",
+      "source_files": 152,
+      "private_files": 106,
+      "commit": "493e9346a22880f0ec7d37787ba358961b041ce1"
+    },
+    {
+      "folder": "250713o_Oskar_Website",
+      "source_files": 152,
+      "private_files": 106,
+      "commit": "4d888e7bf24b20469248f140c1717cf671fa1ea3"
+    }
+  ]
+}
